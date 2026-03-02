@@ -1,0 +1,110 @@
+{
+    "perc_male": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The percent of males in the total population in percent. Based on American Community Survey ACS 2010/2021 5-year estimates table S0101.",
+        "long_name": "Male population (percent)",
+        "measure_type": "percentage",
+        "short_description": "The percent of males in population. Based on American Community Survey ACS 2010/2021 5-year estimates.",
+        "short_name": "Male population",
+        "sources": [
+            {
+                "date_accessed": 2022,
+                "location": "",
+                "location_url": "",
+                "name": "American Community Survey Table S0101",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The male population is {value} in {features.name}.",
+        "type": "percent",
+        "unit": "",
+        "variants": ""
+    },
+    "perc_children_raised_by_GPs": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "State",
+        "layer": "",
+        "long_description": "The percent of children in the population being raised by their grandparents. Based on American Community Survey 2010/2021 5-year estimates.",
+        "long_name": "Children Raised by Grandparents (percent)",
+        "measure_type": "percent",
+        "short_description": "The percent of children in the population being raised by their grandparents. Based on American Community Survey 2010/2021 5-year estimates.",
+        "short_name": "Children Raised by Grandparents",
+        "sources": [
+            {
+                "date_accessed": 2023,
+                "location": " Table B01003",
+                "location_url": "",
+                "name": "American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The population of children raised by grandparents is {value} in {features.name}.",
+        "type": "percent",
+        "unit": "",
+        "variants": ""
+    },
+    "disconnectedYouth": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "integer",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Disconnected youth, also referred to as opportunity youth, are teenagers and young adults between the ages of 16 and 24 who are neither in school nor working. Youth who are actively looking for work are considered disconnected. (NOTE: Counties that are missing data do not collected reliable data on subject)",
+        "long_name": "Disconnected youth (percent)",
+        "measure_type": "percentage",
+        "short_description": "Percent of youth or young adults who are neither working nor in school.",
+        "short_name": "Disconnected youth",
+        "sources": [
+            {
+                "date_accessed": 2023,
+                "location": "",
+                "location_url": "",
+                "name": "American Community Survey Table",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "Disconnected youth account for {value} in {features.name}.",
+        "type": "percent",
+        "unit": "",
+        "variants": ""
+    },
+    "voterTurnout": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Percentage of citizen population aged 18 or older who voted in the previous U.S. presidential election.",
+        "long_name": "Voter turnout (percent)",
+        "measure_type": "percentage",
+        "short_description": "Percentage of citizens aged 18 or older who voted in the U.S. presidential election.",
+        "short_name": "Voter turnout",
+        "sources": [
+            {
+                "date_accessed": 2023,
+                "location": "",
+                "location_url": "",
+                "name": "American Community Survey Table",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The voter turnout is {value} in {features.name}.",
+        "type": "percent",
+        "unit": "",
+        "variants": ""
+    }
+}

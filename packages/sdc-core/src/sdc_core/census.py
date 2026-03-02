@@ -169,6 +169,7 @@ class CensusClient:
         county: str = "*",
         estimate_only: bool = True,
         show_progress: bool = True,
+        table_type: str = "detail",
     ) -> pd.DataFrame:
         """Fetch ACS data and return in wide format with friendly column names.
 
@@ -199,7 +200,8 @@ class CensusClient:
         suffixes = ["E", "M"] if not estimate_only else ["E"]
         fields = [f"{vid}{s}" for vid in var_ids for s in suffixes]
 
-        url = ACS_BASE_URL.format(year=year)
+        _table_suffix = {"profile": "/profile", "subject": "/subject"}.get(table_type, "")
+        url = ACS_BASE_URL.format(year=year) + _table_suffix
         all_rows: list[pd.DataFrame] = []
 
         pbar = tqdm(fips_list, disable=not show_progress, desc=f"ACS {geography} {year}")
@@ -265,6 +267,7 @@ class CensusClient:
         estimate_only: bool = True,
         show_progress: bool = True,
         block_group_min_year: int = 2013,
+        table_type: str = "detail",
     ) -> pd.DataFrame:
         """Fetch ACS data across multiple years, states, and geography levels.
 
@@ -326,6 +329,7 @@ class CensusClient:
                 county=county,
                 estimate_only=estimate_only,
                 show_progress=False,
+                table_type=table_type,
             )
             if not df.empty:
                 all_dfs.append(df)

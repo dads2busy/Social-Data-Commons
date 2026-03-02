@@ -39,16 +39,10 @@ def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
     return long.dropna(subset=["value"])
 
 
-def run(pipeline=None) -> RunResult:
+def run_source(name: str, src: dict, out_dir: Path, standardize: bool) -> RunResult:
     t0 = time.time()
     try:
-        config = load_config()
-        src = config["source"]
-        out = config["output"]
-
-        log.info(
-            "Starting geographic mobility (HOI) ingest (profile=%s)", src.get("profile")
-        )
+        log.info("Ingesting source '%s' (profile=%s)", name, src.get("profile"))
 
         client = CensusClient()
         df = client.get_acs_multi(
@@ -58,24 +52,23 @@ def run(pipeline=None) -> RunResult:
             profile=src.get("profile"),
             states=src.get("states"),
         )
-        log.info("Fetched %d raw rows from Census API", len(df))
+        log.info("Fetched %d raw rows for '%s'", len(df), name)
 
         result = compute_measures(df)
 
-        out_dir = TOPIC_DIR / out["path"]
         states = resolve_states(src)
         auto_name = build_file_name(
             df=result,
             states=states,
             years=src.get("years"),
             source_type=src.get("type"),
-            title=config.get("name"),
+            title="geographic_mobility_hoi",
         )
-        filename = f"{auto_name}.csv.xz" if auto_name else out["filename"]
+        filename = f"{auto_name}.csv.xz"
         out_path = write_data(
             result,
             out_dir / filename,
-            census_standardize=out.get("standardize", False),
+            census_standardize=standardize,
         )
         log.info("Wrote %d rows to %s", len(result), out_path)
 
@@ -86,7 +79,12 @@ def run(pipeline=None) -> RunResult:
             duration_sec=time.time() - t0,
         )
     except Exception as e:
-        log.error("Geographic mobility (HOI) ingest failed: %s", e, exc_info=True)
+        log.error(
+            "Geographic mobility (HOI) ingest failed for source '%s': %s",
+            name,
+            e,
+            exc_info=True,
+        )
         return RunResult(
             success=False,
             error=str(e),
@@ -94,7 +92,22 @@ def run(pipeline=None) -> RunResult:
         )
 
 
+def run() -> list[RunResult]:
+    config = load_config()
+    out_dir = TOPIC_DIR / config["output"]["path"]
+    standardize = config["output"].get("standardize", False)
+
+    sources = config.get("sources")
+    if sources is None:
+        sources = {"default": config["source"]}
+
+    results = []
+    for name, src in sources.items():
+        results.append(run_source(name, src, out_dir, standardize))
+    return results
+
+
 if __name__ == "__main__":
-    result = run()
-    if not result.success:
+    results = run()
+    if any(not r.success for r in results):
         raise SystemExit(1)

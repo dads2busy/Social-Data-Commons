@@ -1,7 +1,11 @@
-"""Prepare geographic mobility (HOI) data: aggregate to health districts.
+"""Prepare geographic mobility (HOI) data: aggregate to health districts and reformat for dashboard.
 
-Reads the ingested tract/county/block_group data and aggregates counties
-to Virginia health districts using a crosswalk.
+Steps:
+1. Find the VA ACS distribution file produced by ingest.py
+2. Aggregate county-level mobility to health districts via crosswalk
+3. Combine all levels and write updated VA distribution file
+4. Reformat to wide per-level files for the VA dashboard repo
+
 Configuration is read from Geographic Mobility (HOI)/pipeline.yaml.
 """
 
@@ -11,19 +15,29 @@ from pathlib import Path
 import pandas as pd
 import yaml
 from sdc_core.geo import aggregate_with_crosswalk
-from sdc_core.io import read_data, write_data
+from sdc_core.io import data_reformat_for_site, read_data, write_data
 from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
 from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[1]
+REPO_DIR = TOPIC_DIR.parents[1]
+DIST_DIR = TOPIC_DIR / "data/distribution"
+MEASURE_INFO = DIST_DIR / "measure_info.json"
+
 log = get_logger("geographic_mobility_hoi.prepare")
 
 
 def load_config() -> dict:
     with open(TOPIC_DIR / "pipeline.yaml") as f:
         return yaml.safe_load(f)
+
+
+def find_va_source(dist_dir: Path) -> Path | None:
+    """Find the most recent VA geographic mobility ingest output (county+tract, no health districts)."""
+    candidates = sorted(dist_dir.glob("va_cttr_*geographic_mobility_hoi.csv.xz"))
+    return candidates[-1] if candidates else None
 
 
 def run(pipeline=None) -> RunResult:
@@ -33,9 +47,11 @@ def run(pipeline=None) -> RunResult:
         out = config["output"]
         prep = config["prepare"]
 
-        data_path = TOPIC_DIR / out["path"] / out["filename"]
-        log.info("Reading ingested data from %s", data_path)
-        df = read_data(data_path)
+        va_source = find_va_source(DIST_DIR)
+        if va_source is None:
+            raise FileNotFoundError(f"No VA geographic mobility file found in {DIST_DIR}")
+        log.info("Reading VA source: %s", va_source)
+        df = read_data(va_source)
 
         crosswalk_path = TOPIC_DIR / prep["crosswalk"]
         log.info("Loading crosswalk from %s", crosswalk_path)
@@ -58,22 +74,35 @@ def run(pipeline=None) -> RunResult:
 
         result = pd.concat([df, hd], ignore_index=True)
 
-        out_dir = TOPIC_DIR / out["path"]
-        states = resolve_states(config["source"])
+        source_cfg = config.get("sources", {}).get("va", config.get("source", {}))
+        states = resolve_states(source_cfg)
         auto_name = build_file_name(
             df=result,
             states=states,
-            years=config["source"].get("years"),
-            source_type=config["source"].get("type"),
+            years=source_cfg.get("years"),
+            source_type=source_cfg.get("type"),
             title=config.get("name"),
         )
-        filename = f"{auto_name}.csv.xz" if auto_name else out["filename"]
+        filename = f"{auto_name}.csv.xz" if auto_name else "va_geographic_mobility_hoi.csv.xz"
         out_path = write_data(
             result,
-            out_dir / filename,
-            census_standardize=out.get("standardize", False),
+            DIST_DIR / filename,
+            census_standardize=False,
         )
         log.info("Wrote %d rows to %s", len(result), out_path)
+
+        measure_info = MEASURE_INFO if MEASURE_INFO.exists() else None
+        paths = data_reformat_for_site(
+            source_path=out_path,
+            output_dir=REPO_DIR / "dashboard_data/virginia_public_health_data",
+            levels=["health_district", "county", "tract"],
+            coverage_area="va",
+            data_source="census_acs",
+            title="geographic_mobility_hoi",
+            measure_info_path=measure_info,
+        )
+        for p in paths:
+            log.info("Wrote %s", p)
 
         return RunResult(
             success=True,

@@ -10,9 +10,11 @@ from sdc_core.geo import (
     convert_2010_to_2020_bounds,
     create_crosswalk,
     get_2010_2020_bound_changes,
+    infer_region_type,
+    infer_region_types,
     standardize_all,
 )
-from sdc_core.io import read_data, write_data
+from sdc_core.io import data_reformat_for_site, read_data, write_data
 from sdc_core.log import get_logger
 from sdc_core.naming import (
     DEFAULT_COVERAGE_MAP,
@@ -40,7 +42,10 @@ __all__ = [
     "convert_2010_to_2020_bounds",
     "create_crosswalk",
     "get_2010_2020_bound_changes",
+    "infer_region_type",
+    "infer_region_types",
     "standardize_all",
+    "data_reformat_for_site",
     "get_logger",
     "load_pipeline",
     "read_data",

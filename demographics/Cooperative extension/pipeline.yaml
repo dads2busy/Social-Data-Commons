@@ -1,35 +1,142 @@
 name: cooperative_extension
 description: "Cooperative extension measures from ACS + County Health Rankings"
 
-source:
-  type: mixed
-  state: VA
-  geographies: [tract, county]
+sources:
+  ncr:
+    type: mixed
+    state: VA
+    geographies: [tract, county]
 
-  perc_male:
-    years:
-      [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    variable_2017_plus: "S0101_C03_001"
-    variable_pre_2017: "S0101_C02_001"
-    total_variable: "S0101_C01_001"
+    perc_male:
+      years:
+        [
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+        ]
+      variable_2017_plus: "S0101_C03_001"
+      variable_pre_2017: "S0101_C02_001"
+      total_variable: "S0101_C01_001"
 
-  children_gp:
-    years:
-      [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    variables:
-      total_pop: "B01001_001"
-      children_gp: "B10001_001"
+    children_gp:
+      years:
+        [
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+        ]
+      variables:
+        total_pop: "B01001_001"
+        children_gp: "B10001_001"
 
-  county_health_rankings:
-    years: [2017, 2018, 2019, 2020, 2021, 2022, 2023]
-    url_template: "https://www.countyhealthrankings.org/sites/default/files/{year}%20County%20Health%20Rankings%20Virginia%20Data%20-%20v1_0.xlsx"
-    measures:
-      - column: "% Disconnected Youth"
-        name: disconnectedYouth
-      - column: "% Voter Turnout"
-        name: voterTurnout
+    county_health_rankings:
+      urls:
+        2017: "https://www.countyhealthrankings.org/sites/default/files/media/document/state/downloads/2017%20County%20Health%20Rankings%20Virginia%20Data%20-%20v2.xls"
+        2018: "https://www.countyhealthrankings.org/sites/default/files/media/document/state/downloads/2018%20County%20Health%20Rankings%20Virginia%20Data%20-%20v3.xls"
+        2019: "https://www.countyhealthrankings.org/sites/default/files/media/document/state/downloads/2019%20County%20Health%20Rankings%20Virginia%20Data%20-%20v1_0.xls"
+        2020: "https://www.countyhealthrankings.org/sites/default/files/media/document/2020%20County%20Health%20Rankings%20Virginia%20Data%20-%20v1_0.xlsx"
+        2021: "https://www.countyhealthrankings.org/sites/default/files/media/document/2021%20County%20Health%20Rankings%20Virginia%20Data%20-%20v1_0.xlsx"
+        2022: "https://www.countyhealthrankings.org/sites/default/files/media/document/2022%20County%20Health%20Rankings%20Virginia%20Data%20-%20v2.xlsx"
+        2023: "https://www.countyhealthrankings.org/sites/default/files/media/document/2023%20County%20Health%20Rankings%20Virginia%20Data%20-%20v3.xlsx"
+      measures:
+        - column: "% Disconnected Youth"
+          name: disconnectedYouth
+        - column: "% Voter Turnout"
+          name: voterTurnout
+
+  va:
+    type: mixed
+    state: VA
+    geographies: [tract, county]
+
+    perc_male:
+      years:
+        [
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+        ]
+      variable_2017_plus: "S0101_C03_001"
+      variable_pre_2017: "S0101_C02_001"
+      total_variable: "S0101_C01_001"
+
+    children_gp:
+      years:
+        [
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+        ]
+      variables:
+        total_pop: "B01001_001"
+        children_gp: "B10001_001"
+
+    county_health_rankings:
+      urls:
+        2017: "https://www.countyhealthrankings.org/sites/default/files/media/document/state/downloads/2017%20County%20Health%20Rankings%20Virginia%20Data%20-%20v2.xls"
+        2018: "https://www.countyhealthrankings.org/sites/default/files/media/document/state/downloads/2018%20County%20Health%20Rankings%20Virginia%20Data%20-%20v3.xls"
+        2019: "https://www.countyhealthrankings.org/sites/default/files/media/document/state/downloads/2019%20County%20Health%20Rankings%20Virginia%20Data%20-%20v1_0.xls"
+        2020: "https://www.countyhealthrankings.org/sites/default/files/media/document/2020%20County%20Health%20Rankings%20Virginia%20Data%20-%20v1_0.xlsx"
+        2021: "https://www.countyhealthrankings.org/sites/default/files/media/document/2021%20County%20Health%20Rankings%20Virginia%20Data%20-%20v1_0.xlsx"
+        2022: "https://www.countyhealthrankings.org/sites/default/files/media/document/2022%20County%20Health%20Rankings%20Virginia%20Data%20-%20v2.xlsx"
+        2023: "https://www.countyhealthrankings.org/sites/default/files/media/document/2023%20County%20Health%20Rankings%20Virginia%20Data%20-%20v3.xlsx"
+      measures:
+        - column: "% Disconnected Youth"
+          name: disconnectedYouth
+        - column: "% Voter Turnout"
+          name: voterTurnout
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
 
 output:
   path: data/distribution
-  filename: cooperative_extension.csv.xz
   standardize: true

@@ -1,19 +1,34 @@
 name: language_demographics
 description: "Limited English speaking households from ACS"
 
-source:
-  type: census_acs
-  profile: VA_NCR
-  years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
-  geographies: [tract, county, block_group]
-  variables:
-    total_hh: "C16002_001"
-    spanish_limited: "C16002_004"
-    indo_euro_limited: "C16002_007"
-    asian_pacific_limited: "C16002_010"
-    other_limited: "C16002_013"
+sources:
+  ncr:
+    type: census_acs
+    profile: NCR
+    years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county, block_group]
+    variables:
+      total_hh: "C16002_001"
+      spanish_limited: "C16002_004"
+      indo_euro_limited: "C16002_007"
+      asian_pacific_limited: "C16002_010"
+      other_limited: "C16002_013"
+
+  va:
+    type: census_acs
+    profile: VA
+    years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county]
+    variables:
+      total_hh: "C16002_001"
+      spanish_limited: "C16002_004"
+      indo_euro_limited: "C16002_007"
+      asian_pacific_limited: "C16002_010"
+      other_limited: "C16002_013"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
 
 output:
   path: data/distribution
-  filename: language_demographics.csv.xz
   standardize: true

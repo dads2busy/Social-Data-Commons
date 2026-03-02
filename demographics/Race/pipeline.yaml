@@ -1,41 +1,80 @@
 name: race_demographics
 description: "Race and ethnicity distribution from ACS"
 
-source:
-  type: census_acs
-  profile: VA_NCR
-  years:
-    [
-      2009,
-      2010,
-      2011,
-      2012,
-      2013,
-      2014,
-      2015,
-      2016,
-      2017,
-      2018,
-      2019,
-      2020,
-      2021,
-      2022,
-      2023,
-    ]
-  geographies: [tract, county, block_group]
-  variables:
-    total_race: "B02001_001"
-    wht_alone: "B02001_002"
-    afr_amer_alone: "B02001_003"
-    native_alone: "B02001_004"
-    asian_alone: "B02001_005"
-    pacific_islander_alone: "B02001_006"
-    other: "B02001_007"
-    two_or_more: "B02001_008"
-    eth_total: "B03003_001"
-    hispanic_or_latino: "B03003_003"
+sources:
+  ncr:
+    type: census_acs
+    profile: NCR
+    years:
+      [
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+      ]
+    geographies: [tract, county, block_group]
+    variables:
+      total_race: "B02001_001"
+      wht_alone: "B02001_002"
+      afr_amer_alone: "B02001_003"
+      native_alone: "B02001_004"
+      asian_alone: "B02001_005"
+      pacific_islander_alone: "B02001_006"
+      other: "B02001_007"
+      two_or_more: "B02001_008"
+      eth_total: "B03003_001"
+      hispanic_or_latino: "B03003_003"
+
+  va:
+    type: census_acs
+    profile: VA
+    years:
+      [
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+      ]
+    geographies: [tract, county]
+    variables:
+      total_race: "B02001_001"
+      wht_alone: "B02001_002"
+      afr_amer_alone: "B02001_003"
+      native_alone: "B02001_004"
+      asian_alone: "B02001_005"
+      pacific_islander_alone: "B02001_006"
+      other: "B02001_007"
+      two_or_more: "B02001_008"
+      eth_total: "B03003_001"
+      hispanic_or_latino: "B03003_003"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
 
 output:
   path: data/distribution
-  filename: race_demographics.csv.xz
   standardize: true

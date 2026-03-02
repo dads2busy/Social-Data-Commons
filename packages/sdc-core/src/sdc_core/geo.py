@@ -15,6 +15,7 @@ Usage:
 
 from __future__ import annotations
 
+import re
 import warnings
 from typing import Literal
 
@@ -27,8 +28,11 @@ GEOID_LENGTHS: dict[str, int] = {
     "block_group": 12,
 }
 
-# Reverse lookup
+# Reverse lookup (standard census geographies only; health_district uses pattern matching)
 LENGTH_TO_GEO: dict[int, str] = {v: k for k, v in GEOID_LENGTHS.items()}
+
+# Health district geoids contain _hd_ (e.g. 51_hd_35); check this before length
+_HD_PATTERN = re.compile(r"_hd_")
 
 AggMethod = Literal["mean", "sum", "median", "min", "max"]
 
@@ -49,6 +53,32 @@ def geoid_level(geoid: pd.Series) -> str:
     if length not in LENGTH_TO_GEO:
         raise ValueError(f"Cannot infer geography from GEOID length {length}")
     return LENGTH_TO_GEO[length]
+
+
+def infer_region_type(geoid: str) -> str:
+    """Infer region type from geoid pattern/length.
+
+    The region_type column is deprecated in SDC pipeline outputs; region type
+    must be inferred from the geoid itself. Pattern check runs before length
+    check so health districts (which embed _hd_) are correctly identified.
+
+    Returns one of: "health_district", "county", "tract", "block_group", "other".
+    """
+    if _HD_PATTERN.search(geoid):
+        return "health_district"
+    n = len(geoid)
+    if n == 5:
+        return "county"
+    if n == 11:
+        return "tract"
+    if n == 12:
+        return "block_group"
+    return "other"
+
+
+def infer_region_types(geoid_series: pd.Series) -> pd.Series:
+    """Vectorized region type inference from a geoid Series."""
+    return geoid_series.apply(infer_region_type)
 
 
 def aggregate_up(

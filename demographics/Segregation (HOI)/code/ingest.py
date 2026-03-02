@@ -37,9 +37,8 @@ def load_config() -> dict:
         return yaml.safe_load(f)
 
 
-def fetch_segregation_data(client: CensusClient, config: dict) -> pd.DataFrame:
+def fetch_segregation_data(client: CensusClient, src: dict) -> pd.DataFrame:
     """Fetch ACS data for both year ranges and combine."""
-    src = config["source"]
     years = src["years"]
     geographies = src["geographies"]
     profile = src.get("profile")
@@ -58,6 +57,7 @@ def fetch_segregation_data(client: CensusClient, config: dict) -> pd.DataFrame:
             geographies=geographies,
             profile=profile,
             states=states,
+            table_type="profile",
         )
         dfs.append(df_early)
 
@@ -69,6 +69,7 @@ def fetch_segregation_data(client: CensusClient, config: dict) -> pd.DataFrame:
             geographies=geographies,
             profile=profile,
             states=states,
+            table_type="profile",
         )
         dfs.append(df_late)
 
@@ -98,28 +99,25 @@ def compute_entropy(df: pd.DataFrame) -> pd.DataFrame:
     return df[["geoid", "year", "measure", "value", "moe", "region_type"]]
 
 
-def run(pipeline=None) -> RunResult:
+def run_source(name: str, src: dict, out: dict) -> RunResult:
     t0 = time.time()
     try:
-        config = load_config()
-        out = config["output"]
-
-        log.info("Starting segregation ingest")
+        log.info("Starting segregation ingest for source '%s'", name)
 
         client = CensusClient()
-        df = fetch_segregation_data(client, config)
-        log.info("Fetched %d raw rows from Census API", len(df))
+        df = fetch_segregation_data(client, src)
+        log.info("Fetched %d raw rows for '%s'", len(df), name)
 
         result = compute_entropy(df)
 
         out_dir = TOPIC_DIR / out["path"]
-        states = resolve_states(config["source"])
+        states = resolve_states(src)
         auto_name = build_file_name(
             df=result,
             states=states,
-            years=config["source"].get("years"),
-            source_type=config["source"].get("type"),
-            title=config.get("name"),
+            years=src.get("years"),
+            source_type=src.get("type"),
+            title="segregation",
         )
         filename = f"{auto_name}.csv.xz" if auto_name else out["filename"]
         out_path = write_data(
@@ -136,7 +134,9 @@ def run(pipeline=None) -> RunResult:
             duration_sec=time.time() - t0,
         )
     except Exception as e:
-        log.error("Segregation ingest failed: %s", e, exc_info=True)
+        log.error(
+            "Segregation ingest failed for source '%s': %s", name, e, exc_info=True
+        )
         return RunResult(
             success=False,
             error=str(e),
@@ -144,7 +144,20 @@ def run(pipeline=None) -> RunResult:
         )
 
 
+def run(pipeline=None) -> list[RunResult]:
+    config = load_config()
+    out = config["output"]
+    sources = config.get("sources")
+    if sources is None:
+        sources = {"default": config["source"]}
+
+    results = []
+    for name, src in sources.items():
+        results.append(run_source(name, src, out))
+    return results
+
+
 if __name__ == "__main__":
-    result = run()
-    if not result.success:
+    results = run()
+    if any(not r.success for r in results):
         raise SystemExit(1)

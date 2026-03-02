@@ -13,10 +13,12 @@ Usage:
 from __future__ import annotations
 
 import pathlib
+import shutil
 
 import pandas as pd
 
-from sdc_core.geo import standardize_all
+from sdc_core.geo import infer_region_types, standardize_all
+from sdc_core.naming import REGION_TYPE_ABBR, build_file_name
 
 # Standard SDC column order
 STANDARD_COLUMNS = ["geoid", "year", "measure", "value", "moe", "region_type"]
@@ -105,6 +107,99 @@ def write_data(
     path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(path, index=False)
     return path
+
+
+def data_reformat_for_site(
+    source_path: str | pathlib.Path,
+    output_dir: str | pathlib.Path,
+    levels: list[str] | None = None,
+    *,
+    geoid_col: str = "geoid",
+    year_col: str = "year",
+    measure_col: str = "measure",
+    value_col: str = "value",
+    coverage_area: str | None = None,
+    data_source: str | None = None,
+    title: str | None = None,
+    measure_info_path: str | pathlib.Path | None = None,
+) -> list[pathlib.Path]:
+    """Reformat a tall SDC distribution file into wide per-level files for dashboards.
+
+    Reads a tall-format .csv.xz, infers region type from geoid pattern/length,
+    pivots to wide format (one column per measure), splits by level, and writes
+    one .csv.xz per level to output_dir.
+
+    Parameters
+    ----------
+    source_path : path to the tall .csv.xz input file
+    output_dir : directory to write output files into (created if absent)
+    levels : region types to include, e.g. ["health_district", "county", "tract"].
+             If None, all inferred levels (excluding "other") are written.
+    geoid_col, year_col, measure_col, value_col : column name overrides
+    coverage_area : coverage area for output filename (e.g. "va", "ncr")
+    data_source : data source abbreviation (e.g. "sdad", "census_acs")
+    title : title segment for output filename (e.g. "gender_demographics")
+    measure_info_path : optional path to a measure_info.json to copy into output_dir
+
+    Returns
+    -------
+    list[pathlib.Path]
+        Paths of files written, one per level.
+    """
+    output_dir = pathlib.Path(output_dir)
+
+    df = read_data(source_path)
+    df["_region_type"] = infer_region_types(df[geoid_col])
+
+    if levels is not None:
+        df = df[df["_region_type"].isin(levels)]
+    else:
+        df = df[df["_region_type"] != "other"]
+
+    written: list[pathlib.Path] = []
+
+    for level, level_df in df.groupby("_region_type"):
+        level = str(level)
+        wide = (
+            level_df
+            .pivot_table(
+                index=[geoid_col, year_col],
+                columns=measure_col,
+                values=value_col,
+                aggfunc="first",
+            )
+            .reset_index()
+        )
+        wide.columns.name = None
+
+        # Rename to dashboard convention
+        wide = wide.rename(columns={geoid_col: "ID", year_col: "time"})
+
+        # Stable column order: ID, time, then measures alphabetically
+        measure_cols = sorted(c for c in wide.columns if c not in ("ID", "time"))
+        wide = wide[["ID", "time"] + measure_cols]
+
+        abbr = REGION_TYPE_ABBR.get(level, level)
+        filename = (
+            build_file_name(
+                coverage_area=coverage_area,
+                resolution=abbr,
+                data_source=data_source,
+                years=wide["time"].unique().tolist(),
+                title=title,
+            )
+            + ".csv.xz"
+        )
+
+        out_path = write_data(wide, output_dir / filename, standardize=False)
+        written.append(out_path)
+
+    if measure_info_path is not None:
+        src = pathlib.Path(measure_info_path)
+        dest = output_dir / "measure_info.json"
+        shutil.copy2(src, dest)
+
+    return written
 
 
 def read_measure_info(path: str | pathlib.Path) -> dict:

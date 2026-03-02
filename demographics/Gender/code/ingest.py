@@ -1,6 +1,7 @@
 """Ingest gender demographics from ACS.
 
-Configuration is read from gender/pipeline.yaml (variables, years, profile, etc).
+Fetches data for each source profile defined in pipeline.yaml and writes
+one tall-format .csv.xz per coverage area to data/distribution/.
 """
 
 import time
@@ -45,16 +46,12 @@ def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
     return long
 
 
-def run(pipeline=None) -> RunResult:
+def run_source(name: str, src: dict, out_dir: Path, client: CensusClient) -> RunResult:
+    """Fetch and write one coverage-area source."""
     t0 = time.time()
     try:
-        config = load_config()
-        src = config["source"]
-        out = config["output"]
+        log.info("Ingesting source '%s' (profile=%s)", name, src.get("profile"))
 
-        log.info("Starting gender ingest (profile=%s)", src.get("profile"))
-
-        client = CensusClient()
         df = client.get_acs_multi(
             variables=src["variables"],
             years=src["years"],
@@ -62,25 +59,20 @@ def run(pipeline=None) -> RunResult:
             profile=src.get("profile"),
             states=src.get("states"),
         )
-        log.info("Fetched %d raw rows from Census API", len(df))
+        log.info("Fetched %d raw rows for '%s'", len(df), name)
 
         result = compute_measures(df)
 
-        out_dir = TOPIC_DIR / out["path"]
         states = resolve_states(src)
         auto_name = build_file_name(
             df=result,
             states=states,
             years=src.get("years"),
             source_type=src.get("type"),
-            title=config.get("name"),
+            title="gender_demographics",
         )
-        filename = f"{auto_name}.csv.xz" if auto_name else out["filename"]
-        out_path = write_data(
-            result,
-            out_dir / filename,
-            census_standardize=out.get("standardize", False),
-        )
+        filename = f"{auto_name}.csv.xz"
+        out_path = write_data(result, out_dir / filename)
         log.info("Wrote %d rows to %s", len(result), out_path)
 
         return RunResult(
@@ -90,15 +82,22 @@ def run(pipeline=None) -> RunResult:
             duration_sec=time.time() - t0,
         )
     except Exception as e:
-        log.error("Gender ingest failed: %s", e, exc_info=True)
-        return RunResult(
-            success=False,
-            error=str(e),
-            duration_sec=time.time() - t0,
-        )
+        log.error("Ingest failed for source '%s': %s", name, e, exc_info=True)
+        return RunResult(success=False, error=str(e), duration_sec=time.time() - t0)
+
+
+def run() -> list[RunResult]:
+    config = load_config()
+    out_dir = TOPIC_DIR / config["output"]["path"]
+    client = CensusClient()
+
+    results = []
+    for name, src in config["sources"].items():
+        results.append(run_source(name, src, out_dir, client))
+    return results
 
 
 if __name__ == "__main__":
-    result = run()
-    if not result.success:
+    results = run()
+    if any(not r.success for r in results):
         raise SystemExit(1)

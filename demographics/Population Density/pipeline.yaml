@@ -1,13 +1,22 @@
 name: population_density
 description: "Population density (persons per sq mile) from ACS + TIGER land area"
 
-source:
-  type: census_acs
-  profile: VA_NCR
-  years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
-  geographies: [tract, county, block_group]
-  variables:
-    total_pop: "B01001_001"
+sources:
+  ncr:
+    type: census_acs
+    profile: NCR
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county, block_group]
+    variables:
+      total_pop: "B01001_001"
+
+  va:
+    type: census_acs
+    profile: VA
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county]
+    variables:
+      total_pop: "B01001_001"
 
 tiger:
   state_fips: "51"
@@ -17,7 +26,6 @@ tiger:
 
 output:
   path: data/distribution
-  filename: population_density.csv.xz
   standardize: true
 
 prepare:

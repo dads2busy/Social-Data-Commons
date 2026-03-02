@@ -15,7 +15,8 @@ import httpx
 import pandas as pd
 import yaml
 from sdc_core.census import CensusClient
-from sdc_core.io import write_data
+from sdc_core.geo import aggregate_with_crosswalk
+from sdc_core.io import data_reformat_for_site, read_data, write_data
 from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
 from sdc_core.profiles import resolve_states
@@ -23,6 +24,10 @@ from sdc_core.result import RunResult
 from tqdm import tqdm
 
 TOPIC_DIR = Path(__file__).resolve().parents[1]
+REPO_DIR = TOPIC_DIR.parents[1]
+DIST_DIR = TOPIC_DIR / "data/distribution"
+MEASURE_INFO = DIST_DIR / "measure_info.json"
+
 log = get_logger("cooperative_extension.prepare")
 
 
@@ -31,11 +36,11 @@ def load_config() -> dict:
         return yaml.safe_load(f)
 
 
-def ingest_perc_male(client: CensusClient, config: dict) -> pd.DataFrame:
+def ingest_perc_male(client: CensusClient, source_cfg: dict) -> pd.DataFrame:
     """Fetch male percentage from ACS S0101 subject table."""
-    pm_config = config["source"]["perc_male"]
-    state = config["source"]["state"]
-    geographies = config["source"]["geographies"]
+    pm_config = source_cfg["perc_male"]
+    state = source_cfg["state"]
+    geographies = source_cfg["geographies"]
 
     records = []
     for year in tqdm(pm_config["years"], desc="perc_male"):
@@ -52,6 +57,7 @@ def ingest_perc_male(client: CensusClient, config: dict) -> pd.DataFrame:
                 state=state,
                 year=year,
                 show_progress=False,
+                table_type="subject",
             )
             if df.empty:
                 continue
@@ -68,11 +74,11 @@ def ingest_perc_male(client: CensusClient, config: dict) -> pd.DataFrame:
     return pd.concat(records, ignore_index=True) if records else pd.DataFrame()
 
 
-def ingest_children_gp(client: CensusClient, config: dict) -> pd.DataFrame:
+def ingest_children_gp(client: CensusClient, source_cfg: dict) -> pd.DataFrame:
     """Fetch children raised by grandparents from ACS B10001."""
-    gp_config = config["source"]["children_gp"]
-    state = config["source"]["state"]
-    geographies = config["source"]["geographies"]
+    gp_config = source_cfg["children_gp"]
+    state = source_cfg["state"]
+    geographies = source_cfg["geographies"]
 
     dfs = []
     for year in tqdm(gp_config["years"], desc="children_gp"):
@@ -94,15 +100,15 @@ def ingest_children_gp(client: CensusClient, config: dict) -> pd.DataFrame:
     return pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
 
 
-def ingest_county_health_rankings(config: dict) -> pd.DataFrame:
+def ingest_county_health_rankings(source_cfg: dict) -> pd.DataFrame:
     """Download and parse County Health Rankings data for VA."""
-    chr_config = config["source"]["county_health_rankings"]
-    url_template = chr_config["url_template"]
+    chr_config = source_cfg["county_health_rankings"]
+    urls = chr_config["urls"]
     measures = chr_config["measures"]
 
     records = []
-    for year in tqdm(chr_config["years"], desc="County Health Rankings"):
-        url = url_template.format(year=year)
+    for year, url in tqdm(urls.items(), desc="County Health Rankings"):
+        year = int(year)
         try:
             resp = httpx.get(url, timeout=30, follow_redirects=True)
             resp.raise_for_status()
@@ -115,7 +121,7 @@ def ingest_county_health_rankings(config: dict) -> pd.DataFrame:
         tmp.write_bytes(resp.content)
 
         try:
-            df = pd.read_excel(tmp, sheet_name="Ranked Measure Data", header=1)
+            df = pd.read_excel(tmp, sheet_name="Additional Measure Data", header=1)
         except Exception as e:
             log.warning("Could not parse CHR %d: %s", year, e)
             continue
@@ -141,36 +147,38 @@ def ingest_county_health_rankings(config: dict) -> pd.DataFrame:
     return pd.concat(records, ignore_index=True) if records else pd.DataFrame()
 
 
-def run(pipeline=None) -> RunResult:
+def run_source(
+    name: str,
+    source_cfg: dict,
+    out: dict,
+    title: str | None,
+) -> RunResult:
     t0 = time.time()
     try:
-        config = load_config()
-        out = config["output"]
-
-        log.info("Starting cooperative extension prepare")
+        log.info("Starting cooperative extension prepare for source '%s'", name)
 
         client = CensusClient()
         parts = []
 
         log.info("Ingesting perc_male from ACS S0101")
-        parts.append(ingest_perc_male(client, config))
+        parts.append(ingest_perc_male(client, source_cfg))
 
         log.info("Ingesting children raised by grandparents from ACS B10001")
-        parts.append(ingest_children_gp(client, config))
+        parts.append(ingest_children_gp(client, source_cfg))
 
         log.info("Ingesting County Health Rankings")
-        parts.append(ingest_county_health_rankings(config))
+        parts.append(ingest_county_health_rankings(source_cfg))
 
         result = pd.concat([p for p in parts if not p.empty], ignore_index=True)
 
         out_dir = TOPIC_DIR / out["path"]
-        states = resolve_states(config["source"])
+        states = resolve_states(source_cfg)
         auto_name = build_file_name(
             df=result,
             states=states,
-            years=config["source"]["perc_male"].get("years"),
-            source_type=config["source"].get("type"),
-            title=config.get("name"),
+            years=source_cfg["perc_male"].get("years"),
+            source_type=source_cfg.get("type"),
+            title=title,
         )
         filename = f"{auto_name}.csv.xz" if auto_name else out["filename"]
         out_path = write_data(
@@ -187,12 +195,94 @@ def run(pipeline=None) -> RunResult:
             duration_sec=time.time() - t0,
         )
     except Exception as e:
-        log.error("Cooperative extension prepare failed: %s", e, exc_info=True)
+        log.error(
+            "Cooperative extension prepare failed for source '%s': %s",
+            name,
+            e,
+            exc_info=True,
+        )
         return RunResult(
             success=False,
             error=str(e),
             duration_sec=time.time() - t0,
         )
+
+
+def _build_va_dashboard(source_path: Path, config: dict) -> None:
+    """Aggregate county rows to health districts, then reformat for VA dashboard."""
+    log.info("Reading combined source for VA dashboard: %s", source_path)
+    df = read_data(source_path)
+
+    counties = df[df["region_type"] == "county"].copy()
+    non_counties = df[df["region_type"] != "county"].copy()
+
+    crosswalk_path = REPO_DIR / config["crosswalks"]["va_county_to_hd"]
+    xwalk = pd.read_csv(crosswalk_path, dtype={"ct_geoid": str, "hd_geoid": str})
+
+    # All cooperative extension measures are percentages — aggregate with mean
+    hd = aggregate_with_crosswalk(
+        counties,
+        crosswalk=xwalk,
+        source_col="ct_geoid",
+        target_col="hd_geoid",
+        method="mean",
+        value_col="value",
+        target_region_type="health_district",
+    )
+    hd["moe"] = pd.NA
+
+    combined = pd.concat([non_counties, counties, hd], ignore_index=True)
+    combined = combined.sort_values(["geoid", "year", "measure"]).reset_index(drop=True)
+
+    combined_path = write_data(combined, source_path)
+    log.info("Wrote %d rows (with health districts) to %s", len(combined), combined_path)
+
+    measure_info = MEASURE_INFO if MEASURE_INFO.exists() else None
+    paths = data_reformat_for_site(
+        source_path=combined_path,
+        output_dir=REPO_DIR / "dashboard_data/virginia_public_health_data",
+        levels=["health_district", "county", "tract"],
+        coverage_area="va",
+        data_source="mixed",
+        title="cooperative_extension",
+        measure_info_path=measure_info,
+    )
+    for p in paths:
+        log.info("Wrote %s", p)
+
+
+def run(pipeline=None) -> RunResult:
+    t0 = time.time()
+    config = load_config()
+    out = config["output"]
+    sources = config.get("sources")
+    if sources is None:
+        sources = {"default": config["source"]}
+
+    results = []
+    for name, source_cfg in sources.items():
+        results.append(run_source(name, source_cfg, out, config.get("name")))
+
+    success = all(r.success for r in results)
+    rows = sum(r.rows or 0 for r in results)
+    output_path = next(
+        (r.output_path for r in reversed(results) if r.output_path), None
+    )
+
+    if success and output_path:
+        try:
+            _build_va_dashboard(Path(output_path), config)
+        except Exception as e:
+            log.error("VA dashboard reformat failed: %s", e, exc_info=True)
+            success = False
+
+    return RunResult(
+        success=success,
+        rows=rows,
+        output_path=output_path,
+        error=None if success else "One or more sources failed",
+        duration_sec=time.time() - t0,
+    )
 
 
 if __name__ == "__main__":
