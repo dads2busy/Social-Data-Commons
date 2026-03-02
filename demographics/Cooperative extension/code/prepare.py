@@ -17,6 +17,8 @@ import yaml
 from sdc_core.census import CensusClient
 from sdc_core.io import write_data
 from sdc_core.log import get_logger
+from sdc_core.naming import build_file_name
+from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 from tqdm import tqdm
 
@@ -162,9 +164,18 @@ def run(pipeline=None) -> RunResult:
         result = pd.concat([p for p in parts if not p.empty], ignore_index=True)
 
         out_dir = TOPIC_DIR / out["path"]
+        states = resolve_states(config["source"])
+        auto_name = build_file_name(
+            df=result,
+            states=states,
+            years=config["source"]["perc_male"].get("years"),
+            source_type=config["source"].get("type"),
+            title=config.get("name"),
+        )
+        filename = f"{auto_name}.csv.xz" if auto_name else out["filename"]
         out_path = write_data(
             result,
-            out_dir / out["filename"],
+            out_dir / filename,
             census_standardize=out.get("standardize", False),
         )
         log.info("Wrote %d rows to %s", len(result), out_path)

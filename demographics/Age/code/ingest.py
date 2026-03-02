@@ -9,10 +9,11 @@ from pathlib import Path
 
 import pandas as pd
 import yaml
-
 from sdc_core.census import CensusClient
 from sdc_core.io import write_data
 from sdc_core.log import get_logger
+from sdc_core.naming import build_file_name
+from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[1]
@@ -20,18 +21,56 @@ log = get_logger("age.ingest")
 
 # Age group definitions (column name prefixes to sum)
 UNDER_20 = [
-    "m_under_5", "m_5_9", "m_10_14", "m_15_17", "m_18_19",
-    "f_under_5", "f_5_9", "f_10_14", "f_15_17", "f_18_19",
+    "m_under_5",
+    "m_5_9",
+    "m_10_14",
+    "m_15_17",
+    "m_18_19",
+    "f_under_5",
+    "f_5_9",
+    "f_10_14",
+    "f_15_17",
+    "f_18_19",
 ]
 AGE_20_64 = [
-    "m_20", "m_21", "m_22_24", "m_25_29", "m_30_34", "m_35_39",
-    "m_40_44", "m_45_49", "m_50_54", "m_55_59", "m_60_61", "m_62_64",
-    "f_20", "f_21", "f_22_24", "f_25_29", "f_30_34", "f_35_39",
-    "f_40_44", "f_45_49", "f_50_54", "f_55_59", "f_60_61", "f_62_64",
+    "m_20",
+    "m_21",
+    "m_22_24",
+    "m_25_29",
+    "m_30_34",
+    "m_35_39",
+    "m_40_44",
+    "m_45_49",
+    "m_50_54",
+    "m_55_59",
+    "m_60_61",
+    "m_62_64",
+    "f_20",
+    "f_21",
+    "f_22_24",
+    "f_25_29",
+    "f_30_34",
+    "f_35_39",
+    "f_40_44",
+    "f_45_49",
+    "f_50_54",
+    "f_55_59",
+    "f_60_61",
+    "f_62_64",
 ]
 AGE_65_PLUS = [
-    "m_65_66", "m_67_69", "m_70_74", "m_75_79", "m_80_84", "m_85_plus",
-    "f_65_66", "f_67_69", "f_70_74", "f_75_79", "f_80_84", "f_85_plus",
+    "m_65_66",
+    "m_67_69",
+    "m_70_74",
+    "m_75_79",
+    "m_80_84",
+    "m_85_plus",
+    "f_65_66",
+    "f_67_69",
+    "f_70_74",
+    "f_75_79",
+    "f_80_84",
+    "f_85_plus",
 ]
 
 
@@ -87,7 +126,20 @@ def run(pipeline=None) -> RunResult:
         result = compute_measures(df)
 
         out_dir = TOPIC_DIR / out["path"]
-        out_path = write_data(result, out_dir / out["filename"])
+        states = resolve_states(src)
+        auto_name = build_file_name(
+            df=result,
+            states=states,
+            years=src.get("years"),
+            source_type=src.get("type"),
+            title=config.get("name"),
+        )
+        filename = f"{auto_name}.csv.xz" if auto_name else out["filename"]
+        out_path = write_data(
+            result,
+            out_dir / filename,
+            census_standardize=out.get("standardize", False),
+        )
         log.info("Wrote %d rows to %s", len(result), out_path)
 
         return RunResult(

@@ -8,10 +8,11 @@ from pathlib import Path
 
 import pandas as pd
 import yaml
-
 from sdc_core.geo import aggregate_with_crosswalk
 from sdc_core.io import read_data, write_data
 from sdc_core.log import get_logger
+from sdc_core.naming import build_file_name
+from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[1]
@@ -47,11 +48,29 @@ def run(pipeline=None) -> RunResult:
             method=prep["method"],
             target_region_type="health_district",
         )
-        log.info("Aggregated %d county rows to %d health district rows", len(county_data), len(hd))
+        log.info(
+            "Aggregated %d county rows to %d health district rows",
+            len(county_data),
+            len(hd),
+        )
 
         result = pd.concat([df, hd], ignore_index=True)
 
-        out_path = write_data(result, data_path)
+        out_dir = TOPIC_DIR / out["path"]
+        states = resolve_states(config["source"])
+        auto_name = build_file_name(
+            df=result,
+            states=states,
+            years=config["source"].get("years"),
+            source_type=config["source"].get("type"),
+            title=config.get("name"),
+        )
+        filename = f"{auto_name}.csv.xz" if auto_name else out["filename"]
+        out_path = write_data(
+            result,
+            out_dir / filename,
+            census_standardize=out.get("standardize", False),
+        )
         log.info("Wrote %d rows to %s", len(result), out_path)
 
         return RunResult(

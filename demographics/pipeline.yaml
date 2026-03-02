@@ -23,10 +23,10 @@ topics:
     type: acs_ingest
     script: age/code/ingest.py
 
-  - name: geographic_mobility
+  - name: geographic_mobility_hoi
     type: acs_ingest_prepare
-    ingest: geographic_mobility/code/ingest.py
-    prepare: geographic_mobility/code/prepare.py
+    ingest: Geographic Mobility (HOI)/code/ingest.py
+    prepare: Geographic Mobility (HOI)/code/prepare.py
 
   - name: population_density
     type: acs_ingest_prepare

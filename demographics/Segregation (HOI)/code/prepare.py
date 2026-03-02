@@ -1,8 +1,7 @@
-"""Prepare geographic mobility data: aggregate to health districts.
+"""Prepare segregation data: aggregate tracts to counties and health districts.
 
-Reads the ingested tract/county/block_group data and aggregates counties
-to Virginia health districts using a crosswalk from sdc.geographies_dev.
-Configuration is read from geographic_mobility/pipeline.yaml.
+Configuration is read from segregation/pipeline.yaml.
+Uses sum aggregation (matching the R implementation).
 """
 
 import time
@@ -10,14 +9,15 @@ from pathlib import Path
 
 import pandas as pd
 import yaml
-
-from sdc_core.geo import aggregate_with_crosswalk
+from sdc_core.geo import aggregate_up, aggregate_with_crosswalk
 from sdc_core.io import read_data, write_data
 from sdc_core.log import get_logger
+from sdc_core.naming import build_file_name
+from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[1]
-log = get_logger("geographic_mobility.prepare")
+log = get_logger("segregation.prepare")
 
 
 def load_config() -> dict:
@@ -36,24 +36,46 @@ def run(pipeline=None) -> RunResult:
         log.info("Reading ingested data from %s", data_path)
         df = read_data(data_path)
 
+        tract_data = df[df["region_type"] == "tract"].copy()
+
+        # Tract -> County (sum, matching R implementation)
+        log.info("Aggregating %d tract rows to counties", len(tract_data))
+        county = aggregate_up(tract_data, target_geo="county", method="sum")
+        county["measure"] = "segregation_indicator"
+
+        # County -> Health District (sum via crosswalk)
         crosswalk_path = TOPIC_DIR / prep["crosswalk"]
         log.info("Loading crosswalk from %s", crosswalk_path)
         crosswalk = pd.read_csv(crosswalk_path, dtype=str)
 
-        county_data = df[df["region_type"] == "county"].copy()
         hd = aggregate_with_crosswalk(
-            county_data,
+            county,
             crosswalk=crosswalk,
             source_col=prep["source_col"],
             target_col=prep["target_col"],
             method=prep["method"],
             target_region_type="health_district",
         )
-        log.info("Aggregated %d county rows to %d health district rows", len(county_data), len(hd))
+        log.info("Aggregated to %d health district rows", len(hd))
 
-        result = pd.concat([df, hd], ignore_index=True)
+        result = pd.concat([tract_data, county, hd], ignore_index=True)
+        result["moe"] = pd.NA
 
-        out_path = write_data(result, data_path)
+        out_dir = TOPIC_DIR / out["path"]
+        states = resolve_states(config["source"])
+        auto_name = build_file_name(
+            df=result,
+            states=states,
+            years=config["source"].get("years"),
+            source_type=config["source"].get("type"),
+            title=config.get("name"),
+        )
+        filename = f"{auto_name}.csv.xz" if auto_name else out["filename"]
+        out_path = write_data(
+            result,
+            out_dir / filename,
+            census_standardize=out.get("standardize", False),
+        )
         log.info("Wrote %d rows to %s", len(result), out_path)
 
         return RunResult(
@@ -63,7 +85,7 @@ def run(pipeline=None) -> RunResult:
             duration_sec=time.time() - t0,
         )
     except Exception as e:
-        log.error("Geographic mobility prepare failed: %s", e, exc_info=True)
+        log.error("Segregation prepare failed: %s", e, exc_info=True)
         return RunResult(
             success=False,
             error=str(e),

@@ -4,7 +4,22 @@ description: "Veteran status from ACS"
 source:
   type: census_acs
   profile: VA_NCR
-  years: [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+  years:
+    [
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+    ]
   geographies: [tract, county, block_group]
   variables:
     vet_denom: "B21001_001"
@@ -13,3 +28,4 @@ source:
 output:
   path: data/distribution
   filename: veteran_demographics.csv.xz
+  standardize: true

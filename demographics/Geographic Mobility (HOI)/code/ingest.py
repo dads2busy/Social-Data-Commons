@@ -1,6 +1,6 @@
-"""Ingest geographic mobility data from ACS.
+"""Ingest geographic mobility (HOI) data from ACS.
 
-Configuration is read from geographic_mobility/pipeline.yaml.
+Configuration is read from Geographic Mobility (HOI)/pipeline.yaml.
 """
 
 import time
@@ -8,14 +8,15 @@ from pathlib import Path
 
 import pandas as pd
 import yaml
-
 from sdc_core.census import CensusClient
 from sdc_core.io import write_data
 from sdc_core.log import get_logger
+from sdc_core.naming import build_file_name
+from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[1]
-log = get_logger("geographic_mobility.ingest")
+log = get_logger("geographic_mobility_hoi.ingest")
 
 
 def load_config() -> dict:
@@ -24,7 +25,7 @@ def load_config() -> dict:
 
 
 def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute percentage of population that moved in the past year."""
+    """Compute percent moving in past year."""
     df = df.copy()
     df["perc_moving"] = 100 * df["pop_moving"] / df["total_pop"]
 
@@ -45,7 +46,9 @@ def run(pipeline=None) -> RunResult:
         src = config["source"]
         out = config["output"]
 
-        log.info("Starting geographic mobility ingest (profile=%s)", src.get("profile"))
+        log.info(
+            "Starting geographic mobility (HOI) ingest (profile=%s)", src.get("profile")
+        )
 
         client = CensusClient()
         df = client.get_acs_multi(
@@ -60,7 +63,20 @@ def run(pipeline=None) -> RunResult:
         result = compute_measures(df)
 
         out_dir = TOPIC_DIR / out["path"]
-        out_path = write_data(result, out_dir / out["filename"])
+        states = resolve_states(src)
+        auto_name = build_file_name(
+            df=result,
+            states=states,
+            years=src.get("years"),
+            source_type=src.get("type"),
+            title=config.get("name"),
+        )
+        filename = f"{auto_name}.csv.xz" if auto_name else out["filename"]
+        out_path = write_data(
+            result,
+            out_dir / filename,
+            census_standardize=out.get("standardize", False),
+        )
         log.info("Wrote %d rows to %s", len(result), out_path)
 
         return RunResult(
@@ -70,7 +86,7 @@ def run(pipeline=None) -> RunResult:
             duration_sec=time.time() - t0,
         )
     except Exception as e:
-        log.error("Geographic mobility ingest failed: %s", e, exc_info=True)
+        log.error("Geographic mobility (HOI) ingest failed: %s", e, exc_info=True)
         return RunResult(
             success=False,
             error=str(e),

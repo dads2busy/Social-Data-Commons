@@ -13,6 +13,8 @@ import yaml
 from sdc_core.census import CensusClient
 from sdc_core.io import write_data
 from sdc_core.log import get_logger
+from sdc_core.naming import build_file_name
+from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[1]
@@ -176,9 +178,18 @@ def run(pipeline=None) -> RunResult:
         result = result.dropna(subset=["value"])
 
         out_dir = TOPIC_DIR / out["path"]
+        states = resolve_states(src)
+        auto_name = build_file_name(
+            df=result,
+            states=states,
+            years=src.get("years"),
+            source_type=src.get("type"),
+            title=config.get("name"),
+        )
+        filename = f"{auto_name}.csv.xz" if auto_name else out["filename"]
         out_path = write_data(
             result,
-            out_dir / out["filename"],
+            out_dir / filename,
             census_standardize=out.get("standardize", False),
         )
         log.info("Wrote %d rows to %s", len(result), out_path)

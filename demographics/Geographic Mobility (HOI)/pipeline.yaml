@@ -1,5 +1,5 @@
-name: geographic_mobility
-description: "Geographic mobility (% population that moved) from ACS B07204"
+name: geographic_mobility_hoi
+description: "Geographic mobility (HOI) (% population that moved) from ACS B07204"
 
 source:
   type: census_acs
@@ -12,7 +12,8 @@ source:
 
 output:
   path: data/distribution
-  filename: geographic_mobility.csv.xz
+  filename: va_hdcttrbg_2015_2023_moving_demographics.csv.xz
+  standardize: true
 
 prepare:
   crosswalk: ../../geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv

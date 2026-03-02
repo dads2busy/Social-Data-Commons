@@ -16,3 +16,4 @@ source:
 output:
   path: data/distribution
   filename: language_demographics.csv.xz
+  standardize: true

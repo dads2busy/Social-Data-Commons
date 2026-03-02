@@ -16,6 +16,8 @@ import pathlib
 
 import pandas as pd
 
+from sdc_core.geo import standardize_all
+
 # Standard SDC column order
 STANDARD_COLUMNS = ["geoid", "year", "measure", "value", "moe", "region_type"]
 
@@ -59,6 +61,7 @@ def write_data(
     path: str | pathlib.Path,
     *,
     standardize: bool = True,
+    census_standardize: bool = False,
     compress: bool = True,
 ) -> pathlib.Path:
     """Write a DataFrame in standard SDC format.
@@ -72,6 +75,9 @@ def write_data(
     standardize : bool
         If True, reindex to STANDARD_COLUMNS (dropping extra cols, adding
         missing ones as NaN).
+    census_standardize : bool
+        If True, apply 2010→2020 census geography standardization and output
+        both _geo10/_geo20 variants when applicable.
     compress : bool
         If True, write as .csv.xz.
 
@@ -87,6 +93,9 @@ def write_data(
             path = path.with_suffix(".csv.xz")
         else:
             path = pathlib.Path(str(path) + ".csv.xz")
+
+    if census_standardize:
+        df = standardize_all(df)
 
     if standardize:
         # Keep only standard columns, in order; fill missing with NaN
