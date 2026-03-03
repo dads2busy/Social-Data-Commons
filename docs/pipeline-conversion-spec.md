@@ -4,6 +4,63 @@ A guide for converting dataset pipelines from R to Python, following the pattern
 
 ---
 
+## 0. Dataset qualification checklist
+
+Run through this checklist **before** starting a conversion. A single **No** answer on the required questions means the dataset is not ready to convert using this spec — investigate the blocker first or defer the dataset.
+
+### 0.1 Data source is automatable
+
+| Question | Required? |
+|---|---|
+| Can the data be fetched programmatically (Census API, HTTP download, local file read)? | **Yes** |
+| If manual download is needed, is the URL stable and process documented? | **Yes** |
+| Does fetching require a running external service (OSRM server, spatial database, etc.)? | Must be **No** |
+
+> **Why this matters:** The Daycare pipeline was deferred because it requires an OSRM routing server and the R `catchment` package for a floating catchment area model. There is no Python equivalent and the server is not part of the standard dev environment.
+
+### 0.2 The R code is a complete, production pipeline
+
+| Question | Required? |
+|---|---|
+| Does the R script actually run end-to-end and produce output files? | **Yes** |
+| Are the output files committed in `data/distribution/`? | **Yes** |
+| Is the code generalized (not hardcoded to a single county, year, or local path)? | **Yes** |
+| Is the methodology clear enough to re-implement (not just exploratory analysis)? | **Yes** |
+
+> **Why this matters:** Some R files in the repo are incomplete explorations (e.g. Fairfax-only household simulations, half-finished PDF scrapers). Converting them would produce a pipeline that doesn't match any real data and can't be validated.
+
+### 0.3 Output can be validated
+
+| Question | Required? |
+|---|---|
+| Do reference output files exist (old R output or source data) to spot-check against? | **Yes** |
+| Is the measure definition clear enough to know what "correct" looks like? | **Yes** |
+
+### 0.4 Data source fits the long-format schema
+
+| Question | Required? |
+|---|---|
+| Can the data be expressed as (geoid, year, measure, value, moe) rows? | **Yes** |
+| Does each row represent a single geographic unit at a single point in time? | **Yes** |
+| Is there a usable geography identifier that maps to Census FIPS codes? | **Yes** |
+
+### 0.5 Spatial complexity
+
+| Question | Required? |
+|---|---|
+| Does the pipeline require spatial joins, routing, or catchment area calculations? | Must be **No** |
+| Does it require raster processing or network analysis? | Must be **No** |
+
+If spatial operations are needed, assess whether Python equivalents (`geopandas`, `shapely`, etc.) can replace the R logic without requiring external servers. If yes, document the approach and get agreement before proceeding.
+
+### 0.6 Quick verdict
+
+If all required questions are **Yes** and all "Must be No" questions are **No**: proceed with the conversion.
+
+If any required question is **No** or any "Must be No" question is **Yes**: document the blocker in the topic's README or in the deferred section of the project tracker, and do not start the conversion.
+
+---
+
 ## 1. Goals
 
 - Every dataset topic has a reproducible Python pipeline runnable with `uv run python <script>.py`
