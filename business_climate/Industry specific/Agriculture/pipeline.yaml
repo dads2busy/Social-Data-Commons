@@ -1,0 +1,37 @@
+name: agriculture
+description: "Agricultural statistics from USDA NASS Census of Agriculture"
+
+sources:
+  va:
+    type: nass
+    state_fips: "51"
+    years: [2022, 2017]
+    geographies: [county]
+    measures:
+      - search_term: "AG LAND, CROPLAND - ACRES"
+        measure: total_cropland_acres
+      - search_term: "AG LAND, IRRIGATED - ACRES"
+        measure: total_irrigatedCropland_acre
+      - search_term: "AG LAND, CROPLAND - NUMBER OF OPERATIONS"
+        measure: total_cropland_operations
+      - search_term: "ANIMAL TOTALS - EXPENSE, MEASURED IN $"
+        measure: total_animal_expense
+      - search_term: "FRUIT & TREE NUT TOTALS - SALES, MEASURED IN $"
+        measure: fruit_treeNut_total_sales
+      - search_term: "ANIMAL TOTALS, INCL PRODUCTS - SALES, MEASURED IN $"
+        measure: total_animalProducts_sales
+      - search_term: "CATTLE, INCL CALVES - SALES, MEASURED IN $"
+        measure: total_calves_sales
+      - search_term: "COMMODITY TOTALS - SALES, MEASURED IN $"
+        measure: total_commodity_sales
+      - search_term: "AG LAND, INCL BUILDINGS - ASSET VALUE, MEASURED IN $"
+        measure: total_farmValue
+      - search_term: "AG LAND, INCL BUILDINGS - ASSET VALUE, MEASURED IN $ / OPERATION"
+        measure: operation_farmValue
+      - search_term: "AG LAND - ACRES"
+        measure: total_acres
+      - search_term: "AG LAND - NUMBER OF OPERATIONS"
+        measure: total_operations
+
+output:
+  path: data/distribution

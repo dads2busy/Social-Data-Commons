@@ -1,0 +1,70 @@
+name: worker_diversity
+description: "Employment by minority/nonminority workers from LODES WAC (Workplace Area Characteristics)"
+
+sources:
+  ncr:
+    type: lodes
+    states: ["va", "md", "dc"]
+    years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
+    lodes_type: wac
+    job_type: JT00
+    segment: S000
+    geographies: [block_group, tract, county]
+    counties:
+      - "51013"   # Arlington
+      - "51059"   # Fairfax County
+      - "51107"   # Loudoun
+      - "51510"   # Alexandria
+      - "51600"   # Fairfax City
+      - "51153"   # Prince William
+      - "51683"   # Manassas
+      - "51685"   # Manassas Park
+      - "51610"   # Falls Church
+      - "11001"   # DC
+      - "24031"   # Montgomery MD
+      - "24033"   # Prince George's MD
+      - "24017"   # Charles MD
+      - "24021"   # Frederick MD
+
+  va059:
+    type: lodes
+    states: ["va"]
+    years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
+    lodes_type: wac
+    job_type: JT00
+    segment: S000
+    geographies: [block_group, tract, county]
+    counties:
+      - "51059"   # Fairfax County
+
+  rva:
+    type: lodes
+    states: ["va"]
+    years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
+    lodes_type: wac
+    job_type: JT00
+    segment: S000
+    geographies: [block_group, tract, county]
+    counties:
+      - "51159"   # Richmond City
+      - "51087"   # Henrico
+      - "51041"   # Chesterfield
+
+race_columns:
+  CR01: White_alone
+  CR02: Black_alone
+  CR03: American_indian_alaska_native_alone
+  CR04: Asian_alone
+  CR05: Hawaii_pacific_islander_alone
+  CR07: Two_or_more_races
+
+minority_mapping:
+  White_alone: Nonminority
+  Black_alone: Minority
+  American_indian_alaska_native_alone: Minority
+  Asian_alone: Minority
+  Hawaii_pacific_islander_alone: Minority
+  Two_or_more_races: Minority
+
+output:
+  path: data/distribution
