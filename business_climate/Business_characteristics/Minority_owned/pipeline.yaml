@@ -1,0 +1,22 @@
+name: business_characteristics_minority_owned
+description: "Minority owned business metrics from Mergent Intellect microdata"
+
+sources:
+  va059:
+    type: mergent_intellect
+    feature_file: mi_fairfax_features_bg.csv.xz
+    geographies: [block_group, tract, county]
+  ncr:
+    type: mergent_intellect
+    feature_file: mi_ncr_features_bg.csv.xz
+    geographies: [block_group, tract, county]
+  rva:
+    type: mergent_intellect
+    feature_file: mi_subva_features_bg.csv.xz
+    geographies: [block_group, tract, county]
+
+topic: Minority_owned
+category: Business_characteristics
+
+output:
+  path: data/distribution
