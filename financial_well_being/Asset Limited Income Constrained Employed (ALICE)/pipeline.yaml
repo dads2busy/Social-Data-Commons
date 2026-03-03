@@ -1,0 +1,11 @@
+name: alice
+description: "ALICE (Asset Limited, Income Constrained, Employed) and poverty rates from United for ALICE"
+
+sources:
+  va:
+    type: alice
+    url: "https://www.unitedforalice.org/Attachments/StateDataSheet/DataSheet_VA.xlsx"
+    sheet: 1
+
+output:
+  path: data/distribution

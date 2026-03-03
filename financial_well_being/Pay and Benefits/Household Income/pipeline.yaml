@@ -1,0 +1,23 @@
+name: household_income
+description: "Median household income from ACS B19013"
+
+sources:
+  ncr:
+    type: census_acs
+    profile: NCR
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county, block_group]
+    variables:
+      median_household_income: "B19013_001"
+
+  va:
+    type: census_acs
+    profile: VA
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county, block_group]
+    variables:
+      median_household_income: "B19013_001"
+
+output:
+  path: data/distribution
+  standardize: true

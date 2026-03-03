@@ -678,17 +678,193 @@ This checklist applies whether you are starting from R code or from existing Pyt
 
 **Step 3: Validate and commit**
 
-- [ ] Spot-check a few values against the old R output or source data
+- [ ] Run the output comparison script (section 13) for each source with an existing R output file
+- [ ] Confirm matched row count ≥ 90% of old row count for overlapping years
+- [ ] Confirm mean absolute difference is within a reasonable tolerance for the measure type
+- [ ] Write a validation report to `docs/validation_report.md` in the topic directory (section 15)
 - [ ] Delete any stale intermediate files left by non-conforming scripts (old naming, old format)
 - [ ] Stage only the final output files (not stale intermediates from failed runs)
 - [ ] Commit and push
 
 ---
 
-## 13. What not to port
+## 13. Output validation
+
+After running `ingest.py`, validate the new output by comparing it to the previously produced distribution files for overlapping years. This catches regressions in measure computation, wrong variable IDs, or unexpected schema changes before committing.
+
+### 13.1 Identify the comparison file
+
+Look in `data/distribution/` for old R-output files. They typically lack `census_acs` in the name or use older naming conventions:
+
+```
+data/distribution/
+├── ncr_cttr_2015_2023_income_inequality_gini_index.csv.xz   ← old R output (reference)
+└── ncr_cttr_census_acs_2015_2024_income_inequality.csv.xz   ← new Python output
+```
+
+Restrict the comparison to years that appear in **both** files. For example, if the new file covers 2015–2024 but the old file covers 2015–2023, compare only 2015–2023.
+
+### 13.2 Comparison script
+
+Run a quick comparison in Python — no special library needed:
+
+```python
+import pandas as pd
+from pathlib import Path
+
+dist_dir = Path("data/distribution")
+
+# Load old and new files
+old = pd.read_csv(sorted(dist_dir.glob("ncr_cttr_2015_*income_inequality*.csv.xz"))[-1])
+new = pd.read_csv(sorted(dist_dir.glob("ncr_cttr_census_acs*income_inequality*.csv.xz"))[-1])
+
+# Normalize old file column names if needed (old R output often uses different schema)
+# e.g. old.rename(columns={"GEOID": "geoid", "estimate": "value", "variable": "measure"}, inplace=True)
+
+# Keep only overlapping years
+overlap_years = set(old["year"].unique()) & set(new["year"].unique())
+old = old[old["year"].isin(overlap_years)]
+new = new[new["year"].isin(overlap_years)]
+
+# Join on common keys
+merged = old.merge(new, on=["geoid", "year", "measure"], suffixes=("_old", "_new"))
+
+# Coverage check
+print(f"Old rows (overlap years): {len(old)}")
+print(f"New rows (overlap years): {len(new)}")
+print(f"Matched rows:             {len(merged)}")
+
+# Value check
+merged["diff"] = (merged["value_new"] - merged["value_old"]).abs()
+print(f"Mean absolute diff: {merged['diff'].mean():.4f}")
+print(f"Max absolute diff:  {merged['diff'].max():.4f}")
+print(f"Rows within 0.01:  {(merged['diff'] < 0.01).sum()} / {len(merged)}")
+```
+
+### 13.3 What to expect
+
+| Outcome | Likely cause | Action |
+|---|---|---|
+| 0 matched rows | Column name mismatch in old file | Rename columns before merging; check `measure` values match |
+| High mean diff | Wrong variable ID, different normalization, year offset | Review `ingest.py` variable mapping |
+| Small systematic bias | Rounding difference (e.g. different decimal precision) | Acceptable if well under 1 unit |
+| Matched rows < 90% of old | New pipeline drops rows the old one kept | Investigate `dropna` and suppression logic |
+| Near-exact match | — | Proceed to commit |
+
+> **Note:** The old R output often uses a different column schema (e.g. `GEOID`, `estimate`, `variable` instead of `geoid`, `value`, `measure`). Normalize the old file's columns before merging, and verify that `measure` values align (the old file may use a verbose name like `"gini_index"` while the new one uses a short slug).
+
+### 13.4 Reasonable tolerances by measure type
+
+| Measure type | Tolerance |
+|---|---|
+| Proportions / percentages (0–100) | < 0.1 mean absolute diff |
+| Indices (0–1) | < 0.01 mean absolute diff |
+| Dollar amounts | < $100 mean absolute diff |
+| Counts | < 1% of mean value |
+
+Larger differences need a documented explanation (e.g. "old R code used 2010 boundaries; new code standardizes to 2020").
+
+---
+
+## 14. What not to port
 
 Some R pipelines use infrastructure that has no straightforward Python equivalent:
 
 - **Spatial accessibility (catchment ratios)** — requires OSRM server + `catchment` R package. Defer until a Python spatial access library or custom implementation is ready.
 - **Incomplete/exploratory R scripts** — if the R code is a one-off analysis rather than a production pipeline (e.g. hardcoded single-county paths, no generalizable output), clarify the intended scope before porting.
 - **Pipelines with no distribution data** and unclear methodology — investigate whether the pipeline ever ran successfully before converting.
+
+---
+
+## 15. Validation report
+
+After completing validation (section 13), write a report to `docs/validation_report.md` inside the topic directory. This creates a permanent record of what was compared, what matched, and what differences are expected.
+
+### 15.1 Location
+
+```
+<topic>/
+├── docs/
+│   └── validation_report.md    ← new
+├── pipeline.yaml
+├── code/distribution/
+│   ├── ingest.py
+│   └── prepare.py
+└── data/distribution/
+```
+
+### 15.2 Template
+
+````markdown
+# <Topic Name> — Conversion Validation Report
+
+**Date:** YYYY-MM-DD
+**Converted from:** `code/distribution/<old_script>.R`
+**New pipeline:** `pipeline.yaml` + `code/distribution/ingest.py` + `code/distribution/prepare.py`
+
+## Data source
+
+- **Source:** <source name and URL>
+- **Type:** <census_acs | county_health_rankings | mixed | etc.>
+- **Coverage:** <VA | NCR | both>
+- **Years:** <year range>
+
+## Output files
+
+| File | Rows | Years | Measures | Region types |
+|---|---|---|---|---|
+| `<new_ingest_output>.csv.xz` | N | YYYY–YYYY | measure1, measure2 | county, tract |
+| `<new_prepare_output>.csv.xz` | N | YYYY–YYYY | measure1, measure2 | health_district, county, tract |
+
+## Validation against old R output
+
+### <Source / level name>
+
+| Comparison | Old file | New file |
+|---|---|---|
+| File | `<old_filename>.csv.xz` | `<new_filename>.csv.xz` |
+| Rows | N | N |
+| Overlap years | YYYY–YYYY | — |
+| Matched rows | N | — |
+
+| Measure | Matched | Mean diff | Max diff | Result |
+|---|---|---|---|---|
+| measure_name | N | 0.0000 | 0.0000 | PASS |
+
+### Known differences
+
+> Document any expected differences here. Each entry should explain:
+> 1. What differs (which level, measure, years)
+> 2. Why it differs (bug fix, methodology change, boundary standardization)
+> 3. Which output is correct
+
+Example:
+- **County 2021 values:** Old R code had an extrapolation bug — `max(year)` in a
+  `mutate()` evaluated to the newly assigned 2021 instead of source year 2020,
+  producing `rate × 0`. New Python output correctly extrapolates. New is correct.
+
+## Dashboard files
+
+| File | Rows | Location |
+|---|---|---|
+| `va_ct_<source>_<years>_<topic>.csv.xz` | N | `dashboard_data/virginia_public_health_data/` |
+| `va_hd_<source>_<years>_<topic>.csv.xz` | N | `dashboard_data/virginia_public_health_data/` |
+| `va_tr_<source>_<years>_<topic>.csv.xz` | N | `dashboard_data/virginia_public_health_data/` |
+
+## Schema changes
+
+| Aspect | Old (R) | New (Python) |
+|---|---|---|
+| Columns | geoid, year, measure, value, moe | geoid, year, measure, value, moe, region_type |
+| Measure names | `<old_name>` | `<new_name>_geo10`, `<new_name>_geo20` |
+| Precision | 2 decimals | 4 decimals |
+````
+
+### 15.3 Guidelines
+
+- **Be specific.** Include exact filenames, row counts, and diff values — not vague summaries.
+- **Document every known difference.** If a value changed, explain why and which is correct.
+- **Include R bugs found.** If the old R code had a bug (wrong variable recycling, extrapolation error, etc.), describe it precisely so future readers understand the discrepancy.
+- **Keep it factual.** The report is a reference document, not a narrative. Use tables over prose where possible.
+- **One report per topic.** If the topic has multiple sources (e.g. VA + NCR), cover all of them in a single report.
+- **Deferred pipelines.** If a pipeline was evaluated and deferred, write a brief report explaining which qualification checklist items failed and why.

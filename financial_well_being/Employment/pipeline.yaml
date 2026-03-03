@@ -1,0 +1,52 @@
+name: employment
+description: "Employment rate and labor force participation rate from ACS B23025 and S2301"
+
+sources:
+  # emp_rate for VA (detail table B23025)
+  va_emp:
+    type: census_acs
+    table_type: detail
+    profile: VA
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county]
+    variables:
+      civilian_lf: "B23025_003"
+      employed: "B23025_004"
+
+  # emp_rate for NCR (detail table B23025)
+  ncr_emp:
+    type: census_acs
+    table_type: detail
+    profile: NCR
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county]
+    variables:
+      civilian_lf: "B23025_003"
+      employed: "B23025_004"
+
+  # labor_participate_rate for VA (subject table S2301)
+  va_labor:
+    type: census_acs
+    table_type: subject
+    profile: VA
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county]
+    variables:
+      labor_participate_rate: "S2301_C02_001"
+
+  # labor_participate_rate for NCR (subject table S2301)
+  ncr_labor:
+    type: census_acs
+    table_type: subject
+    profile: NCR
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county]
+    variables:
+      labor_participate_rate: "S2301_C02_001"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: true

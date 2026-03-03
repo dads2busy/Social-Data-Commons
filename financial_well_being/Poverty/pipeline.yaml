@@ -1,0 +1,51 @@
+name: poverty
+description: "Poverty rates by race and sex from ACS B17001 tables"
+
+sources:
+  # NCR adults and children poverty by race/sex
+  ncr:
+    type: census_acs
+    table_type: detail
+    profile: NCR
+    years: [2021]
+    geographies: [tract]
+    # Variables are constructed programmatically from B17001A-I tables
+    # Adults: men_pov=rows 10-16, men_no_pov=39-45, women_pov=24-30, women_no_pov=53-59
+    # Children: boys_pov=rows 4-9, boys_no_pov=33-38, girls_pov=18-23, girls_no_pov=47-52
+    race_tables:
+      wht: "A"
+      blk: "B"
+      asian: "D"
+      wht_nonhis: "H"
+      his: "I"
+    other_tables: ["C", "E", "F", "G"]  # AIAN, NHPI, other, 2+races -> combined as "othr"
+
+  # Fairfax County detailed demographics (VA-specific subset)
+  ffx:
+    type: census_acs
+    table_type: detail
+    state: "VA"
+    county: "059"
+    years: [2021]
+    geographies: [tract]
+    variables:
+      below_m: "B17001_003"
+      below_f: "B17001_017"
+      above_m: "B17001_032"
+      above_f: "B17001_046"
+      below_m_wht: "B17001A_003"
+      below_f_wht: "B17001A_017"
+      above_m_wht: "B17001A_032"
+      above_f_wht: "B17001A_046"
+      below_m_afr_amer: "B17001B_003"
+      below_f_afr_amer: "B17001B_017"
+      above_m_afr_amer: "B17001B_032"
+      above_f_afr_amer: "B17001B_046"
+      below_m_asian: "B17001D_003"
+      below_f_asian: "B17001D_017"
+      above_m_asian: "B17001D_032"
+      above_f_asian: "B17001D_046"
+
+output:
+  path: data/distribution
+  standardize: false

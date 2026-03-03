@@ -1,0 +1,19 @@
+name: personal_income
+description: "Earnings per job and compensation from BEA CAINC4 (VA counties and health districts)"
+
+sources:
+  va:
+    type: bea
+    line_codes:
+      tot_employment: 10
+      wage_sal: 50
+      wage_sup: 60
+      prop_inc: 70
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geo_fips: "VA"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
