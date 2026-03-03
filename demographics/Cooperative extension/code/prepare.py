@@ -11,7 +11,6 @@ Combines ACS-based measures with County Health Rankings data:
 import time
 from pathlib import Path
 
-import httpx
 import pandas as pd
 import yaml
 from sdc_core.census import CensusClient
@@ -21,6 +20,7 @@ from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
 from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
+from sdc_core.sources.chr import ingest_chr
 from tqdm import tqdm
 
 TOPIC_DIR = Path(__file__).resolve().parents[1]
@@ -100,52 +100,6 @@ def ingest_children_gp(client: CensusClient, source_cfg: dict) -> pd.DataFrame:
     return pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
 
 
-def ingest_county_health_rankings(source_cfg: dict) -> pd.DataFrame:
-    """Download and parse County Health Rankings data for VA."""
-    chr_config = source_cfg["county_health_rankings"]
-    urls = chr_config["urls"]
-    measures = chr_config["measures"]
-
-    records = []
-    for year, url in tqdm(urls.items(), desc="County Health Rankings"):
-        year = int(year)
-        try:
-            resp = httpx.get(url, timeout=30, follow_redirects=True)
-            resp.raise_for_status()
-        except httpx.HTTPError as e:
-            log.warning("Could not download CHR %d: %s", year, e)
-            continue
-
-        tmp = TOPIC_DIR / "data" / "working" / f"chr_{year}.xlsx"
-        tmp.parent.mkdir(parents=True, exist_ok=True)
-        tmp.write_bytes(resp.content)
-
-        try:
-            df = pd.read_excel(tmp, sheet_name="Additional Measure Data", header=1)
-        except Exception as e:
-            log.warning("Could not parse CHR %d: %s", year, e)
-            continue
-
-        if "FIPS" not in df.columns:
-            log.warning("No FIPS column in CHR %d, skipping", year)
-            continue
-
-        df["geoid"] = df["FIPS"].astype(str).str.zfill(5)
-
-        for measure_def in measures:
-            col_name = measure_def["column"]
-            measure_name = measure_def["name"]
-            if col_name in df.columns:
-                subset = df[["geoid"]].copy()
-                subset["year"] = year
-                subset["measure"] = measure_name
-                subset["value"] = pd.to_numeric(df[col_name], errors="coerce")
-                subset["moe"] = pd.NA
-                subset["region_type"] = "county"
-                records.append(subset.dropna(subset=["value"]))
-
-    return pd.concat(records, ignore_index=True) if records else pd.DataFrame()
-
 
 def run_source(
     name: str,
@@ -167,7 +121,13 @@ def run_source(
         parts.append(ingest_children_gp(client, source_cfg))
 
         log.info("Ingesting County Health Rankings")
-        parts.append(ingest_county_health_rankings(source_cfg))
+        parts.append(
+            ingest_chr(
+                source_cfg["county_health_rankings"],
+                working_dir=TOPIC_DIR / "data" / "working",
+                state_fips_prefix="51",
+            )
+        )
 
         result = pd.concat([p for p in parts if not p.empty], ignore_index=True)
 

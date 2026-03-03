@@ -62,6 +62,8 @@ sources:
         2021: "https://www.countyhealthrankings.org/sites/default/files/media/document/2021%20County%20Health%20Rankings%20Virginia%20Data%20-%20v1_0.xlsx"
         2022: "https://www.countyhealthrankings.org/sites/default/files/media/document/2022%20County%20Health%20Rankings%20Virginia%20Data%20-%20v2.xlsx"
         2023: "https://www.countyhealthrankings.org/sites/default/files/media/document/2023%20County%20Health%20Rankings%20Virginia%20Data%20-%20v3.xlsx"
+        2024: "https://www.countyhealthrankings.org/sites/default/files/media/document/2024%20County%20Health%20Rankings%20Virginia%20Data%20-%20v2.xlsx"
+        2025: "https://www.countyhealthrankings.org/sites/default/files/media/document/2025%20County%20Health%20Rankings%20Virginia%20Data%20-%20v4.xlsx"
       measures:
         - column: "% Disconnected Youth"
           name: disconnectedYouth
@@ -128,6 +130,8 @@ sources:
         2021: "https://www.countyhealthrankings.org/sites/default/files/media/document/2021%20County%20Health%20Rankings%20Virginia%20Data%20-%20v1_0.xlsx"
         2022: "https://www.countyhealthrankings.org/sites/default/files/media/document/2022%20County%20Health%20Rankings%20Virginia%20Data%20-%20v2.xlsx"
         2023: "https://www.countyhealthrankings.org/sites/default/files/media/document/2023%20County%20Health%20Rankings%20Virginia%20Data%20-%20v3.xlsx"
+        2024: "https://www.countyhealthrankings.org/sites/default/files/media/document/2024%20County%20Health%20Rankings%20Virginia%20Data%20-%20v2.xlsx"
+        2025: "https://www.countyhealthrankings.org/sites/default/files/media/document/2025%20County%20Health%20Rankings%20Virginia%20Data%20-%20v4.xlsx"
       measures:
         - column: "% Disconnected Youth"
           name: disconnectedYouth

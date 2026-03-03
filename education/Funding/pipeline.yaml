@@ -1,0 +1,27 @@
+name: school_funding_adequacy
+description: "School funding adequacy from County Health Rankings"
+
+sources:
+  va:
+    type: county_health_rankings
+    state: VA
+    geographies: [county]
+    county_health_rankings:
+      urls:
+        2022: "https://www.countyhealthrankings.org/sites/default/files/media/document/2022%20County%20Health%20Rankings%20Virginia%20Data%20-%20v2.xlsx"
+        2023: "https://www.countyhealthrankings.org/sites/default/files/media/document/2023%20County%20Health%20Rankings%20Virginia%20Data%20-%20v3.xlsx"
+        2024: "https://www.countyhealthrankings.org/sites/default/files/media/document/2024%20County%20Health%20Rankings%20Virginia%20Data%20-%20v2.xlsx"
+        2025: "https://www.countyhealthrankings.org/sites/default/files/media/document/2025%20County%20Health%20Rankings%20Virginia%20Data%20-%20v4.xlsx"
+      measures:
+        - name: schoolFundAdequacy
+          columns:
+            2022: "School funding"
+            2023: "School Funding Adequacy"
+            2024: "School Funding Adequacy"
+            2025: "School Funding Adequacy"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution

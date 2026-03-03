@@ -1,0 +1,34 @@
+name: reading_scores
+description: "3rd grade English reading SOL pass rates by school division from VDOE"
+
+sources:
+  va:
+    type: vdoe
+    geographies: [health_district, county]
+
+    # Download "Division Test-by-Test" Excel files from:
+    # https://www.doe.virginia.gov/data-policy-funding/data-reports/statistics-reports/sol-test-pass-rates-other-results
+    # Place files in data/working/ with the filenames listed below.
+    # Each file covers three school years (shown as the start year).
+    working_files:
+      - filename: "2017-2018-division-test-by-test.xlsx"
+        header_row: 1   # row 0 is a title, row 1 is column headers
+        years: [2015, 2016, 2017]
+      - filename: "division-by-test-2019.csv"
+        header_row: 0
+        years: [2016, 2017, 2018]
+      - filename: "division-by-test-2022.xlsx"
+        header_row: 0
+        years: [2019, 2020, 2021]
+      - filename: "Division_Test_by_level_2023_2024.xlsx"
+        header_row: 0
+        years: [2021, 2022, 2023]
+      - filename: "SY 2024-2025 Division Test by Test.xlsx"
+        header_row: 0
+        years: [2022, 2023, 2024]
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
