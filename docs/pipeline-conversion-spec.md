@@ -654,17 +654,32 @@ Logger name format: `{topic_slug}.{step}` (e.g. `postsecondary.ingest`, `reading
 
 ## 12. Conversion checklist
 
-When converting an R dataset to Python:
+This checklist applies whether you are starting from R code or from existing Python that doesn't yet conform to the standard pattern.
 
-- [ ] Read the existing R code and any source data in `data/distribution/` to understand what the pipeline produces
+**Step 1: Understand what exists**
+
+- [ ] Check the topic directory for any existing Python files — a partial Python conversion may already be in progress
+- [ ] If Python files exist, compare them against the standard pattern (section 3):
+  - Is there a `pipeline.yaml`? Does it contain all sources, years, variables, and crosswalk paths?
+  - Is there an `ingest.py` that fetches data, computes measures, and writes long-format `.csv.xz` to `data/distribution/`?
+  - Is there a `prepare.py` that aggregates to health districts and calls `data_reformat_for_site`?
+- [ ] If the structure diverges from the pattern (e.g. a single monolithic script, inline config, no `pipeline.yaml`, or `ingest.py` that also writes dashboard files), **refactor it to conform** — do not layer the standard pattern on top of non-conforming code
+- [ ] Read the existing R (or Python) code and any output in `data/distribution/` to understand what the pipeline is supposed to produce
+
+**Step 2: Build the pipeline**
+
 - [ ] Identify the data source type (ACS, CHR, VDOE, manual download, other API)
 - [ ] Check if a shared `sdc_core.sources.*` module covers the source; use it if so
-- [ ] Write `pipeline.yaml` with all source configs, years, and variables
-- [ ] Write `ingest.py` — fetches and writes county/tract long-format to `data/distribution/`
+- [ ] Write (or refactor) `pipeline.yaml` with all source configs, years, variables, and crosswalk paths
+- [ ] Write (or refactor) `ingest.py` — fetches and writes county/tract long-format to `data/distribution/`
 - [ ] Run `ingest.py` and verify row counts are reasonable
-- [ ] Write `prepare.py` — aggregates to health districts, writes dashboard files
+- [ ] Write (or refactor) `prepare.py` — aggregates to health districts, writes dashboard files
 - [ ] Run `prepare.py` and verify dashboard files appear in `dashboard_data/`
+
+**Step 3: Validate and commit**
+
 - [ ] Spot-check a few values against the old R output or source data
+- [ ] Delete any stale intermediate files left by non-conforming scripts (old naming, old format)
 - [ ] Stage only the final output files (not stale intermediates from failed runs)
 - [ ] Commit and push
 
