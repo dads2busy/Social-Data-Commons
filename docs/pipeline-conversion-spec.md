@@ -362,7 +362,7 @@ df = client.get_acs_multi(
 - Always use `get_acs_multi` for multi-year fetches — it handles looping and progress bars
 - `get_acs_wide` does **not** accept `profile=` — pass `state=` instead
 - `estimate_only=False` adds `{variable_name}_moe` columns (90% CI)
-- `census_standardize=True` in `write_data()` standardizes tract GEOIDs to 2020 boundaries
+- `census_standardize=True` in `write_data()` triggers 2010→2020 boundary standardization (see section 7.1)
 
 ### `aggregate_with_crosswalk` (`sdc_core.geo`)
 
@@ -456,10 +456,51 @@ Handles downloading, caching, parsing "Additional Measure Data" sheet (header=1)
 
 - Use `get_acs_multi` with `profile=` for multi-geography, multi-year fetches
 - Set `estimate_only=False` when MOE is needed (adds `{name}_moe` columns)
-- Always set `census_standardize=True` in `write_data()` for tract data
+- Always set `census_standardize=True` in `write_data()` for tract data (see below)
 - **Supported table types:** `"detail"` (B/C tables), `"subject"` (S tables), `"profile"` (DP tables)
 - **Year range:** 2010–2024 (2020 ACS 5-year is available; use it, don't skip)
 - **Compute derived measures** (ratios, weighted averages) in a `compute_measures()` function that takes the wide ACS DataFrame and returns long format
+
+#### 2010 → 2020 census geography standardization
+
+The US Census redrew tract boundaries in 2020. Data collected before 2020 uses 2010 tract GEOIDs; data from 2020 onward uses 2020 GEOIDs. Dashboards need consistent boundaries to compare across years.
+
+`write_data(census_standardize=True)` calls `standardize_all()`, which does the following:
+
+**1. Renames measure values to flag boundary version:**
+
+| Data | Measure renamed to |
+|---|---|
+| `year < 2020`, tract-level | `{measure}_geo10` (original 2010 boundaries) |
+| `year < 2020`, tract-level | `{measure}_geo20` (redistributed to 2020 boundaries) |
+| `year >= 2020`, tract-level | `{measure}_geo20` (already on 2020 boundaries) |
+| county / HD | unchanged (boundaries are stable) |
+
+Pre-2020 tract rows appear **twice** in the output — once as `_geo10` and once as `_geo20`.
+
+**2. Area-weighted redistribution for `_geo20`:**
+
+For tracts where boundaries changed between 2010 and 2020, values are redistributed using `convert_2010_to_2020_bounds()`, which applies a crosswalk with three change types:
+
+- `same` — tract unchanged; value copied as-is
+- `split` — 2010 tract split into multiple 2020 tracts; value copied to each (the parent value, not prorated — appropriate for rates)
+- `moved` — boundaries shifted; value weighted by `area_part / area20` (area overlap fraction)
+
+MOE is set to `pd.NA` for all `_geo20` converted rows because the area-weighting introduces uncertainty that is not propagated.
+
+**3. When to use it:**
+
+```python
+# Tract data with multi-year time series spanning 2010–2024 → always standardize
+out_path = write_data(result, path, census_standardize=True)
+
+# County-only data, or non-Census sources → do NOT standardize
+out_path = write_data(result, path, census_standardize=False)
+```
+
+**4. Effect on prepare.py:**
+
+`prepare.py` reads the already-standardized ingest output. The `_geo10` and `_geo20` measure names flow through unchanged into dashboard files. The dashboard expects this naming — do not strip the suffixes.
 
 ### 7.2 County Health Rankings (CHR)
 
