@@ -1,0 +1,11 @@
+name: childrens_food_insecurity
+description: "Children's food insecurity from Feeding America Map the Meal Gap"
+
+master_source: "../Overall Food Insecurity/data/working"
+
+measures:
+  - "Child_Food_Insecurity_Rate"
+  - "Num_Child_Food_Insecure"
+
+output:
+  path: data/distribution

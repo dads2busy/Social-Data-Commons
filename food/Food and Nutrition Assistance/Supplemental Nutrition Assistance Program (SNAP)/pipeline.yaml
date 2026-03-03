@@ -1,0 +1,28 @@
+name: snap
+description: "Households receiving SNAP from ACS B22010"
+
+sources:
+  ncr:
+    type: census_acs
+    profile: NCR
+    years: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    geographies: [county, tract, block_group]
+    variables:
+      total_hh: "B22010_001"
+      hh_snap: "B22010_002"
+
+  va:
+    type: census_acs
+    profile: VA
+    years: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    geographies: [county, tract, block_group]
+    variables:
+      total_hh: "B22010_001"
+      hh_snap: "B22010_002"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: true
