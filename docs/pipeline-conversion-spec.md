@@ -4,6 +4,24 @@ A guide for converting dataset pipelines from R to Python, following the pattern
 
 ---
 
+## Completion gate
+
+**A pipeline conversion is incomplete and must not be committed until every item below is present and verified.** Do not commit until every deliverable in this checklist is present. Verify each one explicitly before staging.
+
+| # | Required artifact | Verify by |
+|---|---|---|
+| 1 | `pipeline.yaml` exists in topic directory | File exists with all sources, years, variables |
+| 2 | `code/distribution/ingest.py` exists and runs | `uv run python ingest.py` exits 0, output files appear in `data/distribution/` with reasonable row counts |
+| 3 | `code/distribution/prepare.py` exists and runs | `uv run python prepare.py` exits 0, per-level files appear in `dashboard_data/` |
+| 4 | Validation comparison passes | Old vs new output compared, mean diff within tolerance (see section 13) |
+| 5 | `docs/validation_report.md` written | File exists in topic directory documenting comparison results |
+| 6 | Old R files moved to `legacy/` | `git mv` used, originals no longer in topic directory |
+| 7 | Dashboard files committed | Per-level `.csv.xz` files present in `dashboard_data/{site}/` |
+
+If a pipeline is **deferred** (fails qualification checklist in section 0), write a deferred-pipeline report instead — no code artifacts are required.
+
+---
+
 ## 0. Dataset qualification checklist
 
 Run through this checklist **before** starting a conversion. A single **No** answer on the required questions means the dataset is not ready to convert using this spec — investigate the blocker first or defer the dataset.
@@ -653,6 +671,8 @@ Logger name format: `{topic_slug}.{step}` (e.g. `postsecondary.ingest`, `reading
 ---
 
 ## 12. Conversion checklist
+
+> **Before committing, verify every item in the [Completion gate](#completion-gate) at the top of this spec.** A pipeline missing any required artifact is not ready to commit.
 
 This checklist applies whether you are starting from R code or from existing Python that doesn't yet conform to the standard pattern.
 
