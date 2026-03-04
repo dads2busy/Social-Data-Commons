@@ -35,9 +35,14 @@ def load_config() -> dict:
 
 
 def find_source(dist_dir: Path) -> Path | None:
-    """Find the ingest output file (national, us_ prefix)."""
-    candidates = sorted(dist_dir.glob("us_ct_cms_puf*marketplace_premium*.csv.xz"))
-    return candidates[-1] if candidates else None
+    """Find the ingest output file (national, us_ prefix).
+
+    If multiple files match, prefer the most recently modified.
+    """
+    candidates = list(dist_dir.glob("us_ct_cms_puf*marketplace_premium*.csv.xz"))
+    if not candidates:
+        return None
+    return max(candidates, key=lambda p: p.stat().st_mtime)
 
 
 def interpolate_va_2023(df: pd.DataFrame) -> pd.DataFrame:

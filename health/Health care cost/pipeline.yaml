@@ -72,12 +72,6 @@ sources:
       household:
         age: 30
         tobacco: false
-      excluded_territories:
-        - PR
-        - VI
-        - AS
-        - GU
-        - MP
 
 crosswalks:
   va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"

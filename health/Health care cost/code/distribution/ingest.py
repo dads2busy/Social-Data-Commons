@@ -68,6 +68,21 @@ _HYPHENATED_SLUGS = {
     "rhodeisland": "rhode-island",
 }
 
+# US state abbreviation → 2-digit FIPS code (50 states + DC)
+_STATE_ABBR_TO_FIPS = {
+    "AL": "01", "AK": "02", "AZ": "04", "AR": "05", "CA": "06",
+    "CO": "08", "CT": "09", "DE": "10", "DC": "11", "FL": "12",
+    "GA": "13", "HI": "15", "ID": "16", "IL": "17", "IN": "18",
+    "IA": "19", "KS": "20", "KY": "21", "LA": "22", "ME": "23",
+    "MD": "24", "MA": "25", "MI": "26", "MN": "27", "MS": "28",
+    "MO": "29", "MT": "30", "NE": "31", "NV": "32", "NH": "33",
+    "NJ": "34", "NM": "35", "NY": "36", "NC": "37", "ND": "38",
+    "OH": "39", "OK": "40", "OR": "41", "PA": "42", "RI": "44",
+    "SC": "45", "SD": "46", "TN": "47", "TX": "48", "UT": "49",
+    "VT": "50", "VA": "51", "WA": "53", "WV": "54", "WI": "55",
+    "WY": "56",
+}
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -107,7 +122,8 @@ def _read_csv_from_zip(
                 f"No file matching '{pattern}' in ZIP "
                 f"(contents: {zf.namelist()})"
             )
-        name = matches[0]
+        # Prefer shortest match to avoid variants like _round3
+        name = min(matches, key=len)
         with zf.open(name) as f:
             df = pd.read_csv(
                 f,
@@ -145,7 +161,7 @@ _SA_COLS_FFM = [
 
 
 def _load_rate(zip_bytes: bytes) -> pd.DataFrame:
-    """Load Rate PUF, filter to non-tobacco age-30, keep needed columns."""
+    """Load Rate PUF, filter to age-30, keep needed columns."""
     df = _read_csv_from_zip(zip_bytes, r"rate", dtype={"IssuerId": str, "ISSUER ID": str})
     df = _normalise_cols(df)
 
@@ -156,7 +172,8 @@ def _load_rate(zip_bytes: bytes) -> pd.DataFrame:
     df = df[df["Age"] == "30"].copy()
 
     keep = [c for c in _RATE_COLS_FFM if c in df.columns]
-    return df[keep].reset_index(drop=True)
+    df = df[keep]
+    return df.reset_index(drop=True)
 
 
 def _load_plan_attrs(zip_bytes: bytes) -> pd.DataFrame:
@@ -177,7 +194,8 @@ def _load_plan_attrs(zip_bytes: bytes) -> pd.DataFrame:
     df.loc[df["MetalLevel"] == "Expanded Bronze", "MetalLevel"] = "Bronze"
 
     keep = [c for c in _PLAN_COLS_FFM if c in df.columns]
-    return df[keep].reset_index(drop=True)
+    df = df[keep]
+    return df.reset_index(drop=True)
 
 
 def _parse_sbe_county_fips(county_val: str) -> str | None:
@@ -216,7 +234,8 @@ def _load_service_area(zip_bytes: bytes) -> pd.DataFrame:
     df["County"] = df["County"].apply(_parse_sbe_county_fips)
 
     keep = [c for c in _SA_COLS_FFM if c in df.columns]
-    return df[keep].reset_index(drop=True)
+    df = df[keep]
+    return df.reset_index(drop=True)
 
 
 # ---------------------------------------------------------------------------
@@ -282,15 +301,18 @@ def _load_pufs_for_year(
                 )
             try:
                 sbe_zip = _download(url, cache_dir, f"SBE {state_abbr} {year}")
-            except httpx.HTTPStatusError:
+            except (httpx.HTTPStatusError, httpx.TimeoutException, httpx.ConnectError):
                 continue
             try:
-                rates_parts.append(_load_rate(sbe_zip))
-                plans_parts.append(_load_plan_attrs(sbe_zip))
-                sa_parts.append(_load_service_area(sbe_zip))
+                r = _load_rate(sbe_zip)
+                p = _load_plan_attrs(sbe_zip)
+                s = _load_service_area(sbe_zip)
             except (FileNotFoundError, KeyError, ValueError) as e:
                 log.warning("  SBE %s %d: skipping (incompatible PUF format: %s)", state_abbr, year, e)
                 continue
+            rates_parts.append(r)
+            plans_parts.append(p)
+            sa_parts.append(s)
 
     if not rates_parts:
         empty = pd.DataFrame()
@@ -326,7 +348,7 @@ def compute_premiums(
     plans: pd.DataFrame,
     sa: pd.DataFrame,
     county_ras: pd.DataFrame,
-    all_county_fips: pd.DataFrame,
+    state_counties: pd.DataFrame,
 ) -> pd.DataFrame:
     """Compute SLCSP and LCBP for every county.
 
@@ -336,7 +358,8 @@ def compute_premiums(
     plans : Plan Attributes PUF (Silver/Bronze Individual medical)
     sa    : Service Area PUF (Individual non-dental)
     county_ras : county FIPS → RatingAreaId mapping
-    all_county_fips : DataFrame with state_id and county_fips columns
+    state_counties : DataFrame with StateCode and County columns
+                     (derived from county_ras + _STATE_ABBR_TO_FIPS)
 
     Returns DataFrame with columns: fips, Raw_Cost_of_Silver, Raw_Cost_of_Bronze
     """
@@ -360,15 +383,9 @@ def compute_premiums(
     cover_specific = cover_specific.dropna(subset=["County"])
     cover_specific = cover_specific.drop(columns=["CoverEntireState"])
 
-    state_abbr_to_fips = (
-        all_county_fips[["state_id", "county_fips"]]
-        .drop_duplicates()
-        .rename(columns={"state_id": "StateCode", "county_fips": "County"})
-    )
-
     if not cover_all.empty:
         cover_all_expanded = cover_all.merge(
-            state_abbr_to_fips, on="StateCode", how="inner",
+            state_counties, on="StateCode", how="inner",
         )
     else:
         cover_all_expanded = pd.DataFrame(columns=cover_specific.columns)
@@ -431,25 +448,23 @@ def to_long_format(premiums: pd.DataFrame, year: int) -> pd.DataFrame:
     """Convert wide premiums (fips, Raw_Cost_of_Silver, Raw_Cost_of_Bronze)
     to long format (geoid, year, measure, value, moe, region_type).
     """
-    records: list[dict] = []
-    for _, row in premiums.iterrows():
-        for col, measure in [
-            ("Raw_Cost_of_Silver", "marketplace_slcsp"),
-            ("Raw_Cost_of_Bronze", "marketplace_lcbp"),
-        ]:
-            val = row.get(col)
-            if pd.isna(val):
-                continue
-            records.append({
-                "geoid": row["fips"],
-                "year": year,
-                "measure": measure,
-                "value": round(float(val), 2),
-                "moe": pd.NA,
-                "region_type": "county",
-            })
-
-    return pd.DataFrame(records)
+    df = premiums.rename(columns={
+        "Raw_Cost_of_Silver": "marketplace_slcsp",
+        "Raw_Cost_of_Bronze": "marketplace_lcbp",
+    })
+    df = df.melt(
+        id_vars=["fips"],
+        value_vars=["marketplace_slcsp", "marketplace_lcbp"],
+        var_name="measure",
+        value_name="value",
+    )
+    df = df.dropna(subset=["value"])
+    df["value"] = df["value"].round(2)
+    df = df.rename(columns={"fips": "geoid"})
+    df["year"] = year
+    df["moe"] = pd.NA
+    df["region_type"] = "county"
+    return df[["geoid", "year", "measure", "value", "moe", "region_type"]].reset_index(drop=True)
 
 
 # ---------------------------------------------------------------------------
@@ -463,20 +478,20 @@ def run() -> RunResult:
         source_cfg = config["sources"]["ncr"]
         puf_config = source_cfg["cms_puf"]
         cache_dir = TOPIC_DIR / "data" / "Working" / "puf_cache"
-        excluded = set(puf_config.get("excluded_territories", []))
 
-        # 1. Load geography for CoverEntireState expansion
-        geo_path = TOPIC_DIR / "data" / "Original" / "uszips.csv"
-        geo = pd.read_csv(
-            geo_path,
-            dtype={"zip": str, "county_fips": str, "state_id": str},
-            usecols=["zip", "state_id", "state_name", "county_fips", "county_name"],
-        )
-        geo = geo[~geo["state_id"].isin(excluded)].copy()
-
-        # 2. Load county → rating area crosswalk (stable across years)
+        # 1. Load county → rating area crosswalk (stable across years)
         county_ras = load_county_rating_areas(
             puf_config["county_rating_areas_url"], cache_dir,
+        )
+
+        # 2. Build state abbreviation → county FIPS mapping from county_ras
+        fips_to_abbr = {v: k for k, v in _STATE_ABBR_TO_FIPS.items()}
+        state_counties = county_ras[["statefip", "countyfip"]].drop_duplicates().copy()
+        state_counties["StateCode"] = state_counties["statefip"].map(fips_to_abbr)
+        state_counties = (
+            state_counties.dropna(subset=["StateCode"])
+            .rename(columns={"countyfip": "County"})
+            [["StateCode", "County"]]
         )
 
         # 3. Process each year (union of FFM and SBE years)
@@ -493,10 +508,17 @@ def run() -> RunResult:
             if rates.empty:
                 log.warning("  PY%d: no PUF data found, skipping", year)
                 continue
-            premiums = compute_premiums(rates, plans, sa, county_ras, geo)
+            premiums = compute_premiums(rates, plans, sa, county_ras, state_counties)
             log.info("  PY%d: %d counties with premium data", year, len(premiums))
             long = to_long_format(premiums, year)
             all_parts.append(long)
+
+        if not all_parts:
+            return RunResult(
+                success=False,
+                error="No PUF data found for any year",
+                duration_sec=time.time() - t0,
+            )
 
         df = pd.concat(all_parts, ignore_index=True)
 
