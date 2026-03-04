@@ -16,7 +16,7 @@ from sdc_core.naming import build_file_name
 from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
-TOPIC_DIR = Path(__file__).resolve().parents[1]
+TOPIC_DIR = Path(__file__).resolve().parents[2]
 log = get_logger("age.ingest")
 
 # Age group definitions (column name prefixes to sum)

@@ -1,4 +1,4 @@
-"""Prepare veteran demographics for dashboard sites.
+"""Prepare language demographics for dashboard sites.
 
 Steps:
 1. Read the VA ACS distribution file (county/tract/block_group)
@@ -9,6 +9,7 @@ Steps:
 """
 
 from pathlib import Path
+from typing import Literal, cast
 
 import pandas as pd
 import yaml
@@ -17,12 +18,17 @@ from sdc_core.io import data_reformat_for_site, read_data, write_data
 from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
 
-TOPIC_DIR = Path(__file__).resolve().parents[1]
+TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
 MEASURE_INFO = DIST_DIR / "measure_info.json"
 
-log = get_logger("veteran.prepare")
+DEFAULT_CROSSWALK = (
+    REPO_DIR
+    / "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+)
+
+log = get_logger("language.prepare")
 
 
 def load_config() -> dict:
@@ -32,13 +38,13 @@ def load_config() -> dict:
 
 def find_va_source(dist_dir: Path) -> Path | None:
     """Find the most recent VA ACS distribution file."""
-    candidates = sorted(dist_dir.glob("va_*veteran_demographics.csv.xz"))
+    candidates = sorted(dist_dir.glob("va_*language_demographics.csv.xz"))
     return candidates[-1] if candidates else None
 
 
 def find_ncr_source(dist_dir: Path) -> Path | None:
     """Find the most recent NCR ACS distribution file."""
-    candidates = sorted(dist_dir.glob("ncr_*veteran_demographics.csv.xz"))
+    candidates = sorted(dist_dir.glob("ncr_*language_demographics.csv.xz"))
     return candidates[-1] if candidates else None
 
 
@@ -63,16 +69,24 @@ def build_va_with_health_districts(va_source: Path, crosswalk_path: Path) -> Pat
     xwalk = pd.read_csv(crosswalk_path, dtype={"ct_geoid": str, "hd_geoid": str})
 
     # Aggregate each measure separately (mean for percentages, sum for counts)
-    percent_measures = [m for m in counties["measure"].unique() if "percent" in m]
-    count_measures = [m for m in counties["measure"].unique() if "percent" not in m]
+    measure_series = cast(pd.Series, counties["measure"]).astype(str)
+    measures = measure_series.unique().tolist()
+    percent_measures = [m for m in measures if "percent" in m]
+    count_measures = [m for m in measures if "percent" not in m]
 
-    hd_parts = []
-    for measures, method in [(count_measures, "sum"), (percent_measures, "mean")]:
-        subset = counties[counties["measure"].isin(measures)]
+    hd_parts: list[pd.DataFrame] = []
+    methods: list[tuple[list[str], Literal["sum", "mean"]]] = [
+        (count_measures, "sum"),
+        (percent_measures, "mean"),
+    ]
+    for measures, method in methods:
+        subset = counties.loc[
+            cast(pd.Series, counties["measure"]).isin(measures)
+        ].copy()
         if subset.empty:
             continue
         hd = aggregate_with_crosswalk(
-            subset,
+            cast(pd.DataFrame, subset),
             crosswalk=xwalk,
             source_col="ct_geoid",
             target_col="hd_geoid",
@@ -89,9 +103,17 @@ def build_va_with_health_districts(va_source: Path, crosswalk_path: Path) -> Pat
     )
 
     # Exclude block groups from VA distribution (not used by VA dashboard)
-    non_counties = non_counties[non_counties["geoid"].str.len() != 12]
+    non_counties_geoid = cast(pd.Series, non_counties["geoid"]).astype(str)
+    non_counties = non_counties[non_counties_geoid.str.len() != 12]
 
-    combined = pd.concat([non_counties, counties, health_districts], ignore_index=True)
+    combined = pd.concat(
+        [
+            cast(pd.DataFrame, non_counties),
+            cast(pd.DataFrame, counties),
+            cast(pd.DataFrame, health_districts),
+        ],
+        ignore_index=True,
+    )
     combined = combined.sort_values(["geoid", "year", "measure"]).reset_index(drop=True)
 
     # Build output filename from actual data
@@ -101,7 +123,7 @@ def build_va_with_health_districts(va_source: Path, crosswalk_path: Path) -> Pat
             coverage_area="va",
             data_source="census_acs",
             years=years,
-            title="veteran_demographics",
+            title="language_demographics",
             geographies=["health_district", "county", "tract"],
         )
         + ".csv.xz"
@@ -114,7 +136,9 @@ def build_va_with_health_districts(va_source: Path, crosswalk_path: Path) -> Pat
 
 def run() -> None:
     config = load_config()
-    crosswalk_path = REPO_DIR / config["crosswalks"]["va_county_to_hd"]
+    crosswalk_path = REPO_DIR / config.get("crosswalks", {}).get(
+        "va_county_to_hd", DEFAULT_CROSSWALK
+    )
     measure_info = MEASURE_INFO if MEASURE_INFO.exists() else None
 
     # --- VA pipeline ---
@@ -127,7 +151,7 @@ def run() -> None:
             levels=["health_district", "county", "tract"],
             coverage_area="va",
             data_source="census_acs",
-            title="veteran_demographics",
+            title="language_demographics",
             measure_info_path=measure_info,
         )
         for p in paths:
@@ -144,7 +168,7 @@ def run() -> None:
             levels=["county", "tract", "block_group"],
             coverage_area="ncr",
             data_source="census_acs",
-            title="veteran_demographics",
+            title="language_demographics",
             measure_info_path=measure_info,
         )
         for p in paths:

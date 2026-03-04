@@ -23,7 +23,7 @@ from sdc_core.result import RunResult
 from sdc_core.sources.chr import ingest_chr
 from tqdm import tqdm
 
-TOPIC_DIR = Path(__file__).resolve().parents[1]
+TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
 MEASURE_INFO = DIST_DIR / "measure_info.json"

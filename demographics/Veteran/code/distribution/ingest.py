@@ -1,6 +1,6 @@
-"""Ingest language demographics from ACS.
+"""Ingest veteran demographics from ACS.
 
-Configuration is read from language/pipeline.yaml.
+Configuration is read from veteran/pipeline.yaml.
 """
 
 import time
@@ -15,8 +15,8 @@ from sdc_core.naming import build_file_name
 from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
-TOPIC_DIR = Path(__file__).resolve().parents[1]
-log = get_logger("language.ingest")
+TOPIC_DIR = Path(__file__).resolve().parents[2]
+log = get_logger("veteran.ingest")
 
 
 def load_config() -> dict:
@@ -25,23 +25,13 @@ def load_config() -> dict:
 
 
 def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute limited English household counts and percentages."""
+    """Compute veteran counts and percentages."""
     df = df.copy()
-
-    df["hh_limited_english"] = (
-        df["spanish_limited"]
-        + df["indo_euro_limited"]
-        + df["asian_pacific_limited"]
-        + df["other_limited"]
-    )
-
-    df["language_hh_limited_english_count"] = df["hh_limited_english"]
-    df["language_hh_limited_english_percent"] = (
-        100 * df["hh_limited_english"] / df["total_hh"]
-    )
+    df["veteran_count"] = df["veteran"]
+    df["veteran_percent"] = 100 * df["veteran"] / df["vet_denom"]
 
     id_cols = ["geoid", "year", "region_type"]
-    measure_cols = [c for c in df.columns if c.startswith("language_")]
+    measure_cols = [c for c in df.columns if c.startswith("veteran_")]
 
     long = df[id_cols + measure_cols].melt(
         id_vars=id_cols,
@@ -75,7 +65,7 @@ def run_source(name: str, src: dict, out_dir: Path, standardize: bool) -> RunRes
             states=states,
             years=src.get("years"),
             source_type=src.get("type"),
-            title="language_demographics",
+            title="veteran_demographics",
         )
         filename = f"{auto_name}.csv.xz"
         out_path = write_data(
@@ -92,7 +82,7 @@ def run_source(name: str, src: dict, out_dir: Path, standardize: bool) -> RunRes
             duration_sec=time.time() - t0,
         )
     except Exception as e:
-        log.error("Language ingest failed for source '%s': %s", name, e, exc_info=True)
+        log.error("Veteran ingest failed for source '%s': %s", name, e, exc_info=True)
         return RunResult(
             success=False,
             error=str(e),

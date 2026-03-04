@@ -1,7 +1,6 @@
-"""Ingest gender demographics from ACS.
+"""Ingest race and ethnicity demographics from ACS.
 
-Fetches data for each source profile defined in pipeline.yaml and writes
-one tall-format .csv.xz per coverage area to data/distribution/.
+Configuration is read from race/pipeline.yaml.
 """
 
 import time
@@ -16,8 +15,8 @@ from sdc_core.naming import build_file_name
 from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
-TOPIC_DIR = Path(__file__).resolve().parents[1]
-log = get_logger("gender.ingest")
+TOPIC_DIR = Path(__file__).resolve().parents[2]
+log = get_logger("race.ingest")
 
 
 def load_config() -> dict:
@@ -26,16 +25,35 @@ def load_config() -> dict:
 
 
 def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute gender counts and percentages, melt to long format."""
+    """Compute race/ethnicity counts and percentages, melt to long format."""
     df = df.copy()
-    df["gender_total_count"] = df["total_pop"]
-    df["gender_male_count"] = df["male"]
-    df["gender_female_count"] = df["female"]
-    df["gender_male_percent"] = 100 * df["male"] / df["total_pop"]
-    df["gender_female_percent"] = 100 * df["female"] / df["total_pop"]
+
+    # Combine Asian + Pacific Islander into AAPI
+    df["AAPI"] = df["asian_alone"] + df["pacific_islander_alone"]
+
+    # Counts
+    df["race_total_count"] = df["total_race"]
+    df["race_wht_alone_count"] = df["wht_alone"]
+    df["race_afr_amer_alone_count"] = df["afr_amer_alone"]
+    df["race_native_alone_count"] = df["native_alone"]
+    df["race_AAPI_count"] = df["AAPI"]
+    df["race_other_count"] = df["other"]
+    df["race_two_or_more_count"] = df["two_or_more"]
+    df["race_hispanic_or_latino_count"] = df["hispanic_or_latino"]
+
+    # Percentages
+    df["race_wht_alone_percent"] = 100 * df["wht_alone"] / df["total_race"]
+    df["race_afr_amer_alone_percent"] = 100 * df["afr_amer_alone"] / df["total_race"]
+    df["race_native_alone_percent"] = 100 * df["native_alone"] / df["total_race"]
+    df["race_AAPI_percent"] = 100 * df["AAPI"] / df["total_race"]
+    df["race_other_percent"] = 100 * df["other"] / df["total_race"]
+    df["race_two_or_more_percent"] = 100 * df["two_or_more"] / df["total_race"]
+    df["race_hispanic_or_latino_percent"] = (
+        100 * df["hispanic_or_latino"] / df["eth_total"]
+    )
 
     id_cols = ["geoid", "year", "region_type"]
-    measure_cols = [c for c in df.columns if c.startswith("gender_")]
+    measure_cols = [c for c in df.columns if c.startswith("race_")]
 
     long = df[id_cols + measure_cols].melt(
         id_vars=id_cols,
@@ -46,7 +64,13 @@ def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
     return long
 
 
-def run_source(name: str, src: dict, out_dir: Path, client: CensusClient) -> RunResult:
+def run_source(
+    name: str,
+    src: dict,
+    out_dir: Path,
+    client: CensusClient,
+    standardize: bool,
+) -> RunResult:
     """Fetch and write one coverage-area source."""
     t0 = time.time()
     try:
@@ -69,10 +93,14 @@ def run_source(name: str, src: dict, out_dir: Path, client: CensusClient) -> Run
             states=states,
             years=src.get("years"),
             source_type=src.get("type"),
-            title="gender_demographics",
+            title="race_demographics",
         )
         filename = f"{auto_name}.csv.xz"
-        out_path = write_data(result, out_dir / filename)
+        out_path = write_data(
+            result,
+            out_dir / filename,
+            census_standardize=standardize,
+        )
         log.info("Wrote %d rows to %s", len(result), out_path)
 
         return RunResult(
@@ -89,11 +117,12 @@ def run_source(name: str, src: dict, out_dir: Path, client: CensusClient) -> Run
 def run() -> list[RunResult]:
     config = load_config()
     out_dir = TOPIC_DIR / config["output"]["path"]
+    standardize = config["output"].get("standardize", False)
     client = CensusClient()
 
     results = []
     for name, src in config["sources"].items():
-        results.append(run_source(name, src, out_dir, client))
+        results.append(run_source(name, src, out_dir, client, standardize))
     return results
 
 

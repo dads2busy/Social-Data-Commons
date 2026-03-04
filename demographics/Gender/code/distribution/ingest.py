@@ -1,6 +1,7 @@
-"""Ingest veteran demographics from ACS.
+"""Ingest gender demographics from ACS.
 
-Configuration is read from veteran/pipeline.yaml.
+Fetches data for each source profile defined in pipeline.yaml and writes
+one tall-format .csv.xz per coverage area to data/distribution/.
 """
 
 import time
@@ -15,8 +16,8 @@ from sdc_core.naming import build_file_name
 from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
-TOPIC_DIR = Path(__file__).resolve().parents[1]
-log = get_logger("veteran.ingest")
+TOPIC_DIR = Path(__file__).resolve().parents[2]
+log = get_logger("gender.ingest")
 
 
 def load_config() -> dict:
@@ -25,13 +26,16 @@ def load_config() -> dict:
 
 
 def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute veteran counts and percentages."""
+    """Compute gender counts and percentages, melt to long format."""
     df = df.copy()
-    df["veteran_count"] = df["veteran"]
-    df["veteran_percent"] = 100 * df["veteran"] / df["vet_denom"]
+    df["gender_total_count"] = df["total_pop"]
+    df["gender_male_count"] = df["male"]
+    df["gender_female_count"] = df["female"]
+    df["gender_male_percent"] = 100 * df["male"] / df["total_pop"]
+    df["gender_female_percent"] = 100 * df["female"] / df["total_pop"]
 
     id_cols = ["geoid", "year", "region_type"]
-    measure_cols = [c for c in df.columns if c.startswith("veteran_")]
+    measure_cols = [c for c in df.columns if c.startswith("gender_")]
 
     long = df[id_cols + measure_cols].melt(
         id_vars=id_cols,
@@ -42,12 +46,12 @@ def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
     return long
 
 
-def run_source(name: str, src: dict, out_dir: Path, standardize: bool) -> RunResult:
+def run_source(name: str, src: dict, out_dir: Path, client: CensusClient) -> RunResult:
+    """Fetch and write one coverage-area source."""
     t0 = time.time()
     try:
         log.info("Ingesting source '%s' (profile=%s)", name, src.get("profile"))
 
-        client = CensusClient()
         df = client.get_acs_multi(
             variables=src["variables"],
             years=src["years"],
@@ -65,14 +69,10 @@ def run_source(name: str, src: dict, out_dir: Path, standardize: bool) -> RunRes
             states=states,
             years=src.get("years"),
             source_type=src.get("type"),
-            title="veteran_demographics",
+            title="gender_demographics",
         )
         filename = f"{auto_name}.csv.xz"
-        out_path = write_data(
-            result,
-            out_dir / filename,
-            census_standardize=standardize,
-        )
+        out_path = write_data(result, out_dir / filename)
         log.info("Wrote %d rows to %s", len(result), out_path)
 
         return RunResult(
@@ -82,26 +82,18 @@ def run_source(name: str, src: dict, out_dir: Path, standardize: bool) -> RunRes
             duration_sec=time.time() - t0,
         )
     except Exception as e:
-        log.error("Veteran ingest failed for source '%s': %s", name, e, exc_info=True)
-        return RunResult(
-            success=False,
-            error=str(e),
-            duration_sec=time.time() - t0,
-        )
+        log.error("Ingest failed for source '%s': %s", name, e, exc_info=True)
+        return RunResult(success=False, error=str(e), duration_sec=time.time() - t0)
 
 
 def run() -> list[RunResult]:
     config = load_config()
     out_dir = TOPIC_DIR / config["output"]["path"]
-    standardize = config["output"].get("standardize", False)
-
-    sources = config.get("sources")
-    if sources is None:
-        sources = {"default": config["source"]}
+    client = CensusClient()
 
     results = []
-    for name, src in sources.items():
-        results.append(run_source(name, src, out_dir, standardize))
+    for name, src in config["sources"].items():
+        results.append(run_source(name, src, out_dir, client))
     return results
 
 

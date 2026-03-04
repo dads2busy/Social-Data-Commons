@@ -1,4 +1,4 @@
-"""Prepare race demographics for dashboard sites.
+"""Prepare gender demographics for dashboard sites.
 
 Steps:
 1. Read the VA ACS distribution file (county/tract/block_group)
@@ -9,7 +9,6 @@ Steps:
 """
 
 from pathlib import Path
-from typing import Literal, cast
 
 import pandas as pd
 import yaml
@@ -18,12 +17,12 @@ from sdc_core.io import data_reformat_for_site, read_data, write_data
 from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
 
-TOPIC_DIR = Path(__file__).resolve().parents[1]
+TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
 MEASURE_INFO = DIST_DIR / "measure_info.json"
 
-log = get_logger("race.prepare")
+log = get_logger("gender.prepare")
 
 
 def load_config() -> dict:
@@ -33,13 +32,17 @@ def load_config() -> dict:
 
 def find_va_source(dist_dir: Path) -> Path | None:
     """Find the most recent VA ACS distribution file."""
-    candidates = sorted(dist_dir.glob("va_*race_demographics.csv.xz"))
+    candidates = sorted(dist_dir.glob("va_*census_acs*gender_demographics.csv.xz"))
+    if candidates:
+        return candidates[-1]
+    # Fall back to any va_* file
+    candidates = sorted(dist_dir.glob("va_*gender_demographics.csv.xz"))
     return candidates[-1] if candidates else None
 
 
 def find_ncr_source(dist_dir: Path) -> Path | None:
     """Find the most recent NCR ACS distribution file."""
-    candidates = sorted(dist_dir.glob("ncr_*race_demographics.csv.xz"))
+    candidates = sorted(dist_dir.glob("ncr_*census_acs*gender_demographics.csv.xz"))
     return candidates[-1] if candidates else None
 
 
@@ -50,7 +53,6 @@ def build_va_with_health_districts(va_source: Path, crosswalk_path: Path) -> Pat
     """
     log.info("Reading VA source: %s", va_source)
     df = read_data(va_source)
-    df["geoid"] = df["geoid"].astype(str)
 
     # County rows only — crosswalk maps county FIPS (5-digit) to health district
     counties = df[df["geoid"].str.len() == 5].copy()
@@ -64,24 +66,16 @@ def build_va_with_health_districts(va_source: Path, crosswalk_path: Path) -> Pat
     xwalk = pd.read_csv(crosswalk_path, dtype={"ct_geoid": str, "hd_geoid": str})
 
     # Aggregate each measure separately (mean for percentages, sum for counts)
-    measure_series = cast(pd.Series, counties["measure"]).astype(str)
-    measures = measure_series.unique().tolist()
-    percent_measures = [m for m in measures if "percent" in m]
-    count_measures = [m for m in measures if "percent" not in m]
+    percent_measures = [m for m in counties["measure"].unique() if "percent" in m]
+    count_measures = [m for m in counties["measure"].unique() if "percent" not in m]
 
-    hd_parts: list[pd.DataFrame] = []
-    methods: list[tuple[list[str], Literal["sum", "mean"]]] = [
-        (count_measures, "sum"),
-        (percent_measures, "mean"),
-    ]
-    for measures, method in methods:
-        subset = counties.loc[
-            cast(pd.Series, counties["measure"]).isin(measures)
-        ].copy()
+    hd_parts = []
+    for measures, method in [(count_measures, "sum"), (percent_measures, "mean")]:
+        subset = counties[counties["measure"].isin(measures)]
         if subset.empty:
             continue
         hd = aggregate_with_crosswalk(
-            cast(pd.DataFrame, subset),
+            subset,
             crosswalk=xwalk,
             source_col="ct_geoid",
             target_col="hd_geoid",
@@ -93,36 +87,23 @@ def build_va_with_health_districts(va_source: Path, crosswalk_path: Path) -> Pat
         hd["moe"] = pd.NA
         hd_parts.append(hd)
 
-    health_districts = (
-        pd.concat(hd_parts, ignore_index=True) if hd_parts else pd.DataFrame()
-    )
+    health_districts = pd.concat(hd_parts, ignore_index=True) if hd_parts else pd.DataFrame()
 
     # Exclude block groups from VA distribution (not used by VA dashboard)
-    non_counties_geoid = cast(pd.Series, non_counties["geoid"]).astype(str)
-    non_counties = non_counties[non_counties_geoid.str.len() != 12]
+    non_counties = non_counties[non_counties["geoid"].str.len() != 12]
 
-    combined = pd.concat(
-        [
-            cast(pd.DataFrame, non_counties),
-            cast(pd.DataFrame, counties),
-            cast(pd.DataFrame, health_districts),
-        ],
-        ignore_index=True,
-    )
+    combined = pd.concat([non_counties, counties, health_districts], ignore_index=True)
     combined = combined.sort_values(["geoid", "year", "measure"]).reset_index(drop=True)
 
     # Build output filename from actual data
     years = combined["year"].unique().tolist()
-    filename = (
-        build_file_name(
-            coverage_area="va",
-            data_source="census_acs",
-            years=years,
-            title="race_demographics",
-            geographies=["health_district", "county", "tract"],
-        )
-        + ".csv.xz"
-    )
+    filename = build_file_name(
+        coverage_area="va",
+        data_source="census_acs",
+        years=years,
+        title="gender_demographics",
+        geographies=["health_district", "county", "tract"],
+    ) + ".csv.xz"
 
     out_path = write_data(combined, DIST_DIR / filename)
     log.info("Wrote %d rows to %s", len(combined), out_path)
@@ -144,7 +125,7 @@ def run() -> None:
             levels=["health_district", "county", "tract"],
             coverage_area="va",
             data_source="census_acs",
-            title="race_demographics",
+            title="gender_demographics",
             measure_info_path=measure_info,
         )
         for p in paths:
@@ -161,7 +142,7 @@ def run() -> None:
             levels=["county", "tract", "block_group"],
             coverage_area="ncr",
             data_source="census_acs",
-            title="race_demographics",
+            title="gender_demographics",
             measure_info_path=measure_info,
         )
         for p in paths:

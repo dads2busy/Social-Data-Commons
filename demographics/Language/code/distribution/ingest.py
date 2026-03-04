@@ -1,6 +1,6 @@
-"""Ingest race and ethnicity demographics from ACS.
+"""Ingest language demographics from ACS.
 
-Configuration is read from race/pipeline.yaml.
+Configuration is read from language/pipeline.yaml.
 """
 
 import time
@@ -15,8 +15,8 @@ from sdc_core.naming import build_file_name
 from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
-TOPIC_DIR = Path(__file__).resolve().parents[1]
-log = get_logger("race.ingest")
+TOPIC_DIR = Path(__file__).resolve().parents[2]
+log = get_logger("language.ingest")
 
 
 def load_config() -> dict:
@@ -25,35 +25,23 @@ def load_config() -> dict:
 
 
 def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute race/ethnicity counts and percentages, melt to long format."""
+    """Compute limited English household counts and percentages."""
     df = df.copy()
 
-    # Combine Asian + Pacific Islander into AAPI
-    df["AAPI"] = df["asian_alone"] + df["pacific_islander_alone"]
+    df["hh_limited_english"] = (
+        df["spanish_limited"]
+        + df["indo_euro_limited"]
+        + df["asian_pacific_limited"]
+        + df["other_limited"]
+    )
 
-    # Counts
-    df["race_total_count"] = df["total_race"]
-    df["race_wht_alone_count"] = df["wht_alone"]
-    df["race_afr_amer_alone_count"] = df["afr_amer_alone"]
-    df["race_native_alone_count"] = df["native_alone"]
-    df["race_AAPI_count"] = df["AAPI"]
-    df["race_other_count"] = df["other"]
-    df["race_two_or_more_count"] = df["two_or_more"]
-    df["race_hispanic_or_latino_count"] = df["hispanic_or_latino"]
-
-    # Percentages
-    df["race_wht_alone_percent"] = 100 * df["wht_alone"] / df["total_race"]
-    df["race_afr_amer_alone_percent"] = 100 * df["afr_amer_alone"] / df["total_race"]
-    df["race_native_alone_percent"] = 100 * df["native_alone"] / df["total_race"]
-    df["race_AAPI_percent"] = 100 * df["AAPI"] / df["total_race"]
-    df["race_other_percent"] = 100 * df["other"] / df["total_race"]
-    df["race_two_or_more_percent"] = 100 * df["two_or_more"] / df["total_race"]
-    df["race_hispanic_or_latino_percent"] = (
-        100 * df["hispanic_or_latino"] / df["eth_total"]
+    df["language_hh_limited_english_count"] = df["hh_limited_english"]
+    df["language_hh_limited_english_percent"] = (
+        100 * df["hh_limited_english"] / df["total_hh"]
     )
 
     id_cols = ["geoid", "year", "region_type"]
-    measure_cols = [c for c in df.columns if c.startswith("race_")]
+    measure_cols = [c for c in df.columns if c.startswith("language_")]
 
     long = df[id_cols + measure_cols].melt(
         id_vars=id_cols,
@@ -64,18 +52,12 @@ def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
     return long
 
 
-def run_source(
-    name: str,
-    src: dict,
-    out_dir: Path,
-    client: CensusClient,
-    standardize: bool,
-) -> RunResult:
-    """Fetch and write one coverage-area source."""
+def run_source(name: str, src: dict, out_dir: Path, standardize: bool) -> RunResult:
     t0 = time.time()
     try:
         log.info("Ingesting source '%s' (profile=%s)", name, src.get("profile"))
 
+        client = CensusClient()
         df = client.get_acs_multi(
             variables=src["variables"],
             years=src["years"],
@@ -93,7 +75,7 @@ def run_source(
             states=states,
             years=src.get("years"),
             source_type=src.get("type"),
-            title="race_demographics",
+            title="language_demographics",
         )
         filename = f"{auto_name}.csv.xz"
         out_path = write_data(
@@ -110,19 +92,26 @@ def run_source(
             duration_sec=time.time() - t0,
         )
     except Exception as e:
-        log.error("Ingest failed for source '%s': %s", name, e, exc_info=True)
-        return RunResult(success=False, error=str(e), duration_sec=time.time() - t0)
+        log.error("Language ingest failed for source '%s': %s", name, e, exc_info=True)
+        return RunResult(
+            success=False,
+            error=str(e),
+            duration_sec=time.time() - t0,
+        )
 
 
 def run() -> list[RunResult]:
     config = load_config()
     out_dir = TOPIC_DIR / config["output"]["path"]
     standardize = config["output"].get("standardize", False)
-    client = CensusClient()
+
+    sources = config.get("sources")
+    if sources is None:
+        sources = {"default": config["source"]}
 
     results = []
-    for name, src in config["sources"].items():
-        results.append(run_source(name, src, out_dir, client, standardize))
+    for name, src in sources.items():
+        results.append(run_source(name, src, out_dir, standardize))
     return results
 
 
