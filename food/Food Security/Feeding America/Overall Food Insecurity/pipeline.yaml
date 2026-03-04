@@ -1,0 +1,59 @@
+name: feeding_america
+description: "Food security measures from Feeding America Map the Meal Gap study"
+
+excel_files:
+  - year: 2019
+    file: MMG2021_2019Data_ToShare.xlsx
+    sheet: 1
+  - year: 2018
+    file: MMG2020_2018Data_ToShare.xlsx
+    sheet: 0
+    header: 1  # skip warning row
+  - year: 2017
+    file: MMG2019_2017Data_ToShare.xlsx
+    sheet: 0
+  - year: 2016
+    file: MMG2018_2016Data_ToShare.xlsx
+    sheet: 0
+  - year: 2015
+    file: MMG2017_2015Data_ToShare.xlsx
+    sheet: 0
+  - year: 2014
+    file: MMG2016_2014Data_ToShare.xlsx
+    sheet: 0
+
+tract_file: US_tract_2020.xlsx
+
+# ACS variables for HD population-weighted aggregation
+acs_variables:
+  tpop: "B01003_001"
+  male_under_5: "B01001_003"
+  male_5_9: "B01001_004"
+  male_10_14: "B01001_005"
+  male_15_17: "B01001_006"
+  female_under_5: "B01001_027"
+  female_5_9: "B01001_028"
+  female_10_14: "B01001_029"
+  female_15_17: "B01001_030"
+
+ncr_counties:
+  - "24021"
+  - "24031"
+  - "24033"
+  - "24017"
+  - "11001"
+  - "51107"
+  - "51059"
+  - "51153"
+  - "51013"
+  - "51510"
+  - "51683"
+  - "51600"
+  - "51610"
+  - "51685"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution

@@ -1,0 +1,10 @@
+name: food_budget_shortfall
+description: "Food budget shortfall from Feeding America Map the Meal Gap"
+
+master_source: "../Overall Food Insecurity/data/working"
+
+measures:
+  - "weighted_budget_shortfall"
+
+output:
+  path: data/distribution
