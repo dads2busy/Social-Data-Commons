@@ -33,6 +33,7 @@ def ingest_chr(
     working_dir: Path,
     *,
     state_fips_prefix: str | None = None,
+    sheet_name: str = "Additional Measure Data",
 ) -> pd.DataFrame:
     """Download CHR Excel files and extract measures into a long-format DataFrame.
 
@@ -44,6 +45,7 @@ def ingest_chr(
         - ``urls``: mapping of year -> download URL
         - ``measures``: list of dicts, each with ``name`` and either
           ``column`` (fixed name across years) or ``columns`` (year-keyed dict)
+        - ``sheet_name`` (optional): overrides the *sheet_name* parameter
 
     working_dir:
         Directory where downloaded Excel files are cached.
@@ -52,10 +54,16 @@ def ingest_chr(
         If given (e.g. ``"51"`` for Virginia), only rows whose FIPS starts
         with this prefix are kept.  Pass ``None`` to keep all rows.
 
+    sheet_name:
+        Excel sheet to read.  Defaults to ``"Additional Measure Data"``.
+        Can also be set via ``chr_cfg["sheet_name"]``.
+
     Returns
     -------
     pd.DataFrame with columns: geoid, year, measure, value, moe, region_type
     """
+    # Allow pipeline.yaml to override the sheet name
+    sheet_name = chr_cfg.get("sheet_name", sheet_name)
     urls = chr_cfg["urls"]
     measures = chr_cfg["measures"]
     working_dir = Path(working_dir)
@@ -75,7 +83,7 @@ def ingest_chr(
         tmp.write_bytes(resp.content)
 
         try:
-            df = pd.read_excel(tmp, sheet_name="Additional Measure Data", header=1)
+            df = pd.read_excel(tmp, sheet_name=sheet_name, header=1)
         except Exception as e:
             log.warning("Could not parse CHR %d: %s", year, e)
             continue

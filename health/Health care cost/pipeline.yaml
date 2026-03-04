@@ -1,0 +1,87 @@
+name: health_care_cost
+description: >
+  Marketplace insurance premiums (SLCSP and LCBP) per US county.
+  Computed from CMS Public Use Files (PUFs) for both FFM and SBE states.
+  Replaces the old KFF Selenium scraper.
+
+sources:
+  ncr:
+    type: cms_puf
+    profile: NCR
+    cms_puf:
+      puf:
+        ffm:
+          # URL templates — {year} is replaced at runtime
+          years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]
+          rate: "https://download.cms.gov/marketplace-puf/{year}/rate-puf.zip"
+          plan_attributes: "https://download.cms.gov/marketplace-puf/{year}/plan-attributes-puf.zip"
+          service_area: "https://download.cms.gov/marketplace-puf/{year}/service-area-puf.zip"
+        sbe:
+          # SBE PUFs available from 2016 for most SBE states.
+          # CMS changed the URL pattern nearly every year; url_templates
+          # handles each era.  Ingest tries each state×year, skips on 404.
+          #
+          # Template variables:
+          #   {slug}        = config key (no hyphens): "districtofcolumbia"
+          #   {hyphen_slug} = hyphenated form: "district-columbia" (code-generated)
+          #   {abbr}        = lowercase abbreviation: "dc"
+          #   {year}        = plan year
+          years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+          url_templates:
+            default: "https://www.cms.gov/files/zip/{slug}sbepuf{year}.zip"
+            2016: "https://www.cms.gov/cciio/resources/data-resources/downloads/{hyphen_slug}-2016-puf.zip"
+            2017: "https://www.cms.gov/cciio/resources/data-resources/downloads/puf{abbr}2017.zip"
+            2018: "https://www.cms.gov/cciio/resources/data-resources/downloads/2018-{hyphen_slug}-sbe-puf.zip"
+            2019: "https://www.cms.gov/files/zip/2019-sbe-pufsstate-files-{abbr}.zip"
+            2020: "https://www.cms.gov/files/zip/puf{abbr}2020.zip"
+            2021: "https://www.cms.gov/files/zip/puf{abbr}2021.zip"
+            2023: "https://www.cms.gov/files/zip/py-2023-sbe-qhp-puf-data-{hyphen_slug}.zip"
+          # Explicit URLs for state×year combos that don't fit any template
+          url_overrides:
+            # DC uses abbreviated slug in 2016/2018
+            districtofcolumbia_2016: "https://www.cms.gov/cciio/resources/data-resources/downloads/dc-2016-puf.zip"
+            districtofcolumbia_2018: "https://www.cms.gov/cciio/resources/data-resources/downloads/2018-dc-sbe-puf.zip"
+            # 2023 — four states use a different filename pattern
+            california_2023: "https://www.cms.gov/files/zip/california-sbe-qhp-puf-2023.zip"
+            idaho_2023: "https://www.cms.gov/files/zip/idaho-sbe-qhp-puf-2023.zip"
+            maine_2023: "https://www.cms.gov/files/zip/py-2023-sbe-qhp-pud-data-maine.zip"
+            massachusetts_2023: "https://www.cms.gov/files/zip/massachusetts-sbe-qhp-puf-2023.zip"
+            newmexico_2023: "https://www.cms.gov/files/zip/new-mexico-sbe-qhp-puf-2023.zip"
+          # State name (lowercase, no spaces) → state abbreviation
+          states:
+            california: CA
+            colorado: CO
+            connecticut: CT
+            districtofcolumbia: DC
+            idaho: ID
+            kentucky: KY
+            maine: ME
+            maryland: MD
+            massachusetts: MA
+            minnesota: MN
+            nevada: NV
+            newjersey: NJ
+            newmexico: NM
+            newyork: NY
+            pennsylvania: PA
+            rhodeisland: RI
+            vermont: VT
+            virginia: VA
+            washington: WA
+      county_rating_areas_url: "https://raw.githubusercontent.com/hrecht/marketplace-data/master/ratingareas/CountyRAs.csv"
+      household:
+        age: 30
+        tobacco: false
+      excluded_territories:
+        - PR
+        - VI
+        - AS
+        - GU
+        - MP
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: false

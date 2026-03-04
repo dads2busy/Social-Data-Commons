@@ -1,0 +1,21 @@
+name: drug_overdose_ed_visits
+description: "Drug overdose emergency department visit rates from Virginia Department of Health"
+
+sources:
+  va:
+    type: vdh
+    state: VA
+    geographies: [county]
+    vdh:
+      download_url: "https://www.vdh.virginia.gov/surveillance-and-investigation/syndromic-surveillance/drug-overdose-surveillance/"
+      working_files:
+        - filename: "Drug-Overdose-ED-Visits_Virginia-September-2021.xlsx"
+          sheet_index: 2
+          years: [2015, 2016, 2017, 2018, 2019, 2020, 2021]
+      measure: avg_monthly_rate
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
