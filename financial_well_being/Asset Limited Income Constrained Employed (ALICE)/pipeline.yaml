@@ -1,4 +1,5 @@
 name: alice
+version: "1.0.0"
 description: "ALICE (Asset Limited, Income Constrained, Employed) and poverty rates from United for ALICE"
 
 sources:

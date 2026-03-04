@@ -1,4 +1,5 @@
 name: veteran_demographics
+version: "1.0.0"
 description: "Veteran status from ACS"
 
 sources:

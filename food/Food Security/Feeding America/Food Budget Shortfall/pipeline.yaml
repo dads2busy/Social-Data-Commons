@@ -1,4 +1,5 @@
 name: food_budget_shortfall
+version: "1.0.0"
 description: "Food budget shortfall from Feeding America Map the Meal Gap"
 
 master_source: "../Overall Food Insecurity/data/working"

@@ -1,4 +1,5 @@
 name: business_characteristics_industry
+version: "1.0.0"
 description: "Industry business metrics from Mergent Intellect microdata"
 
 sources:

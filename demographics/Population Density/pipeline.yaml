@@ -1,4 +1,5 @@
 name: population_density
+version: "1.0.0"
 description: "Population density (persons per sq mile) from ACS + TIGER land area"
 
 sources:

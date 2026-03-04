@@ -1,4 +1,5 @@
 name: language_demographics
+version: "1.0.0"
 description: "Limited English speaking households from ACS"
 
 sources:

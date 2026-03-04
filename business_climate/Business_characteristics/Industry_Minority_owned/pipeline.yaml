@@ -1,4 +1,5 @@
 name: business_characteristics_industry_minority_owned
+version: "1.0.0"
 description: "Industry Minority owned business metrics from Mergent Intellect microdata"
 
 sources:

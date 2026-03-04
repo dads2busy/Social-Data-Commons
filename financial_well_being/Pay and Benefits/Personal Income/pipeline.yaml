@@ -1,4 +1,5 @@
 name: personal_income
+version: "1.0.0"
 description: "Earnings per job and compensation from BEA CAINC4 (VA counties and health districts)"
 
 sources:

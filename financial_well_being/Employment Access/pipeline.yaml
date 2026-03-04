@@ -1,4 +1,5 @@
 name: employment_access
+version: "1.0.0"
 description: "Employment Access Index from H+T Affordability Index (Center for Neighborhood Technology)"
 
 sources:

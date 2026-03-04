@@ -1,4 +1,5 @@
 name: employment_industry_minority_owned
+version: "1.0.0"
 description: "Industry Minority owned employment metrics from Mergent Intellect microdata"
 
 sources:

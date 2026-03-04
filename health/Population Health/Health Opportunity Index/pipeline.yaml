@@ -1,4 +1,5 @@
 name: health_opportunity_index
+version: "1.0.0"
 description: "Virginia Department of Health — Health Opportunity Index indicators"
 
 sources:

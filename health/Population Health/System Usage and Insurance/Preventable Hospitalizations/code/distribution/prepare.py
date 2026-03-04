@@ -20,6 +20,7 @@ from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
 from sdc_core.result import RunResult
 from sdc_core.sources.chr import ingest_chr
+from sdc_core.versioning import update_version
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 
@@ -120,6 +121,8 @@ def run() -> RunResult:
         )
         for p in paths:
             log.info("Wrote %s", p)
+
+        update_version(TOPIC_DIR)
 
         return RunResult(
             success=True,

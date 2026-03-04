@@ -1,4 +1,5 @@
 name: snap
+version: "1.0.0"
 description: "Households receiving SNAP from ACS B22010"
 
 sources:

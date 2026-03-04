@@ -1,4 +1,5 @@
 name: cooperative_extension
+version: "1.0.0"
 description: "Cooperative extension measures from ACS + County Health Rankings"
 
 sources:

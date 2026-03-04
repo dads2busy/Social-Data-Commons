@@ -1,4 +1,5 @@
 name: geographic_mobility_hoi
+version: "1.0.0"
 description: "Geographic mobility (HOI) (% population that moved) from ACS B07204"
 
 sources:

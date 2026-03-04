@@ -5,6 +5,7 @@ from pathlib import Path
 import yaml
 from sdc_core.io import data_reformat_for_site
 from sdc_core.log import get_logger
+from sdc_core.versioning import update_version
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[2]
@@ -77,6 +78,8 @@ def run() -> None:
             )
             for p in paths:
                 log.info("Wrote %s", p)
+
+    update_version(TOPIC_DIR)
 
 
 if __name__ == "__main__":

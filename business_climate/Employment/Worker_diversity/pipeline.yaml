@@ -1,4 +1,5 @@
 name: worker_diversity
+version: "1.0.0"
 description: "Employment by minority/nonminority workers from LODES WAC (Workplace Area Characteristics)"
 
 sources:

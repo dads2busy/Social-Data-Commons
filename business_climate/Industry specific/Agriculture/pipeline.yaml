@@ -1,4 +1,5 @@
 name: agriculture
+version: "1.0.0"
 description: "Agricultural statistics from USDA NASS Census of Agriculture"
 
 sources:

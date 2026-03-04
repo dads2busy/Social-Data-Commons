@@ -14,6 +14,7 @@ from sdc_core.census import CensusClient
 from sdc_core.io import data_reformat_for_site, read_data, write_data
 from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
+from sdc_core.versioning import update_version
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 
@@ -182,6 +183,8 @@ def run() -> None:
         measure_info_path=measure_info,
     ):
         log.info("Wrote %s", p)
+
+    update_version(TOPIC_DIR)
 
 
 if __name__ == "__main__":

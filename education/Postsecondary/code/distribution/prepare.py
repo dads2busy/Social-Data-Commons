@@ -15,6 +15,7 @@ from sdc_core.geo import aggregate_with_crosswalk
 from sdc_core.io import data_reformat_for_site, read_data, write_data
 from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
+from sdc_core.versioning import update_version
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[1]
@@ -127,6 +128,8 @@ def run() -> None:
             log.info("Wrote %s", p)
     else:
         log.warning("No NCR source file found in %s", DIST_DIR)
+
+    update_version(TOPIC_DIR)
 
 
 if __name__ == "__main__":

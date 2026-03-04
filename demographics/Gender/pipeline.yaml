@@ -1,4 +1,5 @@
 name: gender_demographics
+version: "1.0.0"
 description: "Gender distribution from ACS"
 
 sources:

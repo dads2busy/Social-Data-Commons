@@ -1,4 +1,5 @@
 name: food_secure_avg_meal_cost
+version: "1.0.0"
 description: "Food secure average meal cost from Feeding America Map the Meal Gap"
 
 master_source: "../Overall Food Insecurity/data/working"

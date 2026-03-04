@@ -12,6 +12,7 @@ import pandas as pd
 import yaml
 from sdc_core.io import data_reformat_for_site, read_data, write_data
 from sdc_core.log import get_logger
+from sdc_core.versioning import update_version
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[3]
@@ -96,6 +97,8 @@ def run() -> None:
         )
         for p in paths:
             log.info("Wrote %s", p)
+
+    update_version(TOPIC_DIR)
 
 
 if __name__ == "__main__":

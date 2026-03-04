@@ -1,4 +1,5 @@
 name: employment
+version: "1.0.0"
 description: "Employment rate and labor force participation rate from ACS B23025 and S2301"
 
 sources:

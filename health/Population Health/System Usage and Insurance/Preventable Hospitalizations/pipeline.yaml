@@ -1,4 +1,5 @@
 name: preventable_hospitalizations
+version: "1.0.0"
 description: "Preventable hospitalization rate from County Health Rankings"
 
 sources:

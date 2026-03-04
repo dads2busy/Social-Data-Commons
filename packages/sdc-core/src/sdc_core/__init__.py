@@ -32,6 +32,15 @@ from sdc_core.naming import (
 from sdc_core.pipeline import load_pipeline
 from sdc_core.profiles import register_profile, resolve_profile, resolve_states
 from sdc_core.result import RunResult
+from sdc_core.versioning import (
+    BumpResult,
+    Manifest,
+    VersionResult,
+    detect_bump,
+    generate_manifest,
+    load_manifest,
+    update_version,
+)
 
 __all__ = [
     "CensusClient",
@@ -64,4 +73,11 @@ __all__ = [
     "REGION_TYPE_ABBR",
     "DEFAULT_COVERAGE_MAP",
     "TableNameParts",
+    "BumpResult",
+    "Manifest",
+    "VersionResult",
+    "detect_bump",
+    "generate_manifest",
+    "load_manifest",
+    "update_version",
 ]

@@ -1,4 +1,5 @@
 name: school_funding_adequacy
+version: "1.0.0"
 description: "School funding adequacy from County Health Rankings"
 
 sources:

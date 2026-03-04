@@ -1,4 +1,5 @@
 name: material_deprivation
+version: "1.0.0"
 description: "Townsend Material Deprivation Index from ACS B23025, B25014, B25044, S2502 (VA only)"
 
 sources:

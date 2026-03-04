@@ -1,4 +1,5 @@
 name: segregation
+version: "1.0.0"
 description: "Segregation entropy index from ACS DP05 race/ethnicity data"
 
 sources:

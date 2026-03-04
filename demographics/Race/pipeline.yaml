@@ -1,4 +1,5 @@
 name: race_demographics
+version: "1.0.0"
 description: "Race and ethnicity distribution from ACS"
 
 sources:
