@@ -164,40 +164,188 @@ def _build_description(
     measure_info: dict | None,
 ) -> str:
     """Build an HTML description from pipeline metadata."""
-    parts = [f"<p>{config.get('description', '').strip()}</p>"]
+    parts: list[str] = []
 
+    # --- Overview ---
+    pipeline_name = _prettify_name(config.get("name", ""))
+    desc = config.get("description", "").strip()
+    parts.append(f"<h3>Overview</h3>")
+    if desc and not desc.endswith((".", "!", "?")):
+        desc += "."
+    parts.append(
+        f"<p>{desc} This dataset is produced by the "
+        f"<strong>Social Data Commons</strong> at the University of Virginia "
+        f"as part of the <strong>{pipeline_name}</strong> data pipeline.</p>"
+    )
+
+    # --- Temporal & geographic coverage ---
+    years, geos, coverage_areas = _extract_coverage(config)
+    coverage_parts = []
+    if years:
+        coverage_parts.append(
+            f"<strong>Temporal coverage:</strong> {min(years)}\u2013{max(years)} "
+            f"(ACS 5-year estimates)"
+        )
+    if geos:
+        geo_labels = [g.replace("_", " ").title() for g in sorted(geos)]
+        coverage_parts.append(
+            f"<strong>Geographic levels:</strong> {', '.join(geo_labels)}"
+        )
+    if coverage_areas:
+        area_labels = {
+            "va": "Virginia (statewide)",
+            "ncr": "National Capital Region (DC metro)",
+        }
+        # Normalize keys like "ncr_emp" or "va_labor" to base prefix
+        normalized = set()
+        for a in coverage_areas:
+            base = a.lower().split("_")[0]
+            normalized.add(base)
+        labels = [area_labels.get(a, a.upper()) for a in sorted(normalized)]
+        coverage_parts.append(
+            f"<strong>Coverage areas:</strong> {', '.join(labels)}"
+        )
+    if coverage_parts:
+        parts.append("<h3>Coverage</h3><ul>")
+        for cp in coverage_parts:
+            parts.append(f"<li>{cp}</li>")
+        parts.append("</ul>")
+
+    # --- Methodology ---
+    if measure_info:
+        measures = {k: v for k, v in measure_info.items() if not k.startswith("_")}
+
+        # Collect unique methodology text, deduplicating by stripping the
+        # measure-specific first sentence (e.g. "The Male population percent.")
+        method_seen: set[str] = set()
+        method_paragraphs: list[str] = []
+        for info in measures.values():
+            long_desc = info.get("long_description", "").strip()
+            if not long_desc:
+                continue
+            # Strip first sentence to find common methodology
+            rest = long_desc.split(". ", 1)[1] if ". " in long_desc else long_desc
+            if rest not in method_seen:
+                method_seen.add(rest)
+                method_paragraphs.append(long_desc)
+
+        if method_paragraphs:
+            parts.append("<h3>Methodology</h3>")
+            for text in method_paragraphs:
+                parts.append(f"<p>{text}</p>")
+
+        # --- ACS tables used ---
+        tables_seen: set[str] = set()
+        table_items: list[str] = []
+        for info in measures.values():
+            for src in info.get("sources", []):
+                loc = src.get("location", "")
+                if loc and loc not in tables_seen:
+                    tables_seen.add(loc)
+                    loc_url = src.get("location_url", "")
+                    if loc_url:
+                        table_items.append(f'<li><a href="{loc_url}">{loc}</a></li>')
+                    else:
+                        table_items.append(f"<li>{loc}</li>")
+        if table_items:
+            parts.append("<h3>Source Tables</h3><ul>")
+            parts.extend(table_items)
+            parts.append("</ul>")
+
+    # --- Variables (from pipeline.yaml) ---
+    sources = config.get("sources", {})
+    all_vars: dict[str, str] = {}
+    if isinstance(sources, dict):
+        for src in sources.values():
+            if isinstance(src, dict):
+                for var_name, var_id in src.get("variables", {}).items():
+                    all_vars[var_name] = var_id
+    if all_vars:
+        parts.append("<h3>Census Variables</h3><ul>")
+        for var_name, var_id in all_vars.items():
+            label = var_name.replace("_", " ").title()
+            parts.append(f"<li><strong>{var_id}</strong>: {label}</li>")
+        parts.append("</ul>")
+
+    # --- Measures ---
     if measure_info:
         measures = {k: v for k, v in measure_info.items() if not k.startswith("_")}
         if measures:
             parts.append(f"<h3>Measures ({len(measures)})</h3><ul>")
-            for name, info in list(measures.items())[:20]:
+            for name, info in list(measures.items())[:30]:
                 long_name = info.get("long_name", name)
-                parts.append(f"<li><strong>{name}</strong>: {long_name}</li>")
-            if len(measures) > 20:
-                parts.append(f"<li>... and {len(measures) - 20} more</li>")
+                agg = info.get("aggregation_method", "") or info.get("type", "")
+                suffix = f" ({agg})" if agg else ""
+                parts.append(
+                    f"<li><strong>{name}</strong>: {long_name}{suffix}</li>"
+                )
+            if len(measures) > 30:
+                parts.append(f"<li>\u2026 and {len(measures) - 30} more</li>")
             parts.append("</ul>")
 
-            # Unique data sources
-            seen = set()
-            source_items = []
-            for info in measures.values():
-                for src in info.get("sources", []):
-                    src_name = src.get("name", "")
-                    if src_name and src_name not in seen:
-                        seen.add(src_name)
-                        url = src.get("url", "")
-                        if url:
-                            source_items.append(
-                                f'<li><a href="{url}">{src_name}</a></li>'
-                            )
-                        else:
-                            source_items.append(f"<li>{src_name}</li>")
-            if source_items:
-                parts.append("<h3>Data Sources</h3><ul>")
-                parts.extend(source_items)
-                parts.append("</ul>")
+    # --- Data sources ---
+    if measure_info:
+        measures = {k: v for k, v in measure_info.items() if not k.startswith("_")}
+        seen: set[str] = set()
+        source_items: list[str] = []
+        for info in measures.values():
+            for src in info.get("sources", []):
+                src_name = src.get("name", "")
+                if src_name and src_name not in seen:
+                    seen.add(src_name)
+                    url = src.get("url", "")
+                    accessed = src.get("date_accessed", "")
+                    label = src_name
+                    if accessed:
+                        label += f" (accessed {accessed})"
+                    if url:
+                        source_items.append(f'<li><a href="{url}">{label}</a></li>')
+                    else:
+                        source_items.append(f"<li>{label}</li>")
+        if source_items:
+            parts.append("<h3>Data Sources</h3><ul>")
+            parts.extend(source_items)
+            parts.append("</ul>")
+
+    # --- File format ---
+    parts.append("<h3>File Format</h3>")
+    parts.append(
+        "<p>Data files are provided as xz-compressed CSV (<code>.csv.xz</code>) "
+        "with the following columns: <code>geoid</code>, <code>region_type</code>, "
+        "<code>region_name</code>, <code>year</code>, <code>measure</code>, "
+        "<code>value</code>, <code>moe</code> (margin of error, where available). "
+        "A <code>measure_info.json</code> file provides per-measure metadata.</p>"
+    )
 
     return "\n".join(parts)
+
+
+def _extract_coverage(config: dict) -> tuple[set[int], set[str], set[str]]:
+    """Extract years, geographies, and coverage areas from pipeline sources."""
+    years: set[int] = set()
+    geos: set[str] = set()
+    coverage_areas: set[str] = set()
+
+    sources = config.get("sources", {})
+    if isinstance(sources, dict):
+        for key, src in sources.items():
+            if isinstance(src, dict):
+                coverage_areas.add(key)
+                for y in src.get("years", []):
+                    if isinstance(y, int):
+                        years.add(y)
+                for g in src.get("geographies", []):
+                    geos.add(g)
+    elif isinstance(sources, list):
+        for src in sources:
+            if isinstance(src, dict):
+                for y in src.get("years", []):
+                    if isinstance(y, int):
+                        years.add(y)
+                for g in src.get("geographies", []):
+                    geos.add(g)
+
+    return years, geos, coverage_areas
 
 
 def _extract_keywords(
