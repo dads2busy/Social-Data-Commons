@@ -229,6 +229,36 @@ def _extract_keywords(
     return sorted(keywords)
 
 
+def _extract_dates(config: dict) -> list[dict]:
+    """Extract date range from pipeline source years."""
+    all_years: set[int] = set()
+    sources = config.get("sources", {})
+    if isinstance(sources, dict):
+        for src in sources.values():
+            if isinstance(src, dict):
+                for y in src.get("years", []):
+                    if isinstance(y, int):
+                        all_years.add(y)
+    elif isinstance(sources, list):
+        for src in sources:
+            if isinstance(src, dict):
+                for y in src.get("years", []):
+                    if isinstance(y, int):
+                        all_years.add(y)
+
+    if not all_years:
+        return []
+
+    return [
+        {
+            "start": f"{min(all_years)}-01-01",
+            "end": f"{max(all_years)}-12-31",
+            "type": "Collected",
+            "description": "Data coverage period",
+        }
+    ]
+
+
 def build_zenodo_metadata(
     topic_dir: Path,
     config: dict,
@@ -242,7 +272,7 @@ def build_zenodo_metadata(
     version = config.get("version", "0.1.0")
     title = f"{_prettify_name(pipeline_name)} (v{version})"
 
-    return {
+    metadata = {
         "upload_type": "dataset",
         "title": title,
         "description": _build_description(config, measure_info),
@@ -260,6 +290,12 @@ def build_zenodo_metadata(
             }
         ],
     }
+
+    dates = _extract_dates(config)
+    if dates:
+        metadata["dates"] = dates
+
+    return metadata
 
 
 # ---------------------------------------------------------------------------
