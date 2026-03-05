@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from typing import Iterable, Optional
 
 # Resolution order requested by user
-RESOLUTION_ORDER = ["hd", "ct", "tr", "bg", "bl", "nb", "pl", "bz", "pr"]
+RESOLUTION_ORDER = ["hd", "ct", "tr", "bg", "bl", "nb", "ca", "pl", "bz", "pr"]
 
 # Common region_type values mapped to abbreviations
 REGION_TYPE_ABBR = {
@@ -28,6 +28,8 @@ REGION_TYPE_ABBR = {
     "neighborhood": "nb",
     "place": "pl",
     "business": "bz",
+    "civic_association": "ca",
+    "civic association": "ca",
     "person": "pr",
     # Sometimes pipelines use abbreviations already
     "hd": "hd",
@@ -38,6 +40,7 @@ REGION_TYPE_ABBR = {
     "nb": "nb",
     "pl": "pl",
     "bz": "bz",
+    "ca": "ca",
     "pr": "pr",
 }
 

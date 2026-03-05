@@ -1,0 +1,27 @@
+name: healthy_food_availability
+version: "1.0.1"
+description: >
+  Modified Retail Food Environment Index (MRFEI) for the National Capital Region.
+  Counts supermarkets and fast-food/convenience locations within a half-mile
+  (804.672 m) buffer of each census geography, then computes
+  RFEI = supermarkets / (supermarkets + fast_food) * 100.
+
+sources:
+  ncr:
+    type: openstreetmap
+    coverage_area: ncr
+    geographies: [county, tract, block_group, civic_association]
+    places: [Virginia, Maryland, "Washington, DC"]
+    buffer_meters: 804.672
+    shop_tags:
+      healthy: [supermarket]
+      unhealthy: [convenience, variety]
+    amenity_tags:
+      unhealthy: [fast_food]
+    department_brands: [Target, Walmart]
+
+geographies:
+  block_group: "https://raw.githubusercontent.com/uva-bi-sdad/sdc.geographies/main/NCR/Census%20Geographies/Block%20Group/2020/data/distribution/ncr_geo_census_cb_2020_census_block_groups.geojson"
+  tract: "https://raw.githubusercontent.com/uva-bi-sdad/sdc.geographies/main/NCR/Census%20Geographies/Tract/2020/data/distribution/ncr_geo_census_cb_2020_census_tracts.geojson"
+  county: "https://raw.githubusercontent.com/uva-bi-sdad/sdc.geographies/main/NCR/Census%20Geographies/County/2020/data/distribution/ncr_geo_census_cb_2020_counties.geojson"
+  civic_association: "https://raw.githubusercontent.com/uva-bi-sdad/sdc.geographies/main/VA/Local%20Geographies/Arlington%20County/Civic%20Associations/2021/data/distribution/va013_geo_arl_2021_civic_associations.geojson"

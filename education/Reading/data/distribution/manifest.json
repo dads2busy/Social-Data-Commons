@@ -1,0 +1,45 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-05T01:13:23+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "mean_read_pass_rate",
+    "median_read_pass_rate"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 4023,
+  "files": {
+    "va_ct_vdoe_2015_2024_3rd_grade_read_pass_rate.csv.xz": {
+      "sha256": "2340440d2731895d147ac8fef9257394965cc6b4fb85eb25daf12536cd067933",
+      "size_bytes": 2136
+    },
+    "va_hdct_vdoe_2015_2024_3rd_grade_read_pass_rate.csv.xz": {
+      "sha256": "3bb27989bd99adafa8418b92d5ccef81471d6252f630638fabc13857f3f9b6f7",
+      "size_bytes": 3316
+    },
+    "va_hdctsd_vdoe_2015_2023_3rd_grade_mean_read_score.csv.xz": {
+      "sha256": "46cc833564db2f6a472d24bdf474f34f1f287a237217a680cd4b79a0779e3719",
+      "size_bytes": 3156
+    }
+  }
+}

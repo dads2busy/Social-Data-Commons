@@ -33,6 +33,8 @@ LENGTH_TO_GEO: dict[int, str] = {v: k for k, v in GEOID_LENGTHS.items()}
 
 # Health district geoids contain _hd_ (e.g. 51_hd_35); check this before length
 _HD_PATTERN = re.compile(r"_hd_")
+# Civic association geoids contain _ca_ (e.g. 51013_ca_01)
+_CA_PATTERN = re.compile(r"_ca_")
 
 AggMethod = Literal["mean", "sum", "median", "min", "max"]
 
@@ -66,6 +68,8 @@ def infer_region_type(geoid: str) -> str:
     """
     if _HD_PATTERN.search(geoid):
         return "health_district"
+    if _CA_PATTERN.search(geoid):
+        return "civic_association"
     n = len(geoid)
     if n == 5:
         return "county"

@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-05T01:12:42+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "schoolFundAdequacy"
+  ],
+  "years": [
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 1467,
+  "files": {
+    "ct_county_health_rankings_2022_2023_school_funding_adequacy.csv.xz": {
+      "sha256": "631a1743cdceb4ea7d24510a7c325e56fd37629ce51e29c692398a21e691b083",
+      "size_bytes": 2536
+    },
+    "va_county_health_rankings_2022_2024_school_funding_adequacy.csv.xz": {
+      "sha256": "7a8d504a4daeea95974b29c3f2ba87049ce49147a4f828c79e5d7baf26f81c0f",
+      "size_bytes": 3572
+    },
+    "va_county_health_rankings_2022_2025_school_funding_adequacy.csv.xz": {
+      "sha256": "578926293a5bd605ea27a3bb23c98976c52dc2d487f6ae69ff03a1d941aeb158",
+      "size_bytes": 4532
+    },
+    "va_ct_2022_2023_funding_adequacy.csv.xz": {
+      "sha256": "dadea612c2c778670f74555fd72737b99a6e0271064714964e4539ed19fcacf4",
+      "size_bytes": 367622
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-05T01:13:05+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "acs_postsecondary_count",
+    "acs_postsecondary_count_geo10",
+    "acs_postsecondary_count_geo20",
+    "acs_postsecondary_percent",
+    "acs_postsecondary_percent_geo10",
+    "acs_postsecondary_percent_geo20",
+    "schools_2year_all",
+    "schools_2year_min_drivetime",
+    "schools_2year_with_biomedical_program",
+    "schools_2year_with_computer_program",
+    "schools_2year_with_engineering_program",
+    "schools_2year_with_physical_program",
+    "schools_2year_with_science_program",
+    "schools_under2year",
+    "schools_under2year_min_drivetime"
+  ],
+  "years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 1342187,
+  "files": {
+    "acs.csv.xz": {
+      "sha256": "b1e3ae7bb81ea77d708dc71eb3464ca9b6fc4b836e8eda9788e4b21c6f148902",
+      "size_bytes": 1602380
+    },
+    "nces.csv.xz": {
+      "sha256": "3b66021e4c37b02ce4e0c9886db39d8fc1e67b691a0857349442ddbd620a2941",
+      "size_bytes": 11384852
+    },
+    "ncr_cttr_census_acs_2010_2024_postsecondary.csv.xz": {
+      "sha256": "aa9741da41ef8bd0fdd1349b6cbc66fa59a85c6898039db3319937ee2dfb2845",
+      "size_bytes": 1427364
+    },
+    "va_cttr_census_acs_2010_2024_postsecondary.csv.xz": {
+      "sha256": "4e71075b2a916a6dc9ec776e39e35300d82f95e57fce3327901e0adb03c73d23",
+      "size_bytes": 823200
+    },
+    "va_hdcttr_census_acs_2010_2024_postsecondary.csv.xz": {
+      "sha256": "4d5f69ad09f44d145cea19677430d21b60260b9759e168fe3e796be329b02ccf",
+      "size_bytes": 766908
+    }
+  }
+}
