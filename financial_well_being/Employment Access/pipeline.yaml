@@ -1,6 +1,6 @@
 name: employment_access
 version: "2.0.0"
-zenodo_deposit_id: 18871179
+zenodo_deposit_id: 18871226
 description: >
   Employment Intensity (gravity model) measuring job accessibility across
   Virginia. Inspired by the Housing + Transportation (H+T) Affordability Index
