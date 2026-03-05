@@ -287,28 +287,46 @@ def _build_description(
     if measure_info:
         measures = {k: v for k, v in measure_info.items() if not k.startswith("_")}
         if measures:
-            # Check if any measures use geo suffixes
-            has_geo20 = any(k.endswith("_geo20") for k in measures)
-            has_geo10 = any(k.endswith("_geo10") for k in measures)
+            # Check if any measures use naming conventions
+            has_geo20 = any("_geo20" in k for k in measures)
+            has_geo10 = any("_geo10" in k for k in measures)
+            has_parcels = any("_parcels" in k for k in measures)
+            has_direct = any("_direct" in k for k in measures)
 
             parts.append(f"<h3>Measures ({len(measures)})</h3>")
 
+            suffix_notes: list[str] = []
             if has_geo20 or has_geo10:
-                geo_note = (
-                    "<p><em>Note on geographic suffixes: "
-                    "Measures ending in <code>_geo20</code> are computed "
+                note = (
+                    "Measures containing <code>_geo20</code> are computed "
                     "using 2020 Census geographic boundaries"
                 )
                 if has_geo10:
-                    geo_note += (
-                        ", while measures ending in <code>_geo10</code> "
+                    note += (
+                        ", while those containing <code>_geo10</code> "
                         "use 2010 Census geographic boundaries"
                     )
-                geo_note += (
-                    ". Measures without a suffix use the most current "
-                    "available geography.</em></p>"
+                note += "."
+                suffix_notes.append(note)
+
+            if has_parcels or has_direct:
+                note = (
+                    "Measures containing <code>_parcels</code> use "
+                    "parcel-based redistribution (block group values are "
+                    "distributed to individual living units, then aggregated "
+                    "to target regions). Measures containing "
+                    "<code>_direct</code> use direct spatial overlap "
+                    "(block group values are aggregated/disaggregated to "
+                    "target regions based on proportion of overlap)."
                 )
-                parts.append(geo_note)
+                suffix_notes.append(note)
+
+            if suffix_notes:
+                parts.append(
+                    "<p><em>Note on naming conventions: "
+                    + " ".join(suffix_notes)
+                    + "</em></p>"
+                )
 
             parts.append("<dl>")
             for name, info in list(measures.items())[:30]:
