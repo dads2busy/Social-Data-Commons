@@ -1,6 +1,6 @@
 name: employment_access
 version: "2.0.0"
-zenodo_deposit_id: 18871226
+zenodo_deposit_id: 18871546
 description: >
   Employment Intensity (gravity model) from LEHD-LODES WAC job counts
   and TIGER/Line centroids. E = sum(jobs_i / dist_i^2) with hierarchical
