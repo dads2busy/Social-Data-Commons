@@ -1,0 +1,36 @@
+{
+  "employment_access_index": {
+    "aggregation_method": "",
+    "categories": "",
+    "category": "Financial Well Being",
+    "citations": "",
+    "data_type": "numeric",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "Employment Intensity computed using a gravity model from LEHD-LODES Workplace Area Characteristics (WAC) job counts and TIGER/Line Census block centroids. The index is calculated as the sum of jobs divided by the square of the distance (in miles) from each Census block group to all nearby employment locations, with a hierarchical distance approximation: individual block-level job counts within 34 miles, tract-level aggregates from 34 to 165 miles, and county-level aggregates from 165 to 200 miles. Higher values indicate greater proximity to employment opportunities.",
+    "long_name": "Employment Access Index",
+    "measure_type": "index",
+    "short_description": "Gravity-based index of employment accessibility using LODES job counts and distance decay (E = sum of jobs / distance squared).",
+    "short_name": "Employment Access",
+    "sources": [
+      {
+        "date_accessed": 2026,
+        "location": "LODES WAC S000 JT00, column C000 (total jobs per Census block)",
+        "location_url": "",
+        "name": "LEHD-LODES Workplace Area Characteristics",
+        "url": "https://lehd.ces.census.gov/data/lodes/"
+      },
+      {
+        "date_accessed": 2026,
+        "location": "TABBLOCK20, BG, TRACT, COUNTY shapefiles (INTPTLAT, INTPTLON fields)",
+        "location_url": "",
+        "name": "TIGER/Line Shapefiles (2020 Census Geography)",
+        "url": "https://www2.census.gov/geo/tiger/TIGER2020/"
+      }
+    ],
+    "statement": "The employment access index for {features.name} is {value}.",
+    "type": "index",
+    "unit": "",
+    "variants": ""
+  }
+}
