@@ -120,6 +120,9 @@ def run() -> None:
     va_source = find_va_source(DIST_DIR)
     if va_source:
         va_dist = build_va_with_health_districts(va_source, crosswalk_path)
+        if va_dist != va_source:
+            va_source.unlink()
+            log.info("Removed ingest-only file: %s", va_source.name)
         paths = data_reformat_for_site(
             source_path=va_dist,
             output_dir=REPO_DIR / "dashboard_data/virginia_public_health_data",

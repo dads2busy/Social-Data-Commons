@@ -91,6 +91,9 @@ def run(pipeline=None) -> RunResult:
             census_standardize=False,
         )
         log.info("Wrote %d rows to %s", len(result), out_path)
+        if out_path != va_source:
+            va_source.unlink()
+            log.info("Removed ingest-only file: %s", va_source.name)
 
         measure_info = MEASURE_INFO if MEASURE_INFO.exists() else None
         paths = data_reformat_for_site(
