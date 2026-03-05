@@ -25,12 +25,15 @@ def load_config() -> dict:
 
 
 def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute percent moving in past year."""
+    """Compute geographic mobility measures: counts and percent moving."""
     df = df.copy()
+    df["geo_mobility_total_count"] = df["total_pop"]
+    df["geo_mobility_moving_count"] = df["pop_moving"]
     df["perc_moving"] = 100 * df["pop_moving"] / df["total_pop"]
 
     id_cols = ["geoid", "year", "region_type"]
-    long = df[id_cols + ["perc_moving"]].melt(
+    measure_cols = ["geo_mobility_total_count", "geo_mobility_moving_count", "perc_moving"]
+    long = df[id_cols + measure_cols].melt(
         id_vars=id_cols,
         var_name="measure",
         value_name="value",

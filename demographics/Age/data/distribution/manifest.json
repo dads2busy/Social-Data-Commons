@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-05T21:55:23+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "age_20_64_count_geo10",
+    "age_20_64_count_geo20",
+    "age_20_64_percent_geo10",
+    "age_20_64_percent_geo20",
+    "age_65_plus_count_geo10",
+    "age_65_plus_count_geo20",
+    "age_65_plus_percent_geo10",
+    "age_65_plus_percent_geo20",
+    "age_total_count_geo10",
+    "age_total_count_geo20",
+    "age_under_20_count_geo10",
+    "age_under_20_count_geo20",
+    "age_under_20_percent_geo10",
+    "age_under_20_percent_geo20"
+  ],
+  "years": [
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 1950313,
+  "files": {
+    "ncr_cttrbg_census_acs_2009_2024_age_demographics.csv.xz": {
+      "sha256": "b754fe36c2c0fcfa03f8c3457e2478f1f03adc01566e551e5d6647ea81ba13cc",
+      "size_bytes": 9289872
+    },
+    "va_hdcttr_census_acs_2009_2024_age_demographics.csv.xz": {
+      "sha256": "b604f11b3535584cef5bec8b3bc9ee754f5621e7cb7dfa6efc89dcfc2a100140",
+      "size_bytes": 2219680
+    }
+  }
+}

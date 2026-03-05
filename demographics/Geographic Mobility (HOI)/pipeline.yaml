@@ -1,5 +1,5 @@
 name: geographic_mobility_hoi
-version: "1.0.0"
+version: "1.0.1"
 description: "Geographic mobility (HOI) (% population that moved) from ACS B07204"
 
 sources:
@@ -7,7 +7,7 @@ sources:
     type: census_acs
     profile: NCR
     years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
-    geographies: [tract, county, block_group]
+    geographies: [tract, county]
     variables:
       total_pop: "B07204_001"
       pop_moving: "B07204_003"
@@ -30,3 +30,32 @@ prepare:
   source_col: ct_geoid
   target_col: hd_geoid
   method: mean
+
+  redistribution:
+    source_level: tract
+    methods: [direct]
+    count_measures: [geo_mobility_total_count, geo_mobility_moving_count]
+    pct_specs:
+      perc_moving: [geo_mobility_moving_count, geo_mobility_total_count]
+    source_geos:
+      geo20: geographies/VA/Census Geographies/Tract/2020/data/distribution/va_geo_census_cb_2020_census_tracts.geojson
+      geo10: geographies/VA/Census Geographies/Tract/2010/data/distribution/va_geo_census_cb_2010_census_tracts.geojson
+    target_geos:
+      block_group:
+        geo20: geographies/VA/Census Geographies/Block Group/2020/data/distribution/va_geo_census_cb_2020_census_block_groups.geojson
+        geo10: geographies/VA/Census Geographies/Block Group/2010/data/distribution/va_geo_census_cb_2010_census_block_groups.geojson
+
+prepare_ncr:
+  redistribution:
+    source_level: tract
+    methods: [direct]
+    count_measures: [geo_mobility_total_count, geo_mobility_moving_count]
+    pct_specs:
+      perc_moving: [geo_mobility_moving_count, geo_mobility_total_count]
+    source_geos:
+      geo20: geographies/NCR/Census Geographies/Tract/2020/data/distribution/ncr_geo_census_cb_2020_census_tracts.geojson
+      geo10: geographies/NCR/Census Geographies/Tract/2010/data/distribution/ncr_geo_census_cb_2010_census_tracts.geojson
+    target_geos:
+      block_group:
+        geo20: geographies/NCR/Census Geographies/Block Group/2020/data/distribution/ncr_geo_census_cb_2020_census_block_groups.geojson
+        geo10: geographies/NCR/Census Geographies/Block Group/2010/data/distribution/ncr_geo_census_cb_2010_census_block_groups.geojson

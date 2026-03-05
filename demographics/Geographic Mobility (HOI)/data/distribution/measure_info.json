@@ -15,13 +15,202 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, table B07204, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
                 "date_accessed": 2023,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
         "statement": "Population moving is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "perc_moving_geo10": {
+        "aggregation_method": "Population Weighted Average",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Population moving in the past year from the current residence. 5-year ACS estimates in provided census geolevels (Census 2010 boundaries).",
+        "long_name": "Population moving in the past year.",
+        "measure_type": "",
+        "short_description": "Population moving in the past year from the current residence.",
+        "short_name": "Population moving in the past year.",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B07204, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2023,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "Population moving is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "perc_moving_direct_geo20": {
+        "aggregation_method": "Population Weighted Average",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Population moving in the past year from the current residence. Estimated via areal interpolation from tract-level ACS data to target geographies (Census 2020 boundaries).",
+        "long_name": "Population moving in the past year (estimated).",
+        "measure_type": "",
+        "short_description": "Population moving in the past year (estimated via areal interpolation).",
+        "short_name": "Population moving in the past year (est.).",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B07204, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2023,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "Estimated population moving is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "perc_moving_direct_geo10": {
+        "aggregation_method": "Population Weighted Average",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Population moving in the past year from the current residence. Estimated via areal interpolation from tract-level ACS data to target geographies (Census 2010 boundaries).",
+        "long_name": "Population moving in the past year (estimated).",
+        "measure_type": "",
+        "short_description": "Population moving in the past year (estimated via areal interpolation).",
+        "short_name": "Population moving in the past year (est.).",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B07204, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2023,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "Estimated population moving is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "geo_mobility_total_count_geo20": {
+        "aggregation_method": "Sum",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "integer",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Total population for geographic mobility denominator. 5-year ACS estimates (Census 2020 boundaries).",
+        "long_name": "Geographic mobility total population.",
+        "measure_type": "",
+        "short_description": "Total population (geographic mobility denominator).",
+        "short_name": "Total pop (mobility).",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B07204, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2023,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "Geographic mobility total population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "geo_mobility_total_count_geo10": {
+        "aggregation_method": "Sum",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "integer",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Total population for geographic mobility denominator. 5-year ACS estimates (Census 2010 boundaries).",
+        "long_name": "Geographic mobility total population.",
+        "measure_type": "",
+        "short_description": "Total population (geographic mobility denominator).",
+        "short_name": "Total pop (mobility).",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B07204, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2023,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "Geographic mobility total population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "geo_mobility_moving_count_geo20": {
+        "aggregation_method": "Sum",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "integer",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Population that moved in the past year. 5-year ACS estimates (Census 2020 boundaries).",
+        "long_name": "Population that moved.",
+        "measure_type": "",
+        "short_description": "Population that moved in the past year.",
+        "short_name": "Pop moved.",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B07204, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2023,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "Population that moved is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "geo_mobility_moving_count_geo10": {
+        "aggregation_method": "Sum",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "integer",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Population that moved in the past year. 5-year ACS estimates (Census 2010 boundaries).",
+        "long_name": "Population that moved.",
+        "measure_type": "",
+        "short_description": "Population that moved in the past year.",
+        "short_name": "Pop moved.",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B07204, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2023,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "Population that moved is {value} in {region_name}.",
         "type": "",
         "unit": "individual",
         "variants": ""

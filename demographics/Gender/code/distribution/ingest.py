@@ -46,7 +46,7 @@ def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
     return long
 
 
-def run_source(name: str, src: dict, out_dir: Path, client: CensusClient) -> RunResult:
+def run_source(name: str, src: dict, out_dir: Path, client: CensusClient, standardize: bool) -> RunResult:
     """Fetch and write one coverage-area source."""
     t0 = time.time()
     try:
@@ -73,7 +73,7 @@ def run_source(name: str, src: dict, out_dir: Path, client: CensusClient) -> Run
             title="gender_demographics",
         )
         filename = f"{auto_name}.csv.xz"
-        out_path = write_data(result, out_dir / filename)
+        out_path = write_data(result, out_dir / filename, census_standardize=standardize)
         log.info("Wrote %d rows to %s", len(result), out_path)
 
         return RunResult(
@@ -90,11 +90,12 @@ def run_source(name: str, src: dict, out_dir: Path, client: CensusClient) -> Run
 def run() -> list[RunResult]:
     config = load_config()
     out_dir = TOPIC_DIR / config["output"]["path"]
+    standardize = config["output"].get("standardize", False)
     client = CensusClient()
 
     results = []
     for name, src in config["sources"].items():
-        results.append(run_source(name, src, out_dir, client))
+        results.append(run_source(name, src, out_dir, client, standardize))
     return results
 
 

@@ -1,0 +1,58 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-05T21:39:20+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "gender_female_count_geo10",
+    "gender_female_count_geo20",
+    "gender_female_percent_geo10",
+    "gender_female_percent_geo20",
+    "gender_male_count_geo10",
+    "gender_male_count_geo20",
+    "gender_male_percent_geo10",
+    "gender_male_percent_geo20",
+    "gender_total_count_geo10",
+    "gender_total_count_geo20"
+  ],
+  "years": [
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 1397855,
+  "files": {
+    "ncr_cttrbg_census_acs_2009_2024_gender_demographics.csv.xz": {
+      "sha256": "f2ea3ea26e2de9df1027fa108858641e12a5c6ded6b06c03b7254e9537b21958",
+      "size_bytes": 6461788
+    },
+    "va_hdcttr_census_acs_2009_2024_gender_demographics.csv.xz": {
+      "sha256": "bdedee660d5709850e74557f95c51ba67ed33b6d2bd50e7224c7271fe99b4d07",
+      "size_bytes": 1543848
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "version": "1.0.1",
+  "generated": "2026-03-05T22:49:10+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "geo_mobility_moving_count_direct_geo10",
+    "geo_mobility_moving_count_direct_geo20",
+    "geo_mobility_moving_count_geo10",
+    "geo_mobility_moving_count_geo20",
+    "geo_mobility_total_count_direct_geo10",
+    "geo_mobility_total_count_direct_geo20",
+    "geo_mobility_total_count_geo10",
+    "geo_mobility_total_count_geo20",
+    "perc_moving_direct_geo10",
+    "perc_moving_direct_geo20",
+    "perc_moving_geo10",
+    "perc_moving_geo20"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 687613,
+  "files": {
+    "ncr_cttrbg_census_acs_2015_2024_geographic_mobility_hoi.csv.xz": {
+      "sha256": "1fc1480f23fe3fdb8b2ee63114c52a93ab43df2f80c20ea9e22961f63678da29",
+      "size_bytes": 2591252
+    },
+    "va_hdcttrbg_census_acs_2015_2024_geographic_mobility_hoi.csv.xz": {
+      "sha256": "61b22ffa223a25543def20f26cf0228fb6726398016c9b963cce93e9c166a50d",
+      "size_bytes": 3176488
+    }
+  }
+}

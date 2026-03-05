@@ -29,3 +29,4 @@ crosswalks:
 
 output:
   path: data/distribution
+  standardize: true
