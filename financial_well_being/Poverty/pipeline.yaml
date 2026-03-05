@@ -1,5 +1,5 @@
 name: poverty
-version: "1.0.0"
+version: "2.0.0"
 description: "Poverty rates by race and sex from ACS B17001 tables"
 
 sources:
@@ -8,7 +8,7 @@ sources:
     type: census_acs
     table_type: detail
     profile: NCR
-    years: [2021]
+    years: [2021, 2022, 2023, 2024]
     geographies: [tract]
     # Variables are constructed programmatically from B17001A-I tables
     # Adults: men_pov=rows 10-16, men_no_pov=39-45, women_pov=24-30, women_no_pov=53-59
@@ -27,7 +27,7 @@ sources:
     table_type: detail
     state: "VA"
     county: "059"
-    years: [2021]
+    years: [2021, 2022, 2023, 2024]
     geographies: [tract]
     variables:
       below_m: "B17001_003"
