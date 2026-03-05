@@ -180,6 +180,12 @@ def _build_description(
         f"as part of the <strong>{pipeline_name}</strong> data pipeline.</p>"
     )
 
+    # --- Provenance ---
+    provenance = config.get("provenance", "").strip()
+    if provenance:
+        parts.append("<h3>Provenance</h3>")
+        parts.append(f"<p>{provenance}</p>")
+
     # --- Temporal & geographic coverage ---
     years, geos, coverage_areas = _extract_coverage(config)
     coverage_parts = []
