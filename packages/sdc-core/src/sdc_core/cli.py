@@ -102,11 +102,13 @@ def version():
 )
 @click.option("--dry-run", is_flag=True, help="Show what would change without writing")
 @click.option("--no-tag", is_flag=True, help="Skip creating a git tag")
-def version_bump(topic_dir: str, force: str | None, dry_run: bool, no_tag: bool):
+@click.option("--no-release", is_flag=True, help="Skip creating a GitHub release")
+def version_bump(topic_dir: str, force: str | None, dry_run: bool, no_tag: bool, no_release: bool):
     """Bump the version of a pipeline dataset.
 
     TOPIC_DIR is the path to the pipeline directory (e.g., demographics/Gender).
-    Automatically creates an annotated git tag unless --no-tag is passed.
+    Automatically creates an annotated git tag and GitHub release unless
+    --no-tag or --no-release is passed.
     """
     from sdc_core.versioning import update_version
 
@@ -115,6 +117,7 @@ def version_bump(topic_dir: str, force: str | None, dry_run: bool, no_tag: bool)
         force_level=force,
         dry_run=dry_run,
         auto_tag=not no_tag,
+        auto_release=not no_release,
     )
 
     if result is None:

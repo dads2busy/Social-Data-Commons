@@ -145,6 +145,17 @@ def pipeline_slug(name: str) -> str:
     return slug.strip("-")
 
 
+def _prettify_name(name: str) -> str:
+    """Convert a pipeline name to a human-readable title.
+
+    >>> _prettify_name("age_demographics")
+    'Age Demographics'
+    >>> _prettify_name("segregation")
+    'Segregation'
+    """
+    return name.replace("_", " ").title()
+
+
 def bump_version(version: str, level: Literal["major", "minor", "patch"]) -> str:
     """Apply a semver bump.
 
@@ -391,6 +402,7 @@ def update_version(
     dry_run: bool = False,
     skip_if_unchanged: bool = True,
     auto_tag: bool = True,
+    auto_release: bool = True,
 ) -> VersionResult | None:
     """Generate a manifest, detect changes, bump version, save, and tag.
 
@@ -401,6 +413,8 @@ def update_version(
     dry_run : compute everything but don't write files
     skip_if_unchanged : skip bump if all file checksums match (default True)
     auto_tag : create an annotated git tag after bumping (default True)
+    auto_release : create a GitHub release after tagging (default True).
+        Requires ``gh`` CLI. Silently skipped if unavailable.
 
     Returns
     -------
@@ -485,6 +499,12 @@ def update_version(
         except (subprocess.CalledProcessError, FileNotFoundError) as e:
             log.warning("Could not create git tag '%s': %s", tag, e)
 
+    if auto_release and auto_tag:
+        try:
+            create_github_release(result, dist_dir)
+        except Exception as e:
+            log.warning("Could not create GitHub release for '%s': %s", tag, e)
+
     return result
 
 
@@ -509,7 +529,97 @@ def create_git_tag(
         kwargs["cwd"] = str(repo_dir)
     subprocess.run(cmd, check=True, capture_output=True, text=True, **kwargs)
     log.info("Created git tag: %s", tag)
+
+    # Push the tag so gh release create can find it
+    push_cmd = ["git", "push", "origin", tag]
+    try:
+        subprocess.run(push_cmd, check=True, capture_output=True, text=True, **kwargs)
+        log.info("Pushed tag: %s", tag)
+    except (subprocess.CalledProcessError, FileNotFoundError) as e:
+        log.warning("Could not push tag '%s': %s", tag, e)
+
     return tag
+
+
+def create_github_release(
+    result: VersionResult,
+    dist_dir: str | Path,
+    *,
+    repo_dir: str | Path | None = None,
+    file_patterns: list[str] | None = None,
+) -> str | None:
+    """Create a GitHub release with pipeline data files as assets.
+
+    Uses ``gh release create``. Returns the tag name on success,
+    or ``None`` if ``gh`` is not available or the release fails.
+    """
+    title = f"{_prettify_name(result.pipeline_name)} v{result.new_version}"
+
+    # Build release body
+    body_parts: list[str] = []
+    if result.bump:
+        body_parts.append(f"**Bump level:** {result.bump.level}")
+        body_parts.append("")
+        body_parts.append("**Changes:**")
+        for reason in result.bump.reasons:
+            body_parts.append(f"- {reason}")
+    else:
+        body_parts.append("**Initial release**")
+
+    m = result.manifest
+    body_parts.append("")
+    body_parts.append("**Manifest summary:**")
+    body_parts.append(f"- Measures: {len(m.measures)}")
+    if m.measures:
+        shown = m.measures[:10]
+        body_parts.append(f"  - {', '.join(shown)}")
+        if len(m.measures) > 10:
+            body_parts.append(f"  - ... and {len(m.measures) - 10} more")
+    if m.years:
+        body_parts.append(f"- Years: {min(m.years)}\u2013{max(m.years)}")
+    if m.regions:
+        body_parts.append(f"- Regions (state FIPS): {', '.join(m.regions)}")
+    body_parts.append(f"- Row count: {m.row_count:,}")
+    body_parts.append(f"- Files: {len(m.files)}")
+
+    body = "\n".join(body_parts)
+
+    # Discover asset files
+    dist_path = Path(dist_dir)
+    patterns = file_patterns or ["*.csv.xz"]
+    assets: list[Path] = []
+    for pattern in patterns:
+        assets.extend(dist_path.glob(pattern))
+    assets = sorted(set(assets))
+
+    cmd: list[str] = [
+        "gh", "release", "create", result.tag,
+        "--title", title,
+        "--notes", body,
+    ]
+    for asset in assets:
+        cmd.append(str(asset))
+
+    kwargs: dict = {}
+    if repo_dir:
+        kwargs["cwd"] = str(repo_dir)
+
+    try:
+        subprocess.run(cmd, check=True, capture_output=True, text=True, **kwargs)
+    except FileNotFoundError:
+        log.warning(
+            "gh CLI not found — skipping GitHub release for '%s'", result.tag,
+        )
+        return None
+    except subprocess.CalledProcessError as e:
+        log.warning(
+            "Failed to create GitHub release '%s': %s\nstderr: %s",
+            result.tag, e, e.stderr,
+        )
+        return None
+
+    log.info("Created GitHub release: %s (%d assets)", title, len(assets))
+    return result.tag
 
 
 __all__ = [
@@ -519,6 +629,7 @@ __all__ = [
     "VersionResult",
     "bump_version",
     "create_git_tag",
+    "create_github_release",
     "detect_bump",
     "generate_manifest",
     "load_manifest",
