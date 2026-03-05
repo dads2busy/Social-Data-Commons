@@ -20,6 +20,7 @@ from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
 from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
+from sdc_core.versioning import update_version
 from sdc_core.sources.chr import ingest_chr
 from tqdm import tqdm
 
@@ -253,3 +254,4 @@ if __name__ == "__main__":
     result = run()
     if not result.success:
         raise SystemExit(1)
+    update_version(TOPIC_DIR)
