@@ -533,8 +533,6 @@ def upload_to_zenodo(
     files_to_upload: list[Path] = []
     for pat in patterns:
         files_to_upload.extend(sorted(dist_dir.glob(pat)))
-    if mi_path.exists():
-        files_to_upload.append(mi_path)
 
     if not files_to_upload:
         log.warning("No files found to upload in %s", dist_dir)
