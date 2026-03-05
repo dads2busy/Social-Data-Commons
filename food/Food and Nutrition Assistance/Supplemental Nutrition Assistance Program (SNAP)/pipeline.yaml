@@ -6,7 +6,8 @@ sources:
   ncr:
     type: census_acs
     profile: NCR
-    years: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    years:
+      [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
     geographies: [county, tract, block_group]
     variables:
       total_hh: "B22010_001"
@@ -15,7 +16,8 @@ sources:
   va:
     type: census_acs
     profile: VA
-    years: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    years:
+      [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
     geographies: [county, tract, block_group]
     variables:
       total_hh: "B22010_001"

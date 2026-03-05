@@ -41,6 +41,7 @@ from sdc_core.versioning import (
     load_manifest,
     update_version,
 )
+from sdc_core.zenodo import ZenodoResult, upload_to_zenodo
 
 __all__ = [
     "CensusClient",
@@ -80,4 +81,6 @@ __all__ = [
     "generate_manifest",
     "load_manifest",
     "update_version",
+    "ZenodoResult",
+    "upload_to_zenodo",
 ]

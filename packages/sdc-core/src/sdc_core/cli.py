@@ -197,3 +197,83 @@ def version_status(topic_dir: str | None):
         manifest = load_manifest(dist_dir)
         has_manifest = "yes" if manifest else "no"
         click.echo(f"{name:<40s} v{ver:<10s} manifest={has_manifest}")
+
+
+# ---------------------------------------------------------------------------
+# sdc zenodo
+# ---------------------------------------------------------------------------
+
+
+@main.group()
+def zenodo():
+    """Zenodo dataset archiving commands."""
+    pass
+
+
+@zenodo.command("upload")
+@click.argument("topic_dir", type=click.Path(exists=True))
+@click.option("--publish", is_flag=True, help="Publish after upload (mints DOI, irreversible)")
+@click.option("--dry-run", is_flag=True, help="Show what would be uploaded without uploading")
+@click.option("--sandbox", is_flag=True, help="Use sandbox.zenodo.org for testing")
+@click.option("--license", "license_id", default="cc-by-4.0", help="SPDX license identifier")
+def zenodo_upload(topic_dir: str, publish: bool, dry_run: bool, sandbox: bool, license_id: str):
+    """Upload a pipeline's distribution files to Zenodo.
+
+    TOPIC_DIR is the path to the pipeline directory (e.g., demographics/Gender).
+    Creates a new deposit or updates an existing one based on zenodo_deposit_id
+    in pipeline.yaml.
+    """
+    from sdc_core.zenodo import upload_to_zenodo
+
+    result = upload_to_zenodo(
+        topic_dir,
+        publish=publish,
+        dry_run=dry_run,
+        sandbox=sandbox,
+        license_id=license_id,
+    )
+
+    if result is None:
+        click.echo("No distribution files found to upload.")
+        return
+
+    click.echo(f"Pipeline:   {result.pipeline_name}")
+    click.echo(f"Deposit ID: {result.deposit_id}")
+    click.echo(f"Version:    {result.version}")
+    if result.deposit_url:
+        click.echo(f"URL:        {result.deposit_url}")
+    if result.doi:
+        click.echo(f"DOI:        {result.doi}")
+    click.echo(f"Files:      {len(result.files_uploaded)}")
+    for f in result.files_uploaded:
+        click.echo(f"  - {f}")
+    if result.is_new_version:
+        click.echo("(Updated existing deposit)")
+
+
+@zenodo.command("status")
+@click.argument("topic_dir", type=click.Path(exists=True), required=False)
+def zenodo_status(topic_dir: str | None):
+    """Show Zenodo deposit status of one or all pipelines."""
+    import yaml as _yaml
+
+    if topic_dir:
+        dirs = [pathlib.Path(topic_dir)]
+    else:
+        dirs = sorted(
+            p.parent
+            for p in pathlib.Path(".").rglob("pipeline.yaml")
+            if ".claude" not in str(p) and "worktree" not in str(p)
+        )
+
+    for d in dirs:
+        yaml_path = d / "pipeline.yaml"
+        if not yaml_path.exists():
+            continue
+        with open(yaml_path) as f:
+            config = _yaml.safe_load(f)
+        name = config.get("name", d.name)
+        ver = config.get("version", "-")
+        deposit_id = config.get("zenodo_deposit_id")
+        status = f"deposit={deposit_id}" if deposit_id else "not uploaded"
+        click.echo(f"{name:<40s} v{ver:<10s} {status}")
