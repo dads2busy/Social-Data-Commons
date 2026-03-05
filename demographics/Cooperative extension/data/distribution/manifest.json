@@ -52,18 +52,6 @@
     "cttr_mixed_2010_2024_cooperative_extension.csv.xz": {
       "sha256": "8af3a639f2b942093c9c44655e53dda2d0acb4f755ca5e64ec28c6686df098ee",
       "size_bytes": 679988
-    },
-    "va_ct_20172023_vote_youth.csv.xz": {
-      "sha256": "b0e7bb10373d756ca334960510ddbfc923e4b22e317e3bf22d413f74928f2a3f",
-      "size_bytes": 1964
-    },
-    "va_cttr_2010_2021_perc_children_raised_by_GPs.csv.xz": {
-      "sha256": "c9ce4c5469b9b20258f966fbb1bfda196bdfaa62505166847a1bb5a58599ffb4",
-      "size_bytes": 297988
-    },
-    "va_cttr_2010_2021_perc_male.csv.xz": {
-      "sha256": "9aba10df263b6756b72ee4bb7639b970eab2c91f289ef620c6f7b9a1395f2714",
-      "size_bytes": 467328
     }
   }
 }

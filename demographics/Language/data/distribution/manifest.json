@@ -46,10 +46,6 @@
   ],
   "row_count": 735048,
   "files": {
-    "ncr_cttrbg_acs_2016_2023_language_demographics.csv.xz": {
-      "sha256": "19a9fe5ee1d7fb670bc3fe1b9d70603b5d93c314e2be06734e103cd10cf05776",
-      "size_bytes": 1128472
-    },
     "ncr_cttrbg_census_acs_2016_2024_language_demographics.csv.xz": {
       "sha256": "6e767c3e982b727a67f9c944859e81da2f7fd1d4f77774e1002e86d1e2edc16d",
       "size_bytes": 1477112
@@ -57,14 +53,6 @@
     "va_cttr_census_acs_2016_2024_language_demographics.csv.xz": {
       "sha256": "ecb2230d4bc32b65818d4fe4fedb3dbbac693f0bd29416414ff6f241b36fa3a1",
       "size_bytes": 328216
-    },
-    "va_hdcttr_census_acs_2009_2021_language_demographics.csv.xz": {
-      "sha256": "0073de15f8eb5b4ab66a447de1f575a5fb0c26303927df036a542c4069affda8",
-      "size_bytes": 210992
-    },
-    "va_hsrsdpdzccttrbg_sdad_2009_2021_language_demographics.csv.xz": {
-      "sha256": "372841f983ace002d3df1a524305640ba5fc66aa2058af7c31fd63d04c3ba352",
-      "size_bytes": 737472
     }
   }
 }
