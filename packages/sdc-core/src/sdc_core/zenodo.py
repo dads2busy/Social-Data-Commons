@@ -287,17 +287,51 @@ def _build_description(
     if measure_info:
         measures = {k: v for k, v in measure_info.items() if not k.startswith("_")}
         if measures:
-            parts.append(f"<h3>Measures ({len(measures)})</h3><ul>")
+            # Check if any measures use geo suffixes
+            has_geo20 = any(k.endswith("_geo20") for k in measures)
+            has_geo10 = any(k.endswith("_geo10") for k in measures)
+
+            parts.append(f"<h3>Measures ({len(measures)})</h3>")
+
+            if has_geo20 or has_geo10:
+                geo_note = (
+                    "<p><em>Note on geographic suffixes: "
+                    "Measures ending in <code>_geo20</code> are computed "
+                    "using 2020 Census geographic boundaries"
+                )
+                if has_geo10:
+                    geo_note += (
+                        ", while measures ending in <code>_geo10</code> "
+                        "use 2010 Census geographic boundaries"
+                    )
+                geo_note += (
+                    ". Measures without a suffix use the most current "
+                    "available geography.</em></p>"
+                )
+                parts.append(geo_note)
+
+            parts.append("<dl>")
             for name, info in list(measures.items())[:30]:
                 long_name = info.get("long_name", name)
+                short_desc = info.get("short_description", "")
                 agg = info.get("aggregation_method", "") or info.get("type", "")
-                suffix = f" ({agg})" if agg else ""
-                parts.append(
-                    f"<li><strong>{name}</strong>: {long_name}{suffix}</li>"
-                )
+                unit = info.get("unit", "")
+
+                meta_parts = []
+                if agg:
+                    meta_parts.append(agg)
+                if unit:
+                    meta_parts.append(f"unit: {unit}")
+                meta_str = f" ({', '.join(meta_parts)})" if meta_parts else ""
+
+                parts.append(f"<dt><strong>{name}</strong>: {long_name}{meta_str}</dt>")
+                if short_desc:
+                    parts.append(f"<dd>{short_desc}</dd>")
             if len(measures) > 30:
-                parts.append(f"<li>\u2026 and {len(measures) - 30} more</li>")
-            parts.append("</ul>")
+                parts.append(
+                    f"<dt>\u2026 and {len(measures) - 30} additional measures</dt>"
+                )
+            parts.append("</dl>")
 
     # --- Data sources ---
     if measure_info:
