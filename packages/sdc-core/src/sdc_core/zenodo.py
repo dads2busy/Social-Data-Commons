@@ -37,7 +37,7 @@ ZENODO_API = "https://zenodo.org/api"
 ZENODO_SANDBOX_API = "https://sandbox.zenodo.org/api"
 
 DEFAULT_CREATORS = [
-    {"name": "Social Data Commons", "affiliation": "University of Virginia"},
+    {"name": "Schroeder, Aaron", "affiliation": "University of Virginia"},
 ]
 
 
