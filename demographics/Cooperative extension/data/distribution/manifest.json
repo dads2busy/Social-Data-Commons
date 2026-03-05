@@ -1,0 +1,69 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-05T00:26:01+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "region_name",
+    "estimate",
+    "variable",
+    "measure_type",
+    "measure_units"
+  ],
+  "measures": [
+    "disconnectedYouth",
+    "disconnectedYouth_geo20",
+    "perc_children_raised_by_GPs",
+    "perc_children_raised_by_GPs_geo10",
+    "perc_children_raised_by_GPs_geo20",
+    "perc_male",
+    "perc_male_geo10",
+    "perc_male_geo20",
+    "voterTurnout",
+    "voterTurnout_geo20"
+  ],
+  "years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 161265,
+  "files": {
+    "cttr_mixed_2010_2024_cooperative_extension.csv.xz": {
+      "sha256": "8af3a639f2b942093c9c44655e53dda2d0acb4f755ca5e64ec28c6686df098ee",
+      "size_bytes": 679988
+    },
+    "va_ct_20172023_vote_youth.csv.xz": {
+      "sha256": "b0e7bb10373d756ca334960510ddbfc923e4b22e317e3bf22d413f74928f2a3f",
+      "size_bytes": 1964
+    },
+    "va_cttr_2010_2021_perc_children_raised_by_GPs.csv.xz": {
+      "sha256": "c9ce4c5469b9b20258f966fbb1bfda196bdfaa62505166847a1bb5a58599ffb4",
+      "size_bytes": 297988
+    },
+    "va_cttr_2010_2021_perc_male.csv.xz": {
+      "sha256": "9aba10df263b6756b72ee4bb7639b970eab2c91f289ef620c6f7b9a1395f2714",
+      "size_bytes": 467328
+    }
+  }
+}

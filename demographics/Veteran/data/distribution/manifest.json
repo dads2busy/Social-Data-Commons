@@ -1,0 +1,70 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-05T00:25:48+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "measure_type",
+    "region_name",
+    "region_type"
+  ],
+  "measures": [
+    "veteran_count_direct",
+    "veteran_count_geo10",
+    "veteran_count_geo20",
+    "veteran_count_parcels",
+    "veteran_percent_direct",
+    "veteran_percent_geo10",
+    "veteran_percent_geo20",
+    "veteran_percent_parcels"
+  ],
+  "years": [
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 1167522,
+  "files": {
+    "ncr_cttrbg_acs_2009_2021_veteran_demographics.csv.xz": {
+      "sha256": "f16e29dcafda8ca917b3b207347249f962848064a2a3af7e42963409a5b59c8e",
+      "size_bytes": 1420628
+    },
+    "ncr_cttrbg_census_acs_2009_2024_veteran_demographics.csv.xz": {
+      "sha256": "83184fd3e352669a39132b923675ecc590087a0f074db4f5529fb14df0433c11",
+      "size_bytes": 2652548
+    },
+    "va_cttr_census_acs_2009_2024_veteran_demographics.csv.xz": {
+      "sha256": "dcaaee66a85d2d557ee4e8f9ff82f5ce582d0b53e85b9e4bd70b7d40b63700a3",
+      "size_bytes": 719700
+    },
+    "va_hdcttr_census_acs_2009_2021_veteran_demographics.csv.xz": {
+      "sha256": "4e660690345cbdec669f4d6107664ad4035780c662a3f37ce26ac4e282c54e66",
+      "size_bytes": 524140
+    },
+    "va_hsrsdpdzccttrbg_sdad_2009_2021_veteran_demographics.csv.xz": {
+      "sha256": "361fc3eb8d555937a7b1f6e59c643c11f66c1a8f1a812544c985333c8f5d8636",
+      "size_bytes": 1500820
+    }
+  }
+}

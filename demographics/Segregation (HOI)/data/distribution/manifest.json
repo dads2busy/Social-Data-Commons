@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-05T00:26:00+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "segregation_indicator_geo10",
+    "segregation_indicator_geo20"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 150567,
+  "files": {
+    "ncr_tr_census_acs_2015_2024_segregation.csv.xz": {
+      "sha256": "479f472ef851b7434a1900f168eb66ccbbc91e3e7a5856e4a70e36acddf81b44",
+      "size_bytes": 199528
+    },
+    "va_hdcttr_census_acs_2015_2024_segregation.csv.xz": {
+      "sha256": "d3ab65f624768f8ef4cdf668c019c04b5ba7e613d984d1ad8ff7df402b34814d",
+      "size_bytes": 128528
+    },
+    "va_hdtrct_2015_2023_segregation_index_std.csv.xz": {
+      "sha256": "eb8aeb84d6fbc66634f241c8d5d3d68aa391ab5a83688a880331bad7d609aa96",
+      "size_bytes": 107860
+    },
+    "va_tr_census_acs_2015_2024_segregation.csv.xz": {
+      "sha256": "efb517319bb7c13ef879caee67f408d346f0ff5acd1eaad764a4c5e60beea2f6",
+      "size_bytes": 115332
+    }
+  }
+}

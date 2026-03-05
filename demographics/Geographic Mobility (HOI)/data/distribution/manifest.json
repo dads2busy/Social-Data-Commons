@@ -1,0 +1,48 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-05T00:25:58+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "perc_moving_geo10",
+    "perc_moving_geo20"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 122478,
+  "files": {
+    "ncr_cttr_census_acs_2015_2024_geographic_mobility_hoi.csv.xz": {
+      "sha256": "38c8f8a6601bd2169d5cf4af18cbf31bbfc32ed540d765dba0a31cbc6130832c",
+      "size_bytes": 493556
+    },
+    "va_cttr_census_acs_2015_2024_geographic_mobility_hoi.csv.xz": {
+      "sha256": "f2094ea77f999ea31ae7a98483b505be069c9bc11ee90770f085abd1be674dbd",
+      "size_bytes": 283024
+    },
+    "va_hdcttr_census_acs_2015_2024_geographic_mobility_hoi.csv.xz": {
+      "sha256": "c167dbc350423b6de9b56f818d5187490b7dc9e6061ebf955b0f4832161a2d5a",
+      "size_bytes": 285132
+    }
+  }
+}
