@@ -16,8 +16,10 @@ Usage::
 from __future__ import annotations
 
 import json
+import lzma
 import os
 import re
+import tempfile
 from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
@@ -583,12 +585,31 @@ def upload_to_zenodo(
     deposit_id = deposit["id"]
     bucket_url = deposit["links"]["bucket"]
 
-    # Upload files
+    # Upload files (decompress .csv.xz to .csv for Zenodo preview)
     uploaded_names = []
-    for fp in files_to_upload:
-        log.info("Uploading %s", fp.name)
-        client.upload_file(bucket_url, fp)
-        uploaded_names.append(fp.name)
+    tmp_dir = None
+    try:
+        for fp in files_to_upload:
+            if fp.suffix == ".xz" and fp.name.endswith(".csv.xz"):
+                # Decompress to a temp directory for upload
+                if tmp_dir is None:
+                    tmp_dir = tempfile.mkdtemp(prefix="zenodo_")
+                csv_name = fp.name.removesuffix(".xz")
+                csv_path = Path(tmp_dir) / csv_name
+                log.info("Decompressing %s → %s", fp.name, csv_name)
+                csv_path.write_bytes(lzma.decompress(fp.read_bytes()))
+                log.info("Uploading %s", csv_name)
+                client.upload_file(bucket_url, csv_path)
+                uploaded_names.append(csv_name)
+            else:
+                log.info("Uploading %s", fp.name)
+                client.upload_file(bucket_url, fp)
+                uploaded_names.append(fp.name)
+    finally:
+        # Clean up temp files
+        if tmp_dir is not None:
+            import shutil
+            shutil.rmtree(tmp_dir, ignore_errors=True)
 
     # Set metadata
     client.update_metadata(deposit_id, metadata)
