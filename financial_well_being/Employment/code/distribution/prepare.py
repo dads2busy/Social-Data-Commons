@@ -32,12 +32,14 @@ def load_config() -> dict:
 
 
 def find_source(dist_dir: Path, prefix: str, title: str) -> Path | None:
+    """Find ingest output (cttr, not hdcttr)."""
     candidates = sorted(dist_dir.glob(f"{prefix}_cttr_census_acs*{title}*.csv.xz"))
+    candidates = [c for c in candidates if "_hdcttr_" not in c.name]
     return candidates[-1] if candidates else None
 
 
-def build_va_labor_with_health_districts(va_source: Path, crosswalk_path: Path) -> Path:
-    log.info("Reading VA labor source: %s", va_source)
+def build_va_with_health_districts(va_source: Path, crosswalk_path: Path, title: str) -> Path:
+    log.info("Reading VA source: %s", va_source)
     df = read_data(va_source)
 
     counties = df[df["geoid"].str.len() == 5].copy()
@@ -65,7 +67,7 @@ def build_va_labor_with_health_districts(va_source: Path, crosswalk_path: Path) 
             coverage_area="va",
             data_source="census_acs",
             years=years_list,
-            title="labor_participate_rate",
+            title=title,
             geographies=["health_district", "county", "tract"],
         )
         + ".csv.xz"
@@ -86,8 +88,9 @@ def run() -> None:
     # --- VA emp_rate ---
     va_emp_source = find_source(DIST_DIR, "va", "employment_rate")
     if va_emp_source:
+        va_emp_dist = build_va_with_health_districts(va_emp_source, crosswalk_path, "employment_rate")
         paths = data_reformat_for_site(
-            source_path=va_emp_source,
+            source_path=va_emp_dist,
             output_dir=va_dashboard,
             levels=["health_district", "county", "tract"],
             coverage_area="va",
@@ -97,13 +100,14 @@ def run() -> None:
         )
         for p in paths:
             log.info("Wrote %s", p)
+        va_emp_source.unlink(missing_ok=True)
     else:
         log.warning("No VA emp_rate source file found in %s", DIST_DIR)
 
     # --- VA labor_participate_rate ---
     va_labor_source = find_source(DIST_DIR, "va", "labor_participate_rate")
     if va_labor_source:
-        va_labor_dist = build_va_labor_with_health_districts(va_labor_source, crosswalk_path)
+        va_labor_dist = build_va_with_health_districts(va_labor_source, crosswalk_path, "labor_participate_rate")
         paths = data_reformat_for_site(
             source_path=va_labor_dist,
             output_dir=va_dashboard,
