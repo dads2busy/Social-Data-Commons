@@ -39,10 +39,6 @@
     "va_hdcttr_census_acs_2015_2024_segregation.csv.xz": {
       "sha256": "d3ab65f624768f8ef4cdf668c019c04b5ba7e613d984d1ad8ff7df402b34814d",
       "size_bytes": 128528
-    },
-    "va_tr_census_acs_2015_2024_segregation.csv.xz": {
-      "sha256": "efb517319bb7c13ef879caee67f408d346f0ff5acd1eaad764a4c5e60beea2f6",
-      "size_bytes": 115332
     }
   }
 }

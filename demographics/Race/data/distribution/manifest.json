@@ -70,10 +70,6 @@
       "sha256": "6304961ac17b457133e52735d5916aba6c3fe1b4b57edaf26aac926bbf999e83",
       "size_bytes": 18105952
     },
-    "va_cttr_census_acs_2009_2024_race_demographics.csv.xz": {
-      "sha256": "6124e3b9ca78720ff72703291bbc0113f6932b9e5ff31f25653fec25172ff089",
-      "size_bytes": 5336084
-    },
     "va_hdcttr_census_acs_2009_2024_race_demographics.csv.xz": {
       "sha256": "44270903e82da5d2d2e6f72d9b7e6b40fd104a41f478a29eb6776c0a7a9adf21",
       "size_bytes": 4574580

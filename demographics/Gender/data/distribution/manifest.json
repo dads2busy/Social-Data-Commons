@@ -45,10 +45,6 @@
       "sha256": "fefab404efab82fae5e4de8c3eeb3de1022e4d7c3de12c07834f0a999b84faa0",
       "size_bytes": 4889924
     },
-    "va_cttr_census_acs_2009_2024_gender_demographics.csv.xz": {
-      "sha256": "f6afcf5619ab815d5ac9cb196a3ac9b1671eb9a6d1bd20234d405572532df138",
-      "size_bytes": 958124
-    },
     "va_cttrbg_census_acs_2009_2024_gender_demographics.csv.xz": {
       "sha256": "47d5666a911803f1cac5e571d5fa2df089335e79e065b45ae71c1617767e9bb9",
       "size_bytes": 2737324

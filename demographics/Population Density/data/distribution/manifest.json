@@ -34,10 +34,6 @@
       "sha256": "6265df24709bbeac85576f0c9a83a715ebf04a4efab3753432d70d2f823572b7",
       "size_bytes": 796720
     },
-    "va_cttr_census_acs_2015_2024_population_density.csv.xz": {
-      "sha256": "2e3bb2b026ef60fd055576d5764271a751dd1562d133257916ad77b8f921fa48",
-      "size_bytes": 271028
-    },
     "va_hdcttr_census_acs_2015_2024_population_density.csv.xz": {
       "sha256": "e1ddf6bdbc9f5b76bc1a64ca07dda5e42db06331818b5e4cbe3280b3fd2e643c",
       "size_bytes": 272332
