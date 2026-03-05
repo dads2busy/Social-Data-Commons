@@ -1,0 +1,48 @@
+{
+    "mrfei": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Nutrition and Food Security",
+        "citations": [
+            "cdc11a",
+            "cdc11b"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "The number of available healthy and less healthy food retailers. A higher score indicates more available healthy options per less healthy options. A score of 0 indicates no available options, therefore a food desert. Geographies: Block group (12), Census tract (11), County (5), Civic Association (51013_hd)",
+        "long_name": "Retail food environment index",
+        "measure_type": "index",
+        "short_description": "",
+        "short_name": "Retail food environment index",
+        "sources": [
+            {
+                "date_accessed": 2023,
+                "location": "",
+                "location_url": "",
+                "name": "OpenStreetMap",
+                "url": "https://www.openstreetmap.org/"
+            }
+        ],
+        "statement": "The Retail food environment index is {value} in {features.name}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "_references": {
+        "cdc11a": {
+            "id": "cdc11a",
+            "author": "Centers for Disease Control and Prevention",
+            "year": 2011,
+            "title": "Children\u2019s Food Environment State Indicator Report",
+            "url": "https://www.cdc.gov/obesity/downloads/ChildrensFoodEnvironment.pdf"
+        },
+        "cdc11b": {
+            "id": "cdc11b",
+            "author": "Centers for Disease Control and Prevention",
+            "year": 2011,
+            "title": "Census Tract Level State Maps of the Modified Retail Food Environment Index (mRFEI)",
+            "url": "https://www.cdc.gov/obesity/downloads/census-tract-level-state-maps-mrfei_TAG508.pdf"
+        }
+    }
+}
