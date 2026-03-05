@@ -21,6 +21,7 @@
                 "url": "https://www.countyhealthrankings.org/app/virginia/2021/measure/factors/5/description"
             }
         ],
+        "provenance": "Preventable hospitalization rates are sourced from the County Health Rankings & Roadmaps program (Robert Wood Johnson Foundation / University of Wisconsin Population Health Institute), which calculates rates using the AHRQ Prevention Quality Indicators methodology applied to CMS Medicare claims data.",
         "statement": "{value} of the hospitalizations in {features.name} were preventable (due to conditions usually treated in outpatient settings).",
         "type": "rate",
         "unit": "",

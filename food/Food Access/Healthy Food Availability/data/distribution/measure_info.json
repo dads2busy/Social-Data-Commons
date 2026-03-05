@@ -24,6 +24,7 @@
                 "url": "https://www.openstreetmap.org/"
             }
         ],
+        "provenance": "The modified Retail Food Environment Index (mRFEI) was developed by the Centers for Disease Control and Prevention (CDC) to measure the balance of healthy and less-healthy food retail options in a geographic area (CDC, 2011).",
         "statement": "The Retail food environment index is {value} in {features.name}.",
         "type": "index",
         "unit": "",

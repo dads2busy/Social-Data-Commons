@@ -21,6 +21,7 @@
                 "url": "https://www.prisonpolicy.org/origin/va/2020/tract.html"
             }
         ],
+        "provenance": "Incarceration data is from the Prison Policy Initiative, which estimates tract-level incarceration rates by redistributing incarcerated populations from Census group quarters to home census tracts using Bureau of Justice Statistics survey data.",
         "statement": "The incarceration rate per 100,000 in {features.name} is {value}.",
         "type": "",
         "unit": "individual",

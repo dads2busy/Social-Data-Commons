@@ -91,6 +91,7 @@
                 "url": "http://taxsim.nber.org/taxsim35/"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "{value} people in {features.name} are food insecure.",
         "type": "count",
         "unit": "people",
@@ -188,6 +189,7 @@
                 "url": "http://taxsim.nber.org/taxsim35/"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "{value} of the population in {features.name} are food insecure.",
         "type": "percent",
         "unit": "household",
@@ -285,6 +287,7 @@
                 "url": "http://taxsim.nber.org/taxsim35/"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "{value} people in {features.name} are food secure.",
         "type": "count",
         "unit": "persons",
@@ -382,6 +385,7 @@
                 "url": "http://taxsim.nber.org/taxsim35/"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "{value} of the population in {features.name} are food secure.",
         "type": "percent",
         "unit": "percent",
@@ -409,6 +413,7 @@
                 "url": "https://www.census.gov/newsroom/press-kits/2020/acs-5-year.html"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "Total number of households in {features.name} is {value}.",
         "type": "count",
         "unit": "household",
@@ -520,6 +525,7 @@
                 "url": "https://www.dss.virginia.gov/files/division/bp/fs/intro_page/income_limits/Income_Chart_eff_102022.pdf"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "The average of SNAP benefits for households in {features.name} is {value}.",
         "type": "dollars",
         "unit": "dollars",
@@ -631,6 +637,7 @@
                 "url": "https://www.dss.virginia.gov/files/division/bp/fs/intro_page/income_limits/Income_Chart_eff_102022.pdf"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "The average SNAP shortfall for households in {features.name} is {value}.",
         "type": "ratio",
         "unit": "ratio",
@@ -728,6 +735,7 @@
                 "url": "http://taxsim.nber.org/taxsim35/"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "{value} of households in {features.name} are classified at high risk of food insecurity.",
         "type": "percent",
         "unit": "percent",
@@ -825,6 +833,7 @@
                 "url": "http://taxsim.nber.org/taxsim35/"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "{value} of households in {features.name} are classified at medium risk of food insecurity.",
         "type": "percent",
         "unit": "percent",
@@ -922,6 +931,7 @@
                 "url": "http://taxsim.nber.org/taxsim35/"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "{value} of households in {features.name} are classified at low risk of food insecurity.",
         "type": "percent",
         "unit": "percent",
@@ -1019,6 +1029,7 @@
                 "url": "http://taxsim.nber.org/taxsim35/"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "{value} households in {features.name} are classified at high risk of food insecurity.",
         "type": "count",
         "unit": "households",
@@ -1116,6 +1127,7 @@
                 "url": "http://taxsim.nber.org/taxsim35/"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "{value} households in {features.name} are classified at low risk of food insecurity.",
         "type": "count",
         "unit": "households",
@@ -1213,6 +1225,7 @@
                 "url": "http://taxsim.nber.org/taxsim35/"
             }
         ],
+        "provenance": "Food insecurity estimates are based on a financial model that compares household income to local cost-of-living across eight expense categories (food, housing, healthcare, childcare, transportation, taxes, internet, other), extending the Feeding America Map the Meal Gap methodology with additional cost components.",
         "statement": "{value} households in {features.name} are classified at a medium risk of food insecurity.",
         "type": "count",
         "unit": "households",

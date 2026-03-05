@@ -21,6 +21,7 @@
                 "url": "https://www.schoolfinancedata.org/download-data/"
             }
         ],
+        "provenance": "School funding adequacy data is from the School Finance Indicators Database (SFID), developed by researchers at the Albert Shanker Institute, Rutgers University, and University of Miami. Required spending is estimated using a cost-function model that accounts for student demographics, regional cost differences, and grade-level concentrations.",
         "statement": "The average gap between actual and required spending per pupil is {value} in {features.name}.",
         "type": "dollar",
         "unit": "dollars",

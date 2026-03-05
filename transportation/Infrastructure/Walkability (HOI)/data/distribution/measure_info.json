@@ -21,6 +21,7 @@
                 "url": "https://www.epa.gov/smartgrowth/smart-location-mapping#walkability"
             }
         ],
+        "provenance": "Derived from the Environmental Protection Agency's (EPA) National Walkability Index, a composite measure from the EPA Smart Location Database that ranks block groups by walkability using density, land use diversity, and transit proximity.",
         "statement": "The Walkability Index in {region_name} is {value}.",
         "type": "index",
         "unit": "",

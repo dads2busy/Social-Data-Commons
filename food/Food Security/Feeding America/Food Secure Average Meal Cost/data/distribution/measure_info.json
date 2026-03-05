@@ -21,6 +21,7 @@
                 "url": "https://www.feedingamerica.org/"
             }
         ],
+        "provenance": "Average meal cost is estimated by Feeding America's Map the Meal Gap study, derived from Current Population Survey self-reported food spending among food-secure individuals, adjusted for local food prices.",
         "statement": "The average meal cost in {features.name} is {value}.",
         "type": "dollar",
         "unit": "",

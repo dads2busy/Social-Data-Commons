@@ -21,6 +21,7 @@
                 "url": "https://map.feedingamerica.org/"
             }
         ],
+        "provenance": "Food insecurity estimates are produced by Feeding America's Map the Meal Gap study, which uses a regression model applied to Current Population Survey and American Community Survey data to generate county-level food insecurity rates.",
         "statement": "{value} people in {features.name} are food insecure.",
         "type": "count",
         "unit": "",
@@ -48,6 +49,7 @@
                 "url": "https://map.feedingamerica.org/"
             }
         ],
+        "provenance": "Food insecurity estimates are produced by Feeding America's Map the Meal Gap study, which uses a regression model applied to Current Population Survey and American Community Survey data to generate county-level food insecurity rates.",
         "statement": "{value} percent of the population in {features.name} are food insecure.",
         "type": "percent",
         "unit": "",

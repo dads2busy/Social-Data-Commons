@@ -86,6 +86,7 @@
                 "url": "https://www.google.com/maps"
             }
         ],
+        "provenance": "Spatial access scores are calculated using the floating catchment area (2SFCA/3SFCA) methodology (Luo, 2004; Luo & Qi, 2009; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
         "statement": "The urgent care availability for {features.name} is {value}.",
         "type": "index",
         "unit": "",

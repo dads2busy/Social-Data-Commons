@@ -21,6 +21,7 @@
                 "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
             }
         ],
+        "provenance": "Based on the Townsend Material Deprivation Index (Townsend et al., 1988), which combines four census-derived indicators -- unemployment, overcrowding, non-car ownership, and non-home ownership -- to measure area-level material deprivation. Adapted for U.S. Census variables.",
         "statement": "The material deprivation indicator in {features.name} is {value}.",
         "type": "index",
         "unit": "",

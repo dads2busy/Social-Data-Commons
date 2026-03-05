@@ -21,6 +21,7 @@
                 "date_accessed": "2023"
             }
         ],
+        "provenance": "Based on the Housing + Transportation (H+T) Affordability Index developed by the Center for Neighborhood Technology (CNT), which measures true affordability by combining housing and transportation costs as a share of income.",
         "statement": "The Affordability index in {region_name} is {value}.",
         "type": "",
         "unit": "percent",

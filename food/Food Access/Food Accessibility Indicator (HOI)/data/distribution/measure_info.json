@@ -23,6 +23,7 @@
                 "url": "https://www.openstreetmap.org/"
             }
         ],
+        "provenance": "Low food access is defined following the USDA Economic Research Service Food Access Research Atlas methodology, which identifies census tracts as having low access based on distance to supermarkets and low-income criteria from the Department of Treasury's New Markets Tax Credit program.",
         "statement": "The {value} in {features.name} have food access.",
         "type": "percent",
         "unit": "",

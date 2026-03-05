@@ -21,6 +21,7 @@
                 "url": "https://www.cdc.gov"
             }
         ],
+        "provenance": "Prenatal care adequacy is measured using the Adequacy of Prenatal Care Utilization (APNCU) index, also known as the Kotelchuck Index (Kotelchuck, M., 1994). The index rates prenatal care into four categories based on when care began and the proportion of recommended visits received.",
         "statement": "{value} of the cases in {features.name} rated as adequate plus.",
         "type": "percent",
         "unit": "",
@@ -48,6 +49,7 @@
                 "url": "https://www.cdc.gov"
             }
         ],
+        "provenance": "Prenatal care adequacy is measured using the Adequacy of Prenatal Care Utilization (APNCU) index, also known as the Kotelchuck Index (Kotelchuck, M., 1994). The index rates prenatal care into four categories based on when care began and the proportion of recommended visits received.",
         "statement": "{value} of the cases in {features.name} rated as adequate.",
         "type": "percent",
         "unit": "",
@@ -75,6 +77,7 @@
                 "url": "https://www.cdc.gov"
             }
         ],
+        "provenance": "Prenatal care adequacy is measured using the Adequacy of Prenatal Care Utilization (APNCU) index, also known as the Kotelchuck Index (Kotelchuck, M., 1994). The index rates prenatal care into four categories based on when care began and the proportion of recommended visits received.",
         "statement": "{value} of the cases in {features.name} rated as intermediate.",
         "type": "percent",
         "unit": "",
@@ -102,6 +105,7 @@
                 "url": "https://www.cdc.gov"
             }
         ],
+        "provenance": "Prenatal care adequacy is measured using the Adequacy of Prenatal Care Utilization (APNCU) index, also known as the Kotelchuck Index (Kotelchuck, M., 1994). The index rates prenatal care into four categories based on when care began and the proportion of recommended visits received.",
         "statement": "{value} of the cases in {features.name} rated as inadequate.",
         "type": "percent",
         "unit": "",
@@ -129,6 +133,7 @@
                 "url": "https://www.cdc.gov"
             }
         ],
+        "provenance": "Prenatal care adequacy is measured using the Adequacy of Prenatal Care Utilization (APNCU) index, also known as the Kotelchuck Index (Kotelchuck, M., 1994). The index rates prenatal care into four categories based on when care began and the proportion of recommended visits received.",
         "statement": "There are {value} cases rated as adequate plus in {features.name}.",
         "type": "integer",
         "unit": "",
@@ -156,6 +161,7 @@
                 "url": "https://www.cdc.gov"
             }
         ],
+        "provenance": "Prenatal care adequacy is measured using the Adequacy of Prenatal Care Utilization (APNCU) index, also known as the Kotelchuck Index (Kotelchuck, M., 1994). The index rates prenatal care into four categories based on when care began and the proportion of recommended visits received.",
         "statement": "There are {value} cases rated as adequate in {features.name}.",
         "type": "integer",
         "unit": "",
@@ -183,6 +189,7 @@
                 "url": "https://www.cdc.gov"
             }
         ],
+        "provenance": "Prenatal care adequacy is measured using the Adequacy of Prenatal Care Utilization (APNCU) index, also known as the Kotelchuck Index (Kotelchuck, M., 1994). The index rates prenatal care into four categories based on when care began and the proportion of recommended visits received.",
         "statement": "There are {value} cases rated as intermediate in {features.name}.",
         "type": "integer",
         "unit": "",
@@ -210,6 +217,7 @@
                 "url": "https://www.cdc.gov"
             }
         ],
+        "provenance": "Prenatal care adequacy is measured using the Adequacy of Prenatal Care Utilization (APNCU) index, also known as the Kotelchuck Index (Kotelchuck, M., 1994). The index rates prenatal care into four categories based on when care began and the proportion of recommended visits received.",
         "statement": "There are {value} cases rated as inadequate in {features.name}.",
         "type": "integer",
         "unit": "",

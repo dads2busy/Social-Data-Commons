@@ -21,6 +21,7 @@
                 "url": ""
             }
         ],
+        "provenance": "The Gini Index is a standard measure of income inequality developed by Corrado Gini (1912). Values are computed and published by the U.S. Census Bureau in American Community Survey Table B19083.",
         "statement": "Income Inequality (Gini Index) in {features.name} is {value}.",
         "type": "",
         "unit": "",

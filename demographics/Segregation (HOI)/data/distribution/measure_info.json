@@ -21,6 +21,7 @@
                 "url": ""
             }
         ],
+        "provenance": "The segregation indicator uses the Entropy Index (Theil's H), a method for measuring multigroup residential segregation that quantifies how sub-area racial/ethnic composition differs from the overall composition (Theil, 1972; Reardon & Firebaugh, 2002).",
         "statement": "The segregation indicator in {features.name} is {value}.",
         "type": "",
         "unit": "individual",

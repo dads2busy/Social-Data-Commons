@@ -117,6 +117,7 @@
                 "url": "http://project-osrm.org"
             }
         ],
+        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012), with distance-weighted Gaussian decay.",
         "statement": "There are {value} day care seats per 1,000 children under 15 in {region_name}.",
         "type": "",
         "unit": "day care seat per 1k children",
@@ -168,6 +169,7 @@
                 "url": "http://project-osrm.org"
             }
         ],
+        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012), with distance-weighted Gaussian decay.",
         "statement": "There are {value} day care seats per 1,000 children over 4 in {region_name}.",
         "type": "",
         "unit": "day care seat per 1k children",
@@ -219,6 +221,7 @@
                 "url": "http://project-osrm.org"
             }
         ],
+        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012), with distance-weighted Gaussian decay.",
         "statement": "There are {value} day care seats per 1,000 children under 10 in {region_name}.",
         "type": "",
         "unit": "day care seat per 1k children",
