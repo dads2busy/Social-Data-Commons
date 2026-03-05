@@ -180,11 +180,19 @@ def _build_description(
         f"as part of the <strong>{pipeline_name}</strong> data pipeline.</p>"
     )
 
-    # --- Provenance ---
-    provenance = config.get("provenance", "").strip()
-    if provenance:
-        parts.append("<h3>Provenance</h3>")
-        parts.append(f"<p>{provenance}</p>")
+    # --- Provenance (from measure_info) ---
+    if measure_info:
+        prov_seen: set[str] = set()
+        prov_items: list[str] = []
+        for info in measure_info.values():
+            if isinstance(info, dict):
+                prov = info.get("provenance", "").strip()
+                if prov and prov not in prov_seen:
+                    prov_seen.add(prov)
+                    prov_items.append(f"<p>{prov}</p>")
+        if prov_items:
+            parts.append("<h3>Provenance</h3>")
+            parts.extend(prov_items)
 
     # --- Temporal & geographic coverage ---
     years, geos, coverage_areas = _extract_coverage(config)

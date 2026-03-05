@@ -28,6 +28,7 @@
         "url": "https://www2.census.gov/geo/tiger/TIGER2020/"
       }
     ],
+    "provenance": "Inspired by the Housing + Transportation (H+T) Affordability Index from the Center for Neighborhood Technology (CNT), which used a similar gravity model approach. This implementation computes the index directly from LEHD-LODES Workplace Area Characteristics (WAC) job counts and TIGER/Line Census block centroids.",
     "statement": "The employment access index for {features.name} is {value}.",
     "type": "index",
     "unit": "",

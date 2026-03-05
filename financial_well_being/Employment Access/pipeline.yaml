@@ -5,12 +5,6 @@ description: >
   Employment Intensity (gravity model) from LEHD-LODES WAC job counts
   and TIGER/Line centroids. E = sum(jobs_i / dist_i^2) with hierarchical
   distance approximation and 200-mile radius cutoff.
-provenance: >
-  Inspired by the Housing + Transportation (H+T) Affordability Index
-  from the Center for Neighborhood Technology (CNT), which used a similar
-  gravity model approach. This implementation computes the index directly
-  from LEHD-LODES Workplace Area Characteristics (WAC) job counts and
-  TIGER/Line Census block centroids, covering years 2015-2023.
 
 sources:
   va:
