@@ -109,6 +109,7 @@ def run_source(name: str, src: dict, out_dir: Path, standardize: bool) -> RunRes
     try:
         log.info("Ingesting source '%s' (profile=%s)", name, src.get("profile"))
 
+        cache_dir = TOPIC_DIR / "data/working/acs_cache"
         client = CensusClient()
         df = client.get_acs_multi(
             variables=src["variables"],
@@ -116,6 +117,7 @@ def run_source(name: str, src: dict, out_dir: Path, standardize: bool) -> RunRes
             geographies=src["geographies"],
             profile=src.get("profile"),
             states=src.get("states"),
+            cache_dir=cache_dir,
         )
         log.info("Fetched %d raw rows for '%s'", len(df), name)
 

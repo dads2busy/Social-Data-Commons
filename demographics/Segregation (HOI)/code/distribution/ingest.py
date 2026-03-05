@@ -49,6 +49,8 @@ def fetch_segregation_data(client: CensusClient, src: dict) -> pd.DataFrame:
 
     dfs = []
 
+    cache_dir = TOPIC_DIR / "data/working/acs_cache"
+
     if early_years:
         log.info("Fetching %d early years (2015-2016 variable IDs)", len(early_years))
         df_early = client.get_acs_multi(
@@ -58,6 +60,7 @@ def fetch_segregation_data(client: CensusClient, src: dict) -> pd.DataFrame:
             profile=profile,
             states=states,
             table_type="profile",
+            cache_dir=cache_dir,
         )
         dfs.append(df_early)
 
@@ -70,6 +73,7 @@ def fetch_segregation_data(client: CensusClient, src: dict) -> pd.DataFrame:
             profile=profile,
             states=states,
             table_type="profile",
+            cache_dir=cache_dir,
         )
         dfs.append(df_late)
 

@@ -18,8 +18,10 @@ Usage:
 
 from __future__ import annotations
 
+import hashlib
 import os
 import time
+from pathlib import Path
 from typing import Literal
 
 import httpx
@@ -57,6 +59,20 @@ def _resolve_fips(state: str) -> str:
     if state in FIPS_TO_STATE:
         return state
     raise ValueError(f"Unknown state: {state!r}. Use a 2-letter abbreviation or FIPS code.")
+
+
+def _cache_key(
+    year: int,
+    geography: str,
+    table_type: str,
+    states: list[str],
+    variables: list[str],
+    estimate_only: bool,
+) -> str:
+    """Build a deterministic cache filename for an ACS query."""
+    parts = sorted(states) + ["||"] + sorted(variables) + [str(estimate_only)]
+    h = hashlib.md5("|".join(parts).encode()).hexdigest()[:8]
+    return f"acs_{table_type}_{year}_{geography}_{h}.csv"
 
 
 class CensusClient:
@@ -170,6 +186,7 @@ class CensusClient:
         estimate_only: bool = True,
         show_progress: bool = True,
         table_type: str = "detail",
+        cache_dir: str | Path | None = None,
     ) -> pd.DataFrame:
         """Fetch ACS data and return in wide format with friendly column names.
 
@@ -184,6 +201,10 @@ class CensusClient:
             e.g. {"total_pop": "B01001_001", "male": "B01001_002"}.
         geography, state, year, county, estimate_only, show_progress :
             Same as get_acs().
+        cache_dir : str, Path, or None
+            If set, cache results as CSV files in this directory. Subsequent
+            calls with the same parameters will read from cache instead of
+            hitting the Census API.
 
         Returns
         -------
@@ -191,11 +212,20 @@ class CensusClient:
             Columns: geoid, NAME, year, region_type, plus one column per
             friendly name (estimate), and {name}_moe if estimate_only=False.
         """
-        var_ids = list(variables.values())
-        name_for_id = {v: k for k, v in variables.items()}
-
         states_list = [state] if isinstance(state, str) else state
         fips_list = [_resolve_fips(s) for s in states_list]
+
+        # Check cache
+        if cache_dir is not None:
+            cache_path = Path(cache_dir) / _cache_key(
+                year, geography, table_type, fips_list,
+                list(variables.values()), estimate_only,
+            )
+            if cache_path.exists():
+                return pd.read_csv(cache_path, dtype={"geoid": str})
+
+        var_ids = list(variables.values())
+        name_for_id = {v: k for k, v in variables.items()}
 
         suffixes = ["E", "M"] if not estimate_only else ["E"]
         fields = [f"{vid}{s}" for vid in var_ids for s in suffixes]
@@ -253,6 +283,16 @@ class CensusClient:
 
         raw["year"] = year
         raw["region_type"] = geography
+
+        # Save to cache
+        if cache_dir is not None:
+            cache_path = Path(cache_dir) / _cache_key(
+                year, geography, table_type, fips_list,
+                list(variables.values()), estimate_only,
+            )
+            cache_path.parent.mkdir(parents=True, exist_ok=True)
+            raw.to_csv(cache_path, index=False)
+
         return raw
 
     def get_acs_multi(
@@ -268,6 +308,7 @@ class CensusClient:
         show_progress: bool = True,
         block_group_min_year: int = 2013,
         table_type: str = "detail",
+        cache_dir: str | Path | None = None,
     ) -> pd.DataFrame:
         """Fetch ACS data across multiple years, states, and geography levels.
 
@@ -289,6 +330,9 @@ class CensusClient:
             See sdc_core.profiles for available profiles.
         county, estimate_only, show_progress, block_group_min_year :
             Same as get_acs_wide().
+        cache_dir : str, Path, or None
+            If set, cache each (year, geography) result as a CSV file.
+            Cached years are read from disk instead of hitting the API.
 
         Returns
         -------
@@ -330,6 +374,7 @@ class CensusClient:
                 estimate_only=estimate_only,
                 show_progress=False,
                 table_type=table_type,
+                cache_dir=cache_dir,
             )
             if not df.empty:
                 all_dfs.append(df)

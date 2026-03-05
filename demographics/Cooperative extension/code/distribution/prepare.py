@@ -41,6 +41,7 @@ def ingest_perc_male(client: CensusClient, source_cfg: dict) -> pd.DataFrame:
     pm_config = source_cfg["perc_male"]
     state = source_cfg["state"]
     geographies = source_cfg["geographies"]
+    cache_dir = TOPIC_DIR / "data/working/acs_cache"
 
     records = []
     for year in tqdm(pm_config["years"], desc="perc_male"):
@@ -58,6 +59,7 @@ def ingest_perc_male(client: CensusClient, source_cfg: dict) -> pd.DataFrame:
                 year=year,
                 show_progress=False,
                 table_type="subject",
+                cache_dir=cache_dir,
             )
             if df.empty:
                 continue
@@ -79,6 +81,7 @@ def ingest_children_gp(client: CensusClient, source_cfg: dict) -> pd.DataFrame:
     gp_config = source_cfg["children_gp"]
     state = source_cfg["state"]
     geographies = source_cfg["geographies"]
+    cache_dir = TOPIC_DIR / "data/working/acs_cache"
 
     dfs = []
     for year in tqdm(gp_config["years"], desc="children_gp"):
@@ -89,6 +92,7 @@ def ingest_children_gp(client: CensusClient, source_cfg: dict) -> pd.DataFrame:
                 state=state,
                 year=year,
                 show_progress=False,
+                cache_dir=cache_dir,
             )
             if df.empty:
                 continue

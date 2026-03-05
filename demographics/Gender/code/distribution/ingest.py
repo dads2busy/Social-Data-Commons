@@ -58,6 +58,7 @@ def run_source(name: str, src: dict, out_dir: Path, client: CensusClient) -> Run
             geographies=src["geographies"],
             profile=src.get("profile"),
             states=src.get("states"),
+            cache_dir=TOPIC_DIR / "data/working/acs_cache",
         )
         log.info("Fetched %d raw rows for '%s'", len(df), name)
 

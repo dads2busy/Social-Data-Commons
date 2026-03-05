@@ -7,7 +7,7 @@ other demographics pipelines.
 
 from __future__ import annotations
 
-from prepare import run
+from .prepare import run
 
 if __name__ == "__main__":
     result = run()

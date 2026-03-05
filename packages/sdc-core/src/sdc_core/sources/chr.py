@@ -72,15 +72,18 @@ def ingest_chr(
     records = []
     for year, url in tqdm(urls.items(), desc="CHR"):
         year = int(year)
-        try:
-            resp = httpx.get(url, timeout=30, follow_redirects=True)
-            resp.raise_for_status()
-        except httpx.HTTPError as e:
-            log.warning("Could not download CHR %d: %s", year, e)
-            continue
-
         tmp = working_dir / f"chr_{year}.xlsx"
-        tmp.write_bytes(resp.content)
+
+        if tmp.exists():
+            log.info("Using cached CHR %d: %s", year, tmp)
+        else:
+            try:
+                resp = httpx.get(url, timeout=30, follow_redirects=True)
+                resp.raise_for_status()
+            except httpx.HTTPError as e:
+                log.warning("Could not download CHR %d: %s", year, e)
+                continue
+            tmp.write_bytes(resp.content)
 
         try:
             df = pd.read_excel(tmp, sheet_name=sheet_name, header=1)
