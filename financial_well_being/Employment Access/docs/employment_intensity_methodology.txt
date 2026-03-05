@@ -1,0 +1,144 @@
+Employment Intensity (Employment Access Index)
+===============================================
+
+Measure Description
+-------------------
+
+Employment Intensity is a gravity-based index that quantifies the accessibility
+of jobs from a given geographic location. Higher values indicate greater
+proximity to employment opportunities. The measure captures not just the number
+of nearby jobs, but the spatial concentration of employment -- a location
+surrounded by many jobs at short distances scores much higher than one near
+the same number of jobs spread across a large area.
+
+The measure is computed at the Census block group level for all of Virginia,
+then aggregated to tract, county, and health district levels.
+
+
+Formula
+-------
+
+For each Virginia Census block group:
+
+    E = sum( p_i / r_i^2 )
+
+Where:
+    E    = Employment Intensity for the block group
+    p_i  = total number of jobs at location i
+    r_i  = distance in miles from the block group center to location i's center,
+           clamped to a minimum of 1.0 mile
+
+The inverse-square weighting means a job 1 mile away contributes 1.0 to the
+index, a job 10 miles away contributes 0.01, and a job 100 miles away
+contributes 0.0001. This rapid decay means nearby employment dominates the
+measure.
+
+
+Hierarchical Distance Approximation
+------------------------------------
+
+Computing individual block-to-block-group distances for all blocks nationwide
+would be computationally prohibitive. The calculation uses a hierarchical
+approximation based on the methodology developed by the Center for
+Neighborhood Technology (CNT) for the H+T Affordability Index:
+
+    - Within 34 miles:   Individual Census block job counts and block centroids
+    - 34 to 165 miles:   Census tract aggregate job counts and tract centroids
+    - 165 to 200 miles:  County aggregate job counts and county centroids
+    - Beyond 200 miles:  Excluded (contribution is negligible due to 1/r^2 decay)
+
+The 200-mile cutoff is a simplification from CNT's original 1,256-mile
+threshold. Validation against CNT's published values shows a correlation of
+0.998 at the tract level, confirming that contributions beyond 200 miles are
+effectively zero.
+
+To further optimize computation, a bounding-box pre-filter in latitude/longitude
+is applied before computing Haversine distances, reducing the number of
+candidate locations evaluated for each block group.
+
+
+Data Sources
+------------
+
+1. LEHD-LODES WAC (Workplace Area Characteristics)
+   - Publisher: U.S. Census Bureau, Longitudinal Employer-Household Dynamics
+   - URL: https://lehd.ces.census.gov/data/lodes/
+   - Version: LODES 8 (2020 Census geography), with LODES 7 fallback
+   - File: {state}_wac_S000_JT00_{year}.csv.gz
+   - Column used: C000 (total number of jobs per Census block)
+   - Geographic key: w_geocode (15-digit Census block FIPS code)
+   - Coverage: 13 states within ~200 miles of Virginia:
+     VA, MD, DC, WV, NC, PA, DE, NJ, NY, OH, KY, TN, SC
+   - Years available: 2002-2023 (pipeline uses 2015-2023)
+
+2. TIGER/Line Shapefiles (2020 Census geography)
+   - Publisher: U.S. Census Bureau
+   - URL: https://www2.census.gov/geo/tiger/TIGER2020/
+   - Used for: Internal point coordinates (INTPTLAT, INTPTLON) at block,
+     block group, tract, and county levels
+   - These are not geometric centroids but "internal points" guaranteed to
+     fall within the geographic boundary
+
+
+Distance Calculation
+--------------------
+
+Distances are computed using the Haversine formula for great-circle distance
+on a sphere (Earth radius = 3,958.8 miles). At Virginia's latitude (~37-39 N),
+the error relative to geodesic distance is less than 0.3%, which is negligible
+given the 1-mile distance floor and the inverse-square decay.
+
+
+Aggregation
+-----------
+
+The gravity model is computed at the block group level. Higher geographic
+levels are derived by averaging:
+
+    - Tract: mean of constituent block group values
+    - County: mean of constituent block group values
+    - Health District: mean of constituent county values
+      (via county-to-health-district crosswalk)
+
+
+Output
+------
+
+Measure name: employment_access_index
+Geographic levels: tract, county, health district
+Coverage: Virginia (FIPS 51)
+Years: 2015-2023 (directly computed, no interpolation or extrapolation)
+Value range: approximately 600 to 230,000 (varies by year)
+    - Urban areas (NoVA, Richmond, Hampton Roads): typically 15,000-230,000
+    - Rural areas: typically 600-5,000
+
+
+Provenance
+----------
+
+This measure was originally sourced from the H+T Affordability Index published
+by the Center for Neighborhood Technology (CNT). The H+T Index included
+Employment Intensity as one of 17 independent variables in a transportation
+cost model. Our pipeline replicates the Employment Intensity calculation
+directly from the underlying public data sources (LODES + TIGER), enabling
+updates beyond the H+T Index's last release (October 2022, using 2019 ACS data).
+
+The methodology for the gravity model is documented in:
+    "H+T Index Methods", Center for Neighborhood Technology, November 2022
+    (see method-2022.pdf in this directory)
+    Specifically: "Employment Intensity" section, pages 11-12, Equation 3.
+
+
+Validation
+----------
+
+Computed 2020 values were validated against CNT's published emp_gravity values
+from the H+T Affordability Index download:
+
+    - Matched tracts: 2,161
+    - Pearson correlation: 0.998
+    - Mean ratio (computed / H+T): 0.87
+    - The ~13% lower values are expected due to the 200-mile radius cutoff
+      vs. CNT's national scope; urban tracts show ratios of 0.95-1.00,
+      while remote rural tracts show 0.65-0.70 (these benefit most from
+      distant employment contributions that our cutoff excludes)

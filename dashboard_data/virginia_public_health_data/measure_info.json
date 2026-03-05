@@ -1,56 +1,29 @@
 {
-    "average_years_schooling_geo20": {
-        "aggregation_method": "",
+    "employment_access_index_geo20": {
+        "aggregation_method": "weighted sum",
         "categories": "",
-        "category": "Education",
+        "category": "Employment/Workforce Development",
         "citations": "",
         "data_type": "numeric",
-        "equity_category": "Status",
+        "equity_category": "Accessibility",
         "layer": "",
-        "long_description": "The Education Index measures the average education level achieved by the adult population in an area. This is based on the average years of schooling in an area. Geographies: Census tract (11)",
-        "long_name": "Education Index (Average Years of Schooling)",
-        "measure_type": "average",
-        "short_description": "The Education Index measures the average education level achieved by the adult population in an area. This is based on the average years of schooling in an area. Geographies: Census tract (11)",
-        "short_name": "Average Years of Schooling",
+        "long_description": "Employment access measures the accessibility of jobs in a particular area. Poor job access can include barriers such as distance from residents and transportation availability. The employment access index is obtained from the Housing + Transportation (H+T) Affordability Index data provided by Center for Neighborhood Technology (CNT).  H+T calculated the index using a gravity model. The index is calculated by summing the total number of jobs divided by the square of the distance to those jobs. The index is based on jobs and distance decay function. \n We downloaded and cleaned the dataset from the CNT H+T index website for years 2015, 2019, and 2020. To fill in the missing data for the years 2016-2018, we performed interpolation using the available data points from 2015 and 2019. Additionally, for the year 2021, we estimated employment access values by multiplying the rate of change observed from 2019 to 2020 by the values for the year 2020. Employment access data is available at the tract, county and health district level for the state of Virginia.",
+        "long_name": "Employment Access Index",
+        "measure_type": "",
+        "short_description": "Employment access is the job accessibility at a location",
+        "short_name": "Employment Access Index",
         "sources": [
             {
-                "date_accessed": "2023",
-                "location": "Table B15001",
-                "location_url": "",
-                "name": "American Community Survey",
-                "url": "https://www.census.gov/programs-surveys/acs.html"
+                "name": "Housing + Transportation Affordability Index, Center for Neighborhood Technology",
+                "url": "https://htaindex.cnt.org/",
+                "location": "2015, 2019, and 2020 Datasets",
+                "location_url": "https://htaindex.cnt.org/download/",
+                "date_accessed": "2023"
             }
         ],
-        "statement": "{value} is the avg yrs of schooling in {features.name}.",
-        "type": "average",
-        "unit": "",
-        "variants": ""
-    },
-        "average_years_schooling": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Education",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The Education Index measures the average education level achieved by the adult population in an area. This is based on the average years of schooling in an area. Geographies: Census tract (11)",
-        "long_name": "Education Index (Average Years of Schooling)",
-        "measure_type": "average",
-        "short_description": "The Education Index measures the average education level achieved by the adult population in an area. This is based on the average years of schooling in an area. Geographies: Census tract (11)",
-        "short_name": "Average Years of Schooling",
-        "sources": [
-            {
-                "date_accessed": "2023",
-                "location": "Table B15001",
-                "location_url": "",
-                "name": "American Community Survey",
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "{value} is the avg yrs of schooling in {features.name}.",
-        "type": "average",
-        "unit": "",
+        "statement": "There are {value} jobs per square mile in {region_name}.",
+        "type": "",
+        "unit": "job",
         "variants": ""
     }
 }

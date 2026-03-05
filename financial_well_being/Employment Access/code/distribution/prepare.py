@@ -29,7 +29,10 @@ def load_config() -> dict:
 
 def find_source(dist_dir: Path) -> Path | None:
     """Find ingest output (cttr, not hdcttr)."""
-    candidates = sorted(dist_dir.glob("va_cttr_mixed*employment_access*.csv.xz"))
+    candidates = sorted(dist_dir.glob("va_cttr_lodes*employment_access*.csv.xz"))
+    if not candidates:
+        # Fallback to old naming convention
+        candidates = sorted(dist_dir.glob("va_cttr_mixed*employment_access*.csv.xz"))
     return candidates[-1] if candidates else None
 
 
@@ -57,7 +60,7 @@ def build_va_with_health_districts(source: Path, crosswalk_path: Path) -> Path:
 
     years_list = sorted(combined["year"].unique().tolist())
     filename = build_file_name(
-        coverage_area="va", data_source="mixed", years=years_list,
+        coverage_area="va", data_source="lodes", years=years_list,
         title="employment_access",
         geographies=["health_district", "county", "tract"],
     ) + ".csv.xz"
@@ -84,7 +87,7 @@ def run() -> None:
         output_dir=REPO_DIR / "dashboard_data/virginia_public_health_data",
         levels=["health_district", "county", "tract"],
         coverage_area="va",
-        data_source="mixed",
+        data_source="lodes",
         title="employment_access",
         measure_info_path=measure_info,
     )

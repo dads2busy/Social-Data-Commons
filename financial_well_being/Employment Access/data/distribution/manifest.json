@@ -1,0 +1,58 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-03-05T03:35:48+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "employment_access_index",
+    "employment_access_index_geo10",
+    "employment_access_index_geo20"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 150996,
+  "files": {
+    "va_cttr_lodes_2015_2023_employment_access.csv.xz": {
+      "sha256": "6b65d9c6f5430217f6c9c487d0532cef4eb69894a31e304f35a5b4dfdb48a43a",
+      "size_bytes": 274184
+    },
+    "va_cttr_mixed_2015_2021_employment_access.csv.xz": {
+      "sha256": "fff0d8b5d55686d0bb256024c29d3de939976c007cab2cf6511c13a717aa2bd8",
+      "size_bytes": 134580
+    },
+    "va_hdcttr_2015_2021_employment_access_index.csv.xz": {
+      "sha256": "f542ece8952db0fb8fab871ad5ef2649f86a48b96dbc8520e1159afde495afc6",
+      "size_bytes": 56520
+    },
+    "va_hdcttr_2015_2021_employment_access_index_std.csv.xz": {
+      "sha256": "15cbb0fdf29b0631e7e23adb616026c5abd12db05690cfa44823736981900e3b",
+      "size_bytes": 117732
+    },
+    "va_hdcttr_lodes_2015_2023_employment_access.csv.xz": {
+      "sha256": "b3c3d4b718fd1afa580415f61f61ef87f2acb1aad92159479b00e7e6f2e00d48",
+      "size_bytes": 253312
+    },
+    "va_hdcttr_mixed_2015_2021_employment_access.csv.xz": {
+      "sha256": "96988bffe4a8026b059c61dd320c7aac59ef73fed554a756e76a51e7634b9971",
+      "size_bytes": 114316
+    }
+  }
+}
