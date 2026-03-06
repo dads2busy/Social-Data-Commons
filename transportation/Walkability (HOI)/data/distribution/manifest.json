@@ -1,0 +1,45 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-06T20:07:53+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "walkability_index_geo10",
+    "walkability_index_geo20",
+    "walkability_index_raw",
+    "walkability_index_zscore"
+  ],
+  "years": [
+    2019,
+    2021
+  ],
+  "regions": [
+    "11",
+    "21",
+    "24",
+    "37",
+    "51",
+    "54"
+  ],
+  "row_count": 10910,
+  "files": {
+    "ncr_cttr_epa_sld_2019_walkability_index.csv.xz": {
+      "sha256": "5301a680f3ed42d2f1c3828f5bbc9f566fedceb7a0096ba92f434db395a163a2",
+      "size_bytes": 18812
+    },
+    "va_hdcttr_2021_walkability_index.csv.xz": {
+      "sha256": "26f55390b63d6c1cc2fd0ca2c7b09e443c123cb90ba6b6fc6fb024903d166108",
+      "size_bytes": 41392
+    },
+    "va_hdcttr_epa_sld_2019_walkability_index.csv.xz": {
+      "sha256": "810fd198bbda690de530b2cb40158370a25f227d891e5b71cb19f23204eeb6e7",
+      "size_bytes": 31924
+    }
+  }
+}

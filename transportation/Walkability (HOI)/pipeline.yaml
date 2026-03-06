@@ -1,0 +1,23 @@
+name: walkability_index
+version: "1.0.0"
+description: "National Walkability Index from EPA Smart Location Database V3, aggregated from block groups to tracts/counties/health districts"
+
+sources:
+  epa_sld:
+    type: static_download
+    url: "https://edg.epa.gov/EPADataCommons/public/OA/EPA_SmartLocationDatabase_V3_Jan_2021_Final.csv"
+    filename: sld_v3.csv
+    profiles: [VA, NCR]
+    geographies: [tract, county]
+    year: 2019
+    variables:
+      walkability_index: "NatWalkInd"
+    weight_column: "TotPop"
+    aggregation_method: "weighted_mean"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: false
