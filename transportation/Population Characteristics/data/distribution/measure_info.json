@@ -1,81 +1,162 @@
 {
-    "commute_time": {
-        "aggregation_method": "",
+    "commute_time_geo20": {
+        "aggregation_method": "Mean",
         "categories": "",
         "category": "Transportation",
         "citations": "",
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Self-reported mean travel time to work. Based on American Community Survey Table S0801 ACS 5-year estimates.",
+        "long_description": "Self-reported mean travel time to work. 5-year ACS estimates from table S0801 (Census 2020 boundaries).",
         "long_name": "Mean commute time",
-        "measure_type": "float",
+        "measure_type": "",
         "short_description": "Mean commute time.",
         "short_name": "Commute time",
         "sources": [
             {
-                "date_accessed": "2022",
-                "location": "Table S0801",
-                "location_url": "",
                 "name": "American Community Survey",
+                "location": "5-Year estimates, table S0801, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "statement": "The mean commute time in {features.name} is {value}.",
+        "statement": "The mean commute time in {region_name} is {value} minutes.",
         "type": "drive time",
-        "unit": "",
+        "unit": "minutes",
         "variants": ""
     },
-    "perc_carpool": {
-        "aggregation_method": "",
+    "commute_time_geo10": {
+        "aggregation_method": "Mean",
         "categories": "",
         "category": "Transportation",
         "citations": "",
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Percentage of population self-reported to carpool to work. Based on American Community Survey Table S0801 ACS 5-year estimates.",
+        "long_description": "Self-reported mean travel time to work. 5-year ACS estimates from table S0801 (Census 2010 boundaries).",
+        "long_name": "Mean commute time",
+        "measure_type": "",
+        "short_description": "Mean commute time.",
+        "short_name": "Commute time",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table S0801, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The mean commute time in {region_name} is {value} minutes.",
+        "type": "drive time",
+        "unit": "minutes",
+        "variants": ""
+    },
+    "perc_carpool_geo20": {
+        "aggregation_method": "Mean",
+        "categories": "",
+        "category": "Transportation",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Percentage of workers who carpooled to work. 5-year ACS estimates from table S0801 (Census 2020 boundaries).",
         "long_name": "Percentage carpool to work",
-        "measure_type": "float",
+        "measure_type": "",
         "short_description": "Population self-reported to carpool to work.",
         "short_name": "Carpool to work",
         "sources": [
             {
-                "date_accessed": "2022",
-                "location": "Table S0801",
-                "location_url": "",
                 "name": "American Community Survey",
+                "location": "5-Year estimates, table S0801, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "statement": "{value} of the population in {features.name} carpools to work.",
+        "statement": "{value} of the population in {region_name} carpools to work.",
         "type": "percent",
-        "unit": "",
+        "unit": "percent",
         "variants": ""
     },
-    "perc_no_vehicle": {
-        "aggregation_method": "",
+    "perc_carpool_geo10": {
+        "aggregation_method": "Mean",
         "categories": "",
         "category": "Transportation",
         "citations": "",
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Percentage of households self-reported to not have a vehicle available at home. Based on American Community Survey Table S2504 ACS 5-year estimates.",
+        "long_description": "Percentage of workers who carpooled to work. 5-year ACS estimates from table S0801 (Census 2010 boundaries).",
+        "long_name": "Percentage carpool to work",
+        "measure_type": "",
+        "short_description": "Population self-reported to carpool to work.",
+        "short_name": "Carpool to work",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table S0801, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "{value} of the population in {region_name} carpools to work.",
+        "type": "percent",
+        "unit": "percent",
+        "variants": ""
+    },
+    "perc_no_vehicle_geo20": {
+        "aggregation_method": "Mean",
+        "categories": "",
+        "category": "Transportation",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Percentage of occupied housing units with no vehicle available. 5-year ACS estimates from table S2504 (Census 2020 boundaries).",
         "long_name": "Percentage of households without vehicle available",
-        "measure_type": "float",
+        "measure_type": "",
         "short_description": "Households self-reported to not have a vehicle available at home.",
         "short_name": "Without vehicle",
         "sources": [
             {
-                "date_accessed": "2023",
-                "location": "Table S2504",
-                "location_url": "",
                 "name": "American Community Survey",
+                "location": "5-Year estimates, table S2504, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "statement": "{value} of households in {features.name} do not have a vehicle available at home.",
+        "statement": "{value} of households in {region_name} do not have a vehicle available at home.",
+        "type": "percent",
+        "unit": "percent",
+        "variants": ""
+    },
+    "perc_no_vehicle_geo10": {
+        "aggregation_method": "Mean",
+        "categories": "",
+        "category": "Transportation",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Percentage of occupied housing units with no vehicle available. 5-year ACS estimates from table S2504 (Census 2010 boundaries).",
+        "long_name": "Percentage of households without vehicle available",
+        "measure_type": "",
+        "short_description": "Households self-reported to not have a vehicle available at home.",
+        "short_name": "Without vehicle",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table S2504, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "{value} of households in {region_name} do not have a vehicle available at home.",
         "type": "percent",
         "unit": "percent",
         "variants": ""

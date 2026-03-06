@@ -1,0 +1,75 @@
+{
+  "version": "1.0.1",
+  "generated": "2026-03-06T19:24:08+00:00",
+  "schema": [
+    "geoid",
+    "region_name",
+    "value",
+    "measure",
+    "year",
+    "region_type",
+    "measure_type",
+    "measure_units",
+    "moe"
+  ],
+  "measures": [
+    "commute_time",
+    "commute_time_geo10",
+    "commute_time_geo20",
+    "perc_carpool",
+    "perc_carpool_geo10",
+    "perc_carpool_geo20",
+    "perc_no_vehicle",
+    "perc_no_vehicle_geo10",
+    "perc_no_vehicle_geo20"
+  ],
+  "years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 313235,
+  "files": {
+    "ncr_cttr_acs_2016_2020_carpools.csv.xz": {
+      "sha256": "4bf3db920a1d8008523fcf33be90de9985918b863ec66c4eabc07a197a254f55",
+      "size_bytes": 28516
+    },
+    "ncr_cttr_acs_2016_2020_commutes.csv.xz": {
+      "sha256": "09a145dd77d67446f5cea7f5c919dc4dfec00d10d8a063e36c8b9c653829c3f5",
+      "size_bytes": 26344
+    },
+    "ncr_cttr_acs_2016_2020_vehicles.csv.xz": {
+      "sha256": "1ad5988a915701b27cbe6c286104e4c547efafeb43052038dfcf14aacf71bc99",
+      "size_bytes": 27848
+    },
+    "ncr_cttr_census_acs_2015_2024_population_characteristics.csv.xz": {
+      "sha256": "f04ade8df333fc98a885f6c5b6692ed8f028a97c192d361af20cdb12e0c73b17",
+      "size_bytes": 632336
+    },
+    "va_cttr_2010_2021_perc_no_car_households.csv.xz": {
+      "sha256": "681f493fe8d9122e797b4755cc586c6ce16b6bb65da27b925f8fb0c91c372c4b",
+      "size_bytes": 116884
+    },
+    "va_hdcttr_census_acs_2015_2024_population_characteristics.csv.xz": {
+      "sha256": "bcca8b474f1bf6251fa7a01c18609ee8b6c74890559833bd66ce8754b31367dd",
+      "size_bytes": 371928
+    }
+  }
+}
