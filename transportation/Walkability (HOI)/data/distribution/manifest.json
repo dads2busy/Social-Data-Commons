@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-06T20:07:53+00:00",
+  "version": "3.0.3",
+  "generated": "2026-03-08T02:12:41+00:00",
   "schema": [
     "geoid",
     "year",
@@ -11,13 +11,16 @@
   ],
   "measures": [
     "walkability_index_geo10",
-    "walkability_index_geo20",
-    "walkability_index_raw",
-    "walkability_index_zscore"
+    "walkability_index_geo20"
   ],
   "years": [
+    2017,
+    2018,
     2019,
-    2021
+    2020,
+    2021,
+    2022,
+    2023
   ],
   "regions": [
     "11",
@@ -27,19 +30,15 @@
     "51",
     "54"
   ],
-  "row_count": 10910,
+  "row_count": 48181,
   "files": {
-    "ncr_cttr_epa_sld_2019_walkability_index.csv.xz": {
-      "sha256": "5301a680f3ed42d2f1c3828f5bbc9f566fedceb7a0096ba92f434db395a163a2",
-      "size_bytes": 18812
+    "ncr_cttr_transit_stops_2017_2023_walkability_index.csv.xz": {
+      "sha256": "87506f68a14f91789caf475ca8f12b495a4f174e0b1dd64ea6da4955fc4ee209",
+      "size_bytes": 73816
     },
-    "va_hdcttr_2021_walkability_index.csv.xz": {
-      "sha256": "26f55390b63d6c1cc2fd0ca2c7b09e443c123cb90ba6b6fc6fb024903d166108",
-      "size_bytes": 41392
-    },
-    "va_hdcttr_epa_sld_2019_walkability_index.csv.xz": {
-      "sha256": "810fd198bbda690de530b2cb40158370a25f227d891e5b71cb19f23204eeb6e7",
-      "size_bytes": 31924
+    "va_hdcttr_transit_stops_2017_2023_walkability_index.csv.xz": {
+      "sha256": "9560922f623e96a46310739968e801934bb62709d0b58b7ab634ecdb7d9bb1dd",
+      "size_bytes": 119832
     }
   }
 }

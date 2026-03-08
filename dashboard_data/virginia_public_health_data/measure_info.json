@@ -1,16 +1,16 @@
 {
     "walkability_index_geo20": {
-        "aggregation_method": "arithmetic mean",
+        "aggregation_method": "population-weighted mean",
         "categories": "",
         "category": "Transportation",
         "citations": "",
         "data_type": "numeric",
         "equity_category": "",
         "layer": "",
-        "long_description": "The Walkability Index is derived from the Environmental Protection Agency's (EPA) National Walkability Index. The National Walkability Index is a nationwide geographic data resource that ranks block groups according to their relative walkability. The National Walkability Index was developed using selected variables on density, diversity of land uses, and proximity to transit from the EPA Smart Location Database. The block group dataset is aggregated using population-weighted mean to Census tracts, counties, and Health Districts (Census 2020 boundaries).",
+        "long_description": "The Walkability Index is a composite measure that ranks block groups according to their relative walkability. It is computed annually (2017-2023) using four components: employment and household land use entropy (D2A/D2B) from LEHD LODES workplace data and ACS household counts, street intersection density (D3B) from the EPA Smart Location Database, and transit proximity (D4C) from GTFS transit stop locations. Block group scores are aggregated to Census tracts, counties, and Health Districts using population-weighted mean (Census 2020 boundaries).",
         "long_name": "Walkability Index",
         "measure_type": "index",
-        "short_description": "A measure of how walkable a community is.",
+        "short_description": "A measure of how walkable a community is, updated annually.",
         "short_name": "Walkability Index",
         "sources": [
             {
@@ -19,26 +19,40 @@
                 "location_url": "https://www.epa.gov/smartgrowth/smart-location-mapping#walkability",
                 "name": "Environmental Protection Agency",
                 "url": "https://www.epa.gov/smartgrowth/smart-location-mapping"
+            },
+            {
+                "date_accessed": 2025,
+                "location": "LODES 8 Workplace Area Characteristics",
+                "location_url": "https://lehd.ces.census.gov/data/lodes/LODES8/",
+                "name": "Census Bureau LEHD",
+                "url": "https://lehd.ces.census.gov/"
+            },
+            {
+                "date_accessed": 2025,
+                "location": "Mobility Database and Transitland GTFS feeds",
+                "location_url": "https://mobilitydatabase.org",
+                "name": "GTFS Transit Feeds",
+                "url": "https://mobilitydatabase.org"
             }
         ],
-        "provenance": "Derived from the Environmental Protection Agency's (EPA) National Walkability Index, a composite measure from the EPA Smart Location Database that ranks block groups by walkability using density, land use diversity, and transit proximity.",
+        "provenance": "Derived from the EPA National Walkability Index methodology. Employment entropy (D2A/D2B) computed annually from LEHD LODES + ACS data. Street connectivity (D3B) from EPA SLD V3. Transit proximity (D4C) computed annually from national GTFS feeds. Formula: NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3.",
         "statement": "The Walkability Index in {region_name} is {value}.",
         "type": "index",
         "unit": "",
         "variants": ""
     },
     "walkability_index_geo10": {
-        "aggregation_method": "arithmetic mean",
+        "aggregation_method": "population-weighted mean",
         "categories": "",
         "category": "Transportation",
         "citations": "",
         "data_type": "numeric",
         "equity_category": "",
         "layer": "",
-        "long_description": "The Walkability Index is derived from the Environmental Protection Agency's (EPA) National Walkability Index. The National Walkability Index is a nationwide geographic data resource that ranks block groups according to their relative walkability. The National Walkability Index was developed using selected variables on density, diversity of land uses, and proximity to transit from the EPA Smart Location Database. The block group dataset is aggregated using population-weighted mean to Census tracts, counties, and Health Districts (Census 2010 boundaries).",
+        "long_description": "The Walkability Index is a composite measure that ranks block groups according to their relative walkability. It is computed annually (2017-2023) using four components: employment and household land use entropy (D2A/D2B) from LEHD LODES workplace data and ACS household counts, street intersection density (D3B) from the EPA Smart Location Database, and transit proximity (D4C) from GTFS transit stop locations. Block group scores are aggregated to Census tracts, counties, and Health Districts using population-weighted mean (Census 2010 boundaries).",
         "long_name": "Walkability Index",
         "measure_type": "index",
-        "short_description": "A measure of how walkable a community is.",
+        "short_description": "A measure of how walkable a community is, updated annually.",
         "short_name": "Walkability Index",
         "sources": [
             {
@@ -47,9 +61,23 @@
                 "location_url": "https://www.epa.gov/smartgrowth/smart-location-mapping#walkability",
                 "name": "Environmental Protection Agency",
                 "url": "https://www.epa.gov/smartgrowth/smart-location-mapping"
+            },
+            {
+                "date_accessed": 2025,
+                "location": "LODES 8 Workplace Area Characteristics",
+                "location_url": "https://lehd.ces.census.gov/data/lodes/LODES8/",
+                "name": "Census Bureau LEHD",
+                "url": "https://lehd.ces.census.gov/"
+            },
+            {
+                "date_accessed": 2025,
+                "location": "Mobility Database and Transitland GTFS feeds",
+                "location_url": "https://mobilitydatabase.org",
+                "name": "GTFS Transit Feeds",
+                "url": "https://mobilitydatabase.org"
             }
         ],
-        "provenance": "Derived from the Environmental Protection Agency's (EPA) National Walkability Index, a composite measure from the EPA Smart Location Database that ranks block groups by walkability using density, land use diversity, and transit proximity.",
+        "provenance": "Derived from the EPA National Walkability Index methodology. Employment entropy (D2A/D2B) computed annually from LEHD LODES + ACS data. Street connectivity (D3B) from EPA SLD V3. Transit proximity (D4C) computed annually from national GTFS feeds. Formula: NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3.",
         "statement": "The Walkability Index in {region_name} is {value}.",
         "type": "index",
         "unit": "",

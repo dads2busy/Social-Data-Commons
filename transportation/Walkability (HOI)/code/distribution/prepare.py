@@ -34,8 +34,12 @@ def load_config() -> dict:
 
 
 def find_source(dist_dir: Path, prefix: str) -> Path | None:
-    candidates = sorted(dist_dir.glob(f"{prefix}_cttr_epa_sld*walkability*.csv.xz"))
-    return candidates[-1] if candidates else None
+    # Prefer ingest output (cttr) over prepare output (hdcttr)
+    ingest = sorted(dist_dir.glob(f"{prefix}_cttr_transit_stops*walkability*.csv.xz"))
+    if ingest:
+        return ingest[-1]
+    prepare = sorted(dist_dir.glob(f"{prefix}_hdcttr_transit_stops*walkability*.csv.xz"))
+    return prepare[-1] if prepare else None
 
 
 def run() -> RunResult:
@@ -62,9 +66,10 @@ def run() -> RunResult:
 
             result = pd.concat([df, hd], ignore_index=True)
 
+            years = sorted(result["year"].unique())
             auto_name = build_file_name(
-                df=result, coverage_area="va", years=[2019],
-                source_type="epa_sld", title="walkability_index",
+                df=result, coverage_area="va", years=years,
+                source_type="transit_stops", title="walkability_index",
             )
             filename = f"{auto_name}.csv.xz" if auto_name else "va_walkability_index.csv.xz"
             va_out = write_data(result, DIST_DIR / filename, census_standardize=False)
@@ -78,7 +83,7 @@ def run() -> RunResult:
                 source_path=va_out,
                 output_dir=REPO_DIR / "dashboard_data/virginia_public_health_data",
                 levels=["health_district", "county", "tract"],
-                coverage_area="va", data_source="epa_sld",
+                coverage_area="va", data_source="transit_stops",
                 title="walkability_index",
                 measure_info_path=measure_info,
             ):
@@ -94,7 +99,7 @@ def run() -> RunResult:
                 source_path=ncr_source,
                 output_dir=REPO_DIR / "dashboard_data/national_capital_region_data",
                 levels=["county", "tract"],
-                coverage_area="ncr", data_source="epa_sld",
+                coverage_area="ncr", data_source="transit_stops",
                 title="walkability_index",
                 measure_info_path=measure_info,
             ):

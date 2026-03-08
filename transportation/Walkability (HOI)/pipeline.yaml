@@ -1,18 +1,21 @@
 name: walkability_index
-version: "1.0.0"
-description: "National Walkability Index from EPA Smart Location Database V3, aggregated from block groups to tracts/counties/health districts"
+version: "3.0.3"
+description: "Multi-year Walkability Index derived from LODES employment entropy, GTFS transit proximity, and EPA SLD street connectivity, aggregated from block groups to tracts/counties/health districts"
 
 sources:
-  epa_sld:
-    type: static_download
-    url: "https://edg.epa.gov/EPADataCommons/public/OA/EPA_SmartLocationDatabase_V3_Jan_2021_Final.csv"
-    filename: sld_v3.csv
+  transit_stops_walkability:
+    type: computed
+    description: "Block-group walkability from geographies/transit_stops pipeline"
     profiles: [VA, NCR]
     geographies: [tract, county]
-    year: 2019
+    years: 2017-2023
+    components:
+      d2a_d2b: "LODES 8 WAC employment data + ACS B11001 households (annual)"
+      d3b: "EPA Smart Location Database V3 street connectivity (fixed)"
+      d4c: "GTFS transit stop proximity from Mobility Database + Transitland (annual)"
     variables:
-      walkability_index: "NatWalkInd"
-    weight_column: "TotPop"
+      walkability_index: "Custom NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3"
+    weight_column: "tot_pop"
     aggregation_method: "weighted_mean"
 
 crosswalks:

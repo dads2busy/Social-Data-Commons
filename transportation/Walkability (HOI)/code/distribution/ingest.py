@@ -1,21 +1,15 @@
-"""Ingest EPA National Walkability Index from Smart Location Database V3.
+"""Ingest multi-year walkability index from transit stops pipeline.
 
-The SLD CSV contains block-group-level data on 2010 census geographies.
-This script:
-1. Downloads the CSV (if not cached)
-2. Filters to VA and NCR block groups with TotPop > 0
-3. Reconstructs GEOIDs from component columns (STATEFP, COUNTYFP, TRACTCE, BLKGRPCE)
-4. Aggregates NatWalkInd to tract and county using population-weighted mean
-5. Produces _geo10 (original 2010 boundaries) and _geo20 (converted to 2020)
+Reads block-group-level walkability parquets produced by
+geographies/transit_stops/code/compute_walkability.py and aggregates
+to tract and county using population-weighted mean.
 
-Note: The GEOID10/GEOID20 columns in the CSV are stored as scientific notation
-and have lost precision, so we reconstruct from the component FIPS columns instead.
+Produces _geo10 (original 2010 boundaries) and _geo20 (converted via crosswalk).
 
 Configuration is read from Walkability (HOI)/pipeline.yaml.
 """
 
 import time
-import urllib.request
 from pathlib import Path
 
 import numpy as np
@@ -29,13 +23,11 @@ from sdc_core.profiles import resolve_profile
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
+REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
-WORKING_DIR = TOPIC_DIR / "data/working"
+WALKABILITY_DIR = REPO_DIR / "geographies/transit_stops/data/walkability"
 
 log = get_logger("walkability.ingest")
-
-SLD_URL = "https://edg.epa.gov/EPADataCommons/public/OA/EPA_SmartLocationDatabase_V3_Jan_2021_Final.csv"
-SLD_FILE = "sld_v3.csv"
 
 STATE_ABBR_TO_FIPS = {
     "AL": "01", "AK": "02", "AZ": "04", "AR": "05", "CA": "06",
@@ -51,91 +43,84 @@ STATE_ABBR_TO_FIPS = {
     "WY": "56",
 }
 
-# Year label: SLD V3 uses ACS 2015-2019 on 2010-vintage block groups
-DATA_YEAR = 2019
-
 
 def load_config() -> dict:
     with open(TOPIC_DIR / "pipeline.yaml") as f:
         return yaml.safe_load(f)
 
 
-def download_sld(working_dir: Path) -> Path:
-    """Download the SLD CSV if not already cached."""
-    dest = working_dir / SLD_FILE
-    if dest.exists():
-        log.info("Using cached SLD file: %s", dest)
-        return dest
-    working_dir.mkdir(parents=True, exist_ok=True)
-    log.info("Downloading SLD from %s", SLD_URL)
-    urllib.request.urlretrieve(SLD_URL, dest)
-    log.info("Downloaded %s", dest)
-    return dest
+def load_walkability(coverage: str) -> pd.DataFrame:
+    """Load all walkability parquets for a coverage area."""
+    pattern = f"{coverage.lower()}_walkability_*.parquet"
+    files = sorted(WALKABILITY_DIR.glob(pattern))
+    if not files:
+        raise FileNotFoundError(
+            f"No walkability parquets found at {WALKABILITY_DIR}/{pattern}. "
+            "Run geographies/transit_stops/code/compute_walkability.py first."
+        )
+
+    dfs = [pd.read_parquet(f) for f in files]
+    df = pd.concat(dfs, ignore_index=True)
+    log.info("Loaded %d BG-year rows for %s from %d files", len(df), coverage.upper(), len(files))
+    return df
 
 
-def load_and_filter(csv_path: Path, profile_name: str) -> pd.DataFrame:
-    """Load SLD CSV and filter to the given profile's block groups."""
-    df = pd.read_csv(
-        csv_path,
-        usecols=["STATEFP", "COUNTYFP", "TRACTCE", "BLKGRPCE", "TotPop", "NatWalkInd"],
-        dtype={"STATEFP": str, "COUNTYFP": str, "TRACTCE": str, "BLKGRPCE": str},
-    )
-    df["TotPop"] = pd.to_numeric(df["TotPop"], errors="coerce").fillna(0)
-    df["NatWalkInd"] = pd.to_numeric(df["NatWalkInd"], errors="coerce")
-
-    # Zero-pad FIPS components and reconstruct GEOIDs
-    df["STATEFP"] = df["STATEFP"].str.zfill(2)
-    df["COUNTYFP"] = df["COUNTYFP"].str.zfill(3)
-    df["TRACTCE"] = df["TRACTCE"].str.zfill(6)
-    df["BLKGRPCE"] = df["BLKGRPCE"].str.zfill(1)
-    df["tr_geoid"] = df["STATEFP"] + df["COUNTYFP"] + df["TRACTCE"]
-    df["ct_geoid"] = df["STATEFP"] + df["COUNTYFP"]
-
+def filter_to_profile(df: pd.DataFrame, profile_name: str) -> pd.DataFrame:
+    """Filter block groups to a profile's geography."""
     profile = resolve_profile(profile_name)
+
     if profile.counties:
         parts = []
         for st_abbr, county_fips_list in profile.counties.items():
             st_fips = STATE_ABBR_TO_FIPS[st_abbr.upper()]
-            mask = (df["STATEFP"] == st_fips) & (df["COUNTYFP"].isin(county_fips_list))
+            mask = (df["geoid"].str[:2] == st_fips) & (df["geoid"].str[2:5].isin(county_fips_list))
             parts.append(df[mask])
         filtered = pd.concat(parts, ignore_index=True)
     else:
         st_fips_list = [STATE_ABBR_TO_FIPS[s.upper()] for s in profile.states]
-        filtered = df[df["STATEFP"].isin(st_fips_list)]
+        filtered = df[df["geoid"].str[:2].isin(st_fips_list)]
 
-    filtered = filtered[filtered["TotPop"] > 0].copy()
-    log.info("Profile '%s': %d block groups after filtering", profile_name, len(filtered))
+    filtered = filtered[filtered["tot_pop"] > 0].copy()
+    log.info("Profile '%s': %d BG-year rows after filtering", profile_name, len(filtered))
     return filtered
 
 
 def aggregate_to_levels(df: pd.DataFrame) -> pd.DataFrame:
-    """Aggregate block-group NatWalkInd to tract and county using population-weighted mean."""
+    """Aggregate BG walkability to tract and county using population-weighted mean."""
+    df = df.copy()
+    df["tr_geoid"] = df["geoid"].str[:11]
+    df["ct_geoid"] = df["geoid"].str[:5]
+
     def wmean(group):
-        return np.average(group["NatWalkInd"], weights=group["TotPop"])
+        w = group["tot_pop"].values
+        v = group["walkability_index"].values
+        total_w = w.sum()
+        if total_w == 0:
+            return np.nan
+        return np.average(v, weights=w)
 
     # Tract level
-    tr = df.groupby("tr_geoid").apply(wmean, include_groups=False).reset_index()
-    tr.columns = ["geoid", "value"]
+    tr = df.groupby(["tr_geoid", "year"]).apply(wmean, include_groups=False).reset_index()
+    tr.columns = ["geoid", "year", "value"]
     tr["region_type"] = "tract"
 
     # County level
-    ct = df.groupby("ct_geoid").apply(wmean, include_groups=False).reset_index()
-    ct.columns = ["geoid", "value"]
+    ct = df.groupby(["ct_geoid", "year"]).apply(wmean, include_groups=False).reset_index()
+    ct.columns = ["geoid", "year", "value"]
     ct["region_type"] = "county"
 
     result = pd.concat([tr, ct], ignore_index=True)
     result["measure"] = "walkability_index"
-    result["year"] = DATA_YEAR
     result["moe"] = pd.NA
+    result["value"] = result["value"].round(2)
     return result[["geoid", "year", "measure", "value", "moe", "region_type"]]
 
 
 def add_geo_suffixes(df: pd.DataFrame, state_fips_list: list[str]) -> pd.DataFrame:
-    """Add _geo10/_geo20 suffixes to tract measures.
+    """Add _geo10/_geo20 suffixes to measures.
 
-    - _geo10: original 2010-vintage tract values
-    - _geo20: converted to 2020 boundaries via crosswalk
-    - County measures get _geo20 only (county boundaries unchanged)
+    - _geo10: original 2010-vintage values
+    - _geo20: tracts converted via crosswalk, counties unchanged
     """
     tracts = df[df["region_type"] == "tract"].copy()
     counties = df[df["region_type"] == "county"].copy()
@@ -144,25 +129,26 @@ def add_geo_suffixes(df: pd.DataFrame, state_fips_list: list[str]) -> pd.DataFra
     geo10 = tracts.copy()
     geo10["measure"] = geo10["measure"] + "_geo10"
 
-    # Tracts: _geo20 via convert_2010_to_2020_bounds, per state
+    # Tracts: _geo20 via convert_2010_to_2020_bounds, per state and year
     geo20_parts = []
     for st_fips in state_fips_list:
         st_tracts = tracts[tracts["geoid"].str[:2] == st_fips]
         if st_tracts.empty:
             continue
-        converted = convert_2010_to_2020_bounds(
-            st_tracts[["geoid", "value"]],
-            state_fips=st_fips,
-        )
-        converted["year"] = DATA_YEAR
-        converted["measure"] = "walkability_index_geo20"
-        converted["moe"] = pd.NA
-        converted["region_type"] = "tract"
-        geo20_parts.append(converted)
+        for year, year_df in st_tracts.groupby("year"):
+            converted = convert_2010_to_2020_bounds(
+                year_df[["geoid", "value"]],
+                state_fips=st_fips,
+            )
+            converted["year"] = year
+            converted["measure"] = "walkability_index_geo20"
+            converted["moe"] = pd.NA
+            converted["region_type"] = "tract"
+            geo20_parts.append(converted)
 
     geo20_tracts = pd.concat(geo20_parts, ignore_index=True) if geo20_parts else pd.DataFrame()
 
-    # Counties: _geo20 only (county boundaries don't change between censuses)
+    # Counties: _geo20 only (boundaries unchanged between censuses)
     counties["measure"] = counties["measure"] + "_geo20"
 
     parts = [geo10, counties]
@@ -174,26 +160,26 @@ def add_geo_suffixes(df: pd.DataFrame, state_fips_list: list[str]) -> pd.DataFra
 def run() -> list[RunResult]:
     config = load_config()
     DIST_DIR.mkdir(parents=True, exist_ok=True)
-    csv_path = download_sld(WORKING_DIR)
 
     results = []
-    for profile_name in config["sources"]["epa_sld"]["profiles"]:
+    for profile_name in config["sources"]["transit_stops_walkability"]["profiles"]:
         t0 = time.time()
         try:
-            df = load_and_filter(csv_path, profile_name)
-            aggregated = aggregate_to_levels(df)
+            coverage = profile_name.lower()
+            raw = load_walkability(coverage)
+            filtered = filter_to_profile(raw, profile_name)
+            aggregated = aggregate_to_levels(filtered)
 
-            # Get state FIPS for this profile
             profile = resolve_profile(profile_name)
             st_fips_list = [STATE_ABBR_TO_FIPS[s.upper()] for s in profile.states]
-
             combined = add_geo_suffixes(aggregated, st_fips_list)
-            log.info("Profile '%s': %d rows", profile_name, len(combined))
 
-            coverage = profile_name.lower()
+            years = sorted(combined["year"].unique())
+            log.info("Profile '%s': %d rows, years %s", profile_name, len(combined), years)
+
             auto_name = build_file_name(
-                df=combined, coverage_area=coverage, years=[DATA_YEAR],
-                source_type="epa_sld", title="walkability_index",
+                df=combined, coverage_area=coverage, years=years,
+                source_type="transit_stops", title="walkability_index",
             )
             out_path = write_data(
                 combined, DIST_DIR / f"{auto_name}.csv.xz",

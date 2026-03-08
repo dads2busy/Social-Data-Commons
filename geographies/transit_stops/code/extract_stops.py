@@ -64,11 +64,15 @@ def deduplicate_stops(df: pd.DataFrame) -> pd.DataFrame:
     Multiple feeds may report stops at the same physical location
     (e.g., WMATA bus and rail). Snap to ~10m grid and keep one per cell.
     """
-    df = df.dropna(subset=["stop_lat", "stop_lon"]).copy()
+    df = df.copy()
+    df["stop_lat"] = pd.to_numeric(df["stop_lat"], errors="coerce")
+    df["stop_lon"] = pd.to_numeric(df["stop_lon"], errors="coerce")
+    df = df.dropna(subset=["stop_lat", "stop_lon"])
     df = df[
         (df["stop_lat"].between(-90, 90))
         & (df["stop_lon"].between(-180, 180))
         & (df["stop_lat"] != 0)
+        & (df["stop_lon"] != 0)
     ]
 
     df["grid_lat"] = df["stop_lat"].round(GRID_PRECISION)
