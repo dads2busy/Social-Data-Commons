@@ -5,7 +5,7 @@ Steps:
 2. Write combined VA distribution file and per-level dashboard files
 3. Find NCR ingest output and write per-level dashboard files
 
-Configuration is read from Walkability (HOI)/pipeline.yaml.
+Configuration is read from Walkability/pipeline.yaml.
 """
 
 import time

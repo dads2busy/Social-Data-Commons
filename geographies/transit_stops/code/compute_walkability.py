@@ -25,7 +25,7 @@ D4C_DIR = BASE_DIR / "data/d4c"
 D2_DIR = BASE_DIR / "data/d2"
 OUT_DIR = BASE_DIR / "data/walkability"
 
-SLD_PATH = REPO_DIR / "transportation/Walkability (HOI)/data/working/sld_v3.csv"
+SLD_PATH = REPO_DIR / "transportation/Walkability/data/working/sld_v3.csv"
 
 log = get_logger("transit_stops.compute_walkability")
 

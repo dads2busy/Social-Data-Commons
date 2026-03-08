@@ -6,7 +6,7 @@ to tract and county using population-weighted mean.
 
 Produces _geo10 (original 2010 boundaries) and _geo20 (converted via crosswalk).
 
-Configuration is read from Walkability (HOI)/pipeline.yaml.
+Configuration is read from Walkability/pipeline.yaml.
 """
 
 import time

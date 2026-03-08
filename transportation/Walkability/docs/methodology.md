@@ -221,5 +221,5 @@ At the individual block group level, meaningful year-over-year variation is obse
 | `compute_d2.py` | `geographies/transit_stops/code/` | Compute D2A/D2B from LODES + ACS |
 | `compute_d4c.py` | `geographies/transit_stops/code/` | Compute distance to nearest transit stop |
 | `compute_walkability.py` | `geographies/transit_stops/code/` | Combine components into walkability index |
-| `ingest.py` | `transportation/Walkability (HOI)/code/distribution/` | Aggregate BG to tract/county with geo suffixes |
-| `prepare.py` | `transportation/Walkability (HOI)/code/distribution/` | Add health districts, write dashboard files |
+| `ingest.py` | `transportation/Walkability/code/distribution/` | Aggregate BG to tract/county with geo suffixes |
+| `prepare.py` | `transportation/Walkability/code/distribution/` | Add health districts, write dashboard files |

@@ -28,7 +28,7 @@ stops and 2017–2023 for walkability.
   level from the Census Bureau API. Used as the sixth category in D2A land use
   entropy.
 
-- **EPA Smart Location Database V3** (`transportation/Walkability (HOI)/data/working/sld_v3.csv`):
+- **EPA Smart Location Database V3** (`transportation/Walkability/data/working/sld_v3.csv`):
   D3B_Ranked (street intersection density) and TotPop (population weights)
   on 2010-vintage block groups. Used as a fixed component in the walkability
   formula.
@@ -267,7 +267,7 @@ Year-over-year variation at block group level (NCR 2019→2020):
 
 ## Downstream Consumer
 
-**Walkability Index** (`transportation/Walkability (HOI)/`): reads walkability
+**Walkability Index** (`transportation/Walkability/`): reads walkability
 parquets, aggregates block groups to tract/county/health district using
 population-weighted mean, applies 2010→2020 boundary conversion, and writes
 dashboard files for NCR and VA.
