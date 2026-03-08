@@ -49,7 +49,7 @@
         "data_type": "numeric",
         "equity_category": "",
         "layer": "",
-        "long_description": "The Walkability Index is a composite measure that ranks block groups according to their relative walkability. It is computed annually (2017-2023) using four components: employment and household land use entropy (D2A/D2B) from LEHD LODES workplace data and ACS household counts, street intersection density (D3B) from the EPA Smart Location Database, and transit proximity (D4C) from GTFS transit stop locations. Block group scores are aggregated to Census tracts, counties, and Health Districts using population-weighted mean (Census 2010 boundaries).",
+        "long_description": "The Walkability Index is a composite measure that ranks block groups according to their relative walkability. It is computed annually (2017-2023) using four components: employment and household land use entropy (D2A/D2B) from LEHD LODES workplace data and ACS household counts, street intersection density (D3B) from the EPA Smart Location Database, and transit proximity (D4C) from GTFS transit stop locations. Block group scores are aggregated to Census tracts, counties, and Health Districts using population-weighted mean (Census 2020 boundaries).",
         "long_name": "Walkability Index",
         "measure_type": "index",
         "short_description": "A measure of how walkable a community is, updated annually.",

@@ -1,18 +1,25 @@
 name: walkability_index
 version: "3.0.3"
+zenodo_deposit_id: 18906373
 description: "Multi-year Walkability Index derived from LODES employment entropy, GTFS transit proximity, and EPA SLD street connectivity, aggregated from block groups to tracts/counties/health districts"
 
 sources:
-  transit_stops_walkability:
+  va_walkability:
     type: computed
     description: "Block-group walkability from geographies/transit_stops pipeline"
-    profiles: [VA, NCR]
+    geographies: [tract, county, health_district]
+    years: [2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    state: VA
+    variables:
+      walkability_index: "Custom NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3"
+    weight_column: "tot_pop"
+    aggregation_method: "weighted_mean"
+  ncr_walkability:
+    type: computed
+    description: "Block-group walkability from geographies/transit_stops pipeline"
     geographies: [tract, county]
-    years: 2017-2023
-    components:
-      d2a_d2b: "LODES 8 WAC employment data + ACS B11001 households (annual)"
-      d3b: "EPA Smart Location Database V3 street connectivity (fixed)"
-      d4c: "GTFS transit stop proximity from Mobility Database + Transitland (annual)"
+    years: [2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    states: [VA, MD, DC]
     variables:
       walkability_index: "Custom NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3"
     weight_column: "tot_pop"
