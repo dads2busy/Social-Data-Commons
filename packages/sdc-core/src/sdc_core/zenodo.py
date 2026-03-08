@@ -606,7 +606,8 @@ def build_zenodo_metadata(
     """Build a Zenodo metadata dict from pipeline config and measure info."""
     pipeline_name = config.get("name", topic_dir.name)
     version = config.get("version", "0.1.0")
-    title = f"{_prettify_name(pipeline_name)} (v{version})"
+    display_name = config.get("title", _prettify_name(pipeline_name))
+    title = f"Social Data Commons: {display_name} (v{version})"
 
     metadata = {
         "upload_type": "dataset",

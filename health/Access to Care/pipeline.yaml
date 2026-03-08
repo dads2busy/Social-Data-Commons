@@ -1,0 +1,30 @@
+name: access_to_care
+version: "2.1.0"
+zenodo_deposit_id: 18913512
+title: "Access to Care"
+description: >-
+  Access to care composite index for Virginia census tracts, counties, and
+  health districts. Combines physician availability (primary care physicians
+  within 30 driving miles, derived from CMS Medicare Physician & Other
+  Practitioners PUF and OSRM-based block-group travel times) with insurance
+  coverage (ACS 5-year uninsured rate for ages 19-64) into a z-score composite
+  where higher values indicate better access to care.
+temporal_label: "annual, CMS PUF + ACS 5-year"
+sources:
+  va_access_care:
+    type: computed
+    description: "Composite z-score index from CMS physician density + ACS uninsured rate"
+    geographies: [tract, county, health_district]
+    years: [2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    state: VA
+    variables:
+      tot_pop: "B01001_001"
+      uninsured_19_34: "B27010_033"
+      uninsured_35_64: "B27010_050"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: false
