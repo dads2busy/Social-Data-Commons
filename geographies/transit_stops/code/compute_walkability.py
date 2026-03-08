@@ -82,11 +82,15 @@ def run(coverage: str):
     state_fips = {
         "ncr": ["11", "24", "51"],
         "va": ["51"],
+        "us": None,  # All states — no filtering
     }
     states = state_fips[coverage]
 
     # Filter SLD to coverage area
-    sld_area = sld[sld["geoid"].str[:2].isin(states)].copy()
+    if states is None:
+        sld_area = sld.copy()
+    else:
+        sld_area = sld[sld["geoid"].str[:2].isin(states)].copy()
     log.info("SLD block groups in %s: %d", coverage.upper(), len(sld_area))
 
     # Find available D4C files (2010 vintage to match SLD)
@@ -187,6 +191,6 @@ def run(coverage: str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Compute multi-year walkability index")
-    parser.add_argument("--coverage", required=True, choices=["ncr", "va"])
+    parser.add_argument("--coverage", required=True, choices=["ncr", "va", "us"])
     args = parser.parse_args()
     run(args.coverage)

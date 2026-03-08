@@ -3,15 +3,20 @@
 For each block group in a target geography, calculates the haversine distance
 (in miles) from the block group centroid to the nearest transit stop.
 
+Supports regional (ncr, va) and national (us) coverage. Regional uses GeoJSON
+boundary files for centroids; national uses Census Bureau population-weighted
+centers of population (gazetteer).
+
 Usage:
-    uv run python compute_d4c.py --geo-vintage 2020 --coverage ncr
     uv run python compute_d4c.py --geo-vintage 2010 --coverage ncr
+    uv run python compute_d4c.py --geo-vintage 2010 --coverage us
 
 Output: data/d4c/{coverage}_d4c_bg{vintage}_{year}.parquet
 """
 
 import argparse
 import json
+import urllib.request
 from pathlib import Path
 
 import numpy as np
@@ -22,6 +27,7 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 REPO_DIR = BASE_DIR.parents[1]
 STOPS_DIR = BASE_DIR / "data/stops"
 OUT_DIR = BASE_DIR / "data/d4c"
+CACHE_DIR = BASE_DIR / "data/gazetteer_cache"
 
 log = get_logger("transit_stops.compute_d4c")
 
@@ -36,11 +42,13 @@ GEO_PATHS = {
     },
 }
 
+GAZETTEER_URL = "https://www2.census.gov/geo/docs/reference/cenpop2010/blkgrp/CenPop2010_Mean_BG.txt"
+
 EARTH_RADIUS_MI = 3958.8
 
 
 def load_block_group_centroids(geojson_path: Path) -> pd.DataFrame:
-    """Load block group boundaries and compute centroids."""
+    """Load block group boundaries and compute centroids from GeoJSON."""
     with open(geojson_path) as f:
         gj = json.load(f)
 
@@ -63,6 +71,42 @@ def load_block_group_centroids(geojson_path: Path) -> pd.DataFrame:
         records.append({"geoid": geoid, "lat": lat, "lon": lon})
 
     return pd.DataFrame(records)
+
+
+def load_gazetteer_centroids(state_fips: list[str] | None = None) -> pd.DataFrame:
+    """Load block group centroids from Census Bureau population centers file.
+
+    Downloads and caches the national CenPop2010_Mean_BG.txt file which has
+    population-weighted centroids for all ~220K US block groups (2010 vintage).
+
+    Args:
+        state_fips: Optional list of state FIPS codes to filter to.
+                   If None, returns all block groups.
+    """
+    cache_path = CACHE_DIR / "CenPop2010_Mean_BG.csv"
+
+    if not cache_path.exists():
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        log.info("Downloading Census block group centroids from %s", GAZETTEER_URL)
+        urllib.request.urlretrieve(GAZETTEER_URL, cache_path)
+        log.info("Cached gazetteer to %s", cache_path)
+
+    df = pd.read_csv(
+        cache_path,
+        dtype={"STATEFP": str, "COUNTYFP": str, "TRACTCE": str, "BLKGRPCE": str},
+    )
+    df["STATEFP"] = df["STATEFP"].str.zfill(2)
+    df["COUNTYFP"] = df["COUNTYFP"].str.zfill(3)
+    df["TRACTCE"] = df["TRACTCE"].str.zfill(6)
+    df["BLKGRPCE"] = df["BLKGRPCE"].str.zfill(1)
+    df["geoid"] = df["STATEFP"] + df["COUNTYFP"] + df["TRACTCE"] + df["BLKGRPCE"]
+    df = df.rename(columns={"LATITUDE": "lat", "LONGITUDE": "lon"})
+
+    if state_fips:
+        df = df[df["STATEFP"].isin(state_fips)]
+
+    log.info("Loaded %d block group centroids from gazetteer", len(df))
+    return df[["geoid", "lat", "lon"]]
 
 
 def haversine_nearest(bg_lats: np.ndarray, bg_lons: np.ndarray,
@@ -151,13 +195,104 @@ def compute_for_year(bg_df: pd.DataFrame, year: int, coverage: str,
     return result
 
 
-def run(geo_vintage: int, coverage: str, years: list[int] | None = None):
-    geo_path = REPO_DIR / GEO_PATHS[coverage][geo_vintage]
-    if not geo_path.exists():
-        raise FileNotFoundError(f"Block group GeoJSON not found: {geo_path}")
+def compute_national_for_year(bg_df: pd.DataFrame, year: int,
+                              buffer_deg: float = 0.5) -> pd.DataFrame:
+    """Compute D4C for all US block groups, processing state by state.
 
-    log.info("Loading %s block groups (vintage %d)", coverage.upper(), geo_vintage)
-    bg_df = load_block_group_centroids(geo_path)
+    Processes each state independently to keep memory usage manageable
+    (~5K BGs × ~20K local stops per state instead of 220K × 400K).
+    """
+    stops_path = STOPS_DIR / f"us_transit_stops_{year}.parquet"
+    if not stops_path.exists():
+        log.warning("No stops file for year %d, skipping", year)
+        return pd.DataFrame()
+
+    stops = pd.read_parquet(stops_path)
+    log.info("Year %d: %d total transit stops loaded", year, len(stops))
+
+    states = sorted(bg_df["geoid"].str[:2].unique())
+    results = []
+
+    for state_fips in states:
+        state_bgs = bg_df[bg_df["geoid"].str[:2] == state_fips].copy()
+        if state_bgs.empty:
+            continue
+
+        # Filter stops to state bounding box + buffer
+        state_stops = stops[
+            (stops.stop_lat.between(
+                state_bgs.lat.min() - buffer_deg,
+                state_bgs.lat.max() + buffer_deg,
+            )) &
+            (stops.stop_lon.between(
+                state_bgs.lon.min() - buffer_deg,
+                state_bgs.lon.max() + buffer_deg,
+            ))
+        ]
+
+        if state_stops.empty:
+            log.warning("No stops near state %s for year %d", state_fips, year)
+            # Still include BGs with inf distance
+            state_result = pd.DataFrame({
+                "geoid": state_bgs.geoid.values,
+                "year": year,
+                "d4c_dist_mi": np.inf,
+                "nearest_stop_name": "",
+                "nearest_stop_agency": "",
+            })
+            results.append(state_result)
+            continue
+
+        distances = haversine_nearest(
+            state_bgs.lat.values, state_bgs.lon.values,
+            state_stops.stop_lat.values, state_stops.stop_lon.values,
+        )
+
+        # Find nearest stop details
+        bg_lat_r = np.radians(state_bgs.lat.values)
+        bg_lon_r = np.radians(state_bgs.lon.values)
+        stop_lat_r = np.radians(state_stops.stop_lat.values)
+        stop_lon_r = np.radians(state_stops.stop_lon.values)
+
+        nearest_idx = np.zeros(len(state_bgs), dtype=int)
+        for i in range(len(state_bgs)):
+            dlat = stop_lat_r - bg_lat_r[i]
+            dlon = stop_lon_r - bg_lon_r[i]
+            a = (np.sin(dlat / 2) ** 2
+                 + np.cos(bg_lat_r[i]) * np.cos(stop_lat_r) * np.sin(dlon / 2) ** 2)
+            nearest_idx[i] = a.argmin()
+
+        state_result = pd.DataFrame({
+            "geoid": state_bgs.geoid.values,
+            "year": year,
+            "d4c_dist_mi": np.round(distances, 4),
+            "nearest_stop_name": state_stops.iloc[nearest_idx]["stop_name"].values,
+            "nearest_stop_agency": state_stops.iloc[nearest_idx]["agency_name"].values,
+        })
+        results.append(state_result)
+
+        log.info(
+            "  State %s: %d BGs, %d stops, median=%.2f mi",
+            state_fips, len(state_bgs), len(state_stops),
+            state_result.d4c_dist_mi.median(),
+        )
+
+    return pd.concat(results, ignore_index=True) if results else pd.DataFrame()
+
+
+def run(geo_vintage: int, coverage: str, years: list[int] | None = None):
+    if coverage == "us":
+        if geo_vintage != 2010:
+            raise ValueError("National coverage only supports 2010 vintage (from Census gazetteer)")
+        log.info("Loading national block group centroids from Census gazetteer")
+        bg_df = load_gazetteer_centroids()
+    else:
+        geo_path = REPO_DIR / GEO_PATHS[coverage][geo_vintage]
+        if not geo_path.exists():
+            raise FileNotFoundError(f"Block group GeoJSON not found: {geo_path}")
+        log.info("Loading %s block groups (vintage %d)", coverage.upper(), geo_vintage)
+        bg_df = load_block_group_centroids(geo_path)
+
     log.info("Loaded %d block group centroids", len(bg_df))
 
     if years is None:
@@ -171,7 +306,10 @@ def run(geo_vintage: int, coverage: str, years: list[int] | None = None):
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     for year in years:
-        result = compute_for_year(bg_df, year, coverage)
+        if coverage == "us":
+            result = compute_national_for_year(bg_df, year)
+        else:
+            result = compute_for_year(bg_df, year, coverage)
         if result.empty:
             continue
 
@@ -187,7 +325,7 @@ def run(geo_vintage: int, coverage: str, years: list[int] | None = None):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Compute D4C transit proximity")
     parser.add_argument("--geo-vintage", type=int, required=True, choices=[2010, 2020])
-    parser.add_argument("--coverage", required=True, choices=["ncr", "va"])
+    parser.add_argument("--coverage", required=True, choices=["ncr", "va", "us"])
     parser.add_argument("--years", type=int, nargs="*", help="Specific years (default: all available)")
     args = parser.parse_args()
     run(args.geo_vintage, args.coverage, args.years)

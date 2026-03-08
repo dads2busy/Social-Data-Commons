@@ -7,17 +7,18 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Asian American/Pacific Islanders population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Race and ethnicity distribution from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Race categories include White alone, Black/African American alone, American Indian/Alaska Native alone, Asian American/Pacific Islander (combined from Asian alone B02001_005 and Native Hawaiian/Other Pacific Islander B02001_006), Other, and Two or More Races. Hispanic/Latino ethnicity is reported separately from table B03003. Both counts and percentages (relative to total population) are provided at Census tract, county, and block group levels. Values are available on both Census 2020 and Census 2010 geography boundaries. Pre-2020 values on 2020 boundaries have been standardized using area-weighted crosswalks.",
         "long_name": "The Asian American/Pacific Islander population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Asian American/Pacific Islander is a combined category from B02001_005 (Asian alone) and B02001_006 (Native Hawaiian/Other Pacific Islander alone). Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "Count of the Asian American/Pacific Islander population.",
         "short_name": "The Asian American/Pacific Islander population (2020 geographies)",
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -42,9 +43,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -69,9 +70,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -96,9 +97,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -123,9 +124,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -150,9 +151,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -177,9 +178,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -204,9 +205,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -231,9 +232,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -258,9 +259,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -285,9 +286,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -312,9 +313,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -339,9 +340,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -366,9 +367,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -393,9 +394,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -420,9 +421,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -447,9 +448,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -474,9 +475,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -501,9 +502,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -528,9 +529,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -555,9 +556,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -582,9 +583,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -609,9 +610,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -636,9 +637,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -663,9 +664,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -690,9 +691,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -717,9 +718,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -744,9 +745,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -771,9 +772,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -798,9 +799,9 @@
         "sources": [
             {
                 "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],

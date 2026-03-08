@@ -7,17 +7,18 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Veteran population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Veteran population estimates from ACS 5-year estimates, table B21001 (Sex by Age by Veteran Status for the Civilian Population 18 Years and Over). Veteran count is the total veteran population (B21001_002) among civilians aged 18 and older. Percentages are calculated relative to the total civilian population 18 and over (B21001_001). Both counts and percentages are provided at Census tract, county, and block group levels. Values are available on both Census 2020 and Census 2010 geography boundaries. Pre-2020 values on 2020 boundaries have been standardized using area-weighted crosswalks.",
         "long_name": "The Veteran population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B21001 (Sex by Age by Veteran Status for the Civilian Population 18 Years and Over). Veteran count is B21001_002; percentage calculated relative to civilian population 18 and over (B21001_001).",
+        "short_description": "Count of the veteran population.",
         "short_name": "The Veteran population (2020 geographies)",
         "sources": [
             {
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B21001, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -44,7 +45,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B21001, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -71,7 +72,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B21001, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -98,7 +99,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B21001, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],

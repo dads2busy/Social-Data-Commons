@@ -161,114 +161,102 @@ def _prettify_name(name: str) -> str:
     return name.replace("_", " ").replace("-", " ").title()
 
 
-def _build_description(
-    config: dict,
-    measure_info: dict | None,
-) -> str:
-    """Build an HTML description from pipeline metadata."""
-    parts: list[str] = []
-
-    # --- Overview ---
+def _md_overview(config: dict) -> str:
+    """Generate Overview section in Markdown."""
     pipeline_name = _prettify_name(config.get("name", ""))
     desc = config.get("description", "").strip()
-    parts.append(f"<h3>Overview</h3>")
     if desc and not desc.endswith((".", "!", "?")):
         desc += "."
-    parts.append(
-        f"<p>{desc} This dataset is produced by the "
-        f"<strong>Social Data Commons</strong> at the University of Virginia "
-        f"as part of the <strong>{pipeline_name}</strong> data pipeline.</p>"
+    return (
+        f"{desc} This dataset is produced by the "
+        f"**Social Data Commons** at the University of Virginia "
+        f"as part of the **{pipeline_name}** data pipeline."
     )
 
-    # --- Provenance (from measure_info) ---
-    if measure_info:
-        prov_seen: set[str] = set()
-        prov_items: list[str] = []
-        for info in measure_info.values():
-            if isinstance(info, dict):
-                prov = info.get("provenance", "").strip()
-                if prov and prov not in prov_seen:
-                    prov_seen.add(prov)
-                    prov_items.append(f"<p>{prov}</p>")
-        if prov_items:
-            parts.append("<h3>Provenance</h3>")
-            parts.extend(prov_items)
 
-    # --- Temporal & geographic coverage ---
+def _md_provenance(measure_info: dict | None) -> str:
+    """Generate Provenance section in Markdown."""
+    if not measure_info:
+        return ""
+    seen: set[str] = set()
+    paragraphs: list[str] = []
+    for info in measure_info.values():
+        if isinstance(info, dict):
+            prov = info.get("provenance", "").strip()
+            if prov and prov not in seen:
+                seen.add(prov)
+                paragraphs.append(prov)
+    return "\n\n".join(paragraphs)
+
+
+def _md_coverage(config: dict) -> str:
+    """Generate Coverage section in Markdown."""
     years, geos, coverage_areas = _extract_coverage(config)
-    coverage_parts = []
+    lines: list[str] = []
     if years:
-        coverage_parts.append(
-            f"<strong>Temporal coverage:</strong> {min(years)}\u2013{max(years)} "
-            f"(ACS 5-year estimates)"
+        temporal_label = config.get("temporal_label", "ACS 5-year estimates")
+        lines.append(
+            f"- **Temporal coverage:** {min(years)}\u2013{max(years)} "
+            f"({temporal_label})"
         )
     if geos:
         geo_labels = [g.replace("_", " ").title() for g in sorted(geos)]
-        coverage_parts.append(
-            f"<strong>Geographic levels:</strong> {', '.join(geo_labels)}"
-        )
+        lines.append(f"- **Geographic levels:** {', '.join(geo_labels)}")
     if coverage_areas:
         area_labels = {
             "va": "Virginia (statewide)",
             "ncr": "National Capital Region (DC metro)",
+            "us": "United States (national)",
         }
-        # Normalize keys like "ncr_emp" or "va_labor" to base prefix
         normalized = set()
         for a in coverage_areas:
             base = a.lower().split("_")[0]
             normalized.add(base)
         labels = [area_labels.get(a, a.upper()) for a in sorted(normalized)]
-        coverage_parts.append(
-            f"<strong>Coverage areas:</strong> {', '.join(labels)}"
-        )
-    if coverage_parts:
-        parts.append("<h3>Coverage</h3><ul>")
-        for cp in coverage_parts:
-            parts.append(f"<li>{cp}</li>")
-        parts.append("</ul>")
+        lines.append(f"- **Coverage areas:** {', '.join(labels)}")
+    return "\n".join(lines)
 
-    # --- Methodology ---
-    if measure_info:
-        measures = {k: v for k, v in measure_info.items() if not k.startswith("_")}
 
-        # Collect unique methodology text, deduplicating by stripping the
-        # measure-specific first sentence (e.g. "The Male population percent.")
-        method_seen: set[str] = set()
-        method_paragraphs: list[str] = []
-        for info in measures.values():
-            long_desc = info.get("long_description", "").strip()
-            if not long_desc:
-                continue
-            # Strip first sentence to find common methodology
-            rest = long_desc.split(". ", 1)[1] if ". " in long_desc else long_desc
-            if rest not in method_seen:
-                method_seen.add(rest)
-                method_paragraphs.append(long_desc)
+def _md_methodology(measure_info: dict | None) -> str:
+    """Generate Methodology section in Markdown."""
+    if not measure_info:
+        return ""
+    measures = {k: v for k, v in measure_info.items() if not k.startswith("_")}
+    seen: set[str] = set()
+    paragraphs: list[str] = []
+    for info in measures.values():
+        long_desc = info.get("long_description", "").strip()
+        if not long_desc:
+            continue
+        rest = long_desc.split(". ", 1)[1] if ". " in long_desc else long_desc
+        if rest not in seen:
+            seen.add(rest)
+            paragraphs.append(long_desc)
+    return "\n\n".join(paragraphs)
 
-        if method_paragraphs:
-            parts.append("<h3>Methodology</h3>")
-            for text in method_paragraphs:
-                parts.append(f"<p>{text}</p>")
 
-        # --- ACS tables used ---
-        tables_seen: set[str] = set()
-        table_items: list[str] = []
-        for info in measures.values():
-            for src in info.get("sources", []):
-                loc = src.get("location", "")
-                if loc and loc not in tables_seen:
-                    tables_seen.add(loc)
-                    loc_url = src.get("location_url", "")
-                    if loc_url:
-                        table_items.append(f'<li><a href="{loc_url}">{loc}</a></li>')
-                    else:
-                        table_items.append(f"<li>{loc}</li>")
-        if table_items:
-            parts.append("<h3>Source Tables</h3><ul>")
-            parts.extend(table_items)
-            parts.append("</ul>")
+def _md_source_tables(measure_info: dict | None) -> str:
+    """Generate Source Tables section in Markdown."""
+    if not measure_info:
+        return ""
+    measures = {k: v for k, v in measure_info.items() if not k.startswith("_")}
+    seen: set[str] = set()
+    lines: list[str] = []
+    for info in measures.values():
+        for src in info.get("sources", []):
+            loc = src.get("location", "")
+            if loc and loc not in seen:
+                seen.add(loc)
+                loc_url = src.get("location_url", "")
+                if loc_url:
+                    lines.append(f"- [{loc}]({loc_url})")
+                else:
+                    lines.append(f"- {loc}")
+    return "\n".join(lines)
 
-    # --- Variables (from pipeline.yaml) ---
+
+def _md_variables(config: dict) -> str:
+    """Generate Variables section in Markdown."""
     sources = config.get("sources", {})
     all_vars: dict[str, str] = {}
     if isinstance(sources, dict):
@@ -276,116 +264,248 @@ def _build_description(
             if isinstance(src, dict):
                 for var_name, var_id in src.get("variables", {}).items():
                     all_vars[var_name] = var_id
-    if all_vars:
-        parts.append("<h3>Census Variables</h3><ul>")
-        for var_name, var_id in all_vars.items():
-            label = var_name.replace("_", " ").title()
-            parts.append(f"<li><strong>{var_id}</strong>: {label}</li>")
-        parts.append("</ul>")
+    if not all_vars:
+        return ""
+    lines: list[str] = []
+    for var_name, var_id in all_vars.items():
+        label = var_name.replace("_", " ").title()
+        lines.append(f"- **{var_id}**: {label}")
+    return "\n".join(lines)
 
-    # --- Measures ---
-    if measure_info:
-        measures = {k: v for k, v in measure_info.items() if not k.startswith("_")}
-        if measures:
-            # Check if any measures use naming conventions
-            has_geo20 = any("_geo20" in k for k in measures)
-            has_geo10 = any("_geo10" in k for k in measures)
-            has_parcels = any("_parcels" in k for k in measures)
-            has_direct = any("_direct" in k for k in measures)
 
-            parts.append(f"<h3>Measures ({len(measures)})</h3>")
+def _md_measures(measure_info: dict | None) -> str:
+    """Generate Measures section in Markdown."""
+    if not measure_info:
+        return ""
+    measures = {k: v for k, v in measure_info.items() if not k.startswith("_")}
+    if not measures:
+        return ""
 
-            suffix_notes: list[str] = []
-            if has_geo20 or has_geo10:
-                note = (
-                    "Measures containing <code>_geo20</code> are computed "
-                    "using 2020 Census geographic boundaries"
-                )
-                if has_geo10:
-                    note += (
-                        ", while those containing <code>_geo10</code> "
-                        "use 2010 Census geographic boundaries"
-                    )
-                note += "."
-                suffix_notes.append(note)
+    lines: list[str] = []
 
-            if has_parcels or has_direct:
-                note = (
-                    "Measures containing <code>_parcels</code> use "
-                    "parcel-based redistribution (block group values are "
-                    "distributed to individual living units, then aggregated "
-                    "to target regions). Measures containing "
-                    "<code>_direct</code> use direct spatial overlap "
-                    "(block group values are aggregated/disaggregated to "
-                    "target regions based on proportion of overlap)."
-                )
-                suffix_notes.append(note)
+    # Naming convention notes
+    has_geo20 = any("_geo20" in k for k in measures)
+    has_geo10 = any("_geo10" in k for k in measures)
+    has_parcels = any("_parcels" in k for k in measures)
+    has_direct = any("_direct" in k for k in measures)
 
-            if suffix_notes:
-                parts.append(
-                    "<p><em>Note on naming conventions: "
-                    + " ".join(suffix_notes)
-                    + "</em></p>"
-                )
+    notes: list[str] = []
+    if has_geo20 or has_geo10:
+        note = "Measures containing `_geo20` are computed using 2020 Census geographic boundaries"
+        if has_geo10:
+            note += ", while those containing `_geo10` use 2010 Census geographic boundaries"
+        note += "."
+        notes.append(note)
+    if has_parcels or has_direct:
+        notes.append(
+            "Measures containing `_parcels` use parcel-based redistribution "
+            "(block group values are distributed to individual living units, "
+            "then aggregated to target regions). Measures containing `_direct` "
+            "use direct spatial overlap (block group values are "
+            "aggregated/disaggregated to target regions based on proportion "
+            "of overlap)."
+        )
+    if notes:
+        lines.append(f"*Note on naming conventions: {' '.join(notes)}*")
+        lines.append("")
 
-            parts.append("<dl>")
-            for name, info in list(measures.items())[:30]:
-                long_name = info.get("long_name", name)
-                short_desc = info.get("short_description", "")
-                agg = info.get("aggregation_method", "") or info.get("type", "")
-                unit = info.get("unit", "")
+    for name, info in list(measures.items())[:30]:
+        long_name = info.get("long_name", name)
+        short_desc = info.get("short_description", "")
+        agg = info.get("aggregation_method", "") or info.get("type", "")
+        unit = info.get("unit", "")
 
-                meta_parts = []
-                if agg:
-                    meta_parts.append(agg)
-                if unit:
-                    meta_parts.append(f"unit: {unit}")
-                meta_str = f" ({', '.join(meta_parts)})" if meta_parts else ""
+        meta_parts = []
+        if agg:
+            meta_parts.append(agg)
+        if unit:
+            meta_parts.append(f"unit: {unit}")
+        meta_str = f" ({', '.join(meta_parts)})" if meta_parts else ""
 
-                parts.append(f"<dt><strong>{name}</strong>: {long_name}{meta_str}</dt>")
-                if short_desc:
-                    parts.append(f"<dd>{short_desc}</dd>")
-            if len(measures) > 30:
-                parts.append(
-                    f"<dt>\u2026 and {len(measures) - 30} additional measures</dt>"
-                )
-            parts.append("</dl>")
+        lines.append(f"- **{name}**: {long_name}{meta_str}")
+        if short_desc:
+            lines.append(f"  {short_desc}")
 
-    # --- Data sources ---
-    if measure_info:
-        measures = {k: v for k, v in measure_info.items() if not k.startswith("_")}
-        seen: set[str] = set()
-        source_items: list[str] = []
-        for info in measures.values():
-            for src in info.get("sources", []):
-                src_name = src.get("name", "")
-                if src_name and src_name not in seen:
-                    seen.add(src_name)
-                    url = src.get("url", "")
-                    accessed = src.get("date_accessed", "")
-                    label = src_name
-                    if accessed:
-                        label += f" (accessed {accessed})"
-                    if url:
-                        source_items.append(f'<li><a href="{url}">{label}</a></li>')
-                    else:
-                        source_items.append(f"<li>{label}</li>")
-        if source_items:
-            parts.append("<h3>Data Sources</h3><ul>")
-            parts.extend(source_items)
-            parts.append("</ul>")
+    if len(measures) > 30:
+        lines.append(f"- \u2026 and {len(measures) - 30} additional measures")
 
-    # --- File format ---
-    parts.append("<h3>File Format</h3>")
-    parts.append(
-        "<p>Data files are provided as xz-compressed CSV (<code>.csv.xz</code>) "
-        "with the following columns: <code>geoid</code>, <code>region_type</code>, "
-        "<code>region_name</code>, <code>year</code>, <code>measure</code>, "
-        "<code>value</code>, <code>moe</code> (margin of error, where available). "
-        "A <code>measure_info.json</code> file provides per-measure metadata.</p>"
-    )
+    return "\n".join(lines)
 
-    return "\n".join(parts)
+
+def _md_data_sources(measure_info: dict | None) -> str:
+    """Generate Data Sources section in Markdown."""
+    if not measure_info:
+        return ""
+    measures = {k: v for k, v in measure_info.items() if not k.startswith("_")}
+    seen: set[str] = set()
+    lines: list[str] = []
+    for info in measures.values():
+        for src in info.get("sources", []):
+            src_name = src.get("name", "")
+            if src_name and src_name not in seen:
+                seen.add(src_name)
+                url = src.get("url", "")
+                accessed = src.get("date_accessed", "")
+                label = src_name
+                if accessed:
+                    label += f" (accessed {accessed})"
+                if url:
+                    lines.append(f"- [{label}]({url})")
+                else:
+                    lines.append(f"- {label}")
+    return "\n".join(lines)
+
+
+_FILE_FORMAT_MD = (
+    "Data files are provided as xz-compressed CSV (`.csv.xz`) "
+    "with the following columns: `geoid`, `region_type`, `region_name`, "
+    "`year`, `measure`, `value`, `moe` (margin of error, where available)."
+)
+
+
+def _md_to_html(md: str) -> str:
+    """Convert a Markdown description to HTML for Zenodo.
+
+    Handles the subset of Markdown used in our descriptions:
+    headers, bold, code, italic, links, lists, and paragraphs.
+    """
+    lines = md.split("\n")
+    html_parts: list[str] = []
+    in_list = False
+
+    for line in lines:
+        stripped = line.strip()
+
+        # Blank line: close list if open
+        if not stripped:
+            if in_list:
+                html_parts.append("</ul>")
+                in_list = False
+            continue
+
+        # Header
+        if stripped.startswith("## "):
+            if in_list:
+                html_parts.append("</ul>")
+                in_list = False
+            title = stripped[3:].strip()
+            html_parts.append(f"<h3>{title}</h3>")
+            continue
+
+        # List item
+        if stripped.startswith("- "):
+            if not in_list:
+                html_parts.append("<ul>")
+                in_list = True
+            item = stripped[2:]
+            item = _inline_md_to_html(item)
+            html_parts.append(f"<li>{item}</li>")
+            continue
+
+        # Indented continuation of list item (e.g. "  short description")
+        if in_list and line.startswith("  ") and not stripped.startswith("- "):
+            # Append to previous <li> as a sub-line
+            text = _inline_md_to_html(stripped)
+            if html_parts and html_parts[-1].endswith("</li>"):
+                html_parts[-1] = html_parts[-1][:-5] + f" {text}</li>"
+            continue
+
+        # Regular paragraph
+        if in_list:
+            html_parts.append("</ul>")
+            in_list = False
+        text = _inline_md_to_html(stripped)
+        html_parts.append(f"<p>{text}</p>")
+
+    if in_list:
+        html_parts.append("</ul>")
+
+    return "\n".join(html_parts)
+
+
+def _inline_md_to_html(text: str) -> str:
+    """Convert inline Markdown (bold, code, italic, links) to HTML."""
+    # Links: [text](url) → <a href="url">text</a>
+    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2">\1</a>', text)
+    # Bold: **text** → <strong>text</strong>
+    text = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", text)
+    # Code: `text` → <code>text</code>
+    text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
+    # Italic: *text* → <em>text</em>
+    text = re.sub(r"\*([^*]+)\*", r"<em>\1</em>", text)
+    return text
+
+
+def build_zenodo_description(
+    config: dict,
+    measure_info: dict | None,
+) -> tuple[str, str]:
+    """Build a Zenodo description in both Markdown and HTML.
+
+    Returns (markdown, html) tuple. The Markdown is saved to
+    docs/zenodo_description.md; the HTML is sent to the Zenodo API.
+    """
+    measures = {k: v for k, v in (measure_info or {}).items()
+                if not k.startswith("_")}
+    measure_count = len(measures)
+
+    sections: list[str] = []
+
+    # Overview
+    overview = _md_overview(config)
+    if overview:
+        sections.append(f"## Overview\n{overview}")
+
+    # Provenance
+    provenance = _md_provenance(measure_info)
+    if provenance:
+        sections.append(f"## Provenance\n{provenance}")
+
+    # Coverage
+    coverage = _md_coverage(config)
+    if coverage:
+        sections.append(f"## Coverage\n{coverage}")
+
+    # Methodology
+    methodology = _md_methodology(measure_info)
+    if methodology:
+        sections.append(f"## Methodology\n{methodology}")
+
+    # Source Tables
+    source_tables = _md_source_tables(measure_info)
+    if source_tables:
+        sections.append(f"## Source Tables\n{source_tables}")
+
+    # Variables
+    variables = _md_variables(config)
+    if variables:
+        sections.append(f"## Variables\n{variables}")
+
+    # Measures
+    measures_md = _md_measures(measure_info)
+    if measures_md:
+        sections.append(f"## Measures ({measure_count})\n{measures_md}")
+
+    # Data Sources
+    data_sources = _md_data_sources(measure_info)
+    if data_sources:
+        sections.append(f"## Data Sources\n{data_sources}")
+
+    # File Format
+    sections.append(f"## File Format\n{_FILE_FORMAT_MD}")
+
+    markdown = "\n\n".join(sections) + "\n"
+    html = _md_to_html(markdown)
+    return markdown, html
+
+
+def _build_description(
+    config: dict,
+    measure_info: dict | None,
+) -> str:
+    """Build an HTML description from pipeline metadata."""
+    _, html = build_zenodo_description(config, measure_info)
+    return html
 
 
 def _extract_coverage(config: dict) -> tuple[set[int], set[str], set[str]]:
@@ -604,13 +724,20 @@ def upload_to_zenodo(
         log.warning("No files found to upload in %s", dist_dir)
         return None
 
-    # Build metadata
+    # Build metadata (also generates Markdown description for docs/)
     metadata = build_zenodo_metadata(
         topic_dir, config,
         measure_info=measure_info,
         creators=creators,
         license_id=license_id,
     )
+
+    # Save Markdown description to docs/zenodo_description.md
+    md_desc, _ = build_zenodo_description(config, measure_info)
+    docs_dir = topic_dir / "docs"
+    docs_dir.mkdir(parents=True, exist_ok=True)
+    (docs_dir / "zenodo_description.md").write_text(md_desc)
+    log.info("Saved description to docs/zenodo_description.md")
 
     log.info("Pipeline:  %s v%s", pipeline_name, version)
     log.info("Files:     %d", len(files_to_upload))

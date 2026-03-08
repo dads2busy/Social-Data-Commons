@@ -1,6 +1,6 @@
 name: population_density
 version: "1.0.0"
-description: "Population density (persons per sq mile) from ACS + TIGER land area"
+description: "Population density (persons per square mile) combining ACS total population estimates (table B01001) with Census TIGER/Line geographic data for land area calculations. Density is computed as total population divided by land area in square miles at tract, county, and block group levels. This dataset is produced by the Social Data Commons at the University of Virginia."
 
 sources:
   ncr:

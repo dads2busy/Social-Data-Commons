@@ -7,9 +7,10 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Population density calculated as persons per square mile (2010 Census geography).",
+        "long_description": "Population density calculated as persons per square mile, combining ACS 5-year total population estimates (table B01001) with Census TIGER/Line geographic data for land area. Density is computed as total population (B01001_001) divided by land area in square miles at Census tract, county, and block group levels. Values are available on both Census 2020 and Census 2010 geography boundaries.",
         "long_name": "Population density calculated as persons per square mile.",
         "measure_type": "",
+        "provenance": "Population from ACS 5-year estimates, table B01001 (total population). Land area from Census TIGER/Line shapefiles. Density calculated as total population divided by land area in square miles.",
         "short_description": "Population density calculated as persons per square mile (2010 Census geography).",
         "short_name": "Population Density, Persons per Square Mile (2010 geo)",
         "sources": [
@@ -17,7 +18,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B01001, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             },
             {
@@ -51,7 +52,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B01001, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             },
             {

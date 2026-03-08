@@ -34,6 +34,19 @@ LODES8_URL = "https://lehd.ces.census.gov/data/lodes/LODES8/{state}/wac/{state}_
 STATE_ABBRS = {
     "ncr": {"11": "dc", "24": "md", "51": "va"},
     "va": {"51": "va"},
+    "us": {
+        "01": "al", "02": "ak", "04": "az", "05": "ar", "06": "ca",
+        "08": "co", "09": "ct", "10": "de", "11": "dc", "12": "fl",
+        "13": "ga", "15": "hi", "16": "id", "17": "il", "18": "in",
+        "19": "ia", "20": "ks", "21": "ky", "22": "la", "23": "me",
+        "24": "md", "25": "ma", "26": "mi", "27": "mn", "28": "ms",
+        "29": "mo", "30": "mt", "31": "ne", "32": "nv", "33": "nh",
+        "34": "nj", "35": "nm", "36": "ny", "37": "nc", "38": "nd",
+        "39": "oh", "40": "ok", "41": "or", "42": "pa", "44": "ri",
+        "45": "sc", "46": "sd", "47": "tn", "48": "tx", "49": "ut",
+        "50": "vt", "51": "va", "53": "wa", "54": "wv", "55": "wi",
+        "56": "wy",
+    },
 }
 
 # 5-tier employment mapping from LODES CNS codes
@@ -182,7 +195,6 @@ def get_acs_households(year: int, state_fips_list: list[str]) -> pd.DataFrame:
 
 def run(coverage: str, years: list[int]):
     states = STATE_ABBRS[coverage]
-    state_fips_list = list(states.keys())
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -206,9 +218,27 @@ def run(coverage: str, years: list[int]):
         bg = compute_5tier(bg)
         log.info("Block groups with employment: %d", len(bg))
 
-        # Get ACS households (use matching 5-year estimate)
+        # Get ACS households — query in batches of 10 states for national
         acs_year = min(year, 2023)  # ACS available through 2023
-        hh = get_acs_households(acs_year, state_fips_list)
+        state_fips_list = list(states.keys())
+
+        if len(state_fips_list) <= 10:
+            hh = get_acs_households(acs_year, state_fips_list)
+        else:
+            # Batch ACS queries to avoid overloading Census API
+            hh_parts = []
+            batch_size = 10
+            for i in range(0, len(state_fips_list), batch_size):
+                batch = state_fips_list[i:i + batch_size]
+                log.info("ACS batch %d/%d: states %s",
+                         i // batch_size + 1,
+                         (len(state_fips_list) + batch_size - 1) // batch_size,
+                         batch)
+                batch_hh = get_acs_households(acs_year, batch)
+                if not batch_hh.empty:
+                    hh_parts.append(batch_hh)
+            hh = pd.concat(hh_parts, ignore_index=True) if hh_parts else pd.DataFrame(columns=["geoid", "HH"])
+
         log.info("Block groups with ACS households: %d", len(hh))
 
         # Compute D2A and D2B
@@ -227,7 +257,7 @@ def run(coverage: str, years: list[int]):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Compute D2A/D2B from LODES + ACS")
-    parser.add_argument("--coverage", required=True, choices=["ncr", "va"])
+    parser.add_argument("--coverage", required=True, choices=["ncr", "va", "us"])
     parser.add_argument("--years", type=int, nargs="+", required=True)
     args = parser.parse_args()
     run(args.coverage, args.years)

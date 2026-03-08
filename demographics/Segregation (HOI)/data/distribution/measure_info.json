@@ -7,18 +7,18 @@
         "data_type": "numeric",
         "equity_category": "",
         "layer": "",
-        "long_description": "The Segregation indicator, or the spatial dissimilarity index, measures how the racial composition of a population in a census tract compares to that of the rest of the state.Since there are multiple categories of population, We are following Entropy index. An Entropy Index measures the spatial distribution of multiple groups simultaneously",
+        "long_description": "Residential segregation indicator computed as the Entropy Index (Theil's H) from ACS 5-year estimates, table DP05 (ACS Demographic and Housing Estimates). The index measures how the racial/ethnic composition of a Census tract compares to that of the state as a whole, using eight categories: Hispanic/Latino, White, Black/African American, American Indian/Alaska Native, Asian, Native Hawaiian/Other Pacific Islander, Some Other Race, and Two or More Races. Higher values indicate greater deviation from the statewide racial/ethnic composition. County and Health District values are aggregated from tract-level scores.",
         "long_name": "Segregation indicator",
         "measure_type": "index",
         "short_description": "It measures how different the population composition of a subarea is from the population composition of the State as a whole",
         "short_name": "Segregation indicator",
         "sources": [
             {
-                "date_accessed": "2023",
-                "location": "Table DP05",
-                "location_url": "",
+                "date_accessed": 2025,
+                "location": "5-Year estimates, table DP05, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
                 "name": "American Community Survey",
-                "url": ""
+                "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
         "provenance": "The segregation indicator uses the Entropy Index (Theil's H), a method for measuring multigroup residential segregation that quantifies how sub-area racial/ethnic composition differs from the overall composition (Theil, 1972; Reardon & Firebaugh, 2002).",

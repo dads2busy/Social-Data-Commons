@@ -7,17 +7,18 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Population moving in the past year from the current residence. 5-year ACS estimates in provided census geolevels.",
+        "long_description": "Geographic mobility rates from ACS 5-year estimates, table B07204 (Geographical Mobility in the Past Year by Educational Attainment). The percentage of the population that moved is calculated as B07204_003 (moved from different house) divided by B07204_001 (total population 1 year and over). Both counts and percentages are provided at Census tract and county levels. Block group estimates are produced via areal interpolation from tract-level data. Values are available on both Census 2020 and Census 2010 geography boundaries.",
         "long_name": "Population moving in the past year.",
         "measure_type": "",
-        "short_description": "Population moving in the past year from the current residence.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B07204 (Geographical Mobility in the Past Year by Educational Attainment). Percent moving calculated as B07204_003 (moved) divided by B07204_001 (total population 1 year and over). Block group estimates via areal interpolation from tract-level data.",
+        "short_description": "Percentage of the population that moved in the past year.",
         "short_name": "Population moving in the past year.",
         "sources": [
             {
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B07204, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -44,7 +45,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B07204, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -71,7 +72,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B07204, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -98,7 +99,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B07204, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -125,7 +126,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B07204, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -152,7 +153,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B07204, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -179,7 +180,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B07204, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -206,7 +207,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table B07204, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],

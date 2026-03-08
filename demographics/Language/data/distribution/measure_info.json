@@ -7,17 +7,18 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Households with Limited English Direct population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Limited English speaking household estimates from ACS 5-year estimates, table C16002 (Household Language by Household Limited English Speaking Status). A household is classified as 'limited English speaking' if no member 14 years and older speaks English 'very well.' Limited English households are computed by summing across four language groups: Spanish (C16002_004), Indo-European (C16002_007), Asian/Pacific Islander (C16002_010), and other languages (C16002_013). Both counts and percentages (relative to total households C16002_001) are provided at Census tract, county, and block group levels. Values are available on both Census 2020 and Census 2010 geography boundaries. Pre-2020 values on 2020 boundaries have been standardized using area-weighted crosswalks.",
         "long_name": "The count of households with limited English.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table C16002 (Household Language by Household Limited English Speaking Status). Limited English households summed across four language groups: Spanish (C16002_004), Indo-European (C16002_007), Asian/Pacific Islander (C16002_010), and other languages (C16002_013). Percentages calculated relative to total households (C16002_001).",
+        "short_description": "Count of households with limited English.",
         "short_name": "Households with limited English (2020 geographies)",
         "sources": [
             {
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table C16002, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -44,7 +45,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table C16002, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -71,7 +72,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table C16002, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
@@ -98,7 +99,7 @@
                 "name": "American Community Survey",
                 "location": "5-Year estimates, table C16002, via the API",
                 "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
+                "date_accessed": 2025,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],

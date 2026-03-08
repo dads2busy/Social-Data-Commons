@@ -1,7 +1,7 @@
 name: gender_demographics
 version: "1.0.0"
 zenodo_deposit_id: 18871225
-description: "Gender distribution from ACS"
+description: "Population gender distribution from ACS table B01001 (Sex by Age), providing counts and percentages for male and female populations. This dataset is produced by the Social Data Commons at the University of Virginia."
 
 sources:
   ncr:

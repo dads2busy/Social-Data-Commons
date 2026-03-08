@@ -1,6 +1,6 @@
 name: segregation
 version: "1.0.0"
-description: "Segregation entropy index from ACS DP05 race/ethnicity data"
+description: "Residential segregation indicator computed as the Entropy Index (Theil's H) from ACS table DP05 race/ethnicity data, measuring how sub-area racial/ethnic composition differs from the overall state composition. The index uses eight race/ethnicity categories: Hispanic/Latino, White, Black, American Indian, Asian, Native Hawaiian/Pacific Islander, Some Other Race, and Two or More Races. This dataset is produced by the Social Data Commons at the University of Virginia as part of the Health Opportunity Index (HOI)."
 
 sources:
   ncr:
