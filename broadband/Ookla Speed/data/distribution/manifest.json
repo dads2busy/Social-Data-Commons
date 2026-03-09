@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-08T22:59:37+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "avg_down_speed_geo20",
+    "avg_up_speed_geo20",
+    "mobile_avg_down_speed_geo20",
+    "mobile_avg_up_speed_geo20",
+    "mobile_perc_above_100_20_geo20",
+    "mobile_perc_above_25_3_geo20",
+    "perc_above_100_20_geo20",
+    "perc_above_25_3_geo20"
+  ],
+  "years": [
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 409824,
+  "files": {
+    "ncr_cttrbg_ookla_2019_2025_broadband_speed.csv.xz": {
+      "sha256": "322e6b39d29f1752f4ea3e920b2c8dd61ba4ed774f9922c85027aac67980db4f",
+      "size_bytes": 959152
+    },
+    "va_hdcttr_ookla_2019_2025_broadband_speed.csv.xz": {
+      "sha256": "a2a17789ae1abbc54cca925da8ae848b272c3b008be6ef40915593b47800ddd8",
+      "size_bytes": 477020
+    }
+  }
+}

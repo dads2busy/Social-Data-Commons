@@ -1,0 +1,46 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-09T01:18:52+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "perc_hh_with_broadband_geo10",
+    "perc_hh_with_broadband_geo20",
+    "perc_hh_with_cable_fiber_dsl_geo10",
+    "perc_hh_with_cable_fiber_dsl_geo20",
+    "perc_hh_without_internet_geo10",
+    "perc_hh_without_internet_geo20"
+  ],
+  "years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 585939,
+  "files": {
+    "ncr_cttrbg_census_acs_2017_2024_household_broadband.csv.xz": {
+      "sha256": "12ac01291efcb7e19340cde1ed8713fe704788ff74c9df60ce3953d1eee53a49",
+      "size_bytes": 2662748
+    },
+    "va_hdcttrbg_census_acs_2017_2024_household_broadband.csv.xz": {
+      "sha256": "ae6d1a7a7687fbbb3e540d0f9d16ca17651502d7866b312774567944f7e980e5",
+      "size_bytes": 1516696
+    }
+  }
+}

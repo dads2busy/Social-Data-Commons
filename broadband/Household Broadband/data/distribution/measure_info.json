@@ -1,0 +1,170 @@
+{
+    "perc_hh_with_broadband_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Broadband",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Percentage of households self-reported to have a broadband internet connection. Broadband internet is defined as any type of internet other than a dial-up connection. Based on American Community Survey Table B28002 (Presence and Types of Internet Subscriptions in Household).",
+        "long_name": "Percentage of households with broadband (2020 geographies)",
+        "measure_type": "percent",
+        "short_description": "Percentage of households with a broadband internet connection (any type other than dial-up), from ACS Table B28002.",
+        "short_name": "Households with broadband",
+        "sources": [
+            {
+                "date_accessed": "2025",
+                "location": "Table B28002",
+                "location_url": "",
+                "name": "U.S. Census American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "provenance": "Computed from ACS Table B28002: B28002_004 (broadband of any type) / B28002_001 (total households) × 100.",
+        "statement": "{value} of households in {features.name} have a broadband connection.",
+        "type": "percent",
+        "unit": "household",
+        "variants": ""
+    },
+    "perc_hh_with_broadband_geo10": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Broadband",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Percentage of households self-reported to have a broadband internet connection. Broadband internet is defined as any type of internet other than a dial-up connection. Based on American Community Survey Table B28002 (Presence and Types of Internet Subscriptions in Household).",
+        "long_name": "Percentage of households with broadband (2010 geographies)",
+        "measure_type": "percent",
+        "short_description": "Percentage of households with a broadband internet connection (any type other than dial-up), from ACS Table B28002.",
+        "short_name": "Households with broadband",
+        "sources": [
+            {
+                "date_accessed": "2025",
+                "location": "Table B28002",
+                "location_url": "",
+                "name": "U.S. Census American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "provenance": "Computed from ACS Table B28002: B28002_004 (broadband of any type) / B28002_001 (total households) × 100.",
+        "statement": "{value} of households in {features.name} have a broadband connection.",
+        "type": "percent",
+        "unit": "household",
+        "variants": ""
+    },
+    "perc_hh_with_cable_fiber_dsl_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Broadband",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Percentage of households self-reported to have a high-speed internet service. A high-speed internet service is defined as a cable, fiber optic, or DSL internet connection. Based on American Community Survey Table B28002 (Presence and Types of Internet Subscriptions in Household).",
+        "long_name": "Percentage of households with cable, fiber optic, or DSL (2020 geographies)",
+        "measure_type": "percent",
+        "short_description": "Percentage of households with cable, fiber optic, or DSL internet, from ACS Table B28002.",
+        "short_name": "Households with cable, fiber optic, or DSL",
+        "sources": [
+            {
+                "date_accessed": "2025",
+                "location": "Table B28002",
+                "location_url": "",
+                "name": "U.S. Census American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "provenance": "Computed from ACS Table B28002: B28002_007 (cable, fiber optic, or DSL) / B28002_001 (total households) × 100.",
+        "statement": "{value} of households in {features.name} have a cable, fiber optic, or DSL internet connection.",
+        "type": "percent",
+        "unit": "household",
+        "variants": ""
+    },
+    "perc_hh_with_cable_fiber_dsl_geo10": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Broadband",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Percentage of households self-reported to have a high-speed internet service. A high-speed internet service is defined as a cable, fiber optic, or DSL internet connection. Based on American Community Survey Table B28002 (Presence and Types of Internet Subscriptions in Household).",
+        "long_name": "Percentage of households with cable, fiber optic, or DSL (2010 geographies)",
+        "measure_type": "percent",
+        "short_description": "Percentage of households with cable, fiber optic, or DSL internet, from ACS Table B28002.",
+        "short_name": "Households with cable, fiber optic, or DSL",
+        "sources": [
+            {
+                "date_accessed": "2025",
+                "location": "Table B28002",
+                "location_url": "",
+                "name": "U.S. Census American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "provenance": "Computed from ACS Table B28002: B28002_007 (cable, fiber optic, or DSL) / B28002_001 (total households) × 100.",
+        "statement": "{value} of households in {features.name} have a cable, fiber optic, or DSL internet connection.",
+        "type": "percent",
+        "unit": "household",
+        "variants": ""
+    },
+    "perc_hh_without_internet_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Broadband",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Percentage of households self-reported to not have internet access at home. Based on American Community Survey Table B28002 (Presence and Types of Internet Subscriptions in Household).",
+        "long_name": "Percentage of households without internet access (2020 geographies)",
+        "measure_type": "percent",
+        "short_description": "Percentage of households without any internet access at home, from ACS Table B28002.",
+        "short_name": "Households without internet access",
+        "sources": [
+            {
+                "date_accessed": "2025",
+                "location": "Table B28002",
+                "location_url": "",
+                "name": "U.S. Census American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "provenance": "Computed from ACS Table B28002: B28002_013 (no internet access) / B28002_001 (total households) × 100.",
+        "statement": "{value} of households in {features.name} do not have internet access.",
+        "type": "percent",
+        "unit": "household",
+        "variants": ""
+    },
+    "perc_hh_without_internet_geo10": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Broadband",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Percentage of households self-reported to not have internet access at home. Based on American Community Survey Table B28002 (Presence and Types of Internet Subscriptions in Household).",
+        "long_name": "Percentage of households without internet access (2010 geographies)",
+        "measure_type": "percent",
+        "short_description": "Percentage of households without any internet access at home, from ACS Table B28002.",
+        "short_name": "Households without internet access",
+        "sources": [
+            {
+                "date_accessed": "2025",
+                "location": "Table B28002",
+                "location_url": "",
+                "name": "U.S. Census American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "provenance": "Computed from ACS Table B28002: B28002_013 (no internet access) / B28002_001 (total households) × 100.",
+        "statement": "{value} of households in {features.name} do not have internet access.",
+        "type": "percent",
+        "unit": "household",
+        "variants": ""
+    }
+}

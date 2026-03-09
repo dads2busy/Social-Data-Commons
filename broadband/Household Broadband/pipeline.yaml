@@ -1,0 +1,38 @@
+name: household_broadband
+version: "1.0.0"
+title: "Household Broadband"
+description: >-
+  Percentage of households with broadband internet, cable/fiber/DSL, and
+  without internet access, from ACS Table B28002 (Presence and Types of
+  Internet Subscriptions in Household).
+temporal_label: "ACS 5-year estimates"
+
+sources:
+  va:
+    type: census_acs
+    profile: VA
+    years: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county, block_group]
+    variables:
+      total_hh: "B28002_001"
+      hh_without_internet: "B28002_013"
+      hh_with_broadband: "B28002_004"
+      hh_with_cable_fiber_dsl: "B28002_007"
+
+  ncr:
+    type: census_acs
+    profile: NCR
+    years: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county, block_group]
+    variables:
+      total_hh: "B28002_001"
+      hh_without_internet: "B28002_013"
+      hh_with_broadband: "B28002_004"
+      hh_with_cable_fiber_dsl: "B28002_007"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: true
