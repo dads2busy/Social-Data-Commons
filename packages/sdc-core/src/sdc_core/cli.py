@@ -251,6 +251,26 @@ def zenodo_upload(topic_dir: str, publish: bool, dry_run: bool, sandbox: bool, l
         click.echo("(Updated existing deposit)")
 
 
+# ---------------------------------------------------------------------------
+# sdc sync
+# ---------------------------------------------------------------------------
+
+
+@main.command()
+@click.argument("dashboard", required=False)
+@click.option("--no-build", is_flag=True, help="Skip npm run build:data")
+@click.option("--dry-run", is_flag=True, help="Show what would be synced without copying")
+def sync(dashboard: str | None, no_build: bool, dry_run: bool):
+    """Sync pipeline data to a dashboard repo.
+
+    DASHBOARD is the name of the dashboard (e.g., ncr, va).
+    If omitted, syncs all dashboards defined in sync.yaml.
+    """
+    from sdc_core.sync import run_sync
+
+    run_sync(dashboard, dry_run=dry_run, no_build=no_build)
+
+
 @zenodo.command("status")
 @click.argument("topic_dir", type=click.Path(exists=True), required=False)
 def zenodo_status(topic_dir: str | None):
