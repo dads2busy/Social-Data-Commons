@@ -1,5 +1,6 @@
 name: employment_industry
 version: "1.0.0"
+title: "Employment by Industry"
 description: "Industry employment metrics from Mergent Intellect microdata"
 
 sources:

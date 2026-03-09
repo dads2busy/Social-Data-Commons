@@ -1,5 +1,6 @@
 name: business_characteristics_total
 version: "1.0.0"
+title: "Business Characteristics: Total"
 description: "Total business metrics from Mergent Intellect microdata"
 
 sources:

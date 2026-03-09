@@ -1,5 +1,6 @@
 name: race_demographics
 version: "1.0.0"
+title: "Race"
 description: "Race and ethnicity distribution from ACS tables B02001 (Race) and B03003 (Hispanic or Latino Origin), providing counts and percentages for seven race/ethnicity categories including White, Black/African American, American Indian/Alaska Native, Asian American/Pacific Islander, Other, Two or More Races, and Hispanic/Latino. This dataset is produced by the Social Data Commons at the University of Virginia."
 
 sources:

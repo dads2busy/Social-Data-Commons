@@ -1,5 +1,6 @@
 name: healthy_food_availability
 version: "1.0.1"
+title: "Healthy Food Availability"
 description: >
   Modified Retail Food Environment Index (MRFEI) for the National Capital Region.
   Counts supermarkets and fast-food/convenience locations within a half-mile

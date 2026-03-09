@@ -1,5 +1,6 @@
 name: sdc.demographics
 version: "1.0.0"
+title: "Population Characteristics"
 description: "Demographics dataset pipelines for Social Data Commons"
 
 topics:

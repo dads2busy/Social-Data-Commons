@@ -1,5 +1,6 @@
 name: postsecondary
 version: "1.0.0"
+title: "Postsecondary"
 description: "Postsecondary education attainment from ACS B06009"
 
 sources:

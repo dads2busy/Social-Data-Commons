@@ -1,5 +1,6 @@
 name: years_of_schooling
 version: "1.0.0"
+title: "Years of Schooling"
 description: "Average years of schooling from ACS B15003 (population 25+)"
 
 sources:

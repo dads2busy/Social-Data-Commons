@@ -1,5 +1,6 @@
 name: feeding_america
 version: "1.0.0"
+title: "Overall Food Insecurity"
 description: "Food security measures from Feeding America Map the Meal Gap study"
 
 excel_files:

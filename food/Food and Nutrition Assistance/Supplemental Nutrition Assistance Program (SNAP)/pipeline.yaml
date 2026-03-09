@@ -1,5 +1,6 @@
 name: snap
 version: "1.0.0"
+title: "Supplemental Nutrition Assistance Program (SNAP)"
 description: "Households receiving SNAP from ACS B22010"
 
 sources:

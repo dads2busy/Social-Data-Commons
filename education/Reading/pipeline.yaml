@@ -1,5 +1,6 @@
 name: reading_scores
 version: "1.0.0"
+title: "Reading"
 description: "3rd grade English reading SOL pass rates by school division from VDOE"
 
 sources:

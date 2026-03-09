@@ -1,5 +1,6 @@
 name: employment_minority_owned
 version: "1.0.0"
+title: "Employment (Minority-Owned)"
 description: "Minority owned employment metrics from Mergent Intellect microdata"
 
 sources:

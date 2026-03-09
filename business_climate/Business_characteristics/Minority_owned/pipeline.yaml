@@ -1,5 +1,6 @@
 name: business_characteristics_minority_owned
 version: "1.0.0"
+title: "Business Characteristics: Minority-Owned"
 description: "Minority owned business metrics from Mergent Intellect microdata"
 
 sources:

@@ -1,5 +1,6 @@
 name: employment_total
 version: "1.0.0"
+title: "Employment: Total"
 description: "Total employment metrics from Mergent Intellect microdata"
 
 sources:
