@@ -1,0 +1,14 @@
+# Measures to exclude from the VA dashboard.
+# One measure name per line. Blank lines and # comments are ignored.
+
+# HOI component indicators replaced by updated _geo20 pipeline versions
+access_care_indicator
+affordability_indicator
+education_indicator
+employment_access_indicator
+food_accessibility_indicator
+income_inequality_indicator
+job_participation_indicator
+material_deprivation_indicator
+segregation_indicator
+walkability_indicator

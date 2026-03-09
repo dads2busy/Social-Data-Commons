@@ -1,0 +1,24 @@
+dashboards:
+  ncr:
+    source: dashboard_data/national_capital_region_data
+    target: /Users/ads7fg/git/national_capital_region_data/data
+    levels: [county, tract, block_group, civic_association, human_services_region, planning_district, supervisor_district, zip_code]
+    geo_dir: /Users/ads7fg/git/national_capital_region_data/docs
+    geo_files:
+      county: county.json
+      tract: tract.json
+      block_group: block_group.json
+      civic_association: civic_association.json
+      human_services_region: human_services_region.json
+      planning_district: planning_district.json
+      supervisor_district: supervisor_district.json
+      zip_code: zip_code.json
+  va:
+    source: dashboard_data/virginia_public_health_data
+    target: /Users/ads7fg/git/virginia_public_health_data/data
+    levels: [health_district, county, tract]
+    geo_dir: /Users/ads7fg/git/virginia_public_health_data/public/geo
+    geo_files:
+      county: county-2020.geojson
+      tract: tract-2020.geojson
+      health_district: district.geojson

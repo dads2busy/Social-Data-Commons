@@ -1,0 +1,2 @@
+# Measures to exclude from the NCR dashboard.
+# One measure name per line. Blank lines and # comments are ignored.

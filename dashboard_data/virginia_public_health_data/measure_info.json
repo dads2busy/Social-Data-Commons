@@ -1,100 +1,233 @@
 {
-    "access_care_indicator_geo20": {
-        "aggregation_method": "mean",
+    "daycare_capacity": {
+        "aggregation_method": "count",
         "categories": "",
-        "category": "Health",
+        "category": "Education",
         "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
+        "data_type": "integer",
+        "equity_category": "Availability",
         "layer": "",
-        "long_description": "Composite z-score index measuring access to primary care. Combines two components: (1) population-to-physician ratio, using CMS Medicare Physician PUF data to count primary care physicians (Internal Medicine, Family Practice, Pediatric Medicine, OB/GYN) within 30 miles of each census tract via OSRM driving distances and HUD ZIP-to-tract crosswalk allocation; and (2) percentage of uninsured residents aged 19-64 from ACS 5-year estimates (B27010). The index is computed as -1 × z(z(pop_per_physician) + z(pct_uninsured)), so higher values indicate better access to care.",
-        "long_name": "Access to care indicator (2020 geographies)",
-        "measure_type": "index",
-        "short_description": "Composite z-score of physician availability within 30 miles and insurance coverage rate.",
-        "short_name": "Access to care indicator",
+        "long_description": "Summed capacity (seats) of all day care providers within the region, according to the Virginia Department of Social Services.",
+        "long_name": "Day Care Capacity (seats)",
+        "measure_type": "count",
+        "short_description": "Total number of licensed day care seats in the region, from VDSS facility records.",
+        "short_name": "Day Care Capacity",
         "sources": [
             {
-                "name": "CMS Medicare Physician & Other Practitioners PUF",
-                "location": "Medicare Physician & Other Practitioners - by Provider, 2017-2023",
-                "location_url": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners/medicare-physician-other-practitioners-by-provider",
-                "date_accessed": 2025,
-                "url": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners"
-            },
-            {
-                "name": "U.S. Census Bureau",
-                "location": "ACS 5-Year Estimates, Tables B01001 (Total Population) and B27010 (Health Insurance Coverage)",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            },
-            {
-                "name": "HUD Office of Policy Development and Research",
-                "location": "USPS ZIP Code-Census Tract Crosswalk, December 2021",
-                "location_url": "https://www.huduser.gov/portal/datasets/usps_crosswalk.html",
-                "date_accessed": 2025,
-                "url": "https://www.huduser.gov/portal/datasets/usps_crosswalk.html"
-            },
-            {
-                "name": "OSRM (Open Source Routing Machine)",
-                "location": "Block-group-to-block-group driving distances, 8-state region (VA, MD, DC, DE, NC, TN, KY, WV)",
-                "location_url": "https://project-osrm.org/",
-                "date_accessed": 2025,
-                "url": "https://project-osrm.org/"
+                "name": "Virginia Department of Social Services",
+                "location": "Child Day Care Search",
+                "location_url": "https://www.dss.virginia.gov/facility/search/cc2.cgi",
+                "date_accessed": 2023,
+                "url": "https://www.dss.virginia.gov"
             }
         ],
-        "provenance": "Based on the Access to Care methodology originally developed by the Virginia Department of Health (VDH), Office of Minority Health and Health Equity (OMHHE) as part of their Health Opportunity Index (HOI). This pipeline reproduces and extends the VDH indicator using open data sources: CMS Medicare Physician PUF (primary care providers in VA, assigned to census tracts via HUD ZIP-to-tract crosswalk with residential ratio weighting) and ACS 5-year uninsured estimates. Physician accessibility uses OSRM-based driving distances between block group centroids, aggregated to tract level, with a 30-mile threshold. The composite index is the negated z-score of the sum of z-scored population-per-physician ratio and z-scored uninsured percentage.",
-        "statement": "The access to care indicator in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
+        "provenance": "Total licensed day care capacity reported by the Virginia Department of Social Services, summed within each geographic region.",
+        "statement": "There are {value} day care seats in {region_name}.",
+        "type": "count",
+        "unit": "day care seat",
         "variants": ""
     },
-    "access_care_pctile_geo20": {
-        "aggregation_method": "mean",
+    "daycare_min_drivetime": {
+        "aggregation_method": "minimum",
         "categories": "",
-        "category": "Health",
+        "category": "Education",
         "citations": "",
         "data_type": "decimal",
-        "equity_category": "",
+        "equity_category": "Availability",
         "layer": "",
-        "long_description": "Percentile rank (0–1) of the access to care composite z-score index, computed per year across all Virginia census tracts. A value of 0.80 means the tract has better access to care than 80% of Virginia tracts in that year. Derived from the access_care_indicator_geo20 z-score by ranking tract values within each year and dividing by the number of tracts. County and health district values are the mean of their constituent tract percentile ranks.",
-        "long_name": "Access to care percentile (2020 geographies)",
+        "long_description": "Time (minutes) to drive to the nearest day care provider of any type. Times are calculated using the Open Source Routing Machine, from block group centroids to each provider. Times for higher geographic levels are averaged across block groups.",
+        "long_name": "Minutes to Nearest Day Care",
         "measure_type": "index",
-        "short_description": "Percentile rank of access to care z-score, where higher values indicate better access.",
-        "short_name": "Access to care percentile",
+        "short_description": "Drive time in minutes to the nearest day care provider, based on OSRM routing from block group centroids.",
+        "short_name": "Day Care Drive Time",
         "sources": [
             {
-                "name": "CMS Medicare Physician & Other Practitioners PUF",
-                "location": "Medicare Physician & Other Practitioners - by Provider, 2017-2023",
-                "location_url": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners/medicare-physician-other-practitioners-by-provider",
-                "date_accessed": 2025,
-                "url": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners"
+                "name": "Virginia Department of Social Services",
+                "location": "Child Day Care Search",
+                "location_url": "https://www.dss.virginia.gov/facility/search/cc2.cgi",
+                "date_accessed": 2023,
+                "url": "https://www.dss.virginia.gov"
             },
             {
-                "name": "U.S. Census Bureau",
-                "location": "ACS 5-Year Estimates, Tables B01001 (Total Population) and B27010 (Health Insurance Coverage)",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
+                "date_accessed": 2022,
+                "location": "",
+                "location_url": "",
+                "name": "Open Source Routing Machine",
+                "url": "http://project-osrm.org"
+            }
+        ],
+        "provenance": "Minimum drive time from block group centroids to day care providers, calculated using the Open Source Routing Machine with pre-computed BG-to-BG travel times.",
+        "statement": "It takes {value} to drive to the nearest day care provider in {region_name}.",
+        "type": "index",
+        "unit": "minute",
+        "variants": ""
+    },
+    "daycare_ratio": {
+        "aggregation_method": "ratio",
+        "categories": "",
+        "category": "Education",
+        "citations": [
+            "wan12",
+            "bii21"
+        ],
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Number of day care seats per 1,000 children under 15 years of age, which accept at least ages 4 to 10, as calculated within floating catchment areas. Catchment area ratios are based on the population of children under 15 within block groups (as estimated in the American Community Survey), capacity of eligible day care providers (as reported by the Virginia Department of Social Services), and travel times between block group centroids and day care locations (as calculated with the Open Source Routing Machine). Catchment areas are weighted by travel time with a Gaussian function with scale of 18, which are normalized for each consumer (for a 3-step floating catchment area), as calculated by the catchment R package.",
+        "long_name": "Day Care Seats Per 1k Children Under 15, Accepting at Least Ages 4-10",
+        "measure_type": "ratio",
+        "short_description": "Day care seats per 1,000 children under 15, using a 3-step floating catchment area method with Gaussian distance-decay weighting.",
+        "short_name": "Day Care Seats Per 1k Children",
+        "sources": [
+            {
+                "name": "Virginia Department of Social Services",
+                "location": "Child Day Care Search",
+                "location_url": "https://www.dss.virginia.gov/facility/search/cc2.cgi",
+                "date_accessed": 2023,
+                "url": "https://www.dss.virginia.gov"
+            },
+            {
+                "name": "American Community Survey",
+                "location": "data/5_year_seq_by_state",
+                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
+                "date_accessed": 2023,
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             },
             {
-                "name": "HUD Office of Policy Development and Research",
-                "location": "USPS ZIP Code-Census Tract Crosswalk, December 2021",
-                "location_url": "https://www.huduser.gov/portal/datasets/usps_crosswalk.html",
-                "date_accessed": 2025,
-                "url": "https://www.huduser.gov/portal/datasets/usps_crosswalk.html"
-            },
-            {
-                "name": "OSRM (Open Source Routing Machine)",
-                "location": "Block-group-to-block-group driving distances, 8-state region (VA, MD, DC, DE, NC, TN, KY, WV)",
-                "location_url": "https://project-osrm.org/",
-                "date_accessed": 2025,
-                "url": "https://project-osrm.org/"
+                "date_accessed": 2022,
+                "location": "",
+                "location_url": "",
+                "name": "Open Source Routing Machine",
+                "url": "http://project-osrm.org"
             }
         ],
-        "provenance": "Percentile rank of the access_care_indicator_geo20 z-score, following the Virginia Department of Health (VDH) Health Opportunity Index (HOI) methodology of converting z-score indicators to percentile ranks. Computed per year across all Virginia census tracts using pandas rank(pct=True). County and health district values are the mean of their constituent tract percentile ranks.",
-        "statement": "The access to care percentile in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
+        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012), with distance-weighted Gaussian decay.",
+        "statement": "There are {value} day care seats per 1,000 children under 15 in {region_name}.",
+        "type": "ratio",
+        "unit": "day care seat per 1k children",
         "variants": ""
+    },
+    "daycare_ratio_over_4": {
+        "aggregation_method": "ratio",
+        "categories": "",
+        "category": "Education",
+        "citations": [
+            "wan12",
+            "bii21"
+        ],
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Number of day care seats per 1,000 children between 5 and 14 years of age, which accept at least some ages over 4, as calculated within floating catchment areas. Catchment area ratios are based on the population of children over 4 within block groups (as estimated in the American Community Survey), capacity of eligible day care providers (as reported by the Virginia Department of Social Services), and travel times between block group centroids and day care locations (as calculated with the Open Source Routing Machine). Catchment areas are weighted by travel time with a Gaussian function with scale of 18, which are normalized for each consumer (for a 3-step floating catchment area), as calculated by the catchment R package.",
+        "long_name": "Day Care Seats Per 1k Children Between 5 and 14, With Minimal Accepted Age Over 4",
+        "measure_type": "ratio",
+        "short_description": "Day care seats per 1,000 children ages 5-14, using 3SFCA method. Only providers accepting ages over 4.",
+        "short_name": "Day Care Seats Per 1k Children (5-14)",
+        "sources": [
+            {
+                "name": "Virginia Department of Social Services",
+                "location": "Child Day Care Search",
+                "location_url": "https://www.dss.virginia.gov/facility/search/cc2.cgi",
+                "date_accessed": 2023,
+                "url": "https://www.dss.virginia.gov"
+            },
+            {
+                "name": "American Community Survey",
+                "location": "data/5_year_seq_by_state",
+                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
+                "date_accessed": 2023,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            },
+            {
+                "date_accessed": 2022,
+                "location": "",
+                "location_url": "",
+                "name": "Open Source Routing Machine",
+                "url": "http://project-osrm.org"
+            }
+        ],
+        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012), with distance-weighted Gaussian decay.",
+        "statement": "There are {value} day care seats per 1,000 children over 4 in {region_name}.",
+        "type": "ratio",
+        "unit": "day care seat per 1k children",
+        "variants": ""
+    },
+    "daycare_ratio_under_10": {
+        "aggregation_method": "ratio",
+        "categories": "",
+        "category": "Education",
+        "citations": [
+            "wan12",
+            "bii21"
+        ],
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Number of day care seats per 1,000 children under 10 years of age, which accept at least some ages under 10, as calculated within floating catchment areas. Catchment area ratios are based on the population of children under 10 within block groups (as estimated in the American Community Survey), capacity of eligible day care providers (as reported by the Virginia Department of Social Services), and travel times between block group centroids and day care locations (as calculated with the Open Source Routing Machine). Catchment areas are weighted by travel time with a Gaussian function with scale of 18, which are normalized for each consumer (for a 3-step floating catchment area), as calculated by the catchment R package.",
+        "long_name": "Day Care Seats Per 1k Children Under 10, With Maximal Accepted Age Under 10",
+        "measure_type": "ratio",
+        "short_description": "Day care seats per 1,000 children under 10, using 3SFCA method. Only providers accepting ages under 10.",
+        "short_name": "Day Care Seats Per 1k Children (Under 10)",
+        "sources": [
+            {
+                "name": "Virginia Department of Social Services",
+                "location": "Child Day Care Search",
+                "location_url": "https://www.dss.virginia.gov/facility/search/cc2.cgi",
+                "date_accessed": 2023,
+                "url": "https://www.dss.virginia.gov"
+            },
+            {
+                "name": "American Community Survey",
+                "location": "data/5_year_seq_by_state",
+                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
+                "date_accessed": 2023,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            },
+            {
+                "date_accessed": 2022,
+                "location": "",
+                "location_url": "",
+                "name": "Open Source Routing Machine",
+                "url": "http://project-osrm.org"
+            }
+        ],
+        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012), with distance-weighted Gaussian decay.",
+        "statement": "There are {value} day care seats per 1,000 children under 10 in {region_name}.",
+        "type": "ratio",
+        "unit": "day care seat per 1k children",
+        "variants": ""
+    },
+    "_references": {
+        "wan12": {
+            "id": "wan12",
+            "author": [
+                {
+                    "given": "Neng",
+                    "family": "Wan"
+                },
+                {
+                    "given": "Bin",
+                    "family": "Zou"
+                },
+                {
+                    "given": "Troy",
+                    "family": "Sternberg"
+                }
+            ],
+            "year": 2012,
+            "title": "A three-step floating catchment area method for analyzing spatial access to health services",
+            "journal": "International Journal of Geographical Information Science",
+            "volume": "26",
+            "page": "1073\u20131089",
+            "doi": "10.1080/13658816.2011.624987"
+        },
+        "bii21": {
+            "id": "bii21",
+            "author": "Biocomplexity Institute and Initiative",
+            "year": 2021,
+            "title": "catchment: Calculate spatial access and availability metrics",
+            "version": "0.0.1",
+            "url": "https://github.com/uva-bi-sdad/catchment"
+        }
     }
 }

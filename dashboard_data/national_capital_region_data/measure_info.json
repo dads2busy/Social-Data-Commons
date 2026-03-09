@@ -1,86 +1,170 @@
 {
-    "walkability_index_geo20": {
-        "aggregation_method": "population-weighted mean",
+    "perc_hh_with_broadband_geo20": {
+        "aggregation_method": "percent",
         "categories": "",
-        "category": "Transportation",
+        "category": "Broadband",
         "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
+        "data_type": "decimal",
+        "equity_category": "Availability",
         "layer": "",
-        "long_description": "The Walkability Index is a composite measure that ranks block groups according to their relative walkability. It is computed annually (2017-2023) using four components: employment and household land use entropy (D2A/D2B) from LEHD LODES workplace data and ACS household counts, street intersection density (D3B) from the EPA Smart Location Database, and transit proximity (D4C) from GTFS transit stop locations. Block group scores are aggregated to Census tracts, counties, and Health Districts using population-weighted mean (Census 2020 boundaries).",
-        "long_name": "Walkability Index",
-        "measure_type": "index",
-        "short_description": "A measure of how walkable a community is, updated annually.",
-        "short_name": "Walkability Index",
+        "long_description": "Percentage of households self-reported to have a broadband internet connection. Broadband internet is defined as any type of internet other than a dial-up connection. Based on American Community Survey Table B28002 (Presence and Types of Internet Subscriptions in Household).",
+        "long_name": "Percentage of households with broadband (2020 geographies)",
+        "measure_type": "percent",
+        "short_description": "Percentage of households with a broadband internet connection (any type other than dial-up), from ACS Table B28002.",
+        "short_name": "Households with broadband",
         "sources": [
             {
-                "date_accessed": 2025,
-                "location": "Smart Location Database V3, January 2021",
-                "location_url": "https://www.epa.gov/smartgrowth/smart-location-mapping#walkability",
-                "name": "Environmental Protection Agency",
-                "url": "https://www.epa.gov/smartgrowth/smart-location-mapping"
-            },
-            {
-                "date_accessed": 2025,
-                "location": "LODES 8 Workplace Area Characteristics",
-                "location_url": "https://lehd.ces.census.gov/data/lodes/LODES8/",
-                "name": "Census Bureau LEHD",
-                "url": "https://lehd.ces.census.gov/"
-            },
-            {
-                "date_accessed": 2025,
-                "location": "Mobility Database and Transitland GTFS feeds",
-                "location_url": "https://mobilitydatabase.org",
-                "name": "GTFS Transit Feeds",
-                "url": "https://mobilitydatabase.org"
+                "date_accessed": "2025",
+                "location": "Table B28002",
+                "location_url": "",
+                "name": "U.S. Census American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "provenance": "Derived from the EPA National Walkability Index methodology. Employment entropy (D2A/D2B) computed annually from LEHD LODES + ACS data. Street connectivity (D3B) from EPA SLD V3. Transit proximity (D4C) computed annually from national GTFS feeds. Formula: NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3.",
-        "statement": "The Walkability Index in {region_name} is {value}.",
-        "type": "index",
-        "unit": "",
+        "provenance": "Computed from ACS Table B28002: B28002_004 (broadband of any type) / B28002_001 (total households) × 100.",
+        "statement": "{value} of households in {features.name} have a broadband connection.",
+        "type": "percent",
+        "unit": "household",
         "variants": ""
     },
-    "walkability_index_geo10": {
-        "aggregation_method": "population-weighted mean",
+    "perc_hh_with_broadband_geo10": {
+        "aggregation_method": "percent",
         "categories": "",
-        "category": "Transportation",
+        "category": "Broadband",
         "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
+        "data_type": "decimal",
+        "equity_category": "Availability",
         "layer": "",
-        "long_description": "The Walkability Index is a composite measure that ranks block groups according to their relative walkability. It is computed annually (2017-2023) using four components: employment and household land use entropy (D2A/D2B) from LEHD LODES workplace data and ACS household counts, street intersection density (D3B) from the EPA Smart Location Database, and transit proximity (D4C) from GTFS transit stop locations. Block group scores are aggregated to Census tracts, counties, and Health Districts using population-weighted mean (Census 2020 boundaries).",
-        "long_name": "Walkability Index",
-        "measure_type": "index",
-        "short_description": "A measure of how walkable a community is, updated annually.",
-        "short_name": "Walkability Index",
+        "long_description": "Percentage of households self-reported to have a broadband internet connection. Broadband internet is defined as any type of internet other than a dial-up connection. Based on American Community Survey Table B28002 (Presence and Types of Internet Subscriptions in Household).",
+        "long_name": "Percentage of households with broadband (2010 geographies)",
+        "measure_type": "percent",
+        "short_description": "Percentage of households with a broadband internet connection (any type other than dial-up), from ACS Table B28002.",
+        "short_name": "Households with broadband",
         "sources": [
             {
-                "date_accessed": 2025,
-                "location": "Smart Location Database V3, January 2021",
-                "location_url": "https://www.epa.gov/smartgrowth/smart-location-mapping#walkability",
-                "name": "Environmental Protection Agency",
-                "url": "https://www.epa.gov/smartgrowth/smart-location-mapping"
-            },
-            {
-                "date_accessed": 2025,
-                "location": "LODES 8 Workplace Area Characteristics",
-                "location_url": "https://lehd.ces.census.gov/data/lodes/LODES8/",
-                "name": "Census Bureau LEHD",
-                "url": "https://lehd.ces.census.gov/"
-            },
-            {
-                "date_accessed": 2025,
-                "location": "Mobility Database and Transitland GTFS feeds",
-                "location_url": "https://mobilitydatabase.org",
-                "name": "GTFS Transit Feeds",
-                "url": "https://mobilitydatabase.org"
+                "date_accessed": "2025",
+                "location": "Table B28002",
+                "location_url": "",
+                "name": "U.S. Census American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "provenance": "Derived from the EPA National Walkability Index methodology. Employment entropy (D2A/D2B) computed annually from LEHD LODES + ACS data. Street connectivity (D3B) from EPA SLD V3. Transit proximity (D4C) computed annually from national GTFS feeds. Formula: NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3.",
-        "statement": "The Walkability Index in {region_name} is {value}.",
-        "type": "index",
-        "unit": "",
+        "provenance": "Computed from ACS Table B28002: B28002_004 (broadband of any type) / B28002_001 (total households) × 100.",
+        "statement": "{value} of households in {features.name} have a broadband connection.",
+        "type": "percent",
+        "unit": "household",
+        "variants": ""
+    },
+    "perc_hh_with_cable_fiber_dsl_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Broadband",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Percentage of households self-reported to have a high-speed internet service. A high-speed internet service is defined as a cable, fiber optic, or DSL internet connection. Based on American Community Survey Table B28002 (Presence and Types of Internet Subscriptions in Household).",
+        "long_name": "Percentage of households with cable, fiber optic, or DSL (2020 geographies)",
+        "measure_type": "percent",
+        "short_description": "Percentage of households with cable, fiber optic, or DSL internet, from ACS Table B28002.",
+        "short_name": "Households with cable, fiber optic, or DSL",
+        "sources": [
+            {
+                "date_accessed": "2025",
+                "location": "Table B28002",
+                "location_url": "",
+                "name": "U.S. Census American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "provenance": "Computed from ACS Table B28002: B28002_007 (cable, fiber optic, or DSL) / B28002_001 (total households) × 100.",
+        "statement": "{value} of households in {features.name} have a cable, fiber optic, or DSL internet connection.",
+        "type": "percent",
+        "unit": "household",
+        "variants": ""
+    },
+    "perc_hh_with_cable_fiber_dsl_geo10": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Broadband",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Percentage of households self-reported to have a high-speed internet service. A high-speed internet service is defined as a cable, fiber optic, or DSL internet connection. Based on American Community Survey Table B28002 (Presence and Types of Internet Subscriptions in Household).",
+        "long_name": "Percentage of households with cable, fiber optic, or DSL (2010 geographies)",
+        "measure_type": "percent",
+        "short_description": "Percentage of households with cable, fiber optic, or DSL internet, from ACS Table B28002.",
+        "short_name": "Households with cable, fiber optic, or DSL",
+        "sources": [
+            {
+                "date_accessed": "2025",
+                "location": "Table B28002",
+                "location_url": "",
+                "name": "U.S. Census American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "provenance": "Computed from ACS Table B28002: B28002_007 (cable, fiber optic, or DSL) / B28002_001 (total households) × 100.",
+        "statement": "{value} of households in {features.name} have a cable, fiber optic, or DSL internet connection.",
+        "type": "percent",
+        "unit": "household",
+        "variants": ""
+    },
+    "perc_hh_without_internet_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Broadband",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Percentage of households self-reported to not have internet access at home. Based on American Community Survey Table B28002 (Presence and Types of Internet Subscriptions in Household).",
+        "long_name": "Percentage of households without internet access (2020 geographies)",
+        "measure_type": "percent",
+        "short_description": "Percentage of households without any internet access at home, from ACS Table B28002.",
+        "short_name": "Households without internet access",
+        "sources": [
+            {
+                "date_accessed": "2025",
+                "location": "Table B28002",
+                "location_url": "",
+                "name": "U.S. Census American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "provenance": "Computed from ACS Table B28002: B28002_013 (no internet access) / B28002_001 (total households) × 100.",
+        "statement": "{value} of households in {features.name} do not have internet access.",
+        "type": "percent",
+        "unit": "household",
+        "variants": ""
+    },
+    "perc_hh_without_internet_geo10": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Broadband",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Percentage of households self-reported to not have internet access at home. Based on American Community Survey Table B28002 (Presence and Types of Internet Subscriptions in Household).",
+        "long_name": "Percentage of households without internet access (2010 geographies)",
+        "measure_type": "percent",
+        "short_description": "Percentage of households without any internet access at home, from ACS Table B28002.",
+        "short_name": "Households without internet access",
+        "sources": [
+            {
+                "date_accessed": "2025",
+                "location": "Table B28002",
+                "location_url": "",
+                "name": "U.S. Census American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "provenance": "Computed from ACS Table B28002: B28002_013 (no internet access) / B28002_001 (total households) × 100.",
+        "statement": "{value} of households in {features.name} do not have internet access.",
+        "type": "percent",
+        "unit": "household",
         "variants": ""
     }
 }
