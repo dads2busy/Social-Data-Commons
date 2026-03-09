@@ -1,0 +1,34 @@
+name: daycare_access
+version: "1.1.0"
+zenodo_deposit_id: 18917730
+title: "Daycare Accessibility"
+description: >-
+  Daycare accessibility measures for Virginia, including minimum drive time
+  to nearest provider, total capacity, and floating catchment area ratios
+  (seats per 1,000 children) for three age groups. Uses VDSS facility data,
+  ACS child population estimates, and OSRM-based travel times.
+temporal_label: "VDSS facility data + ACS 5-year estimates"
+
+sources:
+  va:
+    type: mixed
+    years: [2021, 2025]
+    # ACS year to use for population when VDSS year has no ACS data
+    acs_year_map:
+      2025: 2024
+    states: ["VA", "MD", "DC", "DE", "KY", "NC", "TN", "WV"]
+    geographies: [block_group]
+    variables:
+      male_under_5: "B01001_003"
+      female_under_5: "B01001_027"
+      male_5_9: "B01001_004"
+      female_5_9: "B01001_028"
+      male_10_14: "B01001_005"
+      female_10_14: "B01001_029"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: false

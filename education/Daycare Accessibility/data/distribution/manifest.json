@@ -1,0 +1,37 @@
+{
+  "version": "1.1.0",
+  "generated": "2026-03-09T02:54:11+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "daycare_capacity",
+    "daycare_min_drivetime",
+    "daycare_ratio",
+    "daycare_ratio_over_4",
+    "daycare_ratio_under_10"
+  ],
+  "years": [
+    2021,
+    2025
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 124855,
+  "files": {
+    "va_hdcttrbg_vdss_2021_2025_daycare_access.csv.xz": {
+      "sha256": "f3a46ce1263cd2c3668a6b614b1b45eb7fbe4f6f0225fc22d14b06bd6a8c51e8",
+      "size_bytes": 562788
+    },
+    "vdss.csv.xz": {
+      "sha256": "1eebc63dc4a1dd3751364c2fd0d1ff8e28ea93b7d9620a374f9129b32238fccc",
+      "size_bytes": 479776
+    }
+  }
+}
