@@ -1,5 +1,6 @@
 name: population_characteristics
 version: "1.0.1"
+title: "Population Characteristics"
 description: "Transportation population characteristics (commute time, carpool, no vehicle) from ACS subject tables S0801 and S2504"
 
 sources:

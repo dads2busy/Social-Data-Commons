@@ -163,7 +163,7 @@ Health districts are computed by aggregating county values using a county-to-hea
 
 ### Block-group level (intermediate)
 
-`geographies/transit_stops/data/walkability/{coverage}_walkability_{year}.parquet`
+`transit_stops/data/walkability/{coverage}_walkability_{year}.parquet`
 
 | Column | Type | Description |
 |---|---|---|
@@ -214,12 +214,12 @@ At the individual block group level, meaningful year-over-year variation is obse
 
 | Script | Location | Purpose |
 |---|---|---|
-| `fetch_catalog.py` | `geographies/transit_stops/code/` | Download Mobility Database GTFS catalog |
-| `build_crosswalk.py` | `geographies/transit_stops/code/` | Match MDB feeds to Transitland onestop IDs |
-| `fetch_feeds.py` | `geographies/transit_stops/code/` | Download GTFS zips (current + historical) |
-| `extract_stops.py` | `geographies/transit_stops/code/` | Extract and deduplicate transit stops |
-| `compute_d2.py` | `geographies/transit_stops/code/` | Compute D2A/D2B from LODES + ACS |
-| `compute_d4c.py` | `geographies/transit_stops/code/` | Compute distance to nearest transit stop |
-| `compute_walkability.py` | `geographies/transit_stops/code/` | Combine components into walkability index |
+| `fetch_catalog.py` | `transit_stops/code/` | Download Mobility Database GTFS catalog |
+| `build_crosswalk.py` | `transit_stops/code/` | Match MDB feeds to Transitland onestop IDs |
+| `fetch_feeds.py` | `transit_stops/code/` | Download GTFS zips (current + historical) |
+| `extract_stops.py` | `transit_stops/code/` | Extract and deduplicate transit stops |
+| `compute_d2.py` | `transit_stops/code/` | Compute D2A/D2B from LODES + ACS |
+| `compute_d4c.py` | `transit_stops/code/` | Compute distance to nearest transit stop |
+| `compute_walkability.py` | `transit_stops/code/` | Combine components into walkability index |
 | `ingest.py` | `transportation/Walkability/code/distribution/` | Aggregate BG to tract/county with geo suffixes |
 | `prepare.py` | `transportation/Walkability/code/distribution/` | Add health districts, write dashboard files |

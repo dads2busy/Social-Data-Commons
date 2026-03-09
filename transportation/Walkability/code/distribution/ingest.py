@@ -1,7 +1,7 @@
 """Ingest multi-year walkability index from transit stops pipeline.
 
 Reads block-group-level walkability parquets produced by
-geographies/transit_stops/code/compute_walkability.py and aggregates
+transit_stops/code/compute_walkability.py and aggregates
 to tract and county using population-weighted mean.
 
 Produces _geo10 (original 2010 boundaries) and _geo20 (converted via crosswalk).
@@ -25,7 +25,7 @@ from sdc_core.result import RunResult
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
-WALKABILITY_DIR = REPO_DIR / "geographies/transit_stops/data/walkability"
+WALKABILITY_DIR = TOPIC_DIR / "transit_stops/data/walkability"
 
 log = get_logger("walkability.ingest")
 
@@ -56,7 +56,7 @@ def load_walkability(coverage: str) -> pd.DataFrame:
     if not files:
         raise FileNotFoundError(
             f"No walkability parquets found at {WALKABILITY_DIR}/{pattern}. "
-            "Run geographies/transit_stops/code/compute_walkability.py first."
+            "Run transit_stops/code/compute_walkability.py first."
         )
 
     dfs = [pd.read_parquet(f) for f in files]
