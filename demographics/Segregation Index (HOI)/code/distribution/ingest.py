@@ -1,0 +1,138 @@
+"""Ingest segregation data from ACS.
+
+Configuration is read from segregation/pipeline.yaml.
+Uses table B03002 (Hispanic or Latino Origin by Race).
+"""
+
+import time
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import yaml
+from sdc_core.census import CensusClient
+from sdc_core.io import write_data
+from sdc_core.log import get_logger
+from sdc_core.naming import build_file_name
+from sdc_core.profiles import resolve_states
+from sdc_core.result import RunResult
+
+TOPIC_DIR = Path(__file__).resolve().parents[2]
+log = get_logger("segregation.ingest")
+
+RACE_COLS = [
+    "hisp_latin",
+    "white",
+    "black",
+    "american_indian",
+    "asian",
+    "nhopi",
+    "sor",
+    "two",
+]
+
+
+def load_config() -> dict:
+    with open(TOPIC_DIR / "pipeline.yaml") as f:
+        return yaml.safe_load(f)
+
+
+def fetch_segregation_data(client: CensusClient, src: dict) -> pd.DataFrame:
+    """Fetch ACS B03002 race/ethnicity data."""
+    cache_dir = TOPIC_DIR / "data/working/acs_cache"
+
+    return client.get_acs_multi(
+        variables=src["variables"],
+        years=src["years"],
+        geographies=src["geographies"],
+        profile=src.get("profile"),
+        states=src.get("states"),
+        cache_dir=cache_dir,
+    )
+
+
+def compute_entropy(df: pd.DataFrame) -> pd.DataFrame:
+    """Compute entropy-based segregation index per tract.
+
+    Entropy = -sum(p * log(p)) for each racial/ethnic proportion p > 0.
+    Higher values indicate more diversity; 0 means complete homogeneity.
+    """
+    df = df[df["total_pop"] > 0].copy()
+
+    for col in RACE_COLS:
+        df[f"{col}_prop"] = df[col] / df["total_pop"]
+
+    prop_cols = [f"{col}_prop" for col in RACE_COLS]
+    props = df[prop_cols].values
+    props = np.where(props > 0, props, np.nan)
+    entropy = -np.nansum(props * np.log(props), axis=1)
+
+    df["value"] = np.round(entropy, 2)
+    df["measure"] = "segregation_indicator"
+    df["moe"] = pd.NA
+
+    return df[["geoid", "year", "measure", "value", "moe", "region_type"]]
+
+
+def run_source(name: str, src: dict, out: dict) -> RunResult:
+    t0 = time.time()
+    try:
+        log.info("Starting segregation ingest for source '%s'", name)
+
+        client = CensusClient()
+        df = fetch_segregation_data(client, src)
+        log.info("Fetched %d raw rows for '%s'", len(df), name)
+
+        result = compute_entropy(df)
+
+        out_dir = TOPIC_DIR / out["path"]
+        states = resolve_states(src)
+        auto_name = build_file_name(
+            df=result,
+            states=states,
+            years=src.get("years"),
+            source_type=src.get("type"),
+            title="segregation",
+        )
+        filename = f"{auto_name}.csv.xz" if auto_name else out["filename"]
+        out_path = write_data(
+            result,
+            out_dir / filename,
+            census_standardize=out.get("standardize", False),
+        )
+        log.info("Wrote %d rows to %s", len(result), out_path)
+
+        return RunResult(
+            success=True,
+            rows=len(result),
+            output_path=str(out_path),
+            duration_sec=time.time() - t0,
+        )
+    except Exception as e:
+        log.error(
+            "Segregation ingest failed for source '%s': %s", name, e, exc_info=True
+        )
+        return RunResult(
+            success=False,
+            error=str(e),
+            duration_sec=time.time() - t0,
+        )
+
+
+def run(pipeline=None) -> list[RunResult]:
+    config = load_config()
+    out = config["output"]
+    sources = config.get("sources")
+    if sources is None:
+        sources = {"default": config["source"]}
+
+    results = []
+    for name, src in sources.items():
+        results.append(run_source(name, src, out))
+    return results
+
+
+if __name__ == "__main__":
+    results = run()
+    if any(not r.success for r in results):
+        raise SystemExit(1)
