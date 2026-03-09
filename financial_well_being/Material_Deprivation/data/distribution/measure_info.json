@@ -1,30 +1,58 @@
 {
-    "material_deprivation_indicator_geo20": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "Based on the Towsend Material Deprivation Index, it examines the private material resources available to households in a community. 4 indicators make up Towsend: overcrowding (>2 persons per room), unemployment, % of persons no vehicle or car, and % of person who rent.",
-        "long_name": "Material deprivation indicator",
-        "measure_type": "index",
-        "short_description": "Based on the Towsend Material Deprivation Index, it examines the private material resources available to households in a community.",
-        "short_name": "Material deprivation indicator",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
-        ],
-        "provenance": "Based on the Townsend Material Deprivation Index (Townsend et al., 1988), which combines four census-derived indicators -- unemployment, overcrowding, non-car ownership, and non-home ownership -- to measure area-level material deprivation. Adapted for U.S. Census variables.",
-        "statement": "The material deprivation indicator in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    }
+  "material_deprivation_indicator_geo20": {
+    "aggregation_method": "mean",
+    "categories": "",
+    "category": "Financial Well Being",
+    "citations": "Townsend, P., Phillimore, P., & Beattie, A. (1988). Health and Deprivation: Inequality and the North. London: Croom Helm.",
+    "data_type": "decimal",
+    "equity_category": "",
+    "layer": "",
+    "long_description": "Townsend Material Deprivation Index adapted for U.S. Census data. Combines four ACS-derived indicators: (1) unemployment rate (B23025, log-transformed), (2) overcrowding — proportion of occupied housing units with more than 1 person per room (B25014, log-transformed), (3) non-car ownership — proportion of households with no vehicle (B25044), and (4) non-home ownership — proportion of renter-occupied units (S2502). Each indicator is z-scored within year and geography level, summed, the sum is z-scored again, then min-max rescaled to [0, 1]. Higher values indicate greater material deprivation. Computed using 2020 Census geographic boundaries.",
+    "long_name": "Material deprivation indicator (2020 geographies)",
+    "measure_type": "index",
+    "short_description": "Townsend Material Deprivation Index (0-1) combining unemployment, overcrowding, non-car ownership, and non-home ownership.",
+    "short_name": "Material deprivation indicator",
+    "sources": [
+      {
+        "name": "U.S. Census Bureau",
+        "location": "ACS 5-Year Estimates, Tables B23025 (Employment Status), B25014 (Tenure by Occupants per Room), B25044 (Tenure by Vehicles Available), and S2502 (Demographic Characteristics for Occupied Housing Units)",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "provenance": "Based on the Townsend Material Deprivation Index (Townsend, Phillimore & Beattie, 1988), originally developed for the UK Census to measure area-level material deprivation. This pipeline adapts the methodology for U.S. Census ACS variables. The four component indicators (unemployment, overcrowding, non-car ownership, non-home ownership) are computed from ACS 5-year estimates, z-scored within year and geography level, summed, z-scored again, and min-max rescaled to [0, 1]. The VDH Health Opportunity Index includes a similar adaptation of the Townsend index as one of its 13 indicators.",
+    "statement": "The material deprivation indicator in {features.name} is {value}.",
+    "type": "index",
+    "unit": "",
+    "variants": ""
+  },
+  "material_deprivation_indicator_geo10": {
+    "aggregation_method": "mean",
+    "categories": "",
+    "category": "Financial Well-Being",
+    "citations": "Townsend, P., Phillimore, P., & Beattie, A. (1988). Health and Deprivation: Inequality and the North. London: Croom Helm.",
+    "data_type": "decimal",
+    "equity_category": "",
+    "layer": "",
+    "long_description": "Townsend Material Deprivation Index adapted for U.S. Census data. Combines four ACS-derived indicators: (1) unemployment rate (B23025, log-transformed), (2) overcrowding — proportion of occupied housing units with more than 1 person per room (B25014, log-transformed), (3) non-car ownership — proportion of households with no vehicle (B25044), and (4) non-home ownership — proportion of renter-occupied units (S2502). Each indicator is z-scored within year and geography level, summed, the sum is z-scored again, then min-max rescaled to [0, 1]. Higher values indicate greater material deprivation. Computed using 2010 Census geographic boundaries.",
+    "long_name": "Material deprivation indicator (2010 geographies)",
+    "measure_type": "index",
+    "short_description": "Townsend Material Deprivation Index (0-1) combining unemployment, overcrowding, non-car ownership, and non-home ownership.",
+    "short_name": "Material deprivation indicator",
+    "sources": [
+      {
+        "name": "U.S. Census Bureau",
+        "location": "ACS 5-Year Estimates, Tables B23025 (Employment Status), B25014 (Tenure by Occupants per Room), B25044 (Tenure by Vehicles Available), and S2502 (Demographic Characteristics for Occupied Housing Units)",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "provenance": "Based on the Townsend Material Deprivation Index (Townsend, Phillimore & Beattie, 1988), originally developed for the UK Census to measure area-level material deprivation. This pipeline adapts the methodology for U.S. Census ACS variables. The four component indicators (unemployment, overcrowding, non-car ownership, non-home ownership) are computed from ACS 5-year estimates, z-scored within year and geography level, summed, z-scored again, and min-max rescaled to [0, 1]. The VDH Health Opportunity Index includes a similar adaptation of the Townsend index as one of its 13 indicators.",
+    "statement": "The material deprivation indicator in {features.name} is {value}.",
+    "type": "index",
+    "unit": "",
+    "variants": ""
+  }
 }

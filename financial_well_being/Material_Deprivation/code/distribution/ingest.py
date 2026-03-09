@@ -1,8 +1,9 @@
 """Ingest Townsend Material Deprivation Index from ACS.
 
-Fetches multiple ACS tables (B23025, B25014, B25044, S2502) for VA tracts and
-counties, aggregates raw counts to health districts, then computes the Townsend
-index (z-score-based normalization of 4 deprivation indicators) at all levels.
+Fetches multiple ACS tables (B23025, B25014, B25044, S2502) for each source
+defined in pipeline.yaml. For VA, aggregates county raw counts to health
+districts. Then computes the Townsend index (z-score-based normalization of
+4 deprivation indicators) at all levels.
 """
 
 import time
@@ -15,14 +16,12 @@ from sdc_core.census import CensusClient
 from sdc_core.io import write_data
 from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
+from sdc_core.profiles import resolve_profile, resolve_states
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
-
-YEARS = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
-GEOS = ["tract", "county"]
 
 B_VARIABLES = {
     "adult_pop": "B23025_002",
@@ -55,40 +54,44 @@ def _s2502_vars(year: int) -> dict[str, str]:
     return {"all_units": "S2502_C01_001", "rent_units": rent_var}
 
 
-def fetch_wide(client: CensusClient, years: list[int], geos: list[str]) -> pd.DataFrame:
-    """Fetch B-table and S-table ACS variables for all years and geographies.
-
-    Fetches detail and subject tables separately per (year, geography) and
-    joins them. Filters to VA rows (geoid starting with "51").
-    """
+def fetch_wide(
+    client: CensusClient,
+    years: list[int],
+    geos: list[str],
+    states: list[str],
+    cache_dir: Path | None = None,
+) -> pd.DataFrame:
+    """Fetch B-table and S-table ACS variables for all years and geographies."""
     all_frames: list[pd.DataFrame] = []
 
     for year in years:
         s_vars = _s2502_vars(year)
         for geo in geos:
-            log.info("Fetching B-tables for year=%d geo=%s", year, geo)
+            log.info("Fetching B-tables for year=%d geo=%s states=%s", year, geo, states)
             try:
                 b_df = client.get_acs_wide(
                     variables=B_VARIABLES,
                     geography=geo,
-                    state="VA",
+                    state=states,
                     year=year,
                     estimate_only=True,
                     table_type="detail",
+                    cache_dir=cache_dir,
                 )
             except Exception as exc:
                 log.warning("B-table fetch failed year=%d geo=%s: %s", year, geo, exc)
                 continue
 
-            log.info("Fetching S2502 for year=%d geo=%s", year, geo)
+            log.info("Fetching S2502 for year=%d geo=%s states=%s", year, geo, states)
             try:
                 s_df = client.get_acs_wide(
                     variables=s_vars,
                     geography=geo,
-                    state="VA",
+                    state=states,
                     year=year,
                     estimate_only=True,
                     table_type="subject",
+                    cache_dir=cache_dir,
                 )
             except Exception as exc:
                 log.warning("S-table fetch failed year=%d geo=%s: %s", year, geo, exc)
@@ -99,12 +102,14 @@ def fetch_wide(client: CensusClient, years: list[int], geos: list[str]) -> pd.Da
                 continue
 
             merge_keys = ["geoid", "NAME", "year", "region_type"]
-            combined = pd.merge(b_df, s_df[["geoid", "NAME", "year", "region_type", "all_units", "rent_units"]], on=merge_keys, how="inner")
+            combined = pd.merge(
+                b_df,
+                s_df[["geoid", "NAME", "year", "region_type", "all_units", "rent_units"]],
+                on=merge_keys,
+                how="inner",
+            )
 
-            # Filter to VA rows only (should already be VA, but guard against edge cases)
-            combined = combined[combined["geoid"].str.startswith("51")].copy()
             all_frames.append(combined)
-
             time.sleep(0.1)
 
     if not all_frames:
@@ -114,10 +119,7 @@ def fetch_wide(client: CensusClient, years: list[int], geos: list[str]) -> pd.Da
 
 
 def aggregate_to_hd(counties: pd.DataFrame, crosswalk_path: Path) -> pd.DataFrame:
-    """Aggregate county raw counts to health districts via crosswalk.
-
-    Groups by (hd_geoid, year) and sums all 12 raw count columns.
-    """
+    """Aggregate county raw counts to health districts via crosswalk."""
     xwalk = pd.read_csv(crosswalk_path, dtype={"ct_geoid": str, "hd_geoid": str})
 
     merged = counties.merge(xwalk, left_on="geoid", right_on="ct_geoid", how="inner")
@@ -220,50 +222,71 @@ def compute_townsend(df: pd.DataFrame) -> pd.DataFrame:
     return out.reset_index(drop=True)
 
 
-def run() -> RunResult:
+def run_source(
+    name: str,
+    src: dict,
+    config: dict,
+    client: CensusClient,
+) -> RunResult:
+    """Ingest one source (VA or NCR)."""
     t0 = time.time()
     try:
-        config = load_config()
-        DIST_DIR.mkdir(parents=True, exist_ok=True)
+        years = src["years"]
+        geos = src["geographies"]
 
-        crosswalk_path = REPO_DIR / config["crosswalks"]["va_county_to_hd"]
-        client = CensusClient()
+        # Resolve states from profile or explicit list
+        if src.get("profile"):
+            prof = resolve_profile(src["profile"])
+            states = prof.states
+        else:
+            states = src.get("states", ["VA"])
 
-        log.info("Fetching ACS data for VA tracts and counties")
-        raw = fetch_wide(client, YEARS, GEOS)
+        cache_dir = TOPIC_DIR / "data/working/acs_cache"
+        log.info("Ingesting source '%s' (states=%s)", name, states)
+        raw = fetch_wide(client, years, geos, states, cache_dir=cache_dir)
 
         if raw.empty:
             return RunResult(
                 success=False,
-                error="No data fetched from ACS",
+                error=f"No data fetched for source '{name}'",
                 duration_sec=time.time() - t0,
             )
 
-        # Separate tracts (11-digit geoid) and counties (5-digit geoid)
+        # Separate tracts (11-digit) and counties (5-digit)
         tract_rows = raw[raw["geoid"].str.len() == 11].copy()
         county_rows = raw[raw["geoid"].str.len() == 5].copy()
 
-        log.info("Aggregating %d county rows to health districts", len(county_rows))
-        hd_rows = aggregate_to_hd(county_rows, crosswalk_path)
+        frames = [tract_rows, county_rows]
+        level_names = ["county", "tract"]
+
+        # Only aggregate to health districts for VA source
+        if name == "va" and "va_county_to_hd" in config.get("crosswalks", {}):
+            crosswalk_path = REPO_DIR / config["crosswalks"]["va_county_to_hd"]
+            log.info("Aggregating %d county rows to health districts", len(county_rows))
+            hd_rows = aggregate_to_hd(county_rows, crosswalk_path)
+            frames.append(hd_rows)
+            level_names = ["health_district", "county", "tract"]
 
         log.info(
-            "Combining: %d tracts + %d counties + %d health districts",
+            "Combining: %d tracts + %d counties%s",
             len(tract_rows),
             len(county_rows),
-            len(hd_rows),
+            f" + {len(frames[-1]) if len(frames) > 2 else 0} health districts"
+            if len(frames) > 2 else "",
         )
-        combined = pd.concat([tract_rows, county_rows, hd_rows], ignore_index=True)
+        combined = pd.concat(frames, ignore_index=True)
 
-        log.info("Computing Townsend index on %d rows", len(combined))
+        log.info("Computing Townsend index on %d rows for '%s'", len(combined), name)
         result = compute_townsend(combined)
 
+        src_states = resolve_states(src)
         filename = (
             build_file_name(
-                coverage_area="va",
-                data_source="census_acs",
-                years=YEARS,
+                df=result,
+                states=src_states,
+                years=years,
+                source_type=src.get("type"),
                 title="material_deprivation",
-                geographies=["health_district", "county", "tract"],
             )
             + ".csv.xz"
         )
@@ -279,11 +302,22 @@ def run() -> RunResult:
         )
 
     except Exception as exc:
-        log.error("Ingest failed: %s", exc, exc_info=True)
+        log.error("Ingest failed for source '%s': %s", name, exc, exc_info=True)
         return RunResult(success=False, error=str(exc), duration_sec=time.time() - t0)
 
 
+def run() -> list[RunResult]:
+    config = load_config()
+    DIST_DIR.mkdir(parents=True, exist_ok=True)
+    client = CensusClient()
+
+    results = []
+    for name, src in config["sources"].items():
+        results.append(run_source(name, src, config, client))
+    return results
+
+
 if __name__ == "__main__":
-    result = run()
-    if not result.success:
+    results = run()
+    if any(not r.success for r in results):
         raise SystemExit(1)

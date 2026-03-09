@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-09T00:18:12+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "material_deprivation_indicator_geo10",
+    "material_deprivation_indicator_geo20"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 90845,
+  "files": {
+    "ncr_cttr_census_acs_2015_2024_material_deprivation.csv.xz": {
+      "sha256": "ff5108a62bb9347c9de44417e26fd9771b427e529de96c79217dd6521c4a516b",
+      "size_bytes": 255016
+    },
+    "va_hdcttr_census_acs_2015_2024_material_deprivation.csv.xz": {
+      "sha256": "0c6ced3eea602b2f4bd26e2a0d93759249e879cc24139b4da38de2ec1c595961",
+      "size_bytes": 149012
+    }
+  }
+}

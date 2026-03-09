@@ -1,5 +1,6 @@
 name: income_inequality
 version: "1.0.0"
+title: "Income Inequality"
 description: "Gini index of income inequality from ACS B19083"
 
 sources:

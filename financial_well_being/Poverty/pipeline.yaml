@@ -1,5 +1,6 @@
 name: poverty
 version: "2.0.0"
+title: "Poverty"
 description: "Poverty rates by race and sex from ACS B17001 tables"
 
 sources:

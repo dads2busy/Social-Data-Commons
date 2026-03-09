@@ -2,7 +2,7 @@
 
 The ingest output already includes health district, county, and tract rows
 (HD aggregation is done on raw counts before computing the index). This script
-only splits the combined file into per-level dashboard files.
+splits the combined files into per-level dashboard files for VA and NCR.
 """
 
 from pathlib import Path
@@ -25,32 +25,50 @@ def load_config() -> dict:
         return yaml.safe_load(f)
 
 
-def find_source(dist_dir: Path) -> Path | None:
-    """Find the ingest output file containing all three geography levels."""
-    candidates = sorted(dist_dir.glob("va_hdcttr_census_acs*material_deprivation*.csv.xz"))
+def find_source(dist_dir: Path, prefix: str) -> Path | None:
+    """Find the ingest output file for a given coverage area prefix."""
+    candidates = sorted(dist_dir.glob(f"{prefix}_*census_acs*material_deprivation*.csv.xz"))
     return candidates[-1] if candidates else None
 
 
 def run() -> None:
     measure_info = MEASURE_INFO if MEASURE_INFO.exists() else None
 
-    source = find_source(DIST_DIR)
-    if not source:
-        log.warning("No material deprivation source file found in %s", DIST_DIR)
-        return
+    # --- VA pipeline ---
+    va_source = find_source(DIST_DIR, "va")
+    if va_source:
+        log.info("Reformatting %s for VA dashboard", va_source)
+        paths = data_reformat_for_site(
+            source_path=va_source,
+            output_dir=REPO_DIR / "dashboard_data/virginia_public_health_data",
+            levels=["health_district", "county", "tract"],
+            coverage_area="va",
+            data_source="census_acs",
+            title="material_deprivation",
+            measure_info_path=measure_info,
+        )
+        for p in paths:
+            log.info("Wrote %s", p)
+    else:
+        log.warning("No VA material deprivation source file found in %s", DIST_DIR)
 
-    log.info("Reformatting %s for VA dashboard", source)
-    paths = data_reformat_for_site(
-        source_path=source,
-        output_dir=REPO_DIR / "dashboard_data/virginia_public_health_data",
-        levels=["health_district", "county", "tract"],
-        coverage_area="va",
-        data_source="census_acs",
-        title="material_deprivation",
-        measure_info_path=measure_info,
-    )
-    for p in paths:
-        log.info("Wrote %s", p)
+    # --- NCR pipeline ---
+    ncr_source = find_source(DIST_DIR, "ncr")
+    if ncr_source:
+        log.info("Reformatting %s for NCR dashboard", ncr_source)
+        paths = data_reformat_for_site(
+            source_path=ncr_source,
+            output_dir=REPO_DIR / "dashboard_data/national_capital_region_data",
+            levels=["county", "tract"],
+            coverage_area="ncr",
+            data_source="census_acs",
+            title="material_deprivation",
+            measure_info_path=measure_info,
+        )
+        for p in paths:
+            log.info("Wrote %s", p)
+    else:
+        log.warning("No NCR material deprivation source file found in %s", DIST_DIR)
 
     update_version(TOPIC_DIR)
 
