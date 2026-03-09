@@ -1,5 +1,6 @@
 name: drug_overdose_ed_visits
 version: "1.0.0"
+title: "Drug Overdose ED Visits"
 description: "Drug overdose emergency department visit rates from Virginia Department of Health"
 
 sources:

@@ -35,11 +35,16 @@ def load_config() -> dict:
 
 
 def find_source(dist_dir: Path) -> Path | None:
-    """Find the ingest output file (VA tracts)."""
+    """Find the ingest output file (VA tracts or combined file)."""
+    # Prefer tract-only file from ingest
     candidates = list(dist_dir.glob("va_tr_cms_acs*access_care*.csv.xz"))
-    if not candidates:
-        return None
-    return max(candidates, key=lambda p: p.stat().st_mtime)
+    if candidates:
+        return max(candidates, key=lambda p: p.stat().st_mtime)
+    # Fall back to combined file from previous prepare run
+    candidates = list(dist_dir.glob("va_*cms_acs*access_care*.csv.xz"))
+    if candidates:
+        return max(candidates, key=lambda p: p.stat().st_mtime)
+    return None
 
 
 def aggregate_to_counties(df: pd.DataFrame) -> pd.DataFrame:
@@ -73,20 +78,26 @@ def run() -> RunResult:
                 duration_sec=time.time() - t0,
             )
 
-        log.info("Reading ingest output: %s", source)
+        log.info("Reading source: %s", source)
         df = read_data(source)
 
-        # Add percentile rank measure (per-year, tract level)
-        pctile_rows = []
+        # If reading combined file from previous run, extract only tract-level
+        # indicator rows (re-derive everything from tract z-scores)
+        if "region_type" in df.columns:
+            df = df[
+                (df["region_type"] == "tract")
+                & (df["measure"] == "access_care_indicator_geo20")
+            ].copy()
+            log.info("Extracted %d tract indicator rows from combined file", len(df))
+
+        # Convert raw z-scores to quintiles (1=worst, 5=best access) per year
         for year, grp in df.groupby("year"):
-            ranked = grp.copy()
-            ranked["value"] = ranked["value"].rank(pct=True)
-            ranked["measure"] = "access_care_pctile_geo20"
-            ranked["moe"] = pd.NA
-            pctile_rows.append(ranked)
-        pctile_tracts = pd.concat(pctile_rows, ignore_index=True)
-        df = pd.concat([df, pctile_tracts], ignore_index=True)
-        log.info("Added percentile rank measure (%d tract rows)", len(pctile_tracts))
+            valid = grp["value"].dropna()
+            if valid.empty:
+                continue
+            bins = pd.qcut(valid, q=5, labels=[1, 2, 3, 4, 5])
+            df.loc[bins.index, "value"] = bins.astype(float)
+        log.info("Converted raw z-scores to quintiles (1-5)")
 
         # Aggregate tracts → counties
         counties = aggregate_to_counties(df)

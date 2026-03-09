@@ -1,5 +1,6 @@
 name: health_care_cost
 version: "1.0.1"
+title: "Health Care Cost"
 description: >
   Marketplace insurance premiums (SLCSP and LCBP) per US county.
   Computed from CMS Public Use Files (PUFs) for both FFM and SBE states.

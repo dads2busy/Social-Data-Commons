@@ -1,6 +1,6 @@
 {
-  "version": "2.1.0",
-  "generated": "2026-03-08T19:50:04+00:00",
+  "version": "3.0.0",
+  "generated": "2026-03-08T22:18:22+00:00",
   "schema": [
     "geoid",
     "year",
@@ -10,8 +10,7 @@
     "region_type"
   ],
   "measures": [
-    "access_care_indicator_geo20",
-    "access_care_pctile_geo20"
+    "access_care_indicator_geo20"
   ],
   "years": [
     2017,
@@ -25,11 +24,11 @@
   "regions": [
     "51"
   ],
-  "row_count": 29336,
+  "row_count": 14668,
   "files": {
     "va_hdcttr_cms_acs_2017_2023_access_care.csv.xz": {
-      "sha256": "564f184a2eab50a89e7207d03d81e4c7c1900332b1adf6baa887132cecbce853",
-      "size_bytes": 148040
+      "sha256": "301d000dc7aa3166210c7b22be6e9a2d87f48806a240bd55d69b9f9865237ef8",
+      "size_bytes": 22792
     }
   }
 }

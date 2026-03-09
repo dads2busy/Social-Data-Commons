@@ -1,0 +1,51 @@
+{
+    "access_care_indicator_geo20": {
+        "aggregation_method": "mean",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "integer",
+        "equity_category": "",
+        "layer": "",
+        "long_description": "Quintile indicator (1–5) measuring access to primary care, where 1 = worst access and 5 = best access. Derived from a composite z-score combining two components: (1) population-to-physician ratio, using CMS Medicare Physician PUF data to count primary care physicians (Internal Medicine, Family Practice, Pediatric Medicine, OB/GYN) within 30 miles of each census tract via OSRM driving distances and HUD ZIP-to-tract crosswalk allocation; and (2) percentage of uninsured residents aged 19-64 from ACS 5-year estimates (B27010). The underlying z-score is computed as -1 × z(z(pop_per_physician) + z(pct_uninsured)), then converted to quintiles per year across all Virginia census tracts. County and health district values are the mean of their constituent tract quintiles.",
+        "long_name": "Access to care indicator (2020 geographies)",
+        "measure_type": "index",
+        "short_description": "Quintile indicator (1-5) of physician availability within 30 miles and insurance coverage rate, where 5 = best access.",
+        "short_name": "Access to care indicator",
+        "sources": [
+            {
+                "name": "CMS Medicare Physician & Other Practitioners PUF",
+                "location": "Medicare Physician & Other Practitioners - by Provider, 2017-2023",
+                "location_url": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners/medicare-physician-other-practitioners-by-provider",
+                "date_accessed": 2025,
+                "url": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners"
+            },
+            {
+                "name": "U.S. Census Bureau",
+                "location": "ACS 5-Year Estimates, Tables B01001 (Total Population) and B27010 (Health Insurance Coverage)",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            },
+            {
+                "name": "HUD Office of Policy Development and Research",
+                "location": "USPS ZIP Code-Census Tract Crosswalk, December 2021",
+                "location_url": "https://www.huduser.gov/portal/datasets/usps_crosswalk.html",
+                "date_accessed": 2025,
+                "url": "https://www.huduser.gov/portal/datasets/usps_crosswalk.html"
+            },
+            {
+                "name": "OSRM (Open Source Routing Machine)",
+                "location": "Block-group-to-block-group driving distances, 8-state region (VA, MD, DC, DE, NC, TN, KY, WV)",
+                "location_url": "https://project-osrm.org/",
+                "date_accessed": 2025,
+                "url": "https://project-osrm.org/"
+            }
+        ],
+        "provenance": "Based on the Access to Care methodology originally developed by the Virginia Department of Health (VDH), Office of Minority Health and Health Equity (OMHHE) as part of their Health Opportunity Index (HOI). This pipeline reproduces and extends the VDH indicator using open data sources: CMS Medicare Physician PUF (primary care providers in VA, assigned to census tracts via HUD ZIP-to-tract crosswalk with residential ratio weighting) and ACS 5-year uninsured estimates. Physician accessibility uses OSRM-based driving distances between block group centroids, aggregated to tract level, with a 30-mile threshold. The composite z-score is the negated z-score of the sum of z-scored population-per-physician ratio and z-scored uninsured percentage, then converted to quintiles (1-5) per year to match the VDH HOI format.",
+        "statement": "The access to care indicator in {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    }
+}
