@@ -1,233 +1,133 @@
 {
-    "daycare_capacity": {
-        "aggregation_method": "count",
-        "categories": "",
-        "category": "Education",
-        "citations": "",
-        "data_type": "integer",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Summed capacity (seats) of all day care providers within the region, according to the Virginia Department of Social Services.",
-        "long_name": "Day Care Capacity (seats)",
-        "measure_type": "count",
-        "short_description": "Total number of licensed day care seats in the region, from VDSS facility records.",
-        "short_name": "Day Care Capacity",
-        "sources": [
-            {
-                "name": "Virginia Department of Social Services",
-                "location": "Child Day Care Search",
-                "location_url": "https://www.dss.virginia.gov/facility/search/cc2.cgi",
-                "date_accessed": 2023,
-                "url": "https://www.dss.virginia.gov"
-            }
-        ],
-        "provenance": "Total licensed day care capacity reported by the Virginia Department of Social Services, summed within each geographic region.",
-        "statement": "There are {value} day care seats in {region_name}.",
-        "type": "count",
-        "unit": "day care seat",
-        "variants": ""
-    },
-    "daycare_min_drivetime": {
-        "aggregation_method": "minimum",
-        "categories": "",
-        "category": "Education",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Time (minutes) to drive to the nearest day care provider of any type. Times are calculated using the Open Source Routing Machine, from block group centroids to each provider. Times for higher geographic levels are averaged across block groups.",
-        "long_name": "Minutes to Nearest Day Care",
-        "measure_type": "index",
-        "short_description": "Drive time in minutes to the nearest day care provider, based on OSRM routing from block group centroids.",
-        "short_name": "Day Care Drive Time",
-        "sources": [
-            {
-                "name": "Virginia Department of Social Services",
-                "location": "Child Day Care Search",
-                "location_url": "https://www.dss.virginia.gov/facility/search/cc2.cgi",
-                "date_accessed": 2023,
-                "url": "https://www.dss.virginia.gov"
-            },
-            {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
-            }
-        ],
-        "provenance": "Minimum drive time from block group centroids to day care providers, calculated using the Open Source Routing Machine with pre-computed BG-to-BG travel times.",
-        "statement": "It takes {value} to drive to the nearest day care provider in {region_name}.",
+    "affordability_index": {
+        "category": "Housing",
+        "data_type": "numeric",
+        "unit": "percent",
+        "long_name": "Housing + Transportation Affordability Index",
+        "short_name": "H+T Affordability",
+        "short_description": "Proportion of income spent on combined housing and transportation costs for a Regional Typical Household.",
+        "long_description": "The Housing + Transportation (H+T) Affordability Index measures the true cost of housing by combining housing and transportation costs as a percentage of household income. A neighborhood is considered affordable when H+T costs consume no more than 45% of household income. This measure uses the Regional Typical Household variant, which reflects a household earning the regional median income. Reproduced independently using CNT's published regression coefficients (Tables 3-6) applied to ACS demographic data, LEHD employment data, and GTFS transit schedule data at block group resolution.",
+        "aggregation_method": "mean",
         "type": "index",
-        "unit": "minute",
-        "variants": ""
-    },
-    "daycare_ratio": {
-        "aggregation_method": "ratio",
-        "categories": "",
-        "category": "Education",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "decimal",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Number of day care seats per 1,000 children under 15 years of age, which accept at least ages 4 to 10, as calculated within floating catchment areas. Catchment area ratios are based on the population of children under 15 within block groups (as estimated in the American Community Survey), capacity of eligible day care providers (as reported by the Virginia Department of Social Services), and travel times between block group centroids and day care locations (as calculated with the Open Source Routing Machine). Catchment areas are weighted by travel time with a Gaussian function with scale of 18, which are normalized for each consumer (for a 3-step floating catchment area), as calculated by the catchment R package.",
-        "long_name": "Day Care Seats Per 1k Children Under 15, Accepting at Least Ages 4-10",
-        "measure_type": "ratio",
-        "short_description": "Day care seats per 1,000 children under 15, using a 3-step floating catchment area method with Gaussian distance-decay weighting.",
-        "short_name": "Day Care Seats Per 1k Children",
+        "statement": "In {features.name}, combined housing and transportation costs consume {value}% of a typical household's income.",
+        "provenance": "Independently reproduced using the methodology published by the Center for Neighborhood Technology (CNT). Regression coefficients from CNT Tables 3-6 are applied to 17 independent variables computed from American Community Survey data, LEHD Origin-Destination Employment Statistics, TIGER geographic data, and GTFS transit feeds. Block group estimates are aggregated to tract and county via unweighted means.",
         "sources": [
             {
-                "name": "Virginia Department of Social Services",
-                "location": "Child Day Care Search",
-                "location_url": "https://www.dss.virginia.gov/facility/search/cc2.cgi",
-                "date_accessed": 2023,
-                "url": "https://www.dss.virginia.gov"
+                "name": "Center for Neighborhood Technology",
+                "location": "H+T Affordability Index Methods",
+                "location_url": "https://htaindex.cnt.org/about/HTMethods_2016.pdf",
+                "url": "https://htaindex.cnt.org/"
             },
             {
-                "name": "American Community Survey",
-                "location": "data/5_year_seq_by_state",
-                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
+                "name": "American Community Survey 5-Year Estimates",
+                "location": "U.S. Census Bureau, 2023",
+                "url": "https://www.census.gov/programs-surveys/acs"
             },
             {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
+                "name": "LEHD Origin-Destination Employment Statistics",
+                "location": "U.S. Census Bureau, 2023",
+                "url": "https://lehd.ces.census.gov/data/"
+            },
+            {
+                "name": "General Transit Feed Specification (GTFS)",
+                "location": "Mobility Database, 2023 feeds",
+                "url": "https://mobilitydatabase.org/"
             }
-        ],
-        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012), with distance-weighted Gaussian decay.",
-        "statement": "There are {value} day care seats per 1,000 children under 15 in {region_name}.",
-        "type": "ratio",
-        "unit": "day care seat per 1k children",
-        "variants": ""
+        ]
     },
-    "daycare_ratio_over_4": {
-        "aggregation_method": "ratio",
-        "categories": "",
-        "category": "Education",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "decimal",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Number of day care seats per 1,000 children between 5 and 14 years of age, which accept at least some ages over 4, as calculated within floating catchment areas. Catchment area ratios are based on the population of children over 4 within block groups (as estimated in the American Community Survey), capacity of eligible day care providers (as reported by the Virginia Department of Social Services), and travel times between block group centroids and day care locations (as calculated with the Open Source Routing Machine). Catchment areas are weighted by travel time with a Gaussian function with scale of 18, which are normalized for each consumer (for a 3-step floating catchment area), as calculated by the catchment R package.",
-        "long_name": "Day Care Seats Per 1k Children Between 5 and 14, With Minimal Accepted Age Over 4",
-        "measure_type": "ratio",
-        "short_description": "Day care seats per 1,000 children ages 5-14, using 3SFCA method. Only providers accepting ages over 4.",
-        "short_name": "Day Care Seats Per 1k Children (5-14)",
+    "housing_cost_pct": {
+        "category": "Housing",
+        "data_type": "numeric",
+        "unit": "percent",
+        "long_name": "Housing Cost as Percent of Income",
+        "short_name": "Housing Cost %",
+        "short_description": "Housing cost as a percentage of income for a Regional Typical Household.",
+        "long_description": "Annual housing cost (weighted average of median owner costs and gross rent by tenure ratio) as a percentage of the regional median household income. Part of the H+T Affordability Index decomposition.",
+        "aggregation_method": "mean",
+        "type": "percent",
+        "statement": "In {features.name}, housing costs consume {value}% of a typical household's income.",
         "sources": [
             {
-                "name": "Virginia Department of Social Services",
-                "location": "Child Day Care Search",
-                "location_url": "https://www.dss.virginia.gov/facility/search/cc2.cgi",
-                "date_accessed": 2023,
-                "url": "https://www.dss.virginia.gov"
-            },
-            {
-                "name": "American Community Survey",
-                "location": "data/5_year_seq_by_state",
-                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            },
-            {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
+                "name": "American Community Survey 5-Year Estimates",
+                "location": "U.S. Census Bureau, 2023",
+                "url": "https://www.census.gov/programs-surveys/acs"
             }
-        ],
-        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012), with distance-weighted Gaussian decay.",
-        "statement": "There are {value} day care seats per 1,000 children over 4 in {region_name}.",
-        "type": "ratio",
-        "unit": "day care seat per 1k children",
-        "variants": ""
+        ]
     },
-    "daycare_ratio_under_10": {
-        "aggregation_method": "ratio",
-        "categories": "",
-        "category": "Education",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "decimal",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Number of day care seats per 1,000 children under 10 years of age, which accept at least some ages under 10, as calculated within floating catchment areas. Catchment area ratios are based on the population of children under 10 within block groups (as estimated in the American Community Survey), capacity of eligible day care providers (as reported by the Virginia Department of Social Services), and travel times between block group centroids and day care locations (as calculated with the Open Source Routing Machine). Catchment areas are weighted by travel time with a Gaussian function with scale of 18, which are normalized for each consumer (for a 3-step floating catchment area), as calculated by the catchment R package.",
-        "long_name": "Day Care Seats Per 1k Children Under 10, With Maximal Accepted Age Under 10",
-        "measure_type": "ratio",
-        "short_description": "Day care seats per 1,000 children under 10, using 3SFCA method. Only providers accepting ages under 10.",
-        "short_name": "Day Care Seats Per 1k Children (Under 10)",
+    "transport_cost_pct": {
+        "category": "Housing",
+        "data_type": "numeric",
+        "unit": "percent",
+        "long_name": "Transportation Cost as Percent of Income",
+        "short_name": "Transport Cost %",
+        "short_description": "Transportation cost as a percentage of income for a Regional Typical Household.",
+        "long_description": "Annual transportation cost (auto ownership + vehicle miles traveled + transit use) as a percentage of the regional median household income. Derived from CNT regression models for auto ownership, VMT, and transit ridership applied to neighborhood-level variables.",
+        "aggregation_method": "mean",
+        "type": "percent",
+        "statement": "In {features.name}, transportation costs consume {value}% of a typical household's income.",
         "sources": [
             {
-                "name": "Virginia Department of Social Services",
-                "location": "Child Day Care Search",
-                "location_url": "https://www.dss.virginia.gov/facility/search/cc2.cgi",
-                "date_accessed": 2023,
-                "url": "https://www.dss.virginia.gov"
-            },
-            {
-                "name": "American Community Survey",
-                "location": "data/5_year_seq_by_state",
-                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            },
-            {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
+                "name": "Center for Neighborhood Technology",
+                "location": "H+T Affordability Index Methods",
+                "url": "https://htaindex.cnt.org/"
             }
-        ],
-        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012), with distance-weighted Gaussian decay.",
-        "statement": "There are {value} day care seats per 1,000 children under 10 in {region_name}.",
-        "type": "ratio",
-        "unit": "day care seat per 1k children",
-        "variants": ""
+        ]
     },
-    "_references": {
-        "wan12": {
-            "id": "wan12",
-            "author": [
-                {
-                    "given": "Neng",
-                    "family": "Wan"
-                },
-                {
-                    "given": "Bin",
-                    "family": "Zou"
-                },
-                {
-                    "given": "Troy",
-                    "family": "Sternberg"
-                }
-            ],
-            "year": 2012,
-            "title": "A three-step floating catchment area method for analyzing spatial access to health services",
-            "journal": "International Journal of Geographical Information Science",
-            "volume": "26",
-            "page": "1073\u20131089",
-            "doi": "10.1080/13658816.2011.624987"
-        },
-        "bii21": {
-            "id": "bii21",
-            "author": "Biocomplexity Institute and Initiative",
-            "year": 2021,
-            "title": "catchment: Calculate spatial access and availability metrics",
-            "version": "0.0.1",
-            "url": "https://github.com/uva-bi-sdad/catchment"
-        }
+    "autos_per_hh": {
+        "category": "Housing",
+        "data_type": "numeric",
+        "unit": "vehicles",
+        "long_name": "Predicted Autos per Household",
+        "short_name": "Autos/HH",
+        "short_description": "Predicted number of automobiles per household based on neighborhood characteristics.",
+        "long_description": "Predicted automobile ownership per household from the CNT auto ownership regression model. Uses household income, density, transit access, employment gravity, and housing stock characteristics as predictors.",
+        "aggregation_method": "mean",
+        "type": "rate",
+        "statement": "In {features.name}, the predicted auto ownership is {value} vehicles per household.",
+        "sources": [
+            {
+                "name": "Center for Neighborhood Technology",
+                "location": "H+T Affordability Index Methods, Table 4",
+                "url": "https://htaindex.cnt.org/"
+            }
+        ]
+    },
+    "vmt_per_hh": {
+        "category": "Housing",
+        "data_type": "numeric",
+        "unit": "miles",
+        "long_name": "Predicted Annual Vehicle Miles Traveled per Household",
+        "short_name": "VMT/HH",
+        "short_description": "Predicted annual vehicle miles traveled per household based on neighborhood characteristics.",
+        "long_description": "Predicted annual vehicle miles traveled per household from the CNT VMT regression model. Reflects how neighborhood density, transit access, employment access, and housing patterns influence driving behavior.",
+        "aggregation_method": "mean",
+        "type": "rate",
+        "statement": "In {features.name}, the predicted annual VMT is {value} miles per household.",
+        "sources": [
+            {
+                "name": "Center for Neighborhood Technology",
+                "location": "H+T Affordability Index Methods, Table 5",
+                "url": "https://htaindex.cnt.org/"
+            }
+        ]
+    },
+    "transit_frac": {
+        "category": "Housing",
+        "data_type": "numeric",
+        "unit": "percent",
+        "long_name": "Predicted Transit Commuter Fraction",
+        "short_name": "Transit Use %",
+        "short_description": "Predicted fraction of commuters using public transit based on neighborhood characteristics.",
+        "long_description": "Predicted fraction of commuters using public transit from the CNT transit use regression model (quasibinomial). Reflects how transit connectivity, employment access, density, and household characteristics influence transit ridership. Block groups with no transit service are assigned 0%.",
+        "aggregation_method": "mean",
+        "type": "percent",
+        "statement": "In {features.name}, an estimated {value}% of commuters use public transit.",
+        "sources": [
+            {
+                "name": "Center for Neighborhood Technology",
+                "location": "H+T Affordability Index Methods, Table 6",
+                "url": "https://htaindex.cnt.org/"
+            }
+        ]
     }
 }

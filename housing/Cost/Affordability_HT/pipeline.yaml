@@ -1,0 +1,77 @@
+name: affordability_index
+version: "2.0.0"
+title: "Housing + Transportation Affordability"
+description: >-
+  Housing and transportation affordability index independently reproduced
+  using the Center for Neighborhood Technology (CNT) H+T Index methodology.
+  Combines housing costs with modeled transportation costs (auto ownership,
+  vehicle miles traveled, and transit use) as a percentage of household income
+  for a Regional Typical Household. Transportation costs are derived from three
+  regression models with 17 independent variables computed from ACS demographics,
+  LEHD employment data, TIGER geographic boundaries, and GTFS transit schedules
+  at block group resolution.
+temporal_label: "annual, ACS 5-year + GTFS + LEHD"
+
+sources:
+  va:
+    type: reproduced
+    states: ["VA"]
+    state_fips: ["51"]
+    geographies: [block_group, tract, county]
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    variables:
+      median_hh_income: "B19013_001"
+      total_hh: "B11001_001"
+      owner_occupied: "B25003_002"
+      renter_occupied: "B25003_003"
+      total_occupied: "B25003_001"
+      units_1_detached: "B25024_002"
+      total_units: "B25024_001"
+      workers_16plus: "B08301_001"
+      workers_drove_alone: "B08301_003"
+      workers_carpool: "B08301_004"
+      workers_transit: "B08301_010"
+      workers_walked: "B08301_019"
+      workers_other: "B08301_020"
+      workers_wfh: "B08301_021"
+      pop_in_occ_hu: "B25008_001"
+      total_pop: "B01003_001"
+      median_owner_cost: "B25088_002"
+      median_gross_rent: "B25064_001"
+      hh_size_owner: "B25009_002"
+      hh_size_renter: "B25009_010"
+
+  ncr:
+    type: reproduced
+    profile: NCR
+    state_fips: ["51", "24", "11"]
+    geographies: [block_group, tract, county]
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    variables:
+      median_hh_income: "B19013_001"
+      total_hh: "B11001_001"
+      owner_occupied: "B25003_002"
+      renter_occupied: "B25003_003"
+      total_occupied: "B25003_001"
+      units_1_detached: "B25024_002"
+      total_units: "B25024_001"
+      workers_16plus: "B08301_001"
+      workers_drove_alone: "B08301_003"
+      workers_carpool: "B08301_004"
+      workers_transit: "B08301_010"
+      workers_walked: "B08301_019"
+      workers_other: "B08301_020"
+      workers_wfh: "B08301_021"
+      pop_in_occ_hu: "B25008_001"
+      total_pop: "B01003_001"
+      median_owner_cost: "B25088_002"
+      median_gross_rent: "B25064_001"
+      hh_size_owner: "B25009_002"
+      hh_size_renter: "B25009_010"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: false
