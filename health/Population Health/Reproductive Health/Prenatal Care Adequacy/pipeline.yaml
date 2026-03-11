@@ -1,0 +1,30 @@
+name: prenatal_care_adequacy
+version: "1.0.0"
+title: "Prenatal Care Adequacy (Kotelchuck Index)"
+description: >-
+  Adequacy of prenatal care utilization using the Kotelchuck Index (APNCU).
+  Classifies births into four categories (inadequate, intermediate, adequate,
+  adequate plus) based on when prenatal care began and the ratio of actual to
+  expected prenatal visits given gestational age. County-level data queried
+  from CDC WONDER Natality Expanded database (D149). Only counties with
+  sufficient births appear due to WONDER suppression thresholds.
+temporal_label: "annual"
+
+sources:
+  va:
+    type: nchs
+    states: ["VA"]
+    state_fips: ["51"]
+    geographies: [county]
+    years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+
+  ncr:
+    type: nchs
+    profile: NCR
+    state_fips: ["51", "24", "11"]
+    geographies: [county]
+    years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+
+output:
+  path: data/distribution
+  standardize: false
