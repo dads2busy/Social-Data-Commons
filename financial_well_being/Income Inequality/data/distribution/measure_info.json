@@ -7,23 +7,23 @@
         "data_type": "decimal",
         "equity_category": "",
         "layer": "",
-        "long_description": "The Gini Index is a summary measure of income inequality. The Gini coefficient incorporates the detailed shares data into a single statistic, which summarizes income dispersion across the entire income distribution. The Gini coefficient ranges from 0 (which indicates perfect equality where everyone receives an equal share) to 1 (perfect inequality where only one recipient or group of recipients receives all the income). The Gini is based on the difference between the Lorenz curve (the observed cumulative income distribution) and the notion of a perfectly equal income distribution.",
+        "long_description": "The Gini Index is a summary measure of income inequality ranging from 0 (perfect equality, where everyone receives an equal share) to 1 (perfect inequality, where one household receives all income). Communities with high Gini values have large gaps between the highest and lowest earners, which is associated with reduced social mobility, poorer population health outcomes, and weaker community cohesion. This measure is a key input to the VDH Health Opportunity Index, where it contributes to the Economic Opportunity profile.",
         "long_name": "Income Inequality (Gini Index)",
         "measure_type": "index",
-        "short_description": "Gini Index of income inequality ranging from 0 (perfect equality) to 1 (perfect inequality), from ACS Table B19083.",
+        "provenance": "Published directly by the U.S. Census Bureau in American Community Survey 5-year estimates, Table B19083 (Gini Index of Income Inequality). The Gini coefficient is computed by the Census Bureau from the observed cumulative household income distribution (Lorenz curve) relative to a perfectly equal distribution. Originally developed by Corrado Gini (1912).",
+        "short_description": "Gini Index of income inequality (0 = perfect equality, 1 = perfect inequality), from ACS Table B19083.",
         "short_name": "Income Inequality (Gini Index)",
         "sources": [
             {
-                "date_accessed": "2023",
-                "location": "Table B19083",
-                "location_url": "",
-                "name": "U.S. Census American Community Survey",
-                "url": ""
+                "date_accessed": 2025,
+                "location": "5-Year estimates, Table B19083, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "name": "American Community Survey",
+                "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "provenance": "The Gini Index is a standard measure of income inequality developed by Corrado Gini (1912). Values are computed and published by the U.S. Census Bureau in American Community Survey Table B19083.",
-        "statement": "Income Inequality (Gini Index) in {features.name} is {value}.",
-        "type": "",
+        "statement": "The income inequality (Gini Index) in {features.name} is {value}.",
+        "type": "index",
         "unit": "",
         "variants": ""
     }

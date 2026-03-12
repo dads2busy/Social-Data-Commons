@@ -7,10 +7,11 @@
         "data_type": "integer",
         "equity_category": "",
         "layer": "",
-        "long_description": "The percentage of households whose monthly housing costs from mortgage payments or rent account for 30% or more of their household’s income in the past 12 months.",
+        "long_description": "Housing cost burden — spending 30% or more of household income on housing — is a widely used threshold for affordability stress. Owner-occupied households burdened by mortgage payments may have limited capacity for savings, maintenance, and other essential expenses. High counts of cost-burdened homeowners can signal overheated housing markets or stagnant incomes.",
         "long_name": "Number of Owner-Occupied Households Whose Mortgage Payments are 30% or More of Their Household Income",
         "measure_type": "count",
-        "short_description": "",
+        "provenance": "From ACS 5-year estimates, table B25101 (Mortgage Status by Selected Monthly Owner Costs as a Percentage of Household Income). Count of owner-occupied units with a mortgage where selected monthly owner costs are 30% or more of household income.",
+        "short_description": "Number of owner-occupied households with mortgage payments at 30% or more of income.",
         "short_name": "Cost-Burdened Households - Owner-Occupied & Mortgaged",
         "sources": [
             {
@@ -34,10 +35,11 @@
         "data_type": "integer",
         "equity_category": "",
         "layer": "",
-        "long_description": "The number of owner-occupied households with a mortgage in the past 12 months.",
+        "long_description": "The total count of owner-occupied households carrying a mortgage provides the denominator for calculating mortgage cost-burden rates. This baseline reflects the size of the homeowner population with active debt obligations in a community.",
         "long_name": "Number of Owner-Occupied Households with a Mortgage",
         "measure_type": "count",
-        "short_description": "The number of owner-occupied households with a mortgage.",
+        "provenance": "From ACS 5-year estimates, table B25101 (Mortgage Status by Selected Monthly Owner Costs as a Percentage of Household Income). Total count of owner-occupied units with a mortgage.",
+        "short_description": "Total number of owner-occupied households with a mortgage.",
         "short_name": "Households - Owner-Occupied & Mortgaged",
         "sources": [
             {
@@ -61,10 +63,11 @@
         "data_type": "decimal",
         "equity_category": "",
         "layer": "",
-        "long_description": "The percentage of households whose monthly housing costs from mortgage payments or rent account for 30% or more of their household’s income in the past 12 months.",
+        "long_description": "The overall housing cost-burden rate combines both owner-occupied and renter-occupied households spending 30% or more of their income on housing. This comprehensive measure captures the full scope of housing affordability challenges in a community. Areas with high cost-burden rates face greater risks of housing instability, displacement, and reduced spending on other necessities like food, healthcare, and transportation.",
         "long_name": "Percentage of Households Whose Mortgage Payments or Rent Account for 30% or More of Their Household Income",
         "measure_type": "percent",
-        "short_description": "",
+        "provenance": "Computed from ACS 5-year estimates, tables B25101 (owner costs by income) and B25074 (gross rent by income). Percentage of all occupied housing units where housing costs exceed 30% of household income.",
+        "short_description": "Percentage of all households (owners and renters) spending 30% or more of income on housing.",
         "short_name": "Cost-Burdened Households - Owner-Occupied & Mortgaged, and Renter-Occupied",
         "sources": [
             {
@@ -88,10 +91,11 @@
         "data_type": "decimal",
         "equity_category": "",
         "layer": "",
-        "long_description": "The percentage of owner-occupied households whose monthly housing costs from mortgage payments account for 30% or more of their household income in the past 12 months.",
+        "long_description": "The mortgage cost-burden rate measures the share of homeowners whose monthly housing costs exceed the 30% affordability threshold. High rates among homeowners can indicate communities where housing prices have outpaced income growth, leaving even property owners financially strained. This measure helps distinguish between rental and ownership affordability challenges.",
         "long_name": "Percentage of Owner-Occupied Households Whose Mortgage Payments are 30% or More of Their Household Income",
         "measure_type": "percent",
-        "short_description": "The percentage of owner-occupied households whose mortgage payments are 30% or more of their household income.",
+        "provenance": "From ACS 5-year estimates, table B25101 (Mortgage Status by Selected Monthly Owner Costs as a Percentage of Household Income). Percentage of owner-occupied units with a mortgage where costs are 30% or more of household income.",
+        "short_description": "Percentage of owner-occupied households with mortgage payments at 30% or more of income.",
         "short_name": "Cost-Burdened Households - Owner-Occupied & Mortgaged",
         "sources": [
             {
@@ -115,10 +119,11 @@
         "data_type": "decimal",
         "equity_category": "",
         "layer": "",
-        "long_description": "The percentage of renter-occupied households whose monthly housing costs from rent payments account for 30% or more of their household’s income in the past 12 months.",
+        "long_description": "The rental cost-burden rate measures the share of renters whose housing costs exceed the 30% affordability threshold. Renters are typically more vulnerable to cost burden than homeowners, with fewer options to reduce payments through refinancing. High renter cost-burden rates signal communities where displacement risk is elevated and where rent stabilization or affordable housing programs may be most needed.",
         "long_name": "Percentage of Renter-Occupied Households Whose Rent Accounts for 30% or More of Their Household Income",
         "measure_type": "percent",
-        "short_description": "",
+        "provenance": "From ACS 5-year estimates, table B25074 (Selected Monthly Owner Costs as a Percentage of Household Income — Renter-Occupied). Percentage of renter-occupied units where gross rent is 30% or more of household income.",
+        "short_description": "Percentage of renter-occupied households spending 30% or more of income on rent.",
         "short_name": "Cost-Burdened Households - Renter-Occupied",
         "sources": [
             {
@@ -142,10 +147,11 @@
         "data_type": "integer",
         "equity_category": "",
         "layer": "",
-        "long_description": "The number of households whose gross rent accounts for 30% or more of their household income in the past 12 months.",
+        "long_description": "The count of rent-burdened households captures the absolute number of renters facing housing affordability stress. Unlike percentages, raw counts are useful for estimating the scale of need for rental assistance programs, affordable housing units, and emergency aid resources.",
         "long_name": "Number of Households Whose Gross Rent is 30% or More of Their Household Income",
         "measure_type": "count",
-        "short_description": "The number of households whose gross rent is 30% or more of their household income.",
+        "provenance": "From ACS 5-year estimates, table B25074. Count of renter-occupied units where gross rent is 30% or more of household income.",
+        "short_description": "Number of renter households with gross rent at 30% or more of income.",
         "short_name": "Cost-Burdened Households - Renter-Occupied",
         "sources": [
             {
@@ -169,10 +175,11 @@
         "data_type": "integer",
         "equity_category": "",
         "layer": "",
-        "long_description": "The number of households that are occupied by a tenant who paid rent in the past 12 months.",
+        "long_description": "The total count of renter-occupied households provides the denominator for rental cost-burden calculations and reflects the overall size of the rental market. Communities with large renter populations may be more sensitive to rent increases and changes in housing policy.",
         "long_name": "Number of Renter-Occupied Households",
         "measure_type": "count",
-        "short_description": "The number of renter-occupied households.",
+        "provenance": "From ACS 5-year estimates, table B25074. Total count of renter-occupied housing units.",
+        "short_description": "Total number of renter-occupied households.",
         "short_name": "Households - Renter-Occupied",
         "sources": [
             {

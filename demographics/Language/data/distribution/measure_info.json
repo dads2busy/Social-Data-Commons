@@ -7,7 +7,7 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Limited English speaking household estimates from ACS 5-year estimates, table C16002 (Household Language by Household Limited English Speaking Status). A household is classified as 'limited English speaking' if no member 14 years and older speaks English 'very well.' Limited English households are computed by summing across four language groups: Spanish (C16002_004), Indo-European (C16002_007), Asian/Pacific Islander (C16002_010), and other languages (C16002_013). Both counts and percentages (relative to total households C16002_001) are provided at Census tract, county, and block group levels. Values are available on both Census 2020 and Census 2010 geography boundaries. Pre-2020 values on 2020 boundaries have been standardized using area-weighted crosswalks.",
+        "long_description": "Count of households classified as having limited English proficiency, where no member aged 14 or older speaks English 'very well.' Communities with high counts of linguistically isolated households face barriers to accessing government services, healthcare, emergency information, and civic participation. This measure helps identify areas where multilingual outreach and translation services are most needed.",
         "long_name": "The count of households with limited English.",
         "measure_type": "",
         "provenance": "Directly tabulated from ACS 5-year estimates, table C16002 (Household Language by Household Limited English Speaking Status). Limited English households summed across four language groups: Spanish (C16002_004), Indo-European (C16002_007), Asian/Pacific Islander (C16002_010), and other languages (C16002_013). Percentages calculated relative to total households (C16002_001).",
@@ -35,10 +35,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Households with Limited English Direct population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Count of households classified as having limited English proficiency, where no member aged 14 or older speaks English 'very well.' Communities with high counts of linguistically isolated households face barriers to accessing government services, healthcare, emergency information, and civic participation. This measure helps identify areas where multilingual outreach and translation services are most needed. Values on original 2010 census tract boundaries.",
         "long_name": "The count of households with limited English.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table C16002 (Household Language by Household Limited English Speaking Status). Limited English households summed across four language groups: Spanish (C16002_004), Indo-European (C16002_007), Asian/Pacific Islander (C16002_010), and other languages (C16002_013). Percentages calculated relative to total households (C16002_001). Values reported on original 2010 census tract boundaries.",
+        "short_description": "Count of households with limited English on 2010 census boundaries.",
         "short_name": "Households with limited English (2010 geographies)",
         "sources": [
             {
@@ -62,9 +63,10 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The percent of households with limited English. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "The limited English proficiency rate measures the share of households where no member aged 14 or older speaks English 'very well.' Communities with high rates of linguistic isolation face barriers to accessing government services, healthcare, emergency information, and civic participation. This measure helps identify areas where multilingual outreach and translation services are most needed.",
         "long_name": "The percent of households with limited English.",
         "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table C16002 (Household Language by Household Limited English Speaking Status). Limited English households summed across four language groups: Spanish (C16002_004), Indo-European (C16002_007), Asian/Pacific Islander (C16002_010), and other languages (C16002_013). Percentages calculated relative to total households (C16002_001).",
         "short_description": "The percent of households with limited English.",
         "short_name": "Percentage of households with limited English (2020 geographies)",
         "sources": [
@@ -89,10 +91,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The percent of households with limited English. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "The limited English proficiency rate measures the share of households where no member aged 14 or older speaks English 'very well.' Communities with high rates of linguistic isolation face barriers to accessing government services, healthcare, emergency information, and civic participation. This measure helps identify areas where multilingual outreach and translation services are most needed. Values on original 2010 census tract boundaries.",
         "long_name": "The percent of households with limited English.",
         "measure_type": "",
-        "short_description": "The percent of households with limited English.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table C16002 (Household Language by Household Limited English Speaking Status). Limited English households summed across four language groups: Spanish (C16002_004), Indo-European (C16002_007), Asian/Pacific Islander (C16002_010), and other languages (C16002_013). Percentages calculated relative to total households (C16002_001). Values reported on original 2010 census tract boundaries.",
+        "short_description": "The percent of households with limited English on 2010 census boundaries.",
         "short_name": "Percentage of households with limited English (2010 geographies)",
         "sources": [
             {

@@ -7,10 +7,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Median percentage of 3rd grade population passing a reading test, the median is calculated across schools in the region. Geographies: County (5)",
+        "long_description": "Third-grade reading proficiency is a critical milestone — research consistently shows that children who cannot read at grade level by third grade are four times more likely to drop out of high school. The median pass rate across schools in a region captures typical school performance while reducing the influence of outlier schools. Regions with low median pass rates may need targeted literacy interventions and additional instructional support.",
         "long_name": "Median percentage of 3rd graders passing reading test",
         "measure_type": "",
-        "short_description": "Median percentage of 3rd grade population passing a reading test, the median is calculated across schools in the region. Geographies: County (5)",
+        "provenance": "Median of school-level 3rd grade reading pass rates from Virginia Department of Education Standards of Learning (SOL) assessments. Pass rates are calculated by VDOE as the number of students passing divided by the number tested at each school. The median is then computed across all schools within each geographic region.",
+        "short_description": "Median percentage of 3rd graders passing the state reading assessment, calculated across schools in the region.",
         "short_name": "Median 3rd graders passing reading",
         "sources": [
             {
@@ -34,10 +35,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Mean percentage of 3rd grade population passing reading test. The mean is calculated across schools in the region.",
+        "long_description": "The mean reading pass rate provides an average measure of 3rd grade literacy across schools in a region. Unlike the median, the mean is influenced by exceptionally high- or low-performing schools, making it useful for understanding aggregate performance. Comparing mean and median pass rates can reveal whether a region's schools have broadly similar outcomes or a wide performance spread.",
         "long_name": "Mean percentage of 3rd graders passing reading test",
         "measure_type": "",
-        "short_description": "Mean percentage of 3rd grade population passing reading test for schools in the region",
+        "provenance": "Mean of school-level 3rd grade reading pass rates from Virginia Department of Education Standards of Learning (SOL) assessments. Pass rates are calculated by VDOE as the number of students passing divided by the number tested at each school. The mean is then computed across all schools within each geographic region.",
+        "short_description": "Mean percentage of 3rd graders passing the state reading assessment, averaged across schools in the region.",
         "short_name": "Mean 3rd graders passing reading",
         "sources": [
             {

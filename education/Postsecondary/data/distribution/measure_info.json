@@ -17,10 +17,10 @@
                 "value": 2
             }
         },
-        "long_description": "Number of schools authorized to award Associates degrees or 2-year or longer certificates per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) qualifying 2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "long_description": "Postsecondary school accessibility measures how easily residents can reach institutions offering associate degrees or 2-year certificates. Communities with low accessibility scores face barriers to workforce training and career advancement pathways that don't require a four-year degree. This measure uses floating catchment areas to account for both the supply of schools and the population they serve, weighted by travel distance.",
         "long_name": "2-year schools per 100k people over 14",
         "measure_type": "",
-        "short_description": "Number of schools authorized to award Associates degrees or 2-year or longer certificates per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) qualifying 2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "short_description": "2-year schools per 100k residents over 14, based on 3-step floating catchment area accessibility scores.",
         "short_name": "2-year schools",
         "sources": [
             {
@@ -76,10 +76,10 @@
                 }
             ]
         },
-        "long_description": "The number of schools authorized to award Associates degrees or 2-year or longer certificates with biomedical programs (any with Classification of Institutional Programs (CIP) codes starting with 26) per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) qualifying 2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "long_description": "Accessibility of 2-year postsecondary institutions offering biomedical programs, measured as schools per 100k residents over 14. Access to STEM-focused community colleges and technical schools is critical for building a skilled biomedical workforce. Areas with low scores may lack nearby pathways into laboratory, clinical, and health technology careers.",
         "long_name": "2-year schools with biomedical programs per 100k people over 14",
         "measure_type": "",
-        "short_description": "The number of schools authorized to award Associates degrees or 2-year or longer certificates with biomedical programs (any with Classification of Institutional Programs (CIP) codes starting with 26) per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) qualifying 2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "short_description": "2-year schools with biomedical programs (CIP 26) per 100k residents over 14, based on floating catchment areas.",
         "short_name": "2-year schools with biomedical programs",
         "sources": [
             {
@@ -135,10 +135,10 @@
                 }
             ]
         },
-        "long_description": "The number of schools authorized to award Associates degrees or 2-year or longer certificates with science programs (any with Classification of Institutional Programs (CIP) codes starting with 41) per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) qualifying 2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "long_description": "Accessibility of 2-year postsecondary institutions offering science programs, measured as schools per 100k residents over 14. Science and technology programs at community colleges provide affordable entry points into technical careers. Areas with low scores may have limited local options for science-focused workforce training.",
         "long_name": "2-year schools with science programs per 100k people over 14",
         "measure_type": "",
-        "short_description": "The number of schools authorized to award Associates degrees or 2-year or longer certificates with science programs (any with Classification of Institutional Programs (CIP) codes starting with 41) per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) qualifying 2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "short_description": "2-year schools with science programs (CIP 41) per 100k residents over 14, based on floating catchment areas.",
         "short_name": "2-year schools with science programs",
         "sources": [
             {
@@ -194,10 +194,10 @@
                 }
             ]
         },
-        "long_description": "The number of schools authorized to award Associates degrees or 2-year or longer certificates with physical programs (any with Classification of Institutional Programs (CIP) codes starting with 40) per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) qualifying 2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "long_description": "Accessibility of 2-year postsecondary institutions offering physical science programs, measured as schools per 100k residents over 14. Physical science programs prepare students for careers in chemistry, physics, and earth sciences. Communities with low accessibility may need to travel further for these specialized training opportunities.",
         "long_name": "2-year schools with physical programs per 100k people over 14",
         "measure_type": "",
-        "short_description": "The number of schools authorized to award Associates degrees or 2-year or longer certificates with physical programs (any with Classification of Institutional Programs (CIP) codes starting with 40) per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) qualifying 2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "short_description": "2-year schools with physical science programs (CIP 40) per 100k residents over 14, based on floating catchment areas.",
         "short_name": "2-year schools with physical programs",
         "sources": [
             {
@@ -253,10 +253,10 @@
                 }
             ]
         },
-        "long_description": "The number of schools authorized to award Associates degrees or 2-year or longer certificates with computer programs (any with Classification of Institutional Programs (CIP) codes starting with 11) per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) qualifying 2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "long_description": "Accessibility of 2-year postsecondary institutions offering computer science programs, measured as schools per 100k residents over 14. As technology drives economic growth, access to computer science education at community colleges provides essential workforce pathways. Low scores indicate communities where residents face longer travel distances to IT training programs.",
         "long_name": "2-year schools with computer programs per 100k people over 14",
         "measure_type": "",
-        "short_description": "The number of schools authorized to award Associates degrees or 2-year or longer certificates with computer programs (any with Classification of Institutional Programs (CIP) codes starting with 11) per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) qualifying 2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "short_description": "2-year schools with computer programs (CIP 11) per 100k residents over 14, based on floating catchment areas.",
         "short_name": "2-year schools with computer programs",
         "sources": [
             {
@@ -312,10 +312,10 @@
                 }
             ]
         },
-        "long_description": "The number of schools authorized to award Associates degrees or 2-year or longer certificates with engineering programs (any with Classification of Institutional Programs (CIP) codes starting with 14 or 15) per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) qualifying 2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "long_description": "Accessibility of 2-year postsecondary institutions offering engineering and engineering technology programs, measured as schools per 100k residents over 14. Community colleges with engineering programs offer affordable pathways into technical manufacturing, construction, and infrastructure careers. Low scores indicate areas where residents may need to travel further for hands-on technical training.",
         "long_name": "2-year schools with engineering programs per 100k people over 14",
         "measure_type": "",
-        "short_description": "The number of schools authorized to award Associates degrees or 2-year or longer certificates with engineering programs (any with Classification of Institutional Programs (CIP) codes starting with 14 or 15) per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) qualifying 2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "short_description": "2-year schools with engineering programs (CIP 14/15) per 100k residents over 14, based on floating catchment areas.",
         "short_name": "2-year schools with engineering programs",
         "sources": [
             {
@@ -364,10 +364,10 @@
                 "value": 3
             }
         },
-        "long_description": "The number of schools authorized to award certificates that are typically obtained in less than 2 years per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) <2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "long_description": "Accessibility of postsecondary institutions offering short-term certificates (under 2 years), measured as schools per 100k residents over 14. Short-term certificate programs \u2014 in trades, healthcare support, and commercial driving \u2014 provide the fastest pathway from education to employment. Low accessibility scores indicate communities where residents have limited nearby options for rapid workforce entry.",
         "long_name": "<2-year schools per 100k people over 14",
         "measure_type": "",
-        "short_description": "The number of schools authorized to award certificates that are typically obtained in less than 2 years per 100k people over 14, based on 3-step floating catchment areas defined by distance. Catchment areas were calculated using (a) <2-year schools as listed by the National Center for Education Statistics, with supply values of 1, (b) Census block groups, with supply values as the population over the age of 14 as reported by the American Community Survey 5-year summaries, and (c) distances between school locations and block group centroids, weighted by a Gaussian function with a scaling parameter set to 18, as calculated by the catchment R package.",
+        "short_description": "Sub-2-year certificate schools per 100k residents over 14, based on floating catchment areas.",
         "short_name": "<2-year schools",
         "sources": [
             {
@@ -413,10 +413,11 @@
                 "value": 2
             }
         },
-        "long_description": "Minimal drive time to schools authorized to award Associates degrees or 2-year or longer certificates from the Census block group centroid, as calculated by the Open Source Routing Machine. School locations are from the National Center for Education Statistics. All distances are calculated at the block group level and then averaged up to higher-level geographies.",
+        "long_description": "Drive time to the nearest school authorized to award associate degrees or 2-year certificates. Longer drive times create barriers to postsecondary enrollment, particularly for students who work or have family obligations. This measure captures geographic accessibility independent of school capacity or program offerings.",
         "long_name": "drive time to nearest 2-year school",
         "measure_type": "",
-        "short_description": "Minimal drive time to schools authorized to award Associates degrees or 2-year or longer certificates from the Census block group centroid, as calculated by the Open Source Routing Machine. School locations are from the National Center for Education Statistics. All distances are calculated at the block group level and then averaged up to higher-level geographies.",
+        "provenance": "Minimum drive time from Census block group centroids to NCES-listed 2-year postsecondary institutions, calculated using the Open Source Routing Machine. Block group-level times are averaged to produce higher-level geography estimates.",
+        "short_description": "Minimum drive time in minutes from block group centroid to the nearest 2-year postsecondary school.",
         "short_name": "2-year school drive time",
         "sources": [
             {
@@ -454,10 +455,11 @@
                 "value": 3
             }
         },
-        "long_description": "Minimal drive time to schools authorized to award certificates that are typically obtained in less than 2 years from the Census block group centroid, as calculated by the Open Source Routing Machine. School locations are from the National Center for Education Statistics. All distances are calculated at the block group level and then averaged up to higher-level geographies.",
+        "long_description": "Drive time to the nearest school offering short-term certificates (under 2 years). Short-term programs serve students seeking rapid workforce entry, so geographic proximity is especially important for this population. Longer drive times may discourage enrollment among those with the fewest resources for commuting.",
         "long_name": "drive time to nearest <2-year school",
         "measure_type": "",
-        "short_description": "Minimal drive time to schools authorized to award certificates that are typically obtained in less than 2 years from the Census block group centroid, as calculated by the Open Source Routing Machine. School locations are from the National Center for Education Statistics. All distances are calculated at the block group level and then averaged up to higher-level geographies.",
+        "provenance": "Minimum drive time from Census block group centroids to NCES-listed sub-2-year postsecondary institutions, calculated using the Open Source Routing Machine. Block group-level times are averaged to produce higher-level geography estimates.",
+        "short_description": "Minimum drive time in minutes from block group centroid to the nearest sub-2-year certificate school.",
         "short_name": "<2-year school drive time",
         "sources": [
             {
@@ -488,10 +490,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Percentage of the population who reported any postsecondary education, according to the US Census American Community Survey 5-year estimates.",
+        "long_description": "Postsecondary educational attainment measures the share of residents who have completed any education beyond high school. Higher attainment rates correlate with greater economic mobility, higher household incomes, and better health outcomes. This indicator helps identify communities that may benefit from expanded access to higher education and workforce development programs.",
         "long_name": "Estimated Percentage of the Population With Any Postsecondary Education",
         "measure_type": "",
-        "short_description": "Percentage of the population who reported any postsecondary education, according to the US Census American Community Survey 5-year estimates.",
+        "provenance": "Computed from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher.",
+        "short_description": "Percentage of the population with any postsecondary education.",
         "short_name": "Postsecondary Education (percent)",
         "sources": [
             {
@@ -515,10 +518,11 @@
         "data_type": "integer",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Number of people who reported any postsecondary education, according to the U.S. Census American Community Survey 5-year estimates.",
+        "long_description": "The count of residents who have completed any education beyond high school. This raw count complements the percentage measure by capturing the absolute size of the educated workforce in a community, which is relevant for economic development planning and institutional capacity.",
         "long_name": "Estimated Number of People With Any Postsecondary Education",
         "measure_type": "",
-        "short_description": "Number of people who reported any postsecondary education.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher.",
+        "short_description": "Number of residents with any postsecondary education.",
         "short_name": "Postsecondary Education (count)",
         "sources": [
             {
@@ -575,10 +579,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Percentage of the population who reported any postsecondary education, according to the US Census American Community Survey 5-year estimates (2010 Census geography).",
+        "long_description": "Postsecondary educational attainment measures the share of residents who have completed any education beyond high school. Higher attainment rates correlate with greater economic mobility, higher household incomes, and better health outcomes. This indicator helps identify communities that may benefit from expanded access to higher education and workforce development programs. Values on original 2010 census tract boundaries.",
         "long_name": "Estimated Percentage of the Population With Any Postsecondary Education",
         "measure_type": "",
-        "short_description": "Percentage of the population who reported any postsecondary education, according to the US Census American Community Survey 5-year estimates (2010 Census geography).",
+        "provenance": "Computed from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher. Values reported on original 2010 census tract boundaries.",
+        "short_description": "Percentage of the population with any postsecondary education.",
         "short_name": "Postsecondary Education (percent)",
         "sources": [
             {
@@ -602,10 +607,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Percentage of the population who reported any postsecondary education, according to the US Census American Community Survey 5-year estimates.",
+        "long_description": "Postsecondary educational attainment measures the share of residents who have completed any education beyond high school. Higher attainment rates correlate with greater economic mobility, higher household incomes, and better health outcomes. This indicator helps identify communities that may benefit from expanded access to higher education and workforce development programs.",
         "long_name": "Estimated Percentage of the Population With Any Postsecondary Education",
         "measure_type": "",
-        "short_description": "Percentage of the population who reported any postsecondary education, according to the US Census American Community Survey 5-year estimates.",
+        "provenance": "Computed from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher.",
+        "short_description": "Percentage of the population with any postsecondary education.",
         "short_name": "Postsecondary Education (percent)",
         "sources": [
             {
@@ -629,10 +635,11 @@
         "data_type": "integer",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Number of people who reported any postsecondary education, according to the U.S. Census American Community Survey 5-year estimates (2010 Census geography).",
+        "long_description": "The count of residents who have completed any education beyond high school. This raw count complements the percentage measure by capturing the absolute size of the educated workforce in a community, which is relevant for economic development planning and institutional capacity. Values on original 2010 census tract boundaries.",
         "long_name": "Estimated Number of People With Any Postsecondary Education",
         "measure_type": "",
-        "short_description": "Number of people who reported any postsecondary education (2010 Census geography).",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher. Values reported on original 2010 census tract boundaries.",
+        "short_description": "Number of residents with any postsecondary education, on 2010 census boundaries.",
         "short_name": "Postsecondary Education (count)",
         "sources": [
             {
@@ -656,10 +663,11 @@
         "data_type": "integer",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Number of people who reported any postsecondary education, according to the U.S. Census American Community Survey 5-year estimates.",
+        "long_description": "The count of residents who have completed any education beyond high school. This raw count complements the percentage measure by capturing the absolute size of the educated workforce in a community, which is relevant for economic development planning and institutional capacity.",
         "long_name": "Estimated Number of People With Any Postsecondary Education",
         "measure_type": "",
-        "short_description": "Number of people who reported any postsecondary education.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher.",
+        "short_description": "Number of residents with any postsecondary education.",
         "short_name": "Postsecondary Education (count)",
         "sources": [
             {

@@ -7,10 +7,11 @@
         "data_type": "integer",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Self-reported median household income in the past 12 months (adjusted for 2019 inflation dollars). Based on the American Community Survey Table B19013 ACS 2015/2019 5-year estimates. The equation $a_{i} = b^\\frac{c}{d}$ was used. Geographies: Block Group (12), Census tract (11), County (5)",
+        "long_description": "Median household income represents the midpoint of all household incomes in a community — half earn more, half earn less. It is one of the most widely used indicators of economic well-being, reflecting local employment opportunities, wage levels, and cost-of-living dynamics. Communities with low median incomes often face compounding challenges in housing affordability, food security, and access to services.",
         "long_name": "Median household income",
         "measure_type": "count",
-        "short_description": "",
+        "provenance": "From ACS 5-year estimates, table B19013 (Median Household Income in the Past 12 Months, in Inflation-Adjusted Dollars). Values are adjusted to the survey year's constant dollars by the Census Bureau.",
+        "short_description": "Median household income in inflation-adjusted dollars.",
         "short_name": "Median household income",
         "sources": [
             {

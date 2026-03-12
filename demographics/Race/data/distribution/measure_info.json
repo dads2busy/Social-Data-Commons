@@ -7,7 +7,7 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Race and ethnicity distribution from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Race categories include White alone, Black/African American alone, American Indian/Alaska Native alone, Asian American/Pacific Islander (combined from Asian alone B02001_005 and Native Hawaiian/Other Pacific Islander B02001_006), Other, and Two or More Races. Hispanic/Latino ethnicity is reported separately from table B03003. Both counts and percentages (relative to total population) are provided at Census tract, county, and block group levels. Values are available on both Census 2020 and Census 2010 geography boundaries. Pre-2020 values on 2020 boundaries have been standardized using area-weighted crosswalks.",
+        "long_description": "Count of Asian American/Pacific Islander residents in a community. Racial and ethnic composition data tracks the Asian American/Pacific Islander population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The Asian American/Pacific Islander population.",
         "measure_type": "",
         "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Asian American/Pacific Islander is a combined category from B02001_005 (Asian alone) and B02001_006 (Native Hawaiian/Other Pacific Islander alone). Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
@@ -35,10 +35,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Asian American/Pacific Islanders population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Count of Asian American/Pacific Islander residents in a community. Racial and ethnic composition data tracks the Asian American/Pacific Islander population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The Asian American/Pacific Islander population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Asian American/Pacific Islander is a combined category from B02001_005 (Asian alone) and B02001_006 (Native Hawaiian/Other Pacific Islander alone). Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "Count of the Asian American/Pacific Islander population on 2010 census boundaries.",
         "short_name": "The Asian American/Pacific Islander population (2010 geographies)",
         "sources": [
             {
@@ -62,9 +63,10 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Asian American/Pacific Islander population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Racial and ethnic composition data tracks the Asian American/Pacific Islander population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The Asian American/Pacific Islander population percent.",
         "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Asian American/Pacific Islander is a combined category from B02001_005 (Asian alone) and B02001_006 (Native Hawaiian/Other Pacific Islander alone). Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
         "short_description": "The Asian American/Pacific Islander population percent.",
         "short_name": "The Asian American/Pacific Islander population percentage (2020 geographies)",
         "sources": [
@@ -89,10 +91,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Asian American/Pacific Islander population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Racial and ethnic composition data tracks the Asian American/Pacific Islander population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The Asian American/Pacific Islander population percent.",
         "measure_type": "",
-        "short_description": "The Asian American/Pacific Islander population percent.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Asian American/Pacific Islander is a combined category from B02001_005 (Asian alone) and B02001_006 (Native Hawaiian/Other Pacific Islander alone). Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "The Asian American/Pacific Islander population percent on 2010 census boundaries.",
         "short_name": "The Asian American/Pacific Islander population percentage (2010 geographies)",
         "sources": [
             {
@@ -116,10 +119,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Black population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Count of Black or African American residents in a community. Racial and ethnic composition data tracks the Black or African American population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The Black population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Black or African American alone is B02001_003. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "Count of the Black or African American population.",
         "short_name": "The Black population (2020 geographies)",
         "sources": [
             {
@@ -143,10 +147,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Black population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Count of Black or African American residents in a community. Racial and ethnic composition data tracks the Black or African American population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The Black population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Black or African American alone is B02001_003. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "Count of the Black or African American population on 2010 census boundaries.",
         "short_name": "The Black population (2010 geographies)",
         "sources": [
             {
@@ -170,10 +175,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Black population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Racial and ethnic composition data tracks the Black or African American population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The Black population percent.",
         "measure_type": "",
-        "short_description": "The Black population percent.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Black or African American alone is B02001_003. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "The Black or African American population percent.",
         "short_name": "Black population percentage (2020 geographies)",
         "sources": [
             {
@@ -197,10 +203,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Black population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Racial and ethnic composition data tracks the Black or African American population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The Black population percent.",
         "measure_type": "",
-        "short_description": "The Black population percent.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Black or African American alone is B02001_003. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "The Black or African American population percent on 2010 census boundaries.",
         "short_name": "Black population percentage (2010 geographies)",
         "sources": [
             {
@@ -224,9 +231,10 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Total count of the population. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Total population from the race/ethnicity table. This count serves as the denominator for calculating racial and ethnic composition percentages and provides the baseline population figure for a community.",
         "long_name": "Total count of the population.",
         "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B02001 (Race). Total population is B02001_001.",
         "short_description": "Total count of the population.",
         "short_name": "Total count of the population (2020 geographies)",
         "sources": [
@@ -251,10 +259,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Total count of the population. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Total population from the race/ethnicity table. This count serves as the denominator for calculating racial and ethnic composition percentages and provides the baseline population figure for a community. Values on original 2010 census tract boundaries.",
         "long_name": "Total count of the population.",
         "measure_type": "",
-        "short_description": "Total count of the population.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B02001 (Race). Total population is B02001_001. Values reported on original 2010 census tract boundaries.",
+        "short_description": "Total count of the population on 2010 census boundaries.",
         "short_name": "Total count of the population (2010 geographies)",
         "sources": [
             {
@@ -278,10 +287,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Hispanic/Latino population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Count of Hispanic or Latino residents in a community. Racial and ethnic composition data tracks the Hispanic or Latino population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The Hispanic/Latino population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B03003 (Hispanic or Latino Origin). Hispanic or Latino is B03003_003. Percentages are calculated relative to total population (B03003_001 for ethnicity).",
+        "short_description": "Count of the Hispanic/Latino population.",
         "short_name": "The Hispanic/Latino population (2020 geographies)",
         "sources": [
             {
@@ -305,10 +315,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Hispanic/Latino population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Count of Hispanic or Latino residents in a community. Racial and ethnic composition data tracks the Hispanic or Latino population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The Hispanic/Latino population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B03003 (Hispanic or Latino Origin). Hispanic or Latino is B03003_003. Percentages are calculated relative to total population (B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "Count of the Hispanic/Latino population on 2010 census boundaries.",
         "short_name": "The Hispanic/Latino population (2010 geographies)",
         "sources": [
             {
@@ -332,9 +343,10 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Hispanic/Latino population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Racial and ethnic composition data tracks the Hispanic or Latino population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The Hispanic/Latino population percent.",
         "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B03003 (Hispanic or Latino Origin). Hispanic or Latino is B03003_003. Percentages are calculated relative to total population (B03003_001 for ethnicity).",
         "short_description": "The Hispanic/Latino population percent.",
         "short_name": "The Hispanic/Latino population percentage (2020 geographies)",
         "sources": [
@@ -359,10 +371,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Hispanic/Latino population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Racial and ethnic composition data tracks the Hispanic or Latino population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The Hispanic/Latino population percent.",
         "measure_type": "",
-        "short_description": "The Hispanic/Latino population percent.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B03003 (Hispanic or Latino Origin). Hispanic or Latino is B03003_003. Percentages are calculated relative to total population (B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "The Hispanic/Latino population percent on 2010 census boundaries.",
         "short_name": "The Hispanic/Latino population percentage (2010 geographies)",
         "sources": [
             {
@@ -386,10 +399,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Native population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Count of American Indian or Alaska Native residents in a community. Racial and ethnic composition data tracks the American Indian or Alaska Native population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The Native population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). American Indian or Alaska Native alone is B02001_004. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "Count of the American Indian or Alaska Native population.",
         "short_name": "The Native population (2020 geographies)",
         "sources": [
             {
@@ -413,10 +427,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Native population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Count of American Indian or Alaska Native residents in a community. Racial and ethnic composition data tracks the American Indian or Alaska Native population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The Native population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). American Indian or Alaska Native alone is B02001_004. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "Count of the American Indian or Alaska Native population on 2010 census boundaries.",
         "short_name": "The Native population (2010 geographies)",
         "sources": [
             {
@@ -440,10 +455,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Native population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Racial and ethnic composition data tracks the American Indian or Alaska Native population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The Native population percent.",
         "measure_type": "",
-        "short_description": "The Native population percent.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). American Indian or Alaska Native alone is B02001_004. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "The American Indian or Alaska Native population percent.",
         "short_name": "The Native population percentage (2020 geographies)",
         "sources": [
             {
@@ -467,10 +483,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Native population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Racial and ethnic composition data tracks the American Indian or Alaska Native population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The Native population percent.",
         "measure_type": "",
-        "short_description": "The Native population percent.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). American Indian or Alaska Native alone is B02001_004. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "The American Indian or Alaska Native population percent on 2010 census boundaries.",
         "short_name": "The Native population percentage (2010 geographies)",
         "sources": [
             {
@@ -494,10 +511,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Other Racial population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Count of residents identifying as Some Other Race alone in a community. Racial and ethnic composition data tracks the Some Other Race population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The Other racial population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Some Other Race alone is B02001_007. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "Count of the Other racial population.",
         "short_name": "The Other racial population (2020 geographies)",
         "sources": [
             {
@@ -521,10 +539,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Other Racial population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Count of residents identifying as Some Other Race alone in a community. Racial and ethnic composition data tracks the Some Other Race population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The Other racial population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Some Other Race alone is B02001_007. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "Count of the Other racial population on 2010 census boundaries.",
         "short_name": "The Other racial population (2010 geographies)",
         "sources": [
             {
@@ -548,9 +567,10 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Other racial population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Racial and ethnic composition data tracks the Some Other Race population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The Other racial population percent.",
         "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Some Other Race alone is B02001_007. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
         "short_description": "The Other racial population percent.",
         "short_name": "The Other racial population percentage (2020 geographies)",
         "sources": [
@@ -575,10 +595,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Other racial population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Racial and ethnic composition data tracks the Some Other Race population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The Other racial population percent.",
         "measure_type": "",
-        "short_description": "The Other racial population percent.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Some Other Race alone is B02001_007. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "The Other racial population percent on 2010 census boundaries.",
         "short_name": "The Other racial population percentage (2010 geographies)",
         "sources": [
             {
@@ -602,10 +623,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Two or More Races population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Count of residents identifying as Two or More Races in a community. Racial and ethnic composition data tracks the Two or More Races population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The two or more races population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Two or More Races is B02001_008. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "Count of the Two or More Races population.",
         "short_name": "The two or more races population (2020 geographies)",
         "sources": [
             {
@@ -629,10 +651,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Two or More Races population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Count of residents identifying as Two or More Races in a community. Racial and ethnic composition data tracks the Two or More Races population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The two or more races population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Two or More Races is B02001_008. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "Count of the Two or More Races population on 2010 census boundaries.",
         "short_name": "The two or more races population (2010 geographies)",
         "sources": [
             {
@@ -656,10 +679,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The two or more races population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Racial and ethnic composition data tracks the Two or More Races population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The two or more races population percent.",
         "measure_type": "",
-        "short_description": "The two or more races population percent.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Two or More Races is B02001_008. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "The Two or More Races population percent.",
         "short_name": "The two or more races population percentage (2020 geographies)",
         "sources": [
             {
@@ -683,10 +707,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The two or more races population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Racial and ethnic composition data tracks the Two or More Races population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The two or more races population percent.",
         "measure_type": "",
-        "short_description": "The two or more races population percent.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Two or More Races is B02001_008. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "The Two or More Races population percent on 2010 census boundaries.",
         "short_name": "The two or more races population percentage (2010 geographies)",
         "sources": [
             {
@@ -710,10 +735,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The White population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Count of White residents in a community. Racial and ethnic composition data tracks the White population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The White population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). White alone is B02001_002. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "Count of the White population.",
         "short_name": "The White population (2020 geographies)",
         "sources": [
             {
@@ -737,10 +763,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The White population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Count of White residents in a community. Racial and ethnic composition data tracks the White population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The White population.",
         "measure_type": "",
-        "short_description": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). White alone is B02001_002. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "Count of the White population on 2010 census boundaries.",
         "short_name": "The White population (2010 geographies)",
         "sources": [
             {
@@ -764,9 +791,10 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The White population percent. 5-year ACS estimates in provided census geolevels. Values are provided on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "long_description": "Racial and ethnic composition data tracks the White population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
         "long_name": "The White population percent.",
         "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). White alone is B02001_002. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
         "short_description": "The White population percent.",
         "short_name": "The White population percentage (2020 geographies)",
         "sources": [
@@ -791,10 +819,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The White population percent. 5-year ACS estimates in provided census geolevels. Values are provided on original Census 2010 geography boundaries for years prior to 2020.",
+        "long_description": "Racial and ethnic composition data tracks the White population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups. Values on original 2010 census tract boundaries.",
         "long_name": "The White population percent.",
         "measure_type": "",
-        "short_description": "The White population percent.",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). White alone is B02001_002. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity). Values reported on original 2010 census tract boundaries.",
+        "short_description": "The White population percent on 2010 census boundaries.",
         "short_name": "The White population percentage (2010 geographies)",
         "sources": [
             {

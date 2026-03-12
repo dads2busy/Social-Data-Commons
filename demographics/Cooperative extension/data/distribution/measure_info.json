@@ -7,11 +7,11 @@
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Cooperative extension demographic measures combining ACS data with County Health Rankings data for Virginia. Percent male is from ACS table S0101 (Age and Sex). Children raised by grandparents from ACS table B10001 (Grandchildren Living with a Grandparent Householder), calculated as a percentage of total population (B01001_001). Disconnected youth (ages 16-24 neither in school nor working) and voter turnout (percent of citizens 18+ who voted in the previous presidential election) are from County Health Rankings, which compiles data from the ACS and other federal sources.",
+        "long_description": "The male population share provides a basic demographic profile of a community's gender composition. Gender ratios can reflect differences in migration patterns, incarceration rates, military presence, and age-specific mortality. Cooperative extension programs use this alongside other demographic indicators to tailor outreach and programming.",
         "long_name": "Male population (percent)",
         "measure_type": "percentage",
-        "provenance": "Percent male from ACS table S0101 (Age and Sex). Children raised by grandparents from ACS table B10001. Disconnected youth and voter turnout from County Health Rankings, which compiles ACS and other federal data sources.",
-        "short_description": "The percent of males in population.",
+        "provenance": "From ACS 5-year estimates, table S0101 (Age and Sex). Percent male is directly reported in the subject table.",
+        "short_description": "Percentage of the population that is male.",
         "short_name": "Male population",
         "sources": [
             {
@@ -35,10 +35,11 @@
         "data_type": "numeric",
         "equity_category": "State",
         "layer": "",
-        "long_description": "The percent of children in the population being raised by their grandparents. Based on American Community Survey 2010/2021 5-year estimates.",
+        "long_description": "The share of children living in grandparent-headed households reflects family disruption driven by parental incarceration, substance abuse, military deployment, or other crises. Communities with high rates of grandparent caregiving may need additional support services including kinship care resources, legal assistance for guardianship, and financial aid for older caregivers on fixed incomes.",
         "long_name": "Children Raised by Grandparents (percent)",
         "measure_type": "percent",
-        "short_description": "The percent of children in the population being raised by their grandparents. Based on American Community Survey 2010/2021 5-year estimates.",
+        "provenance": "Computed from ACS 5-year estimates: table B10001 (Grandchildren Living with a Grandparent Householder) as a percentage of total population from table B01001 (Sex by Age).",
+        "short_description": "Percentage of children being raised by their grandparents.",
         "short_name": "Children Raised by Grandparents",
         "sources": [
             {
@@ -62,10 +63,11 @@
         "data_type": "integer",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Disconnected youth, also referred to as opportunity youth, are teenagers and young adults between the ages of 16 and 24 who are neither in school nor working. Youth who are actively looking for work are considered disconnected. (NOTE: Counties that are missing data do not collected reliable data on subject)",
+        "long_description": "Disconnected youth — teenagers and young adults between 16 and 24 who are neither enrolled in school nor employed — face elevated risks of long-term poverty, criminal justice involvement, and poor health outcomes. High rates of youth disconnection signal gaps in educational engagement, workforce development, and youth services. Counties with missing data do not have reliably collected data on this population.",
         "long_name": "Disconnected youth (percent)",
         "measure_type": "percentage",
-        "short_description": "Percent of youth or young adults who are neither working nor in school.",
+        "provenance": "From County Health Rankings & Roadmaps, which compiles this indicator from ACS data. Disconnected youth includes those ages 16-24 who are not enrolled in school and not working, including those actively seeking employment.",
+        "short_description": "Percentage of youth ages 16-24 who are neither in school nor working.",
         "short_name": "Disconnected youth",
         "sources": [
             {
@@ -89,10 +91,11 @@
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Percentage of citizen population aged 18 or older who voted in the previous U.S. presidential election.",
+        "long_description": "Voter turnout measures civic engagement and community participation in democratic processes. Low turnout rates may reflect voter suppression, disengagement, or structural barriers to participation such as limited polling locations or restrictive registration requirements. Turnout varies substantially by geography, demographics, and election type.",
         "long_name": "Voter turnout (percent)",
         "measure_type": "percentage",
-        "short_description": "Percentage of citizens aged 18 or older who voted in the U.S. presidential election.",
+        "provenance": "From County Health Rankings & Roadmaps, which reports voter turnout as the percentage of the citizen voting-age population (18+) who voted in the most recent U.S. presidential election.",
+        "short_description": "Percentage of citizens aged 18 or older who voted in the most recent presidential election.",
         "short_name": "Voter turnout",
         "sources": [
             {

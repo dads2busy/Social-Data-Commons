@@ -7,7 +7,7 @@
         "data_type": "integer",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Summed capacity (seats) of all day care providers within the region, according to the Virginia Department of Social Services.",
+        "long_description": "Total licensed day care capacity measures the number of available childcare seats in a region. Insufficient childcare capacity constrains parents' ability to work, disproportionately affecting women's labor force participation and low-income families who cannot afford informal care alternatives. This raw capacity count complements per-capita ratios by showing the absolute supply of childcare available.",
         "long_name": "Day Care Capacity (seats)",
         "measure_type": "count",
         "short_description": "Total number of licensed day care seats in the region, from VDSS facility records.",

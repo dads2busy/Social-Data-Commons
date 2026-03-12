@@ -7,12 +7,12 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Geographic mobility rates from ACS 5-year estimates, table B07204 (Geographical Mobility in the Past Year by Educational Attainment). The percentage of the population that moved is calculated as B07204_003 (moved from different house) divided by B07204_001 (total population 1 year and over). Both counts and percentages are provided at Census tract and county levels. Block group estimates are produced via areal interpolation from tract-level data. Values are available on both Census 2020 and Census 2010 geography boundaries.",
-        "long_name": "Population moving in the past year.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B07204 (Geographical Mobility in the Past Year by Educational Attainment). Percent moving calculated as B07204_003 (moved) divided by B07204_001 (total population 1 year and over). Block group estimates via areal interpolation from tract-level data.",
-        "short_description": "Percentage of the population that moved in the past year.",
-        "short_name": "Population moving in the past year.",
+        "long_description": "Geographic mobility measures the share of a community's population that moved from a different residence in the past year. High mobility rates — sometimes called population churning — can indicate neighborhood instability, weaker social networks, and reduced community investment. As a component of the VDH Health Opportunity Index Built Environment profile, this measure helps characterize the stability and cohesion of a community.",
+        "long_name": "Population Moving in the Past Year",
+        "measure_type": "percent",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B07204 (Geographical Mobility in the Past Year by Educational Attainment). Percent moving calculated as B07204_003 (moved from different house) divided by B07204_001 (total population 1 year and over). Block group estimates produced via areal interpolation from tract-level data.",
+        "short_description": "Percentage of the population that moved from a different residence in the past year.",
+        "short_name": "Population Moving",
         "sources": [
             {
                 "name": "American Community Survey",
@@ -22,9 +22,9 @@
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "statement": "Population moving is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
+        "statement": "The percentage of the population that moved in the past year is {value} in {region_name}.",
+        "type": "percent",
+        "unit": "percent",
         "variants": ""
     },
     "perc_moving_geo10": {
@@ -35,11 +35,12 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Population moving in the past year from the current residence. 5-year ACS estimates in provided census geolevels (Census 2010 boundaries).",
-        "long_name": "Population moving in the past year.",
-        "measure_type": "",
-        "short_description": "Population moving in the past year from the current residence.",
-        "short_name": "Population moving in the past year.",
+        "long_description": "Geographic mobility measures the share of a community's population that moved from a different residence in the past year. High mobility rates — sometimes called population churning — can indicate neighborhood instability, weaker social networks, and reduced community investment. As a component of the VDH Health Opportunity Index Built Environment profile, this measure helps characterize the stability and cohesion of a community. Values on original 2010 census tract boundaries.",
+        "long_name": "Population Moving in the Past Year (2010 geographies)",
+        "measure_type": "percent",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B07204 (Geographical Mobility in the Past Year by Educational Attainment). Percent moving calculated as B07204_003 (moved from different house) divided by B07204_001 (total population 1 year and over). Block group estimates produced via areal interpolation from tract-level data. Values reported on original 2010 census tract boundaries.",
+        "short_description": "Percentage of the population that moved in the past year, on 2010 census boundaries.",
+        "short_name": "Population Moving (2010 geo)",
         "sources": [
             {
                 "name": "American Community Survey",
@@ -49,9 +50,9 @@
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "statement": "Population moving is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
+        "statement": "The percentage of the population that moved in the past year is {value} in {region_name}.",
+        "type": "percent",
+        "unit": "percent",
         "variants": ""
     },
     "perc_moving_direct_geo20": {
@@ -62,11 +63,12 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Population moving in the past year from the current residence. Estimated via areal interpolation from tract-level ACS data to target geographies (Census 2020 boundaries).",
-        "long_name": "Population moving in the past year (estimated).",
-        "measure_type": "",
-        "short_description": "Population moving in the past year (estimated via areal interpolation).",
-        "short_name": "Population moving in the past year (est.).",
+        "long_description": "Geographic mobility measures the share of a community's population that moved from a different residence in the past year, estimated at block group level via areal interpolation from tract-level ACS data. This variant provides finer geographic resolution than the tract-level measure for use in composite indices and spatial analysis.",
+        "long_name": "Population Moving in the Past Year (block group estimate)",
+        "measure_type": "percent",
+        "provenance": "Estimated via areal interpolation from tract-level ACS 5-year estimates (table B07204). Tract-level percent moving is redistributed to block groups using area-weighted crosswalks from Census TIGER/Line shapefiles.",
+        "short_description": "Population moving in the past year, estimated at block group level via areal interpolation.",
+        "short_name": "Population Moving (BG est.)",
         "sources": [
             {
                 "name": "American Community Survey",
@@ -76,9 +78,9 @@
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "statement": "Estimated population moving is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
+        "statement": "The estimated percentage of the population that moved in the past year is {value} in {region_name}.",
+        "type": "percent",
+        "unit": "percent",
         "variants": ""
     },
     "perc_moving_direct_geo10": {
@@ -89,11 +91,12 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Population moving in the past year from the current residence. Estimated via areal interpolation from tract-level ACS data to target geographies (Census 2010 boundaries).",
-        "long_name": "Population moving in the past year (estimated).",
-        "measure_type": "",
-        "short_description": "Population moving in the past year (estimated via areal interpolation).",
-        "short_name": "Population moving in the past year (est.).",
+        "long_description": "Geographic mobility measures the share of a community's population that moved from a different residence in the past year, estimated at block group level via areal interpolation from tract-level ACS data. This variant provides finer geographic resolution than the tract-level measure for use in composite indices and spatial analysis. Values on original 2010 census tract boundaries.",
+        "long_name": "Population Moving in the Past Year (block group estimate, 2010 geographies)",
+        "measure_type": "percent",
+        "provenance": "Estimated via areal interpolation from tract-level ACS 5-year estimates (table B07204). Tract-level percent moving is redistributed to block groups using area-weighted crosswalks from Census TIGER/Line shapefiles. Values reported on original 2010 census tract boundaries.",
+        "short_description": "Population moving in the past year, estimated at block group level, on 2010 census boundaries.",
+        "short_name": "Population Moving (BG est., 2010 geo)",
         "sources": [
             {
                 "name": "American Community Survey",
@@ -103,9 +106,9 @@
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "statement": "Estimated population moving is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
+        "statement": "The estimated percentage of the population that moved in the past year is {value} in {region_name}.",
+        "type": "percent",
+        "unit": "percent",
         "variants": ""
     },
     "geo_mobility_total_count_geo20": {
@@ -116,11 +119,12 @@
         "data_type": "integer",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Total population for geographic mobility denominator. 5-year ACS estimates (Census 2020 boundaries).",
-        "long_name": "Geographic mobility total population.",
-        "measure_type": "",
-        "short_description": "Total population (geographic mobility denominator).",
-        "short_name": "Total pop (mobility).",
+        "long_description": "Total population aged 1 year and over, used as the denominator for geographic mobility percentage calculations. This count represents the universe of people who could have moved in the past year.",
+        "long_name": "Geographic Mobility Total Population",
+        "measure_type": "count",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B07204 variable B07204_001 (total population 1 year and over for whom geographical mobility status is determined).",
+        "short_description": "Total population (denominator for geographic mobility percentage).",
+        "short_name": "Total Pop (mobility)",
         "sources": [
             {
                 "name": "American Community Survey",
@@ -130,8 +134,8 @@
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "statement": "Geographic mobility total population is {value} in {region_name}.",
-        "type": "",
+        "statement": "The geographic mobility total population is {value} in {region_name}.",
+        "type": "count",
         "unit": "individual",
         "variants": ""
     },
@@ -143,11 +147,12 @@
         "data_type": "integer",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Total population for geographic mobility denominator. 5-year ACS estimates (Census 2010 boundaries).",
-        "long_name": "Geographic mobility total population.",
-        "measure_type": "",
-        "short_description": "Total population (geographic mobility denominator).",
-        "short_name": "Total pop (mobility).",
+        "long_description": "Total population aged 1 year and over, used as the denominator for geographic mobility percentage calculations. This count represents the universe of people who could have moved in the past year. Values on original 2010 census tract boundaries.",
+        "long_name": "Geographic Mobility Total Population (2010 geographies)",
+        "measure_type": "count",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B07204 variable B07204_001 (total population 1 year and over for whom geographical mobility status is determined). Values reported on original 2010 census tract boundaries.",
+        "short_description": "Total population (denominator for geographic mobility percentage), on 2010 census boundaries.",
+        "short_name": "Total Pop (mobility, 2010 geo)",
         "sources": [
             {
                 "name": "American Community Survey",
@@ -157,8 +162,8 @@
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "statement": "Geographic mobility total population is {value} in {region_name}.",
-        "type": "",
+        "statement": "The geographic mobility total population is {value} in {region_name}.",
+        "type": "count",
         "unit": "individual",
         "variants": ""
     },
@@ -170,11 +175,12 @@
         "data_type": "integer",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Population that moved in the past year. 5-year ACS estimates (Census 2020 boundaries).",
-        "long_name": "Population that moved.",
-        "measure_type": "",
-        "short_description": "Population that moved in the past year.",
-        "short_name": "Pop moved.",
+        "long_description": "Count of people who moved from a different residence in the past year. Used as the numerator for geographic mobility percentage calculations.",
+        "long_name": "Population That Moved",
+        "measure_type": "count",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B07204 variable B07204_003 (moved from different house in the United States or from abroad).",
+        "short_description": "Count of people who moved in the past year.",
+        "short_name": "Pop Moved",
         "sources": [
             {
                 "name": "American Community Survey",
@@ -184,8 +190,8 @@
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "statement": "Population that moved is {value} in {region_name}.",
-        "type": "",
+        "statement": "The population that moved in the past year is {value} in {region_name}.",
+        "type": "count",
         "unit": "individual",
         "variants": ""
     },
@@ -197,11 +203,12 @@
         "data_type": "integer",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Population that moved in the past year. 5-year ACS estimates (Census 2010 boundaries).",
-        "long_name": "Population that moved.",
-        "measure_type": "",
-        "short_description": "Population that moved in the past year.",
-        "short_name": "Pop moved.",
+        "long_description": "Count of people who moved from a different residence in the past year. Used as the numerator for geographic mobility percentage calculations. Values on original 2010 census tract boundaries.",
+        "long_name": "Population That Moved (2010 geographies)",
+        "measure_type": "count",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B07204 variable B07204_003 (moved from different house in the United States or from abroad). Values reported on original 2010 census tract boundaries.",
+        "short_description": "Count of people who moved in the past year, on 2010 census boundaries.",
+        "short_name": "Pop Moved (2010 geo)",
         "sources": [
             {
                 "name": "American Community Survey",
@@ -211,8 +218,8 @@
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
         ],
-        "statement": "Population that moved is {value} in {region_name}.",
-        "type": "",
+        "statement": "The population that moved in the past year is {value} in {region_name}.",
+        "type": "count",
         "unit": "individual",
         "variants": ""
     }

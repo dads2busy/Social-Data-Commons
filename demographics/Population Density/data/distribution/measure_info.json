@@ -7,12 +7,12 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Population density calculated as persons per square mile, combining ACS 5-year total population estimates (table B01001) with Census TIGER/Line geographic data for land area. Density is computed as total population (B01001_001) divided by land area in square miles at Census tract, county, and block group levels. Values are available on both Census 2020 and Census 2010 geography boundaries.",
-        "long_name": "Population density calculated as persons per square mile.",
+        "long_description": "Population density measures the number of people living per square mile in a geographic area. Dense communities typically have greater access to services, transit, and employment, but may also face challenges such as housing pressure, environmental exposure, and infrastructure strain. As a component of the VDH Health Opportunity Index Built Environment profile, density helps characterize whether a community is urban, suburban, or rural. Values on original 2010 census tract boundaries.",
+        "long_name": "Population Density (2010 geographies)",
         "measure_type": "",
-        "provenance": "Population from ACS 5-year estimates, table B01001 (total population). Land area from Census TIGER/Line shapefiles. Density calculated as total population divided by land area in square miles.",
-        "short_description": "Population density calculated as persons per square mile (2010 Census geography).",
-        "short_name": "Population Density, Persons per Square Mile (2010 geo)",
+        "provenance": "Population from ACS 5-year estimates, table B01001 (total population). Land area from Census TIGER/Line shapefiles (ALAND field, converted from square meters to square miles). Density calculated as total population divided by land area in square miles at tract, county, and block group levels. Values reported on original 2010 census tract boundaries.",
+        "short_description": "Persons per square mile, on 2010 census boundaries.",
+        "short_name": "Population Density (2010 geo)",
         "sources": [
             {
                 "name": "American Community Survey",
@@ -22,8 +22,8 @@
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             },
             {
-                "name": "Census Tiger Files",
-                "location": "tracts and counties, via the API",
+                "name": "Census TIGER/Line Shapefiles",
+                "location": "Tracts and counties",
                 "location_url": "https://www2.census.gov/geo/tiger/",
                 "date_accessed": 2024,
                 "url": "https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html"
@@ -31,7 +31,7 @@
         ],
         "statement": "Population density is {value} persons per sq mi in {region_name}.",
         "type": "",
-        "unit": "individual",
+        "unit": "persons per square mile",
         "variants": ""
     },
     "population_density_geo20": {
@@ -42,11 +42,12 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Population density calculated as persons per square mile.",
-        "long_name": "Population density calculated as persons per square mile.",
+        "long_description": "Population density measures the number of people living per square mile in a geographic area. Dense communities typically have greater access to services, transit, and employment, but may also face challenges such as housing pressure, environmental exposure, and infrastructure strain. As a component of the VDH Health Opportunity Index Built Environment profile, density helps characterize whether a community is urban, suburban, or rural.",
+        "long_name": "Population Density",
         "measure_type": "",
-        "short_description": "Population density calculated as persons per square mile.",
-        "short_name": "Population Density, Persons per Square Mile",
+        "provenance": "Population from ACS 5-year estimates, table B01001 (total population). Land area from Census TIGER/Line shapefiles (ALAND field, converted from square meters to square miles). Density calculated as total population divided by land area in square miles at tract, county, and block group levels.",
+        "short_description": "Persons per square mile from ACS population and TIGER/Line land area.",
+        "short_name": "Population Density",
         "sources": [
             {
                 "name": "American Community Survey",
@@ -56,8 +57,8 @@
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             },
             {
-                "name": "Census Tiger Files",
-                "location": "tracts and counties, via the API",
+                "name": "Census TIGER/Line Shapefiles",
+                "location": "Tracts and counties",
                 "location_url": "https://www2.census.gov/geo/tiger/",
                 "date_accessed": 2024,
                 "url": "https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html"
@@ -65,7 +66,7 @@
         ],
         "statement": "Population density is {value} persons per sq mi in {region_name}.",
         "type": "",
-        "unit": "individual",
+        "unit": "persons per square mile",
         "variants": ""
     }
 }

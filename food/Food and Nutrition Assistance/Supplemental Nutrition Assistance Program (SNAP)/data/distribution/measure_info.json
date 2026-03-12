@@ -7,10 +7,11 @@
         "data_type": "numeric",
         "equity_category": "",
         "layer": "",
-        "long_description": "The number of households in which at least one member of the household received benefits from the Food Stamp Program or the Supplemental Nutrition Assistance Program (SNAP) in the past 12 months. This does not include households in which at least one member received benefits from WIC, the School Lunch Program, or assistance from food banks and not also from the Food Stamp Program or SNAP in the past 12 months. Geographies: Block group (12), Census tract (11), County (5), Health Districts (51_hd)",
+        "long_description": "The count of households receiving Supplemental Nutrition Assistance Program (SNAP) benefits reflects the scale of food assistance need in a community. SNAP participation correlates with poverty, food insecurity, and limited access to affordable nutrition. High counts help size the demand for complementary food assistance programs such as food banks and community meal sites.",
         "long_name": "Count of Households That Received Supplemental Nutrition Assistance Program (SNAP)",
         "measure_type": "count",
-        "short_description": "",
+        "provenance": "From ACS 5-year estimates, table B22010 (Receipt of Food Stamps/SNAP in the Past 12 Months by Household Type). Count of households where at least one member received SNAP benefits. Does not include households receiving only WIC, school lunch, or food bank assistance.",
+        "short_description": "Number of households with at least one member receiving SNAP benefits in the past 12 months.",
         "short_name": "Count of Households That Received SNAP",
         "sources": [
             {
@@ -34,10 +35,11 @@
         "data_type": "numeric",
         "equity_category": "",
         "layer": "",
-        "long_description": "The percentage of households in which at least one member of the household received benefits from the Food Stamp Program or the Supplemental Nutrition Assistance Program (SNAP) in the past 12 months. This does not include households in which at least one member received benefits from WIC, the School Lunch Program, or assistance from food banks and not also from the Food Stamp Program or SNAP in the past 12 months. Geographies: Block group (12), Census tract (11), County (5), Health Districts (51_hd)",
+        "long_description": "The SNAP participation rate measures the share of households relying on federal food assistance. Higher rates indicate communities with greater economic hardship and food insecurity. This measure is useful for targeting nutrition assistance programs and identifying areas where food access interventions may have the greatest impact.",
         "long_name": "Percentage of Households That Received Supplemental Nutrition Assistance Program (SNAP)",
         "measure_type": "percent",
-        "short_description": "",
+        "provenance": "From ACS 5-year estimates, table B22010 (Receipt of Food Stamps/SNAP in the Past 12 Months by Household Type). Percentage of total households where at least one member received SNAP benefits.",
+        "short_description": "Percentage of households with at least one member receiving SNAP benefits in the past 12 months.",
         "short_name": "Percentage of Households That Received SNAP",
         "sources": [
             {
@@ -61,10 +63,11 @@
         "data_type": "numeric",
         "equity_category": "",
         "layer": "",
-        "long_description": "Number of households",
+        "long_description": "The total household count provides the denominator for SNAP participation rate calculations and reflects the overall size of the residential population at the household level. This baseline count is essential for contextualizing food assistance metrics.",
         "long_name": "Count of Households",
         "measure_type": "count",
-        "short_description": "Number of households",
+        "provenance": "From ACS 5-year estimates, table B22010 (Receipt of Food Stamps/SNAP in the Past 12 Months by Household Type). Total household universe for the SNAP participation question.",
+        "short_description": "Total number of households in the geographic area.",
         "short_name": "Count of Households",
         "sources": [
             {

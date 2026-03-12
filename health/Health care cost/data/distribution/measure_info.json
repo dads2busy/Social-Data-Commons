@@ -7,17 +7,18 @@
         "data_type": "numeric",
         "equity_category": "Affordability",
         "layer": "",
-        "long_description": "Monthly premium for the second-lowest-cost Silver plan (SLCSP) available on the ACA marketplace, computed for a 30-year-old non-tobacco-using individual. The SLCSP is the benchmark plan used to determine premium tax credit eligibility. Computed from CMS Public Use Files (PUFs) for both Federally-Facilitated Marketplace (FFM) and State-Based Exchange (SBE) states. County-level premiums are derived by matching plans to rating areas via CMS Service Area PUFs.",
-        "long_name": "Second-lowest-cost Silver plan monthly premium",
+        "long_description": "The second-lowest-cost Silver plan (SLCSP) premium is the ACA marketplace benchmark that determines how much financial help a person receives when purchasing health insurance. Counties with higher SLCSP premiums have more expensive insurance markets, which can affect both the affordability of coverage and the out-of-pocket costs for residents who do not qualify for subsidies. Premiums are computed for a standardized 30-year-old non-tobacco-using individual to enable consistent geographic comparison.",
+        "long_name": "Second-Lowest-Cost Silver Plan Monthly Premium",
         "measure_type": "currency",
-        "short_description": "Monthly premium ($) for the second-lowest-cost Silver plan on the ACA marketplace for a 30-year-old non-tobacco-using individual",
-        "short_name": "Marketplace Silver premium (SLCSP)",
+        "provenance": "Computed from CMS Public Use Files (PUFs) for ACA marketplace plans. Plan-level premium data from the Individual Market Medical PUF is filtered to Silver-tier plans and matched to counties via CMS Service Area PUFs. For each county and plan year, the second-lowest premium among available Silver plans is identified. Both Federally-Facilitated Marketplace (FFM) and State-Based Exchange (SBE) states are included. Premiums are for a 30-year-old non-tobacco-using individual using the base rate from the plan PUF.",
+        "short_description": "Monthly premium for the ACA marketplace benchmark Silver plan (SLCSP) for a 30-year-old.",
+        "short_name": "Marketplace Silver Premium (SLCSP)",
         "sources": [
             {
                 "date_accessed": 2026,
-                "location": "",
-                "location_url": "",
-                "name": "Centers for Medicare & Medicaid Services (CMS) Public Use Files",
+                "location": "Individual Market Medical PUF and Service Area PUF",
+                "location_url": "https://www.cms.gov/marketplace/resources/data/public-use-files",
+                "name": "Centers for Medicare & Medicaid Services (CMS)",
                 "url": "https://www.cms.gov/marketplace/resources/data/public-use-files"
             }
         ],
@@ -34,17 +35,18 @@
         "data_type": "numeric",
         "equity_category": "Affordability",
         "layer": "",
-        "long_description": "Monthly premium for the lowest-cost Bronze plan (LCBP) available on the ACA marketplace, computed for a 30-year-old non-tobacco-using individual. Bronze plans have lower premiums but higher cost-sharing than Silver plans. Computed from CMS Public Use Files (PUFs) for both Federally-Facilitated Marketplace (FFM) and State-Based Exchange (SBE) states. County-level premiums are derived by matching plans to rating areas via CMS Service Area PUFs.",
-        "long_name": "Lowest-cost Bronze plan monthly premium",
+        "long_description": "The lowest-cost Bronze plan (LCBP) premium represents the cheapest ACA marketplace option with minimal monthly cost but higher out-of-pocket expenses when care is used. Counties where even the cheapest Bronze plan is expensive indicate insurance markets with limited competition or high underlying medical costs. This measure complements the Silver benchmark (SLCSP) by showing the floor of available coverage costs.",
+        "long_name": "Lowest-Cost Bronze Plan Monthly Premium",
         "measure_type": "currency",
-        "short_description": "Monthly premium ($) for the lowest-cost Bronze plan on the ACA marketplace for a 30-year-old non-tobacco-using individual",
-        "short_name": "Marketplace Bronze premium (LCBP)",
+        "provenance": "Computed from CMS Public Use Files (PUFs) for ACA marketplace plans. Plan-level premium data from the Individual Market Medical PUF is filtered to Bronze-tier plans and matched to counties via CMS Service Area PUFs. For each county and plan year, the lowest premium among available Bronze plans is identified. Both FFM and SBE states are included. Premiums are for a 30-year-old non-tobacco-using individual.",
+        "short_description": "Monthly premium for the cheapest Bronze plan on the ACA marketplace for a 30-year-old.",
+        "short_name": "Marketplace Bronze Premium (LCBP)",
         "sources": [
             {
                 "date_accessed": 2026,
-                "location": "",
-                "location_url": "",
-                "name": "Centers for Medicare & Medicaid Services (CMS) Public Use Files",
+                "location": "Individual Market Medical PUF and Service Area PUF",
+                "location_url": "https://www.cms.gov/marketplace/resources/data/public-use-files",
+                "name": "Centers for Medicare & Medicaid Services (CMS)",
                 "url": "https://www.cms.gov/marketplace/resources/data/public-use-files"
             }
         ],
