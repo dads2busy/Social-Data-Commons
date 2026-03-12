@@ -1,0 +1,63 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-03-12T21:00:31+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method",
+    "built_environment_profile",
+    "economic_opportunity_profile",
+    "social_impact_profile",
+    "consumer_opportunity_profile",
+    "health_opportunity_index",
+    "hoi_quintile"
+  ],
+  "measures": [
+    "air_quality_indicator",
+    "built_environment_profile_geo20",
+    "consumer_opportunity_profile_geo20",
+    "economic_opportunity_profile_geo20",
+    "food_accessibility_indicator",
+    "health_opportunity_index_geo20",
+    "social_impact_profile_geo20"
+  ],
+  "years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 149119,
+  "files": {
+    "va_hdcttr_vdh_2017_2023_health_opportunity_index.csv.xz": {
+      "sha256": "7fb8d38b845b8d79972f45f372107c21090b021fb59286aadd938a00708ebfed",
+      "size_bytes": 326332
+    },
+    "va_tr_computed_2017_2023_health_opportunity_index.csv.xz": {
+      "sha256": "758c18b4ee4b63953bd24c19024a83fd4d99a396cd26d5354afe78cdc767e7a0",
+      "size_bytes": 269160
+    },
+    "va_tr_vdh_2017_2020_air_quality_index.csv.xz": {
+      "sha256": "de1abe9f31a94009aadeffaad20a0dd98ecde6469a3ce494ad229eb565b1ed88",
+      "size_bytes": 10468
+    },
+    "va_tr_vdh_2017_2020_food_accessibility_index.csv.xz": {
+      "sha256": "e2a7355b65d8d880864c062602144cdbfa71870ce22b6d863f154a1265f8305c",
+      "size_bytes": 11476
+    },
+    "va_tract_hoi_profiles_wide.csv.xz": {
+      "sha256": "111d53bddb86a94137faa4934271072da376156afd27fa51d242e80b80a16fce",
+      "size_bytes": 524948
+    }
+  }
+}

@@ -1,0 +1,44 @@
+name: food_access_indicator
+version: "2.0.0"
+title: "Food Accessibility Indicator (HOI)"
+description: >-
+  Share of tract population that are low-income individuals beyond 1 mile
+  from a supermarket, following the USDA Economic Research Service Food
+  Access Research Atlas (FARA) methodology. Census tracts are identified
+  as low-income using the Department of Treasury's New Markets Tax Credit
+  (NMTC) program criteria. If the 1-mile metric is unavailable, the
+  half-mile metric is used as a fallback. Data for intermediate years
+  (2016-2018) is linearly interpolated between the 2015 and 2019 FARA
+  editions. Years 2020-2023 are linearly extrapolated using the 2015-2019
+  trend. All tract IDs are standardized to 2020 Census boundaries.
+
+temporal_label: "USDA FARA 2015 & 2019 editions; interpolated 2016-2018; extrapolated 2020-2023"
+
+sources:
+  fara_2015:
+    type: data
+    description: "USDA Food Access Research Atlas 2015 edition"
+    url: "https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data/"
+    file: "FoodAccessResearchAtlasData2015.xlsx"
+    years: [2015]
+  fara_2019:
+    type: data
+    description: "USDA Food Access Research Atlas 2019 edition"
+    url: "https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data/"
+    file: "FoodAccessResearchAtlasData2019.xlsx"
+    years: [2019]
+  tract_crosswalk:
+    type: data
+    description: "Census 2010-to-2020 tract relationship file"
+    url: "https://www2.census.gov/geo/docs/maps-data/data/rel2020/tract/tab20_tract20_tract10_natl.txt"
+    file: "crosswalk_tracts.csv"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: true
+  geographies: [tract, county, health_district]
+  years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+  state: VA

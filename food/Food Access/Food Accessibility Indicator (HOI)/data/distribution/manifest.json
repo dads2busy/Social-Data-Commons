@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-03-12T19:12:46+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method"
+  ],
+  "measures": [
+    "food_access_percentage_geo20"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "regions": [
+    "21",
+    "37",
+    "51",
+    "54"
+  ],
+  "row_count": 33498,
+  "files": {
+    "va_hdcttr_usda_2015_2019_food_access.csv.xz": {
+      "sha256": "f6c4249ecbfc3f06f973921d80ace29385d15496e0980d3ecb4fda00a23ff62c",
+      "size_bytes": 103020
+    },
+    "va_hdcttr_usda_2015_2023_food_access.csv.xz": {
+      "sha256": "a93be889da4a52f2799be1a55cebeda532c0d8b08749ce654c0debfc81799c27",
+      "size_bytes": 196840
+    }
+  }
+}

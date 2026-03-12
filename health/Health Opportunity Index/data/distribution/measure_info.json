@@ -1,0 +1,161 @@
+{
+    "economic_opportunity_profile_geo20": {
+        "aggregation_method": "population-weighted mean",
+        "categories": "",
+        "category": "Health Opportunity Index",
+        "citations": [
+            "vdh_hoi"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Economic",
+        "layer": "",
+        "long_description": "PCA-derived profile score measuring economic opportunities within a community. Computed from three min-max normalized indicators: employment access index, income inequality (Gini, inverted), and labor force participation rate. Weights are from the VDH HOI PCA weight matrix. Higher values indicate greater economic opportunity.",
+        "long_name": "Economic Opportunity Profile",
+        "measure_type": "index",
+        "short_description": "PCA-weighted composite of employment access, income inequality, and labor force participation.",
+        "short_name": "Economic Opportunity",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "Health Opportunity Index methodology",
+                "location_url": "https://apps.vdh.virginia.gov/omhhe/hoi/",
+                "name": "Virginia Department of Health",
+                "url": "https://www.vdh.virginia.gov/"
+            }
+        ],
+        "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. Each indicator is min-max normalized per year, inverted where higher raw values indicate worse outcomes, then combined via VDH's PCA weight matrix to produce profile scores.",
+        "statement": "The economic opportunity profile score in {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "consumer_opportunity_profile_geo20": {
+        "aggregation_method": "population-weighted mean",
+        "categories": "",
+        "category": "Health Opportunity Index",
+        "citations": [
+            "vdh_hoi"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Economic",
+        "layer": "",
+        "long_description": "PCA-derived profile score measuring consumer resources available within a community. Computed from four min-max normalized indicators: H+T affordability index (inverted), average years of schooling, food access percentage (inverted), and material deprivation index (inverted). Weights are from the VDH HOI PCA weight matrix. Higher values indicate greater consumer opportunity.",
+        "long_name": "Consumer Opportunity Profile",
+        "measure_type": "index",
+        "short_description": "PCA-weighted composite of affordability, education, food access, and material deprivation.",
+        "short_name": "Consumer Opportunity",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "Health Opportunity Index methodology",
+                "location_url": "https://apps.vdh.virginia.gov/omhhe/hoi/",
+                "name": "Virginia Department of Health",
+                "url": "https://www.vdh.virginia.gov/"
+            }
+        ],
+        "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. Each indicator is min-max normalized per year, inverted where higher raw values indicate worse outcomes, then combined via VDH's PCA weight matrix to produce profile scores.",
+        "statement": "The consumer opportunity profile score in {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "social_impact_profile_geo20": {
+        "aggregation_method": "population-weighted mean",
+        "categories": "",
+        "category": "Health Opportunity Index",
+        "citations": [
+            "vdh_hoi"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Social",
+        "layer": "",
+        "long_description": "PCA-derived profile score measuring disparate access to health services and social cohesion within a community. Computed from three min-max normalized indicators: access to care index, segregation index (inverted), and incarceration rate (inverted). Weights are from the VDH HOI PCA weight matrix. Higher values indicate lower social impact burden.",
+        "long_name": "Social Impact Profile",
+        "measure_type": "index",
+        "short_description": "PCA-weighted composite of access to care, segregation, and incarceration.",
+        "short_name": "Social Impact",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "Health Opportunity Index methodology",
+                "location_url": "https://apps.vdh.virginia.gov/omhhe/hoi/",
+                "name": "Virginia Department of Health",
+                "url": "https://www.vdh.virginia.gov/"
+            }
+        ],
+        "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. Each indicator is min-max normalized per year, inverted where higher raw values indicate worse outcomes, then combined via VDH's PCA weight matrix to produce profile scores.",
+        "statement": "The social impact profile score in {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "built_environment_profile_geo20": {
+        "aggregation_method": "population-weighted mean",
+        "categories": "",
+        "category": "Health Opportunity Index",
+        "citations": [
+            "vdh_hoi"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Environment",
+        "layer": "",
+        "long_description": "PCA-derived profile score measuring the natural, built, and social environment of a community. Computed from four min-max normalized indicators: environmental hazard index (inverted), population churning rate (inverted), population density, and walkability index. Weights are from the VDH HOI PCA weight matrix. Higher values indicate a more favorable built environment.",
+        "long_name": "Built Environment Profile",
+        "measure_type": "index",
+        "short_description": "PCA-weighted composite of environmental hazard, population churning, density, and walkability.",
+        "short_name": "Built Environment",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "Health Opportunity Index methodology",
+                "location_url": "https://apps.vdh.virginia.gov/omhhe/hoi/",
+                "name": "Virginia Department of Health",
+                "url": "https://www.vdh.virginia.gov/"
+            }
+        ],
+        "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. Each indicator is min-max normalized per year, inverted where higher raw values indicate worse outcomes, then combined via VDH's PCA weight matrix to produce profile scores.",
+        "statement": "The built environment profile score in {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "health_opportunity_index_geo20": {
+        "aggregation_method": "population-weighted mean",
+        "categories": "",
+        "category": "Health Opportunity Index",
+        "citations": [
+            "vdh_hoi"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Health",
+        "layer": "",
+        "long_description": "The Health Opportunity Index (HOI) is a composite index measuring social determinants of health at the census tract level. It combines 14 indicators into 4 profiles (Economic Opportunity, Consumer Opportunity, Social Impact, Built Environment) via PCA, then aggregates profiles into a single index using VDH's weight matrix. Higher values indicate greater health opportunity. Quintile labels (Very Low to Very High Opportunity) are assigned per year based on the distribution of tract-level scores.",
+        "long_name": "Health Opportunity Index",
+        "measure_type": "index",
+        "short_description": "Composite index of social determinants of health from 14 indicators across 4 profiles.",
+        "short_name": "Health Opportunity Index",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "Health Opportunity Index methodology",
+                "location_url": "https://apps.vdh.virginia.gov/omhhe/hoi/",
+                "name": "Virginia Department of Health",
+                "url": "https://www.vdh.virginia.gov/"
+            }
+        ],
+        "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. The 14 indicators are min-max normalized per year, inverted where higher raw values indicate worse outcomes, multiplied by VDH's 14x4 PCA weight matrix to produce 4 profile scores, then combined with composite weights to produce the final HOI score. Methodology documented in docs/composite_indices_methodology.md.",
+        "statement": "The Health Opportunity Index in {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "_references": {
+        "vdh_hoi": {
+            "id": "vdh_hoi",
+            "author": "Virginia Department of Health, Office of Minority Health and Health Equity",
+            "year": 2022,
+            "title": "Health Opportunity Index",
+            "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
+        }
+    }
+}

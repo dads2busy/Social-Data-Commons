@@ -21,7 +21,7 @@ from sdc_core.geo import infer_region_types, standardize_all
 from sdc_core.naming import REGION_TYPE_ABBR, build_file_name
 
 # Standard SDC column order
-STANDARD_COLUMNS = ["geoid", "year", "measure", "value", "moe", "region_type"]
+STANDARD_COLUMNS = ["geoid", "year", "measure", "value", "moe", "region_type", "data_method"]
 
 
 def read_data(

@@ -1,0 +1,36 @@
+{
+  "version": "1.0.1",
+  "generated": "2026-03-12T20:12:51+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method"
+  ],
+  "measures": [
+    "incarceration_rate_per_100000_geo20"
+  ],
+  "years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 18928,
+  "files": {
+    "va_hdcttr_vera_ppi_2016_2023_incarceration_rate.csv.xz": {
+      "sha256": "93d1f0e76d5f16ed576aaf75e46565123d1d73c34d7c421ec71c18f1c182f0c6",
+      "size_bytes": 88692
+    }
+  }
+}

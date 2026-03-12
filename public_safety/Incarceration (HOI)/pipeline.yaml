@@ -1,0 +1,37 @@
+name: incarceration_rate
+version: "1.0.1"
+title: "Incarceration Rate (HOI)"
+description: >-
+  Incarceration rate per 100,000 population derived from two sources:
+  (1) Vera Institute county-level jail population trends (2016-2023),
+  providing temporal variation; (2) Prison Policy Initiative 2020
+  census-tract-level incarceration counts, providing within-county
+  spatial distribution. County jail population is allocated to tracts
+  using fixed 2020 PPI tract shares. Rates use PPI total population
+  as denominator. Virginia uses regional jails; Vera attributes
+  populations back to counties. Prison data unavailable at county
+  level for VA, so only jail population is used.
+
+temporal_label: "Vera Institute 2016-2023; PPI 2020 tract allocation"
+
+sources:
+  vera:
+    type: data
+    description: "Vera Institute of Justice Incarceration Trends county dataset"
+    url: "https://github.com/vera-institute/incarceration-trends"
+    years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+  ppi:
+    type: data
+    description: "Prison Policy Initiative 2020 VA tract-level incarceration"
+    url: "https://www.prisonpolicy.org/origin/va/2020/tract.html"
+    years: [2020]
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: true
+  geographies: [tract, county, health_district]
+  years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+  state: VA

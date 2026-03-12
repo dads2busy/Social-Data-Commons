@@ -1,0 +1,33 @@
+name: environmental_hazard_index
+version: "1.0.0"
+title: "Environmental Hazard Index (HOI)"
+description: >-
+  Environmental Hazard Index derived from EPA EJScreen data via PCA on 12
+  environmental indicator variables (CANCER, RESP, PTRAF, PWDIS, PNPL, PRMP,
+  PTSDF, OZONE, PM25, PRE1960PCT, DSLPM, UST). For each year, block-group
+  level data is standardized and a single principal component is extracted.
+  The resulting PC1 z-scores represent relative environmental hazard burden.
+  Block groups are aggregated to tracts via simple mean.
+  2016-2020 backfill UST from 2021 (first year available).
+  2024 uses 10 variables (CANCER and RESP removed from EJScreen by EPA).
+  Data sourced from Internet Archive (Wayback Machine) after EPA removed
+  EJScreen data from public servers in 2025.
+
+temporal_label: "EPA EJScreen 2016-2024 (archived from gaftp.epa.gov)"
+
+sources:
+  ejscreen:
+    type: data
+    description: "EPA Environmental Justice Screen block-group data"
+    url: "https://web.archive.org/web/2024/https://gaftp.epa.gov/EJSCREEN/"
+    years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: false
+  geographies: [tract, county, health_district]
+  years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+  state: VA

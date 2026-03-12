@@ -1,0 +1,37 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-12T19:55:24+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method"
+  ],
+  "measures": [
+    "environmental_hazard_index_geo20"
+  ],
+  "years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 19548,
+  "files": {
+    "va_hdcttr_epa_2016_2024_environmental_hazard.csv.xz": {
+      "sha256": "9d640326170494e2c36caac67dd1917c4d49476df6f8a3b6e0a7e4f6becc6413",
+      "size_bytes": 189784
+    }
+  }
+}
