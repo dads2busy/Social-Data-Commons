@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-13T14:19:21+00:00",
+  "version": "2.0.0",
+  "generated": "2026-03-13T14:30:51+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "average_years_schooling_geo10",
@@ -26,13 +27,23 @@
     2024
   ],
   "regions": [
+    "11",
+    "24",
     "51"
   ],
-  "row_count": 32810,
+  "row_count": 122478,
   "files": {
+    "ncr_cttr_census_acs_2015_2024_years_of_schooling.csv.xz": {
+      "sha256": "06d554a7e2e7ec7533b0cf72765da9e6ba925a65342358dc2c939004a7f9c2a1",
+      "size_bytes": 222316
+    },
+    "va_cttr_census_acs_2015_2024_years_of_schooling.csv.xz": {
+      "sha256": "851174990a4e423679776f10de260f5df72e6817cc58dd2bb23ecebc56273930",
+      "size_bytes": 128648
+    },
     "va_hdcttr_census_acs_2015_2024_years_of_schooling.csv.xz": {
-      "sha256": "75f82769714ead12dc268d0ac2895ad5a15c414511324c4735b30f6bf1e136cc",
-      "size_bytes": 111580
+      "sha256": "c769609fb91bde79d66da2eaa5c8f411388d0deeaf08d1ea69647da99577db8b",
+      "size_bytes": 111816
     }
   }
 }

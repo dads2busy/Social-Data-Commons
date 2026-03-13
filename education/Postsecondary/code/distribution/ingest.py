@@ -25,6 +25,7 @@ from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 DIST_DIR = TOPIC_DIR / "data/distribution"
+WORKING_DIR = TOPIC_DIR / "data/working"
 
 log = get_logger("postsecondary.ingest")
 
@@ -130,12 +131,14 @@ def run_source(
 
 def run() -> list[RunResult]:
     config = load_config()
-    out_dir = DIST_DIR
-    out_dir.mkdir(parents=True, exist_ok=True)
+    DIST_DIR.mkdir(parents=True, exist_ok=True)
+    WORKING_DIR.mkdir(parents=True, exist_ok=True)
     client = CensusClient()
 
     results = []
     for name, src in config["sources"].items():
+        # VA ingest output is intermediate (prepare adds HD aggregation)
+        out_dir = WORKING_DIR if name == "va" else DIST_DIR
         results.append(run_source(name, src, out_dir, client))
     return results
 

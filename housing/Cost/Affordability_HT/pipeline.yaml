@@ -1,5 +1,6 @@
 name: affordability_index
-version: "3.0.0"
+version: "3.1.2"
+zenodo_deposit_id: 19008543
 title: "Housing + Transportation Affordability"
 description: >-
   Housing and transportation affordability index independently reproduced

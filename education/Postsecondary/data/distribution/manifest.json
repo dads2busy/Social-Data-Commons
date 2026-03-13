@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-13T14:19:11+00:00",
+  "version": "2.0.0",
+  "generated": "2026-03-13T14:31:48+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "acs_postsecondary_count_geo10",
@@ -33,13 +34,23 @@
     2024
   ],
   "regions": [
+    "11",
+    "24",
     "51"
   ],
-  "row_count": 109938,
+  "row_count": 407204,
   "files": {
+    "ncr_cttr_census_acs_2010_2024_postsecondary.csv.xz": {
+      "sha256": "cec93e2432a05d102e47b18044407c94aaefd64ae7e7721b11a331edfd737148",
+      "size_bytes": 1443776
+    },
+    "va_cttr_census_acs_2010_2024_postsecondary.csv.xz": {
+      "sha256": "49060d2b0248cf18bd4fd02cbb7949a9de1c6cdd97ecfcdf5701ed96a3a10504",
+      "size_bytes": 825868
+    },
     "va_hdcttr_census_acs_2010_2024_postsecondary.csv.xz": {
-      "sha256": "4d5f69ad09f44d145cea19677430d21b60260b9759e168fe3e796be329b02ccf",
-      "size_bytes": 766908
+      "sha256": "eac0166cb1f79426b3235731e76f3f9b1316c9db802b01524510cada917958e8",
+      "size_bytes": 763944
     }
   }
 }

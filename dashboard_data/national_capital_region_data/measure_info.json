@@ -1,338 +1,133 @@
 {
-    "total_cropland_acres": {
-        "aggregation_method": "sum",
-        "categories": "",
-        "category": "Agriculture Industry",
-        "citations": "",
+    "affordability_index_geo20": {
+        "category": "Housing",
         "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total cropland acreage measures the extent of land actively cultivated for crop production in a county. This indicator reflects the scale of crop agriculture and land use patterns, serving as a baseline for understanding agricultural capacity and food production potential in the region.",
-        "long_name": "Total acerage used in agriculture for cropland",
-        "measure_type": "count",
-        "short_description": "Total acreage of land under crop cultivation in the county.",
-        "short_name": "Total acreage for cropland",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Department of Agriculture National Agriculture Statistics Service",
-                "url": "https://www.nass.usda.gov/"
-            }
-        ],
-        "statement": "The total acreage for cropland to {features.name} is {value}.",
-        "type": "count",
-        "unit": "acres",
-        "variants": "",
-        "provenance": "USDA Census of Agriculture, county-level data for Virginia. Includes farm operations, acreage, sales, and production metrics."
-    },
-    "total_irrigatedCropland_acre": {
-        "aggregation_method": "sum",
-        "categories": "",
-        "category": "Agriculture Industry",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Irrigated cropland acreage represents the portion of cropland equipped with irrigation infrastructure. Access to irrigation is a key determinant of crop yield stability and the ability to grow higher-value crops. Counties with more irrigated land tend to have more resilient agricultural output during drought conditions.",
-        "long_name": "Total acreage used in agriculture for irrigated cropland",
-        "measure_type": "count",
-        "short_description": "Acreage of cropland equipped with irrigation systems.",
-        "short_name": "Total acreage for irrigated cropland",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Department of Agriculture National Agriculture Statistics Service",
-                "url": "https://www.nass.usda.gov/"
-            }
-        ],
-        "statement": "The total acreage for irrigated cropland to {features.name} is {value}.",
-        "type": "count",
-        "unit": "acres",
-        "variants": "",
-        "provenance": "USDA Census of Agriculture, county-level data for Virginia. Includes farm operations, acreage, sales, and production metrics."
-    },
-    "total_cropland_operations": {
-        "aggregation_method": "sum",
-        "categories": "",
-        "category": "Agriculture Industry",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The number of farm operations with cropland indicates how many distinct farming enterprises are engaged in crop production. This measure helps distinguish between counties where cropland is concentrated in a few large operations versus those with many smaller farms, which has implications for rural employment and economic diversity.",
-        "long_name": "Number of operations with land devoted to cropland growing",
-        "measure_type": "count",
-        "short_description": "Count of farm operations engaged in crop production.",
-        "short_name": "Number of operations with cropland",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Department of Agriculture National Agriculture Statistics Service",
-                "url": "https://www.nass.usda.gov/"
-            }
-        ],
-        "statement": "The total number of operations with cropland to {features.name} is {value}.",
-        "type": "count",
-        "unit": "operations",
-        "variants": "",
-        "provenance": "USDA Census of Agriculture, county-level data for Virginia. Includes farm operations, acreage, sales, and production metrics."
-    },
-    "total_animal_expense": {
-        "aggregation_method": "sum",
-        "categories": "",
-        "category": "Agriculture Industry",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total animal industry expenses capture the cost of livestock production including feed, veterinary care, and related inputs. High animal expenses often indicate a strong livestock sector and can reflect both the scale of animal agriculture and the intensity of production practices in a county.",
-        "long_name": "County's total expenses towards animal industry",
-        "measure_type": "count",
-        "short_description": "Aggregate expenditures on livestock production and animal care.",
-        "short_name": "Total expenses towards animal industry",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Department of Agriculture National Agriculture Statistics Service",
-                "url": "https://www.nass.usda.gov/"
-            }
-        ],
-        "statement": "The overall expenses towards animals to {features.name} is {value}.",
-        "type": "dollar",
-        "unit": "dollar",
-        "variants": "",
-        "provenance": "USDA Census of Agriculture, county-level data for Virginia. Includes farm operations, acreage, sales, and production metrics."
-    },
-    "fruit_treeNut_total_sales": {
-        "aggregation_method": "sum",
-        "categories": "",
-        "category": "Agriculture Industry",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total sales of fruits and tree nuts measures the market value of orchard and specialty crop production. This indicator highlights counties with significant horticultural activity, which tends to be labor-intensive and supports seasonal employment. Strong fruit and tree nut sales can indicate diversified agricultural economies.",
-        "long_name": "Total sales of fruits and treenuts within a given county",
-        "measure_type": "count",
-        "short_description": "Market value of fruit and tree nut products sold.",
-        "short_name": "Total sales of fruits and treenuts",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Department of Agriculture National Agriculture Statistics Service",
-                "url": "https://www.nass.usda.gov/"
-            }
-        ],
-        "statement": "Total sales of fruit and tree nuts to {features.name} is {value}.",
-        "type": "dollar",
-        "unit": "dollar",
-        "variants": "",
-        "provenance": "USDA Census of Agriculture, county-level data for Virginia. Includes farm operations, acreage, sales, and production metrics."
-    },
-    "total_animalProducts_sales": {
-        "aggregation_method": "sum",
-        "categories": "",
-        "category": "Agriculture Industry",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total animal product sales capture the market value of livestock and related products including meat, dairy, eggs, and wool. This measure reflects the economic contribution of the animal agriculture sector and is an important indicator of rural economic output and food supply capacity.",
-        "long_name": "Total sales of animal products within a given county",
-        "measure_type": "count",
-        "short_description": "Market value of all livestock and animal products sold.",
-        "short_name": "Total sales of animal products",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Department of Agriculture National Agriculture Statistics Service",
-                "url": "https://www.nass.usda.gov/"
-            }
-        ],
-        "statement": "Total sales of animal products to {features.name} is {value}.",
-        "type": "dollar",
-        "unit": "dollar",
-        "variants": "",
-        "provenance": "USDA Census of Agriculture, county-level data for Virginia. Includes farm operations, acreage, sales, and production metrics."
-    },
-    "total_commodity_sales": {
-        "aggregation_method": "sum",
-        "categories": "",
-        "category": "Agriculture Industry",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total commodity sales represent the aggregate market value of all agricultural products sold in a county. This comprehensive measure of agricultural output captures the overall economic significance of farming and ranching, enabling comparison of agricultural productivity across counties.",
-        "long_name": "Total sales of commodities within a given county",
-        "measure_type": "count",
-        "short_description": "Aggregate market value of all agricultural products sold.",
-        "short_name": "Total sales of commodities",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Department of Agriculture National Agriculture Statistics Service",
-                "url": "https://www.nass.usda.gov/"
-            }
-        ],
-        "statement": "Total sales of commodities to {features.name} is {value}",
-        "type": "dollar",
-        "unit": "dollar",
-        "variants": "",
-        "provenance": "USDA Census of Agriculture, county-level data for Virginia. Includes farm operations, acreage, sales, and production metrics."
-    },
-    "total_calves_sales": {
-        "aggregation_method": "sum",
-        "categories": "",
-        "category": "Agriculture Industry",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total calf sales measure the market value of cattle calves sold in a county. Calf sales are a key indicator of the beef cattle industry, which is one of Virginia's largest agricultural sectors. This measure reflects both the scale of cow-calf operations and prevailing market conditions for beef.",
-        "long_name": "Total sales of calves within a given county",
-        "measure_type": "count",
-        "short_description": "Market value of cattle calves sold in the county.",
-        "short_name": "Total sales of calves",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Department of Agriculture National Agriculture Statistics Service",
-                "url": "https://www.nass.usda.gov/"
-            }
-        ],
-        "statement": "Total sales of calves to {features.name} is {value}.",
-        "type": "dollar",
-        "unit": "dollar",
-        "variants": "",
-        "provenance": "USDA Census of Agriculture, county-level data for Virginia. Includes farm operations, acreage, sales, and production metrics."
-    },
-    "total_farmValue": {
-        "aggregation_method": "sum",
-        "categories": "",
-        "category": "Agriculture Industry",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total farm asset value represents the combined value of land, buildings, equipment, and other agricultural assets in a county. This measure captures the capital investment in agriculture and serves as an indicator of the long-term economic stake that farming represents in a community.",
-        "long_name": "Total asset value of agriculture within a given county",
-        "measure_type": "count",
-        "short_description": "Combined asset value of all farm land, buildings, and equipment.",
-        "short_name": "Total sales of calves",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Department of Agriculture National Agriculture Statistics Service",
-                "url": "https://www.nass.usda.gov/"
-            }
-        ],
-        "statement": "Total asset value of agriculture to {features.name} is {value}.",
-        "type": "dollar",
-        "unit": "dollar",
-        "variants": "",
-        "provenance": "USDA Census of Agriculture, county-level data for Virginia. Includes farm operations, acreage, sales, and production metrics."
-    },
-    "operation_farmValue": {
+        "unit": "percent",
+        "long_name": "Housing + Transportation Affordability Index",
+        "short_name": "H+T Affordability",
+        "short_description": "Proportion of income spent on combined housing and transportation costs for a Regional Typical Household.",
+        "long_description": "The Housing + Transportation (H+T) Affordability Index measures the true cost of housing by combining housing and transportation costs as a percentage of household income. A neighborhood is considered affordable when H+T costs consume no more than 45% of household income. This measure uses the Regional Typical Household variant, which reflects a household earning the regional median income. Reproduced independently using CNT's published regression coefficients (Tables 3-6) applied to ACS demographic data, LEHD employment data, and GTFS transit schedule data at block group resolution.",
         "aggregation_method": "mean",
-        "categories": "",
-        "category": "Agriculture Industry",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Average asset value per farm operation measures the capital intensity of agriculture by dividing total farm assets by the number of operations. Higher per-operation values may indicate larger, more capital-intensive farming enterprises, while lower values suggest smaller-scale or less mechanized agriculture.",
-        "long_name": "Total asset value per operation within a given county",
-        "measure_type": "count",
-        "short_description": "Average asset value per individual farm operation.",
-        "short_name": "Total sales of calves",
+        "type": "index",
+        "statement": "In {features.name}, combined housing and transportation costs consume {value}% of a typical household's income.",
+        "provenance": "Independently reproduced using the methodology published by the Center for Neighborhood Technology (CNT). Regression coefficients from CNT Tables 3-6 are applied to 17 independent variables computed from American Community Survey data, LEHD Origin-Destination Employment Statistics, TIGER geographic data, and GTFS transit feeds. Block group estimates are aggregated to tract and county via unweighted means.",
         "sources": [
             {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Department of Agriculture National Agriculture Statistics Service",
-                "url": "https://www.nass.usda.gov/"
+                "name": "Center for Neighborhood Technology",
+                "location": "H+T Affordability Index Methods",
+                "location_url": "https://htaindex.cnt.org/about/HTMethods_2016.pdf",
+                "url": "https://htaindex.cnt.org/"
+            },
+            {
+                "name": "American Community Survey 5-Year Estimates",
+                "location": "U.S. Census Bureau",
+                "url": "https://www.census.gov/programs-surveys/acs"
+            },
+            {
+                "name": "LEHD Origin-Destination Employment Statistics",
+                "location": "U.S. Census Bureau",
+                "url": "https://lehd.ces.census.gov/data/"
+            },
+            {
+                "name": "General Transit Feed Specification (GTFS)",
+                "location": "Mobility Database",
+                "url": "https://mobilitydatabase.org/"
             }
-        ],
-        "statement": "Total asset value per operation to {features.name} is {value}.",
-        "type": "dollar",
-        "unit": "dollar",
-        "variants": "",
-        "provenance": "USDA Census of Agriculture, county-level data for Virginia. Includes farm operations, acreage, sales, and production metrics."
+        ]
     },
-    "total_acres": {
-        "aggregation_method": "sum",
-        "categories": "",
-        "category": "Agriculture Industry",
-        "citations": "",
+    "housing_cost_pct_geo20": {
+        "category": "Housing",
         "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total agricultural acreage measures the extent of land devoted to farming and ranching in a county. This foundational indicator reflects how much of a county's land area is in agricultural use, which has implications for land use planning, environmental stewardship, and the economic role of agriculture in the community.",
-        "long_name": "Total acres used for agriculture within a given county",
-        "measure_type": "count",
-        "short_description": "Total land area devoted to agricultural use.",
-        "short_name": "Total acres in agriculture",
+        "unit": "percent",
+        "long_name": "Housing Cost as Percent of Income",
+        "short_name": "Housing Cost %",
+        "short_description": "Housing cost as a percentage of income for a Regional Typical Household.",
+        "long_description": "Annual housing cost (weighted average of median owner costs and gross rent by tenure ratio) as a percentage of the regional median household income. Part of the H+T Affordability Index decomposition.",
+        "aggregation_method": "mean",
+        "type": "percent",
+        "statement": "In {features.name}, housing costs consume {value}% of a typical household's income.",
         "sources": [
             {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Department of Agriculture National Agriculture Statistics Service",
-                "url": "https://www.nass.usda.gov/"
+                "name": "American Community Survey 5-Year Estimates",
+                "location": "U.S. Census Bureau",
+                "url": "https://www.census.gov/programs-surveys/acs"
             }
-        ],
-        "statement": "Total acres used for agriculture in {features.name} is {value}",
-        "type": "count",
-        "unit": "acres",
-        "variants": "",
-        "provenance": "USDA Census of Agriculture, county-level data for Virginia. Includes farm operations, acreage, sales, and production metrics."
+        ]
     },
-    "total_operations": {
-        "aggregation_method": "sum",
-        "categories": "",
-        "category": "Agriculture Industry",
-        "citations": "",
+    "transport_cost_pct_geo20": {
+        "category": "Housing",
         "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total farm operations counts the number of distinct farming enterprises in a county. This measure indicates the breadth of agricultural activity and is important for understanding rural economic structure, the demand for agricultural services, and the distribution of farming across the landscape.",
-        "long_name": "Total operations used for agriculture within a given county",
-        "measure_type": "count",
-        "short_description": "Count of distinct farm operations in the county.",
-        "short_name": "Total operations in agriculture",
+        "unit": "percent",
+        "long_name": "Transportation Cost as Percent of Income",
+        "short_name": "Transport Cost %",
+        "short_description": "Transportation cost as a percentage of income for a Regional Typical Household.",
+        "long_description": "Annual transportation cost (auto ownership + vehicle miles traveled + transit use) as a percentage of the regional median household income. Derived from CNT regression models for auto ownership, VMT, and transit ridership applied to neighborhood-level variables.",
+        "aggregation_method": "mean",
+        "type": "percent",
+        "statement": "In {features.name}, transportation costs consume {value}% of a typical household's income.",
         "sources": [
             {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Department of Agriculture National Agriculture Statistics Service",
-                "url": "https://www.nass.usda.gov/"
+                "name": "Center for Neighborhood Technology",
+                "location": "H+T Affordability Index Methods",
+                "url": "https://htaindex.cnt.org/"
             }
-        ],
-        "statement": "Total operations used for agriculture in {features.name} is {value}",
-        "type": "count",
-        "unit": "operations",
-        "variants": "",
-        "provenance": "USDA Census of Agriculture, county-level data for Virginia. Includes farm operations, acreage, sales, and production metrics."
+        ]
+    },
+    "autos_per_hh_geo20": {
+        "category": "Housing",
+        "data_type": "numeric",
+        "unit": "vehicles",
+        "long_name": "Predicted Autos per Household",
+        "short_name": "Autos/HH",
+        "short_description": "Predicted number of automobiles per household based on neighborhood characteristics.",
+        "long_description": "Predicted automobile ownership per household from the CNT auto ownership regression model. Uses household income, density, transit access, employment gravity, and housing stock characteristics as predictors.",
+        "aggregation_method": "mean",
+        "type": "rate",
+        "statement": "In {features.name}, the predicted auto ownership is {value} vehicles per household.",
+        "sources": [
+            {
+                "name": "Center for Neighborhood Technology",
+                "location": "H+T Affordability Index Methods, Table 4",
+                "url": "https://htaindex.cnt.org/"
+            }
+        ]
+    },
+    "vmt_per_hh_geo20": {
+        "category": "Housing",
+        "data_type": "numeric",
+        "unit": "miles",
+        "long_name": "Predicted Annual Vehicle Miles Traveled per Household",
+        "short_name": "VMT/HH",
+        "short_description": "Predicted annual vehicle miles traveled per household based on neighborhood characteristics.",
+        "long_description": "Predicted annual vehicle miles traveled per household from the CNT VMT regression model. Reflects how neighborhood density, transit access, employment access, and housing patterns influence driving behavior.",
+        "aggregation_method": "mean",
+        "type": "rate",
+        "statement": "In {features.name}, the predicted annual VMT is {value} miles per household.",
+        "sources": [
+            {
+                "name": "Center for Neighborhood Technology",
+                "location": "H+T Affordability Index Methods, Table 5",
+                "url": "https://htaindex.cnt.org/"
+            }
+        ]
+    },
+    "transit_frac_geo20": {
+        "category": "Housing",
+        "data_type": "numeric",
+        "unit": "percent",
+        "long_name": "Predicted Transit Commuter Fraction",
+        "short_name": "Transit Use %",
+        "short_description": "Predicted fraction of commuters using public transit based on neighborhood characteristics.",
+        "long_description": "Predicted fraction of commuters using public transit from the CNT transit use regression model (quasibinomial). Reflects how transit connectivity, employment access, density, and household characteristics influence transit ridership. Block groups with no transit service are assigned 0%.",
+        "aggregation_method": "mean",
+        "type": "percent",
+        "statement": "In {features.name}, an estimated {value}% of commuters use public transit.",
+        "sources": [
+            {
+                "name": "Center for Neighborhood Technology",
+                "location": "H+T Affordability Index Methods, Table 6",
+                "url": "https://htaindex.cnt.org/"
+            }
+        ]
     }
 }

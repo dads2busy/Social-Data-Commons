@@ -1,6 +1,6 @@
 {
-  "version": "3.0.0",
-  "generated": "2026-03-13T14:19:53+00:00",
+  "version": "3.1.2",
+  "generated": "2026-03-13T20:36:46+00:00",
   "schema": [
     "geoid",
     "year",
@@ -12,21 +12,44 @@
   ],
   "measures": [
     "affordability_index_geo10",
-    "affordability_index_geo20"
+    "affordability_index_geo20",
+    "autos_per_hh_geo10",
+    "autos_per_hh_geo20",
+    "housing_cost_pct_geo10",
+    "housing_cost_pct_geo20",
+    "transit_frac_geo10",
+    "transit_frac_geo20",
+    "transport_cost_pct_geo10",
+    "transport_cost_pct_geo20",
+    "vmt_per_hh_geo10",
+    "vmt_per_hh_geo20"
   ],
   "years": [
+    2015,
     2016,
+    2017,
+    2018,
     2019,
-    2022
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
   ],
   "regions": [
+    "11",
+    "24",
     "51"
   ],
-  "row_count": 10749,
+  "row_count": 568200,
   "files": {
-    "va_hdcttr_cnt_2016_2022_affordability_index.csv.xz": {
-      "sha256": "8f54529c04ba224f6f9d130a6a09722d506bd6c782b8749c393dfd6cead27a29",
-      "size_bytes": 37064
+    "ncr_cttrbg_cnt_2015_2024_affordability_index.csv.xz": {
+      "sha256": "a6b9b326c48e19cd9e527d03ac4d95b5fed246b14e0c9ef53cafa276e8bb3b88",
+      "size_bytes": 1460012
+    },
+    "va_hdcttr_cnt_2015_2024_affordability_index.csv.xz": {
+      "sha256": "2fa043d7b277d260713db91998df40efa0aba6aee98394c0df282eb8dc63ceb2",
+      "size_bytes": 886512
     }
   }
 }

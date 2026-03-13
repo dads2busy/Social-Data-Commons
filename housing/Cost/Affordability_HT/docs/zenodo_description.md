@@ -5,7 +5,7 @@ Housing and transportation affordability index independently reproduced using th
 Independently reproduced using the methodology published by the Center for Neighborhood Technology (CNT). Regression coefficients from CNT Tables 3-6 are applied to 17 independent variables computed from American Community Survey data, LEHD Origin-Destination Employment Statistics, TIGER geographic data, and GTFS transit feeds. Block group estimates are aggregated to tract and county via unweighted means.
 
 ## Coverage
-- **Temporal coverage:** 2023–2023 (annual, ACS 5-year + GTFS + LEHD)
+- **Temporal coverage:** 2015–2024 (annual, ACS 5-year + GTFS + LEHD)
 - **Geographic levels:** Block Group, County, Tract
 - **Coverage areas:** National Capital Region (DC metro), Virginia (statewide)
 
@@ -24,8 +24,8 @@ Predicted fraction of commuters using public transit from the CNT transit use re
 
 ## Source Tables
 - [H+T Affordability Index Methods](https://htaindex.cnt.org/about/HTMethods_2016.pdf)
-- U.S. Census Bureau, 2023
-- Mobility Database, 2023 feeds
+- U.S. Census Bureau
+- Mobility Database
 - H+T Affordability Index Methods, Table 4
 - H+T Affordability Index Methods, Table 5
 - H+T Affordability Index Methods, Table 6
@@ -53,17 +53,19 @@ Predicted fraction of commuters using public transit from the CNT transit use re
 - **B25009_010**: Hh Size Renter
 
 ## Measures (6)
-- **affordability_index**: Housing + Transportation Affordability Index (mean, unit: percent)
+*Note on naming conventions: Measures containing `_geo20` are computed using 2020 Census geographic boundaries.*
+
+- **affordability_index_geo20**: Housing + Transportation Affordability Index (mean, unit: percent)
   Proportion of income spent on combined housing and transportation costs for a Regional Typical Household.
-- **housing_cost_pct**: Housing Cost as Percent of Income (mean, unit: percent)
+- **housing_cost_pct_geo20**: Housing Cost as Percent of Income (mean, unit: percent)
   Housing cost as a percentage of income for a Regional Typical Household.
-- **transport_cost_pct**: Transportation Cost as Percent of Income (mean, unit: percent)
+- **transport_cost_pct_geo20**: Transportation Cost as Percent of Income (mean, unit: percent)
   Transportation cost as a percentage of income for a Regional Typical Household.
-- **autos_per_hh**: Predicted Autos per Household (mean, unit: vehicles)
+- **autos_per_hh_geo20**: Predicted Autos per Household (mean, unit: vehicles)
   Predicted number of automobiles per household based on neighborhood characteristics.
-- **vmt_per_hh**: Predicted Annual Vehicle Miles Traveled per Household (mean, unit: miles)
+- **vmt_per_hh_geo20**: Predicted Annual Vehicle Miles Traveled per Household (mean, unit: miles)
   Predicted annual vehicle miles traveled per household based on neighborhood characteristics.
-- **transit_frac**: Predicted Transit Commuter Fraction (mean, unit: percent)
+- **transit_frac_geo20**: Predicted Transit Commuter Fraction (mean, unit: percent)
   Predicted fraction of commuters using public transit based on neighborhood characteristics.
 
 ## Data Sources
@@ -73,4 +75,4 @@ Predicted fraction of commuters using public transit from the CNT transit use re
 - [General Transit Feed Specification (GTFS)](https://mobilitydatabase.org/)
 
 ## File Format
-Data files are provided as xz-compressed CSV (`.csv.xz`) with the following columns: `geoid`, `region_type`, `region_name`, `year`, `measure`, `value`, `moe` (margin of error, where available).
+Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `region_type`, `region_name`, `year`, `measure`, `value`, `moe` (margin of error, where available). Larger files are provided as xz-compressed CSVs (`.csv.xz`).

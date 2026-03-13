@@ -28,6 +28,7 @@ from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 DIST_DIR = TOPIC_DIR / "data/distribution"
+WORKING_DIR = TOPIC_DIR / "data/working"
 WORK_DIR = TOPIC_DIR / "data/working"
 TIGER_CACHE = WORK_DIR / "tiger_cache"
 
@@ -429,7 +430,8 @@ def run() -> RunResult:
                 geographies=["county", "tract"],
             ) + ".csv.xz"
 
-            out_path = write_data(combined, DIST_DIR / filename,
+            WORKING_DIR.mkdir(parents=True, exist_ok=True)
+            out_path = write_data(combined, WORKING_DIR / filename,
                                   census_standardize=True)
             log.info("Wrote %d rows to %s", len(combined), out_path)
 

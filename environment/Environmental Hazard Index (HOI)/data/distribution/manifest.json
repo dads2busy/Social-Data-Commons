@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-12T19:55:24+00:00",
+  "version": "1.1.1",
+  "generated": "2026-03-13T17:28:14+00:00",
   "schema": [
     "geoid",
     "year",
@@ -11,6 +11,7 @@
     "data_method"
   ],
   "measures": [
+    "environmental_hazard_index_geo10",
     "environmental_hazard_index_geo20"
   ],
   "years": [
@@ -25,13 +26,22 @@
     2024
   ],
   "regions": [
-    "51"
+    "11",
+    "21",
+    "24",
+    "37",
+    "51",
+    "54"
   ],
-  "row_count": 19548,
+  "row_count": 53451,
   "files": {
+    "ncr_cttr_epa_2016_2024_environmental_hazard.csv.xz": {
+      "sha256": "6c64d5f5a877f7fe0aecdbd6cb71bc07b7c61fc91254a287d353599f403cfbb2",
+      "size_bytes": 139868
+    },
     "va_hdcttr_epa_2016_2024_environmental_hazard.csv.xz": {
-      "sha256": "9d640326170494e2c36caac67dd1917c4d49476df6f8a3b6e0a7e4f6becc6413",
-      "size_bytes": 189784
+      "sha256": "8599ca628fdc305452ba6382536b99022182707a635331a59dc84a5102ce2fb7",
+      "size_bytes": 253584
     }
   }
 }

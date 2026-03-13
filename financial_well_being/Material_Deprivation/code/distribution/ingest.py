@@ -20,6 +20,7 @@ from sdc_core.result import RunResult
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
+WORKING_DIR = TOPIC_DIR / "data/working"
 
 B_VARIABLES = {
     "adult_pop": "B23025_002",
@@ -175,7 +176,8 @@ def run_source(
             + ".csv.xz"
         )
 
-        out_path = write_data(result, DIST_DIR / filename, census_standardize=False)
+        WORKING_DIR.mkdir(parents=True, exist_ok=True)
+        out_path = write_data(result, WORKING_DIR / filename, standardize=False, census_standardize=False)
         log.info("Wrote %d rows to %s", len(result), out_path)
 
         return RunResult(

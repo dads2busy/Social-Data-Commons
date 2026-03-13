@@ -1,5 +1,5 @@
 name: prenatal_care_adequacy
-version: "1.0.0"
+version: "2.0.0"
 title: "Prenatal Care Adequacy (Kotelchuck Index)"
 description: >-
   Adequacy of prenatal care utilization using the Kotelchuck Index (APNCU).

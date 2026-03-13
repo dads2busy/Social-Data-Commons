@@ -26,6 +26,7 @@ from sdc_core.result import RunResult
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[2]
 DIST_DIR = TOPIC_DIR / "data/distribution"
+WORKING_DIR = TOPIC_DIR / "data/working"
 
 log = get_logger("affordability_ht.ingest_reproduce")
 
@@ -100,8 +101,8 @@ def run_reproduction(
         log.info("=== Step 4/4: Writing output ===")
         output = _format_output(ht_results, variables, year, coverage_area)
 
-        # Write distribution file
-        DIST_DIR.mkdir(parents=True, exist_ok=True)
+        # Write per-year file to working directory (intermediate)
+        WORKING_DIR.mkdir(parents=True, exist_ok=True)
         years = [year]
         states = [{"51": "VA", "24": "MD", "11": "DC"}.get(s, s)
                   for s in target_states]
@@ -113,7 +114,7 @@ def run_reproduction(
             title="affordability_ht_index",
         )
         filename = f"{auto_name}.csv.xz"
-        out_path = write_data(output, DIST_DIR / filename, census_standardize=True)
+        out_path = write_data(output, WORKING_DIR / filename, census_standardize=True)
         log.info("Wrote %d rows to %s", len(output), out_path)
 
         return RunResult(

@@ -20,6 +20,7 @@ from sdc_core.versioning import update_version
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
+WORKING_DIR = TOPIC_DIR / "data/working"
 MEASURE_INFO = DIST_DIR / "measure_info.json"
 
 log = get_logger("years_of_schooling.prepare")
@@ -81,7 +82,7 @@ def run() -> None:
     measure_info = MEASURE_INFO if MEASURE_INFO.exists() else None
 
     # --- VA pipeline ---
-    va_source = find_source(DIST_DIR, "va")
+    va_source = find_source(WORKING_DIR, "va")
     if va_source:
         va_dist = build_va_with_health_districts(va_source, crosswalk_path)
         paths = data_reformat_for_site(

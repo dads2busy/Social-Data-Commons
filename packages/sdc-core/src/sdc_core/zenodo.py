@@ -357,9 +357,10 @@ def _md_data_sources(measure_info: dict | None) -> str:
 
 
 _FILE_FORMAT_MD = (
-    "Data files are provided as xz-compressed CSV (`.csv.xz`) "
+    "Data files are provided as CSVs (`.csv`) "
     "with the following columns: `geoid`, `region_type`, `region_name`, "
-    "`year`, `measure`, `value`, `moe` (margin of error, where available)."
+    "`year`, `measure`, `value`, `moe` (margin of error, where available). "
+    "Larger files are provided as xz-compressed CSVs (`.csv.xz`)."
 )
 
 

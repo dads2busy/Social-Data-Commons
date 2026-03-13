@@ -1,5 +1,5 @@
 name: environmental_hazard_index
-version: "1.0.0"
+version: "1.1.1"
 title: "Environmental Hazard Index (HOI)"
 description: >-
   Environmental Hazard Index derived from EPA EJScreen data via PCA on 12

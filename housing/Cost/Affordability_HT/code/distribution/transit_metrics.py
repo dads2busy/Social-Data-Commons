@@ -10,6 +10,7 @@ Produces the 5 transit-derived independent variables for the CNT H+T model:
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import numpy as np
@@ -35,7 +36,9 @@ from .gtfs_router import (
 log = get_logger("affordability_ht.transit_metrics")
 
 REPO_DIR = Path(__file__).resolve().parents[5]
+TOPIC_DIR = Path(__file__).resolve().parents[2]
 LODES_CACHE = REPO_DIR / "transportation/Walkability/transit_stops/data/lodes_cache"
+TRANSIT_CACHE_DIR = TOPIC_DIR / "data/working/transit_cache"
 
 # Cache GTFS-only transit results keyed by (gtfs_year, target_geoids_key)
 # Values: (tci_df, access_sheds, peak_df, stops, centroids, bg_areas)
@@ -349,6 +352,69 @@ def load_lodes_by_sector(states: list[str], year: int) -> pd.DataFrame:
     return pd.concat(frames).groupby(level=0).sum()
 
 
+def _disk_cache_key_dir(effective_gtfs_year: int, target_key: tuple) -> Path:
+    """Return the disk cache directory for a given GTFS year + target set."""
+    kind, values = target_key
+    label = f"{kind}_{'_'.join(sorted(values))}"
+    return TRANSIT_CACHE_DIR / f"gtfs{effective_gtfs_year}_{label}"
+
+
+def _save_transit_cache(
+    cache_dir: Path,
+    tci_df: pd.DataFrame,
+    access_sheds: dict[str, set[int]],
+    peak_df: pd.DataFrame,
+    stops: list[Stop],
+    bg_areas: pd.Series,
+) -> None:
+    """Persist transit metrics to disk for reuse across runs."""
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    tci_df.to_parquet(cache_dir / "tci.parquet", index=False)
+    peak_df.to_parquet(cache_dir / "peak_trips.parquet", index=False)
+    bg_areas.to_frame("aland_m2").to_parquet(cache_dir / "bg_areas.parquet")
+
+    # Stops → parquet
+    stops_df = pd.DataFrame([
+        {"stop_id": s.stop_id, "lat": s.lat, "lon": s.lon, "feed_id": s.feed_id}
+        for s in stops
+    ])
+    stops_df.to_parquet(cache_dir / "stops.parquet", index=False)
+
+    # Access sheds → JSON (geoid → list of stop indices)
+    sheds_ser = {g: sorted(s) for g, s in access_sheds.items()}
+    with open(cache_dir / "access_sheds.json", "w") as f:
+        json.dump(sheds_ser, f)
+
+    log.info("Saved transit cache to %s", cache_dir)
+
+
+def _load_transit_cache(
+    cache_dir: Path,
+) -> tuple[pd.DataFrame, dict[str, set[int]], pd.DataFrame, list[Stop], pd.Series] | None:
+    """Load transit metrics from disk cache. Returns None if cache is missing."""
+    required = ["tci.parquet", "peak_trips.parquet", "stops.parquet",
+                "access_sheds.json", "bg_areas.parquet"]
+    if not all((cache_dir / f).exists() for f in required):
+        return None
+
+    tci_df = pd.read_parquet(cache_dir / "tci.parquet")
+    peak_df = pd.read_parquet(cache_dir / "peak_trips.parquet")
+    bg_areas = pd.read_parquet(cache_dir / "bg_areas.parquet")["aland_m2"]
+
+    stops_df = pd.read_parquet(cache_dir / "stops.parquet")
+    stops = [
+        Stop(row["stop_id"], row["lat"], row["lon"], row["feed_id"])
+        for _, row in stops_df.iterrows()
+    ]
+
+    with open(cache_dir / "access_sheds.json") as f:
+        sheds_raw = json.load(f)
+    access_sheds = {g: set(indices) for g, indices in sheds_raw.items()}
+
+    log.info("Loaded transit cache from %s", cache_dir)
+    return tci_df, access_sheds, peak_df, stops, bg_areas
+
+
 def compute_all_transit_metrics(
     year: int,
     target_states: list[str] = ("51",),
@@ -400,31 +466,43 @@ def compute_all_transit_metrics(
     cache_key = (effective_gtfs_year, target_key)
 
     if cache_key in _gtfs_cache:
-        log.info("Using cached GTFS transit results for gtfs_year=%d", effective_gtfs_year)
+        log.info("Using in-memory cached GTFS transit results for gtfs_year=%d", effective_gtfs_year)
         tci_df, access_sheds, peak_df, stops, centroids_all, bg_areas = _gtfs_cache[cache_key]
     else:
-        if effective_gtfs_year != year:
-            log.info("Using GTFS year %d as proxy for data year %d", effective_gtfs_year, year)
-        stops, connections, feed_data_list = parse_all_feeds(effective_gtfs_year)
+        # Try disk cache
+        disk_dir = _disk_cache_key_dir(effective_gtfs_year, target_key)
+        disk_result = _load_transit_cache(disk_dir)
 
-        if not stops:
-            log.warning("No transit stops found for year %d", year)
-            return _empty_transit_df(target_centroids)
+        if disk_result is not None:
+            tci_df, access_sheds, peak_df, stops, bg_areas = disk_result
+            centroids_all = centroids
+            _gtfs_cache[cache_key] = (tci_df, access_sheds, peak_df, stops, centroids_all, bg_areas)
+        else:
+            if effective_gtfs_year != year:
+                log.info("Using GTFS year %d as proxy for data year %d", effective_gtfs_year, year)
+            stops, connections, feed_data_list = parse_all_feeds(effective_gtfs_year)
 
-        stop_tree = build_stop_kdtree(stops)
-        bg_areas = _load_bg_areas(buffer_states)
+            if not stops:
+                log.warning("No transit stops found for year %d", year)
+                return _empty_transit_df(target_centroids)
 
-        tci_df = compute_tci(
-            feed_data_list, stops, stop_tree, target_centroids, bg_areas,
-        )
-        access_sheds = compute_access_shed(
-            connections, stops, stop_tree, target_centroids,
-        )
-        peak_df = compute_peak_trips(
-            feed_data_list, stops, stop_tree, target_centroids,
-        )
-        centroids_all = centroids
-        _gtfs_cache[cache_key] = (tci_df, access_sheds, peak_df, stops, centroids_all, bg_areas)
+            stop_tree = build_stop_kdtree(stops)
+            bg_areas = _load_bg_areas(buffer_states)
+
+            tci_df = compute_tci(
+                feed_data_list, stops, stop_tree, target_centroids, bg_areas,
+            )
+            access_sheds = compute_access_shed(
+                connections, stops, stop_tree, target_centroids,
+            )
+            peak_df = compute_peak_trips(
+                feed_data_list, stops, stop_tree, target_centroids,
+            )
+            centroids_all = centroids
+            _gtfs_cache[cache_key] = (tci_df, access_sheds, peak_df, stops, centroids_all, bg_areas)
+
+            # Persist to disk for future runs
+            _save_transit_cache(disk_dir, tci_df, access_sheds, peak_df, stops, bg_areas)
 
     # TAS jobs depends on LODES year — always recompute
     bg_jobs = load_lodes_jobs(buffer_states, year)

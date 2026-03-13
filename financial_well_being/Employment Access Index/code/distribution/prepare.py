@@ -17,6 +17,7 @@ from sdc_core.versioning import update_version
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
+WORKING_DIR = TOPIC_DIR / "data/working"
 MEASURE_INFO = DIST_DIR / "measure_info.json"
 
 log = get_logger("employment_access.prepare")
@@ -75,7 +76,7 @@ def run() -> None:
     crosswalk_path = REPO_DIR / config["crosswalks"]["va_county_to_hd"]
     measure_info = MEASURE_INFO if MEASURE_INFO.exists() else None
 
-    source = find_source(DIST_DIR)
+    source = find_source(WORKING_DIR)
     if not source:
         log.warning("No Employment Access ingest output found in %s", DIST_DIR)
         return

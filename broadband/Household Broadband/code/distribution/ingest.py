@@ -20,6 +20,7 @@ from sdc_core.result import RunResult
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
+WORKING_DIR = TOPIC_DIR / "data/working"
 
 log = get_logger("household_broadband.ingest")
 
@@ -72,7 +73,8 @@ def run_source(name: str, src: dict, config: dict, client: CensusClient) -> RunR
             title="household_broadband_raw",
         )
         filename = f"{auto_name}.csv.xz"
-        out_path = write_data(result, DIST_DIR / filename, census_standardize=False)
+        WORKING_DIR.mkdir(parents=True, exist_ok=True)
+        out_path = write_data(result, WORKING_DIR / filename, standardize=False)
         log.info("Wrote %d rows to %s", len(result), out_path)
 
         return RunResult(

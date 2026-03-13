@@ -17,6 +17,7 @@ from sdc_core.versioning import update_version
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
+WORKING_DIR = TOPIC_DIR / "data/working"
 MEASURE_INFO = DIST_DIR / "measure_info.json"
 
 RAW_COUNT_COLS = ["total_hh", "hh_without_internet", "hh_with_broadband", "hh_with_cable_fiber_dsl"]
@@ -87,7 +88,7 @@ def run() -> None:
     measure_info = MEASURE_INFO if MEASURE_INFO.exists() else None
 
     # --- VA pipeline ---
-    va_source = find_source(DIST_DIR, "va")
+    va_source = find_source(WORKING_DIR, "va")
     if va_source:
         log.info("Reading VA raw counts: %s", va_source)
         va_raw = read_data(va_source)
@@ -134,7 +135,7 @@ def run() -> None:
         log.warning("No VA household broadband raw source file found in %s", DIST_DIR)
 
     # --- NCR pipeline (no HD aggregation needed) ---
-    ncr_source = find_source(DIST_DIR, "ncr")
+    ncr_source = find_source(WORKING_DIR, "ncr")
     if ncr_source:
         log.info("Reading NCR raw counts: %s", ncr_source)
         ncr_raw = read_data(ncr_source)

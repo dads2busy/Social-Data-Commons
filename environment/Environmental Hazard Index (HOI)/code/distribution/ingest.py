@@ -1,13 +1,13 @@
-"""Ingest EPA EJScreen data and compute Environmental Hazard Index for Virginia.
+"""Ingest EPA EJScreen data and compute Environmental Hazard Index.
 
 Replaces: meta/all/data/sdc.environment/environmental_justice/code/distribution/
           ingest_EJSCREEN.R, prepare_ehi_bg.R, prepare_ehi_tract.R
 
 Steps:
 1. Read EJScreen block-group CSVs (2016-2024) from data/original/
-2. Filter to Virginia block groups (FIPS 51, 12-digit GEOID)
+2. Filter to target block groups by state/county FIPS
 3. Extract 12 environmental variables (backfill UST from 2021 for 2016-2020)
-4. Run PCA (1 component, oblimin rotation) per year on the 12 variables
+4. Run PCA (1 component) per year on the filtered variables
 5. Standardize PC1 scores to z-scores = environmental_hazard_index
 6. Aggregate block groups to tracts via population-weighted mean
 7. Write tract-level output to data/distribution/
@@ -69,11 +69,18 @@ EJSCREEN_FILES = {
     2024: ("EJSCREEN_2024.csv.zip", "EJSCREEN_2024_BG_with_AS_CNMI_GU_VI.csv"),
 }
 
+# NCR county FIPS (5-digit) for filtering
+NCR_COUNTY_FIPS = {
+    "51059", "51600", "51610", "51107", "51013", "51510", "51683", "51685", "51153",
+    "24021", "24031", "24033", "24017",
+    "11001",
+}
+
 log = get_logger("env_hazard.ingest")
 
 
-def read_ejscreen(year: int) -> pd.DataFrame:
-    """Read EJScreen CSV for a given year, filter to Virginia block groups."""
+def _read_ejscreen_raw(year: int) -> pd.DataFrame:
+    """Read the full EJScreen CSV for a given year (all US block groups)."""
     filename, inner_name = EJSCREEN_FILES[year]
     path = ORIG_DIR / filename
 
@@ -97,13 +104,24 @@ def read_ejscreen(year: int) -> pd.DataFrame:
 
     # Strip any remaining BOM from column names
     df.columns = [c.lstrip("\ufeff").strip() for c in df.columns]
-
-    # Filter to Virginia block groups (FIPS 51, 12-digit GEOID)
     df["ID"] = df["ID"].astype(str).str.strip()
-    va = df[df["ID"].str.startswith("51") & (df["ID"].str.len() == 12)].copy()
-    log.info("  VA block groups: %d (of %d total)", len(va), len(df))
 
-    return va
+    return df
+
+
+def filter_ejscreen(df: pd.DataFrame, state_fips: set[str] | None = None,
+                     county_fips: set[str] | None = None) -> pd.DataFrame:
+    """Filter EJScreen data to block groups matching state or county FIPS."""
+    # Only keep 12-digit block group GEOIDs
+    mask = df["ID"].str.len() == 12
+
+    if county_fips:
+        mask = mask & df["ID"].str[:5].isin(county_fips)
+    elif state_fips:
+        mask = mask & df["ID"].str[:2].isin(state_fips)
+
+    result = df[mask].copy()
+    return result
 
 
 def extract_pca_vars(df: pd.DataFrame, year: int, ust_backfill: pd.Series | None = None) -> pd.DataFrame:
@@ -206,15 +224,18 @@ def aggregate_bg_to_tract(
     return tracts
 
 
-def load_bg_populations(year: int) -> pd.DataFrame | None:
+def load_bg_populations(year: int, coverage: str = "va") -> pd.DataFrame | None:
     """Try to load block-group population data for weighting."""
-    # Check demographics pipeline output
     demo_dir = REPO_DIR / "demographics/Population/data/distribution"
     if not demo_dir.exists():
         return None
 
-    candidates = list(demo_dir.glob("va_*population*.csv.xz"))
-    if not candidates:
+    # Try coverage-specific file first, then fall back to any population file
+    for prefix in (coverage, "va", "ncr"):
+        candidates = list(demo_dir.glob(f"{prefix}_*population*.csv.xz"))
+        if candidates:
+            break
+    else:
         return None
 
     path = max(candidates, key=lambda p: p.stat().st_mtime)
@@ -229,7 +250,6 @@ def load_bg_populations(year: int) -> pd.DataFrame | None:
     ].copy()
 
     if len(bg_pop) == 0:
-        # Try tract-level as fallback (won't help with BG weighting)
         return None
 
     bg_pop = bg_pop[["geoid", "value"]].rename(columns={"value": "pop"})
@@ -238,125 +258,185 @@ def load_bg_populations(year: int) -> pd.DataFrame | None:
     return bg_pop
 
 
-def run() -> RunResult:
+def _process_coverage(
+    coverage: str,
+    state_fips: set[str] | None,
+    county_fips: set[str] | None,
+    raw_cache: dict[int, pd.DataFrame],
+    ust_backfill: pd.Series,
+) -> pd.DataFrame:
+    """Process EJScreen data for a single coverage area (VA or NCR)."""
+    log.info("=== Processing %s ===", coverage.upper())
+
+    all_frames = []
+
+    for year in YEARS:
+        log.info("--- %s %d ---", coverage.upper(), year)
+
+        # Filter cached raw data
+        filtered = filter_ejscreen(raw_cache[year], state_fips=state_fips, county_fips=county_fips)
+        log.info("  %s block groups: %d", coverage.upper(), len(filtered))
+
+        if len(filtered) == 0:
+            log.warning("  No block groups for %s in %d, skipping", coverage, year)
+            continue
+
+        # Extract PCA variables
+        pca_df, pca_vars = extract_pca_vars(filtered, year, ust_backfill=ust_backfill)
+
+        # Compute EHI via PCA
+        pca_df["value"] = compute_ehi(pca_df, pca_vars)
+        pca_df["geoid"] = pca_df["ID"]
+
+        # Load population weights for BG→tract aggregation
+        pop_df = load_bg_populations(year, coverage=coverage)
+
+        # Aggregate to tracts
+        tracts = aggregate_bg_to_tract(pca_df[["geoid", "value"]], pop_df)
+        tracts["year"] = year
+        tracts["data_method"] = "observed"
+
+        if year == 2024:
+            tracts["data_method"] = "observed_reduced_vars"
+
+        all_frames.append(tracts)
+
+    if not all_frames:
+        return pd.DataFrame()
+
+    combined = pd.concat(all_frames, ignore_index=True)
+
+    # --- Geography standardization ---
+    GEO_2010_YEARS = list(range(2016, 2022))  # 2016-2021 on 2010 boundaries
+    output_frames = []
+
+    for year in YEARS:
+        year_data = combined[combined["year"] == year].copy()
+        if year_data.empty:
+            continue
+
+        if year in GEO_2010_YEARS:
+            # Keep original 2010 geo rows as _geo10
+            geo10 = year_data.copy()
+            geo10["measure"] = f"{MEASURE_NAME}_geo10"
+            geo10["moe"] = pd.NA
+            geo10["region_type"] = "tract"
+            output_frames.append(geo10[["geoid", "year", "measure", "value", "moe", "region_type"]])
+
+            # Crosswalk to 2020 geo
+            converted = convert_2010_to_2020_bounds(
+                year_data[["geoid", "value"]],
+                geoid_col="geoid",
+                val_col="value",
+            )
+            converted["year"] = year
+            converted["measure"] = f"{MEASURE_NAME}_geo20"
+            converted["moe"] = pd.NA
+            converted["region_type"] = "tract"
+            output_frames.append(converted[["geoid", "year", "measure", "value", "moe", "region_type"]])
+            log.info("  %d: crosswalked %d tracts (geo10) → %d tracts (geo20)",
+                     year, len(geo10), len(converted))
+        else:
+            geo20 = year_data.copy()
+            geo20["measure"] = f"{MEASURE_NAME}_geo20"
+            geo20["moe"] = pd.NA
+            geo20["region_type"] = "tract"
+            output_frames.append(geo20[["geoid", "year", "measure", "value", "moe", "region_type"]])
+            log.info("  %d: %d tracts (already geo20)", year, len(geo20))
+
+    result = pd.concat(output_frames, ignore_index=True)
+    result = result.sort_values(["geoid", "year", "measure"]).reset_index(drop=True)
+
+    log.info(
+        "%s final: %d rows, %d unique tracts, years %s",
+        coverage.upper(),
+        len(result),
+        result["geoid"].nunique(),
+        sorted(result["year"].unique()),
+    )
+    return result
+
+
+def run() -> list[RunResult]:
     t0 = time.time()
+    results = []
+
     try:
-        # First pass: read 2021 to get UST values for backfilling
-        log.info("Pre-loading 2021 UST values for backfilling...")
-        va_2021 = read_ejscreen(2021)
-        ust_backfill = pd.to_numeric(va_2021.set_index("ID")["UST"], errors="coerce").fillna(0.0)
-        log.info("  UST backfill: %d block groups", len(ust_backfill))
-
-        all_frames = []
-
+        # Read all EJScreen files once (they're large, avoid re-reading)
+        log.info("Pre-loading all EJScreen files...")
+        raw_cache: dict[int, pd.DataFrame] = {}
         for year in YEARS:
-            log.info("--- Processing %d ---", year)
+            raw_cache[year] = _read_ejscreen_raw(year)
 
-            # Read EJScreen data
-            va = read_ejscreen(year)
+        # Get UST backfill from 2021 (all US, then filter will apply per-coverage)
+        ust_2021 = raw_cache[2021]
+        ust_backfill = pd.to_numeric(ust_2021.set_index("ID")["UST"], errors="coerce").fillna(0.0)
+        log.info("UST backfill: %d block groups", len(ust_backfill))
 
-            # Extract PCA variables
-            pca_df, pca_vars = extract_pca_vars(va, year, ust_backfill=ust_backfill)
-
-            # Compute EHI via PCA
-            pca_df["value"] = compute_ehi(pca_df, pca_vars)
-            pca_df["geoid"] = pca_df["ID"]
-
-            # Load population weights for BG→tract aggregation
-            pop_df = load_bg_populations(year)
-
-            # Aggregate to tracts
-            tracts = aggregate_bg_to_tract(pca_df[["geoid", "value"]], pop_df)
-            tracts["year"] = year
-            tracts["data_method"] = "observed"
-
-            if year == 2024:
-                tracts["data_method"] = "observed_reduced_vars"
-
-            all_frames.append(tracts)
-
-        # Combine all years
-        combined = pd.concat(all_frames, ignore_index=True)
-
-        # --- Geography standardization ---
-        # EJScreen 2016-2021 uses 2010 census BGs → 2010 tracts
-        # EJScreen 2022-2024 uses 2020 census BGs → 2020 tracts
-        # standardize_all() splits at year 2020, but 2020-2021 are still
-        # on 2010 geo, so we handle the crosswalk manually.
-        GEO_2010_YEARS = list(range(2016, 2022))  # 2016-2021 on 2010 boundaries
-        GEO_2020_YEARS = list(range(2022, 2025))   # 2022-2024 on 2020 boundaries
-
-        output_frames = []
-
-        for year in YEARS:
-            year_data = combined[combined["year"] == year].copy()
-            if year_data.empty:
-                continue
-
-            if year in GEO_2010_YEARS:
-                # Keep original 2010 geo rows as _geo10
-                geo10 = year_data.copy()
-                geo10["measure"] = f"{MEASURE_NAME}_geo10"
-                geo10["moe"] = pd.NA
-                geo10["region_type"] = "tract"
-                output_frames.append(geo10[["geoid", "year", "measure", "value", "moe", "region_type"]])
-
-                # Crosswalk to 2020 geo
-                converted = convert_2010_to_2020_bounds(
-                    year_data[["geoid", "value"]],
-                    geoid_col="geoid",
-                    val_col="value",
-                )
-                converted["year"] = year
-                converted["measure"] = f"{MEASURE_NAME}_geo20"
-                converted["moe"] = pd.NA
-                converted["region_type"] = "tract"
-                output_frames.append(converted[["geoid", "year", "measure", "value", "moe", "region_type"]])
-                log.info("  %d: crosswalked %d tracts (geo10) → %d tracts (geo20)",
-                         year, len(geo10), len(converted))
-            else:
-                # Already on 2020 geo
-                geo20 = year_data.copy()
-                geo20["measure"] = f"{MEASURE_NAME}_geo20"
-                geo20["moe"] = pd.NA
-                geo20["region_type"] = "tract"
-                output_frames.append(geo20[["geoid", "year", "measure", "value", "moe", "region_type"]])
-                log.info("  %d: %d tracts (already geo20)", year, len(geo20))
-
-        result = pd.concat(output_frames, ignore_index=True)
-        result = result.sort_values(["geoid", "year", "measure"]).reset_index(drop=True)
-
-        log.info(
-            "Final: %d rows, %d unique tracts, years %s",
-            len(result),
-            result["geoid"].nunique(),
-            sorted(result["year"].unique()),
-        )
-
-        # Write output
         DIST_DIR.mkdir(parents=True, exist_ok=True)
-        out_name = build_file_name(
-            coverage_area="va",
-            data_source="epa",
-            years=sorted(result["year"].unique().tolist()),
-            title="environmental_hazard",
-            geographies=["tract"],
-        )
-        out_path = write_data(result, DIST_DIR / f"{out_name}.csv.xz")
-        log.info("Wrote %s", out_path)
 
-        return RunResult(
-            success=True,
-            rows=len(combined),
-            output_path=str(out_path),
-            duration_sec=time.time() - t0,
+        # --- VA ---
+        va_result = _process_coverage(
+            coverage="va",
+            state_fips={"51"},
+            county_fips=None,
+            raw_cache=raw_cache,
+            ust_backfill=ust_backfill,
         )
+        if not va_result.empty:
+            va_name = build_file_name(
+                coverage_area="va",
+                data_source="epa",
+                years=sorted(va_result["year"].unique().tolist()),
+                title="environmental_hazard",
+                geographies=["tract"],
+            )
+            va_path = write_data(va_result, DIST_DIR / f"{va_name}.csv.xz")
+            log.info("Wrote VA: %s", va_path)
+            results.append(RunResult(
+                success=True, rows=len(va_result),
+                output_path=str(va_path), duration_sec=time.time() - t0,
+            ))
+
+        # --- NCR ---
+        ncr_result = _process_coverage(
+            coverage="ncr",
+            state_fips=None,
+            county_fips=NCR_COUNTY_FIPS,
+            raw_cache=raw_cache,
+            ust_backfill=ust_backfill,
+        )
+        if not ncr_result.empty:
+            ncr_name = build_file_name(
+                coverage_area="ncr",
+                data_source="epa",
+                years=sorted(ncr_result["year"].unique().tolist()),
+                title="environmental_hazard",
+                geographies=["tract"],
+            )
+            ncr_path = write_data(ncr_result, DIST_DIR / f"{ncr_name}.csv.xz")
+            log.info("Wrote NCR: %s", ncr_path)
+            results.append(RunResult(
+                success=True, rows=len(ncr_result),
+                output_path=str(ncr_path), duration_sec=time.time() - t0,
+            ))
+
+        if not results:
+            results.append(RunResult(success=False, error="No output produced", duration_sec=time.time() - t0))
+
     except Exception as e:
         log.error("Ingest failed: %s", e, exc_info=True)
-        return RunResult(success=False, error=str(e), duration_sec=time.time() - t0)
+        results.append(RunResult(success=False, error=str(e), duration_sec=time.time() - t0))
+
+    return results
 
 
 if __name__ == "__main__":
-    result = run()
-    if not result.success:
+    results = run()
+    for r in results:
+        if r.success:
+            log.info("OK: %d rows → %s (%.1fs)", r.rows, r.output_path, r.duration_sec)
+        else:
+            log.error("FAIL: %s (%.1fs)", r.error, r.duration_sec)
+    if any(not r.success for r in results):
         raise SystemExit(1)

@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-08T20:52:22+00:00",
+  "version": "1.0.1",
+  "generated": "2026-03-13T17:16:38+00:00",
   "schema": [
     "geoid",
     "year",
@@ -30,15 +30,11 @@
     "24",
     "51"
   ],
-  "row_count": 247274,
+  "row_count": 191646,
   "files": {
     "ncr_cttrbg_census_acs_2015_2024_segregation.csv.xz": {
       "sha256": "8559faed0bb44d2376e4f2990398dcfaac8c421e6ea87dfe62f9f2e9352c4979",
       "size_bytes": 516452
-    },
-    "ncr_tr_census_acs_2015_2024_segregation.csv.xz": {
-      "sha256": "479f472ef851b7434a1900f168eb66ccbbc91e3e7a5856e4a70e36acddf81b44",
-      "size_bytes": 199528
     },
     "va_hdcttr_census_acs_2015_2024_segregation.csv.xz": {
       "sha256": "4fca1ae72e4204c0fe4dba993904536fa9d76f50dcacd58a572747c66e7e8ad0",
