@@ -1,6 +1,6 @@
 {
     "prevent_hosp_rate": {
-        "aggregation_method": "",
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Health",
         "citations": "",
@@ -10,7 +10,7 @@
         "long_description": "Rate of hospital stays for ambulatory-care sensitive conditions per 100,000 Medicare enrollees. Ambulatory care refers to diagnoses that are usually treatable in outpatient settings. This data is based on Medicare claims and comes from County Health Rankings. Geographies: County (5), Health Districts (51_hd)",
         "long_name": "Preventable hospital stays per 100,000 Medicare enrollees",
         "measure_type": "rate per 100K",
-        "short_description": "",
+        "short_description": "Rate of preventable hospital stays for ambulatory-care sensitive conditions per 100,000 Medicare enrollees.",
         "short_name": "Preventable hospitalizations per 100,000",
         "sources": [
             {
@@ -24,7 +24,7 @@
         "provenance": "Preventable hospitalization rates are sourced from the County Health Rankings & Roadmaps program (Robert Wood Johnson Foundation / University of Wisconsin Population Health Institute), which calculates rates using the AHRQ Prevention Quality Indicators methodology applied to CMS Medicare claims data.",
         "statement": "{value} of the hospitalizations in {features.name} were preventable (due to conditions usually treated in outpatient settings).",
         "type": "rate",
-        "unit": "",
+        "unit": "per 100,000",
         "variants": ""
     }
 }

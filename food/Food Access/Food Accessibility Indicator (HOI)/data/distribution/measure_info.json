@@ -1,71 +1,41 @@
 {
-    "food_access_percentage_geo10": {
-        "aggregation_method": "mean",
-        "categories": "",
-        "category": "Nutrition and Food Security",
-        "citations": [
-            "usdafara"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Access",
-        "layer": "",
-        "long_description": "Food access measures the share of a tract's population that is both low-income and lives more than one mile from a supermarket. Tracts with high values have larger populations facing simultaneous barriers of poverty and geographic distance to healthy food retailers, which is associated with poorer diet quality and higher rates of diet-related chronic disease. Values on original 2010 census tract boundaries.",
-        "long_name": "Food Access (2010 geographies)",
-        "measure_type": "percent",
-        "short_description": "Share of low-income population beyond one mile from a supermarket, on 2010 census boundaries.",
-        "short_name": "Food Access",
-        "sources": [
-            {
-                "date_accessed": 2024,
-                "location": "Food Access Research Atlas",
-                "location_url": "https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data/",
-                "name": "USDA Economic Research Service",
-                "url": "https://www.ers.usda.gov/"
-            }
-        ],
-        "provenance": "Tract-level low-access, low-income population shares (lalowi1share, with lalowihalfshare as fallback) extracted from USDA Food Access Research Atlas 2015 and 2019 Excel editions. Low-income defined by Department of Treasury NMTC criteria (poverty rate >= 20%, or median family income <= 80% of state/metro median). Values for 2016-2018 linearly interpolated between 2015 and 2019 observations. Values for 2020-2023 linearly extrapolated from the 2015-2019 trend. Original tract IDs are on 2010 census boundaries.",
-        "statement": "{value} percent of the low-income population in {features.name} lives beyond one mile from a supermarket.",
-        "type": "percent",
-        "unit": "",
-        "variants": ""
-    },
-    "food_access_percentage_geo20": {
-        "aggregation_method": "mean",
-        "categories": "",
-        "category": "Nutrition and Food Security",
-        "citations": [
-            "usdafara"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Access",
-        "layer": "",
-        "long_description": "Food access measures the share of a tract's population that is both low-income and lives more than one mile from a supermarket. Tracts with high values have larger populations facing simultaneous barriers of poverty and geographic distance to healthy food retailers, which is associated with poorer diet quality and higher rates of diet-related chronic disease.",
-        "long_name": "Food Access",
-        "measure_type": "percent",
-        "short_description": "Share of low-income population beyond one mile from a supermarket.",
-        "short_name": "Food Access",
-        "sources": [
-            {
-                "date_accessed": 2024,
-                "location": "Food Access Research Atlas",
-                "location_url": "https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data/",
-                "name": "USDA Economic Research Service",
-                "url": "https://www.ers.usda.gov/"
-            }
-        ],
-        "provenance": "Tract-level low-access, low-income population shares (lalowi1share, with lalowihalfshare as fallback) extracted from USDA Food Access Research Atlas 2015 and 2019 Excel editions. Low-income defined by Department of Treasury NMTC criteria (poverty rate >= 20%, or median family income <= 80% of state/metro median). Values for 2016-2018 linearly interpolated between 2015 and 2019 observations. Values for 2020-2023 linearly extrapolated from the 2015-2019 trend. Original FARA data uses 2010 census tracts; values crosswalked to 2020 boundaries via area-weighted redistribution using the Census Bureau tract relationship file.",
-        "statement": "{value} percent of the low-income population in {features.name} lives beyond one mile from a supermarket.",
-        "type": "percent",
-        "unit": "",
-        "variants": ""
-    },
-    "_references": {
-        "usdafara": {
-            "id": "usdafara",
-            "author": "Economic Research Service, U.S. Department of Agriculture",
-            "year": 2021,
-            "title": "Food Access Research Atlas",
-            "url": "https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data/"
-        }
+  "food_access_percentage_geo20": {
+    "aggregation_method": "mean",
+    "categories": "",
+    "category": "Nutrition and Food Security",
+    "citations": [
+      "usdafara"
+    ],
+    "data_type": "numeric",
+    "equity_category": "Access",
+    "layer": "",
+    "long_description": "Food access measures the share of a tract's population that is both low-income and lives more than one mile from a supermarket. Tracts with high values have larger populations facing simultaneous barriers of poverty and geographic distance to healthy food retailers, which is associated with poorer diet quality and higher rates of diet-related chronic disease.",
+    "long_name": "Food Access",
+    "measure_type": "percent",
+    "short_description": "Share of low-income population beyond one mile from a supermarket.",
+    "short_name": "Food Access",
+    "sources": [
+      {
+        "date_accessed": 2024,
+        "location": "Food Access Research Atlas",
+        "location_url": "https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data/",
+        "name": "USDA Economic Research Service",
+        "url": "https://www.ers.usda.gov/"
+      }
+    ],
+    "provenance": "Tract-level low-access, low-income population shares (lalowi1share, with lalowihalfshare as fallback) extracted from USDA Food Access Research Atlas 2015 and 2019 Excel editions. Low-income defined by Department of Treasury NMTC criteria (poverty rate >= 20%, or median family income <= 80% of state/metro median). Values for 2016-2018 linearly interpolated between 2015 and 2019 observations. Values for 2020-2023 linearly extrapolated from the 2015-2019 trend. Original FARA data uses 2010 census tracts; values crosswalked to 2020 boundaries via area-weighted redistribution using the Census Bureau tract relationship file.",
+    "statement": "{value} percent of the low-income population in {features.name} lives beyond one mile from a supermarket.",
+    "type": "percent",
+    "unit": "",
+    "variants": ""
+  },
+  "_references": {
+    "usdafara": {
+      "id": "usdafara",
+      "author": "Economic Research Service, U.S. Department of Agriculture",
+      "year": 2021,
+      "title": "Food Access Research Atlas",
+      "url": "https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data/"
     }
+  }
 }

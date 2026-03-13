@@ -24,7 +24,7 @@ from sdc_core.result import RunResult
 from sdc_core.versioning import update_version
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
-REPO_DIR = TOPIC_DIR.parents[2]
+REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
 
 YEARS = list(range(2017, 2024))
@@ -152,13 +152,7 @@ PROFILE_NAMES = [
 COMPOSITE_INTERCEPT = -1.112348
 COMPOSITE_WEIGHTS = np.array([0.557569, 0.741344, 0.895643, 0.561597])
 
-QUINTILE_LABELS = [
-    "Very Low Opportunity",
-    "Low Opportunity",
-    "Moderate Opportunity",
-    "High Opportunity",
-    "Very High Opportunity",
-]
+QUINTILE_NAMES = [name + "_quintile" for name in PROFILE_NAMES] + ["health_opportunity_index_quintile"]
 
 
 def load_indicator(indicator_name: str, measure_name: str, glob_pattern: str) -> pd.DataFrame:
@@ -271,14 +265,15 @@ def compute_profiles_and_composite(df: pd.DataFrame) -> pd.DataFrame:
         composite.mean(), composite.min(), composite.max(),
     )
 
-    # Assign quintiles per year
-    df["hoi_quintile"] = ""
-    for year in sorted(df["year"].unique()):
-        mask = df["year"] == year
-        values = df.loc[mask, "health_opportunity_index"]
-        # Use pandas qcut for equal-count quintiles
-        quintiles = pd.qcut(values, 5, labels=QUINTILE_LABELS)
-        df.loc[mask, "hoi_quintile"] = quintiles
+    # Assign quintiles (1-5) per year for all 5 output measures
+    quintile_cols = PROFILE_NAMES + ["health_opportunity_index"]
+    for col in quintile_cols:
+        q_col = col + "_quintile"
+        df[q_col] = 0
+        for year in sorted(df["year"].unique()):
+            mask = df["year"] == year
+            values = df.loc[mask, col]
+            df.loc[mask, q_col] = pd.qcut(values, 5, labels=[1, 2, 3, 4, 5])
 
     return df
 
@@ -289,8 +284,9 @@ def reshape_to_long(df: pd.DataFrame) -> pd.DataFrame:
     frames = []
 
     for measure in measures:
-        subset = df[["geoid", "year", measure]].copy()
-        subset = subset.rename(columns={measure: "value"})
+        q_col = measure + "_quintile"
+        subset = df[["geoid", "year", q_col]].copy()
+        subset = subset.rename(columns={q_col: "value"})
         subset["measure"] = measure + "_geo20"
         subset["moe"] = pd.NA
         subset["region_type"] = "tract"
@@ -331,7 +327,7 @@ def run() -> RunResult:
         log.info("Wrote %s", out_path)
 
         # Also write the wide-format file for analysis
-        wide_cols = ["geoid", "year"] + PROFILE_NAMES + ["health_opportunity_index", "hoi_quintile"]
+        wide_cols = ["geoid", "year"] + PROFILE_NAMES + ["health_opportunity_index"] + QUINTILE_NAMES
         wide_path = DIST_DIR / "va_tract_hoi_profiles_wide.csv.xz"
         wide[wide_cols].to_csv(wide_path, index=False)
         log.info("Wrote wide format: %s", wide_path)

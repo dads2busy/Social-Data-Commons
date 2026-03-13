@@ -1,292 +1,152 @@
 {
-    "gender_female_count_geo20": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of female residents captures the size of the female population in a community. Gender-disaggregated population data is essential for planning services, allocating resources, and understanding demographic composition.",
-        "long_name": "The count of females in population.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Female counts are from variable B01001_026. Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
-        "short_description": "Count of the female population.",
-        "short_name": "Female population (2020 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The female population is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "gender_female_count_geo10": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of female residents captures the size of the female population in a community. Gender-disaggregated population data is essential for planning services, allocating resources, and understanding demographic composition. Values on original 2010 census tract boundaries.",
-        "long_name": "The count of females in population.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Female counts are from variable B01001_026. Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks. Values reported on original 2010 census tract boundaries.",
-        "short_description": "Count of the female population, on 2010 census boundaries.",
-        "short_name": "Female population (2010 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The female population is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "gender_female_percent_geo20": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The female population share measures the proportion of residents who are female. Significant departures from the statewide average can reflect local labor markets (e.g., military bases, college towns), age structure, or migration patterns.",
-        "long_name": "The percent of females in the total population.",
-        "measure_type": "",
-        "provenance": "Calculated from ACS 5-year estimates, table B01001 (Sex by Age). Female counts (B01001_026) divided by total population (B01001_001). Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
-        "short_description": "The percent of females in the total population.",
-        "short_name": "Percentage of females (2020 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The percent of females is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "gender_female_percent_geo10": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The female population share measures the proportion of residents who are female. Significant departures from the statewide average can reflect local labor markets (e.g., military bases, college towns), age structure, or migration patterns. Values on original 2010 census tract boundaries.",
-        "long_name": "The percent of females in the total population.",
-        "measure_type": "",
-        "provenance": "Calculated from ACS 5-year estimates, table B01001 (Sex by Age). Female counts (B01001_026) divided by total population (B01001_001). Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks. Values reported on original 2010 census tract boundaries.",
-        "short_description": "The percent of females in the total population, on 2010 census boundaries.",
-        "short_name": "Percentage of females (2010 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The percent of females is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "gender_male_count_geo20": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of male residents captures the size of the male population in a community. Gender-disaggregated population data is essential for planning services, allocating resources, and understanding demographic composition.",
-        "long_name": "The count of males in population.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Male counts are from variable B01001_002. Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
-        "short_description": "Count of the male population.",
-        "short_name": "Male population (2020 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The male population is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "gender_male_count_geo10": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of male residents captures the size of the male population in a community. Gender-disaggregated population data is essential for planning services, allocating resources, and understanding demographic composition. Values on original 2010 census tract boundaries.",
-        "long_name": "The count of males in population.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Male counts are from variable B01001_002. Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks. Values reported on original 2010 census tract boundaries.",
-        "short_description": "Count of the male population, on 2010 census boundaries.",
-        "short_name": "Male population (2010 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The male population is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "gender_male_percent_geo20": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The male population share measures the proportion of residents who are male. Significant departures from the statewide average can reflect local labor markets (e.g., military bases, college towns), age structure, or migration patterns.",
-        "long_name": "The percent of males in the total population.",
-        "measure_type": "",
-        "provenance": "Calculated from ACS 5-year estimates, table B01001 (Sex by Age). Male counts (B01001_002) divided by total population (B01001_001). Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
-        "short_description": "The percent of males in the total population.",
-        "short_name": "Percentage of males (2020 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The percent of males is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "gender_male_percent_geo10": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The male population share measures the proportion of residents who are male. Significant departures from the statewide average can reflect local labor markets (e.g., military bases, college towns), age structure, or migration patterns. Values on original 2010 census tract boundaries.",
-        "long_name": "The percent of males in the total population.",
-        "measure_type": "",
-        "provenance": "Calculated from ACS 5-year estimates, table B01001 (Sex by Age). Male counts (B01001_002) divided by total population (B01001_001). Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks. Values reported on original 2010 census tract boundaries.",
-        "short_description": "The percent of males in the total population, on 2010 census boundaries.",
-        "short_name": "Percentage of males (2010 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The percent of males is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "gender_total_count_geo20": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total population count representing all residents regardless of gender. This baseline figure serves as the denominator for computing gender composition percentages and is essential for contextualizing a community's demographic profile. Changes in total population over time reflect broader trends in migration, development, and economic opportunity.",
-        "long_name": "Total count of the population.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age), variable B01001_001 (total population). Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
-        "short_description": "Total count of the population.",
-        "short_name": "Total count of the population (2020 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "Total count of the population is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "gender_total_count_geo10": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total population count representing all residents regardless of gender. This baseline figure serves as the denominator for computing gender composition percentages and is essential for contextualizing a community's demographic profile. Changes in total population over time reflect broader trends in migration, development, and economic opportunity. Values on original 2010 census tract boundaries.",
-        "long_name": "Total count of the population.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age), variable B01001_001 (total population). Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks. Values reported on original 2010 census tract boundaries.",
-        "short_description": "Total count of the population, on 2010 census boundaries.",
-        "short_name": "Total count of the population (2010 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "Total count of the population is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "_references": {
-        "bii-redist": {
-            "id": "bii-redist",
-            "author": "Biocomplexity Institute and Initiative",
-            "year": 2022,
-            "title": "redistribute: An R package to redistribute data",
-            "version": "0.0.1",
-            "url": "https://github.com/uva-bi-sdad/redistribute"
-        }
+  "gender_female_count_geo20": {
+    "aggregation_method": "arithmetic mean",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "The count of female residents captures the size of the female population in a community. Gender-disaggregated population data is essential for planning services, allocating resources, and understanding demographic composition.",
+    "long_name": "The count of females in population.",
+    "measure_type": "",
+    "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Female counts are from variable B01001_026. Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+    "short_description": "Count of the female population.",
+    "short_name": "Female population (2020 geographies)",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B01001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "The female population is {value} in {region_name}.",
+    "type": "",
+    "unit": "individual",
+    "variants": ""
+  },
+  "gender_female_percent_geo20": {
+    "aggregation_method": "percent",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "The female population share measures the proportion of residents who are female. Significant departures from the statewide average can reflect local labor markets (e.g., military bases, college towns), age structure, or migration patterns.",
+    "long_name": "The percent of females in the total population.",
+    "measure_type": "",
+    "provenance": "Calculated from ACS 5-year estimates, table B01001 (Sex by Age). Female counts (B01001_026) divided by total population (B01001_001). Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+    "short_description": "The percent of females in the total population.",
+    "short_name": "Percentage of females (2020 geographies)",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B01001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "The percent of females is {value} in {region_name}.",
+    "type": "",
+    "unit": "individual",
+    "variants": ""
+  },
+  "gender_male_count_geo20": {
+    "aggregation_method": "arithmetic mean",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "The count of male residents captures the size of the male population in a community. Gender-disaggregated population data is essential for planning services, allocating resources, and understanding demographic composition.",
+    "long_name": "The count of males in population.",
+    "measure_type": "",
+    "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Male counts are from variable B01001_002. Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+    "short_description": "Count of the male population.",
+    "short_name": "Male population (2020 geographies)",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B01001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "The male population is {value} in {region_name}.",
+    "type": "",
+    "unit": "individual",
+    "variants": ""
+  },
+  "gender_male_percent_geo20": {
+    "aggregation_method": "percent",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "The male population share measures the proportion of residents who are male. Significant departures from the statewide average can reflect local labor markets (e.g., military bases, college towns), age structure, or migration patterns.",
+    "long_name": "The percent of males in the total population.",
+    "measure_type": "",
+    "provenance": "Calculated from ACS 5-year estimates, table B01001 (Sex by Age). Male counts (B01001_002) divided by total population (B01001_001). Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+    "short_description": "The percent of males in the total population.",
+    "short_name": "Percentage of males (2020 geographies)",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B01001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "The percent of males is {value} in {region_name}.",
+    "type": "",
+    "unit": "individual",
+    "variants": ""
+  },
+  "gender_total_count_geo20": {
+    "aggregation_method": "arithmetic mean",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "Total population count representing all residents regardless of gender. This baseline figure serves as the denominator for computing gender composition percentages and is essential for contextualizing a community's demographic profile. Changes in total population over time reflect broader trends in migration, development, and economic opportunity.",
+    "long_name": "Total count of the population.",
+    "measure_type": "",
+    "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age), variable B01001_001 (total population). Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+    "short_description": "Total count of the population.",
+    "short_name": "Total count of the population (2020 geographies)",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B01001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "Total count of the population is {value} in {region_name}.",
+    "type": "",
+    "unit": "individual",
+    "variants": ""
+  },
+  "_references": {
+    "bii-redist": {
+      "id": "bii-redist",
+      "author": "Biocomplexity Institute and Initiative",
+      "year": 2022,
+      "title": "redistribute: An R package to redistribute data",
+      "version": "0.0.1",
+      "url": "https://github.com/uva-bi-sdad/redistribute"
     }
+  }
 }

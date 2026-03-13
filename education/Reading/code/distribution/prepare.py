@@ -34,7 +34,8 @@ def load_config() -> dict:
 
 def find_source(dist_dir: Path) -> Path | None:
     # Match new Python-generated files (pass_rate naming), not old R outputs (mean_read_score)
-    candidates = sorted(dist_dir.glob("va_*read_pass_rate*.csv.xz"))
+    # Use va_ct_ prefix to match ingest output only (not prepare's va_hdct_ output)
+    candidates = sorted(dist_dir.glob("va_ct_*read_pass_rate*.csv.xz"))
     return candidates[-1] if candidates else None
 
 

@@ -1,6 +1,6 @@
 {
     "perc_male": {
-        "aggregation_method": "",
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Demographics",
         "citations": "",
@@ -24,11 +24,11 @@
         ],
         "statement": "The male population is {value} in {features.name}.",
         "type": "percent",
-        "unit": "",
+        "unit": "percent",
         "variants": ""
     },
     "perc_children_raised_by_GPs": {
-        "aggregation_method": "",
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Demographics",
         "citations": "",
@@ -52,18 +52,18 @@
         ],
         "statement": "The population of children raised by grandparents is {value} in {features.name}.",
         "type": "percent",
-        "unit": "",
+        "unit": "percent",
         "variants": ""
     },
     "disconnectedYouth": {
-        "aggregation_method": "",
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Demographics",
         "citations": "",
         "data_type": "integer",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Disconnected youth — teenagers and young adults between 16 and 24 who are neither enrolled in school nor employed — face elevated risks of long-term poverty, criminal justice involvement, and poor health outcomes. High rates of youth disconnection signal gaps in educational engagement, workforce development, and youth services. Counties with missing data do not have reliably collected data on this population.",
+        "long_description": "Disconnected youth \u2014 teenagers and young adults between 16 and 24 who are neither enrolled in school nor employed \u2014 face elevated risks of long-term poverty, criminal justice involvement, and poor health outcomes. High rates of youth disconnection signal gaps in educational engagement, workforce development, and youth services. Counties with missing data do not have reliably collected data on this population.",
         "long_name": "Disconnected youth (percent)",
         "measure_type": "percentage",
         "provenance": "From County Health Rankings & Roadmaps, which compiles this indicator from ACS data. Disconnected youth includes those ages 16-24 who are not enrolled in school and not working, including those actively seeking employment.",
@@ -80,11 +80,11 @@
         ],
         "statement": "Disconnected youth account for {value} in {features.name}.",
         "type": "percent",
-        "unit": "",
+        "unit": "percent",
         "variants": ""
     },
     "voterTurnout": {
-        "aggregation_method": "",
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Demographics",
         "citations": "",
@@ -108,7 +108,7 @@
         ],
         "statement": "The voter turnout is {value} in {features.name}.",
         "type": "percent",
-        "unit": "",
+        "unit": "percent",
         "variants": ""
     }
 }

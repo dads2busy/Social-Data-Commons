@@ -32,18 +32,18 @@ def load_config() -> dict:
 
 
 def find_va_source(dist_dir: Path) -> Path | None:
-    """Find the most recent VA ACS distribution file."""
-    candidates = sorted(dist_dir.glob("va_*census_acs*gender_demographics.csv.xz"))
+    """Find the most recent VA ACS distribution file (ingest output only)."""
+    candidates = sorted(dist_dir.glob("va_cttr_census_acs*gender_demographics.csv.xz"))
     if candidates:
         return candidates[-1]
-    # Fall back to any va_* file
-    candidates = sorted(dist_dir.glob("va_*gender_demographics.csv.xz"))
+    # Fall back to any va_cttr_* file
+    candidates = sorted(dist_dir.glob("va_cttr_*gender_demographics.csv.xz"))
     return candidates[-1] if candidates else None
 
 
 def find_ncr_source(dist_dir: Path) -> Path | None:
     """Find the most recent NCR ACS distribution file."""
-    candidates = sorted(dist_dir.glob("ncr_*census_acs*gender_demographics.csv.xz"))
+    candidates = sorted(dist_dir.glob("ncr_cttrbg_census_acs*gender_demographics.csv.xz"))
     return candidates[-1] if candidates else None
 
 

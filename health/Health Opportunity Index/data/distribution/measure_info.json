@@ -26,7 +26,7 @@
         "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. Each indicator is min-max normalized per year, inverted where higher raw values indicate worse outcomes, then combined via VDH's PCA weight matrix to produce profile scores.",
         "statement": "The economic opportunity profile score in {features.name} is {value}.",
         "type": "index",
-        "unit": "",
+        "unit": "index score",
         "variants": ""
     },
     "consumer_opportunity_profile_geo20": {
@@ -56,7 +56,7 @@
         "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. Each indicator is min-max normalized per year, inverted where higher raw values indicate worse outcomes, then combined via VDH's PCA weight matrix to produce profile scores.",
         "statement": "The consumer opportunity profile score in {features.name} is {value}.",
         "type": "index",
-        "unit": "",
+        "unit": "index score",
         "variants": ""
     },
     "social_impact_profile_geo20": {
@@ -86,7 +86,7 @@
         "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. Each indicator is min-max normalized per year, inverted where higher raw values indicate worse outcomes, then combined via VDH's PCA weight matrix to produce profile scores.",
         "statement": "The social impact profile score in {features.name} is {value}.",
         "type": "index",
-        "unit": "",
+        "unit": "index score",
         "variants": ""
     },
     "built_environment_profile_geo20": {
@@ -116,7 +116,7 @@
         "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. Each indicator is min-max normalized per year, inverted where higher raw values indicate worse outcomes, then combined via VDH's PCA weight matrix to produce profile scores.",
         "statement": "The built environment profile score in {features.name} is {value}.",
         "type": "index",
-        "unit": "",
+        "unit": "index score",
         "variants": ""
     },
     "health_opportunity_index_geo20": {
@@ -146,7 +146,7 @@
         "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. The 14 indicators are min-max normalized per year, inverted where higher raw values indicate worse outcomes, multiplied by VDH's 14x4 PCA weight matrix to produce 4 profile scores, then combined with composite weights to produce the final HOI score. Methodology documented in docs/composite_indices_methodology.md.",
         "statement": "The Health Opportunity Index in {features.name} is {value}.",
         "type": "index",
-        "unit": "",
+        "unit": "quintile",
         "variants": ""
     },
     "_references": {

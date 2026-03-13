@@ -22,9 +22,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_total_employment": {
         "aggregation_method": "count",
@@ -49,9 +50,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_total_employment": {
         "aggregation_method": "count",
@@ -76,9 +78,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_total_employment": {
         "aggregation_method": "count",
@@ -103,9 +106,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_total_employment": {
         "aggregation_method": "count",
@@ -130,9 +134,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_total_employment": {
         "aggregation_method": "count",
@@ -157,9 +162,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_total_employment": {
         "aggregation_method": "count",
@@ -184,9 +190,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_total_employment": {
         "aggregation_method": "count",
@@ -211,9 +218,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_total_employment": {
         "aggregation_method": "count",
@@ -238,9 +246,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_total_employment": {
         "aggregation_method": "count",
@@ -265,9 +274,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_total_employment": {
         "aggregation_method": "count",
@@ -292,9 +302,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_total_employment": {
         "aggregation_method": "count",
@@ -319,9 +330,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_total_employment": {
         "aggregation_method": "count",
@@ -346,9 +358,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_total_employment": {
         "aggregation_method": "count",
@@ -373,9 +386,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_total_employment": {
         "aggregation_method": "count",
@@ -400,9 +414,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_total_employment": {
         "aggregation_method": "count",
@@ -427,9 +442,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_total_employment": {
         "aggregation_method": "count",
@@ -454,9 +470,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_total_employment": {
         "aggregation_method": "count",
@@ -481,9 +498,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_total_employment": {
         "aggregation_method": "count",
@@ -508,9 +526,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_total_employment": {
         "aggregation_method": "count",
@@ -535,9 +554,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_total_employment": {
         "aggregation_method": "count",
@@ -562,9 +582,10 @@
             }
         ],
         "statement": "{value} jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_business_create_job": {
         "aggregation_method": "count",
@@ -589,9 +610,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_business_create_job": {
         "aggregation_method": "count",
@@ -616,9 +638,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_business_create_job": {
         "aggregation_method": "count",
@@ -643,9 +666,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_business_create_job": {
         "aggregation_method": "count",
@@ -670,9 +694,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_business_create_job": {
         "aggregation_method": "count",
@@ -697,9 +722,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_business_create_job": {
         "aggregation_method": "count",
@@ -724,9 +750,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_business_create_job": {
         "aggregation_method": "count",
@@ -751,9 +778,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_business_create_job": {
         "aggregation_method": "count",
@@ -778,9 +806,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_business_create_job": {
         "aggregation_method": "count",
@@ -805,9 +834,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_business_create_job": {
         "aggregation_method": "count",
@@ -832,9 +862,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_business_create_job": {
         "aggregation_method": "count",
@@ -859,9 +890,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_business_create_job": {
         "aggregation_method": "count",
@@ -886,9 +918,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_business_create_job": {
         "aggregation_method": "count",
@@ -913,9 +946,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_business_create_job": {
         "aggregation_method": "count",
@@ -940,9 +974,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_business_create_job": {
         "aggregation_method": "count",
@@ -967,9 +1002,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_business_create_job": {
         "aggregation_method": "count",
@@ -994,9 +1030,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_business_create_job": {
         "aggregation_method": "count",
@@ -1021,9 +1058,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_business_create_job": {
         "aggregation_method": "count",
@@ -1048,9 +1086,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_business_create_job": {
         "aggregation_method": "count",
@@ -1075,9 +1114,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_business_create_job": {
         "aggregation_method": "count",
@@ -1102,9 +1142,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_business_create_job": {
         "aggregation_method": "count",
@@ -1129,9 +1170,10 @@
             }
         ],
         "statement": "{value} businesses created new jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_job_creation_active": {
         "aggregation_method": "count",
@@ -1156,9 +1198,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_job_creation_active": {
         "aggregation_method": "count",
@@ -1183,9 +1226,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_job_creation_active": {
         "aggregation_method": "count",
@@ -1210,9 +1254,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_job_creation_active": {
         "aggregation_method": "count",
@@ -1237,9 +1282,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_job_creation_active": {
         "aggregation_method": "count",
@@ -1264,9 +1310,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_job_creation_active": {
         "aggregation_method": "count",
@@ -1291,9 +1338,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_job_creation_active": {
         "aggregation_method": "count",
@@ -1318,9 +1366,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_job_creation_active": {
         "aggregation_method": "count",
@@ -1345,9 +1394,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_job_creation_active": {
         "aggregation_method": "count",
@@ -1372,9 +1422,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_job_creation_active": {
         "aggregation_method": "count",
@@ -1399,9 +1450,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_job_creation_active": {
         "aggregation_method": "count",
@@ -1426,9 +1478,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_job_creation_active": {
         "aggregation_method": "count",
@@ -1453,9 +1506,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_job_creation_active": {
         "aggregation_method": "count",
@@ -1480,9 +1534,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_job_creation_active": {
         "aggregation_method": "count",
@@ -1507,9 +1562,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_job_creation_active": {
         "aggregation_method": "count",
@@ -1534,9 +1590,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_job_creation_active": {
         "aggregation_method": "count",
@@ -1561,9 +1618,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_job_creation_active": {
         "aggregation_method": "count",
@@ -1588,9 +1646,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_job_creation_active": {
         "aggregation_method": "count",
@@ -1615,9 +1674,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_job_creation_active": {
         "aggregation_method": "count",
@@ -1642,9 +1702,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_job_creation_active": {
         "aggregation_method": "count",
@@ -1669,9 +1730,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_job_creation_active": {
         "aggregation_method": "count",
@@ -1696,9 +1758,10 @@
             }
         ],
         "statement": "{value} new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_job_creation_new": {
         "aggregation_method": "count",
@@ -1723,9 +1786,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_job_creation_new": {
         "aggregation_method": "count",
@@ -1750,9 +1814,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_job_creation_new": {
         "aggregation_method": "count",
@@ -1777,9 +1842,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_job_creation_new": {
         "aggregation_method": "count",
@@ -1804,9 +1870,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_job_creation_new": {
         "aggregation_method": "count",
@@ -1831,9 +1898,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_job_creation_new": {
         "aggregation_method": "count",
@@ -1858,9 +1926,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_job_creation_new": {
         "aggregation_method": "count",
@@ -1885,9 +1954,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_job_creation_new": {
         "aggregation_method": "count",
@@ -1912,9 +1982,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_job_creation_new": {
         "aggregation_method": "count",
@@ -1939,9 +2010,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_job_creation_new": {
         "aggregation_method": "count",
@@ -1966,9 +2038,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_job_creation_new": {
         "aggregation_method": "count",
@@ -1993,9 +2066,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_job_creation_new": {
         "aggregation_method": "count",
@@ -2020,9 +2094,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_job_creation_new": {
         "aggregation_method": "count",
@@ -2047,9 +2122,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_job_creation_new": {
         "aggregation_method": "count",
@@ -2074,9 +2150,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_job_creation_new": {
         "aggregation_method": "count",
@@ -2101,9 +2178,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_job_creation_new": {
         "aggregation_method": "count",
@@ -2128,9 +2206,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_job_creation_new": {
         "aggregation_method": "count",
@@ -2155,9 +2234,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_job_creation_new": {
         "aggregation_method": "count",
@@ -2182,9 +2262,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_job_creation_new": {
         "aggregation_method": "count",
@@ -2209,9 +2290,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_job_creation_new": {
         "aggregation_method": "count",
@@ -2236,9 +2318,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_job_creation_new": {
         "aggregation_method": "count",
@@ -2263,9 +2346,10 @@
             }
         ],
         "statement": "{value} new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2290,9 +2374,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2317,9 +2402,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2344,9 +2430,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2371,9 +2458,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2398,9 +2486,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2425,9 +2514,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2452,9 +2542,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2479,9 +2570,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2506,9 +2598,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2533,9 +2626,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2560,9 +2654,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2587,9 +2682,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2614,9 +2710,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2641,9 +2738,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2668,9 +2766,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2695,9 +2794,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2722,9 +2822,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2749,9 +2850,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2776,9 +2878,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2803,9 +2906,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_perc_job_creation_active": {
         "aggregation_method": "percent",
@@ -2830,9 +2934,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -2857,9 +2962,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -2884,9 +2990,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -2911,9 +3018,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -2938,9 +3046,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -2965,9 +3074,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -2992,9 +3102,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3019,9 +3130,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3046,9 +3158,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3073,9 +3186,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3100,9 +3214,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3127,9 +3242,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3154,9 +3270,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3181,9 +3298,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3208,9 +3326,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3235,9 +3354,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3262,9 +3382,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3289,9 +3410,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3316,9 +3438,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3343,9 +3466,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3370,9 +3494,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_perc_job_creation_new": {
         "aggregation_method": "percent",
@@ -3397,9 +3522,10 @@
             }
         ],
         "statement": "{value} percent of new jobs created by new businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_total_job_creation": {
         "aggregation_method": "count",
@@ -3424,9 +3550,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_total_job_creation": {
         "aggregation_method": "count",
@@ -3451,9 +3578,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_total_job_creation": {
         "aggregation_method": "count",
@@ -3478,9 +3606,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_total_job_creation": {
         "aggregation_method": "count",
@@ -3505,9 +3634,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_total_job_creation": {
         "aggregation_method": "count",
@@ -3532,9 +3662,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_total_job_creation": {
         "aggregation_method": "count",
@@ -3559,9 +3690,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_total_job_creation": {
         "aggregation_method": "count",
@@ -3586,9 +3718,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_total_job_creation": {
         "aggregation_method": "count",
@@ -3613,9 +3746,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_total_job_creation": {
         "aggregation_method": "count",
@@ -3640,9 +3774,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_total_job_creation": {
         "aggregation_method": "count",
@@ -3667,9 +3802,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_total_job_creation": {
         "aggregation_method": "count",
@@ -3694,9 +3830,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_total_job_creation": {
         "aggregation_method": "count",
@@ -3721,9 +3858,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_total_job_creation": {
         "aggregation_method": "count",
@@ -3748,9 +3886,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_total_job_creation": {
         "aggregation_method": "count",
@@ -3775,9 +3914,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_total_job_creation": {
         "aggregation_method": "count",
@@ -3802,9 +3942,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_total_job_creation": {
         "aggregation_method": "count",
@@ -3829,9 +3970,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_total_job_creation": {
         "aggregation_method": "count",
@@ -3856,9 +3998,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_total_job_creation": {
         "aggregation_method": "count",
@@ -3883,9 +4026,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_total_job_creation": {
         "aggregation_method": "count",
@@ -3910,9 +4054,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_total_job_creation": {
         "aggregation_method": "count",
@@ -3937,9 +4082,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_total_job_creation": {
         "aggregation_method": "count",
@@ -3964,9 +4110,10 @@
             }
         ],
         "statement": "{value} new jobs created by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_business_destruction_job": {
         "aggregation_method": "count",
@@ -3991,9 +4138,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_business_destruction_job": {
         "aggregation_method": "count",
@@ -4018,9 +4166,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_business_destruction_job": {
         "aggregation_method": "count",
@@ -4045,9 +4194,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_business_destruction_job": {
         "aggregation_method": "count",
@@ -4072,9 +4222,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_business_destruction_job": {
         "aggregation_method": "count",
@@ -4099,9 +4250,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_business_destruction_job": {
         "aggregation_method": "count",
@@ -4126,9 +4278,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_business_destruction_job": {
         "aggregation_method": "count",
@@ -4153,9 +4306,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_business_destruction_job": {
         "aggregation_method": "count",
@@ -4180,9 +4334,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_business_destruction_job": {
         "aggregation_method": "count",
@@ -4207,9 +4362,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_business_destruction_job": {
         "aggregation_method": "count",
@@ -4234,9 +4390,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_business_destruction_job": {
         "aggregation_method": "count",
@@ -4261,9 +4418,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_business_destruction_job": {
         "aggregation_method": "count",
@@ -4288,9 +4446,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_business_destruction_job": {
         "aggregation_method": "count",
@@ -4315,9 +4474,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_business_destruction_job": {
         "aggregation_method": "count",
@@ -4342,9 +4502,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_business_destruction_job": {
         "aggregation_method": "count",
@@ -4369,9 +4530,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_business_destruction_job": {
         "aggregation_method": "count",
@@ -4396,9 +4558,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_business_destruction_job": {
         "aggregation_method": "count",
@@ -4423,9 +4586,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_business_destruction_job": {
         "aggregation_method": "count",
@@ -4450,9 +4614,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_business_destruction_job": {
         "aggregation_method": "count",
@@ -4477,9 +4642,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_business_destruction_job": {
         "aggregation_method": "count",
@@ -4504,9 +4670,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_business_destruction_job": {
         "aggregation_method": "count",
@@ -4531,9 +4698,10 @@
             }
         ],
         "statement": "{value} businesses have cutted jobs in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_job_destruction_active": {
         "aggregation_method": "count",
@@ -4558,9 +4726,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_job_destruction_active": {
         "aggregation_method": "count",
@@ -4585,9 +4754,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_job_destruction_active": {
         "aggregation_method": "count",
@@ -4612,9 +4782,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_job_destruction_active": {
         "aggregation_method": "count",
@@ -4639,9 +4810,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_job_destruction_active": {
         "aggregation_method": "count",
@@ -4666,9 +4838,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_job_destruction_active": {
         "aggregation_method": "count",
@@ -4693,9 +4866,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_job_destruction_active": {
         "aggregation_method": "count",
@@ -4720,9 +4894,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_job_destruction_active": {
         "aggregation_method": "count",
@@ -4747,9 +4922,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_job_destruction_active": {
         "aggregation_method": "count",
@@ -4774,9 +4950,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_job_destruction_active": {
         "aggregation_method": "count",
@@ -4801,9 +4978,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_job_destruction_active": {
         "aggregation_method": "count",
@@ -4828,9 +5006,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_job_destruction_active": {
         "aggregation_method": "count",
@@ -4855,9 +5034,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_job_destruction_active": {
         "aggregation_method": "count",
@@ -4882,9 +5062,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_job_destruction_active": {
         "aggregation_method": "count",
@@ -4909,9 +5090,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_job_destruction_active": {
         "aggregation_method": "count",
@@ -4936,9 +5118,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_job_destruction_active": {
         "aggregation_method": "count",
@@ -4963,9 +5146,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_job_destruction_active": {
         "aggregation_method": "count",
@@ -4990,9 +5174,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_job_destruction_active": {
         "aggregation_method": "count",
@@ -5017,9 +5202,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_job_destruction_active": {
         "aggregation_method": "count",
@@ -5044,9 +5230,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_job_destruction_active": {
         "aggregation_method": "count",
@@ -5071,9 +5258,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_job_destruction_active": {
         "aggregation_method": "count",
@@ -5098,9 +5286,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5125,9 +5314,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5152,9 +5342,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5179,9 +5370,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5206,9 +5398,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5233,9 +5426,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5260,9 +5454,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5287,9 +5482,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5314,9 +5510,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5341,9 +5538,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5368,9 +5566,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5395,9 +5594,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5422,9 +5622,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5449,9 +5650,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5476,9 +5678,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5503,9 +5706,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5530,9 +5734,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5557,9 +5762,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5584,9 +5790,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5611,9 +5818,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5638,9 +5846,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_job_destruction_exit": {
         "aggregation_method": "count",
@@ -5665,9 +5874,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -5692,9 +5902,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -5719,9 +5930,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -5746,9 +5958,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -5773,9 +5986,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -5800,9 +6014,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -5827,9 +6042,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -5854,9 +6070,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -5881,9 +6098,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -5908,9 +6126,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -5935,9 +6154,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -5962,9 +6182,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -5989,9 +6210,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -6016,9 +6238,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -6043,9 +6266,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -6070,9 +6294,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -6097,9 +6322,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -6124,9 +6350,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -6151,9 +6378,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -6178,9 +6406,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -6205,9 +6434,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_perc_job_destruction_active": {
         "aggregation_method": "percent",
@@ -6232,9 +6462,10 @@
             }
         ],
         "statement": "{value} jobs cutted by active businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6259,9 +6490,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6286,9 +6518,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6313,9 +6546,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6340,9 +6574,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6367,9 +6602,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6394,9 +6630,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6421,9 +6658,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6448,9 +6686,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6475,9 +6714,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6502,9 +6742,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6529,9 +6770,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6556,9 +6798,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6583,9 +6826,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6610,9 +6854,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6637,9 +6882,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6664,9 +6910,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6691,9 +6938,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6718,9 +6966,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6745,9 +6994,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6772,9 +7022,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_perc_job_destruction_exit": {
         "aggregation_method": "percent",
@@ -6799,9 +7050,10 @@
             }
         ],
         "statement": "{value} jobs cutted by closed businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_total_job_destruction": {
         "aggregation_method": "count",
@@ -6826,9 +7078,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_total_job_destruction": {
         "aggregation_method": "count",
@@ -6853,9 +7106,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_total_job_destruction": {
         "aggregation_method": "count",
@@ -6880,9 +7134,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_total_job_destruction": {
         "aggregation_method": "count",
@@ -6907,9 +7162,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_total_job_destruction": {
         "aggregation_method": "count",
@@ -6934,9 +7190,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_total_job_destruction": {
         "aggregation_method": "count",
@@ -6961,9 +7218,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_total_job_destruction": {
         "aggregation_method": "count",
@@ -6988,9 +7246,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_total_job_destruction": {
         "aggregation_method": "count",
@@ -7015,9 +7274,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_total_job_destruction": {
         "aggregation_method": "count",
@@ -7042,9 +7302,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_total_job_destruction": {
         "aggregation_method": "count",
@@ -7069,9 +7330,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_total_job_destruction": {
         "aggregation_method": "count",
@@ -7096,9 +7358,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_total_job_destruction": {
         "aggregation_method": "count",
@@ -7123,9 +7386,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_total_job_destruction": {
         "aggregation_method": "count",
@@ -7150,9 +7414,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_total_job_destruction": {
         "aggregation_method": "count",
@@ -7177,9 +7442,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_total_job_destruction": {
         "aggregation_method": "count",
@@ -7204,9 +7470,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_total_job_destruction": {
         "aggregation_method": "count",
@@ -7231,9 +7498,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_total_job_destruction": {
         "aggregation_method": "count",
@@ -7258,9 +7526,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_total_job_destruction": {
         "aggregation_method": "count",
@@ -7285,9 +7554,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_total_job_destruction": {
         "aggregation_method": "count",
@@ -7312,9 +7582,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_total_job_destruction": {
         "aggregation_method": "count",
@@ -7339,9 +7610,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_total_job_destruction": {
         "aggregation_method": "count",
@@ -7366,9 +7638,10 @@
             }
         ],
         "statement": "{value} jobs have been cutted by businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_Location_quotient": {
         "aggregation_method": "index",
@@ -7393,9 +7666,10 @@
             }
         ],
         "statement": "The NAICS72 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_Location_quotient": {
         "aggregation_method": "index",
@@ -7420,9 +7694,10 @@
             }
         ],
         "statement": "The NAICS56 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_Location_quotient": {
         "aggregation_method": "index",
@@ -7447,9 +7722,10 @@
             }
         ],
         "statement": "The NAICS11 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_Location_quotient": {
         "aggregation_method": "index",
@@ -7474,9 +7750,10 @@
             }
         ],
         "statement": "The NAICS71 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_Location_quotient": {
         "aggregation_method": "index",
@@ -7501,9 +7778,10 @@
             }
         ],
         "statement": "The NAICS23 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_Location_quotient": {
         "aggregation_method": "index",
@@ -7528,9 +7806,10 @@
             }
         ],
         "statement": "The NAICS61 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_Location_quotient": {
         "aggregation_method": "index",
@@ -7555,9 +7834,10 @@
             }
         ],
         "statement": "The NAICS52 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_Location_quotient": {
         "aggregation_method": "index",
@@ -7582,9 +7862,10 @@
             }
         ],
         "statement": "The NAICS62 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_Location_quotient": {
         "aggregation_method": "index",
@@ -7609,9 +7890,10 @@
             }
         ],
         "statement": "The NAICS51 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_Location_quotient": {
         "aggregation_method": "index",
@@ -7636,9 +7918,10 @@
             }
         ],
         "statement": "The NAICS55 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_Location_quotient": {
         "aggregation_method": "index",
@@ -7663,9 +7946,10 @@
             }
         ],
         "statement": "The NAICS31_33 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_Location_quotient": {
         "aggregation_method": "index",
@@ -7690,9 +7974,10 @@
             }
         ],
         "statement": "The NAICS21 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_Location_quotient": {
         "aggregation_method": "index",
@@ -7717,9 +8002,10 @@
             }
         ],
         "statement": "The NAICS99 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_Location_quotient": {
         "aggregation_method": "index",
@@ -7744,9 +8030,10 @@
             }
         ],
         "statement": "The NAICS81 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_Location_quotient": {
         "aggregation_method": "index",
@@ -7771,9 +8058,10 @@
             }
         ],
         "statement": "The NAICS54 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_Location_quotient": {
         "aggregation_method": "index",
@@ -7798,9 +8086,10 @@
             }
         ],
         "statement": "The NAICS92 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_Location_quotient": {
         "aggregation_method": "index",
@@ -7825,9 +8114,10 @@
             }
         ],
         "statement": "The NAICS53 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_Location_quotient": {
         "aggregation_method": "index",
@@ -7852,9 +8142,10 @@
             }
         ],
         "statement": "The NAICS44_45 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_Location_quotient": {
         "aggregation_method": "index",
@@ -7879,9 +8170,10 @@
             }
         ],
         "statement": "The NAICS48_49 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_Location_quotient": {
         "aggregation_method": "index",
@@ -7906,9 +8198,10 @@
             }
         ],
         "statement": "The NAICS22 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_Location_quotient": {
         "aggregation_method": "index",
@@ -7933,9 +8226,10 @@
             }
         ],
         "statement": "The NAICS42 industry has {value} more employment share in {region_name} relative to the county.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS72_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -7960,9 +8254,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS72 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS56_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -7987,9 +8282,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS56 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS11_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8014,9 +8310,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS11 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS71_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8041,9 +8338,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS71 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS23_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8068,9 +8366,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS23 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS61_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8095,9 +8394,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS61 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS52_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8122,9 +8422,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS52 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS62_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8149,9 +8450,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS62 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS51_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8176,9 +8478,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS51 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS55_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8203,9 +8506,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS55 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS31_33_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8230,9 +8534,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS31_33 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS21_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8257,9 +8562,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS21 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS99_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8284,9 +8590,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS99 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS81_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8311,9 +8618,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS81 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS54_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8338,9 +8646,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS54 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS92_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8365,9 +8674,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS92 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS53_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8392,9 +8702,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS53 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS44_45_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8419,9 +8730,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS44_45 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS48_49_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8446,9 +8758,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS48_49 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS22_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8473,9 +8786,10 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS22 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     },
     "NAICS42_Herfindalh_Hirschman_index": {
         "aggregation_method": "index",
@@ -8500,8 +8814,9 @@
             }
         ],
         "statement": "The Herfindalh Hirschman employment concentration in NAICS42 industry is {value}.",
-        "type": "",
+        "type": "index",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Employment dynamics (job creation/destruction, headcounts) computed from establishment-level records."
     }
 }

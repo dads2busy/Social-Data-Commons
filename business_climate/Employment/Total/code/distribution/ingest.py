@@ -16,7 +16,7 @@ DIST_DIR = TOPIC_DIR / "data" / "distribution"
 sys.path.insert(0, str(MI_DIR))
 from mi_metrics import load_features, employment_dynamics, FEATURE_FILES
 
-log = get_logger("total.ingest")
+log = get_logger("employment.total.ingest")
 
 
 def load_config() -> dict:

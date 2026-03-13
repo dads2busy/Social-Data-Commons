@@ -11,7 +11,7 @@ from sdc_core.naming import build_file_name
 from sdc_core.versioning import update_version
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
-REPO_DIR = TOPIC_DIR.parents[2]
+REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
 MEASURE_INFO = DIST_DIR / "measure_info.json"
 

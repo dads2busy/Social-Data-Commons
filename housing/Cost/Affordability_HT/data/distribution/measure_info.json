@@ -1,5 +1,5 @@
 {
-    "affordability_index": {
+    "affordability_index_geo20": {
         "category": "Housing",
         "data_type": "numeric",
         "unit": "percent",
@@ -20,22 +20,22 @@
             },
             {
                 "name": "American Community Survey 5-Year Estimates",
-                "location": "U.S. Census Bureau, 2023",
+                "location": "U.S. Census Bureau",
                 "url": "https://www.census.gov/programs-surveys/acs"
             },
             {
                 "name": "LEHD Origin-Destination Employment Statistics",
-                "location": "U.S. Census Bureau, 2023",
+                "location": "U.S. Census Bureau",
                 "url": "https://lehd.ces.census.gov/data/"
             },
             {
                 "name": "General Transit Feed Specification (GTFS)",
-                "location": "Mobility Database, 2023 feeds",
+                "location": "Mobility Database",
                 "url": "https://mobilitydatabase.org/"
             }
         ]
     },
-    "housing_cost_pct": {
+    "housing_cost_pct_geo20": {
         "category": "Housing",
         "data_type": "numeric",
         "unit": "percent",
@@ -49,12 +49,12 @@
         "sources": [
             {
                 "name": "American Community Survey 5-Year Estimates",
-                "location": "U.S. Census Bureau, 2023",
+                "location": "U.S. Census Bureau",
                 "url": "https://www.census.gov/programs-surveys/acs"
             }
         ]
     },
-    "transport_cost_pct": {
+    "transport_cost_pct_geo20": {
         "category": "Housing",
         "data_type": "numeric",
         "unit": "percent",
@@ -73,7 +73,7 @@
             }
         ]
     },
-    "autos_per_hh": {
+    "autos_per_hh_geo20": {
         "category": "Housing",
         "data_type": "numeric",
         "unit": "vehicles",
@@ -92,7 +92,7 @@
             }
         ]
     },
-    "vmt_per_hh": {
+    "vmt_per_hh_geo20": {
         "category": "Housing",
         "data_type": "numeric",
         "unit": "miles",
@@ -111,7 +111,7 @@
             }
         ]
     },
-    "transit_frac": {
+    "transit_frac_geo20": {
         "category": "Housing",
         "data_type": "numeric",
         "unit": "percent",

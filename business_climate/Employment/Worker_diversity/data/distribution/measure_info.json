@@ -4,7 +4,7 @@
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -22,16 +22,17 @@
             }
         ],
         "statement": "There are {value} male workers working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_overall_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -49,16 +50,17 @@
             }
         ],
         "statement": "There are {value} female workers working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_age_29_and_under_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce under 29. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -76,16 +78,17 @@
             }
         ],
         "statement": "There are {value} male workers under 29 working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_age_29_and_under_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce under 29. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -103,16 +106,17 @@
             }
         ],
         "statement": "There are {value} female workers under 29 working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_age_30_to_54_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce 30 to 54. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -130,16 +134,17 @@
             }
         ],
         "statement": "There are {value} male workers 30 to 54 working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_age_30_to_54_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce 30 to 54. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -157,16 +162,17 @@
             }
         ],
         "statement": "There are {value} female workers 30 to 54 working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_age_55_and_over_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the Male workforce over 55. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -184,16 +190,17 @@
             }
         ],
         "statement": "There are {value} male workers over 55 working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_age_55_and_over_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce over 55. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -211,16 +218,17 @@
             }
         ],
         "statement": "There are {value} female workers over 55 working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_earnings_1250_and_under_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce earning under $1,250 per month. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -238,16 +246,17 @@
             }
         ],
         "statement": "There are {value} male workers earning under $1,250 per month working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_earnings_1250_and_under_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce earning under $1,250 per month. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -265,16 +274,17 @@
             }
         ],
         "statement": "There are {value} female workers earning under $1,250 per month working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_earnings_1251_to_3333_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce earning $1,251 to 3,333 per month. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -292,16 +302,17 @@
             }
         ],
         "statement": "There are {value} male workers earn $1,251 to $3,333 per month working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_earnings_1251_to_3333_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce earning $1,251 to $3,333 per month. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -319,16 +330,17 @@
             }
         ],
         "statement": "There are {value} female workers earn $1,251 to $3,333 per month working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_earnings_3334_and_over_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce earning over $3,334 per month. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -346,16 +358,17 @@
             }
         ],
         "statement": "There are {value} male workers earn over $3,334 per month working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_earnings_3334_and_over_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce earning over $3,334 per month. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -373,16 +386,17 @@
             }
         ],
         "statement": "There are {value} female workers earn over $3,334 per month in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_industry_goods_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce in Goods Producing industry sectors. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -400,16 +414,17 @@
             }
         ],
         "statement": "There are {value} male workers in Goods Producing industry sectors working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_industry_goods_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce in Goods Producing industry sectors. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -427,16 +442,17 @@
             }
         ],
         "statement": "There are {value} female workers in Goods Producing industry sectors working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_industry_trade_transporation_utilities_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce in Trade, Transportation, and Utilities industry sectors. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -454,16 +470,17 @@
             }
         ],
         "statement": "There are {value} male workers in Trade, Transportation, and Utilities industry sectors working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_industry_trade_transporation_utilities_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce in Trade, Transportation, and Utilities industry sectors. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -481,16 +498,17 @@
             }
         ],
         "statement": "There are {value} female workers in Trade, Transportation, and Utilities industry sectors working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_industry_other_services_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce in other Service industry sectors. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -508,16 +526,17 @@
             }
         ],
         "statement": "There are {value} male workers in other Service industry sectors working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_industry_other_services_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce in other Service industry sectors. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -535,16 +554,17 @@
             }
         ],
         "statement": "There are {value} female workers in other Service industry sectors working in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_age_29_and_under_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce under 29. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -562,16 +582,17 @@
             }
         ],
         "statement": "{value} of the male workers working in {features.name} are under 29.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_age_29_and_under_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce under 29. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -589,16 +610,17 @@
             }
         ],
         "statement": "{value} of the female workers working in {features.name} are under 29.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_age_30_to_54_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce 30 to 54. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -616,16 +638,17 @@
             }
         ],
         "statement": "{value} of the male workers working in {features.name} are 30 to 54.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_age_30_to_54_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce 30 to 54. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -643,16 +666,17 @@
             }
         ],
         "statement": "{value} of the female workers working in {features.name} are 30 to 54.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_age_55_and_over_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce over 55. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -670,16 +694,17 @@
             }
         ],
         "statement": "{value} of the male workers working in {features.name} are over 55.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_age_55_and_over_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce over 55. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -697,16 +722,17 @@
             }
         ],
         "statement": "{value} of the female workers working in {features.name} are over 55.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_earnings_1250_and_under_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce earning under $1,250 per month. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -724,16 +750,17 @@
             }
         ],
         "statement": "{value} of the male workers working in {features.name} earn under $1,250 per month.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_earnings_1250_and_under_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce earning under $1,250 per month. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -751,16 +778,17 @@
             }
         ],
         "statement": "{value} of the female workers working  in {features.name} earn under $1,250 per month.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_earnings_1251_to_3333_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce earning $1,250 to 3,333 per month. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -778,16 +806,17 @@
             }
         ],
         "statement": "{value} of the male workers working in {features.name} earn $1,250 to $3,333 per month.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_earnings_1251_to_3333_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce earning $1,250 to 3,333 per month. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -805,16 +834,17 @@
             }
         ],
         "statement": "{value} of the female workers working in {features.name} earn $1,250 to $3,333 per month.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_earnings_3334_and_over_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce earning over $3,334 per month. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -832,16 +862,17 @@
             }
         ],
         "statement": "{value} of the male workers working in {features.name} earn over $3,334 per month.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_earnings_3334_and_over_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce earning over $3,334 per month. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -859,16 +890,17 @@
             }
         ],
         "statement": "{value} of the female workers working in {features.name} earn over $3,334 per month.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_industry_goods_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce in Goods Producing industry sectors. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -886,16 +918,17 @@
             }
         ],
         "statement": "{value} of the male workers working in {features.name} are in Goods Producing industry sectors.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_industry_goods_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce in Goods Producing industry sectors. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -913,16 +946,17 @@
             }
         ],
         "statement": "{value} of the female workers working in {features.name} are in Goods Producing industry sectors.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_industry_trade_transporation_utilities_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce in Trade, Transportation, and Utility industry sectors. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -940,16 +974,17 @@
             }
         ],
         "statement": "{value} of the male workers working in {features.name} are in Trade, Transportation, and Utility industry sectors.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_industry_trade_transporation_utilities_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce in Trade, Transportation, and Utility industry sectors. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -967,16 +1002,17 @@
             }
         ],
         "statement": "{value} of the female workers working in {features.name} are in Trade, Transportation, and Utility industry sectors.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_industry_other_services_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce in other Service industry sectors. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -994,16 +1030,17 @@
             }
         ],
         "statement": "{value} of the male workers working in {features.name} are in other Service industry sectors.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "wac_industry_other_services_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce in other Service industry sectors. Based off the Workforce Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by work Census Block.",
@@ -1021,9 +1058,10 @@
             }
         ],
         "statement": "{value} of the female workers working in {features.name} are in other Service industry sectors.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "Minority_employment": {
         "aggregation_method": "",
@@ -1050,7 +1088,8 @@
         "statement": "The number of jobs for racial minority workers in {features.name} is {value}.",
         "type": "count",
         "unit": "",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "Nonminority_employment": {
         "aggregation_method": "",
@@ -1077,14 +1116,15 @@
         "statement": "The number of jobs for racial non-minority workers in {features.name} is {value}.",
         "type": "count",
         "unit": "",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_overall_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1102,16 +1142,17 @@
             }
         ],
         "statement": "There are {value} male workers living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_overall_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1129,16 +1170,17 @@
             }
         ],
         "statement": "There are {value} female workers living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_age_29_and_under_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce under 29. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1156,16 +1198,17 @@
             }
         ],
         "statement": "There are {value} male workers under 29 living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_age_29_and_under_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce under 29. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1183,16 +1226,17 @@
             }
         ],
         "statement": "There are {value} female workers under 29 living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_age_30_to_54_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce 30 to 54. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1210,16 +1254,17 @@
             }
         ],
         "statement": "There are {value} male workers 30 to 54 living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_age_30_to_54_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce 30 to 54. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1237,16 +1282,17 @@
             }
         ],
         "statement": "There are {value} female workers 30 to 54 living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_age_55_and_over_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the Male workforce over 55. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1264,16 +1310,17 @@
             }
         ],
         "statement": "There are {value} male workers over 55 living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_age_55_and_over_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce over 55. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1291,16 +1338,17 @@
             }
         ],
         "statement": "There are {value} female workers over 55 living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_earnings_1250_and_under_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce earning under $1,250 per month. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1318,16 +1366,17 @@
             }
         ],
         "statement": "There are {value} male workers earning under $1,250 per month living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_earnings_1250_and_under_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce earning under $1,250 per month. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1345,16 +1394,17 @@
             }
         ],
         "statement": "There are {value} female workers earning under $1,250 per month living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_earnings_1251_to_3333_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce earning $1,251 to 3,333 per month. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1372,16 +1422,17 @@
             }
         ],
         "statement": "There are {value} male workers earn $1,251-$3,333 per month living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_earnings_1251_to_3333_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce earning $1,251 to 3,333 per month. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1399,16 +1450,17 @@
             }
         ],
         "statement": "There are {value} female workers earn $1,251-$3,333 per month living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_earnings_3334_and_over_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce earning over $3,334 per month. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1426,16 +1478,17 @@
             }
         ],
         "statement": "There are {value} male workers earn over $3,334 per month living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_earnings_3334_and_over_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce earning over $3,334 per month. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1453,16 +1506,17 @@
             }
         ],
         "statement": "There are {value} female workers earn over $3,334 per month living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_industry_goods_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce in Goods Producing industry sectors. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1480,16 +1534,17 @@
             }
         ],
         "statement": "There are {value} male workers in Goods Producing industry sectors living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_industry_goods_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce in Goods Producing industry sectors. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1507,16 +1562,17 @@
             }
         ],
         "statement": "There are {value} female workers in Goods Producing industry sectors living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_industry_trade_transporation_utilities_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce in Trade, Transportation, and Utilities industry sectors. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1534,16 +1590,17 @@
             }
         ],
         "statement": "There are {value} male workers in Trade, Transportation, and Utilities industry sectors living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_industry_trade_transporation_utilities_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce in Trade, Transportation, and Utilities industry sectors. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1561,16 +1618,17 @@
             }
         ],
         "statement": "There are {value} female workers in Trade, Transportation, and Utilities industry sectors living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_industry_other_services_male_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the male workforce in other Service industry sectors. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1588,16 +1646,17 @@
             }
         ],
         "statement": "There are {value} male workers in other Service industry sectors living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_industry_other_services_female_count": {
         "aggregation_method": "count",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "integer",
         "equity_category": "",
         "layer": [],
         "long_description": "Overall count of the female workforce in other Service industry sectors. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1615,16 +1674,17 @@
             }
         ],
         "statement": "There are {value} female workers in other Service industry sectors living in {features.name}.",
-        "type": "",
+        "type": "count",
         "unit": "individual",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_age_29_and_under_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce under 29. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1642,16 +1702,17 @@
             }
         ],
         "statement": "{value} of the male workers living in {features.name} are under 29.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_age_29_and_under_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce under 29. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1669,16 +1730,17 @@
             }
         ],
         "statement": "{value} of the female workers living in {features.name} are under 29.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_age_30_to_54_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce 30 to 54. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1696,16 +1758,17 @@
             }
         ],
         "statement": "{value} of the male workers are 30 to 54 living in {features.name}.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_age_30_to_54_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce 30 to 54. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1723,16 +1786,17 @@
             }
         ],
         "statement": "{value} of the female workers living in {features.name} are 30 to 54.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_age_55_and_over_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce over 55. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1750,16 +1814,17 @@
             }
         ],
         "statement": "{value} of the male workers living in {features.name} are over 55.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_age_55_and_over_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce over 55. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1777,16 +1842,17 @@
             }
         ],
         "statement": "{value} of the female workers living in {features.name} are over 55.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_earnings_1250_and_under_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce earning under $1,250 per month. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1804,16 +1870,17 @@
             }
         ],
         "statement": "{value} of the male workers living in {features.name} earn under $1,250 per month.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_earnings_1250_and_under_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce earning under $1,250 per month. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1831,16 +1898,17 @@
             }
         ],
         "statement": "{value} of the female workers living in {features.name} earn under $1,250 per month.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_earnings_1251_to_3333_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce earning $1,250 to 3,333 per month. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1858,16 +1926,17 @@
             }
         ],
         "statement": "{value} of the male workers living in {features.name} earn $1,250 to $3,333 per month.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_earnings_1251_to_3333_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce earning $1,250 to 3,333 per month. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1885,16 +1954,17 @@
             }
         ],
         "statement": "{value} of the female workers living in {features.name} earn $1,250 to $3,333 per month.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_earnings_3334_and_over_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce earning over $3,334 per month. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1912,16 +1982,17 @@
             }
         ],
         "statement": "{value} of the male workers living in {features.name} earn over $3,334 per month.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_earnings_3334_and_over_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce earning over $3,334 per month. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1939,16 +2010,17 @@
             }
         ],
         "statement": "{value} of the female workers living in {features.name} earn over $3,334 per month.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_industry_goods_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce in Goods Producing industry sectors. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1966,16 +2038,17 @@
             }
         ],
         "statement": "{value} of the male workers living in {features.name} are in Goods Producing industry sectors.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_industry_goods_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce in Goods Producing industry sectors. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -1993,16 +2066,17 @@
             }
         ],
         "statement": "{value} of the female workers living in {features.name} are in Goods Producing industry sectors .",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_industry_trade_transporation_utilities_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce in Trade, Transportation, and Utility industry sectors. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -2020,16 +2094,17 @@
             }
         ],
         "statement": "{value} of the male workers living in {features.name} are in Trade, Transportation, and Utility industry sectors.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_industry_trade_transporation_utilities_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce in Trade, Transportation, and Utility industry sectors. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -2047,16 +2122,17 @@
             }
         ],
         "statement": "{value} of the female workers living in {features.name} are in Trade, Transportation, and Utility industry sectors.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_industry_other_services_male_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the male workforce in other Service industry sectors. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -2074,16 +2150,17 @@
             }
         ],
         "statement": "{value} of the male workers living in {features.name} are in other Service industry sectors.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     },
     "rac_industry_other_services_female_perc": {
         "aggregation_method": "percent",
         "categories": "",
         "category": "Employment/Workforce Development",
         "citations": [],
-        "data_type": "",
+        "data_type": "decimal",
         "equity_category": "",
         "layer": [],
         "long_description": "Percent of the female workforce in other Service industry sectors. Based off the Residence Area Characteristics (WAC) data from Longitudinal Employer-Household Dynamics (LEHD) Origin-Destination Employment Statistics (LODES). Jobs in this case are totaled by home Census Block.",
@@ -2101,8 +2178,9 @@
             }
         ],
         "statement": "{value} of the female workers living in {features.name} are in other Service industry sectors.",
-        "type": "",
+        "type": "index",
         "unit": "person",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Worker diversity metrics computed from establishment-level employment records by race/ethnicity."
     }
 }

@@ -19,6 +19,7 @@ import pandas as pd
 import yaml
 from sdc_core.io import write_data
 from sdc_core.log import get_logger
+from sdc_core.naming import build_file_name
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
@@ -135,7 +136,14 @@ def run_source(name: str, src: dict, all_bg: pd.DataFrame) -> tuple[str, int] | 
     combined = combined.sort_values(["geoid", "year", "measure"]).reset_index(drop=True)
 
     years = sorted(combined["year"].unique())
-    filename = f"{name}_cttrbg_lodes_{min(years)}_{max(years)}_employment_by_minority_workers.csv.xz"
+    auto_name = build_file_name(
+        coverage_area=name,
+        data_source="lodes",
+        geographies=["county", "tract", "block_group"],
+        years=years,
+        title="employment_by_minority_workers",
+    )
+    filename = f"{auto_name}.csv.xz"
     out_path = DIST_DIR / filename
     write_data(combined, out_path, census_standardize=False)
     log.info("Wrote %d rows to %s", len(combined), out_path)

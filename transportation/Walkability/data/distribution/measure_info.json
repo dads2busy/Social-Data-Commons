@@ -1,114 +1,58 @@
 {
-    "walkability_index_geo20": {
-        "aggregation_method": "population-weighted mean",
-        "categories": "",
-        "category": "Transportation",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "The Walkability Index is a composite measure that ranks block groups according to their relative walkability, computed annually for 2017-2023. It combines four components: (1) D2A_Ranked — employment and household land use entropy from LEHD LODES WAC job counts by NAICS sector and ACS B11001 household counts, measuring the diversity of nearby land uses; (2) D2B_Ranked — employment-only entropy across five tiers (retail, office, industrial, service, entertainment); (3) D3B_Ranked — street intersection density from the EPA Smart Location Database V3, measuring pedestrian-friendly street connectivity; and (4) D4C_Ranked — distance to the nearest transit stop computed from national GTFS feeds via the Mobility Database, measuring transit accessibility. Each component is ranked into 20 quantile bins across all block groups in the coverage area. The final index is calculated as NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3, producing scores from 1 (least walkable) to 20 (most walkable). Block group scores are aggregated to Census tracts and counties using population-weighted means.",
-        "long_name": "Walkability Index",
-        "measure_type": "index",
-        "short_description": "Composite walkability score (1-20) combining employment entropy, street connectivity, and transit proximity, updated annually from LODES, EPA SLD, and GTFS data.",
-        "short_name": "Walkability Index",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "Smart Location Database V3, January 2021",
-                "location_url": "https://www.epa.gov/smartgrowth/smart-location-mapping#walkability",
-                "name": "Environmental Protection Agency",
-                "url": "https://www.epa.gov/smartgrowth/smart-location-mapping"
-            },
-            {
-                "date_accessed": 2025,
-                "location": "LODES 8 Workplace Area Characteristics",
-                "location_url": "https://lehd.ces.census.gov/data/lodes/LODES8/",
-                "name": "Census Bureau LEHD",
-                "url": "https://lehd.ces.census.gov/"
-            },
-            {
-                "date_accessed": 2025,
-                "location": "ACS 5-Year Estimates, Table B11001 (Household Type)",
-                "location_url": "https://data.census.gov/table/ACSDT5Y2023.B11001",
-                "name": "Census Bureau ACS",
-                "url": "https://data.census.gov"
-            },
-            {
-                "date_accessed": 2025,
-                "location": "Mobility Database and Transitland GTFS feeds",
-                "location_url": "https://mobilitydatabase.org",
-                "name": "GTFS Transit Feeds",
-                "url": "https://mobilitydatabase.org"
-            },
-            {
-                "date_accessed": 2025,
-                "location": "Census 2010 Centers of Population (block group centroids)",
-                "location_url": "https://www.census.gov/geographies/reference-files/time-series/geo/centers-population.html",
-                "name": "Census Bureau",
-                "url": "https://www.census.gov"
-            }
-        ],
-        "provenance": "Derived from the EPA National Walkability Index methodology. Employment entropy (D2A/D2B) computed annually from LEHD LODES + ACS data. Street connectivity (D3B) from EPA SLD V3. Transit proximity (D4C) computed annually from national GTFS feeds. Formula: NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3.",
-        "statement": "The Walkability Index in {region_name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "walkability_index_geo10": {
-        "aggregation_method": "population-weighted mean",
-        "categories": "",
-        "category": "Transportation",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "The Walkability Index is a composite measure that ranks block groups according to their relative walkability, computed annually for 2017-2023. It combines four components: (1) D2A_Ranked — employment and household land use entropy from LEHD LODES WAC job counts by NAICS sector and ACS B11001 household counts, measuring the diversity of nearby land uses; (2) D2B_Ranked — employment-only entropy across five tiers (retail, office, industrial, service, entertainment); (3) D3B_Ranked — street intersection density from the EPA Smart Location Database V3, measuring pedestrian-friendly street connectivity; and (4) D4C_Ranked — distance to the nearest transit stop computed from national GTFS feeds via the Mobility Database, measuring transit accessibility. Each component is ranked into 20 quantile bins across all block groups in the coverage area. The final index is calculated as NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3, producing scores from 1 (least walkable) to 20 (most walkable). Block group scores are aggregated to Census tracts and counties using population-weighted means.",
-        "long_name": "Walkability Index",
-        "measure_type": "index",
-        "short_description": "Composite walkability score (1-20) combining employment entropy, street connectivity, and transit proximity, updated annually from LODES, EPA SLD, and GTFS data.",
-        "short_name": "Walkability Index",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "Smart Location Database V3, January 2021",
-                "location_url": "https://www.epa.gov/smartgrowth/smart-location-mapping#walkability",
-                "name": "Environmental Protection Agency",
-                "url": "https://www.epa.gov/smartgrowth/smart-location-mapping"
-            },
-            {
-                "date_accessed": 2025,
-                "location": "LODES 8 Workplace Area Characteristics",
-                "location_url": "https://lehd.ces.census.gov/data/lodes/LODES8/",
-                "name": "Census Bureau LEHD",
-                "url": "https://lehd.ces.census.gov/"
-            },
-            {
-                "date_accessed": 2025,
-                "location": "ACS 5-Year Estimates, Table B11001 (Household Type)",
-                "location_url": "https://data.census.gov/table/ACSDT5Y2023.B11001",
-                "name": "Census Bureau ACS",
-                "url": "https://data.census.gov"
-            },
-            {
-                "date_accessed": 2025,
-                "location": "Mobility Database and Transitland GTFS feeds",
-                "location_url": "https://mobilitydatabase.org",
-                "name": "GTFS Transit Feeds",
-                "url": "https://mobilitydatabase.org"
-            },
-            {
-                "date_accessed": 2025,
-                "location": "Census 2010 Centers of Population (block group centroids)",
-                "location_url": "https://www.census.gov/geographies/reference-files/time-series/geo/centers-population.html",
-                "name": "Census Bureau",
-                "url": "https://www.census.gov"
-            }
-        ],
-        "provenance": "Derived from the EPA National Walkability Index methodology. Employment entropy (D2A/D2B) computed annually from LEHD LODES + ACS data. Street connectivity (D3B) from EPA SLD V3. Transit proximity (D4C) computed annually from national GTFS feeds. Formula: NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3.",
-        "statement": "The Walkability Index in {region_name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    }
+  "walkability_index_geo20": {
+    "aggregation_method": "population-weighted mean",
+    "categories": "",
+    "category": "Transportation",
+    "citations": "",
+    "data_type": "numeric",
+    "equity_category": "",
+    "layer": "",
+    "long_description": "The Walkability Index is a composite measure that ranks block groups according to their relative walkability, computed annually for 2017-2023. It combines four components: (1) D2A_Ranked \u2014 employment and household land use entropy from LEHD LODES WAC job counts by NAICS sector and ACS B11001 household counts, measuring the diversity of nearby land uses; (2) D2B_Ranked \u2014 employment-only entropy across five tiers (retail, office, industrial, service, entertainment); (3) D3B_Ranked \u2014 street intersection density from the EPA Smart Location Database V3, measuring pedestrian-friendly street connectivity; and (4) D4C_Ranked \u2014 distance to the nearest transit stop computed from national GTFS feeds via the Mobility Database, measuring transit accessibility. Each component is ranked into 20 quantile bins across all block groups in the coverage area. The final index is calculated as NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3, producing scores from 1 (least walkable) to 20 (most walkable). Block group scores are aggregated to Census tracts and counties using population-weighted means.",
+    "long_name": "Walkability Index",
+    "measure_type": "index",
+    "short_description": "Composite walkability score (1-20) combining employment entropy, street connectivity, and transit proximity, updated annually from LODES, EPA SLD, and GTFS data.",
+    "short_name": "Walkability Index",
+    "sources": [
+      {
+        "date_accessed": 2025,
+        "location": "Smart Location Database V3, January 2021",
+        "location_url": "https://www.epa.gov/smartgrowth/smart-location-mapping#walkability",
+        "name": "Environmental Protection Agency",
+        "url": "https://www.epa.gov/smartgrowth/smart-location-mapping"
+      },
+      {
+        "date_accessed": 2025,
+        "location": "LODES 8 Workplace Area Characteristics",
+        "location_url": "https://lehd.ces.census.gov/data/lodes/LODES8/",
+        "name": "Census Bureau LEHD",
+        "url": "https://lehd.ces.census.gov/"
+      },
+      {
+        "date_accessed": 2025,
+        "location": "ACS 5-Year Estimates, Table B11001 (Household Type)",
+        "location_url": "https://data.census.gov/table/ACSDT5Y2023.B11001",
+        "name": "Census Bureau ACS",
+        "url": "https://data.census.gov"
+      },
+      {
+        "date_accessed": 2025,
+        "location": "Mobility Database and Transitland GTFS feeds",
+        "location_url": "https://mobilitydatabase.org",
+        "name": "GTFS Transit Feeds",
+        "url": "https://mobilitydatabase.org"
+      },
+      {
+        "date_accessed": 2025,
+        "location": "Census 2010 Centers of Population (block group centroids)",
+        "location_url": "https://www.census.gov/geographies/reference-files/time-series/geo/centers-population.html",
+        "name": "Census Bureau",
+        "url": "https://www.census.gov"
+      }
+    ],
+    "provenance": "Derived from the EPA National Walkability Index methodology. Employment entropy (D2A/D2B) computed annually from LEHD LODES + ACS data. Street connectivity (D3B) from EPA SLD V3. Transit proximity (D4C) computed annually from national GTFS feeds. Formula: NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3.",
+    "statement": "The Walkability Index in {region_name} is {value}.",
+    "type": "index",
+    "unit": "index score",
+    "variants": ""
+  }
 }

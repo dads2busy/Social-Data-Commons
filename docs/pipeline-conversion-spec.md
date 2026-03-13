@@ -432,10 +432,9 @@ Example: "Tract-level incarceration counts from Prison Policy Initiative (PPI) 2
 
 ### `_geo10` variants
 
-For variables with both `_geo20` and `_geo10` variants:
-- `long_description`: Same as `_geo20` with "Values on original 2010 census tract boundaries." appended
-- `short_description`: Same as `_geo20` with ", on 2010 census boundaries." appended
-- `provenance`: Same as `_geo20` with "Values reported on original 2010 census tract boundaries." appended
+Do **not** include `_geo10` variables in `measure_info.json`. The `_geo10` suffixed measures exist in the dataset files for researchers who need values on original 2010 census tract boundaries, but they are not displayed on dashboards and do not need metadata entries.
+
+Only `_geo20` variables should have entries in `measure_info.json`.
 
 These fields replace the need for the `generate-narratives.ts` script in dashboard repos — narratives flow directly from sdc-monorepo's `measure_info.json`.
 

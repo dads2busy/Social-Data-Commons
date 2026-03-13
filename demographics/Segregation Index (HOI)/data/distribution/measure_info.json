@@ -1,58 +1,30 @@
 {
-    "segregation_indicator_geo20": {
-        "aggregation_method": "mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "Theil, H. (1972). Statistical Decomposition Analysis. Amsterdam: North-Holland Publishing Company.; Reardon, S. F., & Firebaugh, G. (2002). Measures of Multigroup Segregation. Sociological Methodology, 32(1), 33–67.",
-        "data_type": "decimal",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "The Segregation Index measures how much a community's racial and ethnic composition differs from the state as a whole, using the Entropy Index (Theil's H) across eight racial/ethnic categories. Communities with high segregation values tend to have more concentrated poverty, unequal access to services, and wider disparities in educational and economic outcomes. As a component of the VDH Health Opportunity Index Social Impact profile, this measure helps identify areas where residential sorting by race may reinforce structural inequities.",
-        "long_name": "Segregation Indicator",
-        "measure_type": "index",
-        "short_description": "Entropy Index (Theil's H) measuring how sub-area racial/ethnic composition differs from the overall state composition.",
-        "short_name": "Segregation indicator",
-        "sources": [
-            {
-                "name": "U.S. Census Bureau",
-                "location": "ACS 5-Year Estimates, Table B03002 (Hispanic or Latino Origin by Race)",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "provenance": "The segregation indicator uses the Entropy Index (Theil's H), a method for measuring multigroup residential segregation that quantifies how sub-area racial/ethnic composition differs from the overall composition (Theil, 1972; Reardon & Firebaugh, 2002). This pipeline builds on methodology developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE) for the Health Opportunity Index (HOI), which includes a segregation indicator as one of its 13 community health profiles.",
-        "statement": "The segregation indicator in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "segregation_indicator_geo10": {
-        "aggregation_method": "mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "Theil, H. (1972). Statistical Decomposition Analysis. Amsterdam: North-Holland Publishing Company.; Reardon, S. F., & Firebaugh, G. (2002). Measures of Multigroup Segregation. Sociological Methodology, 32(1), 33–67.",
-        "data_type": "decimal",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "The Segregation Index measures how much a community's racial and ethnic composition differs from the state as a whole, using the Entropy Index (Theil's H) across eight racial/ethnic categories. Communities with high segregation values tend to have more concentrated poverty, unequal access to services, and wider disparities in educational and economic outcomes. As a component of the VDH Health Opportunity Index Social Impact profile, this measure helps identify areas where residential sorting by race may reinforce structural inequities. Values on original 2010 census tract boundaries.",
-        "long_name": "Segregation Indicator (2010 geographies)",
-        "measure_type": "index",
-        "short_description": "Entropy Index (Theil's H) measuring how sub-area racial/ethnic composition differs from the overall state composition.",
-        "short_name": "Segregation indicator",
-        "sources": [
-            {
-                "name": "U.S. Census Bureau",
-                "location": "ACS 5-Year Estimates, Table B03002 (Hispanic or Latino Origin by Race)",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "provenance": "The segregation indicator uses the Entropy Index (Theil's H), a method for measuring multigroup residential segregation that quantifies how sub-area racial/ethnic composition differs from the overall composition (Theil, 1972; Reardon & Firebaugh, 2002). This pipeline builds on methodology developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE) for the Health Opportunity Index (HOI), which includes a segregation indicator as one of its 13 community health profiles.",
-        "statement": "The segregation indicator in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    }
+  "segregation_indicator_geo20": {
+    "aggregation_method": "mean",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "Theil, H. (1972). Statistical Decomposition Analysis. Amsterdam: North-Holland Publishing Company.; Reardon, S. F., & Firebaugh, G. (2002). Measures of Multigroup Segregation. Sociological Methodology, 32(1), 33\u201367.",
+    "data_type": "decimal",
+    "equity_category": "",
+    "layer": "",
+    "long_description": "The Segregation Index measures how much a community's racial and ethnic composition differs from the state as a whole, using the Entropy Index (Theil's H) across eight racial/ethnic categories. Communities with high segregation values tend to have more concentrated poverty, unequal access to services, and wider disparities in educational and economic outcomes. As a component of the VDH Health Opportunity Index Social Impact profile, this measure helps identify areas where residential sorting by race may reinforce structural inequities.",
+    "long_name": "Segregation Indicator",
+    "measure_type": "index",
+    "short_description": "Entropy Index (Theil's H) measuring how sub-area racial/ethnic composition differs from the overall state composition.",
+    "short_name": "Segregation indicator",
+    "sources": [
+      {
+        "name": "U.S. Census Bureau",
+        "location": "ACS 5-Year Estimates, Table B03002 (Hispanic or Latino Origin by Race)",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "provenance": "The segregation indicator uses the Entropy Index (Theil's H), a method for measuring multigroup residential segregation that quantifies how sub-area racial/ethnic composition differs from the overall composition (Theil, 1972; Reardon & Firebaugh, 2002). This pipeline builds on methodology developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE) for the Health Opportunity Index (HOI), which includes a segregation indicator as one of its 13 community health profiles.",
+    "statement": "The segregation indicator in {features.name} is {value}.",
+    "type": "index",
+    "unit": "index score",
+    "variants": ""
+  }
 }

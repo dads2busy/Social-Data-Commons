@@ -31,7 +31,7 @@ def load_config() -> dict:
 
 
 def find_source(dist_dir: Path, prefix: str) -> Path | None:
-    candidates = sorted(dist_dir.glob(f"{prefix}_*postsecondary*.csv.xz"))
+    candidates = sorted(dist_dir.glob(f"{prefix}_cttr_*postsecondary*.csv.xz"))
     return candidates[-1] if candidates else None
 
 

@@ -1,6 +1,6 @@
 {
     "gini_index_geo20": {
-        "aggregation_method": "",
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Financial Well Being",
         "citations": "",
@@ -24,7 +24,7 @@
         ],
         "statement": "The income inequality (Gini Index) in {features.name} is {value}.",
         "type": "index",
-        "unit": "",
+        "unit": "index score",
         "variants": ""
     }
 }

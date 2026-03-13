@@ -1,16 +1,16 @@
 {
     "avg_monthly_rate": {
-        "aggregation_method": "",
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Behavioral Health, Substance Use Disorder and Recovery",
         "citations": "",
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Average monthly emergency department visits for drug overdose per 100,000 residents. Geographies: County (5), Health Districts (51_hd)",
+        "long_description": "Average monthly emergency department visits for drug overdose per 100,000 residents. This measure captures the burden of acute drug overdose events on local emergency medical systems and serves as a near-real-time indicator of substance use crises in a community. Tracking ED visit rates enables public health officials to identify emerging overdose hotspots, allocate naloxone distribution resources, and evaluate the impact of harm reduction interventions. Elevated rates may reflect increased opioid availability, changes in illicit drug supply composition, or gaps in substance use treatment access.",
         "long_name": "Monthly average emergency department visits for drug overdose rate per 100,000 residents",
         "measure_type": "rate per 100k",
-        "short_description": "",
+        "short_description": "Average monthly rate of emergency department visits for drug overdose per 100,000 residents.",
         "short_name": "Monthly average ED visits for drug overdose",
         "sources": [
             {
@@ -23,7 +23,8 @@
         ],
         "statement": "The average emergency department visits for drug overdose rate in {features.name} is {value}.",
         "type": "rate",
-        "unit": "",
-        "variants": ""
+        "unit": "per 100,000",
+        "variants": "",
+        "provenance": "Emergency department visit rates for drug overdose from Virginia Department of Health surveillance data. Monthly counts aggregated to average monthly rate per 100,000 population by health district."
     }
 }

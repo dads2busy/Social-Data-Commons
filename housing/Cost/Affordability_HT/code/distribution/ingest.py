@@ -1,35 +1,35 @@
-"""Ingest H+T Affordability Index from CNT.
+"""Reproduce the H+T Affordability Index independently.
 
-Downloads tract and county data from the CNT H+T Index for each release
-year, extracts the ht_ami (Regional Typical Household) affordability
-measure, filters to relevant geographies, and writes one output file
-per coverage area.
+Instead of downloading pre-computed data from CNT's website, this pipeline
+computes the H+T Index from scratch using:
+- GTFS transit feeds (cached locally)
+- ACS demographic/housing data (via Census API)
+- LODES employment data (cached locally)
+- TIGER geographic data (downloaded on demand)
+- CNT's published regression coefficients (Tables 3-6 of methods doc)
+
+This enables annual updates at block group resolution.
 """
 
-import io
+from __future__ import annotations
+
 import time
-import zipfile
 from pathlib import Path
 
-import httpx
 import pandas as pd
 import yaml
 from sdc_core.io import write_data
 from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
-from sdc_core.profiles import resolve_profile
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[2]
 DIST_DIR = TOPIC_DIR / "data/distribution"
-ORIGINAL_DIR = TOPIC_DIR / "data/original"
 
-log = get_logger("affordability_ht.ingest")
+log = get_logger("affordability_ht.ingest_reproduce")
 
-BASE_URL = "https://htaindex.cnt.org/download/download.php"
-
-# NCR county FIPS (5-digit) for filtering tracts/counties
+# NCR county FIPS (5-digit) for filtering
 NCR_COUNTY_FIPS = {
     "51059", "51600", "51610", "51107", "51013", "51510", "51683", "51685", "51153",
     "24021", "24031", "24033", "24017",
@@ -42,166 +42,210 @@ def load_config() -> dict:
         return yaml.safe_load(f)
 
 
-def _clean_quoted(val: str) -> str:
-    """Remove extra double-quote wrapping from CNT CSV values."""
-    if isinstance(val, str):
-        return val.strip('"')
-    return val
+def run_reproduction(
+    year: int,
+    target_states: list[str] = ("51",),
+    buffer_states: list[str] = ("51", "24", "11", "54", "37", "21"),
+    coverage_area: str = "va",
+    target_counties: set[str] | None = None,
+    gtfs_year: int | None = None,
+) -> RunResult:
+    """Run the full H+T Index reproduction for a given year.
 
+    Parameters
+    ----------
+    year : data year (ACS and GTFS)
+    target_states : FIPS codes for states to produce output for
+    buffer_states : FIPS codes for surrounding states (gravity computation)
+    coverage_area : "va" or "ncr"
+    target_counties : if provided, restrict target BGs to these 5-digit
+        county FIPS codes instead of entire states
+    gtfs_year : override GTFS year (e.g. use 2017 for years before GTFS cache)
 
-def download_cnt(data_yr: str, focus: str, state_fips: str) -> pd.DataFrame:
-    """Download a CNT H+T dataset (ZIP containing CSV) and return DataFrame."""
-    cache_dir = ORIGINAL_DIR / f"cnt_{data_yr}"
-    cache_dir.mkdir(parents=True, exist_ok=True)
-    cache_file = cache_dir / f"htaindex{data_yr}_data_{focus}s_{state_fips}.csv"
+    Returns
+    -------
+    RunResult with output path and row count
+    """
+    from .transit_metrics import compute_all_transit_metrics
+    from .variables import compute_all_variables
+    from .regression import compute_ht_index
 
-    if cache_file.exists():
-        log.info("Using cached %s", cache_file)
-        return pd.read_csv(cache_file, dtype=str)
-
-    url = f"{BASE_URL}?data_yr={data_yr}&focus={focus}&geoid={state_fips}"
-    log.info("Downloading %s", url)
-
-    with httpx.Client(follow_redirects=True, timeout=60) as client:
-        resp = client.get(url)
-        resp.raise_for_status()
-
-    with zipfile.ZipFile(io.BytesIO(resp.content)) as zf:
-        csv_names = [n for n in zf.namelist() if n.endswith(".csv")]
-        if not csv_names:
-            raise ValueError(f"No CSV in ZIP from {url}")
-        with zf.open(csv_names[0]) as f:
-            df = pd.read_csv(f, dtype=str)
-
-    # Cache the extracted CSV
-    df.to_csv(cache_file, index=False)
-    log.info("Cached %d rows to %s", len(df), cache_file)
-    return df
-
-
-def process_file(df: pd.DataFrame, focus: str, year: int) -> pd.DataFrame:
-    """Extract geoid and ht_ami value from a CNT tract or county file."""
-    geo_col = "tract" if focus == "tract" else "county"
-    if geo_col not in df.columns or "ht_ami" not in df.columns:
-        raise ValueError(f"Missing columns: expected '{geo_col}' and 'ht_ami'")
-
-    result = df[[geo_col, "ht_ami"]].copy()
-    result[geo_col] = result[geo_col].apply(_clean_quoted)
-    result["ht_ami"] = pd.to_numeric(result["ht_ami"].apply(_clean_quoted), errors="coerce")
-    result = result.dropna(subset=["ht_ami"])
-    result = result.rename(columns={geo_col: "geoid"})
-
-    region_type = "tract" if focus == "tract" else "county"
-    result["year"] = year
-    result["measure"] = "affordability_index"
-    result["value"] = result["ht_ami"]
-    result["moe"] = pd.NA
-    result["region_type"] = region_type
-
-    return result[["geoid", "year", "measure", "value", "moe", "region_type"]]
-
-
-def aggregate_to_hd(counties: pd.DataFrame, crosswalk_path: Path) -> pd.DataFrame:
-    """Aggregate county values to health districts via population-weighted mean."""
-    xwalk = pd.read_csv(crosswalk_path, dtype={"ct_geoid": str, "hd_geoid": str})
-    merged = counties.merge(xwalk, left_on="geoid", right_on="ct_geoid", how="inner")
-
-    hd_frames = []
-    for year, group in merged.groupby("year"):
-        hd_agg = (
-            group.groupby("hd_geoid")["value"]
-            .mean()
-            .reset_index()
-            .rename(columns={"hd_geoid": "geoid", "value": "value"})
-        )
-        hd_agg["year"] = year
-        hd_agg["measure"] = "affordability_index"
-        hd_agg["moe"] = pd.NA
-        hd_agg["region_type"] = "health_district"
-        hd_frames.append(hd_agg)
-
-    if not hd_frames:
-        return pd.DataFrame()
-    return pd.concat(hd_frames, ignore_index=True)
-
-
-def _county_fips(geoid: str) -> str:
-    """Extract 5-digit county FIPS from an 11-digit tract GEOID."""
-    return geoid[:5]
-
-
-def run_source(name: str, src: dict, config: dict) -> RunResult:
-    """Fetch and process one coverage area (va or ncr)."""
     t0 = time.time()
+
     try:
-        state_fips_list = src["state_fips"]
-        years = src["years"]
-        cnt_years = src.get("cnt_data_years", {})
+        # Step 1: Compute transit metrics (the novel/slow component)
+        log.info("=== Step 1/4: Computing transit metrics for %d ===", year)
+        transit_states = list(buffer_states[:4])  # VA + immediate neighbors
+        transit_metrics = compute_all_transit_metrics(
+            year, list(target_states), transit_states,
+            target_counties=target_counties,
+            gtfs_year=gtfs_year,
+        )
+        log.info("Transit metrics: %d BGs", len(transit_metrics))
 
-        all_frames = []
-        for year in years:
-            data_yr = str(cnt_years.get(year, year))
-            for st_fips in state_fips_list:
-                for focus in ["tract", "county"]:
-                    df = download_cnt(data_yr, focus, st_fips)
-                    processed = process_file(df, focus, year)
-                    all_frames.append(processed)
+        # Step 2: Compute all 17 independent variables
+        log.info("=== Step 2/4: Computing independent variables ===")
+        variables = compute_all_variables(
+            year, list(target_states), list(buffer_states),
+            transit_metrics=transit_metrics,
+            target_counties=target_counties,
+        )
+        log.info("Variables: %d BGs × %d columns", *variables.shape)
 
-        combined = pd.concat(all_frames, ignore_index=True)
-        log.info("Combined %d rows for '%s' before filtering", len(combined), name)
+        # Step 3: Apply regression model → H+T Index
+        log.info("=== Step 3/4: Applying regression model ===")
+        ht_results = compute_ht_index(variables, use_typical_household=True)
 
-        # Filter NCR to only NCR counties
-        if name == "ncr":
-            before = len(combined)
-            combined = combined[
-                combined["geoid"].apply(_county_fips).isin(NCR_COUNTY_FIPS)
-            ]
-            log.info("Filtered NCR: %d → %d rows", before, len(combined))
+        # Step 4: Format and write output
+        log.info("=== Step 4/4: Writing output ===")
+        output = _format_output(ht_results, variables, year, coverage_area)
 
-        # Aggregate VA counties to health districts
-        if name == "va" and "va_county_to_hd" in config.get("crosswalks", {}):
-            crosswalk_path = REPO_DIR / config["crosswalks"]["va_county_to_hd"]
-            county_rows = combined[combined["region_type"] == "county"]
-            hd_rows = aggregate_to_hd(county_rows, crosswalk_path)
-            if not hd_rows.empty:
-                combined = pd.concat([combined, hd_rows], ignore_index=True)
-                log.info("Added %d health district rows", len(hd_rows))
-
-        # Build output filename
-        states = src.get("states", [])
-        if src.get("profile"):
-            profile = resolve_profile(src["profile"])
-            states = profile.states
-
+        # Write distribution file
+        DIST_DIR.mkdir(parents=True, exist_ok=True)
+        years = [year]
+        states = [{"51": "VA", "24": "MD", "11": "DC"}.get(s, s)
+                  for s in target_states]
         auto_name = build_file_name(
-            df=combined,
+            df=output,
             states=states,
             years=years,
-            source_type="cnt",
-            title="affordability_index",
+            source_type="reproduced",
+            title="affordability_ht_index",
         )
         filename = f"{auto_name}.csv.xz"
-        out_path = write_data(combined, DIST_DIR / filename)
-        log.info("Wrote %d rows to %s", len(combined), out_path)
+        out_path = write_data(output, DIST_DIR / filename, census_standardize=True)
+        log.info("Wrote %d rows to %s", len(output), out_path)
 
         return RunResult(
             success=True,
-            rows=len(combined),
+            rows=len(output),
             output_path=str(out_path),
             duration_sec=time.time() - t0,
         )
+
     except Exception as e:
-        log.error("Ingest failed for '%s': %s", name, e, exc_info=True)
-        return RunResult(success=False, error=str(e), duration_sec=time.time() - t0)
+        log.error("Reproduction failed: %s", e, exc_info=True)
+        return RunResult(
+            success=False,
+            error=str(e),
+            duration_sec=time.time() - t0,
+        )
+
+
+def _format_output(
+    ht_results: pd.DataFrame,
+    variables: pd.DataFrame,
+    year: int,
+    coverage_area: str,
+) -> pd.DataFrame:
+    """Convert H+T results to standard SDC tall format.
+
+    Produces multiple measures per BG:
+    - affordability_index: the H+T Index (% of income)
+    - housing_cost_pct: housing cost as % of income
+    - transport_cost_pct: transportation cost as % of income
+    - autos_per_hh: predicted autos per household
+    - vmt_per_hh: predicted VMT per household
+    - transit_frac: predicted fraction using transit
+    """
+    measures = {
+        "affordability_index": "ht_index",
+        "housing_cost_pct": "housing_cost_pct",
+        "transport_cost_pct": "transport_cost_pct",
+        "autos_per_hh": "autos_per_hh",
+        "vmt_per_hh": "vmt_per_hh",
+        "transit_frac": "transit_frac",
+    }
+
+    frames = []
+    for measure_name, col in measures.items():
+        df = pd.DataFrame({
+            "geoid": ht_results["geoid"],
+            "year": year,
+            "measure": measure_name,
+            "value": ht_results[col].round(2),
+            "moe": pd.NA,
+            "region_type": "block_group",
+        })
+        frames.append(df)
+
+    combined = pd.concat(frames, ignore_index=True)
+
+    # Filter to NCR if needed
+    if coverage_area == "ncr":
+        combined = combined[
+            combined["geoid"].str[:5].isin(NCR_COUNTY_FIPS)
+        ]
+
+    # Aggregate to tract and county
+    bg_data = combined.copy()
+    tract_data = _aggregate_to_level(bg_data, "tract", 11)
+    county_data = _aggregate_to_level(bg_data, "county", 5)
+
+    return pd.concat([bg_data, tract_data, county_data], ignore_index=True)
+
+
+def _aggregate_to_level(
+    bg_data: pd.DataFrame,
+    level_name: str,
+    geoid_len: int,
+) -> pd.DataFrame:
+    """Aggregate BG-level data to a higher geography by mean."""
+    agg = bg_data.copy()
+    agg["geoid"] = agg["geoid"].str[:geoid_len]
+    agg = (
+        agg.groupby(["geoid", "year", "measure"])["value"]
+        .mean()
+        .reset_index()
+    )
+    agg["moe"] = pd.NA
+    agg["region_type"] = level_name
+    return agg
+
+
+YEARS = list(range(2015, 2025))  # 2015-2024
+
+# GTFS cache starts at 2017; use 2017 feeds as proxy for earlier years
+GTFS_CACHE_START = 2017
+
+
+def _resolve_gtfs_year(year: int) -> int | None:
+    """Return GTFS year override, or None if exact year is available."""
+    if year < GTFS_CACHE_START:
+        return GTFS_CACHE_START
+    return None
 
 
 def run() -> list[RunResult]:
-    config = load_config()
-    DIST_DIR.mkdir(parents=True, exist_ok=True)
-
+    """Run reproduction for all configured coverage areas and years."""
     results = []
-    for name, src in config["sources"].items():
-        results.append(run_source(name, src, config))
+
+    for year in YEARS:
+        gtfs_yr = _resolve_gtfs_year(year)
+
+        # VA reproduction
+        log.info("===== Starting VA H+T Index Reproduction for %d =====", year)
+        va_result = run_reproduction(
+            year=year,
+            target_states=["51"],
+            buffer_states=["51", "24", "11", "54", "37", "21"],
+            coverage_area="va",
+            gtfs_year=gtfs_yr,
+        )
+        results.append(va_result)
+
+        # NCR reproduction
+        log.info("===== Starting NCR H+T Index Reproduction for %d =====", year)
+        ncr_result = run_reproduction(
+            year=year,
+            target_states=["51", "24", "11"],
+            buffer_states=["51", "24", "11", "54", "37", "21"],
+            coverage_area="ncr",
+            target_counties=NCR_COUNTY_FIPS,
+            gtfs_year=gtfs_yr,
+        )
+        results.append(ncr_result)
+
     return results
 
 
@@ -209,8 +253,8 @@ if __name__ == "__main__":
     results = run()
     for r in results:
         if r.success:
-            log.info("OK: %d rows → %s", r.rows, r.output_path)
+            log.info("OK: %d rows → %s (%.1fs)", r.rows, r.output_path, r.duration_sec)
         else:
-            log.error("FAIL: %s", r.error)
+            log.error("FAIL: %s (%.1fs)", r.error, r.duration_sec)
     if any(not r.success for r in results):
         raise SystemExit(1)

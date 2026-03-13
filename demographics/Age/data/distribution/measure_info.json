@@ -1,404 +1,208 @@
 {
-    "age_20_64_count_geo20": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of working-age residents (20-64) represents the primary labor force and tax base of a community. Changes in this group affect economic productivity, housing demand, and the ratio of dependents to workers.",
-        "long_name": "The population estimates between age 20 and 64.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
-        "short_description": "Count of the population between age 20 and 64.",
-        "short_name": "Population between age 20 and 64 (2020 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The population between age 20 and 64 is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_20_64_count_geo10": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of working-age residents (20-64) represents the primary labor force and tax base of a community. Changes in this group affect economic productivity, housing demand, and the ratio of dependents to workers. Values on original 2010 census tract boundaries.",
-        "long_name": "The population estimates between age 20 and 64.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001). Values reported on original 2010 census tract boundaries.",
-        "short_description": "Count of the population between age 20 and 64 on 2010 census boundaries.",
-        "short_name": "Population between age 20 and 64 (2010 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The population between age 20 and 64 is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_20_64_percent_geo20": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The working-age population (20-64) represents the primary labor force and tax base of a community. Changes in this group affect economic productivity, housing demand, and the ratio of dependents to workers.",
-        "long_name": "The population estimates between age 20 and 64.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
-        "short_description": "The percent of the population between age 20 and 64.",
-        "short_name": "Percent of the population between age 20 and 64 (2020 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The percent of the population between age 20 and 64 is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_20_64_percent_geo10": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The working-age population (20-64) represents the primary labor force and tax base of a community. Changes in this group affect economic productivity, housing demand, and the ratio of dependents to workers. Values on original 2010 census tract boundaries.",
-        "long_name": "The population estimates between age 20 and 64.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001). Values reported on original 2010 census tract boundaries.",
-        "short_description": "The percent of the population between age 20 and 64 on 2010 census boundaries.",
-        "short_name": "Percent of the population between age 20 and 64 (2010 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The percent of the population between age 20 and 64 is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_65_plus_count_geo20": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of older adult residents (65+) captures the number of residents who are seniors. Communities with large senior populations face growing demand for geriatric health services, accessible transportation, affordable housing, and age-friendly infrastructure.",
-        "long_name": "The population over age 64.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
-        "short_description": "Count of the population over age 64.",
-        "short_name": "Population over age 64 (2020 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The population over age 64 is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_65_plus_count_geo10": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of older adult residents (65+) captures the number of residents who are seniors. Communities with large senior populations face growing demand for geriatric health services, accessible transportation, affordable housing, and age-friendly infrastructure. Values on original 2010 census tract boundaries.",
-        "long_name": "The population over age 64.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001). Values reported on original 2010 census tract boundaries.",
-        "short_description": "Count of the population over age 64 on 2010 census boundaries.",
-        "short_name": "Population over age 64 (2010 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The population over age 64 is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_65_plus_percent_geo20": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The older adult population (65+) captures the share of residents who are seniors. Communities with large senior populations face growing demand for geriatric health services, accessible transportation, affordable housing, and age-friendly infrastructure.",
-        "long_name": "The percent of the population over age 64.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
-        "short_description": "The percent of the population over age 64.",
-        "short_name": "Percent of the population over age 64 (2020 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The percent of the population over age 64 is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_65_plus_percent_geo10": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The older adult population (65+) captures the share of residents who are seniors. Communities with large senior populations face growing demand for geriatric health services, accessible transportation, affordable housing, and age-friendly infrastructure. Values on original 2010 census tract boundaries.",
-        "long_name": "The percent of the population over age 64.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001). Values reported on original 2010 census tract boundaries.",
-        "short_description": "The percent of the population over age 64 on 2010 census boundaries.",
-        "short_name": "Percent of the population over age 64 (2010 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The percent of the population over age 64 is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_total_count_geo20": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total population count representing all residents across all age groups. This baseline figure serves as the denominator for computing age-group percentages and is essential for understanding the scale of a community's population. Changes in total population over time reflect broader trends in migration, development, and economic opportunity.",
-        "long_name": "Total count of the population.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
-        "short_description": "Total count of the population.",
-        "short_name": "Total count of the population (2020 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "Total count of the population is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_total_count_geo10": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Total population count representing all residents across all age groups. This baseline figure serves as the denominator for computing age-group percentages and is essential for understanding the scale of a community's population. Changes in total population over time reflect broader trends in migration, development, and economic opportunity. Values on original 2010 census tract boundaries.",
-        "long_name": "Total count of the population.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001). Values reported on original 2010 census tract boundaries.",
-        "short_description": "Total count of the population on 2010 census boundaries.",
-        "short_name": "Total count of the population (2010 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "Total count of the population is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_under_20_count_geo20": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of youth residents (under 20) captures the number of residents who are children and adolescents. Communities with large youth populations have greater demand for schools, childcare, pediatric health services, and family support programs.",
-        "long_name": "The population estimates under age 20.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
-        "short_description": "Count of the population under age 20.",
-        "short_name": "Population under age 20 (2020 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The population under age 20 is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_under_20_count_geo10": {
-        "aggregation_method": "arithmetic mean",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of youth residents (under 20) captures the number of residents who are children and adolescents. Communities with large youth populations have greater demand for schools, childcare, pediatric health services, and family support programs. Values on original 2010 census tract boundaries.",
-        "long_name": "The population estimates under age 20.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001). Values reported on original 2010 census tract boundaries.",
-        "short_description": "Count of the population under age 20 on 2010 census boundaries.",
-        "short_name": "Population under age 20 (2010 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The population under age 20 is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_under_20_percent_geo20": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The youth population (under 20) captures the share of residents who are children and adolescents. Communities with large youth populations have greater demand for schools, childcare, pediatric health services, and family support programs.",
-        "long_name": "The percent of the population under age 20.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
-        "short_description": "The percent of the population under age 20.",
-        "short_name": "Percent of the population under age 20 (2020 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The percent of the population under age 20 is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "age_under_20_percent_geo10": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Demographics",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The youth population (under 20) captures the share of residents who are children and adolescents. Communities with large youth populations have greater demand for schools, childcare, pediatric health services, and family support programs. Values on original 2010 census tract boundaries.",
-        "long_name": "The percent of the population under age 20.",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001). Values reported on original 2010 census tract boundaries.",
-        "short_description": "The percent of the population under age 20 on 2010 census boundaries.",
-        "short_name": "Percent of the population under age 20 (2010 geographies)",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B01001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2025,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "The percent of the population under age 20 is {value} in {region_name}.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "_references": {
-        "bii-redist": {
-            "id": "bii-redist",
-            "author": "Biocomplexity Institute and Initiative",
-            "year": 2022,
-            "title": "redistribute: An R package to redistribute data",
-            "version": "0.0.1",
-            "url": "https://github.com/uva-bi-sdad/redistribute"
-        }
+  "age_20_64_count_geo20": {
+    "aggregation_method": "arithmetic mean",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "The count of working-age residents (20-64) represents the primary labor force and tax base of a community. Changes in this group affect economic productivity, housing demand, and the ratio of dependents to workers.",
+    "long_name": "The population estimates between age 20 and 64.",
+    "measure_type": "",
+    "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+    "short_description": "Count of the population between age 20 and 64.",
+    "short_name": "Population between age 20 and 64 (2020 geographies)",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B01001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "The population between age 20 and 64 is {value} in {region_name}.",
+    "type": "",
+    "unit": "individual",
+    "variants": ""
+  },
+  "age_20_64_percent_geo20": {
+    "aggregation_method": "percent",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "The working-age population (20-64) represents the primary labor force and tax base of a community. Changes in this group affect economic productivity, housing demand, and the ratio of dependents to workers.",
+    "long_name": "The population estimates between age 20 and 64.",
+    "measure_type": "",
+    "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+    "short_description": "The percent of the population between age 20 and 64.",
+    "short_name": "Percent of the population between age 20 and 64 (2020 geographies)",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B01001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "The percent of the population between age 20 and 64 is {value} in {region_name}.",
+    "type": "",
+    "unit": "individual",
+    "variants": ""
+  },
+  "age_65_plus_count_geo20": {
+    "aggregation_method": "arithmetic mean",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "The count of older adult residents (65+) captures the number of residents who are seniors. Communities with large senior populations face growing demand for geriatric health services, accessible transportation, affordable housing, and age-friendly infrastructure.",
+    "long_name": "The population over age 64.",
+    "measure_type": "",
+    "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+    "short_description": "Count of the population over age 64.",
+    "short_name": "Population over age 64 (2020 geographies)",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B01001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "The population over age 64 is {value} in {region_name}.",
+    "type": "",
+    "unit": "individual",
+    "variants": ""
+  },
+  "age_65_plus_percent_geo20": {
+    "aggregation_method": "percent",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "The older adult population (65+) captures the share of residents who are seniors. Communities with large senior populations face growing demand for geriatric health services, accessible transportation, affordable housing, and age-friendly infrastructure.",
+    "long_name": "The percent of the population over age 64.",
+    "measure_type": "",
+    "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+    "short_description": "The percent of the population over age 64.",
+    "short_name": "Percent of the population over age 64 (2020 geographies)",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B01001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "The percent of the population over age 64 is {value} in {region_name}.",
+    "type": "",
+    "unit": "individual",
+    "variants": ""
+  },
+  "age_total_count_geo20": {
+    "aggregation_method": "arithmetic mean",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "Total population count representing all residents across all age groups. This baseline figure serves as the denominator for computing age-group percentages and is essential for understanding the scale of a community's population. Changes in total population over time reflect broader trends in migration, development, and economic opportunity.",
+    "long_name": "Total count of the population.",
+    "measure_type": "",
+    "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+    "short_description": "Total count of the population.",
+    "short_name": "Total count of the population (2020 geographies)",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B01001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "Total count of the population is {value} in {region_name}.",
+    "type": "",
+    "unit": "individual",
+    "variants": ""
+  },
+  "age_under_20_count_geo20": {
+    "aggregation_method": "arithmetic mean",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "The count of youth residents (under 20) captures the number of residents who are children and adolescents. Communities with large youth populations have greater demand for schools, childcare, pediatric health services, and family support programs.",
+    "long_name": "The population estimates under age 20.",
+    "measure_type": "",
+    "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+    "short_description": "Count of the population under age 20.",
+    "short_name": "Population under age 20 (2020 geographies)",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B01001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "The population under age 20 is {value} in {region_name}.",
+    "type": "",
+    "unit": "individual",
+    "variants": ""
+  },
+  "age_under_20_percent_geo20": {
+    "aggregation_method": "percent",
+    "categories": "",
+    "category": "Demographics",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "The youth population (under 20) captures the share of residents who are children and adolescents. Communities with large youth populations have greater demand for schools, childcare, pediatric health services, and family support programs.",
+    "long_name": "The percent of the population under age 20.",
+    "measure_type": "",
+    "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+    "short_description": "The percent of the population under age 20.",
+    "short_name": "Percent of the population under age 20 (2020 geographies)",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B01001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "The percent of the population under age 20 is {value} in {region_name}.",
+    "type": "",
+    "unit": "individual",
+    "variants": ""
+  },
+  "_references": {
+    "bii-redist": {
+      "id": "bii-redist",
+      "author": "Biocomplexity Institute and Initiative",
+      "year": 2022,
+      "title": "redistribute: An R package to redistribute data",
+      "version": "0.0.1",
+      "url": "https://github.com/uva-bi-sdad/redistribute"
     }
+  }
 }

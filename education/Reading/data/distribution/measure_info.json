@@ -1,32 +1,4 @@
 {
-    "median_read_pass_rate": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Education",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Third-grade reading proficiency is a critical milestone — research consistently shows that children who cannot read at grade level by third grade are four times more likely to drop out of high school. The median pass rate across schools in a region captures typical school performance while reducing the influence of outlier schools. Regions with low median pass rates may need targeted literacy interventions and additional instructional support.",
-        "long_name": "Median percentage of 3rd graders passing reading test",
-        "measure_type": "",
-        "provenance": "Median of school-level 3rd grade reading pass rates from Virginia Department of Education Standards of Learning (SOL) assessments. Pass rates are calculated by VDOE as the number of students passing divided by the number tested at each school. The median is then computed across all schools within each geographic region.",
-        "short_description": "Median percentage of 3rd graders passing the state reading assessment, calculated across schools in the region.",
-        "short_name": "Median 3rd graders passing reading",
-        "sources": [
-            {
-                "name": "Virginia Department of Education",
-                "location": "Data & Reports > Statistics & Reports > SOL Test Pass Rates & Other Results",
-                "location_url": "https://www.doe.virginia.gov/data-policy-funding/data-reports/statistics-reports/sol-test-pass-rates-other-results",
-                "date_accessed": 2021,
-                "url": "https://www.doe.virginia.gov"
-            }
-        ],
-        "statement": "Most often, {value} of 3rd graders pass reading in {region_name}.",
-        "type": "",
-        "unit": "person",
-        "variants": ""
-    },
     "mean_read_pass_rate": {
         "aggregation_method": "percent",
         "categories": "",
@@ -51,7 +23,7 @@
             }
         ],
         "statement": "On average, {value} of 3rd graders pass reading in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "person",
         "variants": ""
     }

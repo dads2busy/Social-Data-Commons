@@ -1,478 +1,161 @@
 {
-    "economic_opportunity_indicator": {
-        "aggregation_method": "",
+    "economic_opportunity_profile_geo20": {
+        "aggregation_method": "population-weighted mean",
         "categories": "",
         "category": "Health Opportunity Index",
-        "citations": "",
+        "citations": [
+            "vdh_hoi"
+        ],
         "data_type": "numeric",
-        "equity_category": "",
+        "equity_category": "Economic",
         "layer": "",
-        "long_description": "A measure of the economic opportunities available within a community. Includes the employment accessibility indicator, the income inequality indicator, and the job participation indicator.",
-        "long_name": "Economic opportunity profile",
+        "long_description": "PCA-derived profile score measuring economic opportunities within a community. Computed from three min-max normalized indicators: employment access index, income inequality (Gini, inverted), and labor force participation rate. Weights are from the VDH HOI PCA weight matrix. Higher values indicate greater economic opportunity.",
+        "long_name": "Economic Opportunity Profile",
         "measure_type": "index",
-        "short_description": "A measure of the economic opportunities available within a community.",
-        "short_name": "Economic opportunity profile",
+        "short_description": "PCA-weighted composite of employment access, income inequality, and labor force participation.",
+        "short_name": "Economic Opportunity",
         "sources": [
             {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
+                "date_accessed": 2025,
+                "location": "Health Opportunity Index methodology",
+                "location_url": "https://apps.vdh.virginia.gov/omhhe/hoi/",
                 "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
+                "url": "https://www.vdh.virginia.gov/"
             }
         ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The economic opportunity profile in {features.name} is {value}.",
+        "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. Each indicator is min-max normalized per year, inverted where higher raw values indicate worse outcomes, then combined via VDH's PCA weight matrix to produce profile scores.",
+        "statement": "The economic opportunity profile score in {features.name} is {value}.",
         "type": "index",
         "unit": "",
         "variants": ""
     },
-    "education_indicator": {
-        "aggregation_method": "",
+    "consumer_opportunity_profile_geo20": {
+        "aggregation_method": "population-weighted mean",
         "categories": "",
         "category": "Health Opportunity Index",
-        "citations": "",
+        "citations": [
+            "vdh_hoi"
+        ],
         "data_type": "numeric",
-        "equity_category": "",
+        "equity_category": "Economic",
         "layer": "",
-        "long_description": "The average number of years of schooling among adults in the community. It can range from zero (those with no formal schooling) to 20 (those with a doctorate/professional degree).",
-        "long_name": "Education indicator",
+        "long_description": "PCA-derived profile score measuring consumer resources available within a community. Computed from four min-max normalized indicators: H+T affordability index (inverted), average years of schooling, food access percentage (inverted), and material deprivation index (inverted). Weights are from the VDH HOI PCA weight matrix. Higher values indicate greater consumer opportunity.",
+        "long_name": "Consumer Opportunity Profile",
         "measure_type": "index",
-        "short_description": "The average number of years of schooling among adults in the community. ",
-        "short_name": "Education indicator",
+        "short_description": "PCA-weighted composite of affordability, education, food access, and material deprivation.",
+        "short_name": "Consumer Opportunity",
         "sources": [
             {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
+                "date_accessed": 2025,
+                "location": "Health Opportunity Index methodology",
+                "location_url": "https://apps.vdh.virginia.gov/omhhe/hoi/",
                 "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
+                "url": "https://www.vdh.virginia.gov/"
             }
         ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The education indicator in {features.name} is {value}.",
+        "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. Each indicator is min-max normalized per year, inverted where higher raw values indicate worse outcomes, then combined via VDH's PCA weight matrix to produce profile scores.",
+        "statement": "The consumer opportunity profile score in {features.name} is {value}.",
         "type": "index",
         "unit": "",
         "variants": ""
     },
-    "employment_access_indicator": {
-        "aggregation_method": "",
+    "social_impact_profile_geo20": {
+        "aggregation_method": "population-weighted mean",
         "categories": "",
         "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": " A measure of the number of jobs accessible to members of the community. Accessibility is determined by distance: close jobs are more accessible than jobs farther away.",
-        "long_name": "Employment accessibility indicator",
-        "measure_type": "index",
-        "short_description": " A measure of the number of jobs accessible to members of the community.",
-        "short_name": "Employment accessibility indicator",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
+        "citations": [
+            "vdh_hoi"
         ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The employment accessibility indicator in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "food_accessibility_indicator": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
         "data_type": "numeric",
-        "equity_category": "",
+        "equity_category": "Social",
         "layer": "",
-        "long_description": "A measure of access to food by low income people within a community. It measures the proportion of the low income community that has a large grocery store within 1 mile in urban areas or 10 miles in rural areas.",
-        "long_name": "Food accessibility indicator",
-        "measure_type": "index",
-        "short_description": "A measure of access to food by low income people within a community.",
-        "short_name": "Food accessibility indicator",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
-        ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The food accessibility indicator in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "health_opportunity_indicator": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "A group of indicators that provide broad insight into the overall opportunity Virginians have to live long and healthy lives based on the Social Determinants of Health. It is a hierarchical index that allows users to examine social determinants of health at multiple levels of detail in Virginia. It is made up of over 30 variables, combined into 13 indicators, grouped into four profiles, which are aggregated into a single Health Opportunity Index. The HOI is reported at both the census tract and county/independent city level.",
-        "long_name": "Health opportunity index",
-        "measure_type": "index",
-        "short_description": "A group of indicators that provide broad insight into the overall opportunity Virginians have to live long and healthy lives.",
-        "short_name": "Health opportunity index",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
-        ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The health opportunity index in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "income_inequality_indicator": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "The Gini Index, a common measure of income inequality, measures whether the income earned within a community is distributed broadly or concentrated within the hands of small number of households.",
-        "long_name": "Income inequality indicator",
-        "measure_type": "index",
-        "short_description": "The Gini Index, a common measure of income inequality.",
-        "short_name": "Income inequality indicator",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
-        ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The income inequality index in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "job_participation_indicator": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "The percentage of individuals 16-64 years of age active in the civilian labor force. It includes both those currently working and those seeking work.",
-        "long_name": "Job participation indicator",
-        "measure_type": "index",
-        "short_description": "The percentage of individuals 16-64 years of age active in the civilian labor force.",
-        "short_name": "Job participation indicator",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
-        ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The job participation indicator in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "pop_churning_indicator": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "The amount of population turnover within a community. It measure the rate at which people both move into a community and move out of a community.",
-        "long_name": "Population churning index",
-        "measure_type": "index",
-        "short_description": "The amount of population turnover within a community.",
-        "short_name": "Population churning index",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
-        ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The population churning index in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "pop_density_indicator_old": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "A measure of population density that takes into account the density levels most people in the community experience.",
-        "long_name": "Population density indicator",
-        "measure_type": "index",
-        "short_description": "A measure of population density that takes into account the density levels most people in the community experience.",
-        "short_name": "Population density indicator",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
-        ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The population density indicator in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "segregation_indicator_old": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "A measure of whether and how much people of different racial and ethnic backgrounds live together in diverse communities. It includes measures of both community diversity and the distance between communities with different racial or ethnic profiles.",
-        "long_name": "Segregation indicator",
-        "measure_type": "index",
-        "short_description": "A measure of whether and how much people of different racial and ethnic backgrounds live together in diverse communities.",
-        "short_name": "Segregation indicator",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
-        ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The segregation indicator in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "walkability_indicator": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "A measure of how walkable a community is based on residential and employment density, land use (destination) diversity, street connectivity and public transit accessibility.",
-        "long_name": "Walkability indicator",
-        "measure_type": "index",
-        "short_description": "A measure of how walkable a community is.",
-        "short_name": "Walkability indicator",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
-        ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The walkability indicator in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "wellness_disparity_indicator": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "A measure of the disparate access to health services within a community. It includes the access to care indicator and the segregation indicator.",
+        "long_description": "PCA-derived profile score measuring disparate access to health services and social cohesion within a community. Computed from three min-max normalized indicators: access to care index, segregation index (inverted), and incarceration rate (inverted). Weights are from the VDH HOI PCA weight matrix. Higher values indicate lower social impact burden.",
         "long_name": "Social Impact Profile",
         "measure_type": "index",
-        "short_description": "A measure of the disparate access to health services within a community.",
-        "short_name": "Social Impact Profile",
+        "short_description": "PCA-weighted composite of access to care, segregation, and incarceration.",
+        "short_name": "Social Impact",
         "sources": [
             {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
+                "date_accessed": 2025,
+                "location": "Health Opportunity Index methodology",
+                "location_url": "https://apps.vdh.virginia.gov/omhhe/hoi/",
                 "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
+                "url": "https://www.vdh.virginia.gov/"
             }
         ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The Social Impact Profile in {features.name} is {value}.",
+        "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. Each indicator is min-max normalized per year, inverted where higher raw values indicate worse outcomes, then combined via VDH's PCA weight matrix to produce profile scores.",
+        "statement": "The social impact profile score in {features.name} is {value}.",
         "type": "index",
         "unit": "",
         "variants": ""
     },
-    "consumer_opportunity_indicator": {
-        "aggregation_method": "",
+    "built_environment_profile_geo20": {
+        "aggregation_method": "population-weighted mean",
         "categories": "",
         "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "A measure of the consumer resources available within a community. It includes the affordability indicator, the education indicator, the food accessbility indicator, and the material deprevation indicator.",
-        "long_name": "Consumer opportunity profile",
-        "measure_type": "index",
-        "short_description": "A measure of the consumer resources available within a community.",
-        "short_name": "Consumer opportunity profile",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
+        "citations": [
+            "vdh_hoi"
         ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The consumer opportunity profile in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "affordability_indicator": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
         "data_type": "numeric",
-        "equity_category": "",
+        "equity_category": "Environment",
         "layer": "",
-        "long_description": "The proportion of a community’s income spent on housing and transportation. This indicates how much income remains for other priorities, including food, health care and social activities.",
-        "long_name": "Affordability indicator",
-        "measure_type": "index",
-        "short_description": "The proportion of a community’s income spent on housing and transportation.",
-        "short_name": "Affordability indicator",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
-        ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The affordability indicator in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "air_quality_indicator": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "Includes EPA measures of pollution, including on-road, non-road and non-point pollution, and EPA measures of neurological, cancer and respiration risk.",
-        "long_name": "Air quality indicator",
-        "measure_type": "index",
-        "short_description": "Includes EPA measures of pollution, including on-road, non-road and non-point pollution, and EPA measures of neurological, cancer and respiration risk..",
-        "short_name": "Air quality indicator",
-        "sources": [
-            {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
-            }
-        ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The air quality indicator in {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "community_environment_indicator": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health Opportunity Index",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
-        "layer": "",
-        "long_description": "A measure of the natural, built and social environment of a community. It includes the air quality indicator, the population churning indicator, the population density indicator, and the walkability indicator.",
+        "long_description": "PCA-derived profile score measuring the natural, built, and social environment of a community. Computed from four min-max normalized indicators: environmental hazard index (inverted), population churning rate (inverted), population density, and walkability index. Weights are from the VDH HOI PCA weight matrix. Higher values indicate a more favorable built environment.",
         "long_name": "Built Environment Profile",
         "measure_type": "index",
-        "short_description": "A measure of the natural, built and social environment of a community.",
-        "short_name": "Built Environment Profile",
+        "short_description": "PCA-weighted composite of environmental hazard, population churning, density, and walkability.",
+        "short_name": "Built Environment",
         "sources": [
             {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
+                "date_accessed": 2025,
+                "location": "Health Opportunity Index methodology",
+                "location_url": "https://apps.vdh.virginia.gov/omhhe/hoi/",
                 "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
+                "url": "https://www.vdh.virginia.gov/"
             }
         ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The community environmental profile in {features.name} is {value}.",
+        "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. Each indicator is min-max normalized per year, inverted where higher raw values indicate worse outcomes, then combined via VDH's PCA weight matrix to produce profile scores.",
+        "statement": "The built environment profile score in {features.name} is {value}.",
         "type": "index",
         "unit": "",
         "variants": ""
     },
-    "access_care_indicator": {
-        "aggregation_method": "",
+    "health_opportunity_index_geo20": {
+        "aggregation_method": "population-weighted mean",
         "categories": "",
         "category": "Health Opportunity Index",
-        "citations": "",
+        "citations": [
+            "vdh_hoi"
+        ],
         "data_type": "numeric",
-        "equity_category": "",
+        "equity_category": "Health",
         "layer": "",
-        "long_description": "Whether community members have access to a primary care physician and the means to pay for care. It includes the proportion of uninsured residents and the number of physicians within 30 miles of the community.",
-        "long_name": "Access to care indicator",
+        "long_description": "The Health Opportunity Index (HOI) is a composite index measuring social determinants of health at the census tract level. It combines 14 indicators into 4 profiles (Economic Opportunity, Consumer Opportunity, Social Impact, Built Environment) via PCA, then aggregates profiles into a single index using VDH's weight matrix. Higher values indicate greater health opportunity. Quintile labels (Very Low to Very High Opportunity) are assigned per year based on the distribution of tract-level scores.",
+        "long_name": "Health Opportunity Index",
         "measure_type": "index",
-        "short_description": "Whether community members have access to a primary care physician and the means to pay for care..",
-        "short_name": "Access to care indicator",
+        "short_description": "Composite index of social determinants of health from 14 indicators across 4 profiles.",
+        "short_name": "Health Opportunity Index",
         "sources": [
             {
-                "date_accessed": 2023,
-                "location": "",
-                "location_url": "",
+                "date_accessed": 2025,
+                "location": "Health Opportunity Index methodology",
+                "location_url": "https://apps.vdh.virginia.gov/omhhe/hoi/",
                 "name": "Virginia Department of Health",
-                "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
+                "url": "https://www.vdh.virginia.gov/"
             }
         ],
-        "provenance": "The Health Opportunity Index (HOI) is a composite index developed by the Virginia Department of Health, Office of Minority Health and Health Equity (VDH-OMHHE). It combines over 30 variables into 13 indicators, 4 profiles, and a single summary index to measure social determinants of health at the census tract and county level.",
-        "statement": "The access to care indicator in {features.name} is {value}.",
+        "provenance": "Reproduced from VDH HOI methodology using independently computed sub-indicators from Census ACS, LODES, EPA EJScreen, USDA FARA, CMS PUF, Vera Institute, and other sources. The 14 indicators are min-max normalized per year, inverted where higher raw values indicate worse outcomes, multiplied by VDH's 14x4 PCA weight matrix to produce 4 profile scores, then combined with composite weights to produce the final HOI score. Methodology documented in docs/composite_indices_methodology.md.",
+        "statement": "The Health Opportunity Index in {features.name} is {value}.",
         "type": "index",
         "unit": "",
         "variants": ""
+    },
+    "_references": {
+        "vdh_hoi": {
+            "id": "vdh_hoi",
+            "author": "Virginia Department of Health, Office of Minority Health and Health Equity",
+            "year": 2022,
+            "title": "Health Opportunity Index",
+            "url": "https://apps.vdh.virginia.gov/omhhe/hoi/"
+        }
     }
 }

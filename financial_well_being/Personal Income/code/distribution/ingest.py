@@ -14,7 +14,7 @@ from sdc_core.naming import build_file_name
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
-REPO_DIR = TOPIC_DIR.parents[2]
+REPO_DIR = TOPIC_DIR.parents[1]
 DIST_DIR = TOPIC_DIR / "data/distribution"
 
 load_dotenv()
@@ -194,38 +194,6 @@ def compute_county_measures(
     return pd.DataFrame(rows)
 
 
-def aggregate_to_health_districts(county_long: pd.DataFrame, crosswalk_path: Path) -> pd.DataFrame:
-    """Sum compensation and employment to HD level, then compute earnings_per_job."""
-    xwalk = pd.read_csv(crosswalk_path, dtype={"ct_geoid": str, "hd_geoid": str})
-
-    # Pivot county long to wide for easier summing
-    ct_comp = county_long[county_long["measure"] == "tot_compensation"][["geoid", "year", "value"]].rename(columns={"value": "tot_compensation"})
-    ct_emp = county_long[county_long["measure"] == "tot_employment"][["geoid", "year", "value"]].rename(columns={"value": "tot_employment"})
-    ct_wide = ct_comp.merge(ct_emp, on=["geoid", "year"], how="inner")
-
-    # Join crosswalk
-    ct_hd = ct_wide.merge(xwalk[["ct_geoid", "hd_geoid"]], left_on="geoid", right_on="ct_geoid", how="left")
-    ct_hd = ct_hd.dropna(subset=["hd_geoid"])
-
-    # Aggregate
-    hd_agg = (
-        ct_hd.groupby(["hd_geoid", "year"], as_index=False)
-        .agg(tot_compensation=("tot_compensation", "sum"), tot_employment=("tot_employment", "sum"))
-    )
-    hd_agg["earnings_per_job"] = hd_agg["tot_compensation"] / hd_agg["tot_employment"].replace(0, float("nan"))
-
-    # Melt to long format
-    rows = []
-    for _, row in hd_agg.iterrows():
-        geoid = row["hd_geoid"]
-        year = int(row["year"])
-        rows.append({"geoid": geoid, "year": year, "measure": "tot_compensation", "value": row["tot_compensation"], "moe": pd.NA, "region_type": "health_district"})
-        rows.append({"geoid": geoid, "year": year, "measure": "tot_employment", "value": row["tot_employment"], "moe": pd.NA, "region_type": "health_district"})
-        rows.append({"geoid": geoid, "year": year, "measure": "earnings_per_job", "value": row["earnings_per_job"], "moe": pd.NA, "region_type": "health_district"})
-
-    return pd.DataFrame(rows)
-
-
 def run() -> list[RunResult]:
     t0 = time.time()
     config = load_config()
@@ -267,32 +235,25 @@ def run() -> list[RunResult]:
         if county_long.empty:
             return [RunResult(success=False, error="No county data computed", duration_sec=time.time() - t0)]
 
-        # Aggregate to health districts
-        crosswalk_path = REPO_DIR / config["crosswalks"]["va_county_to_hd"]
-        log.info("Aggregating to health districts using %s", crosswalk_path)
-        hd_long = aggregate_to_health_districts(county_long, crosswalk_path)
+        # Write county-only output (HD aggregation happens in prepare.py)
+        county_long = county_long.sort_values(["geoid", "year", "measure"]).reset_index(drop=True)
 
-        # Combine county and HD rows
-        combined = pd.concat([county_long, hd_long], ignore_index=True)
-        combined = combined.sort_values(["geoid", "year", "measure"]).reset_index(drop=True)
-
-        # Write output
         filename = (
             build_file_name(
                 coverage_area="va",
                 data_source="bea",
                 years=years,
                 title="personal_income",
-                geographies=["health_district", "county"],
+                geographies=["county"],
             )
             + ".csv.xz"
         )
-        out_path = write_data(combined, DIST_DIR / filename, census_standardize=False)
-        log.info("Wrote %d rows to %s", len(combined), out_path)
+        out_path = write_data(county_long, DIST_DIR / filename, census_standardize=False)
+        log.info("Wrote %d rows to %s", len(county_long), out_path)
 
         return [RunResult(
             success=True,
-            rows=len(combined),
+            rows=len(county_long),
             output_path=str(out_path),
             duration_sec=time.time() - t0,
         )]

@@ -45,6 +45,9 @@ sources:
       sor: "B03002_008"
       two: "B03002_009"
 
+crosswalks:
+  county_to_health_district: geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv
+
 output:
   path: data/distribution
   standardize: true

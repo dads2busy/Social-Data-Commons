@@ -1,58 +1,58 @@
 {
-    "emp_rate": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Employment/Workforce Development",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The employment rate measures the share of the civilian labor force that is currently working. High employment rates indicate a healthy local labor market with sufficient job opportunities. Low rates may reflect structural economic challenges, skills mismatches, or barriers to employment such as transportation or childcare access.",
-        "long_name": "Percentage civilian employed",
-        "measure_type": "",
-        "provenance": "Computed from ACS 5-year estimates, table B23025 (Employment Status for the Population 16 Years and Over). Employment rate calculated as B23025_004 (employed) / B23025_003 (civilian labor force) × 100.",
-        "short_description": "Percentage of the civilian workforce population that is employed.",
-        "short_name": "Percentage employed",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table B23025, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": "2023",
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "{value} of the population in {region_name} is employed.",
-        "type": "percent",
-        "unit": "individual",
-        "variants": ""
-    },
-    "labor_participate_rate_geo20": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Employment/Workforce Development",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Labor force participation measures the share of working-age adults (16-64) who are either employed or actively seeking work. Low participation rates may indicate discouraged workers who have stopped looking for employment, high rates of disability, or populations engaged in unpaid caregiving. Economists consider participation rates a more complete picture of economic engagement than employment rates alone.",
-        "long_name": "Labor Force Participation Rate",
-        "measure_type": "",
-        "provenance": "From ACS 5-year estimates, table S2301 (Employment Status), variable S2301_C02_001 (civilian labor force participation rate for the population 16-64 years).",
-        "short_description": "Percentage of individuals aged 16-64 participating in the civilian labor force.",
-        "short_name": "Labor Force Participation Rate",
-        "sources": [
-            {
-                "name": "American Community Survey",
-                "location": "5-Year estimates, table S2301_C02_001, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": "2023",
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "{value} of the population in {region_name} is participating in the civilian job force.",
-        "type": "percent",
-        "unit": "individual",
-        "variants": ""
-    }
+  "labor_participate_rate_geo20": {
+    "aggregation_method": "percent",
+    "categories": "",
+    "category": "Employment/Workforce Development",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "Labor force participation measures the share of working-age adults (16-64) who are either employed or actively seeking work. Low participation rates may indicate discouraged workers who have stopped looking for employment, high rates of disability, or populations engaged in unpaid caregiving. Economists consider participation rates a more complete picture of economic engagement than employment rates alone.",
+    "long_name": "Labor Force Participation Rate",
+    "measure_type": "",
+    "provenance": "From ACS 5-year estimates, table S2301 (Employment Status), variable S2301_C02_001 (civilian labor force participation rate for the population 16-64 years).",
+    "short_description": "Percentage of individuals aged 16-64 participating in the civilian labor force.",
+    "short_name": "Labor Force Participation Rate",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table S2301_C02_001, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": "2023",
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "{value} of the population in {region_name} is participating in the civilian job force.",
+    "type": "percent",
+    "unit": "individual",
+    "variants": ""
+  },
+  "emp_rate_geo20": {
+    "aggregation_method": "percent",
+    "categories": "",
+    "category": "Employment/Workforce Development",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "The employment rate measures the share of the civilian labor force that is currently working. High employment rates indicate a healthy local labor market with sufficient job opportunities. Low rates may reflect structural economic challenges, skills mismatches, or barriers to employment such as transportation or childcare access.",
+    "long_name": "Percentage civilian employed",
+    "measure_type": "",
+    "provenance": "Computed from ACS 5-year estimates, table B23025 (Employment Status for the Population 16 Years and Over). Employment rate calculated as B23025_004 (employed) / B23025_003 (civilian labor force) \u00d7 100.",
+    "short_description": "Percentage of the civilian workforce population that is employed.",
+    "short_name": "Percentage employed",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table B23025, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": "2023",
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "{value} of the population in {region_name} is employed.",
+    "type": "percent",
+    "unit": "individual",
+    "variants": ""
+  }
 }

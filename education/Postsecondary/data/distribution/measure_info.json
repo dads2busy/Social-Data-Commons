@@ -1,686 +1,91 @@
 {
-    "schools_2year_all": {
-        "aggregation_method": "ratio",
-        "categories": "",
-        "category": "Education",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "decimal",
-        "equity_category": "Accessibility",
-        "layer": {
-            "source": "https://raw.githubusercontent.com/uva-bi-sdad/sdc.education/main/Postsecondary/data/distribution/points_{time}.geojson",
-            "filter": {
-                "feature": "ICLEVEL",
-                "operator": "=",
-                "value": 2
-            }
+  "_references": {
+    "wan12": {
+      "id": "wan12",
+      "author": [
+        {
+          "given": "Neng",
+          "family": "Wan"
         },
-        "long_description": "Postsecondary school accessibility measures how easily residents can reach institutions offering associate degrees or 2-year certificates. Communities with low accessibility scores face barriers to workforce training and career advancement pathways that don't require a four-year degree. This measure uses floating catchment areas to account for both the supply of schools and the population they serve, weighted by travel distance.",
-        "long_name": "2-year schools per 100k people over 14",
-        "measure_type": "",
-        "short_description": "2-year schools per 100k residents over 14, based on 3-step floating catchment area accessibility scores.",
-        "short_name": "2-year schools",
-        "sources": [
-            {
-                "name": "National Center for Education Statistics",
-                "location": "Integrated Postsecondary Education Data System, Institutional Characteristics",
-                "location_url": "https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx",
-                "date_accessed": 2023,
-                "url": "https://nces.ed.gov"
-            },
-            {
-                "name": "American Community Survey",
-                "location": "data/5_year_seq_by_state",
-                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            },
-            {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
-            }
-        ],
-        "provenance": "Postsecondary school access scores are calculated using the floating catchment area methodology (Luo, 2004; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
-        "statement": "There are {value} 2-year schools per 100k people over 14 in {region_name}.",
-        "type": "",
-        "unit": "school per 100k people over 14",
-        "variants": ""
-    },
-    "schools_2year_with_biomedical_program": {
-        "aggregation_method": "ratio",
-        "categories": "",
-        "category": "Education",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "decimal",
-        "equity_category": "Accessibility",
-        "layer": {
-            "source": "https://raw.githubusercontent.com/uva-bi-sdad/sdc.education/main/Postsecondary/data/distribution/points_{time}.geojson",
-            "filter": [
-                {
-                    "feature": "ICLEVEL",
-                    "operator": "=",
-                    "value": 2
-                },
-                {
-                    "feature": "biomedical",
-                    "operator": "=",
-                    "value": 1
-                }
-            ]
+        {
+          "given": "Bin",
+          "family": "Zou"
         },
-        "long_description": "Accessibility of 2-year postsecondary institutions offering biomedical programs, measured as schools per 100k residents over 14. Access to STEM-focused community colleges and technical schools is critical for building a skilled biomedical workforce. Areas with low scores may lack nearby pathways into laboratory, clinical, and health technology careers.",
-        "long_name": "2-year schools with biomedical programs per 100k people over 14",
-        "measure_type": "",
-        "short_description": "2-year schools with biomedical programs (CIP 26) per 100k residents over 14, based on floating catchment areas.",
-        "short_name": "2-year schools with biomedical programs",
-        "sources": [
-            {
-                "name": "National Center for Education Statistics",
-                "location": "Integrated Postsecondary Education Data System, Institutional Characteristics",
-                "location_url": "https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx",
-                "date_accessed": 2023,
-                "url": "https://nces.ed.gov"
-            },
-            {
-                "name": "American Community Survey",
-                "location": "data/5_year_seq_by_state",
-                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            },
-            {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
-            }
-        ],
-        "provenance": "Postsecondary school access scores are calculated using the floating catchment area methodology (Luo, 2004; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
-        "statement": "There are {value} 2-year schools with biomedical programs per 100k people over 14 in {region_name}.",
-        "type": "",
-        "unit": "school per 100k people over 14",
-        "variants": ""
-    },
-    "schools_2year_with_science_program": {
-        "aggregation_method": "ratio",
-        "categories": "",
-        "category": "Education",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "decimal",
-        "equity_category": "Accessibility",
-        "layer": {
-            "source": "https://raw.githubusercontent.com/uva-bi-sdad/sdc.education/main/Postsecondary/data/distribution/points_{time}.geojson",
-            "filter": [
-                {
-                    "feature": "ICLEVEL",
-                    "operator": "=",
-                    "value": 2
-                },
-                {
-                    "feature": "science",
-                    "operator": "=",
-                    "value": 1
-                }
-            ]
-        },
-        "long_description": "Accessibility of 2-year postsecondary institutions offering science programs, measured as schools per 100k residents over 14. Science and technology programs at community colleges provide affordable entry points into technical careers. Areas with low scores may have limited local options for science-focused workforce training.",
-        "long_name": "2-year schools with science programs per 100k people over 14",
-        "measure_type": "",
-        "short_description": "2-year schools with science programs (CIP 41) per 100k residents over 14, based on floating catchment areas.",
-        "short_name": "2-year schools with science programs",
-        "sources": [
-            {
-                "name": "National Center for Education Statistics",
-                "location": "Integrated Postsecondary Education Data System, Institutional Characteristics",
-                "location_url": "https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx",
-                "date_accessed": 2023,
-                "url": "https://nces.ed.gov"
-            },
-            {
-                "name": "American Community Survey",
-                "location": "data/5_year_seq_by_state",
-                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            },
-            {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
-            }
-        ],
-        "provenance": "Postsecondary school access scores are calculated using the floating catchment area methodology (Luo, 2004; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
-        "statement": "There are {value} 2-year schools with science programs per 100k people over 14 in {region_name}.",
-        "type": "",
-        "unit": "school per 100k people over 14",
-        "variants": ""
-    },
-    "schools_2year_with_physical_program": {
-        "aggregation_method": "ratio",
-        "categories": "",
-        "category": "Education",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "decimal",
-        "equity_category": "Accessibility",
-        "layer": {
-            "source": "https://raw.githubusercontent.com/uva-bi-sdad/sdc.education/main/Postsecondary/data/distribution/points_{time}.geojson",
-            "filter": [
-                {
-                    "feature": "ICLEVEL",
-                    "operator": "=",
-                    "value": 2
-                },
-                {
-                    "feature": "physical",
-                    "operator": "=",
-                    "value": 1
-                }
-            ]
-        },
-        "long_description": "Accessibility of 2-year postsecondary institutions offering physical science programs, measured as schools per 100k residents over 14. Physical science programs prepare students for careers in chemistry, physics, and earth sciences. Communities with low accessibility may need to travel further for these specialized training opportunities.",
-        "long_name": "2-year schools with physical programs per 100k people over 14",
-        "measure_type": "",
-        "short_description": "2-year schools with physical science programs (CIP 40) per 100k residents over 14, based on floating catchment areas.",
-        "short_name": "2-year schools with physical programs",
-        "sources": [
-            {
-                "name": "National Center for Education Statistics",
-                "location": "Integrated Postsecondary Education Data System, Institutional Characteristics",
-                "location_url": "https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx",
-                "date_accessed": 2023,
-                "url": "https://nces.ed.gov"
-            },
-            {
-                "name": "American Community Survey",
-                "location": "data/5_year_seq_by_state",
-                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            },
-            {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
-            }
-        ],
-        "provenance": "Postsecondary school access scores are calculated using the floating catchment area methodology (Luo, 2004; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
-        "statement": "There are {value} 2-year schools with physical programs per 100k people over 14 in {region_name}.",
-        "type": "",
-        "unit": "school per 100k people over 14",
-        "variants": ""
-    },
-    "schools_2year_with_computer_program": {
-        "aggregation_method": "ratio",
-        "categories": "",
-        "category": "Education",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "decimal",
-        "equity_category": "Accessibility",
-        "layer": {
-            "source": "https://raw.githubusercontent.com/uva-bi-sdad/sdc.education/main/Postsecondary/data/distribution/points_{time}.geojson",
-            "filter": [
-                {
-                    "feature": "ICLEVEL",
-                    "operator": "=",
-                    "value": 2
-                },
-                {
-                    "feature": "computer",
-                    "operator": "=",
-                    "value": 1
-                }
-            ]
-        },
-        "long_description": "Accessibility of 2-year postsecondary institutions offering computer science programs, measured as schools per 100k residents over 14. As technology drives economic growth, access to computer science education at community colleges provides essential workforce pathways. Low scores indicate communities where residents face longer travel distances to IT training programs.",
-        "long_name": "2-year schools with computer programs per 100k people over 14",
-        "measure_type": "",
-        "short_description": "2-year schools with computer programs (CIP 11) per 100k residents over 14, based on floating catchment areas.",
-        "short_name": "2-year schools with computer programs",
-        "sources": [
-            {
-                "name": "National Center for Education Statistics",
-                "location": "Integrated Postsecondary Education Data System, Institutional Characteristics",
-                "location_url": "https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx",
-                "date_accessed": 2023,
-                "url": "https://nces.ed.gov"
-            },
-            {
-                "name": "American Community Survey",
-                "location": "data/5_year_seq_by_state",
-                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            },
-            {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
-            }
-        ],
-        "provenance": "Postsecondary school access scores are calculated using the floating catchment area methodology (Luo, 2004; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
-        "statement": "There are {value} 2-year schools with computer programs per 100k people over 14 in {region_name}.",
-        "type": "",
-        "unit": "school per 100k people over 14",
-        "variants": ""
-    },
-    "schools_2year_with_engineering_program": {
-        "aggregation_method": "ratio",
-        "categories": "",
-        "category": "Education",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "decimal",
-        "equity_category": "Accessibility",
-        "layer": {
-            "source": "https://raw.githubusercontent.com/uva-bi-sdad/sdc.education/main/Postsecondary/data/distribution/points_{time}.geojson",
-            "filter": [
-                {
-                    "feature": "ICLEVEL",
-                    "operator": "=",
-                    "value": 2
-                },
-                {
-                    "feature": "engineering",
-                    "operator": "=",
-                    "value": 1
-                }
-            ]
-        },
-        "long_description": "Accessibility of 2-year postsecondary institutions offering engineering and engineering technology programs, measured as schools per 100k residents over 14. Community colleges with engineering programs offer affordable pathways into technical manufacturing, construction, and infrastructure careers. Low scores indicate areas where residents may need to travel further for hands-on technical training.",
-        "long_name": "2-year schools with engineering programs per 100k people over 14",
-        "measure_type": "",
-        "short_description": "2-year schools with engineering programs (CIP 14/15) per 100k residents over 14, based on floating catchment areas.",
-        "short_name": "2-year schools with engineering programs",
-        "sources": [
-            {
-                "name": "National Center for Education Statistics",
-                "location": "Integrated Postsecondary Education Data System, Institutional Characteristics",
-                "location_url": "https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx",
-                "date_accessed": 2023,
-                "url": "https://nces.ed.gov"
-            },
-            {
-                "name": "American Community Survey",
-                "location": "data/5_year_seq_by_state",
-                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            },
-            {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
-            }
-        ],
-        "provenance": "Postsecondary school access scores are calculated using the floating catchment area methodology (Luo, 2004; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
-        "statement": "There are {value} 2-year schools with engineering programs per 100k people over 14 in {region_name}.",
-        "type": "",
-        "unit": "school per 100k people over 14",
-        "variants": ""
-    },
-    "schools_under2year": {
-        "aggregation_method": "ratio",
-        "categories": "",
-        "category": "Education",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "decimal",
-        "equity_category": "Accessibility",
-        "layer": {
-            "source": "https://raw.githubusercontent.com/uva-bi-sdad/sdc.education/main/Postsecondary/data/distribution/points_{time}.geojson",
-            "filter": {
-                "feature": "ICLEVEL",
-                "operator": "=",
-                "value": 3
-            }
-        },
-        "long_description": "Accessibility of postsecondary institutions offering short-term certificates (under 2 years), measured as schools per 100k residents over 14. Short-term certificate programs \u2014 in trades, healthcare support, and commercial driving \u2014 provide the fastest pathway from education to employment. Low accessibility scores indicate communities where residents have limited nearby options for rapid workforce entry.",
-        "long_name": "<2-year schools per 100k people over 14",
-        "measure_type": "",
-        "short_description": "Sub-2-year certificate schools per 100k residents over 14, based on floating catchment areas.",
-        "short_name": "<2-year schools",
-        "sources": [
-            {
-                "name": "National Center for Education Statistics",
-                "location": "Integrated Postsecondary Education Data System, Institutional Characteristics",
-                "location_url": "https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx",
-                "date_accessed": 2023,
-                "url": "https://nces.ed.gov"
-            },
-            {
-                "name": "American Community Survey",
-                "location": "data/5_year_seq_by_state",
-                "location_url": "https://www2.census.gov/programs-surveys/acs/summary_file",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            },
-            {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
-            }
-        ],
-        "provenance": "Postsecondary school access scores are calculated using the floating catchment area methodology (Luo, 2004; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
-        "statement": "There are {value} <2-year schools per 100k people over 14 in {region_name}.",
-        "type": "",
-        "unit": "school per 100k people over 14",
-        "variants": ""
-    },
-    "schools_2year_min_drivetime": {
-        "aggregation_method": "minimum",
-        "categories": "",
-        "category": "Education",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Accessibility",
-        "layer": {
-            "source": "https://raw.githubusercontent.com/uva-bi-sdad/sdc.education/main/Postsecondary/data/distribution/points_{time}.geojson",
-            "filter": {
-                "feature": "ICLEVEL",
-                "operator": "=",
-                "value": 2
-            }
-        },
-        "long_description": "Drive time to the nearest school authorized to award associate degrees or 2-year certificates. Longer drive times create barriers to postsecondary enrollment, particularly for students who work or have family obligations. This measure captures geographic accessibility independent of school capacity or program offerings.",
-        "long_name": "drive time to nearest 2-year school",
-        "measure_type": "",
-        "provenance": "Minimum drive time from Census block group centroids to NCES-listed 2-year postsecondary institutions, calculated using the Open Source Routing Machine. Block group-level times are averaged to produce higher-level geography estimates.",
-        "short_description": "Minimum drive time in minutes from block group centroid to the nearest 2-year postsecondary school.",
-        "short_name": "2-year school drive time",
-        "sources": [
-            {
-                "name": "National Center for Education Statistics",
-                "location": "Integrated Postsecondary Education Data System, Institutional Characteristics",
-                "location_url": "https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx",
-                "date_accessed": 2023,
-                "url": "https://nces.ed.gov"
-            },
-            {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
-            }
-        ],
-        "statement": "It takes {value} to drive to the nearest 2-year school from {region_name}'s block group centroids on average.",
-        "type": "",
-        "unit": "minute",
-        "variants": ""
-    },
-    "schools_under2year_min_drivetime": {
-        "aggregation_method": "minimum",
-        "categories": "",
-        "category": "Education",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Accessibility",
-        "layer": {
-            "source": "https://raw.githubusercontent.com/uva-bi-sdad/sdc.education/main/Postsecondary/data/distribution/points_{time}.geojson",
-            "filter": {
-                "feature": "ICLEVEL",
-                "operator": "=",
-                "value": 3
-            }
-        },
-        "long_description": "Drive time to the nearest school offering short-term certificates (under 2 years). Short-term programs serve students seeking rapid workforce entry, so geographic proximity is especially important for this population. Longer drive times may discourage enrollment among those with the fewest resources for commuting.",
-        "long_name": "drive time to nearest <2-year school",
-        "measure_type": "",
-        "provenance": "Minimum drive time from Census block group centroids to NCES-listed sub-2-year postsecondary institutions, calculated using the Open Source Routing Machine. Block group-level times are averaged to produce higher-level geography estimates.",
-        "short_description": "Minimum drive time in minutes from block group centroid to the nearest sub-2-year certificate school.",
-        "short_name": "<2-year school drive time",
-        "sources": [
-            {
-                "name": "National Center for Education Statistics",
-                "location": "Integrated Postsecondary Education Data System, Institutional Characteristics",
-                "location_url": "https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx",
-                "date_accessed": 2023,
-                "url": "https://nces.ed.gov"
-            },
-            {
-                "date_accessed": 2022,
-                "location": "",
-                "location_url": "",
-                "name": "Open Source Routing Machine",
-                "url": "http://project-osrm.org"
-            }
-        ],
-        "statement": "It takes {value} to drive to the nearest <2-year school from {region_name}'s block group centroids on average.",
-        "type": "",
-        "unit": "minute",
-        "variants": ""
-    },
-    "acs_postsecondary_percent": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Education",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Postsecondary educational attainment measures the share of residents who have completed any education beyond high school. Higher attainment rates correlate with greater economic mobility, higher household incomes, and better health outcomes. This indicator helps identify communities that may benefit from expanded access to higher education and workforce development programs.",
-        "long_name": "Estimated Percentage of the Population With Any Postsecondary Education",
-        "measure_type": "",
-        "provenance": "Computed from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher.",
-        "short_description": "Percentage of the population with any postsecondary education.",
-        "short_name": "Postsecondary Education (percent)",
-        "sources": [
-            {
-                "name": "U.S. Census, American Community Survey",
-                "location": "5-Year estimates, table B06009, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "{value} of those in {region_name} report any postsecondary education.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "acs_postsecondary_count": {
-        "aggregation_method": "count",
-        "categories": "",
-        "category": "Education",
-        "citations": "",
-        "data_type": "integer",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of residents who have completed any education beyond high school. This raw count complements the percentage measure by capturing the absolute size of the educated workforce in a community, which is relevant for economic development planning and institutional capacity.",
-        "long_name": "Estimated Number of People With Any Postsecondary Education",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher.",
-        "short_description": "Number of residents with any postsecondary education.",
-        "short_name": "Postsecondary Education (count)",
-        "sources": [
-            {
-                "name": "U.S. Census, American Community Survey",
-                "location": "5-Year estimates, table B06009, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "In {region_name}, {value} report any postsecondary education.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "_references": {
-        "wan12": {
-            "id": "wan12",
-            "author": [
-                {
-                    "given": "Neng",
-                    "family": "Wan"
-                },
-                {
-                    "given": "Bin",
-                    "family": "Zou"
-                },
-                {
-                    "given": "Troy",
-                    "family": "Sternberg"
-                }
-            ],
-            "year": 2012,
-            "title": "A three-step floating catchment area method for analyzing spatial access to health services",
-            "journal": "International Journal of Geographical Information Science",
-            "volume": "26",
-            "page": "1073\u20131089",
-            "doi": "10.1080/13658816.2011.624987"
-        },
-        "bii21": {
-            "id": "bii21",
-            "author": "Biocomplexity Institute and Initiative",
-            "year": 2021,
-            "title": "catchment: Calculate spatial access and availability metrics",
-            "version": "0.0.1",
-            "url": "https://github.com/uva-bi-sdad/catchment"
+        {
+          "given": "Troy",
+          "family": "Sternberg"
         }
+      ],
+      "year": 2012,
+      "title": "A three-step floating catchment area method for analyzing spatial access to health services",
+      "journal": "International Journal of Geographical Information Science",
+      "volume": "26",
+      "page": "1073\u20131089",
+      "doi": "10.1080/13658816.2011.624987"
     },
-    "acs_postsecondary_percent_geo10": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Education",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Postsecondary educational attainment measures the share of residents who have completed any education beyond high school. Higher attainment rates correlate with greater economic mobility, higher household incomes, and better health outcomes. This indicator helps identify communities that may benefit from expanded access to higher education and workforce development programs. Values on original 2010 census tract boundaries.",
-        "long_name": "Estimated Percentage of the Population With Any Postsecondary Education",
-        "measure_type": "",
-        "provenance": "Computed from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher. Values reported on original 2010 census tract boundaries.",
-        "short_description": "Percentage of the population with any postsecondary education.",
-        "short_name": "Postsecondary Education (percent)",
-        "sources": [
-            {
-                "name": "U.S. Census, American Community Survey",
-                "location": "5-Year estimates, table B06009, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "{value} of those in {region_name} report any postsecondary education.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "acs_postsecondary_percent_geo20": {
-        "aggregation_method": "percent",
-        "categories": "",
-        "category": "Education",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Postsecondary educational attainment measures the share of residents who have completed any education beyond high school. Higher attainment rates correlate with greater economic mobility, higher household incomes, and better health outcomes. This indicator helps identify communities that may benefit from expanded access to higher education and workforce development programs.",
-        "long_name": "Estimated Percentage of the Population With Any Postsecondary Education",
-        "measure_type": "",
-        "provenance": "Computed from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher.",
-        "short_description": "Percentage of the population with any postsecondary education.",
-        "short_name": "Postsecondary Education (percent)",
-        "sources": [
-            {
-                "name": "U.S. Census, American Community Survey",
-                "location": "5-Year estimates, table B06009, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "{value} of those in {region_name} report any postsecondary education.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "acs_postsecondary_count_geo10": {
-        "aggregation_method": "count",
-        "categories": "",
-        "category": "Education",
-        "citations": "",
-        "data_type": "integer",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of residents who have completed any education beyond high school. This raw count complements the percentage measure by capturing the absolute size of the educated workforce in a community, which is relevant for economic development planning and institutional capacity. Values on original 2010 census tract boundaries.",
-        "long_name": "Estimated Number of People With Any Postsecondary Education",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher. Values reported on original 2010 census tract boundaries.",
-        "short_description": "Number of residents with any postsecondary education, on 2010 census boundaries.",
-        "short_name": "Postsecondary Education (count)",
-        "sources": [
-            {
-                "name": "U.S. Census, American Community Survey",
-                "location": "5-Year estimates, table B06009, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "In {region_name}, {value} report any postsecondary education.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
-    },
-    "acs_postsecondary_count_geo20": {
-        "aggregation_method": "count",
-        "categories": "",
-        "category": "Education",
-        "citations": "",
-        "data_type": "integer",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The count of residents who have completed any education beyond high school. This raw count complements the percentage measure by capturing the absolute size of the educated workforce in a community, which is relevant for economic development planning and institutional capacity.",
-        "long_name": "Estimated Number of People With Any Postsecondary Education",
-        "measure_type": "",
-        "provenance": "Directly tabulated from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher.",
-        "short_description": "Number of residents with any postsecondary education.",
-        "short_name": "Postsecondary Education (count)",
-        "sources": [
-            {
-                "name": "U.S. Census, American Community Survey",
-                "location": "5-Year estimates, table B06009, via the API",
-                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-                "date_accessed": 2023,
-                "url": "https://www.census.gov/programs-surveys/acs.html"
-            }
-        ],
-        "statement": "In {region_name}, {value} report any postsecondary education.",
-        "type": "",
-        "unit": "individual",
-        "variants": ""
+    "bii21": {
+      "id": "bii21",
+      "author": "Biocomplexity Institute and Initiative",
+      "year": 2021,
+      "title": "catchment: Calculate spatial access and availability metrics",
+      "version": "0.0.1",
+      "url": "https://github.com/uva-bi-sdad/catchment"
     }
+  },
+  "acs_postsecondary_percent_geo20": {
+    "aggregation_method": "percent",
+    "categories": "",
+    "category": "Education",
+    "citations": "",
+    "data_type": "decimal",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "Postsecondary educational attainment measures the share of residents who have completed any education beyond high school. Higher attainment rates correlate with greater economic mobility, higher household incomes, and better health outcomes. This indicator helps identify communities that may benefit from expanded access to higher education and workforce development programs.",
+    "long_name": "Estimated Percentage of the Population With Any Postsecondary Education",
+    "measure_type": "",
+    "provenance": "Computed from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher.",
+    "short_description": "Percentage of the population with any postsecondary education.",
+    "short_name": "Postsecondary Education (percent)",
+    "sources": [
+      {
+        "name": "U.S. Census, American Community Survey",
+        "location": "5-Year estimates, table B06009, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2023,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "{value} of those in {region_name} report any postsecondary education.",
+    "type": "percent",
+    "unit": "individual",
+    "variants": ""
+  },
+  "acs_postsecondary_count_geo20": {
+    "aggregation_method": "count",
+    "categories": "",
+    "category": "Education",
+    "citations": "",
+    "data_type": "integer",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "The count of residents who have completed any education beyond high school. This raw count complements the percentage measure by capturing the absolute size of the educated workforce in a community, which is relevant for economic development planning and institutional capacity.",
+    "long_name": "Estimated Number of People With Any Postsecondary Education",
+    "measure_type": "",
+    "provenance": "Directly tabulated from ACS 5-year estimates, table B06009 (Place of Birth by Educational Attainment). Postsecondary education includes anyone reporting education at the associate degree level or higher.",
+    "short_description": "Number of residents with any postsecondary education.",
+    "short_name": "Postsecondary Education (count)",
+    "sources": [
+      {
+        "name": "U.S. Census, American Community Survey",
+        "location": "5-Year estimates, table B06009, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2023,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "In {region_name}, {value} report any postsecondary education.",
+    "type": "count",
+    "unit": "individual",
+    "variants": ""
+  }
 }

@@ -38,14 +38,14 @@ def load_config() -> dict:
 
 
 def find_va_source(dist_dir: Path) -> Path | None:
-    """Find the most recent VA ACS distribution file."""
-    candidates = sorted(dist_dir.glob("va_*language_demographics.csv.xz"))
+    """Find the most recent VA ACS distribution file (ingest output only)."""
+    candidates = sorted(dist_dir.glob("va_cttr_*language_demographics.csv.xz"))
     return candidates[-1] if candidates else None
 
 
 def find_ncr_source(dist_dir: Path) -> Path | None:
     """Find the most recent NCR ACS distribution file."""
-    candidates = sorted(dist_dir.glob("ncr_*language_demographics.csv.xz"))
+    candidates = sorted(dist_dir.glob("ncr_cttrbg_*language_demographics.csv.xz"))
     return candidates[-1] if candidates else None
 
 

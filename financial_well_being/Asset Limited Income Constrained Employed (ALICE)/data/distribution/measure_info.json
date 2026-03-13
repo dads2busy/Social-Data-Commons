@@ -24,7 +24,7 @@
         "provenance": "ALICE (Asset Limited, Income Constrained, Employed) is a framework developed by United for Alice (a United Way initiative) that defines a household survival budget based on local costs of housing, childcare, food, transportation, health care, and taxes.",
         "statement": "{value} of the households in {features.name} are ALICE.",
         "type": "percent",
-        "unit": "",
+        "unit": "percent",
         "variants": ""
     },
     "poverty_pct": {
@@ -52,7 +52,7 @@
         "provenance": "ALICE (Asset Limited, Income Constrained, Employed) is a framework developed by United for Alice (a United Way initiative) that defines a household survival budget based on local costs of housing, childcare, food, transportation, health care, and taxes.",
         "statement": "{value} of the households in {features.name} are in poverty.",
         "type": "percent",
-        "unit": "",
+        "unit": "percent",
         "variants": ""
     }
 }

@@ -22,9 +22,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS56_entry_rate": {
         "aggregation_method": "percent",
@@ -49,9 +50,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS11_entry_rate": {
         "aggregation_method": "percent",
@@ -76,9 +78,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS71_entry_rate": {
         "aggregation_method": "percent",
@@ -103,9 +106,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS23_entry_rate": {
         "aggregation_method": "percent",
@@ -130,9 +134,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS61_entry_rate": {
         "aggregation_method": "percent",
@@ -157,9 +162,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS52_entry_rate": {
         "aggregation_method": "percent",
@@ -184,9 +190,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS62_entry_rate": {
         "aggregation_method": "percent",
@@ -211,9 +218,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS51_entry_rate": {
         "aggregation_method": "percent",
@@ -238,9 +246,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS55_entry_rate": {
         "aggregation_method": "percent",
@@ -265,9 +274,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS31_33_entry_rate": {
         "aggregation_method": "percent",
@@ -292,9 +302,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS21_entry_rate": {
         "aggregation_method": "percent",
@@ -319,9 +330,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS99_entry_rate": {
         "aggregation_method": "percent",
@@ -346,9 +358,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS81_entry_rate": {
         "aggregation_method": "percent",
@@ -373,9 +386,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS54_entry_rate": {
         "aggregation_method": "percent",
@@ -400,9 +414,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS92_entry_rate": {
         "aggregation_method": "percent",
@@ -427,9 +442,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS53_entry_rate": {
         "aggregation_method": "percent",
@@ -454,9 +470,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS44_45_entry_rate": {
         "aggregation_method": "percent",
@@ -481,9 +498,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS48_49_entry_rate": {
         "aggregation_method": "percent",
@@ -508,9 +526,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS22_entry_rate": {
         "aggregation_method": "percent",
@@ -535,9 +554,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS42_entry_rate": {
         "aggregation_method": "percent",
@@ -562,9 +582,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS72_exit_rate": {
         "aggregation_method": "percent",
@@ -589,9 +610,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS56_exit_rate": {
         "aggregation_method": "percent",
@@ -616,9 +638,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS11_exit_rate": {
         "aggregation_method": "percent",
@@ -643,9 +666,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS71_exit_rate": {
         "aggregation_method": "percent",
@@ -670,9 +694,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS23_exit_rate": {
         "aggregation_method": "percent",
@@ -697,9 +722,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS61_exit_rate": {
         "aggregation_method": "percent",
@@ -724,9 +750,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS52_exit_rate": {
         "aggregation_method": "percent",
@@ -751,9 +778,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS62_exit_rate": {
         "aggregation_method": "percent",
@@ -778,9 +806,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS51_exit_rate": {
         "aggregation_method": "percent",
@@ -805,9 +834,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS55_exit_rate": {
         "aggregation_method": "percent",
@@ -832,9 +862,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS31_33_exit_rate": {
         "aggregation_method": "percent",
@@ -859,9 +890,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS21_exit_rate": {
         "aggregation_method": "percent",
@@ -886,9 +918,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS99_exit_rate": {
         "aggregation_method": "percent",
@@ -913,9 +946,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS81_exit_rate": {
         "aggregation_method": "percent",
@@ -940,9 +974,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS54_exit_rate": {
         "aggregation_method": "percent",
@@ -967,9 +1002,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS92_exit_rate": {
         "aggregation_method": "percent",
@@ -994,9 +1030,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS53_exit_rate": {
         "aggregation_method": "percent",
@@ -1021,9 +1058,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS44_45_exit_rate": {
         "aggregation_method": "percent",
@@ -1048,9 +1086,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS48_49_exit_rate": {
         "aggregation_method": "percent",
@@ -1075,9 +1114,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS22_exit_rate": {
         "aggregation_method": "percent",
@@ -1102,9 +1142,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS42_exit_rate": {
         "aggregation_method": "percent",
@@ -1129,9 +1170,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS72_new_business": {
         "aggregation_method": "count",
@@ -1156,9 +1198,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS56_new_business": {
         "aggregation_method": "count",
@@ -1183,9 +1226,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS11_new_business": {
         "aggregation_method": "count",
@@ -1210,9 +1254,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS71_new_business": {
         "aggregation_method": "count",
@@ -1237,9 +1282,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS23_new_business": {
         "aggregation_method": "count",
@@ -1264,9 +1310,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS61_new_business": {
         "aggregation_method": "count",
@@ -1291,9 +1338,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS52_new_business": {
         "aggregation_method": "count",
@@ -1318,9 +1366,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS62_new_business": {
         "aggregation_method": "count",
@@ -1345,9 +1394,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS51_new_business": {
         "aggregation_method": "count",
@@ -1372,9 +1422,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS55_new_business": {
         "aggregation_method": "count",
@@ -1399,9 +1450,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS31_33_new_business": {
         "aggregation_method": "count",
@@ -1426,9 +1478,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS21_new_business": {
         "aggregation_method": "count",
@@ -1453,9 +1506,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS99_new_business": {
         "aggregation_method": "count",
@@ -1480,9 +1534,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS81_new_business": {
         "aggregation_method": "count",
@@ -1507,9 +1562,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS54_new_business": {
         "aggregation_method": "count",
@@ -1534,9 +1590,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS92_new_business": {
         "aggregation_method": "count",
@@ -1561,9 +1618,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS53_new_business": {
         "aggregation_method": "count",
@@ -1588,9 +1646,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS44_45_new_business": {
         "aggregation_method": "count",
@@ -1615,9 +1674,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS48_49_new_business": {
         "aggregation_method": "count",
@@ -1642,9 +1702,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS22_new_business": {
         "aggregation_method": "count",
@@ -1669,9 +1730,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS42_new_business": {
         "aggregation_method": "count",
@@ -1696,9 +1758,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS72_exit_business": {
         "aggregation_method": "count",
@@ -1723,9 +1786,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS56_exit_business": {
         "aggregation_method": "count",
@@ -1750,9 +1814,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS11_exit_business": {
         "aggregation_method": "count",
@@ -1777,9 +1842,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS71_exit_business": {
         "aggregation_method": "count",
@@ -1804,9 +1870,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS23_exit_business": {
         "aggregation_method": "count",
@@ -1831,9 +1898,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS61_exit_business": {
         "aggregation_method": "count",
@@ -1858,9 +1926,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS52_exit_business": {
         "aggregation_method": "count",
@@ -1885,9 +1954,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS62_exit_business": {
         "aggregation_method": "count",
@@ -1912,9 +1982,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS51_exit_business": {
         "aggregation_method": "count",
@@ -1939,9 +2010,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS55_exit_business": {
         "aggregation_method": "count",
@@ -1966,9 +2038,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS31_33_exit_business": {
         "aggregation_method": "count",
@@ -1993,9 +2066,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS21_exit_business": {
         "aggregation_method": "count",
@@ -2020,9 +2094,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS99_exit_business": {
         "aggregation_method": "count",
@@ -2047,9 +2122,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS81_exit_business": {
         "aggregation_method": "count",
@@ -2074,9 +2150,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS54_exit_business": {
         "aggregation_method": "count",
@@ -2101,9 +2178,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS92_exit_business": {
         "aggregation_method": "count",
@@ -2128,9 +2206,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS53_exit_business": {
         "aggregation_method": "count",
@@ -2155,9 +2234,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS44_45_exit_business": {
         "aggregation_method": "count",
@@ -2182,9 +2262,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS48_49_exit_business": {
         "aggregation_method": "count",
@@ -2209,9 +2290,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS22_exit_business": {
         "aggregation_method": "count",
@@ -2236,9 +2318,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS42_exit_business": {
         "aggregation_method": "count",
@@ -2263,9 +2346,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS72_number_business": {
         "aggregation_method": "count",
@@ -2290,9 +2374,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS56_number_business": {
         "aggregation_method": "count",
@@ -2317,9 +2402,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS11_number_business": {
         "aggregation_method": "count",
@@ -2344,9 +2430,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS71_number_business": {
         "aggregation_method": "count",
@@ -2371,9 +2458,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS23_number_business": {
         "aggregation_method": "count",
@@ -2398,9 +2486,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS61_number_business": {
         "aggregation_method": "count",
@@ -2425,9 +2514,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS52_number_business": {
         "aggregation_method": "count",
@@ -2452,9 +2542,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS62_number_business": {
         "aggregation_method": "count",
@@ -2479,9 +2570,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS51_number_business": {
         "aggregation_method": "count",
@@ -2506,9 +2598,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS55_number_business": {
         "aggregation_method": "count",
@@ -2533,9 +2626,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS31_33_number_business": {
         "aggregation_method": "count",
@@ -2560,9 +2654,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS21_number_business": {
         "aggregation_method": "count",
@@ -2587,9 +2682,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS99_number_business": {
         "aggregation_method": "count",
@@ -2614,9 +2710,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS81_number_business": {
         "aggregation_method": "count",
@@ -2641,9 +2738,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS54_number_business": {
         "aggregation_method": "count",
@@ -2668,9 +2766,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS92_number_business": {
         "aggregation_method": "count",
@@ -2695,9 +2794,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS53_number_business": {
         "aggregation_method": "count",
@@ -2722,9 +2822,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS44_45_number_business": {
         "aggregation_method": "count",
@@ -2749,9 +2850,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS48_49_number_business": {
         "aggregation_method": "count",
@@ -2776,9 +2878,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS22_number_business": {
         "aggregation_method": "count",
@@ -2803,9 +2906,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS42_number_business": {
         "aggregation_method": "count",
@@ -2830,9 +2934,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS72_small_business": {
         "aggregation_method": "count",
@@ -2857,9 +2962,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS56_small_business": {
         "aggregation_method": "count",
@@ -2884,9 +2990,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS11_small_business": {
         "aggregation_method": "count",
@@ -2911,9 +3018,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS71_small_business": {
         "aggregation_method": "count",
@@ -2938,9 +3046,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS23_small_business": {
         "aggregation_method": "count",
@@ -2965,9 +3074,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS61_small_business": {
         "aggregation_method": "count",
@@ -2992,9 +3102,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS52_small_business": {
         "aggregation_method": "count",
@@ -3019,9 +3130,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS62_small_business": {
         "aggregation_method": "count",
@@ -3046,9 +3158,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS51_small_business": {
         "aggregation_method": "count",
@@ -3073,9 +3186,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS55_small_business": {
         "aggregation_method": "count",
@@ -3100,9 +3214,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS31_33_small_business": {
         "aggregation_method": "count",
@@ -3127,9 +3242,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS21_small_business": {
         "aggregation_method": "count",
@@ -3154,9 +3270,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS99_small_business": {
         "aggregation_method": "count",
@@ -3181,9 +3298,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS81_small_business": {
         "aggregation_method": "count",
@@ -3208,9 +3326,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS54_small_business": {
         "aggregation_method": "count",
@@ -3235,9 +3354,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS92_small_business": {
         "aggregation_method": "count",
@@ -3262,9 +3382,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS53_small_business": {
         "aggregation_method": "count",
@@ -3289,9 +3410,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS44_45_small_business": {
         "aggregation_method": "count",
@@ -3316,9 +3438,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS48_49_small_business": {
         "aggregation_method": "count",
@@ -3343,9 +3466,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS22_small_business": {
         "aggregation_method": "count",
@@ -3370,9 +3494,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS42_small_business": {
         "aggregation_method": "count",
@@ -3397,9 +3522,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS72_soloproprio_business": {
         "aggregation_method": "count",
@@ -3424,9 +3550,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS56_soloproprio_business": {
         "aggregation_method": "count",
@@ -3451,9 +3578,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS11_soloproprio_business": {
         "aggregation_method": "count",
@@ -3478,9 +3606,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS71_soloproprio_business": {
         "aggregation_method": "count",
@@ -3505,9 +3634,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS23_soloproprio_business": {
         "aggregation_method": "count",
@@ -3532,9 +3662,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS61_soloproprio_business": {
         "aggregation_method": "count",
@@ -3559,9 +3690,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS52_soloproprio_business": {
         "aggregation_method": "count",
@@ -3586,9 +3718,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS62_soloproprio_business": {
         "aggregation_method": "count",
@@ -3613,9 +3746,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS51_soloproprio_business": {
         "aggregation_method": "count",
@@ -3640,9 +3774,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS55_soloproprio_business": {
         "aggregation_method": "count",
@@ -3667,9 +3802,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS31_33_soloproprio_business": {
         "aggregation_method": "count",
@@ -3694,9 +3830,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS21_soloproprio_business": {
         "aggregation_method": "count",
@@ -3721,9 +3858,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS99_soloproprio_business": {
         "aggregation_method": "count",
@@ -3748,9 +3886,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS81_soloproprio_business": {
         "aggregation_method": "count",
@@ -3775,9 +3914,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS54_soloproprio_business": {
         "aggregation_method": "count",
@@ -3802,9 +3942,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS92_soloproprio_business": {
         "aggregation_method": "count",
@@ -3829,9 +3970,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS53_soloproprio_business": {
         "aggregation_method": "count",
@@ -3856,9 +3998,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS44_45_soloproprio_business": {
         "aggregation_method": "count",
@@ -3883,9 +4026,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS48_49_soloproprio_business": {
         "aggregation_method": "count",
@@ -3910,9 +4054,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS22_soloproprio_business": {
         "aggregation_method": "count",
@@ -3937,9 +4082,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS42_soloproprio_business": {
         "aggregation_method": "count",
@@ -3964,9 +4110,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS72_perc_small": {
         "aggregation_method": "count",
@@ -3991,9 +4138,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS56_perc_small": {
         "aggregation_method": "count",
@@ -4018,9 +4166,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS11_perc_small": {
         "aggregation_method": "count",
@@ -4045,9 +4194,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS71_perc_small": {
         "aggregation_method": "count",
@@ -4072,9 +4222,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS23_perc_small": {
         "aggregation_method": "count",
@@ -4099,9 +4250,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS61_perc_small": {
         "aggregation_method": "count",
@@ -4126,9 +4278,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS52_perc_small": {
         "aggregation_method": "count",
@@ -4153,9 +4306,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS62_perc_small": {
         "aggregation_method": "count",
@@ -4180,9 +4334,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS51_perc_small": {
         "aggregation_method": "count",
@@ -4207,9 +4362,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS55_perc_small": {
         "aggregation_method": "count",
@@ -4234,9 +4390,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS31_33_perc_small": {
         "aggregation_method": "count",
@@ -4261,9 +4418,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS21_perc_small": {
         "aggregation_method": "count",
@@ -4288,9 +4446,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS99_perc_small": {
         "aggregation_method": "count",
@@ -4315,9 +4474,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS81_perc_small": {
         "aggregation_method": "count",
@@ -4342,9 +4502,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS54_perc_small": {
         "aggregation_method": "count",
@@ -4369,9 +4530,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS92_perc_small": {
         "aggregation_method": "count",
@@ -4396,9 +4558,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS53_perc_small": {
         "aggregation_method": "count",
@@ -4423,9 +4586,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS44_45_perc_small": {
         "aggregation_method": "count",
@@ -4450,9 +4614,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS48_49_perc_small": {
         "aggregation_method": "count",
@@ -4477,9 +4642,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS22_perc_small": {
         "aggregation_method": "count",
@@ -4504,9 +4670,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS42_perc_small": {
         "aggregation_method": "count",
@@ -4531,9 +4698,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS72_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4558,9 +4726,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS56_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4585,9 +4754,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS11_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4612,9 +4782,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS71_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4639,9 +4810,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS23_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4666,9 +4838,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS61_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4693,9 +4866,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS52_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4720,9 +4894,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS62_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4747,9 +4922,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS51_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4774,9 +4950,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS55_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4801,9 +4978,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS31_33_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4828,9 +5006,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS21_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4855,9 +5034,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS99_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4882,9 +5062,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS81_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4909,9 +5090,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS54_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4936,9 +5118,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS92_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4963,9 +5146,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS53_perc_soloproprio": {
         "aggregation_method": "count",
@@ -4990,9 +5174,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS44_45_perc_soloproprio": {
         "aggregation_method": "count",
@@ -5017,9 +5202,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS48_49_perc_soloproprio": {
         "aggregation_method": "count",
@@ -5044,9 +5230,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS22_perc_soloproprio": {
         "aggregation_method": "count",
@@ -5071,9 +5258,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "NAICS42_perc_soloproprio": {
         "aggregation_method": "count",
@@ -5098,8 +5286,9 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     }
 }

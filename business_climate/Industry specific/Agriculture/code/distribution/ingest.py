@@ -17,6 +17,7 @@ import pandas as pd
 import yaml
 from sdc_core.io import write_data
 from sdc_core.log import get_logger
+from sdc_core.naming import build_file_name
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
@@ -131,7 +132,13 @@ def run() -> RunResult:
         # Group output by year for filenames matching old pattern
         for year in sorted(result["year"].unique()):
             year_df = result[result["year"] == year]
-            filename = f"va_ct_{year}_industry_agriculture.csv.xz"
+            auto_name = build_file_name(
+                coverage_area="va",
+                geographies=["county"],
+                years=[year],
+                title="industry_agriculture",
+            )
+            filename = f"{auto_name}.csv.xz"
             out_path = write_data(year_df, DIST_DIR / filename, census_standardize=False)
             log.info("Wrote %d rows to %s", len(year_df), out_path)
 

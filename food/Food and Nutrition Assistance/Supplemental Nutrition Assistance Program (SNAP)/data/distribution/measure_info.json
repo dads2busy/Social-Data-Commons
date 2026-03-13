@@ -1,6 +1,6 @@
 {
     "hh_received_snap_cnt": {
-        "aggregation_method": "",
+        "aggregation_method": "sum",
         "categories": "",
         "category": "Nutrition and Food Security",
         "citations": "",
@@ -23,12 +23,12 @@
             }
         ],
         "statement": "The count of households that received SNAP in {features.name} is {value}.",
-        "type": "",
-        "unit": "",
+        "type": "count",
+        "unit": "households",
         "variants": ""
     },
     "hh_received_snap_pct": {
-        "aggregation_method": "",
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Nutrition and Food Security",
         "citations": "",
@@ -51,12 +51,12 @@
             }
         ],
         "statement": "The percentage of households that received SNAP in {features.name} is {value}.",
-        "type": "",
-        "unit": "",
+        "type": "percent",
+        "unit": "percent",
         "variants": ""
     },
     "population": {
-        "aggregation_method": "",
+        "aggregation_method": "sum",
         "categories": "",
         "category": "Nutrition and Food Security",
         "citations": "",
@@ -79,8 +79,8 @@
             }
         ],
         "statement": "The number of households in {features.name} is {value}.",
-        "type": "",
-        "unit": "",
+        "type": "count",
+        "unit": "persons",
         "variants": ""
     }
 }

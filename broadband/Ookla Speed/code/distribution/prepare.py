@@ -32,17 +32,17 @@ def load_config() -> dict:
 
 
 def find_va_source(dist_dir: Path) -> Path | None:
-    """Find the most recent VA Ookla distribution file."""
-    candidates = sorted(dist_dir.glob("va_*ookla*broadband_speed.csv.xz"))
+    """Find the most recent VA Ookla distribution file (ingest output only)."""
+    candidates = sorted(dist_dir.glob("va_cttrbg_ookla*broadband_speed.csv.xz"))
     if candidates:
         return candidates[-1]
-    candidates = sorted(dist_dir.glob("va_*broadband_speed.csv.xz"))
+    candidates = sorted(dist_dir.glob("va_cttrbg_*broadband_speed.csv.xz"))
     return candidates[-1] if candidates else None
 
 
 def find_ncr_source(dist_dir: Path) -> Path | None:
     """Find the most recent NCR Ookla distribution file."""
-    candidates = sorted(dist_dir.glob("ncr_*ookla*broadband_speed.csv.xz"))
+    candidates = sorted(dist_dir.glob("ncr_cttrbg_ookla*broadband_speed.csv.xz"))
     return candidates[-1] if candidates else None
 
 

@@ -7,11 +7,11 @@
         "data_type": "decimal",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Earnings per job measures the average compensation across all jobs in a county, combining wages, salary supplements (like employer-provided health insurance and retirement contributions), and proprietor’s income. This metric reflects local economic productivity and the quality of available employment. Counties with low earnings per job may have economies dominated by lower-wage service or retail sectors.",
+        "long_description": "Earnings per job measures the average compensation across all jobs in a county, combining wages, salary supplements (like employer-provided health insurance and retirement contributions), and proprietor\u2019s income. This metric reflects local economic productivity and the quality of available employment. Counties with low earnings per job may have economies dominated by lower-wage service or retail sectors.",
         "long_name": "Earnings per job",
         "measure_type": "",
-        "provenance": "Computed from Bureau of Economic Analysis (BEA) GDP and Personal Income tables. Earnings per job = total earnings / total number of jobs, where total earnings includes wages and salaries, supplements to wages and salaries, and proprietor’s income.",
-        "short_description": "Average earnings per job, including wages, salaries, supplements, and proprietor’s income.",
+        "provenance": "Computed from Bureau of Economic Analysis (BEA) GDP and Personal Income tables. Earnings per job = total earnings / total number of jobs, where total earnings includes wages and salaries, supplements to wages and salaries, and proprietor\u2019s income.",
+        "short_description": "Average earnings per job, including wages, salaries, supplements, and proprietor\u2019s income.",
         "short_name": "Earnings per job",
         "sources": [
             {
@@ -23,7 +23,7 @@
             }
         ],
         "statement": "Earnings per job in {region_name} is {value}.",
-        "type": "",
+        "type": "dollar",
         "unit": "dollar",
         "variants": ""
     }

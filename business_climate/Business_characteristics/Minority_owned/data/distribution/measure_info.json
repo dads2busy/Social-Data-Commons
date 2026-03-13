@@ -22,9 +22,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "non_minority_owned_entry_rate": {
         "aggregation_method": "percent",
@@ -49,9 +50,10 @@
             }
         ],
         "statement": "{value} percent of businesses are new in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "minority_owned_exit_rate": {
         "aggregation_method": "percent",
@@ -76,9 +78,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "non_minority_owned_exit_rate": {
         "aggregation_method": "percent",
@@ -103,9 +106,10 @@
             }
         ],
         "statement": "{value} percent of businesses closed in {region_name}.",
-        "type": "",
+        "type": "rate",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "minority_owned_new_business": {
         "aggregation_method": "count",
@@ -130,9 +134,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "non_minority_owned_new_business": {
         "aggregation_method": "count",
@@ -157,9 +162,10 @@
             }
         ],
         "statement": "{value} new businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "minority_owned_exit_business": {
         "aggregation_method": "count",
@@ -184,9 +190,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "non_minority_owned_exit_business": {
         "aggregation_method": "count",
@@ -211,9 +218,10 @@
             }
         ],
         "statement": "{value} closed businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "minority_owned_number_business": {
         "aggregation_method": "count",
@@ -238,9 +246,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "non_minority_owned_number_business": {
         "aggregation_method": "count",
@@ -265,9 +274,10 @@
             }
         ],
         "statement": "{value} businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "minority_owned_small_business": {
         "aggregation_method": "count",
@@ -292,9 +302,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "non_minority_owned_small_business": {
         "aggregation_method": "count",
@@ -319,9 +330,10 @@
             }
         ],
         "statement": "{value} small businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "minority_owned_soloproprio_business": {
         "aggregation_method": "count",
@@ -346,9 +358,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "non_minority_owned_soloproprio_business": {
         "aggregation_method": "count",
@@ -373,9 +386,10 @@
             }
         ],
         "statement": "{value} sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "count",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "minority_owned_perc_small": {
         "aggregation_method": "count",
@@ -400,9 +414,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "non_minority_owned_perc_small": {
         "aggregation_method": "count",
@@ -427,9 +442,10 @@
             }
         ],
         "statement": "{value} percent of small businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "minority_owned_perc_soloproprio": {
         "aggregation_method": "count",
@@ -454,9 +470,10 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     },
     "non_minority_owned_perc_soloproprio": {
         "aggregation_method": "count",
@@ -481,8 +498,9 @@
             }
         ],
         "statement": "{value} percent of sole proprietor businesses in {region_name}.",
-        "type": "",
+        "type": "percent",
         "unit": "business",
-        "variants": ""
+        "variants": "",
+        "provenance": "Mergent Intellect business microdata (Dun & Bradstreet), geocoded to census tracts and aggregated. Business dynamics (entry/exit rates, counts) computed from establishment-level records."
     }
 }

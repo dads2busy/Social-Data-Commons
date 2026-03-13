@@ -403,11 +403,17 @@ def standardize_all(
     region_type_col: str = "region_type",
     state_fips: str = "51",
 ) -> pd.DataFrame:
-    """Standardize 2010 geographies to 2020 boundaries for tract data.
+    """Standardize 2010 geographies to 2020 boundaries for tract and block group data.
 
     Assumes SDC conventions:
     columns: geoid, year, measure, value, moe, region_type.
+
+    Handles both tracts (geoid length 11) and block groups (geoid length 12).
     """
+    # geoid lengths that have 2010→2020 crosswalks
+    SUB_COUNTY_LENGTHS = {11, 12}  # tract, block group
+    GEOID_LEN_TO_REGION_TYPE = {11: "tract", 12: "block_group"}
+
     years = data[year_col].unique()
     measures = data[measure_col].unique()
 
@@ -421,7 +427,7 @@ def standardize_all(
     original[measure_col] = original.apply(
         lambda row: (
             f"{row[measure_col]}_geo10"
-            if row[year_col] < 2020 and len(row[geoid_col]) == 11
+            if row[year_col] < 2020 and len(row[geoid_col]) in SUB_COUNTY_LENGTHS
             else f"{row[measure_col]}_geo20"
         ),
         axis=1,
@@ -432,26 +438,27 @@ def standardize_all(
     for yr in years:
         if yr < 2020:
             for meas in measures:
-                temp = data[
-                    (data[year_col] == yr)
-                    & (data[measure_col] == meas)
-                    & (data[geoid_col].str.len() == 11)
-                ]
-                if temp.empty:
-                    continue
+                for geoid_len in SUB_COUNTY_LENGTHS:
+                    temp = data[
+                        (data[year_col] == yr)
+                        & (data[measure_col] == meas)
+                        & (data[geoid_col].str.len() == geoid_len)
+                    ]
+                    if temp.empty:
+                        continue
 
-                converted = convert_2010_to_2020_bounds(
-                    temp,
-                    geoid_col=geoid_col,
-                    val_col=value_col,
-                    state_fips=state_fips,
-                )
-                converted[year_col] = yr
-                converted[measure_col] = f"{meas}_geo20"
-                converted[moe_col] = pd.NA
-                if region_type_col in data.columns:
-                    converted[region_type_col] = "tract"
-                standardized_parts.append(converted)
+                    converted = convert_2010_to_2020_bounds(
+                        temp,
+                        geoid_col=geoid_col,
+                        val_col=value_col,
+                        state_fips=state_fips,
+                    )
+                    converted[year_col] = yr
+                    converted[measure_col] = f"{meas}_geo20"
+                    converted[moe_col] = pd.NA
+                    if region_type_col in data.columns:
+                        converted[region_type_col] = GEOID_LEN_TO_REGION_TYPE[geoid_len]
+                    standardized_parts.append(converted)
 
     standardized = (
         pd.concat(standardized_parts, ignore_index=True)

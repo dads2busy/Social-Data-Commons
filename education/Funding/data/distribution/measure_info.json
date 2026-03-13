@@ -1,13 +1,13 @@
 {
     "schoolFundAdequacy": {
-        "aggregation_method": "",
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Education",
         "citations": "",
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The average gap in dollars between the actual and required spending per pupil among public school districts. Required spending is an estimate of dollars needed to achieve U.S. average test scores in each district.",
+        "long_description": "School funding adequacy measures the gap between what districts actually spend per pupil and what they would need to spend to achieve national average test scores, after accounting for student demographics and regional cost differences. Persistent funding gaps concentrate in districts serving higher shares of low-income students and students of color, reinforcing cycles of educational inequity. Adequately funded schools can attract stronger teachers, offer smaller class sizes, and provide the wraparound services that improve student outcomes.",
         "long_name": "School funding adequacy",
         "measure_type": "cost",
         "short_description": "Average gap in dollars between actual and required spending per pupil in school districts.",

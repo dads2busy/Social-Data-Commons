@@ -1,15 +1,13 @@
-"""Ingest Townsend Material Deprivation Index from ACS.
+"""Ingest Townsend Material Deprivation Index raw counts from ACS.
 
 Fetches multiple ACS tables (B23025, B25014, B25044, S2502) for each source
-defined in pipeline.yaml. For VA, aggregates county raw counts to health
-districts. Then computes the Townsend index (z-score-based normalization of
-4 deprivation indicators) at all levels.
+defined in pipeline.yaml. Writes county+tract raw counts to data/distribution/.
+Health district aggregation and Townsend index computation happen in prepare.py.
 """
 
 import time
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 import yaml
 from sdc_core.census import CensusClient
@@ -118,117 +116,13 @@ def fetch_wide(
     return pd.concat(all_frames, ignore_index=True)
 
 
-def aggregate_to_hd(counties: pd.DataFrame, crosswalk_path: Path) -> pd.DataFrame:
-    """Aggregate county raw counts to health districts via crosswalk."""
-    xwalk = pd.read_csv(crosswalk_path, dtype={"ct_geoid": str, "hd_geoid": str})
-
-    merged = counties.merge(xwalk, left_on="geoid", right_on="ct_geoid", how="inner")
-
-    hd_frames: list[pd.DataFrame] = []
-    for year, group in merged.groupby("year"):
-        hd_agg = (
-            group.groupby("hd_geoid")[RAW_COUNT_COLS]
-            .sum()
-            .reset_index()
-            .rename(columns={"hd_geoid": "geoid"})
-        )
-        hd_agg["year"] = year
-        hd_agg["region_type"] = "health_district"
-        hd_frames.append(hd_agg)
-
-    if not hd_frames:
-        return pd.DataFrame(columns=["geoid", "year", "region_type"] + RAW_COUNT_COLS)
-
-    return pd.concat(hd_frames, ignore_index=True)
-
-
-def _zscore_within_groups(df: pd.DataFrame, col: str, groups: list[str]) -> pd.Series:
-    """Z-score a column within (year, region_type) groups."""
-    return df.groupby(groups)[col].transform(
-        lambda x: (x - x.mean()) / x.std(ddof=1) if x.std(ddof=1) != 0 else 0.0
-    )
-
-
-def _minmax_within_groups(df: pd.DataFrame, col: str, groups: list[str]) -> pd.Series:
-    """Min-max rescale a column to [0, 1] within (year, region_type) groups."""
-    return df.groupby(groups)[col].transform(
-        lambda x: (x - x.min()) / (x.max() - x.min()) if (x.max() - x.min()) != 0 else 0.0
-    )
-
-
-def compute_townsend(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute the Townsend Material Deprivation Index.
-
-    Steps:
-    1. Compute 4 raw indicators (with log transforms where specified).
-    2. Z-score each indicator within (year, region_type).
-    3. Sum the 4 z-scores -> townsend_sum.
-    4. Z-score townsend_sum within (year, region_type).
-    5. Min-max rescale the final z-score to [0, 1] within (year, region_type).
-    6. Return long format with measure = "material_deprivation_indicator".
-    """
-    work = df.copy()
-    groups = ["year", "region_type"]
-
-    # --- 4 raw indicators ---
-
-    # Unemployment rate: unemployed / adult_pop, then log(x + 1)
-    unemp_raw = work["unemployed"] / work["adult_pop"].where(work["adult_pop"] > 0, np.nan)
-    unemp_raw = unemp_raw.fillna(0.0)
-    work["ind_unemp"] = np.log(unemp_raw + 1)
-
-    # Non-car ownership: (hh_owner_no_veh + hh_renter_no_veh) / households_total
-    noncar_raw = (work["hh_owner_no_veh"] + work["hh_renter_no_veh"]) / work["households_total"].where(work["households_total"] > 0, np.nan)
-    work["ind_noncar"] = noncar_raw.fillna(0.0)
-
-    # Non-home ownership: rent_units / all_units
-    nonhome_raw = work["rent_units"] / work["all_units"].where(work["all_units"] > 0, np.nan)
-    work["ind_nonhome"] = nonhome_raw.fillna(0.0)
-
-    # Overcrowding: sum of occupant_1..6 / occupancy_all, then log(1 + x)
-    overcrowd_num = (
-        work["occupant_1"] + work["occupant_2"] + work["occupant_3"]
-        + work["occupant_4"] + work["occupant_5"] + work["occupant_6"]
-    )
-    overcrowd_raw = overcrowd_num / work["occupancy_all"].where(work["occupancy_all"] > 0, np.nan)
-    overcrowd_raw = overcrowd_raw.fillna(0.0)
-    work["ind_overcrowd"] = np.log(1 + overcrowd_raw)
-
-    # --- Z-score each indicator within (year, region_type) ---
-    indicators = ["ind_unemp", "ind_noncar", "ind_nonhome", "ind_overcrowd"]
-    for ind in indicators:
-        work[f"z_{ind}"] = _zscore_within_groups(work, ind, groups)
-
-    # --- Sum z-scores ---
-    work["townsend_sum"] = (
-        work["z_ind_unemp"]
-        + work["z_ind_noncar"]
-        + work["z_ind_nonhome"]
-        + work["z_ind_overcrowd"]
-    )
-
-    # --- Z-score the sum within (year, region_type) ---
-    work["townsend_z"] = _zscore_within_groups(work, "townsend_sum", groups)
-
-    # --- Min-max rescale to [0, 1] within (year, region_type) ---
-    work["townsend_final"] = _minmax_within_groups(work, "townsend_z", groups)
-
-    # --- Build long-format output ---
-    out = work[["geoid", "year", "region_type"]].copy()
-    out["measure"] = "material_deprivation_indicator"
-    out["value"] = work["townsend_final"].round(4)
-    out["moe"] = pd.NA
-
-    return out.reset_index(drop=True)
-
-
 def run_source(
     name: str,
     src: dict,
     config: dict,
     client: CensusClient,
 ) -> RunResult:
-    """Ingest one source (VA or NCR)."""
+    """Ingest one source (VA or NCR). Writes county+tract raw counts only."""
     t0 = time.time()
     try:
         years = src["years"]
@@ -252,32 +146,22 @@ def run_source(
                 duration_sec=time.time() - t0,
             )
 
-        # Separate tracts (11-digit) and counties (5-digit)
+        # Keep only county+tract rows (no HD aggregation — that's done in prepare.py)
         tract_rows = raw[raw["geoid"].str.len() == 11].copy()
         county_rows = raw[raw["geoid"].str.len() == 5].copy()
-
-        frames = [tract_rows, county_rows]
-        level_names = ["county", "tract"]
-
-        # Only aggregate to health districts for VA source
-        if name == "va" and "va_county_to_hd" in config.get("crosswalks", {}):
-            crosswalk_path = REPO_DIR / config["crosswalks"]["va_county_to_hd"]
-            log.info("Aggregating %d county rows to health districts", len(county_rows))
-            hd_rows = aggregate_to_hd(county_rows, crosswalk_path)
-            frames.append(hd_rows)
-            level_names = ["health_district", "county", "tract"]
+        combined = pd.concat([tract_rows, county_rows], ignore_index=True)
 
         log.info(
-            "Combining: %d tracts + %d counties%s",
+            "Combined: %d tracts + %d counties for '%s'",
             len(tract_rows),
             len(county_rows),
-            f" + {len(frames[-1]) if len(frames) > 2 else 0} health districts"
-            if len(frames) > 2 else "",
+            name,
         )
-        combined = pd.concat(frames, ignore_index=True)
 
-        log.info("Computing Townsend index on %d rows for '%s'", len(combined), name)
-        result = compute_townsend(combined)
+        # Write raw counts (wide format) — Townsend computation happens in prepare.py
+        # Keep only the columns needed: geoid, year, region_type, and raw count columns
+        keep_cols = ["geoid", "year", "region_type"] + RAW_COUNT_COLS
+        result = combined[keep_cols].copy()
 
         src_states = resolve_states(src)
         filename = (
@@ -286,12 +170,12 @@ def run_source(
                 states=src_states,
                 years=years,
                 source_type=src.get("type"),
-                title="material_deprivation",
+                title="material_deprivation_raw",
             )
             + ".csv.xz"
         )
 
-        out_path = write_data(result, DIST_DIR / filename, census_standardize=True)
+        out_path = write_data(result, DIST_DIR / filename, census_standardize=False)
         log.info("Wrote %d rows to %s", len(result), out_path)
 
         return RunResult(

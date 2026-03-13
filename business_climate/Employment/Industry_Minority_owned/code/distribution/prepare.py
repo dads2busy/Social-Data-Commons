@@ -12,7 +12,7 @@ REPO_DIR = TOPIC_DIR.parents[2]
 DIST_DIR = TOPIC_DIR / "data" / "distribution"
 MEASURE_INFO = DIST_DIR / "measure_info.json"
 
-log = get_logger("industry_minority_owned.prepare")
+log = get_logger("employment.industry_minority_owned.prepare")
 
 DASHBOARD_MAP = {
     "ncr": "dashboard_data/national_capital_region_data",

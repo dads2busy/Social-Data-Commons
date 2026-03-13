@@ -7,6 +7,7 @@ from pathlib import Path
 import yaml
 from sdc_core.io import write_data
 from sdc_core.log import get_logger
+from sdc_core.naming import build_file_name
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
@@ -16,7 +17,7 @@ DIST_DIR = TOPIC_DIR / "data" / "distribution"
 sys.path.insert(0, str(MI_DIR))
 from mi_metrics import load_features, employment_dynamics, FEATURE_FILES, compute_hhi, compute_lq
 
-log = get_logger("industry.ingest")
+log = get_logger("employment.industry.ingest")
 
 
 def load_config() -> dict:
@@ -43,13 +44,27 @@ def run() -> RunResult:
 
         # HHI (county level only)
         hhi = compute_hhi(features)
-        hhi_fn = f"{prefix}_ct_mi_{int(hhi['year'].min())}_{int(hhi['year'].max())}_herfindalh_index_by_industry.csv.xz"
+        hhi_name = build_file_name(
+            coverage_area=prefix,
+            data_source="mi",
+            geographies=["county"],
+            years=sorted(hhi["year"].unique()),
+            title="herfindalh_index_by_industry",
+        )
+        hhi_fn = f"{hhi_name}.csv.xz"
         write_data(hhi, DIST_DIR / hhi_fn, census_standardize=False)
         log.info("Wrote %d HHI rows to %s", len(hhi), hhi_fn)
 
         # Location Quotient (all geo levels)
         lq = compute_lq(features, ["tract", "block group", "county"])
-        lq_fn = f"{prefix}_cttrbg_mi_{int(lq['year'].min())}_{int(lq['year'].max())}_location_quotient_by_industry.csv.xz"
+        lq_name = build_file_name(
+            coverage_area=prefix,
+            data_source="mi",
+            geographies=["county", "tract", "block_group"],
+            years=sorted(lq["year"].unique()),
+            title="location_quotient_by_industry",
+        )
+        lq_fn = f"{lq_name}.csv.xz"
         write_data(lq, DIST_DIR / lq_fn, census_standardize=False)
         log.info("Wrote %d LQ rows to %s", len(lq), lq_fn)
 

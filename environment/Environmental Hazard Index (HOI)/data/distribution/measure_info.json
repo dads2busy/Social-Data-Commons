@@ -1,71 +1,41 @@
 {
-    "environmental_hazard_index_geo10": {
-        "aggregation_method": "mean",
-        "categories": "",
-        "category": "Environmental Health",
-        "citations": [
-            "epaejscreen"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Environment",
-        "layer": "",
-        "long_description": "The Environmental Hazard Index captures the cumulative burden of environmental hazards in a community by distilling 12 EPA pollution and proximity indicators into a single score. Communities with high values face greater combined exposure to air toxics, particulate matter, ozone, hazardous waste sites, and aging housing stock. The index is reported as a z-score, where zero represents the Virginia average and each unit represents one standard deviation of additional hazard burden. Values on original 2010 census tract boundaries.",
-        "long_name": "Environmental Hazard Index (2010 geographies)",
-        "measure_type": "index",
-        "short_description": "A z-score summarizing cumulative environmental hazard exposure from 12 EPA pollution and proximity indicators, on 2010 census boundaries.",
-        "short_name": "Environmental Hazard",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "EPA EJScreen (archived)",
-                "location_url": "https://web.archive.org/web/2024/https://gaftp.epa.gov/EJSCREEN/",
-                "name": "U.S. Environmental Protection Agency",
-                "url": "https://www.epa.gov/"
-            }
-        ],
-        "provenance": "Block-group-level data for 12 environmental indicators (CANCER, RESP, PTRAF, PWDIS, PNPL, PRMP, PTSDF, OZONE, PM25, PRE1960PCT, DSLPM, UST) extracted from EPA EJScreen annual CSVs (2016-2024, archived via Internet Archive). UST values backfilled from 2021 for years 2016-2020 when the variable was unavailable. Variables standardized per year, then reduced via Principal Component Analysis (1 component) using scikit-learn. PC1 scores converted to z-scores. Block groups aggregated to tracts via population-weighted mean (simple mean fallback). 2024 uses 10 variables (EPA dropped CANCER and RESP). Values reported on original 2010 census tract boundaries.",
-        "statement": "The environmental hazard index in {features.name} is {value}.",
-        "type": "index",
-        "unit": "z-score",
-        "variants": ""
-    },
-    "environmental_hazard_index_geo20": {
-        "aggregation_method": "mean",
-        "categories": "",
-        "category": "Environmental Health",
-        "citations": [
-            "epaejscreen"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Environment",
-        "layer": "",
-        "long_description": "The Environmental Hazard Index captures the cumulative burden of environmental hazards in a community by distilling 12 EPA pollution and proximity indicators into a single score. Communities with high values face greater combined exposure to air toxics, particulate matter, ozone, hazardous waste sites, and aging housing stock. The index is reported as a z-score, where zero represents the Virginia average and each unit represents one standard deviation of additional hazard burden.",
-        "long_name": "Environmental Hazard Index",
-        "measure_type": "index",
-        "short_description": "A z-score summarizing cumulative environmental hazard exposure from 12 EPA pollution and proximity indicators.",
-        "short_name": "Environmental Hazard",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "EPA EJScreen (archived)",
-                "location_url": "https://web.archive.org/web/2024/https://gaftp.epa.gov/EJSCREEN/",
-                "name": "U.S. Environmental Protection Agency",
-                "url": "https://www.epa.gov/"
-            }
-        ],
-        "provenance": "Block-group-level data for 12 environmental indicators (CANCER, RESP, PTRAF, PWDIS, PNPL, PRMP, PTSDF, OZONE, PM25, PRE1960PCT, DSLPM, UST) extracted from EPA EJScreen annual CSVs (2016-2024, archived via Internet Archive). UST values backfilled from 2021 for years 2016-2020 when the variable was unavailable. Variables standardized per year, then reduced via Principal Component Analysis (1 component) using scikit-learn. PC1 scores converted to z-scores. Block groups aggregated to tracts via population-weighted mean (simple mean fallback). 2024 uses 10 variables (EPA dropped CANCER and RESP). EJScreen used 2010 census block groups through 2021 and switched to 2020 block groups in 2022. Pre-2022 tract values crosswalked from 2010 to 2020 boundaries via area-weighted redistribution.",
-        "statement": "The environmental hazard index in {features.name} is {value}.",
-        "type": "index",
-        "unit": "z-score",
-        "variants": ""
-    },
-    "_references": {
-        "epaejscreen": {
-            "id": "epaejscreen",
-            "author": "U.S. Environmental Protection Agency",
-            "year": 2024,
-            "title": "EJScreen: Environmental Justice Screening and Mapping Tool",
-            "url": "https://web.archive.org/web/2024/https://gaftp.epa.gov/EJSCREEN/"
-        }
+  "environmental_hazard_index_geo20": {
+    "aggregation_method": "mean",
+    "categories": "",
+    "category": "Environmental Health",
+    "citations": [
+      "epaejscreen"
+    ],
+    "data_type": "numeric",
+    "equity_category": "Environment",
+    "layer": "",
+    "long_description": "The Environmental Hazard Index captures the cumulative burden of environmental hazards in a community by distilling 12 EPA pollution and proximity indicators into a single score. Communities with high values face greater combined exposure to air toxics, particulate matter, ozone, hazardous waste sites, and aging housing stock. The index is reported as a z-score, where zero represents the Virginia average and each unit represents one standard deviation of additional hazard burden.",
+    "long_name": "Environmental Hazard Index",
+    "measure_type": "index",
+    "short_description": "A z-score summarizing cumulative environmental hazard exposure from 12 EPA pollution and proximity indicators.",
+    "short_name": "Environmental Hazard",
+    "sources": [
+      {
+        "date_accessed": 2025,
+        "location": "EPA EJScreen (archived)",
+        "location_url": "https://web.archive.org/web/2024/https://gaftp.epa.gov/EJSCREEN/",
+        "name": "U.S. Environmental Protection Agency",
+        "url": "https://www.epa.gov/"
+      }
+    ],
+    "provenance": "Block-group-level data for 12 environmental indicators (CANCER, RESP, PTRAF, PWDIS, PNPL, PRMP, PTSDF, OZONE, PM25, PRE1960PCT, DSLPM, UST) extracted from EPA EJScreen annual CSVs (2016-2024, archived via Internet Archive). UST values backfilled from 2021 for years 2016-2020 when the variable was unavailable. Variables standardized per year, then reduced via Principal Component Analysis (1 component) using scikit-learn. PC1 scores converted to z-scores. Block groups aggregated to tracts via population-weighted mean (simple mean fallback). 2024 uses 10 variables (EPA dropped CANCER and RESP). EJScreen used 2010 census block groups through 2021 and switched to 2020 block groups in 2022. Pre-2022 tract values crosswalked from 2010 to 2020 boundaries via area-weighted redistribution.",
+    "statement": "The environmental hazard index in {features.name} is {value}.",
+    "type": "index",
+    "unit": "z-score",
+    "variants": ""
+  },
+  "_references": {
+    "epaejscreen": {
+      "id": "epaejscreen",
+      "author": "U.S. Environmental Protection Agency",
+      "year": 2024,
+      "title": "EJScreen: Environmental Justice Screening and Mapping Tool",
+      "url": "https://web.archive.org/web/2024/https://gaftp.epa.gov/EJSCREEN/"
     }
+  }
 }

@@ -7,36 +7,8 @@
     "data_type": "decimal",
     "equity_category": "",
     "layer": "",
-    "long_description": "The Material Deprivation Index captures the extent to which a community lacks basic material resources — stable employment, adequate housing space, vehicle access, and home ownership. Communities with high deprivation scores face compounding disadvantages: unemployment limits income, overcrowding increases disease transmission and stress, lack of vehicle access restricts mobility, and renting reduces wealth accumulation. The index is scaled from 0 (least deprived) to 1 (most deprived) and serves as a key input to the VDH Health Opportunity Index, where it contributes to the Consumer Opportunity profile.",
+    "long_description": "The Material Deprivation Index captures the extent to which a community lacks basic material resources \u2014 stable employment, adequate housing space, vehicle access, and home ownership. Communities with high deprivation scores face compounding disadvantages: unemployment limits income, overcrowding increases disease transmission and stress, lack of vehicle access restricts mobility, and renting reduces wealth accumulation. The index is scaled from 0 (least deprived) to 1 (most deprived) and serves as a key input to the VDH Health Opportunity Index, where it contributes to the Consumer Opportunity profile.",
     "long_name": "Material Deprivation Indicator",
-    "measure_type": "index",
-    "short_description": "Townsend Material Deprivation Index (0-1) combining unemployment, overcrowding, non-car ownership, and non-home ownership.",
-    "short_name": "Material deprivation indicator",
-    "sources": [
-      {
-        "name": "U.S. Census Bureau",
-        "location": "ACS 5-Year Estimates, Tables B23025 (Employment Status), B25014 (Tenure by Occupants per Room), B25044 (Tenure by Vehicles Available), and S2502 (Demographic Characteristics for Occupied Housing Units)",
-        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-        "date_accessed": 2025,
-        "url": "https://www.census.gov/programs-surveys/acs.html"
-      }
-    ],
-    "provenance": "Based on the Townsend Material Deprivation Index (Townsend, Phillimore & Beattie, 1988), originally developed for the UK Census to measure area-level material deprivation. This pipeline adapts the methodology for U.S. Census ACS variables. The four component indicators (unemployment, overcrowding, non-car ownership, non-home ownership) are computed from ACS 5-year estimates, z-scored within year and geography level, summed, z-scored again, and min-max rescaled to [0, 1]. The VDH Health Opportunity Index includes a similar adaptation of the Townsend index as one of its 13 indicators.",
-    "statement": "The material deprivation indicator in {features.name} is {value}.",
-    "type": "index",
-    "unit": "",
-    "variants": ""
-  },
-  "material_deprivation_indicator_geo10": {
-    "aggregation_method": "mean",
-    "categories": "",
-    "category": "Financial Well-Being",
-    "citations": "Townsend, P., Phillimore, P., & Beattie, A. (1988). Health and Deprivation: Inequality and the North. London: Croom Helm.",
-    "data_type": "decimal",
-    "equity_category": "",
-    "layer": "",
-    "long_description": "The Material Deprivation Index captures the extent to which a community lacks basic material resources — stable employment, adequate housing space, vehicle access, and home ownership. Communities with high deprivation scores face compounding disadvantages: unemployment limits income, overcrowding increases disease transmission and stress, lack of vehicle access restricts mobility, and renting reduces wealth accumulation. The index is scaled from 0 (least deprived) to 1 (most deprived) and serves as a key input to the VDH Health Opportunity Index, where it contributes to the Consumer Opportunity profile. Values on original 2010 census tract boundaries.",
-    "long_name": "Material Deprivation Indicator (2010 geographies)",
     "measure_type": "index",
     "short_description": "Townsend Material Deprivation Index (0-1) combining unemployment, overcrowding, non-car ownership, and non-home ownership.",
     "short_name": "Material deprivation indicator",
