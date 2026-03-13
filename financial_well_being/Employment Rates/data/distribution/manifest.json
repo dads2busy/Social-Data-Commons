@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-13T14:19:27+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "emp_rate_geo10",
+    "emp_rate_geo20",
+    "labor_participate_rate_geo10",
+    "labor_participate_rate_geo20"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 180680,
+  "files": {
+    "ncr_cttr_census_acs_2015_2024_employment_rate.csv.xz": {
+      "sha256": "0b12be33e185f253d2f451ef30be55abb31713adf85cd2760d7b2a74a5e526c4",
+      "size_bytes": 287076
+    },
+    "ncr_cttr_census_acs_2015_2024_labor_participate_rate.csv.xz": {
+      "sha256": "bc632ba54d2020abba904cd42d6148311c4116c4e1ff96026767d03d458f4636",
+      "size_bytes": 274144
+    },
+    "va_hdcttr_census_acs_2015_2024_employment_rate.csv.xz": {
+      "sha256": "cd6e798f6831cb1e468c21975e81fffda5d23c2f74cd4c355f4e4394233d01b2",
+      "size_bytes": 143908
+    },
+    "va_hdcttr_census_acs_2015_2024_labor_participate_rate.csv.xz": {
+      "sha256": "1faba73f6b8c84df6861df738854bc073f1936e87048cb83bcf8863220f82064",
+      "size_bytes": 148484
+    }
+  }
+}

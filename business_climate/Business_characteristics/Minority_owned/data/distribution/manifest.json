@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-13T14:19:57+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "minority_owned_entry_rate",
+    "minority_owned_exit_business",
+    "minority_owned_exit_rate",
+    "minority_owned_new_business",
+    "minority_owned_number_business",
+    "non_minority_owned_entry_rate",
+    "non_minority_owned_exit_business",
+    "non_minority_owned_exit_rate",
+    "non_minority_owned_new_business",
+    "non_minority_owned_number_business"
+  ],
+  "years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 596330,
+  "files": {
+    "ncr_cttrbg_mi_2010_2020_business_metrics_by_Minority_owned.csv.xz": {
+      "sha256": "49548b72f0da305e3ade6fd4ade742cba8be41526f0beea3b115d7a448b56a27",
+      "size_bytes": 1357500
+    },
+    "rva_cttrbg_mi_2010_2020_business_metrics_by_Minority_owned.csv.xz": {
+      "sha256": "a9c6cd188e0026ee7bb317a4e91eef9ad5af411237f2c2e9bcc16875d6666e9c",
+      "size_bytes": 147216
+    },
+    "va059_cttrbg_mi_2010_2020_business_metrics_by_Minority_owned.csv.xz": {
+      "sha256": "da6c25d18e3b74bc982dc33133be866a41dd8608aea14ba2f003d3e541b8f973",
+      "size_bytes": 233216
+    }
+  }
+}

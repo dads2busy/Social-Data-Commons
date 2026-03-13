@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-13T14:19:38+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "median_household_income_geo10",
+    "median_household_income_geo20"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 248321,
+  "files": {
+    "ncr_cttrbg_census_acs_2015_2024_household_income.csv.xz": {
+      "sha256": "4df37bce2fc7dddf207047a7fcf18f5697ac096d2137094243e0f9c091602c63",
+      "size_bytes": 1184852
+    },
+    "va_cttrbg_census_acs_2015_2024_household_income.csv.xz": {
+      "sha256": "0f9abe84129b732c147522402e7ecf639a129f6d5a63c3c825d1f92246121875",
+      "size_bytes": 663048
+    }
+  }
+}

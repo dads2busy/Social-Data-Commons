@@ -1,0 +1,38 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-13T14:19:21+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "average_years_schooling_geo10",
+    "average_years_schooling_geo20"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 32810,
+  "files": {
+    "va_hdcttr_census_acs_2015_2024_years_of_schooling.csv.xz": {
+      "sha256": "75f82769714ead12dc268d0ac2895ad5a15c414511324c4735b30f6bf1e136cc",
+      "size_bytes": 111580
+    }
+  }
+}

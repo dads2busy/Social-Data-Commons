@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-13T14:21:03+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "business_create_job",
+    "business_destruction_job",
+    "job_creation_active",
+    "job_creation_new",
+    "job_destruction_active",
+    "job_destruction_exit",
+    "perc_job_creation_active",
+    "perc_job_creation_new",
+    "perc_job_destruction_active",
+    "perc_job_destruction_exit",
+    "total_employment",
+    "total_job_creation",
+    "total_job_destruction"
+  ],
+  "years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 764494,
+  "files": {
+    "ncr_cttrbg_mi_2010_2020_employment_metrics_by_Total.csv.xz": {
+      "sha256": "b7ff5312c5bb3c800a3bc5ccedb68ca8f8b8326a9c063ac287a781986cf86189",
+      "size_bytes": 1952864
+    },
+    "rva_cttrbg_mi_2010_2020_employment_metrics_by_Total.csv.xz": {
+      "sha256": "ab66b822102ba72b6da503d87e13d889889bfc0e2495a598cd435ba67990be46",
+      "size_bytes": 215340
+    },
+    "va059_cttrbg_mi_2010_2020_employment_metrics_by_Total.csv.xz": {
+      "sha256": "c978771781d1141b786e89028ad9daf86eaddc5320b80dc07458d3dc65a0b11c",
+      "size_bytes": 319940
+    }
+  }
+}

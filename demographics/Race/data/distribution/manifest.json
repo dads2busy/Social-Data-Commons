@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-13T14:21:15+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "race_AAPI_count_geo10",
+    "race_AAPI_count_geo20",
+    "race_AAPI_percent_geo10",
+    "race_AAPI_percent_geo20",
+    "race_afr_amer_alone_count_geo10",
+    "race_afr_amer_alone_count_geo20",
+    "race_afr_amer_alone_percent_geo10",
+    "race_afr_amer_alone_percent_geo20",
+    "race_hispanic_or_latino_count_geo10",
+    "race_hispanic_or_latino_count_geo20",
+    "race_hispanic_or_latino_percent_geo10",
+    "race_hispanic_or_latino_percent_geo20",
+    "race_native_alone_count_geo10",
+    "race_native_alone_count_geo20",
+    "race_native_alone_percent_geo10",
+    "race_native_alone_percent_geo20",
+    "race_other_count_geo10",
+    "race_other_count_geo20",
+    "race_other_percent_geo10",
+    "race_other_percent_geo20",
+    "race_total_count_geo10",
+    "race_total_count_geo20",
+    "race_two_or_more_count_geo10",
+    "race_two_or_more_count_geo20",
+    "race_two_or_more_percent_geo10",
+    "race_two_or_more_percent_geo20",
+    "race_wht_alone_count_geo10",
+    "race_wht_alone_count_geo20",
+    "race_wht_alone_percent_geo10",
+    "race_wht_alone_percent_geo20"
+  ],
+  "years": [
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 4201965,
+  "files": {
+    "ncr_cttrbg_census_acs_2009_2024_race_demographics.csv.xz": {
+      "sha256": "6304961ac17b457133e52735d5916aba6c3fe1b4b57edaf26aac926bbf999e83",
+      "size_bytes": 18105952
+    },
+    "va_hdcttr_census_acs_2009_2024_race_demographics.csv.xz": {
+      "sha256": "44270903e82da5d2d2e6f72d9b7e6b40fd104a41f478a29eb6776c0a7a9adf21",
+      "size_bytes": 4574580
+    }
+  }
+}

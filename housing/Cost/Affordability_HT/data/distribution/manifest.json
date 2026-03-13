@@ -1,132 +1,32 @@
 {
-  "version": "2.0.0",
-  "generated": "2026-03-09T22:09:35+00:00",
+  "version": "3.0.0",
+  "generated": "2026-03-13T14:19:53+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
-    "affordability_index",
-    "autos_per_hh",
-    "housing_cost_pct",
-    "transit_frac",
-    "transport_cost_pct",
-    "vmt_per_hh"
+    "affordability_index_geo10",
+    "affordability_index_geo20"
   ],
   "years": [
-    2015,
     2016,
-    2017,
-    2018,
     2019,
-    2020,
-    2021,
-    2022,
-    2023,
-    2024
+    2022
   ],
   "regions": [
-    "11",
-    "24",
     "51"
   ],
-  "row_count": 1598201,
+  "row_count": 10749,
   "files": {
-    "ncr_cttrbg_reproduced_2015_affordability_ht_index.csv.xz": {
-      "sha256": "47917c28176bea80bc1e26f2ef13a51e609b78699a8f5fd97b524b775bd60559",
-      "size_bytes": 108252
-    },
-    "ncr_cttrbg_reproduced_2016_affordability_ht_index.csv.xz": {
-      "sha256": "72636266553e433c9f1f37205eac43689cf65bcc194c5b5860c8c73b53a6e5a6",
-      "size_bytes": 108408
-    },
-    "ncr_cttrbg_reproduced_2017_affordability_ht_index.csv.xz": {
-      "sha256": "624820f02423ca4abc138155c06812c7fde62fd7e5fd4686ebf1e8f8db815d5a",
-      "size_bytes": 108568
-    },
-    "ncr_cttrbg_reproduced_2018_affordability_ht_index.csv.xz": {
-      "sha256": "68edda95f2272e146d37848bfe83fe3ab5f78c2e09564019a230bd3cb63f26ff",
-      "size_bytes": 108636
-    },
-    "ncr_cttrbg_reproduced_2019_affordability_ht_index.csv.xz": {
-      "sha256": "006c0b290cc291c729fd1a459e9d40fabc7297b6de1a9431437d232cf374fc99",
-      "size_bytes": 108544
-    },
-    "ncr_cttrbg_reproduced_2020_affordability_ht_index.csv.xz": {
-      "sha256": "44ea4f9b355f1a3264b15e73aeb7123658139493454b2dde1ecbb81639770ccb",
-      "size_bytes": 114644
-    },
-    "ncr_cttrbg_reproduced_2021_affordability_ht_index.csv.xz": {
-      "sha256": "4e7f708b7532ee32a908617b0cf0f32a66a70bbd9077593bdba640b2e17ef97f",
-      "size_bytes": 114356
-    },
-    "ncr_cttrbg_reproduced_2022_affordability_ht_index.csv.xz": {
-      "sha256": "f36f12af024c408c197fdaf9562710352bee6722b2d430928861eb5e76a9c2ef",
-      "size_bytes": 113568
-    },
-    "ncr_cttrbg_reproduced_2023_affordability_ht_index.csv.xz": {
-      "sha256": "5c76080cd247b7c06f01e872fca1bb0b9611830482631d7bbe59c5cd1f145cdc",
-      "size_bytes": 114324
-    },
-    "ncr_cttrbg_reproduced_2024_affordability_ht_index.csv.xz": {
-      "sha256": "47e6448828ad71aec49eec2e85e5a7d7463fa751ef41fc4b12b9d84137995aa7",
-      "size_bytes": 114208
-    },
-    "ncr_cttrbg_reproduced_all_years_affordability_ht_index.csv.xz": {
-      "sha256": "bb752994b35d98f39cbf51e9c450651c6194bcfa30d96aac906f659f14e0e322",
-      "size_bytes": 1097152
-    },
-    "va_cttrbg_reproduced_2015_affordability_ht_index.csv.xz": {
-      "sha256": "a0967303f838ecca25953122684b309c76937a725844ebd15ee3d32f04deafb1",
-      "size_bytes": 175884
-    },
-    "va_cttrbg_reproduced_2016_affordability_ht_index.csv.xz": {
-      "sha256": "6da59d98253f1cdeed7366f1c524411e018ca1308eefc8412aef24d29526b5ab",
-      "size_bytes": 175440
-    },
-    "va_cttrbg_reproduced_2017_affordability_ht_index.csv.xz": {
-      "sha256": "1dfb06ccfce3656bd0e87e1ea01cd242c6613cb231d836f758c65a7b9847b320",
-      "size_bytes": 175612
-    },
-    "va_cttrbg_reproduced_2018_affordability_ht_index.csv.xz": {
-      "sha256": "084ff19302abffc1e1eb89f72f69bb35349bce16530bcf865b41d9c347b00607",
-      "size_bytes": 177012
-    },
-    "va_cttrbg_reproduced_2019_affordability_ht_index.csv.xz": {
-      "sha256": "e077798f1e548354c93c43921b16f2e606eaeb051210e7d96b6d2a80656e4481",
-      "size_bytes": 175772
-    },
-    "va_cttrbg_reproduced_2020_affordability_ht_index.csv.xz": {
-      "sha256": "08b171bc488225d3f645ec8be112ab45c5918bf399366f7057249c79ab75f3de",
-      "size_bytes": 187732
-    },
-    "va_cttrbg_reproduced_2021_affordability_ht_index.csv.xz": {
-      "sha256": "b4593b69ffd233cae27997e39fc139a9ec7450293aa401c964d69d02d8e71e44",
-      "size_bytes": 187208
-    },
-    "va_cttrbg_reproduced_2022_affordability_ht_index.csv.xz": {
-      "sha256": "e2cb111458bd0eeffde55fc7fa44a77fe5e112b1b4614b9801a2896cba04b0ab",
-      "size_bytes": 187200
-    },
-    "va_cttrbg_reproduced_2023_affordability_ht_index.csv.xz": {
-      "sha256": "c300a695934014ad36e624fb73f9b8b510683e3d3ea95409032ab9a6b2733c22",
-      "size_bytes": 187876
-    },
-    "va_cttrbg_reproduced_2024_affordability_ht_index.csv.xz": {
-      "sha256": "32a55ffd7206d1c737e052263f534c144c9416ac7aeda1bb961487c2d2c67104",
-      "size_bytes": 185984
-    },
-    "va_cttrbg_reproduced_all_years_affordability_ht_index.csv.xz": {
-      "sha256": "396c26fa886535951b641db0eb1ff5217d912a5af0b2f9ef7dc30ca6eaa987c3",
-      "size_bytes": 1790792
-    },
     "va_hdcttr_cnt_2016_2022_affordability_index.csv.xz": {
-      "sha256": "54f5721cd3224dff4d89943c0f45a7a3440b3da0a9eb2bdc2faa7a727c9a6e52",
-      "size_bytes": 15544
+      "sha256": "8f54529c04ba224f6f9d130a6a09722d506bd6c782b8749c393dfd6cead27a29",
+      "size_bytes": 37064
     }
   }
 }

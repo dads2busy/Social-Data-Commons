@@ -1,0 +1,45 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-13T14:24:04+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "measure_type",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "fruit_treeNut_total_sales",
+    "operation_farmValue",
+    "total_acres",
+    "total_animalProducts_sales",
+    "total_animal_expense",
+    "total_calves_sales",
+    "total_commodity_sales",
+    "total_cropland_acres",
+    "total_cropland_operations",
+    "total_farmValue",
+    "total_irrigatedCropland_acre",
+    "total_operations"
+  ],
+  "years": [
+    2017,
+    2022
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 2006,
+  "files": {
+    "va_ct_2017_industry_agriculture.csv.xz": {
+      "sha256": "6f4b619ffaef96427018734c730507ba0832ef71d3af0965eb618d545399e805",
+      "size_bytes": 5436
+    },
+    "va_ct_2022_industry_agriculture.csv.xz": {
+      "sha256": "8b097856f0ca917fddc2b48c05272ad81ab52fd810db2e54355da90617a84099",
+      "size_bytes": 4292
+    }
+  }
+}

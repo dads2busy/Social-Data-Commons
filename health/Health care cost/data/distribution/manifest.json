@@ -1,0 +1,93 @@
+{
+  "version": "1.0.1",
+  "generated": "2026-03-13T14:19:47+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method"
+  ],
+  "measures": [
+    "marketplace_lcbp",
+    "marketplace_slcsp"
+  ],
+  "years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "regions": [
+    "01",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "15",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "44",
+    "45",
+    "46",
+    "47",
+    "48",
+    "49",
+    "51",
+    "53",
+    "54",
+    "55",
+    "56"
+  ],
+  "row_count": 54518,
+  "files": {
+    "ncr_ct_cms_puf_2016_2025_marketplace_premium.csv.xz": {
+      "sha256": "5daae5988baa60a47617138a3fd64b81a4d03c82878ff90c3281a5697edc9913",
+      "size_bytes": 7796
+    },
+    "us_ct_cms_puf_2016_2026_marketplace_premium.csv.xz": {
+      "sha256": "1f38ffdef0e440647744954e1faa54628c704500c023a332400797ffdbe08244",
+      "size_bytes": 119976
+    },
+    "va_hdct_cms_puf_2016_2025_marketplace_premium.csv.xz": {
+      "sha256": "e6b0919b0930160c59fd6aa7e1e516ebbc20092bc6b241e7ff9d582dfb4219f9",
+      "size_bytes": 7920
+    }
+  }
+}

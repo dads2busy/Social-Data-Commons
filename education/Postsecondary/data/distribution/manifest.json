@@ -1,0 +1,45 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-13T14:19:11+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "acs_postsecondary_count_geo10",
+    "acs_postsecondary_count_geo20",
+    "acs_postsecondary_percent_geo10",
+    "acs_postsecondary_percent_geo20"
+  ],
+  "years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 109938,
+  "files": {
+    "va_hdcttr_census_acs_2010_2024_postsecondary.csv.xz": {
+      "sha256": "4d5f69ad09f44d145cea19677430d21b60260b9759e168fe3e796be329b02ccf",
+      "size_bytes": 766908
+    }
+  }
+}

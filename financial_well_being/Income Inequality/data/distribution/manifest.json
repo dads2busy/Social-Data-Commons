@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-13T14:19:47+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "gini_index_geo10",
+    "gini_index_geo20"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 90845,
+  "files": {
+    "ncr_cttr_census_acs_2015_2024_income_inequality.csv.xz": {
+      "sha256": "3cb075c7a0ccaf2fe8dc622165bebb8cdcfa1fc602337e1f18ea12ad68157df4",
+      "size_bytes": 331804
+    },
+    "va_hdcttr_census_acs_2015_2024_income_inequality.csv.xz": {
+      "sha256": "f2248a95cf8604531819f916726339c2c1ba99e7d4a9ba7f89a0cf6ba2bcbb17",
+      "size_bytes": 172772
+    }
+  }
+}

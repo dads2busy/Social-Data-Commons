@@ -1,0 +1,73 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-13T14:22:31+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "minority_owned_business_create_job",
+    "minority_owned_business_destruction_job",
+    "minority_owned_job_creation_active",
+    "minority_owned_job_creation_new",
+    "minority_owned_job_destruction_active",
+    "minority_owned_job_destruction_exit",
+    "minority_owned_perc_job_creation_active",
+    "minority_owned_perc_job_creation_new",
+    "minority_owned_perc_job_destruction_active",
+    "minority_owned_perc_job_destruction_exit",
+    "minority_owned_total_employment",
+    "minority_owned_total_job_creation",
+    "minority_owned_total_job_destruction",
+    "non_minority_owned_business_create_job",
+    "non_minority_owned_business_destruction_job",
+    "non_minority_owned_job_creation_active",
+    "non_minority_owned_job_creation_new",
+    "non_minority_owned_job_destruction_active",
+    "non_minority_owned_job_destruction_exit",
+    "non_minority_owned_perc_job_creation_active",
+    "non_minority_owned_perc_job_creation_new",
+    "non_minority_owned_perc_job_destruction_active",
+    "non_minority_owned_perc_job_destruction_exit",
+    "non_minority_owned_total_employment",
+    "non_minority_owned_total_job_creation",
+    "non_minority_owned_total_job_destruction"
+  ],
+  "years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 1042146,
+  "files": {
+    "ncr_cttrbg_mi_2010_2020_employment_metrics_by_Minority_owned.csv.xz": {
+      "sha256": "50591d7a543caf525ed8265112840570d4d87333a8102224fd3cadfa32a372ba",
+      "size_bytes": 2947008
+    },
+    "rva_cttrbg_mi_2010_2020_employment_metrics_by_Minority_owned.csv.xz": {
+      "sha256": "4f29ad788bcb66485769db47042fcb926eda35f6d44e770c2f1d27cf736dc29a",
+      "size_bytes": 304368
+    },
+    "va059_cttrbg_mi_2010_2020_employment_metrics_by_Minority_owned.csv.xz": {
+      "sha256": "83b8c36d247356d46d7317af296d61f44e33d0edef907961d19f0c36eca5a31c",
+      "size_bytes": 501944
+    }
+  }
+}

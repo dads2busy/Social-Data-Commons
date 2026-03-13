@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-13T14:19:03+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type"
+  ],
+  "measures": [
+    "entry_rate",
+    "exit_business",
+    "exit_rate",
+    "new_business",
+    "number_business"
+  ],
+  "years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 322680,
+  "files": {
+    "ncr_cttrbg_mi_2010_2020_business_metrics_by_Total.csv.xz": {
+      "sha256": "bb1d53d10c6db2e7f083c631cb873c2a1c7f2ec6cc83edf2ab49db482c240024",
+      "size_bytes": 861048
+    },
+    "rva_cttrbg_mi_2010_2020_business_metrics_by_Total.csv.xz": {
+      "sha256": "32a985c389684605c2079c862d420fa331d1223382b7747667eb84fc8b8dc390",
+      "size_bytes": 100292
+    },
+    "va059_cttrbg_mi_2010_2020_business_metrics_by_Total.csv.xz": {
+      "sha256": "36119c492d19721535db552c74f6fb3f937d0d743db0ddbded9af53183e07b7f",
+      "size_bytes": 141196
+    }
+  }
+}

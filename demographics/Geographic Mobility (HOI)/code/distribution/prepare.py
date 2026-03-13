@@ -53,79 +53,82 @@ def run(pipeline=None) -> None:
     out = config["output"]
     prep = config["prepare"]
 
+    measure_info = MEASURE_INFO if MEASURE_INFO.exists() else None
+
+    # --- VA pipeline ---
     va_source = find_va_source(DIST_DIR)
     if va_source is None:
-        raise FileNotFoundError(f"No VA geographic mobility file found in {DIST_DIR}")
-    log.info("Reading VA source: %s", va_source)
-    df = read_data(va_source)
+        log.warning("No VA geographic mobility file found in %s", DIST_DIR)
+    else:
+        log.info("Reading VA source: %s", va_source)
+        df = read_data(va_source)
 
-    crosswalk_path = TOPIC_DIR / prep["crosswalk"]
-    log.info("Loading crosswalk from %s", crosswalk_path)
-    crosswalk = pd.read_csv(crosswalk_path, dtype=str)
+        crosswalk_path = TOPIC_DIR / prep["crosswalk"]
+        log.info("Loading crosswalk from %s", crosswalk_path)
+        crosswalk = pd.read_csv(crosswalk_path, dtype=str)
 
-    county_data = df[df["region_type"] == "county"].copy()
-    hd = aggregate_with_crosswalk(
-        county_data,
-        crosswalk=crosswalk,
-        source_col=prep["source_col"],
-        target_col=prep["target_col"],
-        method=prep["method"],
-        target_region_type="health_district",
-    )
-    log.info(
-        "Aggregated %d county rows to %d health district rows",
-        len(county_data),
-        len(hd),
-    )
-
-    result = pd.concat([df, hd], ignore_index=True)
-
-    # Redistribution step: estimate block group values from tracts
-    redist_config = prep.get("redistribution")
-    if redist_config:
-        redistributed = run_redistribution(
-            df=result,
-            config=redist_config,
-            repo_dir=REPO_DIR,
-            coverage_area="va",
-            logger=log,
+        county_data = df[df["region_type"] == "county"].copy()
+        hd = aggregate_with_crosswalk(
+            county_data,
+            crosswalk=crosswalk,
+            source_col=prep["source_col"],
+            target_col=prep["target_col"],
+            method=prep["method"],
+            target_region_type="health_district",
         )
-        if not redistributed.empty:
-            log.info("Redistribution produced %d rows", len(redistributed))
-            result = pd.concat([result, redistributed], ignore_index=True)
+        log.info(
+            "Aggregated %d county rows to %d health district rows",
+            len(county_data),
+            len(hd),
+        )
 
-    source_cfg = config.get("sources", {}).get("va", config.get("source", {}))
-    states = resolve_states(source_cfg)
-    auto_name = build_file_name(
-        df=result,
-        states=states,
-        years=source_cfg.get("years"),
-        source_type=source_cfg.get("type"),
-        title=config.get("name"),
-    )
-    filename = f"{auto_name}.csv.xz" if auto_name else "va_geographic_mobility_hoi.csv.xz"
-    out_path = write_data(
-        result,
-        DIST_DIR / filename,
-        census_standardize=False,
-    )
-    log.info("Wrote %d rows to %s", len(result), out_path)
-    if out_path != va_source:
-        va_source.unlink()
-        log.info("Removed ingest-only file: %s", va_source.name)
+        result = pd.concat([df, hd], ignore_index=True)
 
-    measure_info = MEASURE_INFO if MEASURE_INFO.exists() else None
-    paths = data_reformat_for_site(
-        source_path=out_path,
-        output_dir=REPO_DIR / "dashboard_data/virginia_public_health_data",
-        levels=["health_district", "county", "tract", "block_group"],
-        coverage_area="va",
-        data_source="census_acs",
-        title="geographic_mobility_hoi",
-        measure_info_path=measure_info,
-    )
-    for p in paths:
-        log.info("Wrote %s", p)
+        # Redistribution step: estimate block group values from tracts
+        redist_config = prep.get("redistribution")
+        if redist_config:
+            redistributed = run_redistribution(
+                df=result,
+                config=redist_config,
+                repo_dir=REPO_DIR,
+                coverage_area="va",
+                logger=log,
+            )
+            if not redistributed.empty:
+                log.info("Redistribution produced %d rows", len(redistributed))
+                result = pd.concat([result, redistributed], ignore_index=True)
+
+        source_cfg = config.get("sources", {}).get("va", config.get("source", {}))
+        states = resolve_states(source_cfg)
+        auto_name = build_file_name(
+            df=result,
+            states=states,
+            years=source_cfg.get("years"),
+            source_type=source_cfg.get("type"),
+            title=config.get("name"),
+        )
+        filename = f"{auto_name}.csv.xz" if auto_name else "va_geographic_mobility_hoi.csv.xz"
+        out_path = write_data(
+            result,
+            DIST_DIR / filename,
+            census_standardize=False,
+        )
+        log.info("Wrote %d rows to %s", len(result), out_path)
+        if out_path != va_source:
+            va_source.unlink()
+            log.info("Removed ingest-only file: %s", va_source.name)
+
+        paths = data_reformat_for_site(
+            source_path=out_path,
+            output_dir=REPO_DIR / "dashboard_data/virginia_public_health_data",
+            levels=["health_district", "county", "tract", "block_group"],
+            coverage_area="va",
+            data_source="census_acs",
+            title="geographic_mobility_hoi",
+            measure_info_path=measure_info,
+        )
+        for p in paths:
+            log.info("Wrote %s", p)
 
     # --- NCR pipeline ---
     ncr_source = find_ncr_source(DIST_DIR)

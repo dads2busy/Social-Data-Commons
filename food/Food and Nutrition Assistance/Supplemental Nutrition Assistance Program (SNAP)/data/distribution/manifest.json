@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-13T14:19:38+00:00",
+  "schema": [
+    "geoid",
+    "region_type",
+    "region_name",
+    "year",
+    "measure",
+    "value",
+    "measure_type",
+    "moe",
+    "data_method"
+  ],
+  "measures": [
+    "hh_received_snap_cnt",
+    "hh_received_snap_pct",
+    "population"
+  ],
+  "years": [
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 1119957,
+  "files": {
+    "ncr_cttrbg_acs_2013_2023_hh_receiving_snap.csv.xz": {
+      "sha256": "a2a154c7642b52bb745bb6dcde4aaabaa60c94c057f8ab22d85ceb95635e437e",
+      "size_bytes": 783440
+    },
+    "ncr_cttrbg_census_acs_2013_2023_hh_receiving_snap.csv.xz": {
+      "sha256": "e4eaa6f3a26ba41b50196504e75b31df0c879845a35ae509a2b8cffe6fb097a6",
+      "size_bytes": 1973964
+    },
+    "va_cttrbg_census_acs_2013_2023_hh_receiving_snap.csv.xz": {
+      "sha256": "1b1e939ee3485b93ba4fbcc8280b617c0890f1c6977ca2620a4c325579792900",
+      "size_bytes": 1122916
+    },
+    "va_hdcttrbg_acs_2013_2023_hh_receiving_snap.csv.xz": {
+      "sha256": "8093e8dede8c1ceb4caedefa4a2c8f35e995f86c24a4caf7ec1673a4ecaec1eb",
+      "size_bytes": 1078960
+    }
+  }
+}
