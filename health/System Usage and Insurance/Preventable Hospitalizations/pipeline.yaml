@@ -1,5 +1,5 @@
 name: preventable_hospitalizations
-version: "1.0.0"
+version: "2.0.0"
 title: "Preventable Hospitalizations"
 description: "Preventable hospitalization rate from County Health Rankings"
 
@@ -9,7 +9,18 @@ sources:
     state: VA
     geographies: [county]
     county_health_rankings:
-      sheet_name: "Ranked Measure Data"
+      sheet_names:
+        2015: "Ranked Measure Data"
+        2016: "Ranked Measure Data"
+        2017: "Ranked Measure Data"
+        2018: "Ranked Measure Data"
+        2019: "Ranked Measure Data"
+        2020: "Ranked Measure Data"
+        2021: "Ranked Measure Data"
+        2022: "Ranked Measure Data"
+        2023: "Ranked Measure Data"
+        2024: "Select Measure Data"
+        2025: "Select Measure Data"
       urls:
         2015: "https://www.countyhealthrankings.org/sites/default/files/media/document/state/downloads/2015%20County%20Health%20Rankings%20Virginia%20Data%20-%20v3.xls"
         2016: "https://www.countyhealthrankings.org/sites/default/files/media/document/state/downloads/2016%20County%20Health%20Rankings%20Virginia%20Data%20-%20v3.xls"
@@ -18,6 +29,10 @@ sources:
         2019: "https://www.countyhealthrankings.org/sites/default/files/media/document/state/downloads/2019%20County%20Health%20Rankings%20Virginia%20Data%20-%20v1_0.xls"
         2020: "https://www.countyhealthrankings.org/sites/default/files/media/document/2020%20County%20Health%20Rankings%20Virginia%20Data%20-%20v1_0.xlsx"
         2021: "https://www.countyhealthrankings.org/sites/default/files/media/document/2021%20County%20Health%20Rankings%20Virginia%20Data%20-%20v1_0.xlsx"
+        2022: "https://www.countyhealthrankings.org/sites/default/files/media/document/2022%20County%20Health%20Rankings%20Virginia%20Data%20-%20v2.xlsx"
+        2023: "https://www.countyhealthrankings.org/sites/default/files/media/document/2023%20County%20Health%20Rankings%20Virginia%20Data%20-%20v3.xlsx"
+        2024: "https://www.countyhealthrankings.org/sites/default/files/media/document/2024%20County%20Health%20Rankings%20Virginia%20Data%20-%20v2.xlsx"
+        2025: "https://www.countyhealthrankings.org/sites/default/files/media/document/2025%20County%20Health%20Rankings%20Virginia%20Data%20-%20v4.xlsx"
       measures:
         - name: prevent_hosp_rate
           columns:
@@ -28,6 +43,10 @@ sources:
             2019: "Preventable Hosp. Rate"
             2020: "Preventable Hospitalization Rate"
             2021: "Preventable Hospitalization Rate"
+            2022: "Preventable Hospitalization Rate"
+            2023: "Preventable Hospitalization Rate"
+            2024: "Preventable Hospitalization Rate"
+            2025: "Preventable Hospitalization Rate"
 
 crosswalks:
   va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"

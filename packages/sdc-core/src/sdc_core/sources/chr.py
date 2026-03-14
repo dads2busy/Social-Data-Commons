@@ -28,6 +28,20 @@ def _resolve_col(measure_def: dict, year: int) -> str | None:
     return col_by_year.get(str(year)) or col_by_year.get(year)
 
 
+def _resolve_sheet(chr_cfg: dict, year: int, default: str) -> str:
+    """Resolve the Excel sheet name for a given year.
+
+    Supports:
+    - ``sheet_name: "Name"`` — single fixed name across all years
+    - ``sheet_names: {2023: "Old Name", 2024: "New Name"}`` — year-keyed dict
+    """
+    by_year = chr_cfg.get("sheet_names", {})
+    resolved = by_year.get(str(year)) or by_year.get(year)
+    if resolved:
+        return resolved
+    return chr_cfg.get("sheet_name", default)
+
+
 def ingest_chr(
     chr_cfg: dict,
     working_dir: Path,
@@ -46,6 +60,7 @@ def ingest_chr(
         - ``measures``: list of dicts, each with ``name`` and either
           ``column`` (fixed name across years) or ``columns`` (year-keyed dict)
         - ``sheet_name`` (optional): overrides the *sheet_name* parameter
+        - ``sheet_names`` (optional): year-keyed dict for per-year sheet names
 
     working_dir:
         Directory where downloaded Excel files are cached.
@@ -56,14 +71,13 @@ def ingest_chr(
 
     sheet_name:
         Excel sheet to read.  Defaults to ``"Additional Measure Data"``.
-        Can also be set via ``chr_cfg["sheet_name"]``.
+        Can also be set via ``chr_cfg["sheet_name"]`` or per-year via
+        ``chr_cfg["sheet_names"]``.
 
     Returns
     -------
     pd.DataFrame with columns: geoid, year, measure, value, moe, region_type
     """
-    # Allow pipeline.yaml to override the sheet name
-    sheet_name = chr_cfg.get("sheet_name", sheet_name)
     urls = chr_cfg["urls"]
     measures = chr_cfg["measures"]
     working_dir = Path(working_dir)
@@ -85,8 +99,9 @@ def ingest_chr(
                 continue
             tmp.write_bytes(resp.content)
 
+        resolved_sheet = _resolve_sheet(chr_cfg, year, sheet_name)
         try:
-            df = pd.read_excel(tmp, sheet_name=sheet_name, header=1)
+            df = pd.read_excel(tmp, sheet_name=resolved_sheet, header=1)
         except Exception as e:
             log.warning("Could not parse CHR %d: %s", year, e)
             continue

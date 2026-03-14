@@ -30,7 +30,8 @@ def load_config() -> dict:
 def find_source(dist_dir: Path, prefix: str) -> Path | None:
     """Find ingest output (county-only) but not prepare output (with HD)."""
     candidates = sorted(
-        dist_dir.glob(f"{prefix}_ct_county_health_rankings*preventable_hospitalizations*.csv.xz")
+        p for p in dist_dir.glob(f"{prefix}_*county_health_rankings*preventable_hospitalizations*.csv.xz")
+        if "hdct" not in p.name and "_hd_" not in p.name
     )
     return candidates[-1] if candidates else None
 

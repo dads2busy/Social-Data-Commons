@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-03-14T19:47:20+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method",
+    "measure_type"
+  ],
+  "measures": [
+    "prevent_hosp_rate"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 5322,
+  "files": {
+    "va_county_health_rankings_2015_2021_preventable_hospitalizations.csv.xz": {
+      "sha256": "242181532da9bcaaa589e5c3f14410c52548b8d2ce5ba279ba624132959dfba7",
+      "size_bytes": 3684
+    },
+    "va_county_health_rankings_2015_2025_preventable_hospitalizations.csv.xz": {
+      "sha256": "1fd1dd63fd69949f8c9c501bf409fb46821deb08d8a034e60b7c0c8fb2b43051",
+      "size_bytes": 5372
+    },
+    "va_hdct_2015_2021_preventable_hospitalizations.csv.xz": {
+      "sha256": "06db118c114b7a6161bd06d895f69b5fb159962cd7d026451258d40af250f54c",
+      "size_bytes": 4512
+    },
+    "va_hdct_county_health_rankings_2015_2025_preventable_hospitalizations.csv.xz": {
+      "sha256": "d9681b5f2ef54fc27ecfbcaa1ae22bd9e57aaa56f5b1f9bde0ab0e00fbd021c0",
+      "size_bytes": 7068
+    }
+  }
+}

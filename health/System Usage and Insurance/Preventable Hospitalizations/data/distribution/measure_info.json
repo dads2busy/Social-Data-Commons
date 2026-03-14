@@ -7,18 +7,18 @@
         "data_type": "numeric",
         "equity_category": "",
         "layer": "",
-        "long_description": "Rate of hospital stays for ambulatory-care sensitive conditions per 100,000 Medicare enrollees. Ambulatory care refers to diagnoses that are usually treatable in outpatient settings. This data is based on Medicare claims and comes from County Health Rankings. Geographies: County (5), Health Districts (51_hd)",
+        "long_description": "Rate of hospital stays for ambulatory-care sensitive conditions per 100,000 Medicare enrollees. Ambulatory-care sensitive conditions are diagnoses that are usually treatable in outpatient settings, such as diabetes, asthma, and hypertension. High rates of preventable hospitalizations indicate inadequate access to primary care or gaps in chronic disease management, placing unnecessary burden on the hospital system.",
         "long_name": "Preventable hospital stays per 100,000 Medicare enrollees",
         "measure_type": "rate per 100K",
         "short_description": "Rate of preventable hospital stays for ambulatory-care sensitive conditions per 100,000 Medicare enrollees.",
         "short_name": "Preventable hospitalizations per 100,000",
         "sources": [
             {
-                "date_accessed": 2021,
-                "location": "",
-                "location_url": "",
-                "name": "County Health Rankings",
-                "url": "https://www.countyhealthrankings.org/app/virginia/2021/measure/factors/5/description"
+                "date_accessed": 2026,
+                "location": "Ranked Measure Data / Select Measure Data sheet, 'Preventable Hospitalization Rate' column",
+                "location_url": "https://www.countyhealthrankings.org/app/virginia/2025/downloads",
+                "name": "County Health Rankings & Roadmaps",
+                "url": "https://www.countyhealthrankings.org/"
             }
         ],
         "provenance": "Preventable hospitalization rates are sourced from the County Health Rankings & Roadmaps program (Robert Wood Johnson Foundation / University of Wisconsin Population Health Institute), which calculates rates using the AHRQ Prevention Quality Indicators methodology applied to CMS Medicare claims data.",
