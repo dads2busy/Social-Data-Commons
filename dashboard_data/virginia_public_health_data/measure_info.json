@@ -1,58 +1,142 @@
 {
-    "no_hlth_ins_pct": {
-        "aggregation_method": "",
+    "vi_overall": {
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Health",
         "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
         "layer": "",
-        "long_description": "The uninsured rate measures the share of the population lacking any health coverage — public or private. Uninsured individuals are more likely to delay or forgo necessary medical care, leading to worse health outcomes and higher emergency department utilization. High uninsured rates often reflect gaps in employer-sponsored coverage, Medicaid eligibility, or marketplace affordability.",
-        "long_name": "Percent of population without health insurance",
-        "measure_type": "percent",
-        "provenance": "Computed from ACS 5-year estimates, table B27010 (Types of Health Insurance Coverage by Age). Uninsured individuals are those not covered by any type of health insurance or health coverage plan.",
-        "short_description": "Percentage of the population without any type of health insurance coverage.",
-        "short_name": "Uninsured population",
+        "long_description": "The Social Vulnerability Index (SVI) is a composite measure that ranks census tracts on their relative vulnerability to public health emergencies and natural disasters. It integrates 16 social factors from U.S. Census data across four themes: socioeconomic status, household characteristics, racial and ethnic minority status, and housing type and transportation. Communities with high SVI scores face greater challenges in preparing for, responding to, and recovering from hazardous events. The index helps public health officials and emergency planners direct resources to populations most likely to need support during crises.",
+        "long_name": "Social Vulnerability Index",
+        "measure_type": "percentage",
+        "short_description": "The Social Vulnerability Index comprised of four themes.",
+        "short_name": "Social Vulnerability Index",
         "sources": [
             {
-                "date_accessed": 2022,
-                "location": "Table B27010",
+                "date_accessed": 2023,
+                "location": "",
                 "location_url": "",
-                "name": "American Community Survey",
-                "url": "https://www.census.gov/programs-surveys/acs.html"
+                "name": "Agency for Toxic Substances and Disease Registry (ATSDR)",
+                "url": "https://www.atsdr.cdc.gov/placeandhealth/svi/index.html"
             }
         ],
-        "statement": "{value} of the population does not have health insurance in {features.name}.",
+        "provenance": "The Social Vulnerability Index (SVI) is developed by the Agency for Toxic Substances and Disease Registry (ATSDR) within the Centers for Disease Control and Prevention (CDC). It uses U.S. Census data to rank census tracts on 16 social factors grouped into four themes to identify communities most vulnerable to health threats.",
+        "statement": "The overall Social Vulnerability Index for {feature.name} is {value}.",
         "type": "percent",
-        "unit": "",
+        "unit": "index score",
         "variants": ""
     },
-    "hlth_ins_pct": {
-        "aggregation_method": "",
+    "vi_socioeconomic": {
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Health",
         "citations": "",
-        "data_type": "numeric",
-        "equity_category": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
         "layer": "",
-        "long_description": "The insured rate measures the share of the population covered by any health insurance plan, including employer-sponsored, marketplace, Medicaid, Medicare, or military coverage. Higher insurance rates indicate better access to preventive and routine care. This measure complements the uninsured rate by highlighting areas where coverage efforts have been most successful.",
-        "long_name": "Percent of population with health insurance",
-        "measure_type": "percent",
-        "provenance": "Computed from ACS 5-year estimates, table B27010 (Types of Health Insurance Coverage by Age). Insured individuals include anyone covered by at least one type of health insurance or health coverage plan.",
-        "short_description": "Percentage of the population with any type of health insurance coverage.",
-        "short_name": "Insured population",
+        "long_description": "The socioeconomic status theme of the Social Vulnerability Index captures community-level economic disadvantage using Census indicators such as poverty rate, unemployment, per capita income, and educational attainment. Tracts with high socioeconomic vulnerability face compounding disadvantages that limit residents ability to prepare for and recover from emergencies. Economic hardship restricts access to transportation, healthcare, and safe housing during disaster events. This theme is one of four components that contribute to the overall SVI score.",
+        "long_name": "Social Vulnerability Index (Socioeconomic Status)",
+        "measure_type": "percentage",
+        "short_description": "Socioeconomic status theme for calculating Social Vulnerability Index.",
+        "short_name": "Social Vulnerability Index (Socioeconomic Status)",
         "sources": [
             {
-                "date_accessed": 2022,
-                "location": "Table B27010",
+                "date_accessed": 2023,
+                "location": "",
                 "location_url": "",
-                "name": "American Community Survey",
-                "url": "https://www.census.gov/programs-surveys/acs.html"
+                "name": "Agency for Toxic Substances and Disease Registry (ATSDR)",
+                "url": "https://www.atsdr.cdc.gov/placeandhealth/svi/index.html"
             }
         ],
-        "statement": "{value} of the population has health insurance in {features.name}.",
+        "provenance": "The Social Vulnerability Index (SVI) is developed by the Agency for Toxic Substances and Disease Registry (ATSDR) within the Centers for Disease Control and Prevention (CDC). It uses U.S. Census data to rank census tracts on 16 social factors grouped into four themes to identify communities most vulnerable to health threats.",
+        "statement": "The socioeconomic status for {feature.name} is {value}.",
         "type": "percent",
-        "unit": "",
+        "unit": "index score",
+        "variants": ""
+    },
+    "vi_household": {
+        "aggregation_method": "mean",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The household characteristics theme of the Social Vulnerability Index measures demographic factors that increase vulnerability, including the proportion of residents aged 65 and older, aged 17 and under, with disabilities, and single-parent households. These populations often require additional assistance during evacuations and have specialized medical or caregiving needs that complicate disaster response. High scores on this theme indicate communities where a larger share of residents may be unable to shelter in place or evacuate independently. This theme is one of four components that contribute to the overall SVI score.",
+        "long_name": "Social Vulnerability Index (Housing characteristics)",
+        "measure_type": "percentage",
+        "short_description": "Housing characteristics index theme for calculating Social Vulnerability Index.",
+        "short_name": "Social Vulnerability Index (Housing characteristics)",
+        "sources": [
+            {
+                "date_accessed": 2023,
+                "location": "",
+                "location_url": "",
+                "name": "Agency for Toxic Substances and Disease Registry (ATSDR)",
+                "url": "https://www.atsdr.cdc.gov/placeandhealth/svi/index.html"
+            }
+        ],
+        "provenance": "The Social Vulnerability Index (SVI) is developed by the Agency for Toxic Substances and Disease Registry (ATSDR) within the Centers for Disease Control and Prevention (CDC). It uses U.S. Census data to rank census tracts on 16 social factors grouped into four themes to identify communities most vulnerable to health threats.",
+        "statement": "The Housing characteristics index for {feature.name} is {value}.",
+        "type": "percent",
+        "unit": "index score",
+        "variants": ""
+    },
+    "vi_race_ethnicity": {
+        "aggregation_method": "mean",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The racial and ethnic minority status theme of the Social Vulnerability Index captures the proportion of residents who identify as racial or ethnic minorities and those with limited English proficiency. Historical patterns of residential segregation and disinvestment mean that minority communities often face disproportionate exposure to environmental hazards and reduced access to emergency resources. Language barriers can further impede receipt of evacuation warnings and access to recovery assistance. This theme is one of four components that contribute to the overall SVI score.",
+        "long_name": "Social Vulnerability Index (Racial & ethnic minority status)",
+        "measure_type": "percentage",
+        "short_description": "Racial & ethnic minority status theme for calculating Social Vulnerability Index.",
+        "short_name": "Social Vulnerability Index (Racial & ethnic minority status)",
+        "sources": [
+            {
+                "date_accessed": 2023,
+                "location": "",
+                "location_url": "",
+                "name": "Agency for Toxic Substances and Disease Registry (ATSDR)",
+                "url": "https://www.atsdr.cdc.gov/placeandhealth/svi/index.html"
+            }
+        ],
+        "provenance": "The Social Vulnerability Index (SVI) is developed by the Agency for Toxic Substances and Disease Registry (ATSDR) within the Centers for Disease Control and Prevention (CDC). It uses U.S. Census data to rank census tracts on 16 social factors grouped into four themes to identify communities most vulnerable to health threats.",
+        "statement": "The racial & ethnic minority status for {feature.name} is {value}.",
+        "type": "percent",
+        "unit": "index score",
+        "variants": ""
+    },
+    "vi_housing_transportation": {
+        "aggregation_method": "mean",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The housing type and transportation theme of the Social Vulnerability Index measures structural vulnerability through indicators such as multi-unit housing, mobile homes, crowding, lack of vehicle access, and group quarters populations. Residents in multi-unit or mobile housing face heightened risks during natural disasters, while those without vehicles may be unable to evacuate. Crowded living conditions can accelerate disease transmission during public health emergencies. This theme is one of four components that contribute to the overall SVI score.",
+        "long_name": "Social Vulnerability Index (Housing type & transportation)",
+        "measure_type": "percentage",
+        "short_description": "Housing type & transportation theme for calculating Social Vulnerability Index.",
+        "short_name": "Social Vulnerability Index (Housing type & transportation)",
+        "sources": [
+            {
+                "date_accessed": 2023,
+                "location": "",
+                "location_url": "",
+                "name": "Agency for Toxic Substances and Disease Registry (ATSDR)",
+                "url": "https://www.atsdr.cdc.gov/placeandhealth/svi/index.html"
+            }
+        ],
+        "provenance": "The Social Vulnerability Index (SVI) is developed by the Agency for Toxic Substances and Disease Registry (ATSDR) within the Centers for Disease Control and Prevention (CDC). It uses U.S. Census data to rank census tracts on 16 social factors grouped into four themes to identify communities most vulnerable to health threats.",
+        "statement": "The housing type & transportation index for {feature.name} is {value}.",
+        "type": "percent",
+        "unit": "index score",
         "variants": ""
     }
 }
