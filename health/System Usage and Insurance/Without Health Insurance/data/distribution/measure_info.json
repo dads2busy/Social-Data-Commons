@@ -1,6 +1,6 @@
 {
     "no_hlth_ins_pct": {
-        "aggregation_method": "",
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Health",
         "citations": "",
@@ -10,14 +10,14 @@
         "long_description": "The uninsured rate measures the share of the population lacking any health coverage — public or private. Uninsured individuals are more likely to delay or forgo necessary medical care, leading to worse health outcomes and higher emergency department utilization. High uninsured rates often reflect gaps in employer-sponsored coverage, Medicaid eligibility, or marketplace affordability.",
         "long_name": "Percent of population without health insurance",
         "measure_type": "percent",
-        "provenance": "Computed from ACS 5-year estimates, table B27010 (Types of Health Insurance Coverage by Age). Uninsured individuals are those not covered by any type of health insurance or health coverage plan.",
-        "short_description": "Percentage of the population without any type of health insurance coverage.",
+        "provenance": "Computed from ACS 5-year estimates, table B27010 (Types of Health Insurance Coverage by Age). Uninsured percentage = 100 × (B27010_033 + B27010_050) / (B27010_018 + B27010_034) for the working-age population (19-64). Values standardized to 2020 census boundaries using population-weighted crosswalks.",
+        "short_description": "Percentage of the working-age population (19-64) without any type of health insurance coverage.",
         "short_name": "Uninsured population",
         "sources": [
             {
-                "date_accessed": 2022,
+                "date_accessed": 2026,
                 "location": "Table B27010",
-                "location_url": "",
+                "location_url": "https://data.census.gov/table/ACSDT5Y2024.B27010",
                 "name": "American Community Survey",
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }
@@ -28,7 +28,7 @@
         "variants": ""
     },
     "hlth_ins_pct": {
-        "aggregation_method": "",
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Health",
         "citations": "",
@@ -38,14 +38,14 @@
         "long_description": "The insured rate measures the share of the population covered by any health insurance plan, including employer-sponsored, marketplace, Medicaid, Medicare, or military coverage. Higher insurance rates indicate better access to preventive and routine care. This measure complements the uninsured rate by highlighting areas where coverage efforts have been most successful.",
         "long_name": "Percent of population with health insurance",
         "measure_type": "percent",
-        "provenance": "Computed from ACS 5-year estimates, table B27010 (Types of Health Insurance Coverage by Age). Insured individuals include anyone covered by at least one type of health insurance or health coverage plan.",
-        "short_description": "Percentage of the population with any type of health insurance coverage.",
+        "provenance": "Computed from ACS 5-year estimates, table B27010 (Types of Health Insurance Coverage by Age). Insured percentage = 100 − uninsured percentage. Values standardized to 2020 census boundaries using population-weighted crosswalks.",
+        "short_description": "Percentage of the working-age population (19-64) with any type of health insurance coverage.",
         "short_name": "Insured population",
         "sources": [
             {
-                "date_accessed": 2022,
+                "date_accessed": 2026,
                 "location": "Table B27010",
-                "location_url": "",
+                "location_url": "https://data.census.gov/table/ACSDT5Y2024.B27010",
                 "name": "American Community Survey",
                 "url": "https://www.census.gov/programs-surveys/acs.html"
             }

@@ -1,0 +1,34 @@
+name: without_health_insurance
+version: "1.0.0"
+title: "Without Health Insurance"
+description: "Health insurance coverage rates for the working-age population (19-64) from ACS table B27010. Computes both uninsured and insured percentages."
+
+sources:
+  va:
+    type: census_acs
+    profile: VA
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county]
+    variables:
+      total_19_34: "B27010_018"
+      uninsured_19_34: "B27010_033"
+      total_35_64: "B27010_034"
+      uninsured_35_64: "B27010_050"
+
+  ncr:
+    type: census_acs
+    profile: NCR
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    geographies: [tract, county, block_group]
+    variables:
+      total_19_34: "B27010_018"
+      uninsured_19_34: "B27010_033"
+      total_35_64: "B27010_034"
+      uninsured_35_64: "B27010_050"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: true

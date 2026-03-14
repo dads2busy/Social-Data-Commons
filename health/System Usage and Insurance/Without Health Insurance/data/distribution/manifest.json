@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-14T20:08:51+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method"
+  ],
+  "measures": [
+    "hlth_ins_pct",
+    "hlth_ins_pct_geo10",
+    "hlth_ins_pct_geo20",
+    "no_hlth_ins_pct",
+    "no_hlth_ins_pct_geo10",
+    "no_hlth_ins_pct_geo20"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 564332,
+  "files": {
+    "ncr_cttrbg_acs5_2015_2023_no_health_insurance_19_to_64.csv.xz": {
+      "sha256": "d04ed907fad339d9e092e4940380e260121a0acb0baeabd50bcdf49e49ea7da5",
+      "size_bytes": 629816
+    },
+    "ncr_cttrbg_census_acs_2015_2024_without_health_insurance.csv.xz": {
+      "sha256": "6b697bb30be89959f670c6b99fe62a08b6ac68512bba4991ae3c4d526c0f9aa5",
+      "size_bytes": 2744460
+    },
+    "va_hdcttr_acs5_2015_2023_no_health_insurance_19_to_64.csv.xz": {
+      "sha256": "80bdad8a4157503488f32577334376ed52400fdda10d3adbc7f5c6d1e97116fa",
+      "size_bytes": 353244
+    },
+    "va_hdcttr_census_acs_2015_2024_without_health_insurance.csv.xz": {
+      "sha256": "e44e3658ea5482d68ed42ad44bdcb5436d7508f02ae771bf99673d1cf52b7d8b",
+      "size_bytes": 479864
+    }
+  }
+}
