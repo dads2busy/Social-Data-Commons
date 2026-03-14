@@ -86,7 +86,7 @@ class ZenodoClient:
         self._http = httpx.Client(
             base_url=base_url,
             headers={"Authorization": f"Bearer {self.token}"},
-            timeout=300,
+            timeout=600,
         )
         self._sandbox = sandbox
 

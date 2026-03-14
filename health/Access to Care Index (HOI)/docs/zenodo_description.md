@@ -2,9 +2,7 @@
 Access to care composite index for Virginia census tracts, counties, and health districts. Combines physician availability (primary care physicians within 30 driving miles, derived from CMS Medicare Physician & Other Practitioners PUF and OSRM-based block-group travel times) with insurance coverage (ACS 5-year uninsured rate for ages 19-64) into a z-score composite where higher values indicate better access to care. This dataset is produced by the **Social Data Commons** at the University of Virginia as part of the **Access To Care** data pipeline.
 
 ## Provenance
-Based on the Access to Care methodology originally developed by the Virginia Department of Health (VDH), Office of Minority Health and Health Equity (OMHHE) as part of their Health Opportunity Index (HOI). This pipeline reproduces and extends the VDH indicator using open data sources: CMS Medicare Physician PUF (primary care providers in VA, assigned to census tracts via HUD ZIP-to-tract crosswalk with residential ratio weighting) and ACS 5-year uninsured estimates. Physician accessibility uses OSRM-based driving distances between block group centroids, aggregated to tract level, with a 30-mile threshold. The composite index is the negated z-score of the sum of z-scored population-per-physician ratio and z-scored uninsured percentage.
-
-Percentile rank of the access_care_indicator_geo20 z-score, following the Virginia Department of Health (VDH) Health Opportunity Index (HOI) methodology of converting z-score indicators to percentile ranks. Computed per year across all Virginia census tracts using pandas rank(pct=True). County and health district values are the mean of their constituent tract percentile ranks.
+Based on the Access to Care methodology originally developed by the Virginia Department of Health (VDH), Office of Minority Health and Health Equity (OMHHE) as part of their Health Opportunity Index (HOI). This pipeline reproduces and extends the VDH indicator using open data sources: CMS Medicare Physician PUF (primary care providers in VA, assigned to census tracts via HUD ZIP-to-tract crosswalk with residential ratio weighting) and ACS 5-year uninsured estimates. Physician accessibility uses OSRM-based driving distances between block group centroids, aggregated to tract level, with a 30-mile threshold. The composite z-score is the negated z-score of the sum of z-scored population-per-physician ratio and z-scored uninsured percentage, then converted to quintiles (1-5) per year to match the VDH HOI format.
 
 ## Coverage
 - **Temporal coverage:** 2017–2023 (annual, CMS PUF + ACS 5-year)
@@ -12,9 +10,7 @@ Percentile rank of the access_care_indicator_geo20 z-score, following the Virgin
 - **Coverage areas:** Virginia (statewide)
 
 ## Methodology
-Composite z-score index measuring access to primary care. Combines two components: (1) population-to-physician ratio, using CMS Medicare Physician PUF data to count primary care physicians (Internal Medicine, Family Practice, Pediatric Medicine, OB/GYN) within 30 miles of each census tract via OSRM driving distances and HUD ZIP-to-tract crosswalk allocation; and (2) percentage of uninsured residents aged 19-64 from ACS 5-year estimates (B27010). The index is computed as -1 × z(z(pop_per_physician) + z(pct_uninsured)), so higher values indicate better access to care.
-
-Percentile rank (0–1) of the access to care composite z-score index, computed per year across all Virginia census tracts. A value of 0.80 means the tract has better access to care than 80% of Virginia tracts in that year. Derived from the access_care_indicator_geo20 z-score by ranking tract values within each year and dividing by the number of tracts. County and health district values are the mean of their constituent tract percentile ranks.
+Quintile indicator (1–5) measuring access to primary care, where 1 = worst access and 5 = best access. Derived from a composite z-score combining two components: (1) population-to-physician ratio, using CMS Medicare Physician PUF data to count primary care physicians (Internal Medicine, Family Practice, Pediatric Medicine, OB/GYN) within 30 miles of each census tract via OSRM driving distances and HUD ZIP-to-tract crosswalk allocation; and (2) percentage of uninsured residents aged 19-64 from ACS 5-year estimates (B27010). The underlying z-score is computed as -1 × z(z(pop_per_physician) + z(pct_uninsured)), then converted to quintiles per year across all Virginia census tracts. County and health district values are the mean of their constituent tract quintiles.
 
 ## Source Tables
 - [Medicare Physician & Other Practitioners - by Provider, 2017-2023](https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners/medicare-physician-other-practitioners-by-provider)
@@ -27,13 +23,11 @@ Percentile rank (0–1) of the access to care composite z-score index, computed 
 - **B27010_033**: Uninsured 19 34
 - **B27010_050**: Uninsured 35 64
 
-## Measures (2)
+## Measures (1)
 *Note on naming conventions: Measures containing `_geo20` are computed using 2020 Census geographic boundaries.*
 
 - **access_care_indicator_geo20**: Access to care indicator (2020 geographies) (mean)
-  Composite z-score of physician availability within 30 miles and insurance coverage rate.
-- **access_care_pctile_geo20**: Access to care percentile (2020 geographies) (mean)
-  Percentile rank of access to care z-score, where higher values indicate better access.
+  Quintile indicator (1-5) of physician availability within 30 miles and insurance coverage rate, where 5 = best access.
 
 ## Data Sources
 - [CMS Medicare Physician & Other Practitioners PUF (accessed 2025)](https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners)
@@ -42,4 +36,4 @@ Percentile rank (0–1) of the access to care composite z-score index, computed 
 - [OSRM (Open Source Routing Machine) (accessed 2025)](https://project-osrm.org/)
 
 ## File Format
-Data files are provided as xz-compressed CSV (`.csv.xz`) with the following columns: `geoid`, `region_type`, `region_name`, `year`, `measure`, `value`, `moe` (margin of error, where available).
+Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `region_type`, `region_name`, `year`, `measure`, `value`, `moe` (margin of error, where available). Larger files are provided as xz-compressed CSVs (`.csv.xz`).

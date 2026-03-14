@@ -14,7 +14,7 @@ Day care availability ratios are calculated using the 3-step floating catchment 
 - **Coverage areas:** Virginia (statewide)
 
 ## Methodology
-Summed capacity (seats) of all day care providers within the region, according to the Virginia Department of Social Services.
+Total licensed day care capacity measures the number of available childcare seats in a region. Insufficient childcare capacity constrains parents' ability to work, disproportionately affecting women's labor force participation and low-income families who cannot afford informal care alternatives. This raw capacity count complements per-capita ratios by showing the absolute supply of childcare available.
 
 Time (minutes) to drive to the nearest day care provider of any type. Times are calculated using the Open Source Routing Machine, from block group centroids to each provider. Times for higher geographic levels are averaged across block groups.
 
@@ -55,4 +55,4 @@ Number of day care seats per 1,000 children under 10 years of age, which accept 
 - [American Community Survey (accessed 2025)](https://www.census.gov/programs-surveys/acs.html)
 
 ## File Format
-Data files are provided as xz-compressed CSV (`.csv.xz`) with the following columns: `geoid`, `region_type`, `region_name`, `year`, `measure`, `value`, `moe` (margin of error, where available).
+Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `region_type`, `region_name`, `year`, `measure`, `value`, `moe` (margin of error, where available). Larger files are provided as xz-compressed CSVs (`.csv.xz`).
