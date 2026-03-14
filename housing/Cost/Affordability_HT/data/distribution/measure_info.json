@@ -1,133 +1,133 @@
 {
-    "affordability_index_geo20": {
-        "category": "Housing",
-        "data_type": "numeric",
-        "unit": "percent",
-        "long_name": "Housing + Transportation Affordability Index",
-        "short_name": "H+T Affordability",
-        "short_description": "Proportion of income spent on combined housing and transportation costs for a Regional Typical Household.",
-        "long_description": "The Housing + Transportation (H+T) Affordability Index measures the true cost of housing by combining housing and transportation costs as a percentage of household income. A neighborhood is considered affordable when H+T costs consume no more than 45% of household income. This measure uses the Regional Typical Household variant, which reflects a household earning the regional median income. Reproduced independently using CNT's published regression coefficients (Tables 3-6) applied to ACS demographic data, LEHD employment data, and GTFS transit schedule data at block group resolution.",
-        "aggregation_method": "mean",
-        "type": "index",
-        "statement": "In {features.name}, combined housing and transportation costs consume {value}% of a typical household's income.",
-        "provenance": "Independently reproduced using the methodology published by the Center for Neighborhood Technology (CNT). Regression coefficients from CNT Tables 3-6 are applied to 17 independent variables computed from American Community Survey data, LEHD Origin-Destination Employment Statistics, TIGER geographic data, and GTFS transit feeds. Block group estimates are aggregated to tract and county via unweighted means.",
-        "sources": [
-            {
-                "name": "Center for Neighborhood Technology",
-                "location": "H+T Affordability Index Methods",
-                "location_url": "https://htaindex.cnt.org/about/HTMethods_2016.pdf",
-                "url": "https://htaindex.cnt.org/"
-            },
-            {
-                "name": "American Community Survey 5-Year Estimates",
-                "location": "U.S. Census Bureau",
-                "url": "https://www.census.gov/programs-surveys/acs"
-            },
-            {
-                "name": "LEHD Origin-Destination Employment Statistics",
-                "location": "U.S. Census Bureau",
-                "url": "https://lehd.ces.census.gov/data/"
-            },
-            {
-                "name": "General Transit Feed Specification (GTFS)",
-                "location": "Mobility Database",
-                "url": "https://mobilitydatabase.org/"
-            }
-        ]
-    },
-    "housing_cost_pct_geo20": {
-        "category": "Housing",
-        "data_type": "numeric",
-        "unit": "percent",
-        "long_name": "Housing Cost as Percent of Income",
-        "short_name": "Housing Cost %",
-        "short_description": "Housing cost as a percentage of income for a Regional Typical Household.",
-        "long_description": "Annual housing cost (weighted average of median owner costs and gross rent by tenure ratio) as a percentage of the regional median household income. Part of the H+T Affordability Index decomposition.",
-        "aggregation_method": "mean",
-        "type": "percent",
-        "statement": "In {features.name}, housing costs consume {value}% of a typical household's income.",
-        "sources": [
-            {
-                "name": "American Community Survey 5-Year Estimates",
-                "location": "U.S. Census Bureau",
-                "url": "https://www.census.gov/programs-surveys/acs"
-            }
-        ]
-    },
-    "transport_cost_pct_geo20": {
-        "category": "Housing",
-        "data_type": "numeric",
-        "unit": "percent",
-        "long_name": "Transportation Cost as Percent of Income",
-        "short_name": "Transport Cost %",
-        "short_description": "Transportation cost as a percentage of income for a Regional Typical Household.",
-        "long_description": "Annual transportation cost (auto ownership + vehicle miles traveled + transit use) as a percentage of the regional median household income. Derived from CNT regression models for auto ownership, VMT, and transit ridership applied to neighborhood-level variables.",
-        "aggregation_method": "mean",
-        "type": "percent",
-        "statement": "In {features.name}, transportation costs consume {value}% of a typical household's income.",
-        "sources": [
-            {
-                "name": "Center for Neighborhood Technology",
-                "location": "H+T Affordability Index Methods",
-                "url": "https://htaindex.cnt.org/"
-            }
-        ]
-    },
-    "autos_per_hh_geo20": {
-        "category": "Housing",
-        "data_type": "numeric",
-        "unit": "vehicles",
-        "long_name": "Predicted Autos per Household",
-        "short_name": "Autos/HH",
-        "short_description": "Predicted number of automobiles per household based on neighborhood characteristics.",
-        "long_description": "Predicted automobile ownership per household from the CNT auto ownership regression model. Uses household income, density, transit access, employment gravity, and housing stock characteristics as predictors.",
-        "aggregation_method": "mean",
-        "type": "rate",
-        "statement": "In {features.name}, the predicted auto ownership is {value} vehicles per household.",
-        "sources": [
-            {
-                "name": "Center for Neighborhood Technology",
-                "location": "H+T Affordability Index Methods, Table 4",
-                "url": "https://htaindex.cnt.org/"
-            }
-        ]
-    },
-    "vmt_per_hh_geo20": {
-        "category": "Housing",
-        "data_type": "numeric",
-        "unit": "miles",
-        "long_name": "Predicted Annual Vehicle Miles Traveled per Household",
-        "short_name": "VMT/HH",
-        "short_description": "Predicted annual vehicle miles traveled per household based on neighborhood characteristics.",
-        "long_description": "Predicted annual vehicle miles traveled per household from the CNT VMT regression model. Reflects how neighborhood density, transit access, employment access, and housing patterns influence driving behavior.",
-        "aggregation_method": "mean",
-        "type": "rate",
-        "statement": "In {features.name}, the predicted annual VMT is {value} miles per household.",
-        "sources": [
-            {
-                "name": "Center for Neighborhood Technology",
-                "location": "H+T Affordability Index Methods, Table 5",
-                "url": "https://htaindex.cnt.org/"
-            }
-        ]
-    },
-    "transit_frac_geo20": {
-        "category": "Housing",
-        "data_type": "numeric",
-        "unit": "percent",
-        "long_name": "Predicted Transit Commuter Fraction",
-        "short_name": "Transit Use %",
-        "short_description": "Predicted fraction of commuters using public transit based on neighborhood characteristics.",
-        "long_description": "Predicted fraction of commuters using public transit from the CNT transit use regression model (quasibinomial). Reflects how transit connectivity, employment access, density, and household characteristics influence transit ridership. Block groups with no transit service are assigned 0%.",
-        "aggregation_method": "mean",
-        "type": "percent",
-        "statement": "In {features.name}, an estimated {value}% of commuters use public transit.",
-        "sources": [
-            {
-                "name": "Center for Neighborhood Technology",
-                "location": "H+T Affordability Index Methods, Table 6",
-                "url": "https://htaindex.cnt.org/"
-            }
-        ]
-    }
+  "affordability_index_geo20": {
+    "category": "Housing",
+    "data_type": "numeric",
+    "unit": "percent",
+    "long_name": "Housing + Transportation Affordability Index",
+    "short_name": "H+T Affordability",
+    "short_description": "Proportion of income spent on combined housing and transportation costs for a Regional Typical Household.",
+    "long_description": "The Housing + Transportation (H+T) Affordability Index measures the true cost of housing by combining housing and transportation costs as a percentage of household income. A neighborhood is considered affordable when H+T costs consume no more than 45% of household income. This measure uses the Regional Typical Household variant, which reflects a household earning the regional median income. Reproduced independently using CNT's published regression coefficients (Tables 3-6) applied to ACS demographic data, LEHD employment data, and GTFS transit schedule data at block group resolution.",
+    "aggregation_method": "mean",
+    "type": "index",
+    "statement": "In {features.name}, combined housing and transportation costs consume {value}% of a typical household's income.",
+    "provenance": "Independently reproduced using the methodology published by the Center for Neighborhood Technology (CNT). Regression coefficients from CNT Tables 3-6 are applied to 17 independent variables computed from American Community Survey data, LEHD Origin-Destination Employment Statistics, TIGER geographic data, and GTFS transit feeds. Block group estimates are aggregated to tract and county via unweighted means.",
+    "sources": [
+      {
+        "name": "Center for Neighborhood Technology",
+        "location": "H+T Affordability Index Methods",
+        "location_url": "https://htaindex.cnt.org/about/HTMethods_2016.pdf",
+        "url": "https://htaindex.cnt.org/"
+      },
+      {
+        "name": "American Community Survey 5-Year Estimates",
+        "location": "U.S. Census Bureau",
+        "url": "https://www.census.gov/programs-surveys/acs"
+      },
+      {
+        "name": "LEHD Origin-Destination Employment Statistics",
+        "location": "U.S. Census Bureau",
+        "url": "https://lehd.ces.census.gov/data/"
+      },
+      {
+        "name": "General Transit Feed Specification (GTFS)",
+        "location": "Mobility Database",
+        "url": "https://mobilitydatabase.org/"
+      }
+    ]
+  },
+  "housing_cost_pct_geo20": {
+    "category": "Housing",
+    "data_type": "numeric",
+    "unit": "percent",
+    "long_name": "Housing Cost as Percent of Income",
+    "short_name": "Housing Cost %",
+    "short_description": "Housing cost as a percentage of income for a Regional Typical Household.",
+    "long_description": "Annual housing cost (weighted average of median owner costs and gross rent by tenure ratio) as a percentage of the regional median household income. Part of the H+T Affordability Index decomposition.",
+    "aggregation_method": "mean",
+    "type": "percent",
+    "statement": "In {features.name}, housing costs consume {value}% of a typical household's income.",
+    "sources": [
+      {
+        "name": "American Community Survey 5-Year Estimates",
+        "location": "U.S. Census Bureau",
+        "url": "https://www.census.gov/programs-surveys/acs"
+      }
+    ]
+  },
+  "transport_cost_pct_geo20": {
+    "category": "Transportation",
+    "data_type": "numeric",
+    "unit": "percent",
+    "long_name": "Transportation Cost as Percent of Income",
+    "short_name": "Transport Cost %",
+    "short_description": "Transportation cost as a percentage of income for a Regional Typical Household.",
+    "long_description": "Annual transportation cost (auto ownership + vehicle miles traveled + transit use) as a percentage of the regional median household income. Derived from CNT regression models for auto ownership, VMT, and transit ridership applied to neighborhood-level variables.",
+    "aggregation_method": "mean",
+    "type": "percent",
+    "statement": "In {features.name}, transportation costs consume {value}% of a typical household's income.",
+    "sources": [
+      {
+        "name": "Center for Neighborhood Technology",
+        "location": "H+T Affordability Index Methods",
+        "url": "https://htaindex.cnt.org/"
+      }
+    ]
+  },
+  "autos_per_hh_geo20": {
+    "category": "Transportation",
+    "data_type": "numeric",
+    "unit": "vehicles",
+    "long_name": "Predicted Autos per Household",
+    "short_name": "Autos/HH",
+    "short_description": "Predicted number of automobiles per household based on neighborhood characteristics.",
+    "long_description": "Predicted automobile ownership per household from the CNT auto ownership regression model. Uses household income, density, transit access, employment gravity, and housing stock characteristics as predictors.",
+    "aggregation_method": "mean",
+    "type": "rate",
+    "statement": "In {features.name}, the predicted auto ownership is {value} vehicles per household.",
+    "sources": [
+      {
+        "name": "Center for Neighborhood Technology",
+        "location": "H+T Affordability Index Methods, Table 4",
+        "url": "https://htaindex.cnt.org/"
+      }
+    ]
+  },
+  "vmt_per_hh_geo20": {
+    "category": "Transportation",
+    "data_type": "numeric",
+    "unit": "miles",
+    "long_name": "Predicted Annual Vehicle Miles Traveled per Household",
+    "short_name": "VMT/HH",
+    "short_description": "Predicted annual vehicle miles traveled per household based on neighborhood characteristics.",
+    "long_description": "Predicted annual vehicle miles traveled per household from the CNT VMT regression model. Reflects how neighborhood density, transit access, employment access, and housing patterns influence driving behavior.",
+    "aggregation_method": "mean",
+    "type": "rate",
+    "statement": "In {features.name}, the predicted annual VMT is {value} miles per household.",
+    "sources": [
+      {
+        "name": "Center for Neighborhood Technology",
+        "location": "H+T Affordability Index Methods, Table 5",
+        "url": "https://htaindex.cnt.org/"
+      }
+    ]
+  },
+  "transit_frac_geo20": {
+    "category": "Transportation",
+    "data_type": "numeric",
+    "unit": "percent",
+    "long_name": "Predicted Transit Commuter Fraction",
+    "short_name": "Transit Use %",
+    "short_description": "Predicted fraction of commuters using public transit based on neighborhood characteristics.",
+    "long_description": "Predicted fraction of commuters using public transit from the CNT transit use regression model (quasibinomial). Reflects how transit connectivity, employment access, density, and household characteristics influence transit ridership. Block groups with no transit service are assigned 0%.",
+    "aggregation_method": "mean",
+    "type": "percent",
+    "statement": "In {features.name}, an estimated {value}% of commuters use public transit.",
+    "sources": [
+      {
+        "name": "Center for Neighborhood Technology",
+        "location": "H+T Affordability Index Methods, Table 6",
+        "url": "https://htaindex.cnt.org/"
+      }
+    ]
+  }
 }
