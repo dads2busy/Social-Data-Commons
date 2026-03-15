@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-15T21:25:55+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method"
+  ],
+  "measures": [
+    "perc_freq_mental_distress",
+    "perc_freq_physical_distress"
+  ],
+  "years": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2023
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 54194,
+  "files": {
+    "ncr_cttr_cdc_places_2018_2023_healthy_days.csv.xz": {
+      "sha256": "416c890d15a2f478f02cbff9a6e383e5e09bf461bf4e777fa939f342543398a0",
+      "size_bytes": 76324
+    },
+    "va_cttr_cdc_places_2018_2023_healthy_days.csv.xz": {
+      "sha256": "1e6bc51695c1567f7cb30b9cce746829de26d3026647934e4ccaca9d15bddd3a",
+      "size_bytes": 127440
+    },
+    "va_hdcttr_cdc_places_2018_2023_healthy_days.csv.xz": {
+      "sha256": "1402558f2555b41998df4f7201406a7803ca412139dfdccb5c9555493559fa08",
+      "size_bytes": 108296
+    }
+  }
+}

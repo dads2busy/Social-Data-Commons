@@ -1,56 +1,58 @@
 {
-    "perc_poor_ment_hlth_days_14_and_over": {
-        "aggregation_method": "",
+    "perc_freq_mental_distress": {
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Health",
         "citations": "",
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Percent of the population self-reporting poor mental health in over 14 days of the previous month. Based on the Virginia Behavioral Risk Factor Surveillance Survey. Geographies: Census tract (11), County (5)",
-        "long_name": "Percentage reporting poor mental health",
+        "long_description": "Estimated percentage of adults reporting 14 or more days of poor mental health in the past 30 days. High prevalence of frequent mental distress reflects unmet behavioral health needs and is associated with reduced work productivity, strained social relationships, and increased demand for crisis services. Persistent mental distress at the neighborhood level often tracks with poverty, housing instability, and limited access to mental health providers.",
+        "long_name": "Frequent Mental Distress Among Adults",
         "measure_type": "prevalence estimate",
-        "short_description": "",
-        "short_name": "Percentage reporting poor mental health",
+        "short_description": "Modeled prevalence of adults with 14+ poor mental health days per month, from BRFSS small-area estimation.",
+        "short_name": "Frequent mental distress",
         "sources": [
             {
-                "date_accessed": 2021,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Behavioral Risk Factor Surveillance System",
-                "url": "https://www.vdh.virginia.gov/brfss/"
+                "date_accessed": 2026,
+                "location": "CDC PLACES",
+                "location_url": "https://www.cdc.gov/places/",
+                "name": "Centers for Disease Control and Prevention",
+                "url": "https://www.cdc.gov"
             }
         ],
-        "statement": "{value} of the population in {features.name} reports poor mental health.",
+        "provenance": "Tract-level estimates from CDC PLACES (Population Level Analysis and Community Estimates), which applies multilevel regression with poststratification (MRP) to Behavioral Risk Factor Surveillance System (BRFSS) survey responses. Each model year pools two years of BRFSS data with Census tract demographics to generate small-area predictions. Values are crude prevalence (%). Confidence intervals converted from 95% CI (PLACES default) to approximate 90% MOE using the ratio 1.645/1.96.",
+        "statement": "{value}% of adults in {features.name} report frequent mental distress.",
         "type": "percent",
-        "unit": "",
+        "unit": "percent",
         "variants": ""
     },
-    "perc_poor_phys_hlth_days_14_and_over": {
-        "aggregation_method": "",
+    "perc_freq_physical_distress": {
+        "aggregation_method": "mean",
         "categories": "",
         "category": "Health",
         "citations": "",
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Percent of the population self-reporting poor physical health in over 14 days of the previous month. Based on the Virginia Behavioral Risk Factor Surveillance Survey. Geographies: Census tract (11), County (5)",
-        "long_name": "Percentage reporting poor physical health",
+        "long_description": "Estimated percentage of adults reporting 14 or more days of poor physical health in the past 30 days. Frequent physical distress captures chronic pain, disability, and illness burden at the community level. Neighborhoods with high rates often face compounding challenges including limited healthcare access, environmental hazards, and higher proportions of residents in physically demanding occupations.",
+        "long_name": "Frequent Physical Distress Among Adults",
         "measure_type": "prevalence estimate",
-        "short_description": "Percent of the population self-reporting poor physical health",
-        "short_name": "Percentage reporting poor physical health",
+        "short_description": "Modeled prevalence of adults with 14+ poor physical health days per month, from BRFSS small-area estimation.",
+        "short_name": "Frequent physical distress",
         "sources": [
             {
-                "date_accessed": 2021,
-                "location": "",
-                "location_url": "",
-                "name": "Virginia Behavioral Risk Factor Surveillance System",
-                "url": "https://www.vdh.virginia.gov/brfss/"
+                "date_accessed": 2026,
+                "location": "CDC PLACES",
+                "location_url": "https://www.cdc.gov/places/",
+                "name": "Centers for Disease Control and Prevention",
+                "url": "https://www.cdc.gov"
             }
         ],
-        "statement": "{value} of the population in {features.name} reports poor physical health.",
+        "provenance": "Tract-level estimates from CDC PLACES, which applies multilevel regression with poststratification (MRP) to BRFSS survey responses. Each model year pools two years of BRFSS data with Census tract demographics to generate small-area predictions. Values are crude prevalence (%). Confidence intervals converted from 95% CI to approximate 90% MOE.",
+        "statement": "{value}% of adults in {features.name} report frequent physical distress.",
         "type": "percent",
-        "unit": "",
+        "unit": "percent",
         "variants": ""
     }
 }
