@@ -15,14 +15,14 @@ sources:
     states: ["VA"]
     state_fips: ["51"]
     geographies: [tract, county]
-    years: [2018, 2019, 2020, 2021, 2022, 2023]
+    years: [2018, 2019, 2020, 2021, 2023]
 
   ncr:
     type: cdc_places
     profile: NCR
     state_fips: ["51", "24", "11"]
     geographies: [tract, county]
-    years: [2018, 2019, 2020, 2021, 2022, 2023]
+    years: [2018, 2019, 2020, 2021, 2023]
 
 places:
   base_url: "https://data.cdc.gov/resource"
@@ -31,12 +31,13 @@ places:
       name: perc_freq_mental_distress
     - id: PHLTH
       name: perc_freq_physical_distress
+  # Each release contains 2 model years; we take the latest from each.
+  # 2024 release (jpdw-4rwm) has been retired; 2025 release has only 2023.
   releases:
     2018: "4ai3-zynv"
     2019: "373s-ayzu"
     2020: "nw2y-v4gm"
     2021: "em5e-5hvn"
-    2022: "jpdw-4rwm"
     2023: "cwsq-ngmh"
 
 crosswalks:
