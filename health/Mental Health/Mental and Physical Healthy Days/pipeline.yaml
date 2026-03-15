@@ -1,0 +1,47 @@
+name: healthy_days
+version: "1.0.0"
+title: "Mental and Physical Healthy Days"
+description: >-
+  Tract-level prevalence of frequent mental distress and frequent physical
+  distress among adults, from CDC PLACES small-area estimates based on BRFSS.
+  Each year's estimate uses model-based prediction (multilevel regression with
+  poststratification) applied to pooled two-year BRFSS survey data.
+
+temporal_label: "annual"
+
+sources:
+  va:
+    type: cdc_places
+    states: ["VA"]
+    state_fips: ["51"]
+    geographies: [tract, county]
+    years: [2018, 2019, 2020, 2021, 2022, 2023]
+
+  ncr:
+    type: cdc_places
+    profile: NCR
+    state_fips: ["51", "24", "11"]
+    geographies: [tract, county]
+    years: [2018, 2019, 2020, 2021, 2022, 2023]
+
+places:
+  base_url: "https://data.cdc.gov/resource"
+  measures:
+    - id: MHLTH
+      name: perc_freq_mental_distress
+    - id: PHLTH
+      name: perc_freq_physical_distress
+  releases:
+    2018: "4ai3-zynv"
+    2019: "373s-ayzu"
+    2020: "nw2y-v4gm"
+    2021: "em5e-5hvn"
+    2022: "jpdw-4rwm"
+    2023: "cwsq-ngmh"
+
+crosswalks:
+  va_county_to_hd: geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv
+
+output:
+  path: data/distribution
+  standardize: false
