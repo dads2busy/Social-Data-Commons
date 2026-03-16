@@ -7,11 +7,11 @@
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Proportion of births where the mother received more than the recommended number of prenatal visits, beginning in the first four months of pregnancy (110% or more of expected visits). High adequate-plus rates may reflect intensive monitoring of high-risk pregnancies or provider practice patterns. The Kotelchuck Index classifies prenatal care utilization into four tiers based on timing of first visit and proportion of recommended visits received.",
+        "long_description": "Proportion of births where the mother received more than the recommended number of prenatal visits, beginning in the first four months of pregnancy (110% or more of expected visits). High adequate-plus rates may reflect intensive monitoring of high-risk pregnancies or provider practice patterns. The Adequacy of Prenatal Care Utilization (APNCU) Index, also known as the Kotelchuck Index, evaluates prenatal care by combining when care began with the number of visits relative to ACOG-recommended schedules.",
         "long_name": "Adequacy of Prenatal Care Utilization: Adequate Plus",
         "measure_type": "proportion",
         "short_description": "Proportion of births with prenatal care exceeding 110% of recommended visits, starting by the 4th month.",
-        "short_name": "Kotelchuck (adequate plus percent)",
+        "short_name": "APNCU: Adequate Plus",
         "sources": [
             {
                 "date_accessed": 2026,
@@ -35,11 +35,11 @@
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Proportion of births where the mother received adequate prenatal care \u2014 starting in the first four months and completing 80-109% of recommended visits. This is the target level of prenatal care utilization. Counties with high adequate rates have maternal health systems that successfully engage pregnant women early and maintain recommended visit schedules through delivery.",
+        "long_description": "Proportion of births where the mother received adequate prenatal care \u2014 starting in the first four months and completing 80-109% of recommended visits. This is the target level of prenatal care utilization. Counties with high adequate rates have maternal health systems that successfully engage pregnant women early and maintain recommended visit schedules through delivery. The Adequacy of Prenatal Care Utilization (APNCU) Index, also known as the Kotelchuck Index, evaluates prenatal care by combining when care began with the number of visits relative to ACOG-recommended schedules.",
         "long_name": "Adequacy of Prenatal Care Utilization: Adequate",
         "measure_type": "proportion",
         "short_description": "Proportion of births with 80-109% of recommended prenatal visits, starting by the 4th month.",
-        "short_name": "Kotelchuck (adequate percent)",
+        "short_name": "APNCU: Adequate",
         "sources": [
             {
                 "date_accessed": 2026,
@@ -63,11 +63,11 @@
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Proportion of births where the mother began prenatal care in the first four months but completed only 50-79% of recommended visits. Intermediate utilization often reflects barriers that prevent women from maintaining their visit schedule \u2014 transportation difficulties, work constraints, or gaps in insurance coverage \u2014 even when they initiate care early.",
+        "long_description": "Proportion of births where the mother began prenatal care in the first four months but completed only 50-79% of recommended visits. Intermediate utilization often reflects barriers that prevent women from maintaining their visit schedule \u2014 transportation difficulties, work constraints, or gaps in insurance coverage \u2014 even when they initiate care early. The Adequacy of Prenatal Care Utilization (APNCU) Index, also known as the Kotelchuck Index, evaluates prenatal care by combining when care began with the number of visits relative to ACOG-recommended schedules.",
         "long_name": "Adequacy of Prenatal Care Utilization: Intermediate",
         "measure_type": "proportion",
         "short_description": "Proportion of births with 50-79% of recommended prenatal visits, starting by the 4th month.",
-        "short_name": "Kotelchuck (intermediate percent)",
+        "short_name": "APNCU: Intermediate",
         "sources": [
             {
                 "date_accessed": 2026,
@@ -91,11 +91,11 @@
         "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "Proportion of births where the mother received inadequate prenatal care \u2014 either starting after the fourth month of pregnancy, receiving fewer than 50% of recommended visits, or having no prenatal care at all. High inadequate rates signal systemic barriers to maternal health services such as provider shortages, lack of insurance, or geographic isolation. Inadequate prenatal care is associated with higher rates of preterm birth, low birth weight, and maternal complications.",
+        "long_description": "Proportion of births where the mother received inadequate prenatal care \u2014 either starting after the fourth month of pregnancy, receiving fewer than 50% of recommended visits, or having no prenatal care at all. High inadequate rates signal systemic barriers to maternal health services such as provider shortages, lack of insurance, or geographic isolation. Inadequate prenatal care is associated with higher rates of preterm birth, low birth weight, and maternal complications. The Adequacy of Prenatal Care Utilization (APNCU) Index, also known as the Kotelchuck Index, evaluates prenatal care by combining when care began with the number of visits relative to ACOG-recommended schedules.",
         "long_name": "Adequacy of Prenatal Care Utilization: Inadequate",
         "measure_type": "proportion",
         "short_description": "Proportion of births with late or no prenatal care, or fewer than 50% of recommended visits.",
-        "short_name": "Kotelchuck (inadequate percent)",
+        "short_name": "APNCU: Inadequate",
         "sources": [
             {
                 "date_accessed": 2026,
