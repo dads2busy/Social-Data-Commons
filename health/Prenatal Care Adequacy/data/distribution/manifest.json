@@ -1,13 +1,14 @@
 {
-  "version": "2.0.0",
-  "generated": "2026-03-13T17:12:35+00:00",
+  "version": "4.0.3",
+  "generated": "2026-03-15T20:36:54+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "adequate",
@@ -21,6 +22,8 @@
     "total"
   ],
   "years": [
+    2014,
+    2015,
     2016,
     2017,
     2018,
@@ -36,15 +39,15 @@
     "24",
     "51"
   ],
-  "row_count": 5994,
+  "row_count": 25556,
   "files": {
-    "ncr_ct_nchs_2016_2024_kotelchuck.csv.xz": {
-      "sha256": "757274bc48c068626d2655183413e0722521ff9676220cf63b27615a5f89173c",
-      "size_bytes": 9168
+    "ncr_ct_nchs_2014_2024_kotelchuck.csv.xz": {
+      "sha256": "3ec977c50966b427a2a0bcb7a7b887e605b227dccb4bd4ae73a65b09f6034998",
+      "size_bytes": 43816
     },
-    "va_ct_nchs_2016_2024_kotelchuck.csv.xz": {
-      "sha256": "4dd78e34103c799584504ffaa0f9d257a4d126215bcb688e1758b1aac77fecbf",
-      "size_bytes": 4916
+    "va_hdct_nchs_2014_2024_kotelchuck.csv.xz": {
+      "sha256": "bf91d303f5002e44d48f989777d116af586815979c2646a8fe45280de9cf916a",
+      "size_bytes": 47728
     }
   }
 }
