@@ -6,34 +6,32 @@ sources:
     type: hud_fmr
     profile: VA
     states: ["VA"]
-    years: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+    years: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
     geographies: [county, tract]
   ncr:
     type: hud_fmr
     profile: NCR
-    years: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+    years: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
     geographies: [county, tract]
 
 hud_fmr:
   fmr_urls:
-    2018: "https://www.huduser.gov/portal/datasets/fmr/fmr2018/FY18_FMRs.xlsx"
-    2019: "https://www.huduser.gov/portal/datasets/fmr/fmr2019/FY19_FMRs.xlsx"
-    2020: "https://www.huduser.gov/portal/datasets/fmr/fmr2020/FY20_FMRs.xlsx"
-    2021: "https://www.huduser.gov/portal/datasets/fmr/fmr2021/FY21_FMRs.xlsx"
-    2022: "https://www.huduser.gov/portal/datasets/fmr/fmr2022/FY22_FMRs.xlsx"
-    2023: "https://www.huduser.gov/portal/datasets/fmr/fmr2023/FY23_FMRs.xlsx"
-    2024: "https://www.huduser.gov/portal/datasets/fmr/fmr2024/FY24_FMRs_revised.xlsx"
-    2025: "https://www.huduser.gov/portal/datasets/fmr/fmr2025/FY25_FMRs.xlsx"
+    2019: "https://www.huduser.gov/portal/datasets/fmr/fmr2019/FY2019_4050_FMRs_rev2.xlsx"
+    2020: "https://www.huduser.gov/portal/datasets/fmr/fmr2020/FY20_4050_FMRs_rev.xlsx"
+    2021: "https://www.huduser.gov/portal/datasets/fmr/fmr2021/FY21_4050_FMRs_rev.xlsx"
+    2022: "https://www.huduser.gov/portal/datasets/fmr/fmr2022/FY22_FMRs_revised.xlsx"
+    2023: "https://www.huduser.gov/portal/datasets/fmr/fmr2023/FY23_FMRs_revised.xlsx"
+    2024: "https://www.huduser.gov/portal/datasets/fmr/fmr2024/FMR2024_final_revised.xlsx"
+    2025: "https://www.huduser.gov/portal/datasets/fmr/fmr2025/FY25_FMRs_revised.xlsx"
     2026: "https://www.huduser.gov/portal/datasets/fmr/fmr2026/FY26_FMRs.xlsx"
   safmr_urls:
-    2018: "https://www.huduser.gov/portal/datasets/fmr/fmr2018/fy2018_safmrs.xlsx"
-    2019: "https://www.huduser.gov/portal/datasets/fmr/fmr2019/fy2019_safmrs.xlsx"
-    2020: "https://www.huduser.gov/portal/datasets/fmr/fmr2020/fy2020_safmrs.xlsx"
-    2021: "https://www.huduser.gov/portal/datasets/fmr/fmr2021/fy2021_safmrs.xlsx"
-    2022: "https://www.huduser.gov/portal/datasets/fmr/fmr2022/fy2022_safmrs.xlsx"
-    2023: "https://www.huduser.gov/portal/datasets/fmr/fmr2023/fy2023_safmrs.xlsx"
+    2019: "https://www.huduser.gov/portal/datasets/fmr/fmr2019/fy2019_safmrs_rev.xlsx"
+    2020: "https://www.huduser.gov/portal/datasets/fmr/fmr2020/fy2020_safmrs_rev.xlsx"
+    2021: "https://www.huduser.gov/portal/datasets/fmr/fmr2021/fy2021_safmrs_revised.xlsx"
+    2022: "https://www.huduser.gov/portal/datasets/fmr/fmr2022/fy2022_safmrs_revised.xlsx"
+    2023: "https://www.huduser.gov/portal/datasets/fmr/fmr2023/fy2023_safmrs_revised.xlsx"
     2024: "https://www.huduser.gov/portal/datasets/fmr/fmr2024/fy2024_safmrs_revised.xlsx"
-    2025: "https://www.huduser.gov/portal/datasets/fmr/fmr2025/fy2025_safmrs.xlsx"
+    2025: "https://www.huduser.gov/portal/datasets/fmr/fmr2025/fy2025_safmrs_revised.xlsx"
     2026: "https://www.huduser.gov/portal/datasets/fmr/fmr2026/fy2026_safmrs.xlsx"
 
   # Single 2021 Q4 crosswalk for all years — ensures 2020 tract GEOIDs

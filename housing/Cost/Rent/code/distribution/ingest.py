@@ -54,6 +54,7 @@ def parse_safmr(path: Path) -> pd.DataFrame:
     three columns: base SAFMR, 90% payment standard, 110% payment standard.
     We keep only the ZIP and the 5 base SAFMR columns.
     """
+    _fix_xlsx_properties(path)
     df = pd.read_excel(path, engine="openpyxl")
     # First column is ZIP (may have embedded newline in header)
     zip_col = df.columns[0]
@@ -70,14 +71,65 @@ def parse_safmr(path: Path) -> pd.DataFrame:
     return df
 
 
+def _fix_xlsx_properties(path: Path) -> Path:
+    """Fix malformed ISO dates in xlsx core.xml that crash openpyxl.
+
+    Some HUD FMR files (created by SAS) have dates like '2022- 8-21T...'
+    instead of '2022-08-21T...'. We rewrite the zip in-place with fixed XML.
+    """
+    import re
+    import zipfile
+    import tempfile
+
+    try:
+        with zipfile.ZipFile(path, "r") as zin:
+            if "docProps/core.xml" not in zin.namelist():
+                return path
+            core_xml = zin.read("docProps/core.xml").decode("utf-8")
+
+        # Fix dates like "2022- 8-21" → "2022-08-21"
+        fixed = re.sub(
+            r"(\d{4})-\s*(\d)-(\d{2})",
+            lambda m: f"{m.group(1)}-0{m.group(2)}-{m.group(3)}",
+            core_xml,
+        )
+        # Fix times like "19: 8: 0Z" → "19:08:00Z"
+        fixed = re.sub(
+            r"T\s*(\d{1,2}):\s*(\d{1,2}):\s*(\d{1,2})Z",
+            lambda m: f"T{m.group(1).zfill(2)}:{m.group(2).zfill(2)}:{m.group(3).zfill(2)}Z",
+            fixed,
+        )
+        if fixed == core_xml:
+            return path  # no change needed
+
+        log.info("Fixing malformed dates in %s", path.name)
+        tmp = Path(tempfile.mktemp(suffix=".xlsx", dir=path.parent))
+        with zipfile.ZipFile(path, "r") as zin, zipfile.ZipFile(tmp, "w") as zout:
+            for item in zin.infolist():
+                if item.filename == "docProps/core.xml":
+                    zout.writestr(item, fixed.encode("utf-8"))
+                else:
+                    zout.writestr(item, zin.read(item.filename))
+        tmp.replace(path)
+        return path
+    except Exception as e:
+        log.warning("Could not fix xlsx properties for %s: %s", path.name, e)
+        return path
+
+
 def parse_fmr(path: Path) -> pd.DataFrame:
     """Parse FMR Excel → DataFrame with columns: county_fips, fmr_0..fmr_4.
 
-    FMR files have a 'fips' column with trailing '99999' (county FIPS + metro
-    area suffix). We truncate to 5 digits for county FIPS.
+    FMR files have a 'fips' or 'fips2010' column with trailing '99999'
+    (county FIPS + metro area suffix). We truncate to 5 digits for county FIPS.
     """
+    _fix_xlsx_properties(path)
     df = pd.read_excel(path, engine="openpyxl")
-    df["county_fips"] = df["fips"].astype(str).str[:5].str.zfill(5)
+    # Find the FIPS column (varies by year: 'fips', 'fips2010', etc.)
+    fips_col = next((c for c in df.columns if c.lower().startswith("fips")), None)
+    if fips_col is None:
+        raise KeyError(f"No FIPS column found in {path.name}. Columns: {list(df.columns)}")
+    df["county_fips"] = df[fips_col].astype(str).str[:5].str.zfill(5)
     # FMR columns: typically named fmr_0 through fmr_4
     fmr_found = [c for c in df.columns if c.startswith("fmr_")]
     if len(fmr_found) < 5:
