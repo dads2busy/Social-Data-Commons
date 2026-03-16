@@ -5,6 +5,7 @@ computes population-weighted county and tract averages, and writes
 long-format distribution files for VA and NCR.
 """
 
+import os
 import time
 from pathlib import Path
 
@@ -103,7 +104,9 @@ def _fix_xlsx_properties(path: Path) -> Path:
             return path  # no change needed
 
         log.info("Fixing malformed dates in %s", path.name)
-        tmp = Path(tempfile.mktemp(suffix=".xlsx", dir=path.parent))
+        fd, tmp_str = tempfile.mkstemp(suffix=".xlsx", dir=path.parent)
+        os.close(fd)
+        tmp = Path(tmp_str)
         with zipfile.ZipFile(path, "r") as zin, zipfile.ZipFile(tmp, "w") as zout:
             for item in zin.infolist():
                 if item.filename == "docProps/core.xml":
@@ -197,7 +200,10 @@ def compute_county_fmr(
                 row[col] = (county_data[col] * county_data["pop"]).sum() / total_pop
             rows.append(row)
         else:
-            # Fallback to direct HUD FMR
+            # Fallback to direct HUD county FMR.  "observed" because the value
+            # is a direct HUD observation at the county level (not derived via
+            # weighting).  When the same FMR is later assigned to tracts as a
+            # fallback, it becomes "scaled" since it was not measured at tract.
             fmr_row = fmr_fallback[fmr_fallback["county_fips"] == fips]
             if not fmr_row.empty:
                 row = {"geoid": fips, "data_method": "observed"}
@@ -329,13 +335,14 @@ def fetch_zcta_population(year: int) -> pd.DataFrame:
         return load_zip_pop(cache_path)
 
     api_key = os.environ.get("CENSUS_API_KEY", "")
-    url = (
-        f"https://api.census.gov/data/{year}/acs/acs5/profile"
-        f"?get=NAME,DP05_0001E&for=zip%20code%20tabulation%20area:*"
-        f"&key={api_key}"
-    )
+    url = f"https://api.census.gov/data/{year}/acs/acs5/profile"
+    params = {
+        "get": "NAME,DP05_0001E",
+        "for": "zip code tabulation area:*",
+        "key": api_key,
+    }
     log.info("Fetching ZCTA population from Census API for %d", year)
-    resp = requests.get(url, timeout=120)
+    resp = requests.get(url, params=params, timeout=120)
     resp.raise_for_status()
     data = resp.json()
     header = data[0]
