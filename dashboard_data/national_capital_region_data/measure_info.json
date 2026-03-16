@@ -1,58 +1,86 @@
 {
-    "perc_freq_mental_distress": {
-        "aggregation_method": "mean",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Estimated percentage of adults reporting 14 or more days of poor mental health in the past 30 days. High prevalence of frequent mental distress reflects unmet behavioral health needs and is associated with reduced work productivity, strained social relationships, and increased demand for crisis services. Persistent mental distress at the neighborhood level often tracks with poverty, housing instability, and limited access to mental health providers.",
-        "long_name": "Frequent Mental Distress Among Adults",
-        "measure_type": "prevalence estimate",
-        "short_description": "Modeled prevalence of adults with 14+ poor mental health days per month, from BRFSS small-area estimation.",
-        "short_name": "Frequent mental distress",
-        "sources": [
-            {
-                "date_accessed": 2026,
-                "location": "CDC PLACES",
-                "location_url": "https://www.cdc.gov/places/",
-                "name": "Centers for Disease Control and Prevention",
-                "url": "https://www.cdc.gov"
-            }
-        ],
-        "provenance": "Tract-level estimates from CDC PLACES (Population Level Analysis and Community Estimates), which applies multilevel regression with poststratification (MRP) to Behavioral Risk Factor Surveillance System (BRFSS) survey responses. Each model year pools two years of BRFSS data with Census tract demographics to generate small-area predictions. Values are crude prevalence (%). Confidence intervals converted from 95% CI (PLACES default) to approximate 90% MOE using the ratio 1.645/1.96.",
-        "statement": "{value}% of adults in {features.name} report frequent mental distress.",
-        "type": "percent",
-        "unit": "percent",
-        "variants": ""
-    },
-    "perc_freq_physical_distress": {
-        "aggregation_method": "mean",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "Estimated percentage of adults reporting 14 or more days of poor physical health in the past 30 days. Frequent physical distress captures chronic pain, disability, and illness burden at the community level. Neighborhoods with high rates often face compounding challenges including limited healthcare access, environmental hazards, and higher proportions of residents in physically demanding occupations.",
-        "long_name": "Frequent Physical Distress Among Adults",
-        "measure_type": "prevalence estimate",
-        "short_description": "Modeled prevalence of adults with 14+ poor physical health days per month, from BRFSS small-area estimation.",
-        "short_name": "Frequent physical distress",
-        "sources": [
-            {
-                "date_accessed": 2026,
-                "location": "CDC PLACES",
-                "location_url": "https://www.cdc.gov/places/",
-                "name": "Centers for Disease Control and Prevention",
-                "url": "https://www.cdc.gov"
-            }
-        ],
-        "provenance": "Tract-level estimates from CDC PLACES, which applies multilevel regression with poststratification (MRP) to BRFSS survey responses. Each model year pools two years of BRFSS data with Census tract demographics to generate small-area predictions. Values are crude prevalence (%). Confidence intervals converted from 95% CI to approximate 90% MOE.",
-        "statement": "{value}% of adults in {features.name} report frequent physical distress.",
-        "type": "percent",
-        "unit": "percent",
-        "variants": ""
-    }
+  "commute_time_geo20": {
+    "aggregation_method": "Mean",
+    "categories": "",
+    "category": "Transportation",
+    "citations": "",
+    "data_type": "numeric",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "Self-reported mean travel time to work for workers aged 16 and older who did not work from home. Commute time is a key indicator of transportation infrastructure adequacy and residential-employment spatial mismatch. Long commutes reduce time available for family, civic engagement, and physical activity, and are associated with higher rates of obesity, stress, and cardiovascular disease. Trends in commute time also reflect shifts in remote work adoption and regional housing affordability pressures.",
+    "long_name": "Mean commute time",
+    "measure_type": "",
+    "short_description": "Average one-way travel time to work in minutes for workers aged 16 and older who did not work from home.",
+    "short_name": "Commute time",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table S0801, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "The mean commute time in {region_name} is {value} minutes.",
+    "type": "drive time",
+    "unit": "minutes",
+    "variants": "",
+    "provenance": "American Community Survey 5-Year Estimates, Table S0801 (Commuting Characteristics by Sex). Tract-level data standardized to 2020 census boundaries via area-weighted redistribution."
+  },
+  "perc_carpool_geo20": {
+    "aggregation_method": "Mean",
+    "categories": "",
+    "category": "Transportation",
+    "citations": "",
+    "data_type": "numeric",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "Percentage of workers aged 16 and older who commute to work by carpooling. Carpooling rates reflect the availability and attractiveness of shared transportation options in a community. Higher carpool rates can reduce traffic congestion, lower per-capita vehicle emissions, and decrease household transportation costs. Low carpool rates may indicate dispersed employment centers, limited ride-matching infrastructure, or work schedules that are difficult to coordinate.",
+    "long_name": "Percentage carpool to work",
+    "measure_type": "",
+    "short_description": "Population self-reported to carpool to work.",
+    "short_name": "Carpool to work",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table S0801, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "{value} of the population in {region_name} carpools to work.",
+    "type": "percent",
+    "unit": "percent",
+    "variants": "",
+    "provenance": "American Community Survey 5-Year Estimates, Table S0801 (Commuting Characteristics by Sex). Tract-level data standardized to 2020 census boundaries via area-weighted redistribution."
+  },
+  "perc_no_vehicle_geo20": {
+    "aggregation_method": "Mean",
+    "categories": "",
+    "category": "Transportation",
+    "citations": "",
+    "data_type": "numeric",
+    "equity_category": "Status",
+    "layer": "",
+    "long_description": "Percentage of occupied housing units with no vehicle available. Vehicle access is a critical determinant of mobility, employment opportunity, and access to healthcare and essential services in areas with limited public transit. Communities with high rates of zero-vehicle households face disproportionate transportation barriers that can reinforce economic isolation. This measure helps identify areas where investments in transit, bike infrastructure, or ride-sharing programs are most needed.",
+    "long_name": "Percentage of households without vehicle available",
+    "measure_type": "",
+    "short_description": "Households self-reported to not have a vehicle available at home.",
+    "short_name": "Without vehicle",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "location": "5-Year estimates, table S2504, via the API",
+        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+        "date_accessed": 2025,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "statement": "{value} of households in {region_name} do not have a vehicle available at home.",
+    "type": "percent",
+    "unit": "percent",
+    "variants": "",
+    "provenance": "American Community Survey 5-Year Estimates, Table S2504 (Physical Housing Characteristics for Occupied Housing Units). Tract-level data standardized to 2020 census boundaries via area-weighted redistribution."
+  }
 }

@@ -17,7 +17,6 @@ from sdc_core.geo import aggregate_with_crosswalk
 from sdc_core.io import data_reformat_for_site, read_data, write_data
 from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
-from sdc_core.profiles import resolve_states
 from sdc_core.versioning import update_version
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
@@ -59,21 +58,19 @@ def run() -> None:
         )
         log.info("Aggregated %d county rows to %d HD rows", len(counties), len(hd))
 
-        result = pd.concat([df, hd], ignore_index=True)
+        hd["moe"] = pd.NA
 
-        source_cfg = config["sources"]["va"]
-        states = resolve_states(source_cfg)
-        auto_name = build_file_name(
-            df=result, states=states, years=source_cfg.get("years"),
-            source_type=source_cfg.get("type"), title="population_characteristics",
-        )
-        filename = f"{auto_name}.csv.xz" if auto_name else "va_population_characteristics.csv.xz"
+        result = pd.concat([df, hd], ignore_index=True)
+        result = result.sort_values(["geoid", "year", "measure"]).reset_index(drop=True)
+
+        filename = build_file_name(
+            coverage_area="va", data_source="census_acs",
+            years=sorted(result["year"].unique().tolist()),
+            title="population_characteristics",
+            geographies=["health_district", "county", "tract"],
+        ) + ".csv.xz"
         va_out = write_data(result, DIST_DIR / filename, census_standardize=False)
         log.info("Wrote %d rows to %s", len(result), va_out)
-
-        if va_out != va_source:
-            va_source.unlink()
-            log.info("Removed ingest-only file: %s", va_source.name)
 
         for p in data_reformat_for_site(
             source_path=va_out,

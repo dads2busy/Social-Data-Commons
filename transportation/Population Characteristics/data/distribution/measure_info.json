@@ -10,7 +10,7 @@
     "long_description": "Self-reported mean travel time to work for workers aged 16 and older who did not work from home. Commute time is a key indicator of transportation infrastructure adequacy and residential-employment spatial mismatch. Long commutes reduce time available for family, civic engagement, and physical activity, and are associated with higher rates of obesity, stress, and cardiovascular disease. Trends in commute time also reflect shifts in remote work adoption and regional housing affordability pressures.",
     "long_name": "Mean commute time",
     "measure_type": "",
-    "short_description": "Mean commute time.",
+    "short_description": "Average one-way travel time to work in minutes for workers aged 16 and older who did not work from home.",
     "short_name": "Commute time",
     "sources": [
       {

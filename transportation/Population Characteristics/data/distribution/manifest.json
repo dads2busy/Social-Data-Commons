@@ -1,13 +1,14 @@
 {
-  "version": "2.0.0",
-  "generated": "2026-03-13T14:20:02+00:00",
+  "version": "3.0.1",
+  "generated": "2026-03-16T16:07:24+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "commute_time_geo10",
@@ -34,15 +35,19 @@
     "24",
     "51"
   ],
-  "row_count": 269278,
+  "row_count": 366384,
   "files": {
     "ncr_cttr_census_acs_2015_2024_population_characteristics.csv.xz": {
-      "sha256": "f04ade8df333fc98a885f6c5b6692ed8f028a97c192d361af20cdb12e0c73b17",
-      "size_bytes": 632336
+      "sha256": "65efe5fd51466b9fe4ddf2a5f06e5ab34f6a78a6ccc42a3b7d1198f11738c328",
+      "size_bytes": 645356
+    },
+    "va_cttr_census_acs_2015_2024_population_characteristics.csv.xz": {
+      "sha256": "c54c6d974012bb47d394da3f7f22ae4477098b50060efab7360000a79fdc004c",
+      "size_bytes": 371820
     },
     "va_hdcttr_census_acs_2015_2024_population_characteristics.csv.xz": {
-      "sha256": "bcca8b474f1bf6251fa7a01c18609ee8b6c74890559833bd66ce8754b31367dd",
-      "size_bytes": 371928
+      "sha256": "c3c0760521d6a1c186d42f7e3ec1db77752e34111f23cf652fdfcae251f4da7e",
+      "size_bytes": 327832
     }
   }
 }
