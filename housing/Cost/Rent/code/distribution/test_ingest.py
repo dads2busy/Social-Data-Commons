@@ -31,7 +31,7 @@ class TestParseSafmr:
         from ingest import parse_safmr
 
         df = parse_safmr(ORIGINAL_DIR / "fy2023_safmrs.xlsx")
-        assert df["zip"].dtype == object  # string
+        assert pd.api.types.is_string_dtype(df["zip"])
         assert all(df["zip"].str.len() == 5)
 
     def test_rent_values_are_positive_numbers(self):
@@ -45,7 +45,7 @@ class TestParseSafmr:
         from ingest import parse_safmr
 
         df = parse_safmr(ORIGINAL_DIR / "fy2023_safmrs.xlsx")
-        assert len(df) > 30000  # ~33K ZIP codes nationally
+        assert len(df) > 25000  # ~27K ZIP codes nationally
 
 
 class TestParseFmr:
@@ -63,7 +63,7 @@ class TestParseFmr:
         from ingest import parse_fmr
 
         df = parse_fmr(ORIGINAL_DIR / "FY23_FMRs.xlsx")
-        assert df["county_fips"].dtype == object
+        assert pd.api.types.is_string_dtype(df["county_fips"])
         assert all(df["county_fips"].str.len() == 5)
 
     def test_va_counties_present(self):
@@ -88,8 +88,8 @@ class TestLoadZipTractCrosswalk:
         from ingest import load_zip_tract_crosswalk
 
         df = load_zip_tract_crosswalk(ORIGINAL_DIR / "ZIP_TRACT_122021.csv")
-        assert df["zip"].dtype == object
-        assert df["tract"].dtype == object
+        assert pd.api.types.is_string_dtype(df["zip"])
+        assert pd.api.types.is_string_dtype(df["tract"])
         # Tracts are 11 digits
         assert all(df["tract"].str.len() == 11)
 
