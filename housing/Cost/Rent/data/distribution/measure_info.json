@@ -10,12 +10,12 @@
         "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units in a market area. Studio FMRs set the baseline for housing assistance programs and reflect the minimum cost of independent housing. Areas where even studio rents are high relative to incomes face acute affordability challenges for single-person households and individuals transitioning out of homelessness.",
         "long_name": "0 Bedroom Dwelling Fair Market Rent",
         "measure_type": "cost",
-        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
+        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties, FY2019–FY2026. County-level values are population-weighted averages of ZIP-code-level Small Area Fair Market Rents (SAFMRs) using ZCTA-county population intersection weights from the 2010 Census. Tract-level values are population-weighted averages of ZIP-level SAFMRs using the 2021 Q4 HUD USPS ZIP-to-tract crosswalk, with fallback to county-level FMR where ZIP data is unavailable.",
         "short_description": "Fair Market Rent for a studio (0-bedroom) dwelling.",
         "short_name": "0 Bedroom Dwelling Fair Market Rent",
         "sources": [
             {
-                "date_accessed": 2023,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
                 "name": "US Department of Housing and Urban Development (HUD)",
@@ -38,12 +38,12 @@
         "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units. One-bedroom FMRs are commonly used to assess affordability for single adults and couples. HUD uses FMRs to set payment standards for Housing Choice Vouchers and determine eligibility thresholds for rental assistance programs.",
         "long_name": "1 Bedroom Dwelling Fair Market Rent",
         "measure_type": "cost",
-        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
+        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties, FY2019–FY2026. County-level values are population-weighted averages of ZIP-code-level Small Area Fair Market Rents (SAFMRs) using ZCTA-county population intersection weights from the 2010 Census. Tract-level values are population-weighted averages of ZIP-level SAFMRs using the 2021 Q4 HUD USPS ZIP-to-tract crosswalk, with fallback to county-level FMR where ZIP data is unavailable.",
         "short_description": "Fair Market Rent for a 1-bedroom dwelling.",
         "short_name": "1 Bedroom Dwelling Fair Market Rent",
         "sources": [
             {
-                "date_accessed": 2023,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
                 "name": "US Department of Housing and Urban Development (HUD)",
@@ -66,12 +66,12 @@
         "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units. The two-bedroom FMR is HUD's primary benchmark for setting Housing Choice Voucher payment standards and is the most commonly referenced FMR tier. It serves as the standard measure of area rent levels for federal housing policy.",
         "long_name": "2 Bedroom Dwelling Fair Market Rent",
         "measure_type": "cost",
-        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
+        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties, FY2019–FY2026. County-level values are population-weighted averages of ZIP-code-level Small Area Fair Market Rents (SAFMRs) using ZCTA-county population intersection weights from the 2010 Census. Tract-level values are population-weighted averages of ZIP-level SAFMRs using the 2021 Q4 HUD USPS ZIP-to-tract crosswalk, with fallback to county-level FMR where ZIP data is unavailable.",
         "short_description": "Fair Market Rent for a 2-bedroom dwelling.",
         "short_name": "2 Bedroom Dwelling Fair Market Rent",
         "sources": [
             {
-                "date_accessed": 2023,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
                 "name": "US Department of Housing and Urban Development (HUD)",
@@ -94,12 +94,12 @@
         "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units. Three-bedroom FMRs reflect the cost of housing for families with children, which is typically the largest segment of households needing affordable housing assistance. Areas with high 3-bedroom FMRs relative to family incomes face particular challenges in family housing stability.",
         "long_name": "3 Bedroom Dwelling Fair Market Rent",
         "measure_type": "cost",
-        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
+        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties, FY2019–FY2026. County-level values are population-weighted averages of ZIP-code-level Small Area Fair Market Rents (SAFMRs) using ZCTA-county population intersection weights from the 2010 Census. Tract-level values are population-weighted averages of ZIP-level SAFMRs using the 2021 Q4 HUD USPS ZIP-to-tract crosswalk, with fallback to county-level FMR where ZIP data is unavailable.",
         "short_description": "Fair Market Rent for a 3-bedroom dwelling.",
         "short_name": "3 Bedroom Dwelling Fair Market Rent",
         "sources": [
             {
-                "date_accessed": 2023,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
                 "name": "US Department of Housing and Urban Development (HUD)",
@@ -122,12 +122,12 @@
         "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units. Four-bedroom FMRs capture the cost of housing for larger families, who face the most constrained rental markets. The gap between 4-bedroom and smaller-unit FMRs highlights the premium that larger families must pay, which disproportionately affects multigenerational and immigrant households.",
         "long_name": "4 Bedroom Dwelling Fair Market Rent",
         "measure_type": "cost",
-        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
+        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties, FY2019–FY2026. County-level values are population-weighted averages of ZIP-code-level Small Area Fair Market Rents (SAFMRs) using ZCTA-county population intersection weights from the 2010 Census. Tract-level values are population-weighted averages of ZIP-level SAFMRs using the 2021 Q4 HUD USPS ZIP-to-tract crosswalk, with fallback to county-level FMR where ZIP data is unavailable.",
         "short_description": "Fair Market Rent for a 4-bedroom dwelling.",
         "short_name": "4 Bedroom Dwelling Fair Market Rent",
         "sources": [
             {
-                "date_accessed": 2023,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
                 "name": "US Department of Housing and Urban Development (HUD)",
