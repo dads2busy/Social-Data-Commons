@@ -1,142 +1,58 @@
 {
-    "vi_overall": {
+    "perc_freq_mental_distress": {
         "aggregation_method": "mean",
         "categories": "",
         "category": "Health",
         "citations": "",
-        "data_type": "decimal",
+        "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The Social Vulnerability Index (SVI) is a composite measure that ranks census tracts on their relative vulnerability to public health emergencies and natural disasters. It integrates 16 social factors from U.S. Census data across four themes: socioeconomic status, household characteristics, racial and ethnic minority status, and housing type and transportation. Communities with high SVI scores face greater challenges in preparing for, responding to, and recovering from hazardous events. The index helps public health officials and emergency planners direct resources to populations most likely to need support during crises.",
-        "long_name": "Social Vulnerability Index",
-        "measure_type": "percentage",
-        "short_description": "The Social Vulnerability Index comprised of four themes.",
-        "short_name": "Social Vulnerability Index",
+        "long_description": "Estimated percentage of adults reporting 14 or more days of poor mental health in the past 30 days. High prevalence of frequent mental distress reflects unmet behavioral health needs and is associated with reduced work productivity, strained social relationships, and increased demand for crisis services. Persistent mental distress at the neighborhood level often tracks with poverty, housing instability, and limited access to mental health providers.",
+        "long_name": "Frequent Mental Distress Among Adults",
+        "measure_type": "prevalence estimate",
+        "short_description": "Modeled prevalence of adults with 14+ poor mental health days per month, from BRFSS small-area estimation.",
+        "short_name": "Frequent mental distress",
         "sources": [
             {
                 "date_accessed": 2026,
-                "location": "ACS 5-Year Estimates (S1701, S2503, S2701, S0101, S0601, DP03, DP04, B03002, B09001, B11012, B16005, B18101, B26001)",
-                "location_url": "https://data.census.gov/",
-                "name": "American Community Survey / CDC ATSDR SVI Methodology",
-                "url": "https://www.atsdr.cdc.gov/placeandhealth/svi/index.html"
+                "location": "CDC PLACES",
+                "location_url": "https://www.cdc.gov/places/",
+                "name": "Centers for Disease Control and Prevention",
+                "url": "https://www.cdc.gov"
             }
         ],
-        "provenance": "Computed from ACS 5-year estimates using the CDC/ATSDR SVI 2022 methodology. Sixteen social factors from ACS tables (B/S/DP) are converted to percentages, percentile-ranked within the region (VA or NCR), summed by theme, and re-ranked. Uses B-table variables (B03002, B09001, B11012, B18101) for cross-year stability instead of DP05/DP02 which renumber across ACS vintages. Validated against CDC SVI 2020 at r>0.998 for all themes.",
-        "statement": "The overall Social Vulnerability Index for {feature.name} is {value}.",
+        "provenance": "Tract-level estimates from CDC PLACES (Population Level Analysis and Community Estimates), which applies multilevel regression with poststratification (MRP) to Behavioral Risk Factor Surveillance System (BRFSS) survey responses. Each model year pools two years of BRFSS data with Census tract demographics to generate small-area predictions. Values are crude prevalence (%). Confidence intervals converted from 95% CI (PLACES default) to approximate 90% MOE using the ratio 1.645/1.96.",
+        "statement": "{value}% of adults in {features.name} report frequent mental distress.",
         "type": "percent",
-        "unit": "index score",
+        "unit": "percent",
         "variants": ""
     },
-    "vi_socioeconomic": {
+    "perc_freq_physical_distress": {
         "aggregation_method": "mean",
         "categories": "",
         "category": "Health",
         "citations": "",
-        "data_type": "decimal",
+        "data_type": "numeric",
         "equity_category": "Status",
         "layer": "",
-        "long_description": "The socioeconomic status theme of the Social Vulnerability Index captures community-level economic disadvantage using Census indicators such as poverty rate, unemployment, per capita income, and educational attainment. Tracts with high socioeconomic vulnerability face compounding disadvantages that limit residents ability to prepare for and recover from emergencies. Economic hardship restricts access to transportation, healthcare, and safe housing during disaster events. This theme is one of four components that contribute to the overall SVI score.",
-        "long_name": "Social Vulnerability Index (Socioeconomic Status)",
-        "measure_type": "percentage",
-        "short_description": "Socioeconomic status theme for calculating Social Vulnerability Index.",
-        "short_name": "Social Vulnerability Index (Socioeconomic Status)",
+        "long_description": "Estimated percentage of adults reporting 14 or more days of poor physical health in the past 30 days. Frequent physical distress captures chronic pain, disability, and illness burden at the community level. Neighborhoods with high rates often face compounding challenges including limited healthcare access, environmental hazards, and higher proportions of residents in physically demanding occupations.",
+        "long_name": "Frequent Physical Distress Among Adults",
+        "measure_type": "prevalence estimate",
+        "short_description": "Modeled prevalence of adults with 14+ poor physical health days per month, from BRFSS small-area estimation.",
+        "short_name": "Frequent physical distress",
         "sources": [
             {
                 "date_accessed": 2026,
-                "location": "ACS 5-Year Estimates (S1701, S2503, S2701, S0101, S0601, DP03, DP04, B03002, B09001, B11012, B16005, B18101, B26001)",
-                "location_url": "https://data.census.gov/",
-                "name": "American Community Survey / CDC ATSDR SVI Methodology",
-                "url": "https://www.atsdr.cdc.gov/placeandhealth/svi/index.html"
+                "location": "CDC PLACES",
+                "location_url": "https://www.cdc.gov/places/",
+                "name": "Centers for Disease Control and Prevention",
+                "url": "https://www.cdc.gov"
             }
         ],
-        "provenance": "Computed from ACS 5-year estimates using the CDC/ATSDR SVI 2022 methodology. Sixteen social factors from ACS tables (B/S/DP) are converted to percentages, percentile-ranked within the region (VA or NCR), summed by theme, and re-ranked. Uses B-table variables (B03002, B09001, B11012, B18101) for cross-year stability instead of DP05/DP02 which renumber across ACS vintages. Validated against CDC SVI 2020 at r>0.998 for all themes.",
-        "statement": "The socioeconomic status for {feature.name} is {value}.",
+        "provenance": "Tract-level estimates from CDC PLACES, which applies multilevel regression with poststratification (MRP) to BRFSS survey responses. Each model year pools two years of BRFSS data with Census tract demographics to generate small-area predictions. Values are crude prevalence (%). Confidence intervals converted from 95% CI to approximate 90% MOE.",
+        "statement": "{value}% of adults in {features.name} report frequent physical distress.",
         "type": "percent",
-        "unit": "index score",
-        "variants": ""
-    },
-    "vi_household": {
-        "aggregation_method": "mean",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The household characteristics theme of the Social Vulnerability Index measures demographic factors that increase vulnerability, including the proportion of residents aged 65 and older, aged 17 and under, with disabilities, and single-parent households. These populations often require additional assistance during evacuations and have specialized medical or caregiving needs that complicate disaster response. High scores on this theme indicate communities where a larger share of residents may be unable to shelter in place or evacuate independently. This theme is one of four components that contribute to the overall SVI score.",
-        "long_name": "Social Vulnerability Index (Housing characteristics)",
-        "measure_type": "percentage",
-        "short_description": "Housing characteristics index theme for calculating Social Vulnerability Index.",
-        "short_name": "Social Vulnerability Index (Housing characteristics)",
-        "sources": [
-            {
-                "date_accessed": 2026,
-                "location": "ACS 5-Year Estimates (S1701, S2503, S2701, S0101, S0601, DP03, DP04, B03002, B09001, B11012, B16005, B18101, B26001)",
-                "location_url": "https://data.census.gov/",
-                "name": "American Community Survey / CDC ATSDR SVI Methodology",
-                "url": "https://www.atsdr.cdc.gov/placeandhealth/svi/index.html"
-            }
-        ],
-        "provenance": "Computed from ACS 5-year estimates using the CDC/ATSDR SVI 2022 methodology. Sixteen social factors from ACS tables (B/S/DP) are converted to percentages, percentile-ranked within the region (VA or NCR), summed by theme, and re-ranked. Uses B-table variables (B03002, B09001, B11012, B18101) for cross-year stability instead of DP05/DP02 which renumber across ACS vintages. Validated against CDC SVI 2020 at r>0.998 for all themes.",
-        "statement": "The Housing characteristics index for {feature.name} is {value}.",
-        "type": "percent",
-        "unit": "index score",
-        "variants": ""
-    },
-    "vi_race_ethnicity": {
-        "aggregation_method": "mean",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The racial and ethnic minority status theme of the Social Vulnerability Index captures the proportion of residents who identify as racial or ethnic minorities and those with limited English proficiency. Historical patterns of residential segregation and disinvestment mean that minority communities often face disproportionate exposure to environmental hazards and reduced access to emergency resources. Language barriers can further impede receipt of evacuation warnings and access to recovery assistance. This theme is one of four components that contribute to the overall SVI score.",
-        "long_name": "Social Vulnerability Index (Racial & ethnic minority status)",
-        "measure_type": "percentage",
-        "short_description": "Racial & ethnic minority status theme for calculating Social Vulnerability Index.",
-        "short_name": "Social Vulnerability Index (Racial & ethnic minority status)",
-        "sources": [
-            {
-                "date_accessed": 2026,
-                "location": "ACS 5-Year Estimates (S1701, S2503, S2701, S0101, S0601, DP03, DP04, B03002, B09001, B11012, B16005, B18101, B26001)",
-                "location_url": "https://data.census.gov/",
-                "name": "American Community Survey / CDC ATSDR SVI Methodology",
-                "url": "https://www.atsdr.cdc.gov/placeandhealth/svi/index.html"
-            }
-        ],
-        "provenance": "Computed from ACS 5-year estimates using the CDC/ATSDR SVI 2022 methodology. Sixteen social factors from ACS tables (B/S/DP) are converted to percentages, percentile-ranked within the region (VA or NCR), summed by theme, and re-ranked. Uses B-table variables (B03002, B09001, B11012, B18101) for cross-year stability instead of DP05/DP02 which renumber across ACS vintages. Validated against CDC SVI 2020 at r>0.998 for all themes.",
-        "statement": "The racial & ethnic minority status for {feature.name} is {value}.",
-        "type": "percent",
-        "unit": "index score",
-        "variants": ""
-    },
-    "vi_housing_transportation": {
-        "aggregation_method": "mean",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "Status",
-        "layer": "",
-        "long_description": "The housing type and transportation theme of the Social Vulnerability Index measures structural vulnerability through indicators such as multi-unit housing, mobile homes, crowding, lack of vehicle access, and group quarters populations. Residents in multi-unit or mobile housing face heightened risks during natural disasters, while those without vehicles may be unable to evacuate. Crowded living conditions can accelerate disease transmission during public health emergencies. This theme is one of four components that contribute to the overall SVI score.",
-        "long_name": "Social Vulnerability Index (Housing type & transportation)",
-        "measure_type": "percentage",
-        "short_description": "Housing type & transportation theme for calculating Social Vulnerability Index.",
-        "short_name": "Social Vulnerability Index (Housing type & transportation)",
-        "sources": [
-            {
-                "date_accessed": 2026,
-                "location": "ACS 5-Year Estimates (S1701, S2503, S2701, S0101, S0601, DP03, DP04, B03002, B09001, B11012, B16005, B18101, B26001)",
-                "location_url": "https://data.census.gov/",
-                "name": "American Community Survey / CDC ATSDR SVI Methodology",
-                "url": "https://www.atsdr.cdc.gov/placeandhealth/svi/index.html"
-            }
-        ],
-        "provenance": "Computed from ACS 5-year estimates using the CDC/ATSDR SVI 2022 methodology. Sixteen social factors from ACS tables (B/S/DP) are converted to percentages, percentile-ranked within the region (VA or NCR), summed by theme, and re-ranked. Uses B-table variables (B03002, B09001, B11012, B18101) for cross-year stability instead of DP05/DP02 which renumber across ACS vintages. Validated against CDC SVI 2020 at r>0.998 for all themes.",
-        "statement": "The housing type & transportation index for {feature.name} is {value}.",
-        "type": "percent",
-        "unit": "index score",
+        "unit": "percent",
         "variants": ""
     }
 }
