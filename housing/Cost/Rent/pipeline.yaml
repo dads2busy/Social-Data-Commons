@@ -1,0 +1,71 @@
+name: housing_cost
+description: "HUD Fair Market Rents by bedroom count"
+
+sources:
+  va:
+    type: hud_fmr
+    profile: VA
+    states: ["VA"]
+    years: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+    geographies: [county, tract]
+  ncr:
+    type: hud_fmr
+    profile: NCR
+    years: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+    geographies: [county, tract]
+
+hud_fmr:
+  fmr_urls:
+    2018: "https://www.huduser.gov/portal/datasets/fmr/fmr2018/FY18_FMRs.xlsx"
+    2019: "https://www.huduser.gov/portal/datasets/fmr/fmr2019/FY19_FMRs.xlsx"
+    2020: "https://www.huduser.gov/portal/datasets/fmr/fmr2020/FY20_FMRs.xlsx"
+    2021: "https://www.huduser.gov/portal/datasets/fmr/fmr2021/FY21_FMRs.xlsx"
+    2022: "https://www.huduser.gov/portal/datasets/fmr/fmr2022/FY22_FMRs.xlsx"
+    2023: "https://www.huduser.gov/portal/datasets/fmr/fmr2023/FY23_FMRs.xlsx"
+    2024: "https://www.huduser.gov/portal/datasets/fmr/fmr2024/FY24_FMRs_revised.xlsx"
+    2025: "https://www.huduser.gov/portal/datasets/fmr/fmr2025/FY25_FMRs.xlsx"
+    2026: "https://www.huduser.gov/portal/datasets/fmr/fmr2026/FY26_FMRs.xlsx"
+  safmr_urls:
+    2018: "https://www.huduser.gov/portal/datasets/fmr/fmr2018/fy2018_safmrs.xlsx"
+    2019: "https://www.huduser.gov/portal/datasets/fmr/fmr2019/fy2019_safmrs.xlsx"
+    2020: "https://www.huduser.gov/portal/datasets/fmr/fmr2020/fy2020_safmrs.xlsx"
+    2021: "https://www.huduser.gov/portal/datasets/fmr/fmr2021/fy2021_safmrs.xlsx"
+    2022: "https://www.huduser.gov/portal/datasets/fmr/fmr2022/fy2022_safmrs.xlsx"
+    2023: "https://www.huduser.gov/portal/datasets/fmr/fmr2023/fy2023_safmrs.xlsx"
+    2024: "https://www.huduser.gov/portal/datasets/fmr/fmr2024/fy2024_safmrs_revised.xlsx"
+    2025: "https://www.huduser.gov/portal/datasets/fmr/fmr2025/fy2025_safmrs.xlsx"
+    2026: "https://www.huduser.gov/portal/datasets/fmr/fmr2026/fy2026_safmrs.xlsx"
+
+  # Single 2021 Q4 crosswalk for all years — ensures 2020 tract GEOIDs
+  zip_tract_crosswalk: "data/original/ZIP_TRACT_122021.csv"
+  zcta_county_file: "data/original/zcta_county_rel_10.txt"
+
+  ncr_counties:
+    - "24017"
+    - "24021"
+    - "24031"
+    - "24033"
+    - "11001"
+    - "51013"
+    - "51059"
+    - "51107"
+    - "51153"
+    - "51510"
+    - "51600"
+    - "51610"
+    - "51683"
+    - "51685"
+
+  measures:
+    - monthly_rent_0br
+    - monthly_rent_1br
+    - monthly_rent_2br
+    - monthly_rent_3br
+    - monthly_rent_4br
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
+output:
+  path: data/distribution
+  standardize: false
