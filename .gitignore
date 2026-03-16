@@ -57,3 +57,6 @@ wheels/
 # Site-generated images
 **/docs/**/*.png
 **/docs/**/*.svg
+
+# Superpowers (local tooling)
+docs/superpowers/
