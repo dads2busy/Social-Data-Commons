@@ -35,6 +35,7 @@ Read the memory index at `/Users/ads7fg/.claude/projects/-Users-ads7fg-git-natio
 
 ## Hard Rules (CONSTRAINTS)
 
+- **Dashboard parity**: Both dashboards (NCR + VA) must stay architecturally in sync. When pipeline changes affect dashboard data format, build process, or geography sourcing, apply the change to both dashboards. Flag any divergence explicitly.
 - Never install a new dependency without asking first.
 - Never modify `sdc-core` without understanding downstream impacts on all pipelines.
 - Use `get_acs_multi()` for Census ACS data (keys = friendly names, values = Census codes). It accepts `profile=` and `estimate_only=False`. `get_acs_wide()` does NOT accept `profile=`.
