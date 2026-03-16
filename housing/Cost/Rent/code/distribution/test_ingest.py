@@ -110,3 +110,129 @@ class TestLoadZctaCounty:
 
         df = load_zcta_county(ORIGINAL_DIR / "zcta_county_rel_10.txt")
         assert all(df["county_fips"].str.len() == 5)
+
+
+class TestComputeCountyFmr:
+    """Test county-level population-weighted SAFMR averaging."""
+
+    def test_simple_weighted_average(self):
+        from ingest import compute_county_fmr
+
+        safmr = pd.DataFrame({
+            "zip": ["20001", "20002"],
+            "rent_0br": [1000.0, 1200.0],
+            "rent_1br": [1100.0, 1300.0],
+            "rent_2br": [1200.0, 1400.0],
+            "rent_3br": [1500.0, 1700.0],
+            "rent_4br": [1800.0, 2000.0],
+        })
+        zcta_county = pd.DataFrame({
+            "zcta": ["20001", "20002"],
+            "county_fips": ["11001", "11001"],
+            "pop": [100.0, 200.0],
+        })
+        fmr_fallback = pd.DataFrame({
+            "county_fips": ["11001"],
+            "fmr_0": [999.0], "fmr_1": [999.0], "fmr_2": [999.0],
+            "fmr_3": [999.0], "fmr_4": [999.0],
+        })
+        result = compute_county_fmr(safmr, zcta_county, ["11001"], fmr_fallback)
+        # Weighted avg: (1000*100 + 1200*200) / 300 = 1133.33
+        assert abs(result.loc[result["geoid"] == "11001", "rent_0br"].iloc[0] - 1133.33) < 1
+
+    def test_fallback_to_fmr_when_no_zcta_match(self):
+        from ingest import compute_county_fmr
+
+        safmr = pd.DataFrame({
+            "zip": ["99999"],
+            "rent_0br": [500.0], "rent_1br": [600.0], "rent_2br": [700.0],
+            "rent_3br": [800.0], "rent_4br": [900.0],
+        })
+        zcta_county = pd.DataFrame({
+            "zcta": ["99999"],
+            "county_fips": ["99999"],
+            "pop": [100.0],
+        })
+        fmr_fallback = pd.DataFrame({
+            "county_fips": ["51001"],
+            "fmr_0": [750.0], "fmr_1": [850.0], "fmr_2": [950.0],
+            "fmr_3": [1050.0], "fmr_4": [1150.0],
+        })
+        result = compute_county_fmr(safmr, zcta_county, ["51001"], fmr_fallback)
+        row = result[result["geoid"] == "51001"]
+        assert row["rent_0br"].iloc[0] == 750.0
+        assert row["data_method"].iloc[0] == "observed"
+
+
+class TestComputeTractFmr:
+    """Test tract-level population-weighted SAFMR averaging with fallback."""
+
+    def test_zip_weighted_average(self):
+        from ingest import compute_tract_fmr
+
+        safmr = pd.DataFrame({
+            "zip": ["20001", "20002"],
+            "rent_0br": [1000.0, 1200.0],
+            "rent_1br": [1100.0, 1300.0],
+            "rent_2br": [1200.0, 1400.0],
+            "rent_3br": [1500.0, 1700.0],
+            "rent_4br": [1800.0, 2000.0],
+        })
+        zip_tract = pd.DataFrame({
+            "zip": ["20001", "20002"],
+            "tract": ["11001000100", "11001000100"],
+        })
+        zip_pop = pd.DataFrame({
+            "zip": ["20001", "20002"],
+            "pop": [100.0, 200.0],
+        })
+        county_fmr = pd.DataFrame({
+            "geoid": ["11001"],
+            "rent_0br": [999.0], "rent_1br": [999.0], "rent_2br": [999.0],
+            "rent_3br": [999.0], "rent_4br": [999.0], "data_method": ["observed"],
+        })
+        fmr_fallback = pd.DataFrame({
+            "county_fips": ["11001"],
+            "fmr_0": [888.0], "fmr_1": [888.0], "fmr_2": [888.0],
+            "fmr_3": [888.0], "fmr_4": [888.0],
+        })
+        result = compute_tract_fmr(
+            safmr, zip_tract, zip_pop, county_fmr, fmr_fallback,
+            state_fips=["11"],
+        )
+        row = result[result["geoid"] == "11001000100"]
+        assert abs(row["rent_0br"].iloc[0] - 1133.33) < 1
+        assert row["data_method"].iloc[0] == "observed"
+
+    def test_fallback_to_county_average(self):
+        from ingest import compute_tract_fmr
+
+        safmr = pd.DataFrame({
+            "zip": ["99999"],
+            "rent_0br": [500.0], "rent_1br": [600.0], "rent_2br": [700.0],
+            "rent_3br": [800.0], "rent_4br": [900.0],
+        })
+        zip_tract = pd.DataFrame({
+            "zip": ["99999"],
+            "tract": ["99999999999"],
+        })
+        zip_pop = pd.DataFrame({"zip": ["99999"], "pop": [100.0]})
+        county_fmr = pd.DataFrame({
+            "geoid": ["11001"],
+            "rent_0br": [1050.0], "rent_1br": [1150.0], "rent_2br": [1250.0],
+            "rent_3br": [1350.0], "rent_4br": [1450.0], "data_method": ["observed"],
+        })
+        fmr_fallback = pd.DataFrame({
+            "county_fips": ["11001"],
+            "fmr_0": [888.0], "fmr_1": [888.0], "fmr_2": [888.0],
+            "fmr_3": [888.0], "fmr_4": [888.0],
+        })
+        result = compute_tract_fmr(
+            safmr, zip_tract, zip_pop, county_fmr, fmr_fallback,
+            state_fips=["11"],
+            tract_geoids=["11001000100"],
+        )
+        row = result[result["geoid"] == "11001000100"]
+        # Should fall back to county average since no ZIP matches this tract
+        assert row["rent_0br"].iloc[0] == 1050.0
+        assert row["data_method"].iloc[0] == "scaled"
