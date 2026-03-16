@@ -1,86 +1,142 @@
 {
-  "commute_time_geo20": {
-    "aggregation_method": "Mean",
-    "categories": "",
-    "category": "Transportation",
-    "citations": "",
-    "data_type": "numeric",
-    "equity_category": "Status",
-    "layer": "",
-    "long_description": "Self-reported mean travel time to work for workers aged 16 and older who did not work from home. Commute time is a key indicator of transportation infrastructure adequacy and residential-employment spatial mismatch. Long commutes reduce time available for family, civic engagement, and physical activity, and are associated with higher rates of obesity, stress, and cardiovascular disease. Trends in commute time also reflect shifts in remote work adoption and regional housing affordability pressures.",
-    "long_name": "Mean commute time",
-    "measure_type": "",
-    "short_description": "Average one-way travel time to work in minutes for workers aged 16 and older who did not work from home.",
-    "short_name": "Commute time",
-    "sources": [
-      {
-        "name": "American Community Survey",
-        "location": "5-Year estimates, table S0801, via the API",
-        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-        "date_accessed": 2025,
-        "url": "https://www.census.gov/programs-surveys/acs.html"
-      }
-    ],
-    "statement": "The mean commute time in {region_name} is {value} minutes.",
-    "type": "drive time",
-    "unit": "minutes",
-    "variants": "",
-    "provenance": "American Community Survey 5-Year Estimates, Table S0801 (Commuting Characteristics by Sex). Tract-level data standardized to 2020 census boundaries via area-weighted redistribution."
-  },
-  "perc_carpool_geo20": {
-    "aggregation_method": "Mean",
-    "categories": "",
-    "category": "Transportation",
-    "citations": "",
-    "data_type": "numeric",
-    "equity_category": "Status",
-    "layer": "",
-    "long_description": "Percentage of workers aged 16 and older who commute to work by carpooling. Carpooling rates reflect the availability and attractiveness of shared transportation options in a community. Higher carpool rates can reduce traffic congestion, lower per-capita vehicle emissions, and decrease household transportation costs. Low carpool rates may indicate dispersed employment centers, limited ride-matching infrastructure, or work schedules that are difficult to coordinate.",
-    "long_name": "Percentage carpool to work",
-    "measure_type": "",
-    "short_description": "Population self-reported to carpool to work.",
-    "short_name": "Carpool to work",
-    "sources": [
-      {
-        "name": "American Community Survey",
-        "location": "5-Year estimates, table S0801, via the API",
-        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-        "date_accessed": 2025,
-        "url": "https://www.census.gov/programs-surveys/acs.html"
-      }
-    ],
-    "statement": "{value} of the population in {region_name} carpools to work.",
-    "type": "percent",
-    "unit": "percent",
-    "variants": "",
-    "provenance": "American Community Survey 5-Year Estimates, Table S0801 (Commuting Characteristics by Sex). Tract-level data standardized to 2020 census boundaries via area-weighted redistribution."
-  },
-  "perc_no_vehicle_geo20": {
-    "aggregation_method": "Mean",
-    "categories": "",
-    "category": "Transportation",
-    "citations": "",
-    "data_type": "numeric",
-    "equity_category": "Status",
-    "layer": "",
-    "long_description": "Percentage of occupied housing units with no vehicle available. Vehicle access is a critical determinant of mobility, employment opportunity, and access to healthcare and essential services in areas with limited public transit. Communities with high rates of zero-vehicle households face disproportionate transportation barriers that can reinforce economic isolation. This measure helps identify areas where investments in transit, bike infrastructure, or ride-sharing programs are most needed.",
-    "long_name": "Percentage of households without vehicle available",
-    "measure_type": "",
-    "short_description": "Households self-reported to not have a vehicle available at home.",
-    "short_name": "Without vehicle",
-    "sources": [
-      {
-        "name": "American Community Survey",
-        "location": "5-Year estimates, table S2504, via the API",
-        "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-        "date_accessed": 2025,
-        "url": "https://www.census.gov/programs-surveys/acs.html"
-      }
-    ],
-    "statement": "{value} of households in {region_name} do not have a vehicle available at home.",
-    "type": "percent",
-    "unit": "percent",
-    "variants": "",
-    "provenance": "American Community Survey 5-Year Estimates, Table S2504 (Physical Housing Characteristics for Occupied Housing Units). Tract-level data standardized to 2020 census boundaries via area-weighted redistribution."
-  }
+    "monthly_rent_0br": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Housing",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "",
+        "layer": "",
+        "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units in a market area. Studio FMRs set the baseline for housing assistance programs and reflect the minimum cost of independent housing. Areas where even studio rents are high relative to incomes face acute affordability challenges for single-person households and individuals transitioning out of homelessness.",
+        "long_name": "0 Bedroom Dwelling Fair Market Rent",
+        "measure_type": "cost",
+        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
+        "short_description": "Fair Market Rent for a studio (0-bedroom) dwelling.",
+        "short_name": "0 Bedroom Dwelling Fair Market Rent",
+        "sources": [
+            {
+                "date_accessed": 2023,
+                "location": "",
+                "location_url": "",
+                "name": "US Department of Housing and Urban Development (HUD)",
+                "url": "https://www.huduser.gov/portal/datasets/fmr.html"
+            }
+        ],
+        "statement": "The Fair Market Rent (FMR) for a zero bedroom dwelling in {features.name} is {value}.",
+        "type": "count",
+        "unit": "dollars",
+        "variants": ""
+    },
+    "monthly_rent_1br": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Housing",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "",
+        "layer": "",
+        "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units. One-bedroom FMRs are commonly used to assess affordability for single adults and couples. HUD uses FMRs to set payment standards for Housing Choice Vouchers and determine eligibility thresholds for rental assistance programs.",
+        "long_name": "1 Bedroom Dwelling Fair Market Rent",
+        "measure_type": "cost",
+        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
+        "short_description": "Fair Market Rent for a 1-bedroom dwelling.",
+        "short_name": "1 Bedroom Dwelling Fair Market Rent",
+        "sources": [
+            {
+                "date_accessed": 2023,
+                "location": "",
+                "location_url": "",
+                "name": "US Department of Housing and Urban Development (HUD)",
+                "url": "https://www.huduser.gov/portal/datasets/fmr.html"
+            }
+        ],
+        "statement": "The Fair Market Rent (FMR) for a one bedroom dwelling in {features.name} is {value}.",
+        "type": "count",
+        "unit": "dollars",
+        "variants": ""
+    },
+    "monthly_rent_2br": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Housing",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "",
+        "layer": "",
+        "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units. The two-bedroom FMR is HUD's primary benchmark for setting Housing Choice Voucher payment standards and is the most commonly referenced FMR tier. It serves as the standard measure of area rent levels for federal housing policy.",
+        "long_name": "2 Bedroom Dwelling Fair Market Rent",
+        "measure_type": "cost",
+        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
+        "short_description": "Fair Market Rent for a 2-bedroom dwelling.",
+        "short_name": "2 Bedroom Dwelling Fair Market Rent",
+        "sources": [
+            {
+                "date_accessed": 2023,
+                "location": "",
+                "location_url": "",
+                "name": "US Department of Housing and Urban Development (HUD)",
+                "url": "https://www.huduser.gov/portal/datasets/fmr.html"
+            }
+        ],
+        "statement": "The Fair Market Rent (FMR) for a two bedroom dwelling in {features.name} is {value}.",
+        "type": "count",
+        "unit": "dollars",
+        "variants": ""
+    },
+    "monthly_rent_3br": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Housing",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "",
+        "layer": "",
+        "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units. Three-bedroom FMRs reflect the cost of housing for families with children, which is typically the largest segment of households needing affordable housing assistance. Areas with high 3-bedroom FMRs relative to family incomes face particular challenges in family housing stability.",
+        "long_name": "3 Bedroom Dwelling Fair Market Rent",
+        "measure_type": "cost",
+        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
+        "short_description": "Fair Market Rent for a 3-bedroom dwelling.",
+        "short_name": "3 Bedroom Dwelling Fair Market Rent",
+        "sources": [
+            {
+                "date_accessed": 2023,
+                "location": "",
+                "location_url": "",
+                "name": "US Department of Housing and Urban Development (HUD)",
+                "url": "https://www.huduser.gov/portal/datasets/fmr.html"
+            }
+        ],
+        "statement": "The Fair Market Rent (FMR) for a three bedroom dwelling in {features.name} is {value}.",
+        "type": "count",
+        "unit": "dollars",
+        "variants": ""
+    },
+    "monthly_rent_4br": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Housing",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "",
+        "layer": "",
+        "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units. Four-bedroom FMRs capture the cost of housing for larger families, who face the most constrained rental markets. The gap between 4-bedroom and smaller-unit FMRs highlights the premium that larger families must pay, which disproportionately affects multigenerational and immigrant households.",
+        "long_name": "4 Bedroom Dwelling Fair Market Rent",
+        "measure_type": "cost",
+        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
+        "short_description": "Fair Market Rent for a 4-bedroom dwelling.",
+        "short_name": "4 Bedroom Dwelling Fair Market Rent",
+        "sources": [
+            {
+                "date_accessed": 2023,
+                "location": "",
+                "location_url": "",
+                "name": "US Department of Housing and Urban Development (HUD)",
+                "url": "https://www.huduser.gov/portal/datasets/fmr.html"
+            }
+        ],
+        "statement": "The Fair Market Rent (FMR) for a four bedroom dwelling in {features.name} is {value}.",
+        "type": "count",
+        "unit": "dollars",
+        "variants": ""
+    }
 }

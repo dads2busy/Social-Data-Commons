@@ -1,0 +1,52 @@
+{
+  "version": "0.1.0",
+  "generated": "2026-03-16T19:51:47+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method",
+    "region_name",
+    "measure_type"
+  ],
+  "measures": [
+    "monthly_rent_0br",
+    "monthly_rent_1br",
+    "monthly_rent_2br",
+    "monthly_rent_3br",
+    "monthly_rent_4br"
+  ],
+  "years": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 139610,
+  "files": {
+    "ncr_cttr_hud_2018_2025_housing_cost.csv.xz": {
+      "sha256": "cc93b1bdc756cea137e54214a31a4e386e1bfddf64d4a937728fdebbf42ecfde",
+      "size_bytes": 232808
+    },
+    "ncr_cttr_hud_2022_housing_cost.csv.xz": {
+      "sha256": "47176dea35d9164cb5515882ee2543b27c900b9f0e3cbab44d000fd0949d7830",
+      "size_bytes": 37048
+    },
+    "va_hdcttr_hud_2018_2025_housing_cost.csv.xz": {
+      "sha256": "a99921f5c8e9acf8edfc2447e6da5cde36d4043d9e284598cc555956866b4c09",
+      "size_bytes": 370796
+    }
+  }
+}
