@@ -238,3 +238,206 @@ def compute_tract_fmr(
                 log.warning("No FMR data for tract %s (county %s)", tract, county)
 
     return pd.DataFrame(rows)
+
+
+def to_long_format(
+    df: pd.DataFrame, year: int, region_type: str
+) -> pd.DataFrame:
+    """Convert wide rent columns to long format using pd.melt."""
+    rename_map = dict(zip(RENT_COLS, MEASURES))
+    long = df.rename(columns=rename_map).melt(
+        id_vars=["geoid", "data_method"],
+        value_vars=MEASURES,
+        var_name="measure",
+        value_name="value",
+    )
+    long["year"] = year
+    long["moe"] = pd.NA
+    long["region_type"] = region_type
+    return long[["geoid", "year", "measure", "value", "moe", "region_type", "data_method"]]
+
+
+def load_zip_pop(path: Path) -> pd.DataFrame:
+    """Load ZCTA population from a cached CSV. Returns columns: zip, pop."""
+    df = pd.read_csv(path, dtype={"zip": str})
+    df["zip"] = df["zip"].str.zfill(5)
+    return df
+
+
+def fetch_zcta_population(year: int) -> pd.DataFrame:
+    """Fetch ZCTA total population from ACS DP05_0001E via direct Census API.
+
+    CensusClient.get_acs_wide() does not support geography="zcta", so we
+    call the Census API directly. Caches result to data/working/zcta_pop_{year}.csv.
+    """
+    import os
+
+    cache_path = WORKING_DIR / f"zcta_pop_{year}.csv"
+    if cache_path.exists():
+        return load_zip_pop(cache_path)
+
+    api_key = os.environ.get("CENSUS_API_KEY", "")
+    url = (
+        f"https://api.census.gov/data/{year}/acs/acs5/profile"
+        f"?get=NAME,DP05_0001E&for=zip%20code%20tabulation%20area:*"
+        f"&key={api_key}"
+    )
+    log.info("Fetching ZCTA population from Census API for %d", year)
+    resp = requests.get(url, timeout=120)
+    resp.raise_for_status()
+    data = resp.json()
+    header = data[0]
+    rows = data[1:]
+    df = pd.DataFrame(rows, columns=header)
+    zcta_col = [c for c in df.columns if "zip code" in c.lower()][0]
+    df = df.rename(columns={zcta_col: "zip", "DP05_0001E": "pop"})
+    df["zip"] = df["zip"].astype(str).str.zfill(5)
+    df["pop"] = pd.to_numeric(df["pop"], errors="coerce").fillna(0)
+    df = df[["zip", "pop"]].copy()
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(cache_path, index=False)
+    log.info("Cached ZCTA population for %d (%d ZCTAs)", year, len(df))
+    return df
+
+
+def run_year(
+    fy: int,
+    config: dict,
+    zcta_county: pd.DataFrame,
+    zip_tract: pd.DataFrame,
+    zip_pop: pd.DataFrame,
+) -> pd.DataFrame:
+    """Process one fiscal year. Returns long-format DataFrame."""
+    year = fy - 1  # FY2023 → year 2022
+    hud = config["hud_fmr"]
+
+    # Download FMR and SAFMR Excel files
+    fmr_url = hud["fmr_urls"][fy]
+    safmr_url = hud["safmr_urls"][fy]
+    fmr_path = download_file(fmr_url, WORKING_DIR / f"fmr_{fy}.xlsx")
+    safmr_path = download_file(safmr_url, WORKING_DIR / f"safmr_{fy}.xlsx")
+
+    # Parse Excel files
+    safmr = parse_safmr(safmr_path)
+    fmr = parse_fmr(fmr_path)
+    log.info("FY%d: %d SAFMRs, %d county FMRs", fy, len(safmr), len(fmr))
+
+    # NCR + VA county lists
+    ncr_counties = hud["ncr_counties"]
+    va_counties = sorted(fmr[fmr["county_fips"].str.startswith("51")]["county_fips"].unique())
+
+    # All unique counties across both coverage areas
+    all_counties = sorted(set(va_counties + ncr_counties))
+
+    # Compute county-level FMR for all needed counties
+    county_fmr = compute_county_fmr(safmr, zcta_county, all_counties, fmr)
+
+    # Compute tract-level FMR for all relevant states
+    state_fips = ["51", "11", "24"]  # VA, DC, MD
+    tract_fmr = compute_tract_fmr(
+        safmr, zip_tract, zip_pop, county_fmr, fmr, state_fips=state_fips,
+    )
+
+    # Convert to long format
+    county_long = to_long_format(county_fmr, year, "county")
+    tract_long = to_long_format(tract_fmr, year, "tract")
+
+    combined = pd.concat([county_long, tract_long], ignore_index=True)
+    log.info("FY%d (year %d): %d rows", fy, year, len(combined))
+    return combined
+
+
+def run() -> list[RunResult]:
+    """Run the full ingest pipeline across all fiscal years."""
+    from dotenv import load_dotenv
+    load_dotenv(TOPIC_DIR.parents[1] / ".env")
+
+    config = load_config()
+    hud = config["hud_fmr"]
+    DIST_DIR.mkdir(parents=True, exist_ok=True)
+    WORKING_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Load static crosswalks (same for all years per design decision)
+    zcta_county = load_zcta_county(TOPIC_DIR / hud["zcta_county_file"])
+    zip_tract = load_zip_tract_crosswalk(TOPIC_DIR / hud["zip_tract_crosswalk"])
+    log.info("Loaded crosswalks: %d ZCTA-county rows, %d ZIP-tract rows",
+             len(zcta_county), len(zip_tract))
+
+    # Fetch ZCTA population for 2021 (matches the 2021 Q4 crosswalk vintage;
+    # R code also uses 2021 ACS ZCTA populations)
+    zip_pop = fetch_zcta_population(2021)
+    log.info("Loaded ZCTA population: %d ZCTAs", len(zip_pop))
+
+    ncr_counties = hud["ncr_counties"]
+    years = config["sources"]["va"]["years"]  # same for both sources
+
+    results = []
+    all_frames = []
+
+    for year in years:
+        fy = year + 1
+        if fy not in hud["fmr_urls"]:
+            log.warning("No FMR URL for FY%d, skipping", fy)
+            continue
+        t0 = time.time()
+        try:
+            df = run_year(fy, config, zcta_county, zip_tract, zip_pop)
+            all_frames.append(df)
+            results.append(RunResult(
+                success=True, rows=len(df),
+                duration_sec=time.time() - t0,
+            ))
+        except Exception as e:
+            log.error("Failed FY%d: %s", fy, e, exc_info=True)
+            results.append(RunResult(
+                success=False, error=str(e),
+                duration_sec=time.time() - t0,
+            ))
+
+    if not all_frames:
+        return [RunResult(success=False, error="No data produced")]
+
+    combined = pd.concat(all_frames, ignore_index=True)
+    log.info("Total rows across all years: %d", len(combined))
+
+    # Split into VA and NCR
+    va_mask = combined["geoid"].str[:2] == "51"
+    ncr_mask = combined["geoid"].str[:5].isin(ncr_counties)
+
+    va_data = combined[va_mask].copy()
+    ncr_data = combined[ncr_mask].copy()
+
+    # Write VA output
+    if not va_data.empty:
+        va_name = build_file_name(
+            coverage_area="va", data_source="hud",
+            years=years, title="housing_cost",
+            geographies=["county", "tract"],
+        )
+        va_path = write_data(va_data, DIST_DIR / f"{va_name}.csv.xz",
+                             census_standardize=False)
+        log.info("Wrote VA: %d rows → %s", len(va_data), va_path.name)
+
+    # Write NCR output
+    if not ncr_data.empty:
+        ncr_name = build_file_name(
+            coverage_area="ncr", data_source="hud",
+            years=years, title="housing_cost",
+            geographies=["county", "tract"],
+        )
+        ncr_path = write_data(ncr_data, DIST_DIR / f"{ncr_name}.csv.xz",
+                              census_standardize=False)
+        log.info("Wrote NCR: %d rows → %s", len(ncr_data), ncr_path.name)
+
+    return results
+
+
+if __name__ == "__main__":
+    results = run()
+    for r in results:
+        if r.success:
+            log.info("OK: %d rows in %.1fs", r.rows, r.duration_sec)
+        else:
+            log.error("FAIL: %s", r.error)
+    if any(not r.success for r in results):
+        raise SystemExit(1)
