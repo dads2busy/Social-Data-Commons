@@ -116,3 +116,125 @@ def load_zcta_county(path: Path) -> pd.DataFrame:
     df["county_fips"] = df["GEOID"].astype(str).str.zfill(5)
     df["pop"] = pd.to_numeric(df["POPPT"], errors="coerce").fillna(0)
     return df[["zcta", "county_fips", "pop"]].copy()
+
+
+def compute_county_fmr(
+    safmr: pd.DataFrame,
+    zcta_county: pd.DataFrame,
+    county_fips_list: list[str],
+    fmr_fallback: pd.DataFrame,
+) -> pd.DataFrame:
+    """Compute county-level FMR as population-weighted average of ZCTA SAFMRs.
+
+    For counties with no ZCTA overlap in the SAFMR data, falls back to
+    direct HUD county FMR from the FMR Excel file.
+
+    Returns DataFrame with columns: geoid, rent_0br..rent_4br, data_method.
+    """
+    # Join ZCTA SAFMRs with ZCTA-county population weights
+    # SAFMR zip ≈ ZCTA for this purpose
+    merged = zcta_county.merge(safmr, left_on="zcta", right_on="zip", how="inner")
+
+    rows = []
+    for fips in county_fips_list:
+        county_data = merged[merged["county_fips"] == fips]
+        total_pop = county_data["pop"].sum()
+        if total_pop > 0 and not county_data[RENT_COLS].isna().all().any():
+            row = {"geoid": fips, "data_method": "observed"}
+            for col in RENT_COLS:
+                row[col] = (county_data[col] * county_data["pop"]).sum() / total_pop
+            rows.append(row)
+        else:
+            # Fallback to direct HUD FMR
+            fmr_row = fmr_fallback[fmr_fallback["county_fips"] == fips]
+            if not fmr_row.empty:
+                row = {"geoid": fips, "data_method": "observed"}
+                for i, col in enumerate(RENT_COLS):
+                    row[col] = fmr_row[FMR_COLS[i]].iloc[0]
+                rows.append(row)
+            else:
+                log.warning("No FMR data for county %s", fips)
+
+    return pd.DataFrame(rows)
+
+
+def compute_tract_fmr(
+    safmr: pd.DataFrame,
+    zip_tract: pd.DataFrame,
+    zip_pop: pd.DataFrame,
+    county_fmr: pd.DataFrame,
+    fmr_fallback: pd.DataFrame,
+    state_fips: list[str],
+    tract_geoids: list[str] | None = None,
+) -> pd.DataFrame:
+    """Compute tract-level FMR as population-weighted average of ZIP SAFMRs.
+
+    Fallback chain:
+    1. ZIP-weighted SAFMR average (data_method = "observed")
+    2. County pop-weighted average from county_fmr (data_method = "scaled")
+    3. Direct HUD county FMR from fmr_fallback (data_method = "scaled")
+    """
+    # Filter crosswalk to relevant states
+    state_mask = zip_tract["tract"].str[:2].isin(state_fips)
+    xwalk = zip_tract[state_mask].copy()
+
+    # Join crosswalk with SAFMR and population
+    merged = xwalk.merge(safmr, on="zip", how="left")
+    merged = merged.merge(zip_pop, on="zip", how="left")
+    merged["pop"] = merged["pop"].fillna(0)
+
+    # Determine tract list
+    if tract_geoids is not None:
+        tracts = tract_geoids
+    else:
+        tracts = sorted(xwalk["tract"].unique())
+
+    # Build county FMR lookup for fallback
+    county_lookup = {}
+    if not county_fmr.empty:
+        for _, row in county_fmr.iterrows():
+            county_lookup[row["geoid"]] = row
+
+    rows = []
+    for tract in tracts:
+        tract_data = merged[merged["tract"] == tract]
+        # Remove rows with no SAFMR data or no population
+        valid = tract_data.dropna(subset=RENT_COLS)
+        valid = valid[valid["pop"] > 0]
+        total_pop = valid["pop"].sum()
+
+        county = tract[:5]
+
+        if total_pop > 0:
+            # Primary: ZIP-weighted average
+            row = {"geoid": tract, "data_method": "observed"}
+            for col in RENT_COLS:
+                row[col] = (valid[col] * valid["pop"]).sum() / total_pop
+            # Check for zero values (treat as missing)
+            if any(row[col] == 0 for col in RENT_COLS):
+                row["data_method"] = "scaled"
+                county_row = county_lookup.get(county)
+                if county_row is not None:
+                    for col in RENT_COLS:
+                        if row[col] == 0:
+                            row[col] = county_row[col]
+            rows.append(row)
+        elif county in county_lookup:
+            # Fallback: county pop-weighted average
+            county_row = county_lookup[county]
+            row = {"geoid": tract, "data_method": "scaled"}
+            for col in RENT_COLS:
+                row[col] = county_row[col]
+            rows.append(row)
+        else:
+            # Last resort: direct HUD county FMR
+            fmr_row = fmr_fallback[fmr_fallback["county_fips"] == county]
+            if not fmr_row.empty:
+                row = {"geoid": tract, "data_method": "scaled"}
+                for i, col in enumerate(RENT_COLS):
+                    row[col] = fmr_row[FMR_COLS[i]].iloc[0]
+                rows.append(row)
+            else:
+                log.warning("No FMR data for tract %s (county %s)", tract, county)
+
+    return pd.DataFrame(rows)
