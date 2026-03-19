@@ -19,19 +19,23 @@ sources:
     type: data
     description: "USDA Food Access Research Atlas 2015 edition"
     url: "https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data/"
+    download_url: "https://www.ers.usda.gov/media/5623/2015-food-access-research-atlas.zip"
     file: "FoodAccessResearchAtlasData2015.xlsx"
+    note: "ZIP archive; extract xlsx from inside"
     years: [2015]
   fara_2019:
     type: data
     description: "USDA Food Access Research Atlas 2019 edition"
     url: "https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data/"
+    download_url: "https://www.ers.usda.gov/media/5626/food-access-research-atlas-data-download-2019.xlsx"
     file: "FoodAccessResearchAtlasData2019.xlsx"
     years: [2019]
   tract_crosswalk:
     type: data
     description: "Census 2010-to-2020 tract relationship file"
-    url: "https://www2.census.gov/geo/docs/maps-data/data/rel2020/tract/tab20_tract20_tract10_natl.txt"
+    download_url: "https://www2.census.gov/geo/docs/maps-data/data/rel2020/tract/tab20_tract20_tract10_natl.txt"
     file: "crosswalk_tracts.csv"
+    note: "Pipe-delimited text file saved as CSV"
 
 crosswalks:
   va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"

@@ -19,11 +19,15 @@ sources:
     type: data
     description: "Vera Institute of Justice Incarceration Trends county dataset"
     url: "https://github.com/vera-institute/incarceration-trends"
+    download_url: "https://raw.githubusercontent.com/vera-institute/incarceration-trends/main/incarceration_trends_county.csv"
+    file: "incarceration_trends_county.csv"
     years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
   ppi:
     type: data
     description: "Prison Policy Initiative 2020 VA tract-level incarceration"
     url: "https://www.prisonpolicy.org/origin/va/2020/tract.html"
+    file: "ppi_va_tract_2020.csv"
+    note: "Scraped from HTML table; no direct CSV download available"
     years: [2020]
 
 crosswalks:
