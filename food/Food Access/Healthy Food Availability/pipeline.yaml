@@ -22,7 +22,7 @@ sources:
     department_brands: [Target, Walmart]
 
 geographies:
-  block_group: "https://raw.githubusercontent.com/uva-bi-sdad/sdc.geographies/main/NCR/Census%20Geographies/Block%20Group/2020/data/distribution/ncr_geo_census_cb_2020_census_block_groups.geojson"
-  tract: "https://raw.githubusercontent.com/uva-bi-sdad/sdc.geographies/main/NCR/Census%20Geographies/Tract/2020/data/distribution/ncr_geo_census_cb_2020_census_tracts.geojson"
-  county: "https://raw.githubusercontent.com/uva-bi-sdad/sdc.geographies/main/NCR/Census%20Geographies/County/2020/data/distribution/ncr_geo_census_cb_2020_counties.geojson"
-  civic_association: "https://raw.githubusercontent.com/uva-bi-sdad/sdc.geographies/main/VA/Local%20Geographies/Arlington%20County/Civic%20Associations/2021/data/distribution/va013_geo_arl_2021_civic_associations.geojson"
+  block_group: "geographies/NCR/Census Geographies/Block Group/2020/data/distribution/ncr_geo_census_cb_2020_census_block_groups.geojson"
+  tract: "geographies/NCR/Census Geographies/Tract/2020/data/distribution/ncr_geo_census_cb_2020_census_tracts.geojson"
+  county: "geographies/NCR/Census Geographies/County/2020/data/distribution/ncr_geo_census_cb_2020_counties.geojson"
+  civic_association: "geographies/VA/Local Geographies/Arlington County/Civic Associations/2021/data/distribution/va013_geo_arl_2021_civic_associations.geojson"

@@ -15,6 +15,7 @@ import yaml
 from sdc_core.log import get_logger
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
+REPO_DIR = TOPIC_DIR.parents[2]
 WORK_DIR = TOPIC_DIR / "data" / "working"
 
 log = get_logger("healthy_food_availability.ingest")
@@ -30,8 +31,8 @@ def load_config() -> dict:
 
 def _ncr_polygon(config: dict) -> gpd.GeoDataFrame:
     """Load NCR county boundaries and return a single buffered polygon."""
-    url = config["geographies"]["county"]
-    counties = gpd.read_file(url)
+    geo_path = config["geographies"]["county"]
+    counties = gpd.read_file(REPO_DIR / geo_path)
     # Union all counties → single polygon, buffer by 1 km in projected CRS
     union = counties.to_crs("EPSG:32618").union_all().buffer(QUERY_BUFFER_METERS)
     return gpd.GeoDataFrame(geometry=[union], crs="EPSG:32618").to_crs("EPSG:4326")

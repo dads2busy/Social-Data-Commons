@@ -118,11 +118,11 @@ def run() -> None:
     log.info("Loaded %d supermarkets, %d fast-food locations", len(supermarkets), len(fastfood))
 
     # Load geographies
-    geo_urls = config["geographies"]
+    geo_paths = config["geographies"]
     parts = []
-    for level, url in geo_urls.items():
+    for level, geo_path in geo_paths.items():
         log.info("Loading %s geographies", level)
-        gdf = gpd.read_file(url)
+        gdf = gpd.read_file(REPO_DIR / geo_path)
         rfei = _compute_rfei(gdf, supermarkets, fastfood)
         log.info("Computed RFEI for %d %s regions", len(rfei), level)
         parts.append(rfei)
