@@ -1,5 +1,5 @@
 {
-    "peds_cnt": {
+    "mental_near_10_median": {
         "aggregation_method": "",
         "categories": "",
         "category": "Health",
@@ -7,83 +7,53 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Count of pediatric medicine physicians located within each geographic area. Pediatricians are identified from the CMS Doctors and Clinicians dataset by filtering to providers with a PEDIATRIC MEDICINE specialty designation and MD/DO credentials. Higher counts indicate greater local availability of pediatric care providers, though counts alone do not account for population demand or geographic accessibility barriers.",
-        "long_name": "Pediatric care availability by count",
+        "long_description": "Median drive time in minutes to the ten closest mental health facilities. Facility location data were collected from the Substance Abuse and Mental Health Services Administration (SAMHSA) repository. Drive times were computer using Open Source Routing Machine (looking at roads for 2021). Geographies: Block group (12), Census tract (11), County (5), Health Districts (51_hd), Civic Associations (51013_ca)",
+        "long_name": "Mental health availability by median drive time to the ten closest facilities in minutes",
         "measure_type": "count",
-        "short_description": "Number of pediatric medicine physicians (MD/DO) from CMS Doctors and Clinicians data within each area.",
-        "short_name": "Pediatric care availability (count)",
-        "provenance": "Provider counts derived from CMS Doctors and Clinicians dataset (2018-2025), filtered to PEDIATRIC MEDICINE specialty with MD/DO credentials in VA/DC/MD. Addresses geocoded via Census Geocoder API and snapped to nearest 2020 block group centroid. Counts summed from block group to tract, county, and health district.",
+        "short_description": "",
+        "short_name": "Mental health availability (drive time)",
         "sources": [
             {
-                "date_accessed": 2025,
+                "date_accessed": 2021,
                 "location": "",
                 "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
+                "name": "Substance Abuse and Mental Health Services Administration (SAMHSA)",
+                "url": "https://findtreatment.gov/"
             }
         ],
-        "statement": "There are {value} pediatricians in {features.name}.",
+        "statement": "The median drive time to the ten closest mental health facilities to {features.name} is {value}.",
+        "type": "drive time",
+        "unit": "",
+        "variants": ""
+    },
+    "mental_cnt": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Count of mental health facilities based on facility locations. Location data was collected from the Substance Abuse and Mental Health Services Administration (SAMHSA) repository. Geographies: Block group (12), Census tract (11), County (5), Health Districts (51_hd), Civic Associations (51013_ca)",
+        "long_name": "Availability of mental health services by count",
+        "measure_type": "count",
+        "short_description": "",
+        "short_name": "Mental health services availability (count)",
+        "sources": [
+            {
+                "date_accessed": 2021,
+                "location": "",
+                "location_url": "",
+                "name": "Substance Abuse and Mental Health Services Administration (SAMHSA)",
+                "url": "https://www.samhsa.gov/"
+            }
+        ],
+        "statement": "There are {value} mental health facilities in {features.name}.",
         "type": "count",
         "unit": "",
         "variants": ""
     },
-    "peds_near_10_mean": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Average travel time in minutes to the nearest 10 pediatric medicine physicians from each block group centroid. This measure captures geographic proximity to pediatric care, with higher values indicating communities where families must travel farther to access multiple pediatric providers. Areas with long travel times to pediatricians may face barriers to routine well-child visits, vaccinations, and acute care for children.",
-        "long_name": "Mean travel time to nearest 10 pediatricians",
-        "measure_type": "count",
-        "short_description": "Mean driving time in minutes from block group centroid to the 10 nearest pediatric medicine physicians.",
-        "short_name": "Mean travel time to nearest 10 pediatricians",
-        "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrices (2020 boundaries). For each block group, the 10 nearest pediatrician locations (by travel time) are identified and their mean travel time computed. Aggregated to tract/county/HD via simple mean across constituent block groups.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
-            }
-        ],
-        "statement": "The mean travel time to the nearest 10 pediatricians from {features.name} is {value} minutes.",
-        "type": "count",
-        "unit": "minutes",
-        "variants": ""
-    },
-    "peds_near_10_median": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Median travel time in minutes to the nearest 10 pediatric medicine physicians from each block group centroid. The median is more robust to outliers than the mean, providing a better sense of typical accessibility. Communities with high median travel times face systematic barriers to pediatric care access that may result in delayed treatment and lower utilization of preventive services for children.",
-        "long_name": "Median travel time to nearest 10 pediatricians",
-        "measure_type": "count",
-        "short_description": "Median driving time in minutes from block group centroid to the 10 nearest pediatric medicine physicians.",
-        "short_name": "Median travel time to nearest 10 pediatricians",
-        "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrices (2020 boundaries). For each block group, the 10 nearest pediatrician locations (by travel time) are identified and their median travel time computed. Aggregated to tract/county/HD via simple mean of block group medians.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
-            }
-        ],
-        "statement": "The median travel time to the nearest 10 pediatricians from {features.name} is {value} minutes.",
-        "type": "count",
-        "unit": "minutes",
-        "variants": ""
-    },
-    "peds_2sfca": {
+    "mental_3sfca": {
         "aggregation_method": "",
         "categories": "",
         "category": "Health",
@@ -96,88 +66,22 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Pediatric care accessibility measured using the two-step floating catchment area (2SFCA) method. This index accounts for both the supply of pediatricians and the demand from the population aged 0-17, weighted by travel time within a 30-minute catchment. Higher values indicate better spatial access to pediatric care relative to the child population, while lower values suggest potential shortages that could affect timely access to well-child visits and acute care.",
-        "long_name": "Pediatric care geographic availability (2-step floating catchment areas)",
+        "long_description": "Mental health services availability is based on 3-step floating catchment areas. This method is an aggregation of facilities per population ratios weighted by distance or travel time in each catchment area (area within which a facility is accessible). Weights are defined as the demand for facilities (or the adult population). Geographies: Block group (12), Census tract (11), County (5), Health Districts (51_hd), Civic Associations (51013_ca)",
+        "long_name": "Mental health services geographic availability (3-step  floating catchment areas)",
         "measure_type": "index",
-        "short_description": "Spatial accessibility index for pediatric physicians per 1,000 children aged 0-17, using 2-step floating catchment area method.",
-        "short_name": "Pediatric care geographic availability (2SFCA)",
-        "provenance": "Two-step floating catchment area (2SFCA) with 30-minute travel time threshold. Supply: CMS Doctors and Clinicians PEDIATRIC MEDICINE providers (MD/DO) in VA/DC/MD, geocoded and snapped to 2020 block group centroids. Demand: ACS B01001 population ages 0-17 (variables B01001_003-006, B01001_027-030) at block group level. Travel costs from OSRM driving time matrices. Values expressed per 1,000 population. Aggregated to tract/county via population-weighted mean.",
+        "short_description": "",
+        "short_name": "Mental health services geographic availability",
         "sources": [
             {
-                "date_accessed": 2025,
+                "date_accessed": 2021,
                 "location": "",
                 "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
+                "name": "Substance Abuse and Mental Health Services Administration (SAMHSA)",
+                "url": "https://www.samhsa.gov/"
             }
         ],
-        "statement": "The pediatric care availability for {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "peds_e2sfca": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": [
-            "lou04",
-            "lou09",
-            "lou03",
-            "saxon20"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Pediatric care accessibility measured using the enhanced two-step floating catchment area (E2SFCA) method. Unlike the basic 2SFCA, this variant applies stepped distance decay weights (10 min: 0.962, 20 min: 0.704, 30 min: 0.377, 60 min: 0.042), better reflecting how families' willingness to travel for pediatric care decreases with distance. Higher values indicate greater spatial accessibility to pediatric physicians relative to child population demand.",
-        "long_name": "Pediatric care geographic availability (enhanced 2-step floating catchment areas)",
-        "measure_type": "index",
-        "short_description": "Spatial accessibility index for pediatric physicians per 1,000 children aged 0-17, using enhanced 2-step floating catchment area method with distance decay.",
-        "short_name": "Pediatric care geographic availability (E2SFCA)",
-        "provenance": "Enhanced two-step floating catchment area (E2SFCA) with stepped distance decay weights: 10 min=0.962, 20 min=0.704, 30 min=0.377, 60 min=0.042. Supply: CMS Doctors and Clinicians PEDIATRIC MEDICINE providers. Demand: ACS B01001 population ages 0-17. Travel costs from OSRM driving time matrices. Values per 1,000 population. Aggregated to tract/county via population-weighted mean.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
-            }
-        ],
-        "statement": "The pediatric care availability for {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "peds_3sfca": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": [
-            "lou04",
-            "lou09",
-            "lou03",
-            "saxon20"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Pediatric care accessibility measured using the three-step floating catchment area (3SFCA) method with Gaussian distance decay. This is the most sophisticated FCA variant, normalizing competition weights so that each consumer's demand is distributed proportionally across reachable providers. It provides the most realistic estimate of pediatric care accessibility by accounting for provider competition and distance sensitivity simultaneously.",
-        "long_name": "Pediatric care geographic availability (3-step floating catchment areas)",
-        "measure_type": "index",
-        "short_description": "Spatial accessibility index for pediatric physicians per 1,000 children aged 0-17, using 3-step floating catchment area method with Gaussian decay.",
-        "short_name": "Pediatric care geographic availability (3SFCA)",
-        "provenance": "Three-step floating catchment area (3SFCA) with Gaussian distance decay (scale=20) and normalized competition weights. Supply: CMS Doctors and Clinicians PEDIATRIC MEDICINE providers. Demand: ACS B01001 population ages 0-17. Travel costs from OSRM driving time matrices. Values per 1,000 population. Aggregated to tract/county via population-weighted mean.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
-            }
-        ],
-        "statement": "The pediatric care availability for {features.name} is {value}.",
+        "provenance": "Spatial access scores are calculated using the floating catchment area (2SFCA/3SFCA) methodology (Luo, 2004; Luo & Qi, 2009; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
+        "statement": "The mental health services availability for {features.name} is {value}.",
         "type": "index",
         "unit": "",
         "variants": ""

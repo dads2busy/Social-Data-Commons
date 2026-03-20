@@ -1,0 +1,58 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-03-20T18:25:26+00:00",
+  "schema": [
+    "geoid",
+    "region_type",
+    "region_name",
+    "measure",
+    "value",
+    "year",
+    "measure_type",
+    "data_method",
+    "moe"
+  ],
+  "measures": [
+    "subs_2sfca",
+    "subs_3sfca",
+    "subs_cnt",
+    "subs_e2sfca",
+    "subs_near_10_mean",
+    "subs_near_10_median",
+    "subs_pop_cnt",
+    "substance_2sfca",
+    "substance_3sfca",
+    "substance_cnt",
+    "substance_e2sfca",
+    "substance_near_10_mean",
+    "substance_near_10_median"
+  ],
+  "years": [
+    2021,
+    2025
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 169617,
+  "files": {
+    "ncr_cttrbg_samhsa_2021_access_scores_substance.csv.xz": {
+      "sha256": "677f3899ece74ee6f79c1186f49519397502b355a020034d4156303a38a99e1e",
+      "size_bytes": 239060
+    },
+    "ncr_cttrbg_samhsa_2025_access_scores_substance.csv.xz": {
+      "sha256": "4f74382b38e6a1ee1e17ce51e1d6cafed3ae049ea9c1ed592f510db98b347f25",
+      "size_bytes": 180320
+    },
+    "va_hdcttrbg_samhsa_2025_access_scores_substance.csv.xz": {
+      "sha256": "9a170a6865f0e8fc1e9b5363f2c86c98d931655a094cf504f16d35c929bed1f0",
+      "size_bytes": 309400
+    },
+    "va_hdcttrbgca_samhsa_2021_access_scores_substance.csv.xz": {
+      "sha256": "c695e28ad2a87b91c3e1a6458ead3d4f1ba81b4ecc2e4e30ae0929341f16a4e2",
+      "size_bytes": 420672
+    }
+  }
+}

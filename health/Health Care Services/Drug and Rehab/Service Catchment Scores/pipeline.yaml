@@ -1,20 +1,27 @@
 name: substance_access_scores
-version: "1.0.0"
+version: "2.0.0"
 title: "Drug and Rehab Service Accessibility (FCA)"
 description: >-
   Floating catchment area analysis measuring substance abuse treatment
   accessibility at block group level. Computes 2SFCA, E2SFCA, and 3SFCA
-  variants with provider counts from SAMHSA treatment locator.
+  variants with facility locations from SAMHSA findtreatment.gov API.
+  Capacity=1 per facility (total population denominator).
 
 sources:
-  providers:
-    type: geojson
-    description: "SAMHSA substance abuse treatment facility geocoded locations"
-    file: "data/distribution/ncr_samhsa_2022_substance_abuse_points.geojson"
-    capacity_col: null
+  samhsa:
+    type: samhsa_api
+    description: "SAMHSA substance abuse treatment facilities from findtreatment.gov"
+    api_url: "https://findtreatment.gov/locator/listing"
+    stype: SA
+    facilities_file: "samhsa_2025_substance_abuse_facilities.csv"
+    capacity: 1
+    population_variable: "B01001_001"
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
 
 output:
   path: data/distribution
   geographies: [block_group, tract, county, health_district]
-  years: [2022]
+  years: [2025]
   coverage_areas: [va, ncr]
