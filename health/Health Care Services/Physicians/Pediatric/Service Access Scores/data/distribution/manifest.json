@@ -1,0 +1,69 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-03-20T17:31:15+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method",
+    "region_name",
+    "measure_type"
+  ],
+  "measures": [
+    "ped_2sfca",
+    "ped_3sfca",
+    "ped_cnt",
+    "ped_e2sfca",
+    "ped_near_10_mean",
+    "ped_near_10_median",
+    "ped_pop_cnt",
+    "pediatrician_e2sfca",
+    "peds_2sfca",
+    "peds_3sfca",
+    "peds_cnt",
+    "peds_e2sfca",
+    "peds_near_10_mean",
+    "peds_near_10_median"
+  ],
+  "years": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 703111,
+  "files": {
+    "ncr_cttrbg_cms_2018_2025_access_scores_peds.csv.xz": {
+      "sha256": "70f2f29c44e88fa535a81c00878267ff6c11754642d861f38e27f6b6a8528d58",
+      "size_bytes": 1232588
+    },
+    "ncr_cttrbg_webmd_2021_access_scores_pediatrics.csv.xz": {
+      "sha256": "e9262254b3f1070bd11a3f6deaf1c9b00516b6086e7c19de4cc76a0599d7db33",
+      "size_bytes": 248876
+    },
+    "va059_webmd_2022_pediatricians_access_scores.csv.xz": {
+      "sha256": "bb0359a4a60235f7d0e071c9b2cd165a8d8437430540a14bf281f6a3474d9772",
+      "size_bytes": 3372
+    },
+    "va_hdcttrbg_cms_2018_2025_access_scores_peds.csv.xz": {
+      "sha256": "b28dba1c91ca13b71768c8a201bc1f261fa4d48e87622bb4bf0b40bdd5e5f747",
+      "size_bytes": 1872328
+    },
+    "va_hdcttrbgca_webmd_2021_access_scores_pediatrics.csv.xz": {
+      "sha256": "0ee5e3a5aa676742955e0971ceaca76f2f39302e51c3b4a8e16008b41c467b88",
+      "size_bytes": 467996
+    }
+  }
+}

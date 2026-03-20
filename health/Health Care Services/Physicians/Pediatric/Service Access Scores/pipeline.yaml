@@ -1,23 +1,25 @@
 name: pediatric_access_scores
-version: "1.0.0"
+version: "2.0.0"
 title: "Pediatric Service Accessibility (FCA)"
 description: >-
   Floating catchment area analysis measuring pediatric service accessibility
-  at block group level using population ages 0-17 (male and female) as
-  consumer demand. Computes 2SFCA, E2SFCA, and 3SFCA variants with physician
-  counts from WebMD pediatric directory.
+  at block group level using population ages 0-17 as consumer demand.
+  Computes 2SFCA, E2SFCA, and 3SFCA variants with physician counts from
+  CMS Doctors and Clinicians data (PEDIATRIC MEDICINE specialty).
+  Covers 2018-2025 with automated CMS download and Census geocoding.
 
 sources:
-  providers:
-    type: geojson
-    description: "WebMD pediatric physician geocoded locations"
-    file: "data/distribution/ncr_webmd_2022_pediatric_points.geojson"
-    capacity_col: "doctors"
+  cms:
+    type: cms_physicians
+    description: "CMS Doctors and Clinicians - Pediatric Medicine"
+    data_file: "data/working/vadcmd_cms_2018_2025_pediatric_physicians.csv"
+    geocoded_file: "data/working/vadcmd_cms_2018_2025_pediatric_physicians_geo.csv"
+    specialties: ["PEDIATRIC MEDICINE"]
 
 population:
   type: acs
   table: B01001
-  description: "Population ages 0-17"
+  description: "Population ages 0-17 (male and female)"
   variables:
     male_under_5: "B01001_003"
     male_5_9: "B01001_004"
@@ -28,8 +30,11 @@ population:
     female_10_14: "B01001_029"
     female_15_17: "B01001_030"
 
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
+
 output:
   path: data/distribution
   geographies: [block_group, tract, county, health_district]
-  years: [2022]
+  years: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
   coverage_areas: [va, ncr]

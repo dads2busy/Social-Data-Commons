@@ -1,5 +1,5 @@
 {
-    "hosp_near_10_median": {
+    "peds_cnt": {
         "aggregation_method": "",
         "categories": "",
         "category": "Health",
@@ -7,176 +7,27 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Median drive time in minutes to the ten nearest hospitals from each block group centroid. Shorter drive times indicate better geographic proximity to hospital care, which is critical for emergency medical situations where every minute matters. Areas with long median drive times may face barriers to timely treatment for strokes, heart attacks, and traumatic injuries.",
-        "long_name": "Hospital availability by median drive time to the ten closest facilities in minutes",
+        "long_description": "Count of pediatric medicine physicians located within each geographic area. Pediatricians are identified from the CMS Doctors and Clinicians dataset by filtering to providers with a PEDIATRIC MEDICINE specialty designation and MD/DO credentials. Higher counts indicate greater local availability of pediatric care providers, though counts alone do not account for population demand or geographic accessibility barriers.",
+        "long_name": "Pediatric care availability by count",
         "measure_type": "count",
-        "short_description": "Median travel time in minutes to the 10 nearest hospitals, measuring geographic proximity to hospital care.",
-        "short_name": "Hospital drive time",
-        "provenance": "Hospital facility locations from CMS Hospital Compare (2015-2025), filtered to VA/DC/MD non-psychiatric hospitals. Geocoded via HIFLD (primary) and Census Geocoder (fallback). Drive times computed using OSRM-based block-group-to-block-group travel time matrix. Each block group's median is taken over travel times to the 10 nearest hospital block groups.",
+        "short_description": "Number of pediatric medicine physicians (MD/DO) from CMS Doctors and Clinicians data within each area.",
+        "short_name": "Pediatric care availability (count)",
+        "provenance": "Provider counts derived from CMS Doctors and Clinicians dataset (2018-2025), filtered to PEDIATRIC MEDICINE specialty with MD/DO credentials in VA/DC/MD. Addresses geocoded via Census Geocoder API and snapped to nearest 2020 block group centroid. Counts summed from block group to tract, county, and health district.",
         "sources": [
             {
                 "date_accessed": 2025,
                 "location": "",
                 "location_url": "",
-                "name": "Center for Medicare and Medicaid Services",
-                "url": "https://data.cms.gov/provider-data/topics/hospitals"
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
             }
         ],
-        "statement": "The median drive time to the ten closest hospitals to {features.name} is {value}.",
-        "type": "drive time",
-        "unit": "minutes",
-        "variants": ""
-    },
-    "hosp_near_10_mean": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Mean drive time in minutes to the ten nearest hospitals from each block group centroid. This measure complements the median by capturing the overall distribution of hospital proximity. Higher mean times suggest that even when the closest hospital is accessible, the broader hospital network may be sparse, limiting patient choice and surge capacity.",
-        "long_name": "Hospital availability by mean drive time to the ten closest facilities in minutes",
-        "measure_type": "count",
-        "short_description": "Average travel time in minutes to the 10 nearest hospitals.",
-        "short_name": "Hospital mean drive time",
-        "provenance": "Hospital facility locations from CMS Hospital Compare (2015-2025), filtered to VA/DC/MD non-psychiatric hospitals. Geocoded via HIFLD (primary) and Census Geocoder (fallback). Drive times computed using OSRM block-group-to-block-group travel time matrix. Each block group's mean is taken over travel times to the 10 nearest hospital block groups.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "Center for Medicare and Medicaid Services",
-                "url": "https://data.cms.gov/provider-data/topics/hospitals"
-            }
-        ],
-        "statement": "The mean drive time to the ten closest hospitals to {features.name} is {value}.",
-        "type": "drive time",
-        "unit": "minutes",
-        "variants": ""
-    },
-    "hosp_3sfca": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Hospital accessibility score based on the 3-step floating catchment area (3SFCA) method with Gaussian distance decay. This model accounts for both the supply of hospitals relative to population demand and the distance residents must travel. Higher scores indicate areas with better hospital accessibility relative to need, while lower scores highlight potential gaps in hospital coverage.",
-        "long_name": "Hospital geographic availability (3-step floating catchment areas)",
-        "measure_type": "index",
-        "short_description": "Spatial accessibility index measuring hospital availability relative to population, weighted by Gaussian distance decay.",
-        "short_name": "Hospital geographic availability",
-        "provenance": "Spatial access scores computed using the 3-step floating catchment area methodology (Wan et al., 2012) with Gaussian weights (scale=20 minutes). Provider supply: CMS Hospital Compare facility locations (2015-2025), each hospital capacity=1. Consumer demand: ACS B01001_001 total population at block group level. Travel cost: OSRM-based block-group-to-block-group driving times. Scores expressed per 1,000 population.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "Center for Medicare and Medicaid Services",
-                "url": "https://data.cms.gov/provider-data/topics/hospitals"
-            }
-        ],
-        "statement": "The hospital geographic availability score for {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "hosp_2sfca": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Hospital accessibility score based on the 2-step floating catchment area (2SFCA) method with a 30-minute travel time threshold. This binary-weight model identifies areas where hospital capacity is insufficient relative to the surrounding population. It is simpler than stepped or Gaussian variants but provides an intuitive measure of hospital accessibility within a reasonable driving distance.",
-        "long_name": "Hospital geographic availability (2-step floating catchment areas)",
-        "measure_type": "index",
-        "short_description": "Spatial accessibility index using binary-weight 2SFCA with a 30-minute threshold.",
-        "short_name": "Hospital availability (2SFCA)",
-        "provenance": "Spatial access scores computed using the 2-step floating catchment area methodology (Luo & Wang, 2003) with a 30-minute binary threshold. Provider supply: CMS Hospital Compare (2015-2025), capacity=1 per facility. Consumer demand: ACS B01001_001 total population at block group level. Travel cost: OSRM block-group-to-block-group driving times. Scores expressed per 1,000 population.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "Center for Medicare and Medicaid Services",
-                "url": "https://data.cms.gov/provider-data/topics/hospitals"
-            }
-        ],
-        "statement": "The hospital 2SFCA availability score for {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "hosp_e2sfca": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": [
-            "wan12",
-            "bii21"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Hospital accessibility score based on the enhanced 2-step floating catchment area (E2SFCA) method with stepped distance weights. This variant improves on the standard 2SFCA by applying decreasing weights at 10, 20, 30, and 60-minute travel time bands, better reflecting the real-world pattern where people are less likely to travel to distant hospitals.",
-        "long_name": "Hospital geographic availability (enhanced 2-step floating catchment areas)",
-        "measure_type": "index",
-        "short_description": "Spatial accessibility index using E2SFCA with stepped distance decay weights.",
-        "short_name": "Hospital availability (E2SFCA)",
-        "provenance": "Spatial access scores computed using the enhanced 2-step floating catchment area methodology (Luo & Qi, 2009) with stepped weights: 10min=0.962, 20min=0.704, 30min=0.377, 60min=0.042. Provider supply: CMS Hospital Compare (2015-2025), capacity=1 per facility. Consumer demand: ACS B01001_001 total population at block group level. Travel cost: OSRM block-group-to-block-group driving times. Scores expressed per 1,000 population.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "Center for Medicare and Medicaid Services",
-                "url": "https://data.cms.gov/provider-data/topics/hospitals"
-            }
-        ],
-        "statement": "The hospital E2SFCA availability score for {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "hosp_cnt": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Count of non-psychiatric hospitals located within each geographic area. This measure captures the raw supply of hospital facilities, providing a simple indicator of health infrastructure density. Areas with zero or very few hospitals may rely heavily on facilities in neighboring areas, increasing travel burden for residents.",
-        "long_name": "Availability of hospitals by count",
-        "measure_type": "count",
-        "short_description": "Number of non-psychiatric hospitals (Acute Care, Critical Access, Children's) in each area.",
-        "short_name": "Hospital availability (count)",
-        "provenance": "Facility count from CMS Hospital Compare (2015-2025), filtered to VA/DC/MD. Excludes psychiatric hospitals. Each facility counts as 1 regardless of size or bed count. Geocoded via HIFLD (primary) and Census Geocoder (fallback), snapped to nearest block group centroid.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "Center for Medicare and Medicaid Services",
-                "url": "https://data.cms.gov/provider-data/topics/hospitals"
-            }
-        ],
-        "statement": "There are {value} hospitals in {features.name}.",
+        "statement": "There are {value} pediatricians in {features.name}.",
         "type": "count",
         "unit": "",
         "variants": ""
     },
-    "hosp_pop_cnt": {
+    "peds_near_10_mean": {
         "aggregation_method": "",
         "categories": "",
         "category": "Health",
@@ -184,61 +35,243 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Total population count at the block group level used as the demand denominator in floating catchment area calculations. This reflects the ACS total population estimate for the year preceding the CMS data year.",
-        "long_name": "Population count used in hospital FCA computation",
+        "long_description": "Average travel time in minutes to the nearest 10 pediatric medicine physicians from each block group centroid. This measure captures geographic proximity to pediatric care, with higher values indicating communities where families must travel farther to access multiple pediatric providers. Areas with long travel times to pediatricians may face barriers to routine well-child visits, vaccinations, and acute care for children.",
+        "long_name": "Mean travel time to nearest 10 pediatricians",
         "measure_type": "count",
-        "short_description": "ACS total population at block group level used as the FCA demand denominator.",
-        "short_name": "Population (hospital FCA)",
-        "provenance": "ACS 5-year estimate B01001_001 at block group level. Year is CMS data year minus 1, capped at the latest available ACS year.",
+        "short_description": "Mean driving time in minutes from block group centroid to the 10 nearest pediatric medicine physicians.",
+        "short_name": "Mean travel time to nearest 10 pediatricians",
+        "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrices (2020 boundaries). For each block group, the 10 nearest pediatrician locations (by travel time) are identified and their mean travel time computed. Aggregated to tract/county/HD via simple mean across constituent block groups.",
         "sources": [
             {
                 "date_accessed": 2025,
                 "location": "",
                 "location_url": "",
-                "name": "U.S. Census Bureau, American Community Survey",
-                "url": "https://data.census.gov"
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
             }
         ],
-        "statement": "The population in {features.name} used for hospital accessibility calculation is {value}.",
+        "statement": "The mean travel time to the nearest 10 pediatricians from {features.name} is {value} minutes.",
         "type": "count",
+        "unit": "minutes",
+        "variants": ""
+    },
+    "peds_near_10_median": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Median travel time in minutes to the nearest 10 pediatric medicine physicians from each block group centroid. The median is more robust to outliers than the mean, providing a better sense of typical accessibility. Communities with high median travel times face systematic barriers to pediatric care access that may result in delayed treatment and lower utilization of preventive services for children.",
+        "long_name": "Median travel time to nearest 10 pediatricians",
+        "measure_type": "count",
+        "short_description": "Median driving time in minutes from block group centroid to the 10 nearest pediatric medicine physicians.",
+        "short_name": "Median travel time to nearest 10 pediatricians",
+        "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrices (2020 boundaries). For each block group, the 10 nearest pediatrician locations (by travel time) are identified and their median travel time computed. Aggregated to tract/county/HD via simple mean of block group medians.",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
+            }
+        ],
+        "statement": "The median travel time to the nearest 10 pediatricians from {features.name} is {value} minutes.",
+        "type": "count",
+        "unit": "minutes",
+        "variants": ""
+    },
+    "peds_2sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Pediatric care accessibility measured using the two-step floating catchment area (2SFCA) method. This index accounts for both the supply of pediatricians and the demand from the population aged 0-17, weighted by travel time within a 30-minute catchment. Higher values indicate better spatial access to pediatric care relative to the child population, while lower values suggest potential shortages that could affect timely access to well-child visits and acute care.",
+        "long_name": "Pediatric care geographic availability (2-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Spatial accessibility index for pediatric physicians per 1,000 children aged 0-17, using 2-step floating catchment area method.",
+        "short_name": "Pediatric care geographic availability (2SFCA)",
+        "provenance": "Two-step floating catchment area (2SFCA) with 30-minute travel time threshold. Supply: CMS Doctors and Clinicians PEDIATRIC MEDICINE providers (MD/DO) in VA/DC/MD, geocoded and snapped to 2020 block group centroids. Demand: ACS B01001 population ages 0-17 (variables B01001_003-006, B01001_027-030) at block group level. Travel costs from OSRM driving time matrices. Values expressed per 1,000 population. Aggregated to tract/county via population-weighted mean.",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
+            }
+        ],
+        "statement": "The pediatric care availability for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "peds_e2sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Pediatric care accessibility measured using the enhanced two-step floating catchment area (E2SFCA) method. Unlike the basic 2SFCA, this variant applies stepped distance decay weights (10 min: 0.962, 20 min: 0.704, 30 min: 0.377, 60 min: 0.042), better reflecting how families' willingness to travel for pediatric care decreases with distance. Higher values indicate greater spatial accessibility to pediatric physicians relative to child population demand.",
+        "long_name": "Pediatric care geographic availability (enhanced 2-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Spatial accessibility index for pediatric physicians per 1,000 children aged 0-17, using enhanced 2-step floating catchment area method with distance decay.",
+        "short_name": "Pediatric care geographic availability (E2SFCA)",
+        "provenance": "Enhanced two-step floating catchment area (E2SFCA) with stepped distance decay weights: 10 min=0.962, 20 min=0.704, 30 min=0.377, 60 min=0.042. Supply: CMS Doctors and Clinicians PEDIATRIC MEDICINE providers. Demand: ACS B01001 population ages 0-17. Travel costs from OSRM driving time matrices. Values per 1,000 population. Aggregated to tract/county via population-weighted mean.",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
+            }
+        ],
+        "statement": "The pediatric care availability for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "peds_3sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Pediatric care accessibility measured using the three-step floating catchment area (3SFCA) method with Gaussian distance decay. This is the most sophisticated FCA variant, normalizing competition weights so that each consumer's demand is distributed proportionally across reachable providers. It provides the most realistic estimate of pediatric care accessibility by accounting for provider competition and distance sensitivity simultaneously.",
+        "long_name": "Pediatric care geographic availability (3-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Spatial accessibility index for pediatric physicians per 1,000 children aged 0-17, using 3-step floating catchment area method with Gaussian decay.",
+        "short_name": "Pediatric care geographic availability (3SFCA)",
+        "provenance": "Three-step floating catchment area (3SFCA) with Gaussian distance decay (scale=20) and normalized competition weights. Supply: CMS Doctors and Clinicians PEDIATRIC MEDICINE providers. Demand: ACS B01001 population ages 0-17. Travel costs from OSRM driving time matrices. Values per 1,000 population. Aggregated to tract/county via population-weighted mean.",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
+            }
+        ],
+        "statement": "The pediatric care availability for {features.name} is {value}.",
+        "type": "index",
         "unit": "",
         "variants": ""
     },
     "_references": {
-        "wan12": {
-            "id": "wan12",
+        "lou04": {
+            "id": "lou04",
             "author": [
                 {
-                    "given": "Neng",
-                    "family": "Wan"
-                },
-                {
-                    "given": "Bin",
-                    "family": "Zou"
-                },
-                {
-                    "given": "Troy",
-                    "family": "Sternberg"
+                    "given": "Wei",
+                    "family": "Lou"
                 }
             ],
-            "year": 2012,
-            "title": "A three-step floating catchment area method for analyzing spatial access to health services",
-            "journal": "International Journal of Geographical Information Science",
-            "volume": "26",
-            "page": "1073\u20131089",
-            "doi": "10.1080/13658816.2011.624987"
+            "year": 2004,
+            "title": "Using a gis-based floating catchment method to assess areas with shortage of physicians",
+            "journal": "Health & Place",
+            "volume": "10",
+            "number": 1,
+            "page": "1-11",
+            "doi": "10.1016/S1353-8292(02)00067-9"
         },
-        "bii21": {
-            "id": "bii21",
+        "lou09": {
+            "id": "lou09",
             "author": [
                 {
-                    "family": "Biocomplexity Institute and Initiative"
+                    "given": "Wei",
+                    "family": "Lou"
+                },
+                {
+                    "given": "Yi",
+                    "family": "Qi"
                 }
             ],
-            "year": 2021,
-            "title": "catchment: Calculate spatial access and availability metrics",
-            "version": "0.0.1",
-            "url": "https://github.com/uva-bi-sdad/catchment"
+            "year": 2009,
+            "title": "An enhanced two-step floating catchment area (e2sfca) method for measuring spatial accessibility to primary care physicians",
+            "journal": "Health & Place",
+            "volume": "15",
+            "number": 4,
+            "page": "1100-1107",
+            "doi": "10.1016/j.healthplace.2009.06.002"
+        },
+        "lou03": {
+            "id": "lou03",
+            "author": [
+                {
+                    "given": "Wei",
+                    "family": "Lou"
+                },
+                {
+                    "given": "Fahui",
+                    "family": "Wang"
+                }
+            ],
+            "year": 2003,
+            "title": "Measures of spatial accessibility to health care in a gis environment: synthesis and a case study in the Chicago region",
+            "journal": "Environment and Planning B: Planning and Design",
+            "volume": "30",
+            "number": 6,
+            "page": "865-884",
+            "doi": "10.1068/b29120"
+        },
+        "saxon20": {
+            "id": "saxon20",
+            "author": [
+                {
+                    "given": "James",
+                    "family": "Saxon"
+                },
+                {
+                    "given": "Julia",
+                    "family": "Koschinsky"
+                },
+                {
+                    "given": "Karina",
+                    "family": "Acosta"
+                },
+                {
+                    "given": "Vidal",
+                    "family": "Anguiano"
+                },
+                {
+                    "given": "Luc",
+                    "family": "Anselin"
+                },
+                {
+                    "given": "Sergio",
+                    "family": "Rey"
+                }
+            ],
+            "year": 2020,
+            "title": "An Open Software Environment to Make Spatial Access Metrics More Accessible",
+            "journal": "University of Chicago: Center for Spatial Data Science",
+            "volume": "Preprint",
+            "doi": "10.13140/RG.2.2.12396.28807"
         }
     }
 }
