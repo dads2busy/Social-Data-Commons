@@ -90,6 +90,7 @@ def aggregate_up(
     target_geo: str,
     method: AggMethod = "mean",
     value_col: str = "value",
+    weights: pd.Series | None = None,
 ) -> pd.DataFrame:
     """Aggregate a DataFrame to a higher geography level.
 
@@ -103,6 +104,9 @@ def aggregate_up(
         Aggregation method for the value column.
     value_col : str
         Column to aggregate.
+    weights : pd.Series or None
+        Optional population weights for weighted mean aggregation.
+        Only used when method="mean". Index must align with df.
 
     Returns
     -------
@@ -117,7 +121,18 @@ def aggregate_up(
     if "measure" in result.columns:
         group_cols.append("measure")
 
-    agg = result.groupby(group_cols)[value_col].agg(method).reset_index()
+    if weights is not None and method == "mean":
+        result["_weight"] = weights.values
+        result["_weighted_val"] = result[value_col] * result["_weight"]
+        agg = result.groupby(group_cols).agg(
+            _wsum=("_weighted_val", "sum"),
+            _wtotal=("_weight", "sum"),
+        ).reset_index()
+        agg[value_col] = agg["_wsum"] / agg["_wtotal"].replace(0, float("nan"))
+        agg = agg.drop(columns=["_wsum", "_wtotal"])
+    else:
+        agg = result.groupby(group_cols)[value_col].agg(method).reset_index()
+
     agg = agg.rename(columns={"_target_geoid": "geoid"})
     agg["region_type"] = target_geo
     return agg
