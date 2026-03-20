@@ -136,3 +136,81 @@ def catchment_weight(
         w = w * (w / row_sums)
 
     return sparse.csc_matrix(w)
+
+
+def _apply_commute_blending(W: sparse.csc_matrix, consumers_commutes) -> sparse.csc_matrix:
+    """Blend weight matrix with commute flows (placeholder for commute-based FCA)."""
+    # TODO: implement commute blending logic
+    return W
+
+
+def catchment_ratio(
+    consumers: pd.DataFrame,
+    providers: pd.DataFrame,
+    cost,
+    weight: WeightSpec = None,
+    scale: float = 2.0,
+    max_cost: float | None = None,
+    normalize_weight: bool = False,
+    adjust_consumers: Callable | None = None,
+    adjust_providers: Callable | None = None,
+    consumers_commutes=None,
+    consumers_id: str = "geoid",
+    consumers_value: str = "value",
+    providers_id: str = "geoid",
+    providers_value: str = "value",
+    adjust_zeros: float | bool = 1e-6,
+    return_type: str | int | float = "original",
+) -> pd.Series:
+    """Calculate provider-to-consumer ratios within floating catchment areas."""
+    c_ids = consumers[consumers_id].values
+    c_vals = consumers[consumers_value].values.astype(float)
+    p_ids = providers[providers_id].values
+    p_vals = providers[providers_value].values.astype(float)
+
+    cost_sp = _to_sparse(cost)
+    if cost_sp.shape[0] != len(consumers):
+        raise ValueError(f"Cost matrix dimension mismatch: {cost_sp.shape[0]} rows but {len(consumers)} consumers")
+    if cost_sp.shape[1] != len(providers):
+        raise ValueError(f"Cost matrix dimension mismatch: {cost_sp.shape[1]} columns but {len(providers)} providers")
+
+    W = catchment_weight(cost, weight, max_cost, scale, normalize_weight, adjust_zeros)
+
+    if consumers_commutes is not None:
+        W = _apply_commute_blending(W, consumers_commutes)
+
+    # W_providers used in step 1 (provider demand), W_consumers used in step 2 (consumer access)
+    W_consumers = W.toarray().copy()
+    W_providers = W.toarray().copy()
+    if adjust_consumers is not None:
+        W_consumers = np.asarray(adjust_consumers(W_consumers))
+    if adjust_providers is not None:
+        W_providers = np.asarray(adjust_providers(W_providers))
+
+    if return_type == "demand":
+        demand = W_consumers.T @ c_vals
+        return pd.Series(demand, index=p_ids)
+
+    if return_type == "supply":
+        supply = W_consumers @ p_vals
+        return pd.Series(supply, index=c_ids)
+
+    weighted_demand = W_providers.T @ c_vals
+    weighted_demand = np.where(weighted_demand > 0, weighted_demand, np.inf)
+    ratios = p_vals / weighted_demand
+    access = W_consumers @ ratios
+
+    if isinstance(return_type, (int, float)) and not isinstance(return_type, bool):
+        access = access * float(return_type)
+    elif return_type == "region":
+        access = access * c_vals
+    elif return_type == "normalized":
+        a_min, a_max = access.min(), access.max()
+        if a_max > a_min:
+            access = (access - a_min) / (a_max - a_min)
+        else:
+            access = np.zeros_like(access)
+    elif return_type != "original":
+        raise ValueError(f"Unknown return_type: {return_type!r}")
+
+    return pd.Series(access, index=c_ids)

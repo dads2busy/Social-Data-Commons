@@ -133,6 +133,72 @@ class TestCatchmentWeight:
         assert_allclose(w_dense.toarray(), w_sparse.toarray())
 
 
+class TestCatchmentRatio:
+    @pytest.fixture
+    def setup(self):
+        consumers = pd.DataFrame({"geoid": ["C1", "C2", "C3"], "value": [100, 200, 150]})
+        providers = pd.DataFrame({"geoid": ["P1", "P2"], "value": [50, 30]})
+        cost = np.array([[5.0, 25.0], [8.0, 8.0], [25.0, 5.0]])
+        return consumers, providers, cost
+
+    def test_2sfca_original(self, setup):
+        from sdc_core.catchment import catchment_ratio
+        consumers, providers, cost = setup
+        result = catchment_ratio(consumers, providers, cost, weight=10.0, return_type="original")
+        assert isinstance(result, pd.Series)
+        assert list(result.index) == ["C1", "C2", "C3"]
+        assert_allclose(result["C1"], 50 / 300, rtol=1e-10)
+        assert_allclose(result["C2"], 50 / 300 + 30 / 350, rtol=1e-10)
+        assert_allclose(result["C3"], 30 / 350, rtol=1e-10)
+
+    def test_return_type_supply(self, setup):
+        from sdc_core.catchment import catchment_ratio
+        consumers, providers, cost = setup
+        result = catchment_ratio(consumers, providers, cost, weight=10.0, return_type="supply")
+        assert_allclose(result["C1"], 50.0)
+        assert_allclose(result["C2"], 80.0)
+        assert_allclose(result["C3"], 30.0)
+
+    def test_return_type_numeric(self, setup):
+        from sdc_core.catchment import catchment_ratio
+        consumers, providers, cost = setup
+        result_raw = catchment_ratio(consumers, providers, cost, weight=10.0, return_type="original")
+        result_1k = catchment_ratio(consumers, providers, cost, weight=10.0, return_type=1000)
+        assert_allclose(result_1k.values, result_raw.values * 1000)
+
+    def test_return_type_demand(self, setup):
+        from sdc_core.catchment import catchment_ratio
+        consumers, providers, cost = setup
+        result = catchment_ratio(consumers, providers, cost, weight=10.0, return_type="demand")
+        assert isinstance(result, pd.Series)
+        assert list(result.index) == ["P1", "P2"]
+        assert_allclose(result["P1"], 300.0)
+        assert_allclose(result["P2"], 350.0)
+
+    def test_return_type_normalized(self, setup):
+        from sdc_core.catchment import catchment_ratio
+        consumers, providers, cost = setup
+        result = catchment_ratio(consumers, providers, cost, weight=10.0, return_type="normalized")
+        assert result.min() >= 0.0
+        assert result.max() <= 1.0
+
+    def test_return_type_region(self, setup):
+        from sdc_core.catchment import catchment_ratio
+        consumers, providers, cost = setup
+        result = catchment_ratio(consumers, providers, cost, weight=10.0, return_type="region")
+        result_raw = catchment_ratio(consumers, providers, cost, weight=10.0, return_type="original")
+        expected = result_raw * consumers["value"].values
+        assert_allclose(result.values, expected.values)
+
+    def test_dimension_mismatch_raises(self):
+        from sdc_core.catchment import catchment_ratio
+        consumers = pd.DataFrame({"geoid": ["C1", "C2"], "value": [100, 200]})
+        providers = pd.DataFrame({"geoid": ["P1"], "value": [50]})
+        cost = np.array([[1.0, 2.0]])
+        with pytest.raises(ValueError, match="dimension"):
+            catchment_ratio(consumers, providers, cost, weight=10.0)
+
+
 class TestEuclideanCost:
     def test_basic(self):
         from sdc_core.catchment import euclidean_cost
