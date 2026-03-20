@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-03-20T16:36:13+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method",
+    "region_name",
+    "measure_type",
+    "variable",
+    "weighted_mean",
+    "desc"
+  ],
+  "measures": [
+    "obgyn_2sfca",
+    "obgyn_3sfca",
+    "obgyn_cnt",
+    "obgyn_e2sfca",
+    "obgyn_near_10_mean",
+    "obgyn_near_10_median",
+    "obgyn_pop_cnt"
+  ],
+  "years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 774469,
+  "files": {
+    "ncr_cttrbg_cms_2017_2025_access_scores_obgyn.csv.xz": {
+      "sha256": "ef51253009d0945ae2dde0e77789db533ca6b14528f3916e0f59239aebcfb1d8",
+      "size_bytes": 1448100
+    },
+    "ncr_cttrbg_webmd_2021_access_scores_obgyn.csv.xz": {
+      "sha256": "24517827d66b13c106c6f066edd560371464bb8c3ac5d1a41a843cbe4fe7d45f",
+      "size_bytes": 190772
+    },
+    "va059_cms_2022_obgyn_access_scores.csv.xz": {
+      "sha256": "ae97d423a013340eaa846b9ee3c7da86a3559b0734bec2517c58c80603a21809",
+      "size_bytes": 2884
+    },
+    "va059_weighted_access_scores_obgyn.csv.xz": {
+      "sha256": "284108383681021ede8d946b0fc1d70db2206bc215a87b0a594fced7d5cf8910",
+      "size_bytes": 488
+    },
+    "va_hdcttrbg_cms_2017_2025_access_scores_obgyn.csv.xz": {
+      "sha256": "b793ff08fd9e2538f8bc5f15ceeaec190dc6ebeb253a1ed959b9c08db9457a2e",
+      "size_bytes": 2237524
+    },
+    "va_hdcttrbgca_webmd_2021_access_scores_obgyn.csv.xz": {
+      "sha256": "9705b65f3dd49b5919007a018de723fb86701f795c044b2d214b8480748a0a80",
+      "size_bytes": 464696
+    }
+  }
+}
