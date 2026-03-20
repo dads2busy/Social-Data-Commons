@@ -138,10 +138,34 @@ def catchment_weight(
     return sparse.csc_matrix(w)
 
 
-def _apply_commute_blending(W: sparse.csc_matrix, consumers_commutes) -> sparse.csc_matrix:
-    """Blend weight matrix with commute flows (placeholder for commute-based FCA)."""
-    # TODO: implement commute blending logic
-    return W
+def _apply_commute_blending(W: sparse.csc_matrix, commutes) -> sparse.csc_matrix:
+    """Blend weight matrix with commute OD flows.
+
+    Parameters
+    ----------
+    W : sparse matrix
+        Original weight matrix (n_consumers x n_providers).
+    commutes : ndarray or sparse matrix
+        Square OD matrix (n_consumers x n_consumers).
+
+    Returns
+    -------
+    sparse.csc_matrix
+        Blended weight matrix.
+    """
+    od = np.asarray(commutes, dtype=float).copy()
+    np.fill_diagonal(od, 0.0)
+
+    row_sums = od.sum(axis=1, keepdims=True)
+    row_sums[row_sums == 0] = 1.0
+    frac = od / row_sums
+
+    stay = 1.0 - frac.sum(axis=1, keepdims=True)
+
+    W_dense = W.toarray()
+    blended = stay * W_dense + frac @ W_dense
+
+    return sparse.csc_matrix(blended)
 
 
 def catchment_ratio(

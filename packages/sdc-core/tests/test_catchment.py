@@ -246,6 +246,31 @@ class TestFCAVariants:
         assert len(result) == 3
 
 
+class TestCommuteBased:
+    def test_commute_blending(self):
+        from sdc_core.catchment import catchment_ratio
+
+        consumers = pd.DataFrame({"geoid": ["C1", "C2"], "value": [100, 200]})
+        providers = pd.DataFrame({"geoid": ["P1"], "value": [50]})
+        cost = np.array([[5.0], [5.0]])
+        od = np.array([[0, 20], [10, 0]])
+        result = catchment_ratio(consumers, providers, cost, weight=10.0, consumers_commutes=od)
+        assert isinstance(result, pd.Series)
+        assert len(result) == 2
+
+    def test_commute_diagonal_zeroed(self):
+        from sdc_core.catchment import catchment_ratio
+
+        consumers = pd.DataFrame({"geoid": ["C1", "C2"], "value": [100, 200]})
+        providers = pd.DataFrame({"geoid": ["P1"], "value": [50]})
+        cost = np.array([[5.0], [5.0]])
+        od_dirty = np.array([[50, 20], [10, 100]])
+        od_clean = np.array([[0, 20], [10, 0]])
+        result_dirty = catchment_ratio(consumers, providers, cost, weight=10.0, consumers_commutes=od_dirty)
+        result_clean = catchment_ratio(consumers, providers, cost, weight=10.0, consumers_commutes=od_clean)
+        assert_allclose(result_dirty.values, result_clean.values)
+
+
 class TestEuclideanCost:
     def test_basic(self):
         from sdc_core.catchment import euclidean_cost
