@@ -23,7 +23,7 @@ DIST_DIR = TOPIC_DIR / "data" / "distribution"
 MEASURE_INFO = DIST_DIR / "measure_info.json"
 
 MEASURE_PREFIX = "primcare"
-DATA_SOURCE = "webmd"
+DATA_SOURCE = "cms"
 
 log = get_logger("primcare.prepare")
 

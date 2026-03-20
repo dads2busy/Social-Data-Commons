@@ -1,9 +1,10 @@
 """Ingest primary care physician accessibility scores for VA and NCR.
 
-Uses WebMD primary care physician locations, ACS total population at block
-group level, and pre-computed BG-to-BG travel times to compute 2SFCA,
-E2SFCA, and 3SFCA access scores. Writes BG+tract+county output to
-data/distribution/ (no health district aggregation — that is done by prepare.py).
+Uses CMS Doctors and Clinicians data (primary care specialties), ACS total
+population at block group level, and pre-computed BG-to-BG travel times to
+compute 2SFCA, E2SFCA, and 3SFCA access scores.  Writes BG+tract+county
+output to data/distribution/ (no health district aggregation — that is done
+by prepare.py).
 """
 
 import sys
@@ -11,6 +12,7 @@ import time
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import yaml
 from sdc_core.census import CensusClient
 from sdc_core.io import write_data
@@ -21,14 +23,16 @@ from sdc_core.result import RunResult
 HCS_DIR = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(HCS_DIR / "code"))
 from compute_service_access import (
+    _haversine_km,
     aggregate_bg_to_levels,
-    load_providers,
     load_travel_times,
     run_fca_variants,
 )
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
+REPO_DIR = Path(__file__).resolve().parents[7]
 DIST_DIR = TOPIC_DIR / "data" / "distribution"
+CENTROIDS_PATH = REPO_DIR / "geographies" / "osrm" / "bg_centroids_2020.csv"
 
 log = get_logger("primcare.ingest")
 
@@ -39,8 +43,10 @@ NCR_COUNTIES = {
     "11001",
 }
 
+PRIMARY_CARE_SPECIALTIES = ["FAMILY PRACTICE", "FAMILY MEDICINE", "GENERAL PRACTICE"]
+
 MEASURE_PREFIX = "primcare"
-DATA_SOURCE = "webmd"
+DATA_SOURCE = "cms"
 YEAR = 2022
 ACS_YEAR = 2021
 
@@ -50,6 +56,73 @@ def load_config() -> dict:
         return yaml.safe_load(f)
 
 
+def load_cms_providers(config: dict) -> pd.DataFrame:
+    """Load CMS physician data, filter to 2022 primary care, geocode, snap to BG.
+
+    Returns DataFrame with columns: lid, bg_geoid, capacity, lat, lon
+    """
+    cms_path = TOPIC_DIR / config["sources"]["cms"]["data_file"]
+    geo_path = TOPIC_DIR / config["sources"]["cms"]["geocoded_file"]
+    specialties = config["sources"]["cms"]["specialties"]
+    year = config["sources"]["cms"]["year"]
+
+    cms = pd.read_csv(cms_path, dtype={"postalcode": str})
+    geo = pd.read_csv(geo_path, dtype={"postalcode": str})
+
+    # Filter to target year and primary care specialties
+    pc = cms[(cms["year"] == year) & (cms["primary_specialty"].isin(specialties))].copy()
+    log.info("CMS %d primary care rows: %d (%d unique NPIs)", year, len(pc), pc["npi"].nunique())
+
+    # Build geocode lookup keyed by address (not NPI — NPIs can have multiple locations)
+    geo_addr = (
+        geo[["street", "city", "state", "postalcode", "lat", "long"]]
+        .drop_duplicates(subset=["street", "city", "state", "postalcode"])
+    )
+
+    # Group CMS rows by address, count unique NPIs per location
+    addr_groups = (
+        pc.groupby(["address_line_1", "city", "state", "postalcode"])
+        .agg(capacity=("npi", "nunique"))
+        .reset_index()
+    )
+
+    # Join with geocoded addresses on address fields
+    addr_groups = addr_groups.merge(
+        geo_addr,
+        left_on=["address_line_1", "city", "state", "postalcode"],
+        right_on=["street", "city", "state", "postalcode"],
+        how="left",
+    )
+    missing = addr_groups["lat"].isna().sum()
+    if missing > 0:
+        log.warning("Dropping %d addresses with missing geocodes", missing)
+        addr_groups = addr_groups.dropna(subset=["lat"])
+    log.info("Unique provider addresses: %d, total capacity: %d", len(addr_groups), addr_groups["capacity"].sum())
+
+    # Snap each address to nearest block group centroid
+    centroids = pd.read_csv(CENTROIDS_PATH, dtype={"geoid": str})
+    bg_geoids = centroids["geoid"].values
+    bg_lats = centroids["lat"].values
+    bg_lons = centroids["lon"].values
+
+    bg_assignments = []
+    for _, row in addr_groups.iterrows():
+        dists = _haversine_km(bg_lats, bg_lons, row["lat"], row["long"])
+        bg_assignments.append(bg_geoids[np.argmin(dists)])
+
+    providers = pd.DataFrame({
+        "lid": range(len(addr_groups)),
+        "bg_geoid": bg_assignments,
+        "capacity": addr_groups["capacity"].values,
+        "lat": addr_groups["lat"].values,
+        "lon": addr_groups["long"].values,
+        "provider_state": addr_groups["state"].values,
+    })
+
+    log.info("Snapped %d provider locations to block groups", len(providers))
+    return providers
+
+
 def run() -> list[RunResult]:
     t0 = time.time()
     results = []
@@ -57,19 +130,18 @@ def run() -> list[RunResult]:
     try:
         config = load_config()
 
-        geojson_path = TOPIC_DIR / config["sources"]["providers"]["file"]
-        capacity_col = config["sources"]["providers"].get("capacity_col", "doctors")
-        providers = load_providers(geojson_path, capacity_col=capacity_col)
-        log.info("Loaded %d provider locations", len(providers))
+        providers = load_cms_providers(config)
+        log.info("Loaded %d provider locations (total capacity %d)", len(providers), providers["capacity"].sum())
 
         travel_times = load_travel_times()
 
+        # Fetch BG population for VA + MD + DC (all states needed for NCR)
         census = CensusClient()
         pop_data = census.get_acs_multi(
             variables={"total_pop": "B01001_001"},
             years=[ACS_YEAR],
             geographies=["block_group"],
-            states=["51"],
+            states=["51", "24", "11"],
         )
 
         consumer_geoids = pop_data["geoid"].values
@@ -79,10 +151,10 @@ def run() -> list[RunResult]:
 
         # --- VA: all Virginia block groups ---
         va_mask = np.array([g.startswith("51") for g in consumer_geoids])
+        va_providers = providers[providers["bg_geoid"].str.startswith("51")]
         va_bg = run_fca_variants(
             consumer_geoids[va_mask], consumer_pop[va_mask],
-            providers[providers["bg_geoid"].str.startswith("51")],
-            travel_times, MEASURE_PREFIX,
+            va_providers, travel_times, MEASURE_PREFIX,
         )
         va_long = aggregate_bg_to_levels(
             va_bg, MEASURE_PREFIX, YEAR, consumer_pop=consumer_pop[va_mask],
