@@ -1,0 +1,48 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-03-20T18:36:23+00:00",
+  "schema": [
+    "geoid",
+    "region_type",
+    "region_name",
+    "measure",
+    "value",
+    "year",
+    "measure_type",
+    "data_method",
+    "moe"
+  ],
+  "measures": [
+    "dent_2sfca",
+    "dent_3sfca",
+    "dent_cnt",
+    "dent_e2sfca",
+    "dent_near_10_mean",
+    "dent_near_10_median",
+    "dent_pop_cnt"
+  ],
+  "years": [
+    2021,
+    2022
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 119643,
+  "files": {
+    "ncr_cttrbg_webmd_2021_access_scores_dentists.csv.xz": {
+      "sha256": "dbd9a56aba5b21b0a9e50e368cbc8f25c065b3da8bbb705d58e0082dadf3e4f1",
+      "size_bytes": 170256
+    },
+    "ncr_cttrbg_webmd_2022_access_scores_dent.csv.xz": {
+      "sha256": "8d511816f48400a50dc4ea3379595c9303c99b54b10fc851383d24c52d6983ce",
+      "size_bytes": 201288
+    },
+    "va_hdcttrbgca_webmd_2021_access_scores_dentists.csv.xz": {
+      "sha256": "d118fe250570e4f4a74e1282c6ecb1f37d9e9df1e01c0cb4a9f2423af39ea391",
+      "size_bytes": 477308
+    }
+  }
+}

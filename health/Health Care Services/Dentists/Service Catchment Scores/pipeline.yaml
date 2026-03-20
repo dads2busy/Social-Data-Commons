@@ -1,10 +1,11 @@
 name: dentists_access_scores
-version: "1.0.0"
+version: "2.0.0"
 title: "Dental Service Accessibility (FCA)"
 description: >-
   Floating catchment area analysis measuring dental service accessibility
   at block group level. Computes 2SFCA, E2SFCA, and 3SFCA variants with
-  provider counts from WebMD dental directory.
+  provider counts from WebMD dental directory. NCR-only — provider data
+  covers the NCR region only.
 
 sources:
   providers:
@@ -13,8 +14,13 @@ sources:
     file: "data/distribution/ncr_webmd_2022_dentists_points.geojson"
     capacity_col: "doctors"
 
+population:
+  variable: "B01001_001"
+  acs_year: 2021
+  states: ["51", "24", "11"]
+
 output:
   path: data/distribution
-  geographies: [block_group, tract, county, health_district]
+  geographies: [block_group, tract, county]
   years: [2022]
-  coverage_areas: [va, ncr]
+  coverage_areas: [ncr]

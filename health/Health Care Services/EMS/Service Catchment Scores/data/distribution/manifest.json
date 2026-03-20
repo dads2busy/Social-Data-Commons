@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-03-20T18:36:11+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method",
+    "region_name",
+    "measure_type"
+  ],
+  "measures": [
+    "ems_2sfca",
+    "ems_3sfca",
+    "ems_cnt",
+    "ems_e2sfca",
+    "ems_near_10_mean",
+    "ems_near_10_median",
+    "ems_pop_cnt"
+  ],
+  "years": [
+    2021
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 138348,
+  "files": {
+    "ncr_cttrbg_hifld_2021_access_scores_ems.csv.xz": {
+      "sha256": "8aa92cd6d19ea0f8fdd564ccf9e5931ff5b256ef331071fab6d9842e73e56491",
+      "size_bytes": 189172
+    },
+    "va_hdcttrbg_hifld_2021_access_scores_ems.csv.xz": {
+      "sha256": "74cf144318a9f07374eaf923934630544f3449cd9b3d1c2f099af4089cdac6e7",
+      "size_bytes": 347824
+    },
+    "va_hdcttrbgca_hifld_2021_access_scores_ems.csv.xz": {
+      "sha256": "e5d0c4b31403eb356f1aff22ae54931331042aea629e6b2366c3ab2c58f8470c",
+      "size_bytes": 480016
+    }
+  }
+}

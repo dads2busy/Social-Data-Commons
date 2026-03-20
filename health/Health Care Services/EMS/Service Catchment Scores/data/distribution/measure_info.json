@@ -1,31 +1,4 @@
 {
-    "ems_near_10_median": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Median drive time in minutes to the ten closest emergency medical services facilities. Facility location data were collected from the Homeland Infrastructure Foundation-Level Data (HIFLD) repository. Drive times were computer using Open Source Routing Machine (looking at roads for 2021) Geographies: Block group (12), Census tract (11), County (5), Civic Associations (51013_ca)",
-        "long_name": "Emergency medical services availability by median drive time to the ten closest facilities in minutes",
-        "measure_type": "count",
-        "short_description": "",
-        "short_name": "Emergency medical services availability (drive time)",
-        "sources": [
-            {
-                "date_accessed": 2021,
-                "location": "",
-                "location_url": "",
-                "name": "Homeland Infrastructure Foundation-Level Data (HIFLD)",
-                "url": "https://hifld-geoplatform.opendata.arcgis.com/"
-            }
-        ],
-        "statement": "The median drive time to the ten closest emergency medical service facilities to {features.name} is {value}.",
-        "type": "drive time",
-        "unit": "",
-        "variants": ""
-    },
     "ems_cnt": {
         "aggregation_method": "",
         "categories": "",
@@ -34,11 +7,12 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Count of emergency medical services facilities based on facility locations. Location data was collected from the Homeland Infrastructure Foundation-Level Data (HIFLD) repository. Geographies: Block group (12), Census tract (11), County (5), Civic Associations (51013_ca)",
+        "long_description": "Count of emergency medical services (EMS) stations located within each geographic unit. EMS station availability varies widely between urban and rural areas, and lower station counts can indicate longer response times during medical emergencies, potentially affecting survival outcomes for time-sensitive conditions like cardiac arrest and stroke.",
         "long_name": "Availability of emergency medical services by count",
         "measure_type": "count",
-        "short_description": "",
+        "short_description": "Number of EMS stations within each geographic area.",
         "short_name": "Emergency medical services availability (count)",
+        "provenance": "Station locations from HIFLD Emergency Medical Service Stations dataset (2021 snapshot). Each station counted as capacity=1. Stations snapped to nearest 2020 Census block group centroid using haversine distance. Counts summed from block group to tract and county levels.",
         "sources": [
             {
                 "date_accessed": 2021,
@@ -50,6 +24,68 @@
         ],
         "statement": "There are {value} emergency medical services facilities in {features.name}.",
         "type": "count",
+        "unit": "",
+        "variants": ""
+    },
+    "ems_2sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou03"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "EMS accessibility measured using the two-step floating catchment area (2SFCA) method with a 30-minute travel time threshold. This method computes provider-to-population ratios within catchment areas to identify communities with limited emergency medical service coverage. Areas with lower scores face longer expected response times, which is critical for time-sensitive emergencies.",
+        "long_name": "Emergency medical services geographic availability (2-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "EMS accessibility index using two-step floating catchment area analysis with a 30-minute threshold.",
+        "short_name": "EMS availability (2SFCA)",
+        "provenance": "Computed using 2SFCA methodology (Luo & Wang, 2003; Luo, 2004) with 30-minute binary travel time threshold. Provider capacity: 1 per HIFLD EMS station (2021). Consumer demand: ACS 2021 total population (B01001_001) at block group level. Travel times: pre-computed OSRM BG-to-BG drive times. Values expressed per 1,000 population.",
+        "sources": [
+            {
+                "date_accessed": 2021,
+                "location": "",
+                "location_url": "",
+                "name": "Homeland Infrastructure Foundation-Level Data (HIFLD)",
+                "url": "https://hifld-geoplatform.opendata.arcgis.com/"
+            }
+        ],
+        "statement": "The 2SFCA emergency medical services availability for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "ems_e2sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "EMS accessibility measured using the enhanced two-step floating catchment area (E2SFCA) method with stepped distance-decay weights. Unlike the basic 2SFCA, this method applies decreasing weights at 10, 20, 30, and 60 minute travel time zones, reflecting the reality that people are less likely to use facilities that are farther away. Lower scores indicate communities with reduced EMS accessibility.",
+        "long_name": "Emergency medical services geographic availability (enhanced 2-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "EMS accessibility index using enhanced two-step floating catchment area analysis with distance-decay weights.",
+        "short_name": "EMS availability (E2SFCA)",
+        "provenance": "Computed using E2SFCA methodology (Luo & Qi, 2009) with stepped weights: 10 min (0.962), 20 min (0.704), 30 min (0.377), 60 min (0.042). Provider capacity: 1 per HIFLD EMS station (2021). Consumer demand: ACS 2021 total population (B01001_001) at block group level. Travel times: pre-computed OSRM BG-to-BG drive times. Values expressed per 1,000 population.",
+        "sources": [
+            {
+                "date_accessed": 2021,
+                "location": "",
+                "location_url": "",
+                "name": "Homeland Infrastructure Foundation-Level Data (HIFLD)",
+                "url": "https://hifld-geoplatform.opendata.arcgis.com/"
+            }
+        ],
+        "statement": "The E2SFCA emergency medical services availability for {features.name} is {value}.",
+        "type": "index",
         "unit": "",
         "variants": ""
     },
@@ -66,11 +102,12 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Emergency medical services availability is based on 3-step floating catchment areas. This method is an aggregation of facilities per population ratios weighted by distance or travel time in each catchment area (area within which a facility is accessible). Weights are defined as the demand for facilities (or the adult population). Geographies: Block group (12), Census tract (11), County (5), Civic Associations (51013_ca)",
+        "long_description": "EMS accessibility measured using the three-step floating catchment area (3SFCA) method with Gaussian distance-decay weighting. This is the most sophisticated FCA variant, incorporating both supply-side and demand-side competition effects with a smooth Gaussian decay function. It provides the most nuanced measure of spatial accessibility to emergency medical services.",
         "long_name": "Emergency medical services geographic availability (3-step floating catchment areas)",
         "measure_type": "index",
-        "short_description": "",
+        "short_description": "EMS accessibility index using three-step floating catchment area analysis with Gaussian weighting.",
         "short_name": "Emergency medical services geographic availability",
+        "provenance": "Computed using 3SFCA methodology (Wan et al., 2012; Saxon et al., 2020) with Gaussian distance decay (scale=20 minutes). Provider capacity: 1 per HIFLD EMS station (2021). Consumer demand: ACS 2021 total population (B01001_001) at block group level. Travel times: pre-computed OSRM BG-to-BG drive times. Normalized weights. Values expressed per 1,000 population.",
         "sources": [
             {
                 "date_accessed": 2021,
@@ -80,9 +117,64 @@
                 "url": "https://hifld-geoplatform.opendata.arcgis.com/"
             }
         ],
-        "provenance": "Spatial access scores are calculated using the floating catchment area (2SFCA/3SFCA) methodology (Luo, 2004; Luo & Qi, 2009; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
         "statement": "The emergency medical services availability for {features.name} is {value}.",
         "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "ems_near_10_mean": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Mean drive time in minutes to the ten closest emergency medical services stations. This measure captures the average travel burden to multiple nearby EMS facilities, providing a more robust accessibility indicator than nearest-facility distance alone. Higher values indicate areas with fewer nearby EMS resources, where emergency response times may be longer.",
+        "long_name": "Emergency medical services availability by mean drive time to the ten closest facilities in minutes",
+        "measure_type": "count",
+        "short_description": "Average drive time in minutes to the ten nearest EMS stations.",
+        "short_name": "EMS availability (mean drive time)",
+        "provenance": "For each block group, the 10 shortest OSRM drive times to block groups containing HIFLD EMS stations (2021) are identified and averaged. Self-pairs (BGs containing a station) are assigned 0 minutes. Aggregated to tract and county by simple mean of constituent block groups.",
+        "sources": [
+            {
+                "date_accessed": 2021,
+                "location": "",
+                "location_url": "",
+                "name": "Homeland Infrastructure Foundation-Level Data (HIFLD)",
+                "url": "https://hifld-geoplatform.opendata.arcgis.com/"
+            }
+        ],
+        "statement": "The mean drive time to the ten closest emergency medical service facilities to {features.name} is {value}.",
+        "type": "drive time",
+        "unit": "",
+        "variants": ""
+    },
+    "ems_near_10_median": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Median drive time in minutes to the ten closest emergency medical services stations. The median is less sensitive to outliers than the mean, providing a robust central estimate of travel time to nearby EMS facilities. Communities with high median drive times have fewer accessible emergency services, which may affect outcomes for time-critical medical events.",
+        "long_name": "Emergency medical services availability by median drive time to the ten closest facilities in minutes",
+        "measure_type": "count",
+        "short_description": "Median drive time in minutes to the ten nearest EMS stations.",
+        "short_name": "Emergency medical services availability (drive time)",
+        "provenance": "For each block group, the 10 shortest OSRM drive times to block groups containing HIFLD EMS stations (2021) are identified and the median is taken. Self-pairs (BGs containing a station) are assigned 0 minutes. Aggregated to tract and county by simple mean of constituent block groups.",
+        "sources": [
+            {
+                "date_accessed": 2021,
+                "location": "",
+                "location_url": "",
+                "name": "Homeland Infrastructure Foundation-Level Data (HIFLD)",
+                "url": "https://hifld-geoplatform.opendata.arcgis.com/"
+            }
+        ],
+        "statement": "The median drive time to the ten closest emergency medical service facilities to {features.name} is {value}.",
+        "type": "drive time",
         "unit": "",
         "variants": ""
     },

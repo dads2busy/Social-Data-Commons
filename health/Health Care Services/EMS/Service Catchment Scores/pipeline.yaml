@@ -1,20 +1,33 @@
 name: ems_access_scores
-version: "1.0.0"
+version: "2.0.0"
 title: "EMS Service Accessibility (FCA)"
 description: >-
   Floating catchment area analysis measuring EMS service accessibility
-  at block group level. Computes 2SFCA, E2SFCA, and 3SFCA variants with
-  provider counts from HIFLD EMS station locations.
+  at block group level. Computes 2SFCA, E2SFCA, and 3SFCA variants using
+  HIFLD EMS station locations (CSV with lat/lon) and ACS total population.
+  Each station is capacity=1 (count). Single year: 2021.
 
 sources:
-  providers:
-    type: geojson
-    description: "HIFLD EMS station geocoded locations"
-    file: "data/distribution/ncr_hifld_2022_ems_points.geojson"
+  hifld:
+    type: csv
+    description: "HIFLD Emergency Medical Service Stations (2021 snapshot)"
+    file: "data/original/va_hifld_2021_ems_stations.csv"
     capacity_col: null
+    url: "https://hifld-geoplatform.opendata.arcgis.com/"
+    note: "HIFLD API is down; no newer data available"
+
+  population:
+    type: census_acs
+    variable: "B01001_001"
+    year: 2021
+    geography: block_group
+    states: ["51", "24", "11"]
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
 
 output:
   path: data/distribution
   geographies: [block_group, tract, county, health_district]
-  years: [2022]
+  years: [2021]
   coverage_areas: [va, ncr]
