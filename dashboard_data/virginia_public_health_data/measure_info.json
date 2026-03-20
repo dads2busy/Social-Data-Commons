@@ -1,142 +1,277 @@
 {
-    "monthly_rent_0br": {
+    "primcare_cnt": {
         "aggregation_method": "",
         "categories": "",
-        "category": "Housing",
+        "category": "Health",
         "citations": "",
-        "data_type": "decimal",
-        "equity_category": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
         "layer": "",
-        "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units in a market area. Studio FMRs set the baseline for housing assistance programs and reflect the minimum cost of independent housing. Areas where even studio rents are high relative to incomes face acute affordability challenges for single-person households and individuals transitioning out of homelessness.",
-        "long_name": "0 Bedroom Dwelling Fair Market Rent",
-        "measure_type": "cost",
-        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
-        "short_description": "Fair Market Rent for a studio (0-bedroom) dwelling.",
-        "short_name": "0 Bedroom Dwelling Fair Market Rent",
+        "long_description": "Count of primary care physicians accessible within each geography's floating catchment area. Primary care physicians include family practice, family medicine, and general practice specialties enrolled in Medicare. Areas with low provider counts may face longer wait times and reduced access to preventive care, contributing to worse health outcomes over time.",
+        "long_name": "Primary care availability by count",
+        "measure_type": "count",
+        "short_description": "Number of Medicare-enrolled primary care physicians accessible within a geography's catchment area.",
+        "short_name": "Primary care availability (count)",
         "sources": [
             {
-                "date_accessed": 2023,
+                "date_accessed": 2024,
                 "location": "",
                 "location_url": "",
-                "name": "US Department of Housing and Urban Development (HUD)",
-                "url": "https://www.huduser.gov/portal/datasets/fmr.html"
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
             }
         ],
-        "statement": "The Fair Market Rent (FMR) for a zero bedroom dwelling in {features.name} is {value}.",
+        "provenance": "Provider locations from CMS Doctors and Clinicians dataset (2022), filtered to Family Practice, Family Medicine, and General Practice specialties in VA, DC, and MD. Addresses geocoded to latitude/longitude. Provider capacity estimated as 1.0 per unique NPI. Counts reflect the number of providers within the floating catchment area of each block group, aggregated to higher geographies by population-weighted mean.",
+        "statement": "There are {value} primary care physicians in {features.name}.",
         "type": "count",
-        "unit": "dollars",
+        "unit": "",
         "variants": ""
     },
-    "monthly_rent_1br": {
+    "primcare_2sfca": {
         "aggregation_method": "",
         "categories": "",
-        "category": "Housing",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
         "layer": "",
-        "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units. One-bedroom FMRs are commonly used to assess affordability for single adults and couples. HUD uses FMRs to set payment standards for Housing Choice Vouchers and determine eligibility thresholds for rental assistance programs.",
-        "long_name": "1 Bedroom Dwelling Fair Market Rent",
-        "measure_type": "cost",
-        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
-        "short_description": "Fair Market Rent for a 1-bedroom dwelling.",
-        "short_name": "1 Bedroom Dwelling Fair Market Rent",
+        "long_description": "Primary care accessibility measured using the two-step floating catchment area (2SFCA) method, which computes physician-to-population ratios weighted by travel time within catchment areas. Higher values indicate greater spatial access to primary care. Areas with low scores may face physician shortages, leading to delayed preventive care and higher emergency department utilization.",
+        "long_name": "Primary care geographic availability (2-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Spatial access index for primary care physicians based on the 2SFCA method using travel-time-weighted supply-to-demand ratios.",
+        "short_name": "Primary care geographic availability",
         "sources": [
             {
-                "date_accessed": 2023,
+                "date_accessed": 2024,
                 "location": "",
                 "location_url": "",
-                "name": "US Department of Housing and Urban Development (HUD)",
-                "url": "https://www.huduser.gov/portal/datasets/fmr.html"
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
             }
         ],
-        "statement": "The Fair Market Rent (FMR) for a one bedroom dwelling in {features.name} is {value}.",
-        "type": "count",
-        "unit": "dollars",
+        "provenance": "Spatial access scores computed using the two-step floating catchment area (2SFCA) method (Luo, 2004). Provider locations from CMS Doctors and Clinicians (2022), filtered to Family Practice/Family Medicine/General Practice in VA/DC/MD. Demand from ACS 2020 block group population. Travel times from OSRM block-group-to-block-group matrices. Catchment threshold: 30 minutes driving.",
+        "statement": "The primary care availability for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
         "variants": ""
     },
-    "monthly_rent_2br": {
+    "primcare_e2sfca": {
         "aggregation_method": "",
         "categories": "",
-        "category": "Housing",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
         "layer": "",
-        "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units. The two-bedroom FMR is HUD's primary benchmark for setting Housing Choice Voucher payment standards and is the most commonly referenced FMR tier. It serves as the standard measure of area rent levels for federal housing policy.",
-        "long_name": "2 Bedroom Dwelling Fair Market Rent",
-        "measure_type": "cost",
-        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
-        "short_description": "Fair Market Rent for a 2-bedroom dwelling.",
-        "short_name": "2 Bedroom Dwelling Fair Market Rent",
+        "long_description": "Primary care accessibility measured using the enhanced two-step floating catchment area (E2SFCA) method, which improves on 2SFCA by applying distance-decay weights within catchment zones. This produces a more realistic accessibility measure since patients are more likely to visit closer providers. Low scores indicate areas where residents face significant barriers to reaching primary care.",
+        "long_name": "Primary care geographic availability (enhanced 2-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Spatial access index for primary care physicians based on the E2SFCA method with distance-decay weighting within catchment zones.",
+        "short_name": "Primary care geographic availability (E2SFCA)",
         "sources": [
             {
-                "date_accessed": 2023,
+                "date_accessed": 2024,
                 "location": "",
                 "location_url": "",
-                "name": "US Department of Housing and Urban Development (HUD)",
-                "url": "https://www.huduser.gov/portal/datasets/fmr.html"
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
             }
         ],
-        "statement": "The Fair Market Rent (FMR) for a two bedroom dwelling in {features.name} is {value}.",
-        "type": "count",
-        "unit": "dollars",
+        "provenance": "Spatial access scores computed using the enhanced two-step floating catchment area (E2SFCA) method (Luo & Qi, 2009). Provider locations from CMS Doctors and Clinicians (2022), filtered to Family Practice/Family Medicine/General Practice in VA/DC/MD. Demand from ACS 2020 block group population. Travel times from OSRM block-group-to-block-group matrices. Catchment threshold: 30 minutes driving with three distance-decay zones.",
+        "statement": "The primary care availability for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
         "variants": ""
     },
-    "monthly_rent_3br": {
+    "primcare_3sfca": {
         "aggregation_method": "",
         "categories": "",
-        "category": "Housing",
-        "citations": "",
-        "data_type": "decimal",
-        "equity_category": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
         "layer": "",
-        "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units. Three-bedroom FMRs reflect the cost of housing for families with children, which is typically the largest segment of households needing affordable housing assistance. Areas with high 3-bedroom FMRs relative to family incomes face particular challenges in family housing stability.",
-        "long_name": "3 Bedroom Dwelling Fair Market Rent",
-        "measure_type": "cost",
-        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
-        "short_description": "Fair Market Rent for a 3-bedroom dwelling.",
-        "short_name": "3 Bedroom Dwelling Fair Market Rent",
+        "long_description": "Primary care accessibility measured using the three-step floating catchment area (3SFCA) method, which extends E2SFCA by adding a selection-weight step that accounts for competition among providers. This method better captures how patients choose among multiple nearby providers. Low scores indicate areas with both fewer providers and higher competition for available appointments.",
+        "long_name": "Primary care geographic availability (3-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Spatial access index for primary care physicians based on the 3SFCA method with provider competition weighting.",
+        "short_name": "Primary care geographic availability (3SFCA)",
         "sources": [
             {
-                "date_accessed": 2023,
+                "date_accessed": 2024,
                 "location": "",
                 "location_url": "",
-                "name": "US Department of Housing and Urban Development (HUD)",
-                "url": "https://www.huduser.gov/portal/datasets/fmr.html"
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
             }
         ],
-        "statement": "The Fair Market Rent (FMR) for a three bedroom dwelling in {features.name} is {value}.",
-        "type": "count",
-        "unit": "dollars",
+        "provenance": "Spatial access scores computed using the three-step floating catchment area (3SFCA) method (Wan et al., 2012). Provider locations from CMS Doctors and Clinicians (2022), filtered to Family Practice/Family Medicine/General Practice in VA/DC/MD. Demand from ACS 2020 block group population. Travel times from OSRM block-group-to-block-group matrices. Catchment threshold: 30 minutes driving with distance-decay and provider-competition weights.",
+        "statement": "The primary care availability for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
         "variants": ""
     },
-    "monthly_rent_4br": {
+    "primcare_near_10_mean": {
         "aggregation_method": "",
         "categories": "",
-        "category": "Housing",
+        "category": "Health",
         "citations": "",
-        "data_type": "decimal",
-        "equity_category": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
         "layer": "",
-        "long_description": "Fair Market Rent (FMR) represents the 40th percentile of gross rents for typical, non-substandard rental units. Four-bedroom FMRs capture the cost of housing for larger families, who face the most constrained rental markets. The gap between 4-bedroom and smaller-unit FMRs highlights the premium that larger families must pay, which disproportionately affects multigenerational and immigrant households.",
-        "long_name": "4 Bedroom Dwelling Fair Market Rent",
-        "measure_type": "cost",
-        "provenance": "Fair Market Rents estimated by the U.S. Department of Housing and Urban Development (HUD) for metropolitan areas and nonmetropolitan counties. County and tract-level values derived from HUD ZIP Code and county-level FMR data.",
-        "short_description": "Fair Market Rent for a 4-bedroom dwelling.",
-        "short_name": "4 Bedroom Dwelling Fair Market Rent",
+        "long_description": "Mean drive time in minutes to the ten closest primary care physician locations. This measure captures the average effort required to reach nearby primary care options. Areas with high mean drive times have fewer geographically proximate providers, which can reduce the likelihood of regular preventive care visits.",
+        "long_name": "Primary care availability by mean drive time to the ten closest facilities in minutes",
+        "measure_type": "count",
+        "short_description": "Average drive time in minutes from a block group centroid to the ten nearest primary care physician locations.",
+        "short_name": "Primary care drive time (mean)",
         "sources": [
             {
-                "date_accessed": 2023,
+                "date_accessed": 2024,
                 "location": "",
                 "location_url": "",
-                "name": "US Department of Housing and Urban Development (HUD)",
-                "url": "https://www.huduser.gov/portal/datasets/fmr.html"
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
             }
         ],
-        "statement": "The Fair Market Rent (FMR) for a four bedroom dwelling in {features.name} is {value}.",
-        "type": "count",
-        "unit": "dollars",
+        "provenance": "Drive times computed using OSRM block-group-to-block-group travel time matrices. For each block group, the ten closest primary care physician locations (CMS Doctors and Clinicians, 2022) are identified and the mean travel time is reported. Aggregated to higher geographies by population-weighted mean.",
+        "statement": "The mean drive time to the ten closest primary care physicians from {features.name} is {value} minutes.",
+        "type": "drive time",
+        "unit": "minutes",
         "variants": ""
+    },
+    "primcare_near_10_median": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Median drive time in minutes to the ten closest primary care physician locations. The median is less sensitive to outlier distances than the mean, providing a robust measure of typical travel burden. High median drive times indicate areas where even the most accessible providers require substantial travel, a barrier to routine primary care utilization.",
+        "long_name": "Primary care availability by median drive time to the ten closest facilities in minutes",
+        "measure_type": "count",
+        "short_description": "Median drive time in minutes from a block group centroid to the ten nearest primary care physician locations.",
+        "short_name": "Primary care drive time (median)",
+        "sources": [
+            {
+                "date_accessed": 2024,
+                "location": "",
+                "location_url": "",
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
+            }
+        ],
+        "provenance": "Drive times computed using OSRM block-group-to-block-group travel time matrices. For each block group, the ten closest primary care physician locations (CMS Doctors and Clinicians, 2022) are identified and the median travel time is reported. Aggregated to higher geographies by population-weighted mean.",
+        "statement": "The median drive time to the ten closest primary care physicians from {features.name} is {value} minutes.",
+        "type": "drive time",
+        "unit": "minutes",
+        "variants": ""
+    },
+    "_references": {
+        "lou04": {
+            "id": "lou04",
+            "author": [
+                {
+                    "given": "Wei",
+                    "family": "Lou"
+                }
+            ],
+            "year": 2004,
+            "title": "Using a gis-based floating catchment method to assess areas with shortage of physicians",
+            "journal": "Health & Place",
+            "volume": "10",
+            "number": 1,
+            "page": "1-11",
+            "doi": "10.1016/S1353-8292(02)00067-9"
+        },
+        "lou09": {
+            "id": "lou09",
+            "author": [
+                {
+                    "given": "Wei",
+                    "family": "Lou"
+                },
+                {
+                    "given": "Yi",
+                    "family": "Qi"
+                }
+            ],
+            "year": 2009,
+            "title": "An enhanced two-step floating catchment area (e2sfca) method for measuring spatial accessibility to primary care physicians",
+            "journal": "Health & Place",
+            "volume": "15",
+            "number": 4,
+            "page": "1100-1107",
+            "doi": "10.1016/j.healthplace.2009.06.002"
+        },
+        "lou03": {
+            "id": "lou03",
+            "author": [
+                {
+                    "given": "Wei",
+                    "family": "Lou"
+                },
+                {
+                    "given": "Fahui",
+                    "family": "Wang"
+                }
+            ],
+            "year": 2003,
+            "title": "Measures of spatial accessibility to health care in a gis environment: synthesis and a case study in the Chicago region",
+            "journal": "Environment and Planning B: Planning and Design",
+            "volume": "30",
+            "number": 6,
+            "page": "865-884",
+            "doi": "10.1068/b29120"
+        },
+        "saxon20": {
+            "id": "saxon20",
+            "author": [
+                {
+                    "given": "James",
+                    "family": "Saxon"
+                },
+                {
+                    "given": "Julia",
+                    "family": "Koschinsky"
+                },
+                {
+                    "given": "Karina",
+                    "family": "Acosta"
+                },
+                {
+                    "given": "Vidal",
+                    "family": "Anguiano"
+                },
+                {
+                    "given": "Luc",
+                    "family": "Anselin"
+                },
+                {
+                    "given": "Sergio",
+                    "family": "Rey"
+                }
+            ],
+            "year": 2020,
+            "title": "An Open Software Environment to Make Spatial Access Metrics More Accessible",
+            "journal": "University of Chicago: Center for Spatial Data Science",
+            "volume": "Preprint",
+            "doi": "10.13140/RG.2.2.12396.28807"
+        }
     }
 }

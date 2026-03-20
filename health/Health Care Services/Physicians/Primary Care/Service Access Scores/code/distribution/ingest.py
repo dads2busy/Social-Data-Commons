@@ -2,9 +2,10 @@
 
 Uses CMS Doctors and Clinicians data (primary care specialties), ACS total
 population at block group level, and pre-computed BG-to-BG travel times to
-compute 2SFCA, E2SFCA, and 3SFCA access scores.  Writes BG+tract+county
-output to data/distribution/ (no health district aggregation — that is done
-by prepare.py).
+compute 2SFCA, E2SFCA, and 3SFCA access scores.  Loops over all available
+years (2018-2025) and writes combined multi-year BG+tract+county output to
+data/distribution/ (no health district aggregation — that is done by
+prepare.py).
 """
 
 import sys
@@ -32,6 +33,7 @@ from compute_service_access import (
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = Path(__file__).resolve().parents[7]
 DIST_DIR = TOPIC_DIR / "data" / "distribution"
+ORIGINAL_DIR = TOPIC_DIR / "data" / "original"
 CENTROIDS_PATH = REPO_DIR / "geographies" / "osrm" / "bg_centroids_2020.csv"
 
 log = get_logger("primcare.ingest")
@@ -47,8 +49,9 @@ PRIMARY_CARE_SPECIALTIES = ["FAMILY PRACTICE", "FAMILY MEDICINE", "GENERAL PRACT
 
 MEASURE_PREFIX = "primcare"
 DATA_SOURCE = "cms"
-YEAR = 2022
-ACS_YEAR = 2021
+
+# ACS 5-year latest available year
+ACS_MAX_YEAR = 2023
 
 
 def load_config() -> dict:
@@ -56,61 +59,44 @@ def load_config() -> dict:
         return yaml.safe_load(f)
 
 
-def load_cms_providers(config: dict) -> pd.DataFrame:
-    """Load CMS physician data, filter to 2022 primary care, geocode, snap to BG.
-
-    Returns DataFrame with columns: lid, bg_geoid, capacity, lat, lon
-    """
-    cms_path = TOPIC_DIR / config["sources"]["cms"]["data_file"]
+def load_geocoded_addresses(config: dict) -> pd.DataFrame:
+    """Load geocoded address lookup, deduped by address."""
     geo_path = TOPIC_DIR / config["sources"]["cms"]["geocoded_file"]
-    specialties = config["sources"]["cms"]["specialties"]
-    year = config["sources"]["cms"]["year"]
-
-    cms = pd.read_csv(cms_path, dtype={"postalcode": str})
+    if not geo_path.exists():
+        # Fall back to old geocoded file
+        old_path = TOPIC_DIR / "data" / "working" / "vadcmd_cms_2018_2022_primary_care_physicians_geo_tmp.csv"
+        if old_path.exists():
+            log.warning("Geocoded file not found at %s, falling back to %s", geo_path.name, old_path.name)
+            geo_path = old_path
+        else:
+            raise FileNotFoundError(f"No geocoded file found at {geo_path} or {old_path}")
     geo = pd.read_csv(geo_path, dtype={"postalcode": str})
-
-    # Filter to target year and primary care specialties
-    pc = cms[(cms["year"] == year) & (cms["primary_specialty"].isin(specialties))].copy()
-    log.info("CMS %d primary care rows: %d (%d unique NPIs)", year, len(pc), pc["npi"].nunique())
-
-    # Build geocode lookup keyed by address (not NPI — NPIs can have multiple locations)
     geo_addr = (
         geo[["street", "city", "state", "postalcode", "lat", "long"]]
         .drop_duplicates(subset=["street", "city", "state", "postalcode"])
     )
+    return geo_addr
 
-    # Group CMS rows by address, count unique NPIs per location
-    addr_groups = (
-        pc.groupby(["address_line_1", "city", "state", "postalcode"])
-        .agg(capacity=("npi", "nunique"))
-        .reset_index()
-    )
 
-    # Join with geocoded addresses on address fields
-    addr_groups = addr_groups.merge(
-        geo_addr,
-        left_on=["address_line_1", "city", "state", "postalcode"],
-        right_on=["street", "city", "state", "postalcode"],
-        how="left",
-    )
-    missing = addr_groups["lat"].isna().sum()
-    if missing > 0:
-        log.warning("Dropping %d addresses with missing geocodes", missing)
-        addr_groups = addr_groups.dropna(subset=["lat"])
-    log.info("Unique provider addresses: %d, total capacity: %d", len(addr_groups), addr_groups["capacity"].sum())
-
-    # Snap each address to nearest block group centroid
+def load_centroids() -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Load BG centroids, return (geoids, lats, lons) arrays."""
     centroids = pd.read_csv(CENTROIDS_PATH, dtype={"geoid": str})
-    bg_geoids = centroids["geoid"].values
-    bg_lats = centroids["lat"].values
-    bg_lons = centroids["lon"].values
+    return centroids["geoid"].values, centroids["lat"].values, centroids["lon"].values
 
+
+def snap_to_block_groups(
+    addr_groups: pd.DataFrame,
+    bg_geoids: np.ndarray,
+    bg_lats: np.ndarray,
+    bg_lons: np.ndarray,
+) -> pd.DataFrame:
+    """Snap provider addresses to nearest block group centroid."""
     bg_assignments = []
     for _, row in addr_groups.iterrows():
         dists = _haversine_km(bg_lats, bg_lons, row["lat"], row["long"])
         bg_assignments.append(bg_geoids[np.argmin(dists)])
 
-    providers = pd.DataFrame({
+    return pd.DataFrame({
         "lid": range(len(addr_groups)),
         "bg_geoid": bg_assignments,
         "capacity": addr_groups["capacity"].values,
@@ -119,7 +105,59 @@ def load_cms_providers(config: dict) -> pd.DataFrame:
         "provider_state": addr_groups["state"].values,
     })
 
-    log.info("Snapped %d provider locations to block groups", len(providers))
+
+def load_providers_for_year(
+    year: int,
+    specialties: list[str],
+    geo_addr: pd.DataFrame,
+    bg_geoids: np.ndarray,
+    bg_lats: np.ndarray,
+    bg_lons: np.ndarray,
+) -> pd.DataFrame | None:
+    """Load CMS data for one year, join geocodes, snap to BGs.
+
+    Returns provider DataFrame or None if year file is missing.
+    """
+    cms_path = ORIGINAL_DIR / f"vadcmd_cms_{year}_primary.csv"
+    if not cms_path.exists():
+        log.warning("No CMS file for %d: %s", year, cms_path)
+        return None
+
+    cms = pd.read_csv(cms_path, dtype={"postalcode": str})
+
+    # Filter to primary care specialties
+    pc = cms[cms["primary_specialty"].isin(specialties)].copy()
+    log.info("CMS %d primary care rows: %d (%d unique NPIs)", year, len(pc), pc["npi"].nunique())
+
+    # Group by address, count unique NPIs per location
+    addr_groups = (
+        pc.groupby(["address_line_1", "city", "state", "postalcode"])
+        .agg(capacity=("npi", "nunique"))
+        .reset_index()
+    )
+
+    # Join with geocoded addresses
+    addr_groups = addr_groups.merge(
+        geo_addr,
+        left_on=["address_line_1", "city", "state", "postalcode"],
+        right_on=["street", "city", "state", "postalcode"],
+        how="left",
+    )
+    missing = addr_groups["lat"].isna().sum()
+    if missing > 0:
+        log.warning("Year %d: dropping %d addresses with missing geocodes", year, missing)
+        addr_groups = addr_groups.dropna(subset=["lat"])
+    log.info(
+        "Year %d: %d unique addresses, total capacity %d",
+        year, len(addr_groups), addr_groups["capacity"].sum(),
+    )
+
+    if addr_groups.empty:
+        log.warning("Year %d: no geocoded addresses — skipping", year)
+        return None
+
+    providers = snap_to_block_groups(addr_groups, bg_geoids, bg_lats, bg_lons)
+    log.info("Year %d: snapped %d provider locations to block groups", year, len(providers))
     return providers
 
 
@@ -129,72 +167,104 @@ def run() -> list[RunResult]:
 
     try:
         config = load_config()
+        specialties = config["sources"]["cms"]["specialties"]
+        years = config["output"]["years"]
 
-        providers = load_cms_providers(config)
-        log.info("Loaded %d provider locations (total capacity %d)", len(providers), providers["capacity"].sum())
-
+        geo_addr = load_geocoded_addresses(config)
+        bg_geoids, bg_lats, bg_lons = load_centroids()
         travel_times = load_travel_times()
-
-        # Fetch BG population for VA + MD + DC (all states needed for NCR)
         census = CensusClient()
-        pop_data = census.get_acs_multi(
-            variables={"total_pop": "B01001_001"},
-            years=[ACS_YEAR],
-            geographies=["block_group"],
-            states=["51", "24", "11"],
-        )
-
-        consumer_geoids = pop_data["geoid"].values
-        consumer_pop = pop_data["total_pop"].values.astype(float)
 
         DIST_DIR.mkdir(parents=True, exist_ok=True)
 
-        # --- VA: all Virginia block groups ---
-        va_mask = np.array([g.startswith("51") for g in consumer_geoids])
-        va_providers = providers[providers["bg_geoid"].str.startswith("51")]
-        va_bg = run_fca_variants(
-            consumer_geoids[va_mask], consumer_pop[va_mask],
-            va_providers, travel_times, MEASURE_PREFIX,
-        )
-        va_long = aggregate_bg_to_levels(
-            va_bg, MEASURE_PREFIX, YEAR, consumer_pop=consumer_pop[va_mask],
-        )
-        va_name = build_file_name(
-            coverage_area="va",
-            data_source=DATA_SOURCE,
-            years=[YEAR],
-            title=f"access_scores_{MEASURE_PREFIX}",
-            geographies=["county", "tract", "block_group"],
-        )
-        va_path = write_data(va_long, DIST_DIR / f"{va_name}.csv.xz")
-        log.info("Wrote VA: %s (%d rows)", va_path.name, len(va_long))
-        results.append(RunResult(
-            success=True, rows=len(va_long),
-            output_path=str(va_path), duration_sec=time.time() - t0,
-        ))
+        va_year_frames = []
+        ncr_year_frames = []
 
-        # --- NCR: selected counties in VA/MD/DC ---
-        ncr_mask = np.array([g[:5] in NCR_COUNTIES for g in consumer_geoids])
-        if ncr_mask.any():
-            ncr_providers = providers[providers["bg_geoid"].str[:5].isin(NCR_COUNTIES)]
-            ncr_bg = run_fca_variants(
-                consumer_geoids[ncr_mask], consumer_pop[ncr_mask],
-                ncr_providers, travel_times, MEASURE_PREFIX,
+        for year in years:
+            yt0 = time.time()
+            log.info("=== Processing year %d ===", year)
+
+            providers = load_providers_for_year(
+                year, specialties, geo_addr, bg_geoids, bg_lats, bg_lons,
             )
-            ncr_long = aggregate_bg_to_levels(
-                ncr_bg, MEASURE_PREFIX, YEAR, consumer_pop=consumer_pop[ncr_mask],
+            if providers is None:
+                continue
+
+            # ACS population year: use cms_year - 1, capped at ACS_MAX_YEAR
+            acs_year = min(year - 1, ACS_MAX_YEAR)
+            log.info("Year %d: using ACS year %d for population", year, acs_year)
+
+            pop_data = census.get_acs_multi(
+                variables={"total_pop": "B01001_001"},
+                years=[acs_year],
+                geographies=["block_group"],
+                states=["51", "24", "11"],
             )
-            ncr_name = build_file_name(
-                coverage_area="ncr",
+
+            consumer_geoids = pop_data["geoid"].values
+            consumer_pop = pop_data["total_pop"].values.astype(float)
+
+            # --- VA ---
+            va_mask = np.array([g.startswith("51") for g in consumer_geoids])
+            va_providers = providers[providers["bg_geoid"].str.startswith("51")]
+            if len(va_providers) > 0:
+                va_bg = run_fca_variants(
+                    consumer_geoids[va_mask], consumer_pop[va_mask],
+                    va_providers, travel_times, MEASURE_PREFIX,
+                )
+                va_long = aggregate_bg_to_levels(
+                    va_bg, MEASURE_PREFIX, year, consumer_pop=consumer_pop[va_mask],
+                )
+                va_year_frames.append(va_long)
+                log.info("Year %d VA: %d rows", year, len(va_long))
+
+            # --- NCR ---
+            ncr_mask = np.array([g[:5] in NCR_COUNTIES for g in consumer_geoids])
+            if ncr_mask.any():
+                ncr_providers = providers[providers["bg_geoid"].str[:5].isin(NCR_COUNTIES)]
+                if len(ncr_providers) > 0:
+                    ncr_bg = run_fca_variants(
+                        consumer_geoids[ncr_mask], consumer_pop[ncr_mask],
+                        ncr_providers, travel_times, MEASURE_PREFIX,
+                    )
+                    ncr_long = aggregate_bg_to_levels(
+                        ncr_bg, MEASURE_PREFIX, year, consumer_pop=consumer_pop[ncr_mask],
+                    )
+                    ncr_year_frames.append(ncr_long)
+                    log.info("Year %d NCR: %d rows", year, len(ncr_long))
+
+            log.info("Year %d done in %.1fs", year, time.time() - yt0)
+
+        # Combine all years and write output
+        if va_year_frames:
+            va_all = pd.concat(va_year_frames, ignore_index=True)
+            va_name = build_file_name(
+                coverage_area="va",
                 data_source=DATA_SOURCE,
-                years=[YEAR],
+                years=years,
                 title=f"access_scores_{MEASURE_PREFIX}",
                 geographies=["county", "tract", "block_group"],
             )
-            ncr_path = write_data(ncr_long, DIST_DIR / f"{ncr_name}.csv.xz")
-            log.info("Wrote NCR: %s (%d rows)", ncr_path.name, len(ncr_long))
+            va_path = write_data(va_all, DIST_DIR / f"{va_name}.csv.xz")
+            log.info("Wrote VA: %s (%d rows)", va_path.name, len(va_all))
             results.append(RunResult(
-                success=True, rows=len(ncr_long),
+                success=True, rows=len(va_all),
+                output_path=str(va_path), duration_sec=time.time() - t0,
+            ))
+
+        if ncr_year_frames:
+            ncr_all = pd.concat(ncr_year_frames, ignore_index=True)
+            ncr_name = build_file_name(
+                coverage_area="ncr",
+                data_source=DATA_SOURCE,
+                years=years,
+                title=f"access_scores_{MEASURE_PREFIX}",
+                geographies=["county", "tract", "block_group"],
+            )
+            ncr_path = write_data(ncr_all, DIST_DIR / f"{ncr_name}.csv.xz")
+            log.info("Wrote NCR: %s (%d rows)", ncr_path.name, len(ncr_all))
+            results.append(RunResult(
+                success=True, rows=len(ncr_all),
                 output_path=str(ncr_path), duration_sec=time.time() - t0,
             ))
 
