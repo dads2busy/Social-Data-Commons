@@ -7,23 +7,52 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Median drive time in minutes to the ten closest mental health facilities. Facility location data were collected from the Substance Abuse and Mental Health Services Administration (SAMHSA) repository. Drive times were computer using Open Source Routing Machine (looking at roads for 2021). Geographies: Block group (12), Census tract (11), County (5), Health Districts (51_hd), Civic Associations (51013_ca)",
-        "long_name": "Mental health availability by median drive time to the ten closest facilities in minutes",
+        "long_description": "Median drive time in minutes to the ten closest mental health treatment facilities. Geographic barriers to mental health care are a major contributor to unmet treatment needs, particularly in rural areas. Longer drive times reduce the likelihood of initiating and sustaining treatment, exacerbating disparities in mental health outcomes.",
+        "long_name": "Mental health services availability by median drive time to the ten closest facilities in minutes",
         "measure_type": "count",
-        "short_description": "",
-        "short_name": "Mental health availability (drive time)",
+        "short_description": "Median driving time in minutes to the 10 nearest mental health treatment facilities.",
+        "short_name": "Mental health services availability (drive time)",
         "sources": [
             {
-                "date_accessed": 2021,
+                "date_accessed": 2025,
                 "location": "",
                 "location_url": "",
                 "name": "Substance Abuse and Mental Health Services Administration (SAMHSA)",
                 "url": "https://findtreatment.gov/"
             }
         ],
+        "provenance": "Facility locations downloaded from SAMHSA findtreatment.gov API (sType=MH). Drive times computed using pre-computed block-group-to-block-group OSRM travel time matrices. For each consumer block group, the 10 nearest facilities by drive time are identified and the median travel time is reported. Aggregated to tract and county via simple mean.",
         "statement": "The median drive time to the ten closest mental health facilities to {features.name} is {value}.",
         "type": "drive time",
-        "unit": "",
+        "unit": "minutes",
+        "variants": ""
+    },
+    "mental_near_10_mean": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Mean drive time in minutes to the ten closest mental health treatment facilities. This measure captures the average geographic accessibility of mental health services, providing a complementary view to the median by being sensitive to outlier facilities that may be significantly farther away.",
+        "long_name": "Mental health services availability by mean drive time to the ten closest facilities in minutes",
+        "measure_type": "count",
+        "short_description": "Mean driving time in minutes to the 10 nearest mental health treatment facilities.",
+        "short_name": "Mental health services availability (mean drive time)",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "Substance Abuse and Mental Health Services Administration (SAMHSA)",
+                "url": "https://findtreatment.gov/"
+            }
+        ],
+        "provenance": "Facility locations downloaded from SAMHSA findtreatment.gov API (sType=MH). Drive times computed using pre-computed block-group-to-block-group OSRM travel time matrices. For each consumer block group, the 10 nearest facilities by drive time are identified and the mean travel time is reported. Aggregated to tract and county via simple mean.",
+        "statement": "The mean drive time to the ten closest mental health facilities to {features.name} is {value}.",
+        "type": "drive time",
+        "unit": "minutes",
         "variants": ""
     },
     "mental_cnt": {
@@ -34,22 +63,89 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Count of mental health facilities based on facility locations. Location data was collected from the Substance Abuse and Mental Health Services Administration (SAMHSA) repository. Geographies: Block group (12), Census tract (11), County (5), Health Districts (51_hd), Civic Associations (51013_ca)",
-        "long_name": "Availability of mental health services by count",
+        "long_description": "Count of mental health treatment facilities located within each geographic area. This measure indicates the raw availability of mental health services. Areas with no or very few facilities may represent service deserts where residents must travel long distances to access mental health care.",
+        "long_name": "Availability of mental health services by facility count",
         "measure_type": "count",
-        "short_description": "",
+        "short_description": "Number of mental health treatment facilities in the area.",
         "short_name": "Mental health services availability (count)",
         "sources": [
             {
-                "date_accessed": 2021,
+                "date_accessed": 2025,
                 "location": "",
                 "location_url": "",
                 "name": "Substance Abuse and Mental Health Services Administration (SAMHSA)",
-                "url": "https://www.samhsa.gov/"
+                "url": "https://findtreatment.gov/"
             }
         ],
+        "provenance": "Facility locations downloaded from SAMHSA findtreatment.gov API (sType=MH). Each facility is assigned to the nearest block group centroid via haversine distance. Counts are summed when aggregating to tract, county, and health district levels.",
         "statement": "There are {value} mental health facilities in {features.name}.",
         "type": "count",
+        "unit": "",
+        "variants": ""
+    },
+    "mental_2sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Mental health service accessibility measured using the two-step floating catchment area (2SFCA) method. This spatial access index accounts for both the supply of treatment facilities and the demand from the surrounding population, identifying areas where high population density relative to facility supply creates access bottlenecks.",
+        "long_name": "Mental health services geographic availability (2-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Spatial access score for mental health services using the 2SFCA method.",
+        "short_name": "Mental health services access (2SFCA)",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "Substance Abuse and Mental Health Services Administration (SAMHSA)",
+                "url": "https://findtreatment.gov/"
+            }
+        ],
+        "provenance": "Computed using the 2-step floating catchment area (2SFCA) method (Luo, 2004) with a 30-minute drive time threshold. Provider supply from SAMHSA findtreatment.gov API (sType=MH), capacity=1 per facility. Consumer demand from ACS B01001_001 total population at block group level. Travel times from pre-computed OSRM BG-to-BG matrices. Scores expressed per 1,000 population.",
+        "statement": "The mental health services accessibility score for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "mental_e2sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Mental health service accessibility measured using the enhanced two-step floating catchment area (E2SFCA) method. This method improves on the basic 2SFCA by applying stepped distance decay weights, so nearer facilities contribute more to the access score than distant ones within the catchment area.",
+        "long_name": "Mental health services geographic availability (enhanced 2-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Spatial access score for mental health services using the E2SFCA method with distance decay.",
+        "short_name": "Mental health services access (E2SFCA)",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "Substance Abuse and Mental Health Services Administration (SAMHSA)",
+                "url": "https://findtreatment.gov/"
+            }
+        ],
+        "provenance": "Computed using the enhanced 2-step floating catchment area (E2SFCA) method (Luo & Qi, 2009) with stepped weights: 10min=0.962, 20min=0.704, 30min=0.377, 60min=0.042. Provider supply from SAMHSA findtreatment.gov API (sType=MH), capacity=1 per facility. Consumer demand from ACS B01001_001. Travel times from pre-computed OSRM BG-to-BG matrices. Scores expressed per 1,000 population.",
+        "statement": "The mental health services accessibility score (E2SFCA) for {features.name} is {value}.",
+        "type": "index",
         "unit": "",
         "variants": ""
     },
@@ -66,22 +162,22 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Mental health services availability is based on 3-step floating catchment areas. This method is an aggregation of facilities per population ratios weighted by distance or travel time in each catchment area (area within which a facility is accessible). Weights are defined as the demand for facilities (or the adult population). Geographies: Block group (12), Census tract (11), County (5), Health Districts (51_hd), Civic Associations (51013_ca)",
-        "long_name": "Mental health services geographic availability (3-step  floating catchment areas)",
+        "long_description": "Mental health service accessibility measured using the three-step floating catchment area (3SFCA) method with Gaussian distance decay. This is the most sophisticated FCA variant, normalizing competition weights so that the total demand allocated from each consumer sums to one, producing more realistic access estimates in areas with overlapping catchments.",
+        "long_name": "Mental health services geographic availability (3-step floating catchment areas)",
         "measure_type": "index",
-        "short_description": "",
+        "short_description": "Spatial access score for mental health services using the 3SFCA method with Gaussian decay.",
         "short_name": "Mental health services geographic availability",
         "sources": [
             {
-                "date_accessed": 2021,
+                "date_accessed": 2025,
                 "location": "",
                 "location_url": "",
                 "name": "Substance Abuse and Mental Health Services Administration (SAMHSA)",
-                "url": "https://www.samhsa.gov/"
+                "url": "https://findtreatment.gov/"
             }
         ],
-        "provenance": "Spatial access scores are calculated using the floating catchment area (2SFCA/3SFCA) methodology (Luo, 2004; Luo & Qi, 2009; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
-        "statement": "The mental health services availability for {features.name} is {value}.",
+        "provenance": "Computed using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012) with Gaussian distance decay (scale=20 minutes) and normalized competition weights. Provider supply from SAMHSA findtreatment.gov API (sType=MH), capacity=1 per facility. Consumer demand from ACS B01001_001. Travel times from pre-computed OSRM BG-to-BG matrices. Scores expressed per 1,000 population.",
+        "statement": "The mental health services accessibility score (3SFCA) for {features.name} is {value}.",
         "type": "index",
         "unit": "",
         "variants": ""
@@ -92,7 +188,7 @@
             "author": [
                 {
                     "given": "Wei",
-                    "family": "Lou"
+                    "family": "Luo"
                 }
             ],
             "year": 2004,
@@ -108,7 +204,7 @@
             "author": [
                 {
                     "given": "Wei",
-                    "family": "Lou"
+                    "family": "Luo"
                 },
                 {
                     "given": "Yi",
@@ -128,7 +224,7 @@
             "author": [
                 {
                     "given": "Wei",
-                    "family": "Lou"
+                    "family": "Luo"
                 },
                 {
                     "given": "Fahui",

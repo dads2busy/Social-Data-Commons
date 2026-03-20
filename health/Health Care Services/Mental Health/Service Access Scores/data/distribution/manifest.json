@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-03-20T18:25:37+00:00",
+  "schema": [
+    "geoid",
+    "region_type",
+    "region_name",
+    "measure",
+    "value",
+    "year",
+    "measure_type",
+    "data_method",
+    "moe"
+  ],
+  "measures": [
+    "mental_2sfca",
+    "mental_3sfca",
+    "mental_cnt",
+    "mental_e2sfca",
+    "mental_near_10_mean",
+    "mental_near_10_median",
+    "mental_pop_cnt"
+  ],
+  "years": [
+    2021,
+    2025
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 169617,
+  "files": {
+    "ncr_cttrbg_samhsa_2021_access_scores_mental.csv.xz": {
+      "sha256": "56954144e1c3319aeb861a34d9d965dcbbc2f265e66bb2667a7e09b0d5fd6ddc",
+      "size_bytes": 189516
+    },
+    "ncr_cttrbg_samhsa_2025_access_scores_mental.csv.xz": {
+      "sha256": "5da467e2c1a1c04ffbe83e191982da87eb28425a0cde277254a76fd10d304e5b",
+      "size_bytes": 182432
+    },
+    "va_hdcttrbg_samhsa_2025_access_scores_mental.csv.xz": {
+      "sha256": "2144ea7bf884d671e61fe9653913cc0875b1adcd542008d966ef746df95c8a93",
+      "size_bytes": 308428
+    },
+    "va_hdcttrbgca_samhsa_2021_access_scores_mental.csv.xz": {
+      "sha256": "ac6d8836c866af5908b027aa88aa66e803cc8ae8d6f3c496cb81ee88abf81c69",
+      "size_bytes": 422280
+    }
+  }
+}
