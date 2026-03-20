@@ -1,0 +1,91 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-03-20T17:13:34+00:00",
+  "schema": [
+    "geoid",
+    "region_type",
+    "region_name",
+    "measure",
+    "value",
+    "year",
+    "measure_type",
+    "data_method",
+    "moe"
+  ],
+  "measures": [
+    "hosp_2sfca",
+    "hosp_3sfca",
+    "hosp_cnt",
+    "hosp_e2sfca",
+    "hosp_near_10_mean",
+    "hosp_near_10_median",
+    "hosp_pop_cnt"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "regions": [
+    "11",
+    "24",
+    "42",
+    "51",
+    "54"
+  ],
+  "row_count": 1373187,
+  "files": {
+    "ncr_bgtrct_2015_access_scores_hospitals.csv.xz": {
+      "sha256": "b48445a56089f2c998d09aa2a779fd10582f0e361e5cf7ba30bbe1f360a58b27",
+      "size_bytes": 402680
+    },
+    "ncr_bgtrct_2016_access_scores_hospitals.csv.xz": {
+      "sha256": "6c325e5bdc9dd62fb698c15022c776ab101552af7eb626804e15c00361f7e2c3",
+      "size_bytes": 400928
+    },
+    "ncr_bgtrct_2017_access_scores_hospitals.csv.xz": {
+      "sha256": "6e4b95af0476912e0424255b5bf93632fcef4d1f3bf646e45538e90c54d35098",
+      "size_bytes": 401668
+    },
+    "ncr_bgtrct_2018_access_scores_hospitals.csv.xz": {
+      "sha256": "c176558228c9b1e0a9be91974bf8f3b96b53f6226e7337c2a282ec572f1dd093",
+      "size_bytes": 401768
+    },
+    "ncr_bgtrct_2019_access_scores_hospitals.csv.xz": {
+      "sha256": "198847d8198f9f84946962e236bca605b299624736e214115e0e4bbaaad99adb",
+      "size_bytes": 402248
+    },
+    "ncr_bgtrct_2020_access_scores_hospitals.csv.xz": {
+      "sha256": "442a1f7fdff1985586b43558e5b47f0456eec271130f21476a6894ccc58e47f6",
+      "size_bytes": 440552
+    },
+    "ncr_bgtrct_2021_access_scores_hospitals.csv.xz": {
+      "sha256": "42ee16ec9c599b3d776d6c913aae89a0a12523c3db5e3852c908b1457c9224ee",
+      "size_bytes": 435740
+    },
+    "ncr_bgtrct_2022_access_scores_hospitals.csv.xz": {
+      "sha256": "54a020cee2bf9261cccf4da425b0eb408ccfd430a8af38458c2c1ff869aee853",
+      "size_bytes": 434860
+    },
+    "ncr_cttrbg_cms_2015_2025_access_scores_hosp.csv.xz": {
+      "sha256": "3ac37d325503cd776df1915c723ec2e2b613693d1a02d308a0c0ac0bb262c474",
+      "size_bytes": 1245444
+    },
+    "va_hdcttrbg_cms_2015_2025_access_scores_hosp.csv.xz": {
+      "sha256": "d54f4c9d948c95c167a66d7a562570b43b59226860d0eb569f8ec0603b1cbb48",
+      "size_bytes": 2003132
+    },
+    "va_hdcttrbgca_hifld_2021_access_scores_hospitals.csv.xz": {
+      "sha256": "666e16732cb8df8c01b6db8c2e95dae6a166faed2f1119ab88b9c58fafdf2853",
+      "size_bytes": 396636
+    }
+  }
+}

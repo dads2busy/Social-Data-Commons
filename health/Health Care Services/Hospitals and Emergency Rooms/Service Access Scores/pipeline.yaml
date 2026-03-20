@@ -1,20 +1,29 @@
 name: hospitals_access_scores
-version: "1.0.0"
+version: "2.0.0"
 title: "Hospital and Emergency Room Accessibility (FCA)"
 description: >-
   Floating catchment area analysis measuring hospital and emergency room
   accessibility at block group level. Computes 2SFCA, E2SFCA, and 3SFCA
-  variants with provider counts from HIFLD hospital locations.
+  variants using CMS Hospital Compare facility locations (2015-2025).
+  Each hospital counts as one facility (capacity=1). Geocoding via HIFLD
+  primary with Census Geocoder fallback.
 
 sources:
-  providers:
-    type: geojson
-    description: "HIFLD hospital geocoded locations"
-    file: "data/distribution/ncr_hifld_2022_hospitals_points.geojson"
-    capacity_col: null
+  cms:
+    type: cms_hospitals
+    description: "CMS Hospital Compare — General Hospital Information"
+    data_dir: "data/original"
+    geocoded_file: "data/working/vadcmd_cms_2015_2025_hospitals_geo.csv"
+    filter:
+      states: [VA, DC, MD]
+      exclude_types: [Psychiatric]
+    capacity: 1  # each hospital = 1 facility
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
 
 output:
   path: data/distribution
   geographies: [block_group, tract, county, health_district]
-  years: [2022]
+  years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
   coverage_areas: [va, ncr]

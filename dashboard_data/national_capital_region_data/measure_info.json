@@ -1,5 +1,5 @@
 {
-    "obgyn_cnt": {
+    "hosp_near_10_median": {
         "aggregation_method": "",
         "categories": "",
         "category": "Health",
@@ -7,27 +7,176 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Count of OB-GYN physicians per block group, derived from CMS Doctors and Clinicians enrollment data. Areas with few or no OB-GYN providers face potential gaps in reproductive and maternal health care, which can lead to delayed prenatal visits and worse birth outcomes.",
-        "long_name": "OB-GYN physician count",
+        "long_description": "Median drive time in minutes to the ten nearest hospitals from each block group centroid. Shorter drive times indicate better geographic proximity to hospital care, which is critical for emergency medical situations where every minute matters. Areas with long median drive times may face barriers to timely treatment for strokes, heart attacks, and traumatic injuries.",
+        "long_name": "Hospital availability by median drive time to the ten closest facilities in minutes",
         "measure_type": "count",
-        "short_description": "Number of OB-GYN physicians located in each geographic area.",
-        "short_name": "OB-GYN physician count",
+        "short_description": "Median travel time in minutes to the 10 nearest hospitals, measuring geographic proximity to hospital care.",
+        "short_name": "Hospital drive time",
+        "provenance": "Hospital facility locations from CMS Hospital Compare (2015-2025), filtered to VA/DC/MD non-psychiatric hospitals. Geocoded via HIFLD (primary) and Census Geocoder (fallback). Drive times computed using OSRM-based block-group-to-block-group travel time matrix. Each block group's median is taken over travel times to the 10 nearest hospital block groups.",
         "sources": [
             {
                 "date_accessed": 2025,
                 "location": "",
                 "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
+                "name": "Center for Medicare and Medicaid Services",
+                "url": "https://data.cms.gov/provider-data/topics/hospitals"
             }
         ],
-        "provenance": "Provider counts from CMS Doctors and Clinicians national downloadable file, filtered to Obstetrics/Gynecology specialty (primary or secondary) with MD/DO credentials in VA, DC, and MD. Addresses geocoded via Census Geocoder and snapped to nearest 2020 block group centroid. Counts represent unique NPIs per block group.",
-        "statement": "There are {value} OB-GYN physicians in {features.name}.",
+        "statement": "The median drive time to the ten closest hospitals to {features.name} is {value}.",
+        "type": "drive time",
+        "unit": "minutes",
+        "variants": ""
+    },
+    "hosp_near_10_mean": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Mean drive time in minutes to the ten nearest hospitals from each block group centroid. This measure complements the median by capturing the overall distribution of hospital proximity. Higher mean times suggest that even when the closest hospital is accessible, the broader hospital network may be sparse, limiting patient choice and surge capacity.",
+        "long_name": "Hospital availability by mean drive time to the ten closest facilities in minutes",
+        "measure_type": "count",
+        "short_description": "Average travel time in minutes to the 10 nearest hospitals.",
+        "short_name": "Hospital mean drive time",
+        "provenance": "Hospital facility locations from CMS Hospital Compare (2015-2025), filtered to VA/DC/MD non-psychiatric hospitals. Geocoded via HIFLD (primary) and Census Geocoder (fallback). Drive times computed using OSRM block-group-to-block-group travel time matrix. Each block group's mean is taken over travel times to the 10 nearest hospital block groups.",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "Center for Medicare and Medicaid Services",
+                "url": "https://data.cms.gov/provider-data/topics/hospitals"
+            }
+        ],
+        "statement": "The mean drive time to the ten closest hospitals to {features.name} is {value}.",
+        "type": "drive time",
+        "unit": "minutes",
+        "variants": ""
+    },
+    "hosp_3sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "wan12",
+            "bii21"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Hospital accessibility score based on the 3-step floating catchment area (3SFCA) method with Gaussian distance decay. This model accounts for both the supply of hospitals relative to population demand and the distance residents must travel. Higher scores indicate areas with better hospital accessibility relative to need, while lower scores highlight potential gaps in hospital coverage.",
+        "long_name": "Hospital geographic availability (3-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Spatial accessibility index measuring hospital availability relative to population, weighted by Gaussian distance decay.",
+        "short_name": "Hospital geographic availability",
+        "provenance": "Spatial access scores computed using the 3-step floating catchment area methodology (Wan et al., 2012) with Gaussian weights (scale=20 minutes). Provider supply: CMS Hospital Compare facility locations (2015-2025), each hospital capacity=1. Consumer demand: ACS B01001_001 total population at block group level. Travel cost: OSRM-based block-group-to-block-group driving times. Scores expressed per 1,000 population.",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "Center for Medicare and Medicaid Services",
+                "url": "https://data.cms.gov/provider-data/topics/hospitals"
+            }
+        ],
+        "statement": "The hospital geographic availability score for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "hosp_2sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "wan12",
+            "bii21"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Hospital accessibility score based on the 2-step floating catchment area (2SFCA) method with a 30-minute travel time threshold. This binary-weight model identifies areas where hospital capacity is insufficient relative to the surrounding population. It is simpler than stepped or Gaussian variants but provides an intuitive measure of hospital accessibility within a reasonable driving distance.",
+        "long_name": "Hospital geographic availability (2-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Spatial accessibility index using binary-weight 2SFCA with a 30-minute threshold.",
+        "short_name": "Hospital availability (2SFCA)",
+        "provenance": "Spatial access scores computed using the 2-step floating catchment area methodology (Luo & Wang, 2003) with a 30-minute binary threshold. Provider supply: CMS Hospital Compare (2015-2025), capacity=1 per facility. Consumer demand: ACS B01001_001 total population at block group level. Travel cost: OSRM block-group-to-block-group driving times. Scores expressed per 1,000 population.",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "Center for Medicare and Medicaid Services",
+                "url": "https://data.cms.gov/provider-data/topics/hospitals"
+            }
+        ],
+        "statement": "The hospital 2SFCA availability score for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "hosp_e2sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "wan12",
+            "bii21"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Hospital accessibility score based on the enhanced 2-step floating catchment area (E2SFCA) method with stepped distance weights. This variant improves on the standard 2SFCA by applying decreasing weights at 10, 20, 30, and 60-minute travel time bands, better reflecting the real-world pattern where people are less likely to travel to distant hospitals.",
+        "long_name": "Hospital geographic availability (enhanced 2-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Spatial accessibility index using E2SFCA with stepped distance decay weights.",
+        "short_name": "Hospital availability (E2SFCA)",
+        "provenance": "Spatial access scores computed using the enhanced 2-step floating catchment area methodology (Luo & Qi, 2009) with stepped weights: 10min=0.962, 20min=0.704, 30min=0.377, 60min=0.042. Provider supply: CMS Hospital Compare (2015-2025), capacity=1 per facility. Consumer demand: ACS B01001_001 total population at block group level. Travel cost: OSRM block-group-to-block-group driving times. Scores expressed per 1,000 population.",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "Center for Medicare and Medicaid Services",
+                "url": "https://data.cms.gov/provider-data/topics/hospitals"
+            }
+        ],
+        "statement": "The hospital E2SFCA availability score for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "hosp_cnt": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Count of non-psychiatric hospitals located within each geographic area. This measure captures the raw supply of hospital facilities, providing a simple indicator of health infrastructure density. Areas with zero or very few hospitals may rely heavily on facilities in neighboring areas, increasing travel burden for residents.",
+        "long_name": "Availability of hospitals by count",
+        "measure_type": "count",
+        "short_description": "Number of non-psychiatric hospitals (Acute Care, Critical Access, Children's) in each area.",
+        "short_name": "Hospital availability (count)",
+        "provenance": "Facility count from CMS Hospital Compare (2015-2025), filtered to VA/DC/MD. Excludes psychiatric hospitals. Each facility counts as 1 regardless of size or bed count. Geocoded via HIFLD (primary) and Census Geocoder (fallback), snapped to nearest block group centroid.",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "Center for Medicare and Medicaid Services",
+                "url": "https://data.cms.gov/provider-data/topics/hospitals"
+            }
+        ],
+        "statement": "There are {value} hospitals in {features.name}.",
         "type": "count",
         "unit": "",
         "variants": ""
     },
-    "obgyn_near_10_mean": {
+    "hosp_pop_cnt": {
         "aggregation_method": "",
         "categories": "",
         "category": "Health",
@@ -35,151 +184,61 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Average travel time in minutes to the nearest 10 OB-GYN provider locations from each block group. This measure captures geographic barriers to reproductive health care: longer travel times are associated with fewer prenatal visits, delayed emergency obstetric care, and higher rates of adverse maternal outcomes.",
-        "long_name": "Mean travel time to nearest 10 OB-GYN locations",
-        "measure_type": "time",
-        "short_description": "Mean driving time in minutes to the 10 closest OB-GYN provider locations.",
-        "short_name": "Mean travel to nearest 10 OB-GYN",
+        "long_description": "Total population count at the block group level used as the demand denominator in floating catchment area calculations. This reflects the ACS total population estimate for the year preceding the CMS data year.",
+        "long_name": "Population count used in hospital FCA computation",
+        "measure_type": "count",
+        "short_description": "ACS total population at block group level used as the FCA demand denominator.",
+        "short_name": "Population (hospital FCA)",
+        "provenance": "ACS 5-year estimate B01001_001 at block group level. Year is CMS data year minus 1, capped at the latest available ACS year.",
         "sources": [
             {
                 "date_accessed": 2025,
                 "location": "",
                 "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
+                "name": "U.S. Census Bureau, American Community Survey",
+                "url": "https://data.census.gov"
             }
         ],
-        "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrix. For each consumer block group, the 10 nearest provider block groups (by travel time) are identified and the mean travel time is computed. Provider locations from CMS Doctors and Clinicians, filtered to Obstetrics/Gynecology specialty.",
-        "statement": "The mean travel time to the nearest 10 OB-GYN locations from {features.name} is {value} minutes.",
-        "type": "time",
-        "unit": "minutes",
-        "variants": ""
-    },
-    "obgyn_near_10_median": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Median travel time in minutes to the nearest 10 OB-GYN provider locations from each block group. The median is less sensitive to outlier locations than the mean, providing a robust indicator of typical geographic access to reproductive health services.",
-        "long_name": "Median travel time to nearest 10 OB-GYN locations",
-        "measure_type": "time",
-        "short_description": "Median driving time in minutes to the 10 closest OB-GYN provider locations.",
-        "short_name": "Median travel to nearest 10 OB-GYN",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
-            }
-        ],
-        "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrix. For each consumer block group, the 10 nearest provider block groups (by travel time) are identified and the median travel time is computed. Provider locations from CMS Doctors and Clinicians, filtered to Obstetrics/Gynecology specialty.",
-        "statement": "The median travel time to the nearest 10 OB-GYN locations from {features.name} is {value} minutes.",
-        "type": "time",
-        "unit": "minutes",
-        "variants": ""
-    },
-    "obgyn_2sfca": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": [
-            "lou04",
-            "lou09",
-            "lou03",
-            "saxon20"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "OB-GYN care accessibility measured using the two-step floating catchment area (2SFCA) method with a 30-minute travel threshold. This index quantifies geographic access to reproductive health services by computing provider-to-population ratios within overlapping service areas. Lower scores indicate areas where the female population age 15+ faces greater competition for limited OB-GYN capacity.",
-        "long_name": "OB-GYN care geographic availability (2SFCA)",
-        "measure_type": "index",
-        "short_description": "Spatial accessibility index for OB-GYN services using the two-step floating catchment area method.",
-        "short_name": "OB-GYN availability (2SFCA)",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
-            }
-        ],
-        "provenance": "Spatial access scores computed using the 2SFCA methodology (Luo, 2004) with a 30-minute travel time threshold. Provider capacity = unique NPI count per location from CMS Doctors and Clinicians (Obstetrics/Gynecology). Consumer demand = female population age 15+ from ACS table B01001 (variables B01001_030 through B01001_049). Travel times from pre-computed OSRM BG-to-BG matrix. Scores expressed per 1,000 population.",
-        "statement": "The OB-GYN availability (2SFCA) for {features.name} is {value}.",
-        "type": "index",
+        "statement": "The population in {features.name} used for hospital accessibility calculation is {value}.",
+        "type": "count",
         "unit": "",
         "variants": ""
     },
-    "obgyn_e2sfca": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": [
-            "lou04",
-            "lou09",
-            "lou03",
-            "saxon20"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "OB-GYN care accessibility measured using the enhanced two-step floating catchment area (E2SFCA) method with stepped distance-decay weights. Unlike the basic 2SFCA, E2SFCA applies decreasing weights at 10, 20, 30, and 60-minute travel bands, reflecting the reality that patients are less likely to use providers farther away. This produces a more realistic picture of effective access to reproductive health care.",
-        "long_name": "OB-GYN care geographic availability (E2SFCA)",
-        "measure_type": "index",
-        "short_description": "Spatial accessibility index for OB-GYN services using the enhanced two-step floating catchment area method with distance-decay weights.",
-        "short_name": "OB-GYN availability (E2SFCA)",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
-            }
-        ],
-        "provenance": "Spatial access scores computed using the E2SFCA methodology (Luo & Qi, 2009) with stepped weights: 10 min (0.962), 20 min (0.704), 30 min (0.377), 60 min (0.042). Provider capacity = unique NPI count per location from CMS Doctors and Clinicians (Obstetrics/Gynecology). Consumer demand = female population age 15+ from ACS table B01001 (variables B01001_030 through B01001_049). Travel times from pre-computed OSRM BG-to-BG matrix. Scores expressed per 1,000 population.",
-        "statement": "The OB-GYN availability (E2SFCA) for {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "obgyn_3sfca": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": [
-            "lou04",
-            "lou09",
-            "lou03",
-            "saxon20"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "OB-GYN care accessibility measured using the three-step floating catchment area (3SFCA) method with Gaussian distance decay. The 3SFCA adds a selection-weight step that accounts for the competitive effect among nearby providers, yielding an accessibility score that reflects both spatial proximity and choice behavior in reproductive health service utilization.",
-        "long_name": "OB-GYN care geographic availability (3SFCA)",
-        "measure_type": "index",
-        "short_description": "Spatial accessibility index for OB-GYN services using the three-step floating catchment area method with Gaussian decay.",
-        "short_name": "OB-GYN availability (3SFCA)",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
-            }
-        ],
-        "provenance": "Spatial access scores computed using the 3SFCA methodology (Wan et al., 2012) with Gaussian distance decay (scale=20). Provider capacity = unique NPI count per location from CMS Doctors and Clinicians (Obstetrics/Gynecology). Consumer demand = female population age 15+ from ACS table B01001 (variables B01001_030 through B01001_049). Travel times from pre-computed OSRM BG-to-BG matrix. Scores normalized by selection weights.",
-        "statement": "The OB-GYN availability (3SFCA) for {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
+    "_references": {
+        "wan12": {
+            "id": "wan12",
+            "author": [
+                {
+                    "given": "Neng",
+                    "family": "Wan"
+                },
+                {
+                    "given": "Bin",
+                    "family": "Zou"
+                },
+                {
+                    "given": "Troy",
+                    "family": "Sternberg"
+                }
+            ],
+            "year": 2012,
+            "title": "A three-step floating catchment area method for analyzing spatial access to health services",
+            "journal": "International Journal of Geographical Information Science",
+            "volume": "26",
+            "page": "1073\u20131089",
+            "doi": "10.1080/13658816.2011.624987"
+        },
+        "bii21": {
+            "id": "bii21",
+            "author": [
+                {
+                    "family": "Biocomplexity Institute and Initiative"
+                }
+            ],
+            "year": 2021,
+            "title": "catchment: Calculate spatial access and availability metrics",
+            "version": "0.0.1",
+            "url": "https://github.com/uva-bi-sdad/catchment"
+        }
     }
 }
