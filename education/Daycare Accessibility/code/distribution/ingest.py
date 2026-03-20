@@ -15,6 +15,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import yaml
+from sdc_core.catchment import catchment_ratio
 from sdc_core.census import CensusClient
 from sdc_core.io import write_data
 from sdc_core.log import get_logger
@@ -156,11 +157,6 @@ def load_travel_times() -> pd.DataFrame:
 # Step 4 & 5: Compute measures
 # ---------------------------------------------------------------------------
 
-def _gaussian_weight(time_mins: np.ndarray, scale: float = GAUSSIAN_SCALE) -> np.ndarray:
-    """Gaussian distance-decay weight."""
-    return np.exp(-((time_mins / scale) ** 2))
-
-
 def compute_min_drivetime(
     pop_geoids: np.ndarray,
     provider_bgs: set[str],
@@ -204,89 +200,99 @@ def compute_3sfca(
     pop_col: str,
     age_filter_mask: pd.Series,
 ) -> pd.Series:
-    """Compute 3-step floating catchment area ratio.
+    """Compute 3-step floating catchment area ratio via sdc_core.catchment.
+
+    Uses ``catchment_ratio`` with Gaussian kernel and quadratic selection-weight
+    normalization (``normalize_weight=True``).  The inline code previously used
+    simple row normalization (w / row_sum); the module uses quadratic
+    normalization (w * w / row_sum).  This is an intentional methodological
+    upgrade to the 3SFCA formulation from Wan, Zou & Sternberg (2012).
+
+    The Gaussian scale is passed as ``GAUSSIAN_SCALE / sqrt(2)`` so that the
+    module kernel ``exp(-t^2 / (2*s^2))`` produces the same weights as the
+    former inline kernel ``exp(-(t/GAUSSIAN_SCALE)^2)``.
 
     Returns seats per 1,000 children for each consumer block group.
     """
-    # Filter providers
+    # Filter providers by age range
     filtered_locs = locations[age_filter_mask].copy()
-    if filtered_locs.empty:
-        return pd.Series(0.0, index=pop["geoid"].values)
-
-    # Build provider info: lid -> bg_geoid, capacity
-    # Multiple providers can share a BG; keep them separate by lid
-    provider_bgs = set(filtered_locs["bg_geoid"].unique())
-
-    # Get all consumer BGs
     consumer_geoids = pop["geoid"].values
-    consumer_pop = pop[pop_col].values.astype(float)
-
-    # Build travel time lookup: consumer_bg -> provider_bg -> time_mins
-    # Filter to only relevant provider BGs as destinations
-    tt_relevant = travel_times[travel_times["bg_dest"].isin(provider_bgs)].copy()
-
-    # Add self-pairs
-    consumer_set = set(consumer_geoids)
-    self_pairs = provider_bgs & consumer_set
-    if self_pairs:
-        self_df = pd.DataFrame({
-            "bg_orig": list(self_pairs),
-            "bg_dest": list(self_pairs),
-            "time_mins": 0.0,
-        })
-        tt_relevant = pd.concat([tt_relevant, self_df], ignore_index=True)
-        tt_relevant = tt_relevant.drop_duplicates(subset=["bg_orig", "bg_dest"])
+    if filtered_locs.empty:
+        return pd.Series(0.0, index=consumer_geoids)
 
     # Aggregate providers by lid (same location hash = same physical location)
-    # Sum capacities for co-located providers
     prov_info = (
         filtered_locs.groupby("lid")
         .agg({"bg_geoid": "first", "capacity": "sum"})
         .reset_index()
     )
+    provider_bgs = prov_info["bg_geoid"].values
+    provider_lids = prov_info["lid"].values
 
-    # Build sparse weight matrix via merge
-    # Each row: consumer_bg, provider_lid, time_mins, capacity
-    prov_tt = tt_relevant.merge(
-        prov_info,
-        left_on="bg_dest",
-        right_on="bg_geoid",
-        how="inner",
+    # --- Build cost matrix (consumers × providers) from travel_times ---
+    # Create lookup: (bg_orig, bg_dest) -> time_mins for relevant pairs
+    provider_bg_set = set(prov_info["bg_geoid"].unique())
+    tt_relevant = travel_times[travel_times["bg_dest"].isin(provider_bg_set)]
+
+    # Build a dict for fast lookup: bg_dest -> {bg_orig: time_mins}
+    # Then map provider lids through their bg_geoid
+    tt_dict: dict[tuple[str, str], float] = {}
+    for orig, dest, t in zip(
+        tt_relevant["bg_orig"].values,
+        tt_relevant["bg_dest"].values,
+        tt_relevant["time_mins"].values,
+    ):
+        key = (orig, dest)
+        if key not in tt_dict or t < tt_dict[key]:
+            tt_dict[key] = t
+
+    # Build dense cost matrix: rows = consumer BGs, cols = provider lids
+    n_consumers = len(consumer_geoids)
+    n_providers = len(provider_lids)
+    # Use a large default cost so that unreachable pairs get zero weight
+    cost_matrix = np.full((n_consumers, n_providers), 1e6, dtype=float)
+
+    consumer_idx = {g: i for i, g in enumerate(consumer_geoids)}
+    for j, (lid, bg) in enumerate(zip(provider_lids, provider_bgs)):
+        for orig, i in consumer_idx.items():
+            if orig == bg:
+                # Self-pair: zero travel time
+                cost_matrix[i, j] = 0.0
+            else:
+                t = tt_dict.get((orig, bg))
+                if t is not None:
+                    cost_matrix[i, j] = t
+
+    # Build consumer and provider DataFrames for catchment_ratio
+    consumers_df = pd.DataFrame({
+        "geoid": consumer_geoids,
+        "value": pop[pop_col].values.astype(float),
+    })
+    providers_df = pd.DataFrame({
+        "lid": provider_lids,
+        "value": prov_info["capacity"].values.astype(float),
+    })
+
+    # Call catchment_ratio with 3SFCA (normalize_weight=True)
+    # Scale equivalence: inline exp(-(t/18)^2) == module exp(-t^2/(2*s^2)) when s=18/sqrt(2)
+    access = catchment_ratio(
+        consumers=consumers_df,
+        providers=providers_df,
+        cost=cost_matrix,
+        weight="gaussian",
+        scale=GAUSSIAN_SCALE / np.sqrt(2),
+        normalize_weight=True,
+        consumers_id="geoid",
+        consumers_value="value",
+        providers_id="lid",
+        providers_value="value",
+        return_type=1000,
     )
-    # prov_tt columns: bg_orig, bg_dest, time_mins, lid, bg_geoid, capacity
 
-    # Compute weights
-    prov_tt["weight"] = _gaussian_weight(prov_tt["time_mins"].values)
-
-    # --- 3SFCA Step 1: Normalize weights per consumer (row-normalize) ---
-    consumer_weight_sums = prov_tt.groupby("bg_orig")["weight"].transform("sum")
-    prov_tt["weight_norm"] = prov_tt["weight"] / consumer_weight_sums.where(consumer_weight_sums > 0, 1.0)
-
-    # --- 3SFCA Step 2: Selection weight per provider ---
-    # Merge consumer population
-    pop_lookup = pd.Series(consumer_pop, index=consumer_geoids)
-    prov_tt["consumer_pop"] = pop_lookup.reindex(prov_tt["bg_orig"].values).values
-    prov_tt["consumer_pop"] = prov_tt["consumer_pop"].fillna(0)
-
-    # Selection weight = sum of (normalized_weight * population) across all consumers
-    prov_tt["weighted_pop"] = prov_tt["weight_norm"] * prov_tt["consumer_pop"]
-    sel_weights = prov_tt.groupby("lid")["weighted_pop"].sum()
-
-    # --- 3SFCA Step 3: Provider ratio ---
-    cap_by_lid = prov_info.set_index("lid")["capacity"]
-    provider_ratio = cap_by_lid / sel_weights.where(sel_weights > 0, np.nan)
-    provider_ratio = provider_ratio.fillna(0)
-
-    # --- 3SFCA Step 4: Consumer access score ---
-    prov_tt["provider_ratio"] = prov_tt["lid"].map(provider_ratio).fillna(0).values
-    prov_tt["access_contrib"] = prov_tt["weight_norm"] * prov_tt["provider_ratio"]
-
-    access_scores = prov_tt.groupby("bg_orig")["access_contrib"].sum() * 1000
-
-    # Map back to full consumer list
+    # Map back to full consumer list (catchment_ratio returns Series indexed by geoid)
     result = pd.Series(0.0, index=consumer_geoids)
-    matched = result.index.isin(access_scores.index)
-    result.loc[matched] = access_scores.reindex(result.index[matched]).values
+    matched = result.index.isin(access.index)
+    result.loc[matched] = access.reindex(result.index[matched]).values
     return result
 
 
