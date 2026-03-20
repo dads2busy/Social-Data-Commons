@@ -1,0 +1,45 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-03-20T18:36:48+00:00",
+  "schema": [
+    "geoid",
+    "region_type",
+    "region_name",
+    "measure",
+    "value",
+    "year",
+    "measure_type",
+    "data_method",
+    "moe"
+  ],
+  "measures": [
+    "urgent_2sfca",
+    "urgent_3sfca",
+    "urgent_cnt",
+    "urgent_e2sfca",
+    "urgent_near_10_mean",
+    "urgent_near_10_median",
+    "urgent_pop_cnt"
+  ],
+  "years": [
+    2022
+  ],
+  "regions": [
+    "11",
+    "24",
+    "42",
+    "51",
+    "54"
+  ],
+  "row_count": 94149,
+  "files": {
+    "ncr_bgtrct_gmap_2022_access_scores_urgent_care_centers.csv.xz": {
+      "sha256": "78291b367605aa6039065224368c44fcbd0af38d50f71bcfc5f9f542d8d984c2",
+      "size_bytes": 509336
+    },
+    "ncr_cttrbg_gmap_2022_access_scores_urgent.csv.xz": {
+      "sha256": "5c3375d9474eea7ca63f6034b290238da5225e94edd5a9adf4428e78d5288932",
+      "size_bytes": 172400
+    }
+  }
+}
