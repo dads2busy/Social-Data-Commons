@@ -1,0 +1,20 @@
+name: hospitals_access_scores
+version: "1.0.0"
+title: "Hospital and Emergency Room Accessibility (FCA)"
+description: >-
+  Floating catchment area analysis measuring hospital and emergency room
+  accessibility at block group level. Computes 2SFCA, E2SFCA, and 3SFCA
+  variants with provider counts from HIFLD hospital locations.
+
+sources:
+  providers:
+    type: geojson
+    description: "HIFLD hospital geocoded locations"
+    file: "data/distribution/ncr_hifld_2022_hospitals_points.geojson"
+    capacity_col: null
+
+output:
+  path: data/distribution
+  geographies: [block_group, tract, county, health_district]
+  years: [2022]
+  coverage_areas: [va, ncr]

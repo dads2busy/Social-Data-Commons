@@ -1,0 +1,20 @@
+name: ems_access_scores
+version: "1.0.0"
+title: "EMS Service Accessibility (FCA)"
+description: >-
+  Floating catchment area analysis measuring EMS service accessibility
+  at block group level. Computes 2SFCA, E2SFCA, and 3SFCA variants with
+  provider counts from HIFLD EMS station locations.
+
+sources:
+  providers:
+    type: geojson
+    description: "HIFLD EMS station geocoded locations"
+    file: "data/distribution/ncr_hifld_2022_ems_points.geojson"
+    capacity_col: null
+
+output:
+  path: data/distribution
+  geographies: [block_group, tract, county, health_district]
+  years: [2022]
+  coverage_areas: [va, ncr]

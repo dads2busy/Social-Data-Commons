@@ -1,0 +1,20 @@
+name: urgent_care_access_scores
+version: "1.0.0"
+title: "Urgent Care Center Accessibility (FCA)"
+description: >-
+  Floating catchment area analysis measuring urgent care center
+  accessibility at block group level. Computes 2SFCA, E2SFCA, and 3SFCA
+  variants with provider counts from Google Maps urgent care locations.
+
+sources:
+  providers:
+    type: geojson
+    description: "Google Maps urgent care center geocoded locations"
+    file: "data/distribution/ncr_gmap_2022_urgent_care_points.geojson"
+    capacity_col: null
+
+output:
+  path: data/distribution
+  geographies: [block_group, tract, county, health_district]
+  years: [2022]
+  coverage_areas: [va, ncr]

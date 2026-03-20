@@ -1,0 +1,20 @@
+name: primcare_access_scores
+version: "1.0.0"
+title: "Primary Care Service Accessibility (FCA)"
+description: >-
+  Floating catchment area analysis measuring primary care physician
+  accessibility at block group level. Computes 2SFCA, E2SFCA, and 3SFCA
+  variants with physician counts from WebMD primary care directory.
+
+sources:
+  providers:
+    type: geojson
+    description: "WebMD primary care physician geocoded locations"
+    file: "data/distribution/ncr_webmd_2022_primary_care_points.geojson"
+    capacity_col: "doctors"
+
+output:
+  path: data/distribution
+  geographies: [block_group, tract, county, health_district]
+  years: [2022]
+  coverage_areas: [va, ncr]
