@@ -271,6 +271,43 @@ class TestCommuteBased:
         assert_allclose(result_dirty.values, result_clean.values)
 
 
+class TestConnections:
+    def test_basic_connections(self):
+        from sdc_core.catchment import catchment_connections
+
+        cost = np.array([[5.0, 25.0], [8.0, 8.0], [25.0, 5.0]])
+        result = catchment_connections(cost, weight=10.0, consumer_ids=["C1", "C2", "C3"], provider_ids=["P1", "P2"])
+        assert isinstance(result, pd.DataFrame)
+        assert set(result.columns) == {"from_id", "to_id", "weight", "cost"}
+        assert len(result) == 4
+
+    def test_default_ids(self):
+        from sdc_core.catchment import catchment_connections
+
+        cost = np.array([[5.0, 25.0]])
+        result = catchment_connections(cost, weight=10.0)
+        assert result["from_id"].iloc[0] == 0
+        assert result["to_id"].iloc[0] == 0
+
+
+class TestNetwork:
+    def test_basic_network(self):
+        from sdc_core.catchment import catchment_network
+
+        connections = pd.DataFrame(
+            {
+                "from_id": ["C1", "C2", "C2", "C3", "C4"],
+                "to_id": ["P1", "P1", "P2", "P2", "P3"],
+                "weight": [1, 1, 1, 1, 1],
+                "cost": [5, 8, 8, 5, 5],
+            }
+        )
+        result = catchment_network(connections, from_start="C1")
+        assert "C4" not in result["from_id"].values
+        assert "P3" not in result["to_id"].values
+        assert len(result) == 4
+
+
 class TestEuclideanCost:
     def test_basic(self):
         from sdc_core.catchment import euclidean_cost

@@ -238,3 +238,55 @@ def catchment_ratio(
         raise ValueError(f"Unknown return_type: {return_type!r}")
 
     return pd.Series(access, index=c_ids)
+
+
+def catchment_connections(
+    cost,
+    weight: WeightSpec = None,
+    consumer_ids=None,
+    provider_ids=None,
+    **weight_kwargs,
+) -> pd.DataFrame:
+    """Extract non-zero consumer-provider connections with weights and costs."""
+    W = catchment_weight(cost, weight, **weight_kwargs)
+    cost_arr = _to_sparse(cost).toarray()
+    n_rows, n_cols = W.shape
+    if consumer_ids is None:
+        consumer_ids = np.arange(n_rows)
+    if provider_ids is None:
+        provider_ids = np.arange(n_cols)
+    W_coo = W.tocoo()
+    rows = []
+    for i, j, w in zip(W_coo.row, W_coo.col, W_coo.data):
+        if w > 0:
+            rows.append({"from_id": consumer_ids[i], "to_id": provider_ids[j], "weight": w, "cost": cost_arr[i, j]})
+    return pd.DataFrame(rows, columns=["from_id", "to_id", "weight", "cost"])
+
+
+def catchment_network(
+    connections: pd.DataFrame,
+    from_start=None,
+    to_start=None,
+) -> pd.DataFrame:
+    """Extract connected subgraph via breadth-first search."""
+    froms: set = set()
+    tos: set = set()
+    if from_start is not None:
+        froms.add(from_start)
+    if to_start is not None:
+        tos.add(to_start)
+    if not froms and not tos:
+        froms.add(connections["from_id"].iloc[0])
+
+    while True:
+        new_tos = set(connections[connections["from_id"].isin(froms)]["to_id"])
+        new_froms = set(connections[connections["to_id"].isin(tos)]["from_id"])
+        combined_froms = froms | new_froms
+        combined_tos = tos | new_tos
+        if combined_froms == froms and combined_tos == tos:
+            break
+        froms = combined_froms
+        tos = combined_tos
+
+    mask = connections["from_id"].isin(froms) & connections["to_id"].isin(tos)
+    return connections[mask].reset_index(drop=True)
