@@ -73,7 +73,7 @@
         "data_type": "decimal",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Number of day care seats per 1,000 children under 15 years of age, which accept at least ages 4 to 10, as calculated within floating catchment areas. Catchment area ratios are based on the population of children under 15 within block groups (as estimated in the American Community Survey), capacity of eligible day care providers (as reported by the Virginia Department of Social Services), and travel times between block group centroids and day care locations (as calculated with the Open Source Routing Machine). Catchment areas are weighted by travel time with a Gaussian function with scale of 18, which are normalized for each consumer (for a 3-step floating catchment area).",
+        "long_description": "Number of day care seats per 1,000 children under 15 years of age, which accept at least ages 4 to 10, as calculated within floating catchment areas. Catchment area ratios are based on the population of children under 15 within block groups (as estimated in the American Community Survey), capacity of eligible day care providers (as reported by the Virginia Department of Social Services), and travel times between block group centroids and day care locations (as calculated with the Open Source Routing Machine). Catchment areas are weighted by travel time with a Gaussian function with scale of 18, with quadratic selection-weight normalization (Wan et al., 2012) for the 3-step floating catchment area.",
         "long_name": "Day Care Seats Per 1k Children Under 15, Accepting at Least Ages 4-10",
         "measure_type": "ratio",
         "short_description": "Day care seats per 1,000 children under 15, using a 3-step floating catchment area method with Gaussian distance-decay weighting.",
@@ -101,7 +101,7 @@
                 "url": "http://project-osrm.org"
             }
         ],
-        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012), with distance-weighted Gaussian decay.",
+        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method with quadratic selection-weight normalization (Wan et al., 2012) and Gaussian distance-decay (scale parameter 18/sqrt(2) approx 12.73).",
         "statement": "There are {value} day care seats per 1,000 children under 15 in {region_name}.",
         "type": "ratio",
         "unit": "day care seat per 1k children",
@@ -118,7 +118,7 @@
         "data_type": "decimal",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Number of day care seats per 1,000 children between 5 and 14 years of age, which accept at least some ages over 4, as calculated within floating catchment areas. Catchment area ratios are based on the population of children over 4 within block groups (as estimated in the American Community Survey), capacity of eligible day care providers (as reported by the Virginia Department of Social Services), and travel times between block group centroids and day care locations (as calculated with the Open Source Routing Machine). Catchment areas are weighted by travel time with a Gaussian function with scale of 18, which are normalized for each consumer (for a 3-step floating catchment area).",
+        "long_description": "Number of day care seats per 1,000 children between 5 and 14 years of age, which accept at least some ages over 4, as calculated within floating catchment areas. Catchment area ratios are based on the population of children over 4 within block groups (as estimated in the American Community Survey), capacity of eligible day care providers (as reported by the Virginia Department of Social Services), and travel times between block group centroids and day care locations (as calculated with the Open Source Routing Machine). Catchment areas are weighted by travel time with a Gaussian function with scale of 18, with quadratic selection-weight normalization (Wan et al., 2012) for the 3-step floating catchment area.",
         "long_name": "Day Care Seats Per 1k Children Between 5 and 14, With Minimal Accepted Age Over 4",
         "measure_type": "ratio",
         "short_description": "Day care seats per 1,000 children ages 5-14, using 3SFCA method. Only providers accepting ages over 4.",
@@ -146,7 +146,7 @@
                 "url": "http://project-osrm.org"
             }
         ],
-        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012), with distance-weighted Gaussian decay.",
+        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method with quadratic selection-weight normalization (Wan et al., 2012) and Gaussian distance-decay (scale parameter 18/sqrt(2) approx 12.73).",
         "statement": "There are {value} day care seats per 1,000 children over 4 in {region_name}.",
         "type": "ratio",
         "unit": "day care seat per 1k children",
@@ -163,7 +163,7 @@
         "data_type": "decimal",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Number of day care seats per 1,000 children under 10 years of age, which accept at least some ages under 10, as calculated within floating catchment areas. Catchment area ratios are based on the population of children under 10 within block groups (as estimated in the American Community Survey), capacity of eligible day care providers (as reported by the Virginia Department of Social Services), and travel times between block group centroids and day care locations (as calculated with the Open Source Routing Machine). Catchment areas are weighted by travel time with a Gaussian function with scale of 18, which are normalized for each consumer (for a 3-step floating catchment area).",
+        "long_description": "Number of day care seats per 1,000 children under 10 years of age, which accept at least some ages under 10, as calculated within floating catchment areas. Catchment area ratios are based on the population of children under 10 within block groups (as estimated in the American Community Survey), capacity of eligible day care providers (as reported by the Virginia Department of Social Services), and travel times between block group centroids and day care locations (as calculated with the Open Source Routing Machine). Catchment areas are weighted by travel time with a Gaussian function with scale of 18, with quadratic selection-weight normalization (Wan et al., 2012) for the 3-step floating catchment area.",
         "long_name": "Day Care Seats Per 1k Children Under 10, With Maximal Accepted Age Under 10",
         "measure_type": "ratio",
         "short_description": "Day care seats per 1,000 children under 10, using 3SFCA method. Only providers accepting ages under 10.",
@@ -191,7 +191,7 @@
                 "url": "http://project-osrm.org"
             }
         ],
-        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method (Wan et al., 2012), with distance-weighted Gaussian decay.",
+        "provenance": "Day care availability ratios are calculated using the 3-step floating catchment area (3SFCA) method with quadratic selection-weight normalization (Wan et al., 2012) and Gaussian distance-decay (scale parameter 18/sqrt(2) approx 12.73).",
         "statement": "There are {value} day care seats per 1,000 children under 10 in {region_name}.",
         "type": "ratio",
         "unit": "day care seat per 1k children",
