@@ -199,6 +199,53 @@ class TestCatchmentRatio:
             catchment_ratio(consumers, providers, cost, weight=10.0)
 
 
+class TestFCAVariants:
+    @pytest.fixture
+    def setup(self):
+        consumers = pd.DataFrame({"geoid": ["C1", "C2", "C3"], "value": [100, 200, 150]})
+        providers = pd.DataFrame({"geoid": ["P1", "P2"], "value": [50, 30]})
+        cost = np.array([[5.0, 25.0], [8.0, 8.0], [25.0, 5.0]])
+        return consumers, providers, cost
+
+    def test_e2sfca_stepped(self, setup):
+        from sdc_core.catchment import catchment_ratio
+
+        consumers, providers, cost = setup
+        result = catchment_ratio(consumers, providers, cost, weight=[(10, 1.0), (30, 0.5)])
+        assert isinstance(result, pd.Series)
+        assert len(result) == 3
+        result_binary = catchment_ratio(consumers, providers, cost, weight=30.0)
+        assert not np.allclose(result.values, result_binary.values)
+
+    def test_3sfca_normalized(self, setup):
+        from sdc_core.catchment import catchment_ratio
+
+        consumers, providers, cost = setup
+        result = catchment_ratio(consumers, providers, cost, weight="gaussian", scale=10.0, normalize_weight=True)
+        result_non = catchment_ratio(consumers, providers, cost, weight="gaussian", scale=10.0)
+        assert not np.allclose(result.values, result_non.values)
+
+    def test_modified_2sfca(self, setup):
+        from sdc_core.catchment import catchment_ratio
+
+        consumers, providers, cost = setup
+        result = catchment_ratio(consumers, providers, cost, weight="gaussian", scale=10.0, adjust_providers=lambda w: w**2)
+        result_base = catchment_ratio(consumers, providers, cost, weight="gaussian", scale=10.0)
+        assert not np.allclose(result.values, result_base.values)
+
+    def test_balanced_fca(self, setup):
+        from sdc_core.catchment import catchment_ratio
+
+        consumers, providers, cost = setup
+        row_norm = lambda w: w / np.where(w.sum(axis=1, keepdims=True) > 0, w.sum(axis=1, keepdims=True), 1)
+        col_norm = lambda w: w / np.where(w.sum(axis=0, keepdims=True) > 0, w.sum(axis=0, keepdims=True), 1)
+        result = catchment_ratio(
+            consumers, providers, cost, weight=30.0, adjust_consumers=row_norm, adjust_providers=col_norm
+        )
+        assert isinstance(result, pd.Series)
+        assert len(result) == 3
+
+
 class TestEuclideanCost:
     def test_basic(self):
         from sdc_core.catchment import euclidean_cost
