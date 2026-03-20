@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-20T14:50:02+00:00",
+  "schema": [
+    "geoid",
+    "region_type",
+    "region_name",
+    "measure",
+    "value",
+    "year",
+    "measure_type",
+    "data_method",
+    "moe"
+  ],
+  "measures": [
+    "primcare_2sfca",
+    "primcare_3sfca",
+    "primcare_cnt",
+    "primcare_e2sfca",
+    "primcare_near_10_mean",
+    "primcare_near_10_median",
+    "primcare_pop_cnt"
+  ],
+  "years": [
+    2021,
+    2022
+  ],
+  "regions": [
+    "11",
+    "24",
+    "51"
+  ],
+  "row_count": 152709,
+  "files": {
+    "ncr_cttrbg_webmd_2021_acccess_scores_primcare.csv.xz": {
+      "sha256": "0781218782da29a586b1ae3c794313e0e501bef82f9da86ba23b7e2c1ecbfe40",
+      "size_bytes": 192452
+    },
+    "ncr_cttrbg_webmd_2022_access_scores_primcare.csv.xz": {
+      "sha256": "86d60b47b2352722b0394aabdc7e426b0bf9743e9e3e60bf99238eb67387f11a",
+      "size_bytes": 100676
+    },
+    "va_hdcttrbg_webmd_2022_access_scores_primcare.csv.xz": {
+      "sha256": "68a318eaf169826f2f0576cefc1a0b641a619a5afbad9b848d9f8e570ca05735",
+      "size_bytes": 166176
+    },
+    "va_hdcttrbgca_webmd_2021_access_scores_primcare.csv.xz": {
+      "sha256": "44fa1fc9e05b5dd5bc8d43c249721ec4dd79861b3a3b68a2bdf1ab257a8a959e",
+      "size_bytes": 495076
+    }
+  }
+}

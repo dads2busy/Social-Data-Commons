@@ -309,6 +309,88 @@ def run_fca_variants(
     return result
 
 
+def aggregate_bg_to_levels(
+    bg_data: pd.DataFrame,
+    measure_prefix: str,
+    year: int,
+    consumer_pop: np.ndarray | None = None,
+) -> pd.DataFrame:
+    """Aggregate BG-level measures to tract and county, returning long-format DataFrame.
+
+    Does NOT aggregate to health districts — that is the responsibility of prepare.py.
+
+    Parameters
+    ----------
+    bg_data : DataFrame with geoid + measure columns (BG level)
+    measure_prefix : str for identifying measure types
+    year : data year
+    consumer_pop : population array for weighted mean (same order as bg_data rows)
+
+    Returns
+    -------
+    Long-format DataFrame with columns: geoid, year, measure, value, moe, region_type, data_method
+    Includes BG + tract + county rows.
+    """
+    measures = [c for c in bg_data.columns if c != "geoid"]
+
+    count_measures = [m for m in measures if m.endswith("_cnt")]
+    time_measures = [m for m in measures if "near_10" in m]
+    fca_measures = [m for m in measures if m.endswith(("_2sfca", "_e2sfca", "_3sfca"))]
+
+    all_frames = []
+
+    # BG level
+    for measure in measures:
+        frame = pd.DataFrame({
+            "geoid": bg_data["geoid"],
+            "year": year,
+            "measure": measure,
+            "value": bg_data[measure],
+            "moe": pd.NA,
+            "region_type": "block_group",
+            "data_method": "modeled" if measure in fca_measures else "observed",
+        })
+        all_frames.append(frame)
+
+    # Aggregate to tract and county
+    bg = bg_data.copy()
+    bg["tract_geoid"] = bg["geoid"].str[:11]
+    bg["county_geoid"] = bg["geoid"].str[:5]
+
+    for level, geoid_col in [("tract", "tract_geoid"), ("county", "county_geoid")]:
+        valid = bg[bg[geoid_col].notna()]
+        for measure in measures:
+            if measure in count_measures:
+                agged = valid.groupby(geoid_col)[measure].sum().reset_index()
+            elif measure in time_measures:
+                agged = valid.groupby(geoid_col)[measure].mean().reset_index()
+            elif measure in fca_measures and consumer_pop is not None:
+                valid_with_pop = valid.copy()
+                valid_with_pop["_pop"] = consumer_pop[: len(valid_with_pop)]
+                grouped = valid_with_pop.groupby(geoid_col).apply(
+                    lambda g: np.average(g[measure], weights=g["_pop"]) if g["_pop"].sum() > 0 else 0.0,
+                    include_groups=False,
+                ).reset_index(name=measure)
+                agged = grouped
+            else:
+                agged = valid.groupby(geoid_col)[measure].mean().reset_index()
+
+            frame = pd.DataFrame({
+                "geoid": agged[geoid_col],
+                "year": year,
+                "measure": measure,
+                "value": agged[measure],
+                "moe": pd.NA,
+                "region_type": level,
+                "data_method": "modeled" if measure in fca_measures else "observed",
+            })
+            all_frames.append(frame)
+
+    combined = pd.concat(all_frames, ignore_index=True)
+    combined = combined.sort_values(["geoid", "year", "measure"]).reset_index(drop=True)
+    return combined
+
+
 def aggregate_and_output(
     bg_data: pd.DataFrame,
     measure_prefix: str,
@@ -319,6 +401,9 @@ def aggregate_and_output(
     pop_col_for_weighting: np.ndarray | None = None,
 ) -> Path:
     """Aggregate BG measures to tract/county/HD and write long-format output.
+
+    Legacy convenience function — new pipelines should use aggregate_bg_to_levels
+    in ingest.py and handle HD aggregation in prepare.py.
 
     Parameters
     ----------
@@ -352,7 +437,7 @@ def aggregate_and_output(
             "value": bg_data[measure],
             "moe": pd.NA,
             "region_type": "block_group",
-            "data_method": "observed",
+            "data_method": "modeled" if measure in fca_measures else "observed",
         })
         all_frames.append(frame)
 
@@ -390,7 +475,7 @@ def aggregate_and_output(
                 "value": agged[measure],
                 "moe": pd.NA,
                 "region_type": level,
-                "data_method": "observed",
+                "data_method": "modeled" if measure in fca_measures else "observed",
             })
             all_frames.append(frame)
 
