@@ -1,0 +1,35 @@
+name: pediatric_access_scores
+version: "1.0.0"
+title: "Pediatric Service Accessibility (FCA)"
+description: >-
+  Floating catchment area analysis measuring pediatric service accessibility
+  at block group level using population ages 0-17 (male and female) as
+  consumer demand. Computes 2SFCA, E2SFCA, and 3SFCA variants with physician
+  counts from WebMD pediatric directory.
+
+sources:
+  providers:
+    type: geojson
+    description: "WebMD pediatric physician geocoded locations"
+    file: "data/distribution/ncr_webmd_2022_pediatric_points.geojson"
+    capacity_col: "doctors"
+
+population:
+  type: acs
+  table: B01001
+  description: "Population ages 0-17"
+  variables:
+    male_under_5: "B01001_003"
+    male_5_9: "B01001_004"
+    male_10_14: "B01001_005"
+    male_15_17: "B01001_006"
+    female_under_5: "B01001_027"
+    female_5_9: "B01001_028"
+    female_10_14: "B01001_029"
+    female_15_17: "B01001_030"
+
+output:
+  path: data/distribution
+  geographies: [block_group, tract, county, health_district]
+  years: [2022]
+  coverage_areas: [va, ncr]

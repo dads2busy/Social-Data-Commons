@@ -1,0 +1,47 @@
+name: obgyn_access_scores
+version: "1.0.0"
+title: "OB-GYN Service Accessibility (FCA)"
+description: >-
+  Floating catchment area analysis measuring OB-GYN service accessibility
+  at block group level using female population age 15+ as consumer demand.
+  Computes 2SFCA, E2SFCA, and 3SFCA variants with physician counts from
+  WebMD OB-GYN directory.
+
+sources:
+  providers:
+    type: geojson
+    description: "WebMD OB-GYN physician geocoded locations"
+    file: "data/distribution/ncr_webmd_2022_obgyn_points.geojson"
+    capacity_col: "doctors"
+
+population:
+  type: acs
+  table: B01001
+  description: "Female population age 15+"
+  variables:
+    female_15_17: "B01001_030"
+    female_18_19: "B01001_031"
+    female_20: "B01001_032"
+    female_21: "B01001_033"
+    female_22_24: "B01001_034"
+    female_25_29: "B01001_035"
+    female_30_34: "B01001_036"
+    female_35_39: "B01001_037"
+    female_40_44: "B01001_038"
+    female_45_49: "B01001_039"
+    female_50_54: "B01001_040"
+    female_55_59: "B01001_041"
+    female_60_61: "B01001_042"
+    female_62_64: "B01001_043"
+    female_65_66: "B01001_044"
+    female_67_69: "B01001_045"
+    female_70_74: "B01001_046"
+    female_75_79: "B01001_047"
+    female_80_84: "B01001_048"
+    female_85_plus: "B01001_049"
+
+output:
+  path: data/distribution
+  geographies: [block_group, tract, county, health_district]
+  years: [2022]
+  coverage_areas: [va, ncr]
