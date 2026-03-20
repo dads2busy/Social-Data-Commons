@@ -2,6 +2,15 @@
 
 __version__ = "0.1.0"
 
+from sdc_core.catchment import (
+    KERNELS,
+    WeightSpec,
+    catchment_connections,
+    catchment_network,
+    catchment_ratio,
+    catchment_weight,
+    euclidean_cost,
+)
 from sdc_core.census import CensusClient
 from sdc_core.geo import (
     aggregate_to_geographies,
@@ -44,6 +53,13 @@ from sdc_core.versioning import (
 from sdc_core.zenodo import ZenodoResult, upload_to_zenodo
 
 __all__ = [
+    "KERNELS",
+    "WeightSpec",
+    "catchment_connections",
+    "catchment_network",
+    "catchment_ratio",
+    "catchment_weight",
+    "euclidean_cost",
     "CensusClient",
     "RunResult",
     "aggregate_to_geographies",

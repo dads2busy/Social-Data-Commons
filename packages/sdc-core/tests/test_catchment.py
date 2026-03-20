@@ -308,6 +308,51 @@ class TestNetwork:
         assert len(result) == 4
 
 
+class TestEdgeCases:
+    def test_empty_catchment(self):
+        from sdc_core.catchment import catchment_ratio
+        consumers = pd.DataFrame({"geoid": ["C1"], "value": [100]})
+        providers = pd.DataFrame({"geoid": ["P1"], "value": [50]})
+        cost = np.array([[100.0]])
+        result = catchment_ratio(consumers, providers, cost, weight=10.0)
+        assert_allclose(result["C1"], 0.0)
+
+    def test_single_provider(self):
+        from sdc_core.catchment import catchment_ratio
+        consumers = pd.DataFrame({"geoid": ["C1", "C2"], "value": [100, 200]})
+        providers = pd.DataFrame({"geoid": ["P1"], "value": [50]})
+        cost = np.array([[5.0], [5.0]])
+        result = catchment_ratio(consumers, providers, cost, weight=10.0)
+        assert_allclose(result["C1"], 50 / 300)
+        assert_allclose(result["C2"], 50 / 300)
+
+    def test_zero_population_consumer(self):
+        from sdc_core.catchment import catchment_ratio
+        consumers = pd.DataFrame({"geoid": ["C1", "C2"], "value": [0, 200]})
+        providers = pd.DataFrame({"geoid": ["P1"], "value": [50]})
+        cost = np.array([[5.0], [5.0]])
+        result = catchment_ratio(consumers, providers, cost, weight=10.0)
+        assert np.isfinite(result["C1"])
+
+    def test_all_zero_cost_row(self):
+        from sdc_core.catchment import catchment_ratio
+        consumers = pd.DataFrame({"geoid": ["C1", "C2"], "value": [100, 200]})
+        providers = pd.DataFrame({"geoid": ["P1"], "value": [50]})
+        cost = np.array([[0.0], [5.0]])
+        result = catchment_ratio(consumers, providers, cost, weight=10.0)
+        assert np.isfinite(result["C1"])
+
+    def test_sparse_dense_equivalence(self):
+        from sdc_core.catchment import catchment_ratio
+        consumers = pd.DataFrame({"geoid": ["C1", "C2"], "value": [100, 200]})
+        providers = pd.DataFrame({"geoid": ["P1", "P2"], "value": [50, 30]})
+        cost_dense = np.array([[5.0, 25.0], [8.0, 8.0]])
+        cost_sparse = sparse.csc_matrix(cost_dense)
+        r_dense = catchment_ratio(consumers, providers, cost_dense, weight=10.0)
+        r_sparse = catchment_ratio(consumers, providers, cost_sparse, weight=10.0)
+        assert_allclose(r_dense.values, r_sparse.values)
+
+
 class TestEuclideanCost:
     def test_basic(self):
         from sdc_core.catchment import euclidean_cost
