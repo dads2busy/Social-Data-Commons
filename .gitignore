@@ -58,5 +58,17 @@ wheels/
 **/docs/**/*.png
 **/docs/**/*.svg
 
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*-eps-converted-to.pdf
+texput.log
+
 # Superpowers (local tooling)
 docs/superpowers/
