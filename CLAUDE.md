@@ -60,6 +60,10 @@ Read the memory index at `/Users/ads7fg/.claude/projects/-Users-ads7fg-git-natio
 - One row = one geographic unit at one point in time
 - Census-standardized 2020 FIPS geographies
 
+## Data Papers
+
+When writing a Data & Policy Data Paper for any dataset in this monorepo, follow the rubric system at `docs/data-paper-rubrics/00-master.md`. Read it first before starting any work. It contains 13 numbered rubric files covering every section of the article, plus protocols for citation verification, LLM language detection, LaTeX formatting, reviewer identification, and final review.
+
 ## Failure Conditions (what makes output unacceptable)
 
 - Pipeline committed without all 7 items in the completion gate (spec section top).

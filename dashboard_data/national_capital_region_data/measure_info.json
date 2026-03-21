@@ -1,59 +1,63 @@
 {
-    "mental_near_10_median": {
+    "urgent_near_10_median": {
         "aggregation_method": "",
         "categories": "",
         "category": "Health",
         "citations": "",
         "data_type": "numeric",
         "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Median drive time in minutes to the ten closest mental health facilities. Facility location data were collected from the Substance Abuse and Mental Health Services Administration (SAMHSA) repository. Drive times were computer using Open Source Routing Machine (looking at roads for 2021). Geographies: Block group (12), Census tract (11), County (5), Health Districts (51_hd), Civic Associations (51013_ca)",
-        "long_name": "Mental health availability by median drive time to the ten closest facilities in minutes",
+        "layer": {
+            "source": "https://raw.githubusercontent.com/uva-bi-sdad/sdc.health/main/Health%20Care%20Services/Urgent%20Care%20Centers/Service%20Access%20Scores/data/distribution/urgent_care_points_2022.geojson"
+        },
+        "long_description": "Median drive time in minutes to the ten closest urgent care facilities. Facility location data were collected from Google Maps. Drive times were computer using Open Source Routing Machine (looking at roads for 2021). Geographies: Block group (12), Census tract (11), County (5)",
+        "long_name": "Urgent care availability by median drive time to the ten closest facilities in minutes",
         "measure_type": "count",
         "short_description": "",
-        "short_name": "Mental health availability (drive time)",
+        "short_name": "Urgent care availability (drive time)",
         "sources": [
             {
-                "date_accessed": 2021,
+                "date_accessed": 2022,
                 "location": "",
                 "location_url": "",
-                "name": "Substance Abuse and Mental Health Services Administration (SAMHSA)",
-                "url": "https://findtreatment.gov/"
+                "name": "Google Maps",
+                "url": "https://www.google.com/maps"
             }
         ],
-        "statement": "The median drive time to the ten closest mental health facilities to {features.name} is {value}.",
+        "statement": "The median drive time to the ten closest urgent care facilities to {features.name} is {value}.",
         "type": "drive time",
         "unit": "",
         "variants": ""
     },
-    "mental_cnt": {
+    "urgent_cnt": {
         "aggregation_method": "",
         "categories": "",
         "category": "Health",
         "citations": "",
         "data_type": "numeric",
         "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Count of mental health facilities based on facility locations. Location data was collected from the Substance Abuse and Mental Health Services Administration (SAMHSA) repository. Geographies: Block group (12), Census tract (11), County (5), Health Districts (51_hd), Civic Associations (51013_ca)",
-        "long_name": "Availability of mental health services by count",
+        "layer": {
+            "source": "https://raw.githubusercontent.com/uva-bi-sdad/sdc.health/main/Health%20Care%20Services/Urgent%20Care%20Centers/Service%20Access%20Scores/data/distribution/urgent_care_points_2022.geojson"
+        },
+        "long_description": "Count of urgent care facilities based on facility locations. Location data was collected from the Google Maps. Geographies: Block group (12), Census tract (11), County (5)",
+        "long_name": "Availability of urgent care by count",
         "measure_type": "count",
         "short_description": "",
-        "short_name": "Mental health services availability (count)",
+        "short_name": "Urgent care availability (count)",
         "sources": [
             {
-                "date_accessed": 2021,
+                "date_accessed": 2022,
                 "location": "",
                 "location_url": "",
-                "name": "Substance Abuse and Mental Health Services Administration (SAMHSA)",
-                "url": "https://www.samhsa.gov/"
+                "name": "Google Maps",
+                "url": "https://hifld-geoplatform.opendata.arcgis.com/"
             }
         ],
-        "statement": "There are {value} mental health facilities in {features.name}.",
+        "statement": "There are {value} urgent care facilities in {features.name}.",
         "type": "count",
         "unit": "",
         "variants": ""
     },
-    "mental_3sfca": {
+    "urgent_3sfca": {
         "aggregation_method": "",
         "categories": "",
         "category": "Health",
@@ -65,23 +69,25 @@
         ],
         "data_type": "numeric",
         "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Mental health services availability is based on 3-step floating catchment areas. This method is an aggregation of facilities per population ratios weighted by distance or travel time in each catchment area (area within which a facility is accessible). Weights are defined as the demand for facilities (or the adult population). Geographies: Block group (12), Census tract (11), County (5), Health Districts (51_hd), Civic Associations (51013_ca)",
-        "long_name": "Mental health services geographic availability (3-step  floating catchment areas)",
+        "layer": {
+            "source": "https://raw.githubusercontent.com/uva-bi-sdad/sdc.health/main/Health%20Care%20Services/Urgent%20Care%20Centers/Service%20Access%20Scores/data/distribution/urgent_care_points_2022.geojson"
+        },
+        "long_description": "Urgent care availability is based on 3-step floating catchment areas. This method is an aggregation of facilities per population ratios weighted by distance or travel time in each catchment area (area within which a facility is accessible). Weights are defined as the demand for facilities (in the adult population). Geographies: Block group (12), Census tract (11), County (5)",
+        "long_name": "Urgent care geographic availability (3-step floating catchment areas)",
         "measure_type": "index",
         "short_description": "",
-        "short_name": "Mental health services geographic availability",
+        "short_name": "Urgent care geographic availability",
         "sources": [
             {
-                "date_accessed": 2021,
+                "date_accessed": 2022,
                 "location": "",
                 "location_url": "",
-                "name": "Substance Abuse and Mental Health Services Administration (SAMHSA)",
-                "url": "https://www.samhsa.gov/"
+                "name": "Google Maps",
+                "url": "https://www.google.com/maps"
             }
         ],
         "provenance": "Spatial access scores are calculated using the floating catchment area (2SFCA/3SFCA) methodology (Luo, 2004; Luo & Qi, 2009; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
-        "statement": "The mental health services availability for {features.name} is {value}.",
+        "statement": "The urgent care availability for {features.name} is {value}.",
         "type": "index",
         "unit": "",
         "variants": ""
