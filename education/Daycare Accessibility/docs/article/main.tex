@@ -1,0 +1,533 @@
+\documentclass{CUP-JNL-DAP}%
+
+%%%% Packages
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[authoryear]{natbib}
+\usepackage[T1]{fontenc}%
+\usepackage{times}%
+% \usepackage{sourcesanspro}% removed: not available on all systems
+\usepackage{newtxmath}%
+\usepackage{textcomp}%
+\usepackage{xcolor}
+\usepackage{hyperref}
+%%%%
+
+\articletype{DATA PAPER}
+\jname{Data \& Policy}
+\jyear{2026}
+\raggedbottom
+
+\begin{document}
+
+\begin{Frontmatter}
+
+\title[Licensed childcare accessibility measures for Virginia]{Licensed childcare accessibility measures for Virginia at the census block group level}
+
+\author*[1]{Aaron D. Schroeder}\email{ads7fg@virginia.edu}
+
+\authormark{Aaron D. Schroeder}
+
+\address*[1]{\orgdiv{Social Data Commons, Biocomplexity Institute and Initiative}, \orgname{University of Virginia}, \orgaddress{\city{Charlottesville}, \state{VA}, \country{USA}}}
+
+\keywords{child care accessibility; floating catchment area; spatial analysis; Virginia; open data; social determinants}
+
+\abstract{This data paper documents a dataset of five licensed child care accessibility measures for the Commonwealth of Virginia at the census block group level for the years 2021 and 2025. The measures are: total licensed child care capacity, drive time to the nearest licensed provider, and three age-stratified accessibility ratios computed using the three-step floating catchment area method. Provider data were scraped from the Virginia Department of Social Services facility search portal. Child population denominators were drawn from the American Community Survey. Travel times between block group centroids were derived from the Open Source Routing Machine. The dataset covers 5,963 block groups aggregated to 2,198 tracts, 133 counties, and 35 health districts. It is deposited on Zenodo and freely available for download, with all production code published in a public repository.}
+
+\begin{policy}
+State and local agencies responsible for child care subsidy allocation, facility licensing, and community health planning currently lack spatially resolved, publicly available data on where licensed child care supply falls short of demand. This dataset provides block-group-level accessibility measures that can identify specific neighborhoods underserved by the licensed child care market, support evidence-based decisions about where to site new facilities or target subsidy programs, and enable tracking of how the child care supply distribution has changed following the COVID-19 pandemic. The data are already in use in the Virginia Public Health Data dashboard, where they inform public health planning at the county and health district level.
+\end{policy}
+
+\end{Frontmatter}
+
+\section{Introduction}
+
+Child care policy in the United States operates with limited information about where licensed supply falls short of demand at the neighborhood level. Federal and state programs allocate billions of dollars annually in child care subsidies, yet the geographic targeting of these investments depends on data that rarely extends below the county level\citep{flood2022}. In the United States, approximately 12.3 million children under the age of five require regular nonparental care arrangements while their parents or guardians work\citep{laughlin2013}. The cost of this care represents a substantial household burden: the U.S. Department of the Treasury estimated in 2021 that the average family with at least one child under five would need to devote roughly 13 percent of household income to child care, nearly double the 7 percent affordability threshold established by federal guidelines\citep{treasury2021}. At the same time, the child care workforce earns among the lowest wages of any occupation in the country, creating persistent staffing shortages that constrain the supply of available care\citep{herbst2023}. These affordability and supply pressures do not fall evenly across populations. Lower-income families, rural communities, and communities of color face disproportionate gaps in access to licensed child care, with consequences for maternal labor force participation, household economic stability, and children's developmental trajectories\citep{morrissey2017,nasem2018}.
+
+The geographic distribution of child care supply relative to demand is central to understanding these disparities. Nationally representative surveys such as the National Survey of Early Care and Education (NSECE) and the National Household Education Surveys Program (NHES) provide valuable information on child care utilization patterns and costs at the household level\citep{nsece2012,yanez2019}. However, these instruments are designed as sample surveys and do not support spatial analysis of provider accessibility at sub-county geographic scales. County-level and state-level aggregations, including those published annually by Child Care Aware of America, document broad trends in supply and affordability but mask substantial within-county variation\citep{ccaa2019}. Policy and planning decisions about where to site new facilities, how to target subsidies, and which communities face the most acute shortages require spatially resolved data at the neighborhood level\citep{flood2022}.
+
+Several research groups have applied spatial accessibility methods to child care. \citet{malik2017} introduced the concept of ``child care deserts,'' defined as census tracts with more than three children under age five for every licensed child care slot, and found that more than half of Americans live in such areas. \citet{morrissey2022} examined county-level variation in early care and education access, finding that rural children have lower access to private center-based programs and depend more heavily on public options such as Head Start. \citet{blumenberg2023a} applied the two-step floating catchment area (2SFCA) method to examine variation in child care access across different neighborhood types, demonstrating that spatial accessibility measures reveal disparities not captured by simple supply counts. In a related study, \citet{blumenberg2024} found that greater spatial accessibility to formal child care, as measured by a 2SFCA ratio, is associated with increased utilization and reduced travel distances. \citet{azuma2023} developed a micro-level affordability indicator using a 2SFCA method within three-mile driving distances in Honolulu County, finding that only 14 percent of young children had access to affordable early care and education programs meeting federal cost thresholds. \citet{herbst2012} exploited geographic variation in distance to social service agencies as a proxy for child care subsidy accessibility, linking subsidy receipt to childhood health outcomes, but relied on distance to administrative offices rather than to actual child care providers. \citet{pennerstorfer2021} applied spatial accessibility methods to child care provision in Vienna and found that accessibility is highest in the highest socioeconomic status neighborhoods, with inequality increasing over time.
+
+While these studies demonstrate the analytical value of spatially resolved child care accessibility measures, none has produced a publicly available, regularly updated, multi-measure dataset at the census block group level for any U.S. state. The individual analyses were conducted for specific research questions in specific geographies and were not designed for reuse as open data products. The floating catchment area family of methods, originally developed for measuring spatial access to health services\citep{luo2003,luo2009}, has been extended through the three-step floating catchment area (3SFCA) method, which introduces a selection-weight normalization step to account for competition among consumers for nearby providers\citep{wan2012}. The 3SFCA method addresses a well-documented overestimation problem in the two-step formulation, where populations near multiple providers are counted as full demand at each facility. This correction is particularly relevant for child care markets, where parents exercise choice among providers based on distance, capacity, age eligibility, and cost, and where supply in one location partially satisfies demand in neighboring areas.
+
+The dataset described in this data paper provides five measures of licensed child care accessibility for the Commonwealth of Virginia at the census block group level for the years 2021 and 2025. The measures are: (1) total licensed child care capacity, defined as the number of licensed seats within each block group; (2) drive time to the nearest licensed child care provider, calculated using the Open Source Routing Machine (OSRM) from block group centroids; and (3--5) three age-stratified 3SFCA accessibility ratios expressing licensed child care seats per 1,000 children, computed for children under 15 (providers accepting ages 4 to 10), children ages 5 to 14 (providers with minimum accepted age over 4), and children under 10 (providers with maximum accepted age under 10). Provider data were obtained by scraping the Virginia Department of Social Services (VDSS) licensed child day care facility search portal, which includes facility name, address, licensed capacity, and accepted age range. Provider locations were geocoded using the U.S. Census Bureau geocoder and assigned to the nearest block group centroid via haversine distance. Child population denominators were drawn from the American Community Survey (ACS) five-year estimates, Table B01001 (Sex by Age). Travel times between block group centroids were derived from pre-computed OSRM routing matrices covering Virginia and its bordering states (Maryland, the District of Columbia, Delaware, Kentucky, North Carolina, Tennessee, and West Virginia) to account for cross-border travel. Block group measures were aggregated to census tract, county, and Virginia health district levels using population-weighted averages for ratios, arithmetic means for drive times, and sums for capacity.
+
+The resulting dataset supports several categories of reuse. Public health departments and planning agencies can use the block-group-level accessibility ratios to identify neighborhoods with insufficient licensed child care supply relative to the resident child population. Researchers studying the relationship between child care access and outcomes such as maternal employment or school readiness can use these measures as spatially resolved independent variables at multiple geographic scales\citep{morrissey2017,heckman2006}. The inclusion of two time points (2021 and 2025) supports analysis of how the distribution of child care supply changed in the period following the COVID-19 pandemic, during which the child care sector lost over a third of its workforce and saw widespread facility closures\citep{herbst2023}. The dataset is deposited on Zenodo and is freely available for download. All code used to produce the dataset is published in a public repository, enabling reproducibility and adaptation to other states or time periods.
+
+%% ============================================================
+%% METHODS
+%% ============================================================
+
+\section{Methods}
+
+\subsection{Data sources}
+
+The dataset was produced from three primary input data sources and one geographic crosswalk (Table~\ref{tab:sources}).
+
+\begin{table}[ht]
+\centering
+\caption{Input data sources.}
+\label{tab:sources}
+\small
+\begin{tabularx}{\textwidth}{lllX}
+\toprule
+Source & Provider & Resolution & Temporal coverage \\
+\midrule
+Child Day Care Facility Search\citep{vdss} & Virginia Dept. of Social Services & Facility (point) & 2021, 2025 \\
+ACS Table B01001 (Sex by Age)\citep{acs} & U.S. Census Bureau & Block group & 2019 (5-yr), 2024 (5-yr) \\
+Travel time matrices\citep{luxen2011} & Open Source Routing Machine & Block group pair & 2020 road network \\
+County-to-health-district crosswalk\citep{vdh2020} & Virginia Dept. of Health & County & 2020 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Facility data collection}
+
+Licensed child day care facility records were obtained by scraping the VDSS Child Day Care Search portal\citep{vdss}. The scraping procedure consisted of four steps: (1) a POST request to the search endpoint with empty search parameters to retrieve all licensed facilities; (2) parallel GET requests to individual facility detail pages to extract capacity, accepted age range, license type, and administrator information; (3) geocoding of each facility address; and (4) parsing of age range text into numeric bounds.
+
+The search results page returns an HTML table containing facility identifiers, names, and addresses. We parsed this table using regular expressions to extract facility IDs and mailing addresses. For each facility, we fetched the detail page and extracted the licensed capacity (an integer) and the accepted age range (a text string such as ``2 months -- 6 years 11 months''). Age range strings were parsed by extracting year values from each side of a hyphen delimiter; month-only values were converted to fractional years and rounded down.
+
+Where the VDSS detail page did not report a capacity value, the pipeline assigned a default of 4 licensed seats. Where no age range was listed or the text could not be parsed, the pipeline assigned a default range of 0 to 12 years. These conservative defaults ensure that facilities with incomplete records contribute minimally to capacity totals (default = 4 is near the lower end of the observed distribution) while remaining eligible for all age-group calculations (default range = 0 to 12 spans all three age strata).
+
+Detail pages were cached locally to support resumable scraping. The scraping procedure used up to 8 parallel HTTP connections with a 30-second timeout per request. The scrape was run once in January 2021, yielding 5,138 facility records, and once in January 2025, yielding 4,827 records.
+
+\subsection{Geocoding}
+
+Facility addresses were geocoded using the U.S. Census Bureau geocoding service (Public\_AR\_Current benchmark)\citep{census_geocoder}. Each address was submitted as a single-line query. If the initial geocoding attempt returned no match, the address was simplified by retaining only the street address, city, and state components, and resubmitted. The final coordinates (latitude and longitude in WGS 84) were stored alongside each facility record.
+
+Each geocoded facility was then assigned to the nearest census block group centroid. Block group centroids for the 2020 Census geography were pre-computed from the TIGER/Line shapefiles. The assignment was based on great-circle (haversine) distance between the geocoded facility coordinates and all block group centroids, selecting the centroid with the minimum distance.
+
+\subsection{Population data}
+
+Child population counts at the block group level were obtained from the American Community Survey (ACS) 5-year estimates, Table B01001 (Sex by Age)\citep{acs}. Six variables were extracted: males and females in the under-5, 5-to-9, and 10-to-14 age groups (variables B01001\_003, B01001\_027, B01001\_004, B01001\_028, B01001\_005, and B01001\_029, respectively). Three age-stratified population denominators were constructed by summation:
+
+\begin{itemize}
+\item Children under 15: sum of all six variables.
+\item Children ages 5 to 14: sum of the 5-to-9 and 10-to-14 variables (male and female).
+\item Children under 10: sum of the under-5 and 5-to-9 variables (male and female).
+\end{itemize}
+
+For the 2021 facility data, population estimates from the 2019 ACS 5-year period (2015--2019) were used. For the 2025 facility data, population estimates from the 2024 ACS 5-year period (2020--2024) were used. Population data were fetched for Virginia and all bordering states (Maryland, the District of Columbia, Delaware, Kentucky, North Carolina, Tennessee, and West Virginia) to support the cross-border travel time calculations.
+
+\subsection{Travel time computation}
+
+Driving times between census block group centroids were derived from the Open Source Routing Machine (OSRM)\citep{luxen2011}, an open-source routing engine that computes shortest-path travel times on the OpenStreetMap road network. Pre-computed block-group-to-block-group travel time matrices were stored as Apache Parquet files, one per state FIPS code. Each record contains an origin block group, a destination block group, and the estimated driving time in minutes.
+
+The matrices were computed from the 2020 road network and represent free-flow driving conditions without traffic modeling. Travel times between block groups within the same state and between bordering states were included to account for cross-border access to child care providers. For block group pairs where a facility is located in the same block group as the consumer, a travel time of zero minutes was assigned.
+
+\subsection{Accessibility measure computation}
+
+Five measures were computed for each census block group in each year.
+
+\subsubsection{Capacity and minimum drive time}
+
+Total licensed child care capacity for each block group was computed as the sum of licensed seat counts across all facilities assigned to that block group. The minimum drive time for each block group was defined as the shortest OSRM-based travel time from that block group's centroid to any block group containing at least one licensed facility.
+
+\subsubsection{Three-step floating catchment area ratios}
+
+Three age-stratified accessibility ratios were computed using the three-step floating catchment area (3SFCA) method\citep{wan2012}. The 3SFCA extends the two-step floating catchment area approach\citep{luo2003,luo2009} by adding a selection-weight normalization step that accounts for competition among consumers for nearby providers. The method proceeds in three steps.
+
+\textbf{Step 1: Selection weights.} For each consumer block group $i$, a selection weight is computed for each provider $j$ using a Gaussian distance-decay kernel:
+
+\begin{equation}
+w_{ij} = \exp\!\left(-\frac{d_{ij}^{2}}{2s^{2}}\right)
+\end{equation}
+
+\noindent where $d_{ij}$ is the driving time in minutes from block group $i$ to provider $j$, and $s$ is the Gaussian scale parameter. The selection weight is then normalized using a quadratic scheme:
+
+\begin{equation}
+W_{ij} = w_{ij} \cdot \frac{w_{ij}}{R_{i}}, \qquad R_{i} = \sum_{j} w_{ij}
+\end{equation}
+
+\noindent where $R_{i}$ is the sum of raw weights across all providers accessible to consumer $i$. This quadratic normalization ensures that consumers who can reach many providers distribute their demand more heavily toward nearer providers, while consumers with few options concentrate demand on those few providers\citep{wan2012}.
+
+\textbf{Step 2: Provider-to-demand ratios.} For each provider $j$, a weighted demand $D_{j}$ is computed as:
+
+\begin{equation}
+D_{j} = \sum_{i} W_{ij} \cdot P_{i}
+\end{equation}
+
+\noindent where $P_{i}$ is the child population of consumer block group $i$ in the relevant age group. The provider-to-demand ratio is then:
+
+\begin{equation}
+R_{j} = \frac{S_{j}}{D_{j}}
+\end{equation}
+
+\noindent where $S_{j}$ is the licensed capacity (number of seats) of provider $j$.
+
+\textbf{Step 3: Accessibility scores.} The accessibility score for consumer block group $i$ is the sum of provider-to-demand ratios, weighted by the selection weights:
+
+\begin{equation}
+A_{i} = \sum_{j} W_{ij} \cdot R_{j}
+\end{equation}
+
+\noindent The final score $A_{i}$ is multiplied by 1{,}000 to express the ratio as licensed seats per 1{,}000 children.
+
+\textbf{Parameter values.} The Gaussian scale parameter was set to $s = 18/\sqrt{2} \approx 12.73$ minutes, which produces weights equivalent to a scale of 18 minutes in the alternative parameterization $\exp(-(d/18)^{2})$. At a travel time of 18 minutes, the weight drops to $\exp(-1) \approx 0.37$. No hard travel time cutoff was applied. Consumer-provider pairs without a pre-computed travel time in the block-group-to-block-group matrix (i.e., pairs separated by more than the maximum distance in the OSRM routing tables, or pairs across non-adjacent states) were assigned a default cost of $10^{6}$ minutes, which the Gaussian kernel maps to a weight indistinguishable from zero. In practice, this means that the effective catchment is bounded by the geographic scope of the travel time matrices (Virginia and its seven bordering jurisdictions).
+
+\textbf{Age-group filtering.} Before computing each ratio, the set of eligible providers was filtered by their reported or imputed accepted age range:
+
+\begin{itemize}
+\item \texttt{daycare\_ratio} (children under 15): providers whose minimum accepted age is below 5 and whose maximum exceeds 9.
+\item \texttt{daycare\_ratio\_over\_4} (children 5--14): providers whose minimum accepted age exceeds 4.
+\item \texttt{daycare\_ratio\_under\_10} (children under 10): providers whose maximum accepted age is below 10.
+\end{itemize}
+
+\subsection{Geographic aggregation}
+
+Block-group-level measures were aggregated to three higher geographic levels: census tract (first 11 digits of the block group FIPS code), county (first 5 digits), and Virginia health district (via a county-to-health-district crosswalk\citep{vdh2020}). Capacity was summed; minimum drive time was averaged; and 3SFCA ratios were computed as population-weighted means, where the weight for each block group is the relevant age-group population.
+
+\subsection{Software and computational environment}
+
+All data processing was performed in Python 3.12.9 using pandas 3.0.1, NumPy 2.4.2, GeoPandas 1.1.2, httpx 0.28.1, and PyYAML 6.0.3. The 3SFCA computation used the catchment module of the sdc-core library (version 0.1.0)\citep{sdccore}. Geocoding used the U.S. Census Bureau geocoding API\citep{census_geocoder}. Travel time matrices were generated using OSRM version 5.27.1\citep{luxen2011}.
+
+%% ============================================================
+%% DATA RECORDS
+%% ============================================================
+
+\section{Data Records}
+
+The dataset is deposited on Zenodo (deposit ID 18917730)\citep{zenodo_dataset} and is freely available under an open license. The deposit contains the files described in Table~\ref{tab:files}.
+
+\begin{table}[ht]
+\centering
+\caption{Output files included in the dataset deposit.}
+\label{tab:files}
+\small
+\begin{tabularx}{\textwidth}{llrX}
+\toprule
+Filename & Format & Size & Description \\
+\midrule
+va\_hdcttrbg\_vdss\_2021\_2025\_daycare\_access.csv.xz & xz-compressed CSV & 570 KB & Primary dataset: all five measures at four geographic levels for 2021 and 2025 \\
+points\_2021.geojson & GeoJSON & 2.1 MB & Facility locations for 2021 with capacity and age range \\
+points\_2025.geojson & GeoJSON & 1.1 MB & Facility locations for 2025 with capacity and age range \\
+measure\_info.json & JSON & 13 KB & Machine-readable metadata for each measure \\
+manifest.json & JSON & 1 KB & Version, timestamp, and SHA-256 checksums \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The primary dataset is provided in long format with 83{,}290 rows. Each row represents one measure for one geographic unit in one year. The columns are: \texttt{geoid} (FIPS code, string), \texttt{year} (integer), \texttt{measure} (string), \texttt{value} (float), \texttt{moe} (margin of error, float; NA throughout), \texttt{region\_type} (string: block\_group, tract, county, or health\_district), and \texttt{data\_method} (float; NA throughout this dataset, included for schema compatibility with the broader Social Data Commons data infrastructure).
+
+The dataset contains five measures (Table~\ref{tab:measures}).
+
+\begin{table}[ht]
+\centering
+\caption{Accessibility measures included in the dataset.}
+\label{tab:measures}
+\small
+\begin{tabularx}{\textwidth}{llcX}
+\toprule
+Measure name & Unit & Type & Description \\
+\midrule
+daycare\_capacity & Seats & Count & Total licensed child day care seats within the geographic unit \\
+daycare\_min\_drivetime & Minutes & Index & Driving time to the nearest licensed provider \\
+daycare\_ratio & Seats per 1{,}000 children & Ratio & 3SFCA ratio for children under 15, providers accepting ages 4--10 \\
+daycare\_ratio\_over\_4 & Seats per 1{,}000 children & Ratio & 3SFCA ratio for children 5--14, providers with min age over 4 \\
+daycare\_ratio\_under\_10 & Seats per 1{,}000 children & Ratio & 3SFCA ratio for children under 10, providers with max age under 10 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The GeoJSON point files contain one Feature per licensed facility with Point geometry (WGS 84) and the following properties: name, capacity, age\_min, age\_max, and type.
+
+The dataset covers the Commonwealth of Virginia at four nested geographic levels: 5{,}963 census block groups, 2{,}198 census tracts, 133 counties and independent cities, and 35 health districts. Data are provided for two years (2021 and 2025). All geographic identifiers use 2020 Census FIPS codes.
+
+%% ============================================================
+%% TECHNICAL VALIDATION
+%% ============================================================
+
+\section{Technical Validation}
+
+\subsection{Source data completeness}
+
+The dataset depends on a complete enumeration of licensed child day care facilities from the VDSS search portal. In 2021 the scrape returned 5{,}138 facilities; in 2025 it returned 4{,}827, a decline of 311 facilities (6.1\%). As an independent cross-check, the Administration for Children and Families reported that 4{,}975 child care programs in Virginia received American Rescue Plan stabilization grants as of December 2022\citep{acf2023}. Because stabilization grants were distributed broadly to active programs regardless of CCDF participation, this figure approximates the count of operational programs during the period between our two scrape years. Our 2021 count of 5{,}138 and 2025 count of 4{,}827 bracket this figure, consistent with a gradual contraction of the licensed child care supply.
+
+All scraped records contain non-null values for capacity and age range fields. However, where the VDSS detail page did not report a capacity value, the pipeline assigns a default of 4 seats; where no age range was listed, it assigns a default of 0 to 12 years. In 2021, 618 of 5{,}138 facilities (12.0\%) received the default capacity, and 2{,}287 (44.5\%) received the default age range. In 2025, 481 of 4{,}827 (10.0\%) received the default capacity, and 2{,}064 (42.8\%) received the default age range. Users who require precise age-group filtering should be aware that nearly half of providers carry imputed age ranges, which may introduce noise into the age-stratified 3SFCA ratios.
+
+Among facilities with reported (non-default) capacity, the distribution is right-skewed (Figure~\ref{fig:capacity}). The median licensed capacity is 60 seats in 2021 and 56 in 2025, with means of 75 in both years. The maximum observed capacity is 564 seats in both years. These distributions are stable across the two time points.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_capacity_distribution.png}
+\caption{Distribution of licensed capacity among Virginia child day care facilities with reported (non-default) capacity values, for 2021 (left, $N = 4{,}520$) and 2025 (right, $N = 4{,}346$). Facilities assigned the default capacity of 4 seats are excluded. Dashed lines indicate the median; solid lines indicate the mean. The $x$-axis is truncated at 300 seats.}
+\label{fig:capacity}
+\end{figure}
+
+\subsection{Geocoding accuracy}
+
+All facility addresses were geocoded using the U.S. Census Bureau geocoding service. In both years, every facility record was successfully matched to geographic coordinates (100\% match rate). To assess spatial accuracy, we checked whether all points fall within the bounding box of Virginia (latitude 36.5 to 39.5\textdegree N, longitude 75.2 to 83.7\textdegree W). Zero facilities in either year fall outside this bounding box.
+
+Geocoding to street addresses followed by assignment to the nearest block group centroid introduces positional uncertainty whose magnitude depends on block group size. In urban areas, block groups are small (often less than 1~km across) and the assignment error is negligible. In rural areas, block groups can span tens of kilometers, and a facility may be several kilometers from the assigned centroid. This positional error is absorbed into the centroid-to-centroid travel time approximation and does not introduce a systematic bias in the accessibility ratios.
+
+\subsection{Population denominator verification}
+
+Child population denominators were drawn from the ACS 5-year estimates. We compared state-level totals obtained by summing block-group-level figures against published Census Bureau estimates. The Population Estimates Program reported approximately 481{,}000 children under age 5 in Virginia in 2021\citep{census_pop}. The sum across all Virginia block groups in our dataset is consistent with this figure, with differences attributable to the use of ACS 5-year estimates versus single-year population estimates.
+
+\subsection{Accessibility measure validation}
+
+\subsubsection{Internal consistency}
+
+The dataset contains 5{,}963 block groups for each year, aggregated to 2{,}198 tracts, 133 counties, and 35 health districts. For the capacity measure, the sum of block group values within each county exactly matches the county-level value for all 133 counties in both years (zero discrepancies). For the minimum drive time measure, county-level values equal the arithmetic mean of their constituent block group values to within floating-point precision.
+
+\subsubsection{Distribution of accessibility ratios}
+
+Summary statistics for all five measures at the block group level are presented in Table~\ref{tab:summary}. The primary ratio (daycare\_ratio) has a median of 136.7 and a mean of 134.8 seats per 1{,}000 children in 2021, with a standard deviation of 70.8. The minimum drive time measure has 1--2 fewer observations than other measures (5,962 in 2021 and 5,961 in 2025) because a small number of block groups have no reachable provider in the travel time matrix. Only 0.2\% of block groups have a ratio of exactly zero. The spatial distribution of this ratio at the county level is shown in Figure~\ref{fig:choropleth}.
+
+\begin{table}[!htbp]
+\centering
+\caption{Summary statistics for all five measures at the census block group level, by year.}
+\label{tab:summary}
+\small
+\begin{tabular}{llrrrrrrr}
+\toprule
+Measure & Year & $N$ & Mean & Median & SD & Min & Max & \% Zero \\
+\midrule
+Capacity & 2021 & 5{,}963 & 57.8 & 0.0 & 107.0 & 0.0 & 1{,}063 & 53.2 \\
+Capacity & 2025 & 5{,}963 & 55.6 & 0.0 & 106.6 & 0.0 & 1{,}129 & 55.4 \\
+Min drive time & 2021 & 5{,}962 & 4.8 & 1.7 & 7.6 & 0.0 & 57.2 & 46.8 \\
+Min drive time & 2025 & 5{,}961 & 5.0 & 2.0 & 7.7 & 0.0 & 55.8 & 44.6 \\
+Ratio (all ages) & 2021 & 5{,}963 & 134.8 & 136.7 & 70.8 & 0.0 & 1{,}737.5 & 0.2 \\
+Ratio (all ages) & 2025 & 5{,}963 & 136.4 & 134.1 & 75.8 & 0.0 & 979.7 & 0.3 \\
+Ratio (over 4) & 2021 & 5{,}963 & 41.9 & 31.0 & 37.6 & 0.0 & 417.5 & 2.6 \\
+Ratio (over 4) & 2025 & 5{,}963 & 31.3 & 23.6 & 31.8 & 0.0 & 429.9 & 6.4 \\
+Ratio (under 10) & 2021 & 5{,}963 & 60.9 & 54.2 & 39.6 & 0.0 & 572.2 & 0.5 \\
+Ratio (under 10) & 2025 & 5{,}963 & 64.0 & 56.9 & 45.8 & 0.0 & 927.9 & 0.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_ratio_choropleth.png}
+\caption{County-level daycare accessibility ratio (licensed seats per 1{,}000 children under 15) for 2021 (left) and 2025 (right). Both panels share the same color scale.}
+\label{fig:choropleth}
+\end{figure}
+
+The age-stratified ratios show more variation. The over-4 ratio has 153 zero-value block groups (2.57\%) in 2021, increasing to 381 (6.39\%) in 2025. All three ratios exhibit right-skewed distributions with outliers: 20 to 37 block groups (0.3--0.6\%) have values exceeding three standard deviations above the mean. These extreme values occur in block groups with very low child populations adjacent to large-capacity facilities.
+
+\subsubsection{Convergent validity}
+
+We compared the 3SFCA ratio against a simpler alternative: a containment-based provider-to-child ratio computed as total licensed capacity within each county divided by total children under 15, multiplied by 1{,}000 (Figure~\ref{fig:convergent}). Across 132 Virginia counties with nonzero child population in 2021 (one county was excluded due to a zero population denominator), the Spearman rank correlation is 0.74 ($p < 0.001$) and the Pearson correlation is 0.44 ($p < 0.001$). The strong rank-order agreement indicates that the two measures largely agree on which counties have better or worse accessibility. The weaker linear correlation reflects a systematic divergence: the 3SFCA method compresses extreme values in geographically small jurisdictions (Virginia's independent cities) that host regionally serving facilities. The simple ratio has a standard deviation of 134, compared to 56 for the 3SFCA, confirming that the distance-decay and competition adjustments reduce administrative boundary artifacts.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/fig_convergent_validity.png}
+\caption{Convergent validity: county-level 3SFCA ratio ($y$-axis) versus simple containment ratio ($x$-axis) for 132 Virginia counties in 2021. Dashed diagonal indicates 1:1 agreement; red line shows OLS fit.}
+\label{fig:convergent}
+\end{figure}
+
+\subsubsection{Geographic disaggregation by urbanicity}
+
+We classified Virginia's 133 counties into three groups by child population density: rural (bottom quartile, $n = 34$), suburban (middle two quartiles, $n = 66$), and urban (top quartile, $n = 33$). All four non-capacity measures show statistically significant differences across groups (Kruskal--Wallis $p < 0.001$; Figure~\ref{fig:urbanrural}). Rural counties have a mean 3SFCA ratio of 64.5 (SD = 50.2), compared to 113.0 (SD = 50.3) in suburban and 152.5 (SD = 34.1) in urban counties. Mean minimum drive time follows the inverse pattern: 16.6 minutes in rural, 8.2 in suburban, and 1.7 in urban counties.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/fig_urban_rural_boxplots.png}
+\caption{Distribution of daycare accessibility measures across Virginia counties by urbanicity (child population density quartiles), 2021. Rural: bottom quartile ($n = 34$); suburban: middle quartiles ($n = 66$); urban: top quartile ($n = 33$).}
+\label{fig:urbanrural}
+\end{figure}
+
+\subsubsection{Sensitivity to Gaussian scale parameter}
+
+We assessed the sensitivity of the primary 3SFCA ratio to the Gaussian scale parameter by recomputing the ratio for 2021 at six values: 10, 14, 18 (default), 22, 26, and 30 minutes (Figure~\ref{fig:sensitivity}). The central tendency of the ratio is stable across this range: the median varies from 138 to 158 seats per 1{,}000 children. Rank-order stability is high for scale values near the default. Spearman correlations relative to the baseline (scale = 18) are 0.983 at scale = 14 and 0.990 at scale = 22, with 85--89\% of block groups remaining in the same accessibility quintile. At the extremes (scale = 10 or 30), Spearman correlations fall to 0.93--0.95 and 73--76\% of block groups retain their quintile assignment. Sensitivity is asymmetric: the ratio is more sensitive to reductions in the scale parameter than to increases, because tighter kernels concentrate demand on nearby providers and amplify the effect of small-denominator block groups. These results indicate that the default scale of 18 minutes is a reasonable choice: perturbations of $\pm$4 minutes produce negligible changes in the spatial pattern, while larger perturbations alter the ranking of a minority of block groups.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_sensitivity_analysis.png}
+\caption{Sensitivity of the primary 3SFCA ratio to the Gaussian scale parameter. Left: trimmed mean and median across block groups as a function of scale, with the shaded region showing the interquartile range. Center: Pearson and Spearman correlations relative to the default (scale = 18). Right: block-group-level comparison of ratios computed with scale = 10 versus scale = 18, with values winsorized at the 99th percentile.}
+\label{fig:sensitivity}
+\end{figure}
+
+\subsubsection{Temporal stability}
+
+The primary ratio shows a Pearson correlation of 0.876 between 2021 and 2025 (Figure~\ref{fig:scatter}), indicating that the spatial pattern of accessibility is stable across years despite changes in facility counts. The minimum drive time shows the highest stability ($r = 0.894$), while the over-4 ratio shows the lowest ($r = 0.648$).
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/fig_temporal_scatter.png}
+\caption{Block-group-level values in 2021 ($x$-axis) versus 2025 ($y$-axis) for four measures. Each point represents one census block group ($N = 5{,}963$). The dashed diagonal indicates 1:1 agreement. Pearson $r$ values are shown in each panel.}
+\label{fig:scatter}
+\end{figure}
+
+\subsection{Temporal consistency}
+
+The 6.1\% decline in facility count between 2021 and 2025 is consistent with documented trends. \citet{lee2021} reported that two-thirds of U.S. child care centers closed in April 2020, with one-third remaining closed a year later. The National Association for the Education of Young Children found that four in five centers reported staffing shortages in July 2021\citep{naeyc2021}. The Bureau of Labor Statistics documented that over 40\% of child care workers were unemployed by April 2020\citep{cooksey2024}.
+
+The 6.1\% net decline represents a modest contraction after the acute pandemic-era disruption. The decline in total licensed capacity is smaller (3.7\%), consistent with smaller providers being more likely to close. The most notable temporal shift occurs in the over-4 ratio, which declined 25.3\%. This may reflect both closure of after-school programs and changes in how age ranges are reported on the VDSS portal.
+
+\subsection{Known limitations}
+
+\begin{enumerate}
+\item \textbf{Licensed facilities only.} The dataset excludes unlicensed care, informal care, license-exempt religious programs, and Virginia Department of Education-licensed facilities.
+\item \textbf{Default imputation.} Approximately 12\% of facilities lack a reported capacity (default = 4 seats) and 44\% lack a parseable age range (default = 0--12 years).
+\item \textbf{Centroid-based spatial assignment.} Positional uncertainty is greater in large rural block groups.
+\item \textbf{No traffic modeling.} OSRM travel times reflect free-flow conditions without congestion.
+\item \textbf{Web scraping fragility.} Changes to the VDSS portal could cause scrape failures.
+\item \textbf{ACS margin of error not propagated.} Ratios for low-population block groups are less reliable.
+\item \textbf{Single Gaussian scale parameter.} A spatially varying decay function may be more appropriate but was not implemented.
+\end{enumerate}
+
+%% ============================================================
+%% USAGE NOTES
+%% ============================================================
+
+\section{Usage Notes}
+
+\subsection{File access and software}
+
+The primary dataset is distributed as an xz-compressed CSV. In Python, \texttt{pandas.read\_csv()} decompresses xz files automatically; in R, \texttt{read.csv()} handles xz decompression natively since R 4.0. Users of spreadsheet software should first decompress the file using 7-Zip, The Unarchiver, or the \texttt{xz} command-line tool. The GeoJSON point files can be opened in QGIS, ArcGIS, or read using GeoPandas (Python) or sf (R).
+
+\subsection{Interpreting the accessibility ratios}
+
+The 3SFCA ratios express the number of licensed seats per 1{,}000 children, weighted by travel time and adjusted for competition. Higher values indicate greater accessibility. A ratio of 100 means approximately one licensed seat per 10 children within the distance-weighted catchment area. There is no established threshold for ``adequate'' child care accessibility as measured by a floating catchment area ratio. The ``child care desert'' definition of \citet{malik2017}, which identifies areas with more than three children under five per licensed slot (equivalent to fewer than 333 seats per 1{,}000), provides a rough reference point. In this dataset, the median block-group-level primary ratio is approximately 137 seats per 1{,}000 children under 15. Direct comparison with the Malik and Hamm threshold requires caution, as their definition uses a narrower age group and a simple containment ratio rather than a distance-weighted catchment.
+
+\subsection{Scope limitations}
+
+The dataset covers only facilities listed in the VDSS licensed child day care search portal. It excludes unlicensed arrangements, informal care, license-exempt religious programs, and Virginia Department of Education-licensed facilities. Users should interpret the measures as reflecting the licensed, regulated child care market. The geographic scope is limited to Virginia, though bordering states were included in the travel time calculations to avoid boundary effects.
+
+\subsection{Temporal comparability}
+
+The two time points use different ACS vintages as denominators: the 2019 ACS 5-year estimates for 2021 and the 2024 ACS 5-year estimates for 2025. Changes in accessibility ratios reflect both provider supply changes and population estimate changes. Users who wish to isolate the supply-side effect should compare the daycare\_capacity measure, which does not depend on population estimates. The 25\% decline in the over-4 ratio may partly reflect changes in age-range reporting on the VDSS portal rather than actual program closures.
+
+\subsection{Current policy use}
+
+The dataset is currently integrated into the Virginia Public Health Data dashboard, a publicly accessible platform maintained by the Social Data Commons at the University of Virginia. The dashboard presents the accessibility measures at the county and health district level, enabling local health departments and planning agencies to compare child care accessibility across jurisdictions and track changes over time. This integration demonstrates that the data format and geographic aggregation levels are suitable for direct use in policy and planning contexts.
+
+\subsection{Appropriate and inappropriate uses}
+
+The dataset is suitable for identifying neighborhoods with low accessibility, comparing across geographic levels, analyzing temporal changes in supply, and serving as a spatially resolved covariate in studies of maternal employment or child development. State agencies can use the block-group-level measures to target child care subsidy investments toward areas of greatest need, or to evaluate the spatial equity of existing child care facility distributions. The dataset is not suitable for determining whether a specific family can find a placement (individual accessibility depends on cost, quality, and scheduling), evaluating provider quality (the dataset contains only capacity and age range), or making claims about unlicensed or informal care markets.
+
+%% ============================================================
+%% DATA AVAILABILITY
+%% ============================================================
+
+\begin{Backmatter}
+
+\paragraph{Acknowledgments}
+The initial drafts of this manuscript were prepared with the assistance of Claude (Anthropic), a large language model. All content was reviewed, verified, and revised by the author, who takes full responsibility for the accuracy of the text, data, and citations.
+
+\paragraph{Funding Statement}
+This research was initially funded by a grant from the Virginia Department of Health.
+
+\paragraph{Competing Interests}
+The authors declare no competing interests.
+
+\paragraph{Data Availability Statement}
+The dataset is deposited on Zenodo at \url{https://doi.org/10.5281/zenodo.18917730} \citep{zenodo_dataset}. The deposit includes the primary CSV dataset, GeoJSON facility point files, measure metadata, and a manifest with SHA-256 checksums. All code is publicly available at \url{https://github.com/dads2busy/sdc} \citep{sdccore}.
+
+\paragraph{Ethical Standards}
+This research uses only publicly available administrative records and aggregated census data. No human subjects were involved. The research meets all ethical guidelines, including adherence to the legal requirements of the study country.
+
+\paragraph{Author Contributions}
+A.D.S. designed the data pipeline, wrote the processing code, performed the technical validation analyses, and wrote the manuscript.
+
+%% ============================================================
+%% REFERENCES
+%% ============================================================
+
+\begin{thebibliography}{}
+
+\bibitem[Laughlin, 2013]{laughlin2013}
+\textbf{Laughlin L} (2013) Who's minding the kids? Child care arrangements: Spring 2011. Current Population Reports, P70-135. U.S. Census Bureau.
+
+\bibitem[U.S. Department of the Treasury, 2021]{treasury2021}
+\textbf{U.S. Department of the Treasury} (2021) The economics of child care supply in the United States.
+
+\bibitem[Herbst, 2023]{herbst2023}
+\textbf{Herbst CM} (2023) Child care in the United States: Markets, policy, and evidence. \textit{Journal of Policy Analysis and Management} \textit{42}(1), 255--304.
+
+\bibitem[Morrissey, 2017]{morrissey2017}
+\textbf{Morrissey TW} (2017) Child care and parent labor force participation: A review of the research literature. \textit{Review of Economics of the Household} \textit{15}(1), 1--24.
+
+\bibitem[NASEM, 2018]{nasem2018}
+\textbf{National Academies of Sciences, Engineering, and Medicine} (2018) \textit{Transforming the Financing of Early Care and Education}. The National Academies Press.
+
+\bibitem[NSECE, 2012]{nsece2012}
+\textbf{National Survey of Early Care and Education} (2012, 2019) Office of Planning, Research, and Evaluation, Administration for Children and Families, U.S. Department of Health and Human Services.
+
+\bibitem[Yanez et~al., 2019]{yanez2019}
+\textbf{Yanez C, Seldin M, Mann R, Huo H and Redford J} (2019) The costs of child care: Results from the 2016 Early Childhood Program Participation Survey. NCES 2019-058. National Center for Education Statistics.
+
+\bibitem[Child Care Aware of America, 2019]{ccaa2019}
+\textbf{Child Care Aware of America} (2019) The US and the high price of child care: An examination of a broken system. Arlington, VA.
+
+\bibitem[Flood et~al., 2022]{flood2022}
+\textbf{Flood S, McMurry J, Sojourner A and Wiswall M} (2022) Inequality in early care experienced by US children. \textit{Journal of Economic Perspectives} \textit{36}(2), 199--222.
+
+\bibitem[Malik and Hamm, 2017]{malik2017}
+\textbf{Malik R and Hamm K} (2017) Mapping America's child care deserts. Center for American Progress.
+
+\bibitem[Morrissey et~al., 2022]{morrissey2022}
+\textbf{Morrissey TW, Allard SW and Pelletier E} (2022) Access to early care and education in rural communities: Implications for children's school readiness. \textit{RSF: The Russell Sage Foundation Journal of the Social Sciences} \textit{8}(3), 100--123.
+
+\bibitem[Blumenberg et~al., 2023]{blumenberg2023a}
+\textbf{Blumenberg E, Yao Z and Wander M} (2023) Variation in child care access across neighborhood types: A two-step floating catchment area (2SFCA) approach. \textit{Applied Geography} \textit{158}, 103054.
+
+\bibitem[Blumenberg et~al., 2024]{blumenberg2024}
+\textbf{Blumenberg E, Wander M and Yao Z} (2024) Decisions \& distance: The relationship between child care access and child care travel. \textit{Journal of Transport Geography} \textit{114}, 103756.
+
+\bibitem[Azuma et~al., 2023]{azuma2023}
+\textbf{Azuma JT, DeBaryshe BD, Gauci KT and Stern IR} (2023) Mapping access to affordable early childhood education and care: Methodology and application to community advocacy. \textit{International Journal of Community Well-Being} \textit{6}, 169--186.
+
+\bibitem[Herbst and Tekin, 2012]{herbst2012}
+\textbf{Herbst CM and Tekin E} (2012) The geographic accessibility of child care subsidies and evidence on the impact of subsidy receipt on childhood obesity. \textit{Journal of Urban Economics} \textit{71}(1), 37--52.
+
+\bibitem[Pennerstorfer and Pennerstorfer, 2021]{pennerstorfer2021}
+\textbf{Pennerstorfer A and Pennerstorfer D} (2021) Inequalities in spatial accessibility of childcare: The role of non-profit providers. \textit{Journal of Social Policy} \textit{50}(1), 122--147.
+
+\bibitem[Luo and Wang, 2003]{luo2003}
+\textbf{Luo W and Wang F} (2003) Measures of spatial accessibility to health care in a GIS environment: Synthesis and a case study in the Chicago region. \textit{Environment and Planning B} \textit{30}(6), 865--884.
+
+\bibitem[Luo and Qi, 2009]{luo2009}
+\textbf{Luo W and Qi Y} (2009) An enhanced two-step floating catchment area (E2SFCA) method for measuring spatial accessibility to primary care physicians. \textit{Health \& Place} \textit{15}(4), 1100--1107.
+
+\bibitem[Wan et~al., 2012]{wan2012}
+\textbf{Wan N, Zou B and Sternberg T} (2012) A three-step floating catchment area method for analyzing spatial access to health services. \textit{International Journal of Geographical Information Science} \textit{26}(6), 1073--1089.
+
+\bibitem[Heckman, 2006]{heckman2006}
+\textbf{Heckman JJ} (2006) Skill formation and the economics of investing in disadvantaged children. \textit{Science} \textit{312}, 1900--1902.
+
+\bibitem[VDSS, 2025]{vdss}
+\textbf{Virginia Department of Social Services} (2025) Child Day Care Search. Available at \url{https://www.dss.virginia.gov/facility/search/cc2.cgi}.
+
+\bibitem[U.S. Census Bureau, 2025a]{acs}
+\textbf{U.S. Census Bureau} (2025) American Community Survey 5-Year Estimates, Table B01001 (Sex by Age). Available at \url{https://data.census.gov/table/ACSDT5Y2024.B01001}.
+
+\bibitem[Luxen and Vetter, 2011]{luxen2011}
+\textbf{Luxen D and Vetter C} (2011) Real-time routing with OpenStreetMap data. In \textit{Proceedings of the 19th ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems}, pp. 513--516. ACM.
+
+\bibitem[VDH, 2020]{vdh2020}
+\textbf{Virginia Department of Health} (2020) Virginia health districts, regions, and localities crosswalk. Available at \url{https://www.vdh.virginia.gov/content/uploads/sites/182/2020/08/VA-regions_districts_localities.pdf}.
+
+\bibitem[U.S. Census Bureau, 2025b]{census_geocoder}
+\textbf{U.S. Census Bureau} (2025) Geocoding Services API. Available at \url{https://geocoding.geo.census.gov}.
+
+\bibitem[Social Data Commons, 2025a]{sdccore}
+\textbf{Social Data Commons, Biocomplexity Institute and Initiative} (2025) Social Data Commons repository, version 0.1.0. University of Virginia. Available at \url{https://github.com/dads2busy/sdc}.
+
+\bibitem[Social Data Commons, 2025b]{zenodo_dataset}
+\textbf{Social Data Commons} (2025) Daycare Accessibility dataset for Virginia. Zenodo. Available at \url{https://doi.org/10.5281/zenodo.18917730}.
+
+\bibitem[ACF, 2023]{acf2023}
+\textbf{Administration for Children and Families, Office of Child Care} (2023) ARP Child Care Stabilization Fact Sheet: Virginia. U.S. Department of Health and Human Services.
+
+\bibitem[U.S. Census Bureau, 2022]{census_pop}
+\textbf{U.S. Census Bureau} (2022) Population Estimates Program, Annual Estimates of the Resident Population by Single Year of Age and Sex for Virginia: April 1, 2020 to July 1, 2021.
+
+\bibitem[Lee and Parolin, 2021]{lee2021}
+\textbf{Lee EK and Parolin Z} (2021) The care burden during COVID-19: A national database of child care closures in the United States. \textit{Socius} \textit{7}, 23780231211032028.
+
+\bibitem[NAEYC, 2021]{naeyc2021}
+\textbf{National Association for the Education of Young Children} (2021) Survey: Nearly half of child care providers expect to close without additional public investment. Available at \url{https://www.naeyc.org/pandemic-surveys}.
+
+\bibitem[Cooksey and Thomas, 2024]{cooksey2024}
+\textbf{Cooksey K and Thomas E} (2024) Childcare employment before, during, and after the COVID-19 pandemic. \textit{Monthly Labor Review}.
+
+\end{thebibliography}
+
+\end{Backmatter}
+
+\end{document}
