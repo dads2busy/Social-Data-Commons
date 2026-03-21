@@ -1,5 +1,7 @@
 name: primcare_access_scores
 version: "4.0.1"
+zenodo_deposit_id: 19152538
+method: fca
 title: "Primary Care Service Accessibility (FCA)"
 description: >-
   Floating catchment area analysis measuring primary care physician

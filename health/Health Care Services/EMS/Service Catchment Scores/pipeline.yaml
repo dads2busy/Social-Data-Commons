@@ -1,5 +1,6 @@
 name: ems_access_scores
 version: "2.0.0"
+method: fca
 title: "EMS Service Accessibility (FCA)"
 description: >-
   Floating catchment area analysis measuring EMS service accessibility

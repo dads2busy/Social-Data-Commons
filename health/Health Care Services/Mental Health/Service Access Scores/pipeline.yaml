@@ -1,5 +1,6 @@
 name: mental_health_access_scores
 version: "2.0.0"
+method: fca
 title: "Mental Health Service Accessibility (FCA)"
 description: >-
   Floating catchment area analysis measuring mental health service

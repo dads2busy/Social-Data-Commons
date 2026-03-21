@@ -1,0 +1,17 @@
+Dear Editors,
+
+I am writing to submit our manuscript, "Physician accessibility measures for Virginia and the National Capital Region at the census block group level," for consideration as a Data Paper in Data & Policy. This paper describes three open, reproducible datasets that quantify spatial accessibility to primary care physicians, OB-GYN specialists, and pediatricians across Virginia and the National Capital Region from 2018 to 2025.
+
+Physician shortages and maldistribution represent a persistent governance challenge. State health departments, regional planning bodies, and federal programs such as Health Professional Shortage Area designations all require granular, regularly updated measures of where residents can and cannot reach care within reasonable travel times. Yet most publicly available accessibility data operate at the county level or coarser, obscuring the within-county variation that drives inequitable outcomes. Without sub-county measurement, policymakers lack the spatial resolution needed to target clinic siting, loan repayment incentives, residency pipeline investments, and Medicaid reimbursement adjustments where they would do the most good.
+
+Our datasets address this gap by providing 18 measures per specialty (provider counts, travel time statistics, two-step floating catchment area scores, enhanced two-step floating catchment area scores, and three-step floating catchment area scores) at the census block group level, aggregated upward through tract, county, and health district geographies using 2020 Census boundaries. The approximately 2.09 million records are derived entirely from the CMS Doctors and Clinicians public use file through a fully reproducible Python pipeline. All code is available at https://github.com/uva-bi-sdad/sdc-monorepo, and the datasets are archived on Zenodo (DOI forthcoming). The measures are already in active use through the Virginia Public Health Data and National Capital Region community dashboards.
+
+We believe this work aligns well with Data & Policy's mission of connecting data science to governance. The datasets directly support several actionable policy applications: identifying block groups eligible for HPSA designation, evaluating the accessibility consequences of facility closures, benchmarking disparities across rural and urban areas, and tracking whether workforce interventions improve access over time. This manuscript has not been submitted for publication elsewhere, and no competing interests exist.
+
+Sincerely,
+
+Aaron D. Schroeder
+Social Data Commons
+Biocomplexity Institute and Initiative
+University of Virginia
+Charlottesville, VA 22904

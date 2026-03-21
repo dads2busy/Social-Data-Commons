@@ -1,5 +1,6 @@
 name: substance_access_scores
 version: "2.0.0"
+method: fca
 title: "Drug and Rehab Service Accessibility (FCA)"
 description: >-
   Floating catchment area analysis measuring substance abuse treatment
