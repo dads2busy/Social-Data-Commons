@@ -1,16 +1,14 @@
 {
-  "version": "2.0.0",
-  "generated": "2026-03-20T18:36:48+00:00",
+  "version": "4.0.0",
+  "generated": "2026-03-22T19:30:38+00:00",
   "schema": [
     "geoid",
-    "region_type",
-    "region_name",
+    "year",
     "measure",
     "value",
-    "year",
-    "measure_type",
-    "data_method",
-    "moe"
+    "moe",
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "urgent_2sfca",
@@ -18,28 +16,34 @@
     "urgent_cnt",
     "urgent_e2sfca",
     "urgent_near_10_mean",
-    "urgent_near_10_median",
-    "urgent_pop_cnt"
+    "urgent_near_10_median"
   ],
   "years": [
-    2022
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
   ],
   "regions": [
     "11",
     "24",
-    "42",
-    "51",
-    "54"
+    "51"
   ],
-  "row_count": 94149,
+  "row_count": 500166,
   "files": {
-    "ncr_bgtrct_gmap_2022_access_scores_urgent_care_centers.csv.xz": {
-      "sha256": "78291b367605aa6039065224368c44fcbd0af38d50f71bcfc5f9f542d8d984c2",
-      "size_bytes": 509336
-    },
     "ncr_cttrbg_gmap_2022_access_scores_urgent.csv.xz": {
       "sha256": "5c3375d9474eea7ca63f6034b290238da5225e94edd5a9adf4428e78d5288932",
       "size_bytes": 172400
+    },
+    "ncr_cttrbg_nppes_2020_2025_access_scores_urgent.csv.xz": {
+      "sha256": "d1b1394a083683ed255535ec630165d08c4e86fdb90dd300663390d9a151866d",
+      "size_bytes": 810920
+    },
+    "va_hdcttrbg_nppes_2020_2025_access_scores_urgent.csv.xz": {
+      "sha256": "16162625adde4ff776abfa84ee446ceea56e02a6ccc5ebcb41f4d7ef0b28ab72",
+      "size_bytes": 1208156
     }
   }
 }

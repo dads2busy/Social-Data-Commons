@@ -64,9 +64,9 @@ def find_nppes_zip_url() -> str:
     resp = requests.get(NPPES_INDEX_URL, timeout=30)
     resp.raise_for_status()
 
-    # Look for the full replacement file link (not the weekly update)
-    # Pattern: NPPES_Data_Dissemination_<Month>_<Year>.zip
-    pattern = r'href="([^"]*NPPES_Data_Dissemination_[^"]*\.zip)"'
+    # Look for the full monthly file (not weekly or deactivation)
+    # Pattern: NPPES_Data_Dissemination_<Month>_<Year>_V2.zip (excludes Weekly)
+    pattern = r'(NPPES_Data_Dissemination_[A-Z][a-z]+_\d{4}_V2\.zip)'
     matches = re.findall(pattern, resp.text)
 
     if not matches:
@@ -75,10 +75,7 @@ def find_nppes_zip_url() -> str:
             'Check https://download.cms.gov/nppes/NPI_Files.html manually.'
         )
 
-    # Take the first match (the full file is listed before weekly updates)
-    url = matches[0]
-    if not url.startswith('http'):
-        url = 'https://download.cms.gov/nppes/' + url.lstrip('/')
+    url = 'https://download.cms.gov/nppes/' + matches[0]
 
     log.info('Found NPPES data file URL: %s', url)
     return url

@@ -1,66 +1,88 @@
-# Urgent Care Centers Service Access Scores — Conversion Validation Report
+# Urgent Care Centers Service Access Scores — NPPES Conversion Validation Report
 
-**Date:** 2026-03-20
-**Converted from:** R code in `code/distribution/*.Rmd` + partial Python `ingest.py`
-**New pipeline:** `pipeline.yaml` + `code/distribution/ingest.py` + `code/distribution/prepare.py`
+**Date:** 2026-03-22
+**Version:** 4.0.0 (NPPES) replacing 2.0.0 (Google Maps)
 
-## Data source
+## Data Source Change
 
-- **Source:** Google Maps urgent care center locations (geocoded GeoJSON)
-- **Type:** GeoJSON provider locations + FCA spatial access model
-- **Coverage:** NCR only
-- **Years:** 2022
+| Attribute | Old (v2.0.0) | New (v4.0.0) |
+|-----------|-------------|-------------|
+| Source | Google Maps manual scrape | NPPES NPI Registry (taxonomy 261QU0200X) |
+| Coverage | NCR only | VA + NCR |
+| Years | 2022 only | 2020-2025 |
+| Provider count (NCR) | 77 facilities | 252 facilities (3.3x) |
+| Provider count (VA) | N/A | 663 facilities |
+| Geocoding | Pre-geocoded | Census Geocoder API (91% match rate) |
+| Reproducibility | Not reproducible (manual scrape) | Fully reproducible (automated download) |
+| Capacity | 1 per facility | 1 per facility (unchanged) |
 
-## Output files
+## Rationale for Change
 
-| File | Rows | Years | Measures | Region types |
-|---|---|---|---|---|
-| `ncr_cttrbg_gmap_2022_access_scores_urgent.csv.xz` | 29,826 | 2022 | urgent_cnt, urgent_2sfca, urgent_e2sfca, urgent_3sfca, urgent_near_10_mean, urgent_near_10_median | block_group, tract, county |
+The Google Maps data source had three limitations:
+1. **Not reproducible** — required manual scraping with no stable API
+2. **NCR-only** — no statewide Virginia coverage
+3. **Single year** — no multi-year time series capability
 
-## Validation against old output
+NPPES provides a public, downloadable registry of all NPI-enrolled healthcare organizations, filterable by taxonomy code. This enables automated, reproducible, statewide, multi-year pipelines.
 
-### NCR
+## Output Files
 
-| Comparison | Old file | New file |
+| File | Rows | Years | Coverage |
+|---|---|---|---|
+| `va_hdcttrbg_nppes_2020_2025_access_scores_urgent.csv.xz` | 294,312 | 2020-2025 | Virginia (BG+tract+county+HD) |
+| `ncr_cttrbg_nppes_2020_2025_access_scores_urgent.csv.xz` | 176,028 | 2020-2025 | NCR (BG+tract+county) |
+
+## Provider Count Comparison (NCR, 2022)
+
+NPPES identifies 252 urgent care facilities in the NCR compared to 77 from Google Maps. The 3.3x increase reflects:
+- NPPES captures all NPI-enrolled urgent care centers, including those not listed on Google Maps
+- Google Maps may have included only a subset of search results
+- Some NPPES entries may be administrative registrations rather than patient-facing locations
+
+## Spatial Correlation (NCR block groups, 2022)
+
+| Measure | Spearman r | Pearson r | Old mean | New mean |
+|---------|-----------|----------|----------|----------|
+| urgent_cnt | 0.241 | 0.281 | 0.021 | 0.070 |
+| urgent_e2sfca | 0.421 | 0.293 | 0.013 | 0.044 |
+| urgent_3sfca | 0.132 | 0.285 | 0.013 | 0.044 |
+
+Low correlations are expected given the 3.3x provider count difference. The E2SFCA measure shows the strongest rank agreement (Spearman r = 0.421), indicating that the relative spatial pattern of accessibility is partially preserved despite the absolute magnitude change. FCA scores are approximately 3.4x higher in the NPPES version, proportional to the provider count increase.
+
+## New Coverage
+
+The NPPES pipeline adds statewide Virginia coverage that did not exist in the Google Maps version:
+- 5,963 block groups (2021-2025 Census geography)
+- 2,198 census tracts
+- 133 counties/independent cities
+- 35 health districts
+- 6 years of data (2020-2025)
+
+## Schema Changes
+
+| Aspect | Old (v2.0.0) | New (v4.0.0) |
 |---|---|---|
-| File | `ncr_bgtrct_gmap_2022_access_scores_urgent_care_centers.csv.xz` | `ncr_cttrbg_gmap_2022_access_scores_urgent.csv.xz` |
-| Rows | 64,323 | 29,826 |
-| Year | 2022 | 2022 |
-| BG count (old) | 6,087 | 3,626 |
-| Counties (old) | 37 | 14 (NCR) |
+| data_source | gmap | nppes |
+| Region types | block_group, tract, county | block_group, tract, county, health_district |
+| Removed measures | — | urgent_pop_cnt (consumer population, not access) |
+| Removed columns | — | region_name, measure_type (schema cleanup) |
+| Removed regions | — | PA (42), WV (54) edge-case BGs |
 
-### Value comparison at county level (same year, 14 matched counties)
+## Dashboard Files
 
-| Measure | Matched | Mean diff | Max diff | Result |
-|---|---|---|---|---|
-| urgent_2sfca | 14 | 1.1293 | 1.6320 | Expected diff |
-| urgent_3sfca | 14 | 1.1133 | 1.6954 | Expected diff |
-| urgent_cnt | 14 | 36.29 | 92.0 | Expected diff |
-| urgent_e2sfca | 14 | 1.1502 | 1.4149 | Expected diff |
-| urgent_near_10_mean | 14 | 10.62 | 26.11 | Expected diff |
-| urgent_near_10_median | 14 | 11.26 | 29.44 | Expected diff |
+| File | Location |
+|---|---|
+| `va_bg_nppes_2020_2025_access_scores_urgent.csv.xz` | `dashboard_data/virginia_public_health_data/` |
+| `va_tr_nppes_2020_2025_access_scores_urgent.csv.xz` | `dashboard_data/virginia_public_health_data/` |
+| `va_ct_nppes_2020_2025_access_scores_urgent.csv.xz` | `dashboard_data/virginia_public_health_data/` |
+| `va_hd_nppes_2020_2025_access_scores_urgent.csv.xz` | `dashboard_data/virginia_public_health_data/` |
+| `ncr_bg_nppes_2020_2025_access_scores_urgent.csv.xz` | `dashboard_data/national_capital_region_data/` |
+| `ncr_tr_nppes_2020_2025_access_scores_urgent.csv.xz` | `dashboard_data/national_capital_region_data/` |
+| `ncr_ct_nppes_2020_2025_access_scores_urgent.csv.xz` | `dashboard_data/national_capital_region_data/` |
 
-### Known differences
+## Known Limitations
 
-- **Old file had vastly broader geographic coverage:** Despite being named "ncr_", the old file contained 6,087 unique BGs across 37 counties — far beyond the 14 NCR counties. This included many non-NCR counties in VA, MD, and even rows with PA GEOIDs (starting with 42) that had NaN region_type. The old pipeline was not properly filtering to NCR boundaries.
-- **Consumer population change:** Because the old file included BGs from a much larger area, the FCA scores were computed with a different consumer-provider spatial relationship. Providers in the NCR competed for a much larger consumer population in the old pipeline, which distorted the access ratios. The new pipeline correctly restricts both consumers and providers to the 14 NCR counties, producing valid within-NCR accessibility measures.
-- **`urgent_pop_cnt` dropped:** Same as Dentists — population count is not an access measure. Not produced by the shared `aggregate_bg_to_levels` module.
-- **Count diffs explained:** The old pipeline counted providers snapped to BGs across the wider area, so county-level counts included providers outside the NCR. New pipeline correctly counts only NCR providers.
-- **Travel time diffs explained:** With a broader consumer area, travel times to nearest 10 providers would differ because more distant providers from outside NCR were included in the calculation.
-
-## Dashboard files
-
-| File | Rows | Location |
-|---|---|---|
-| `ncr_bg_gmap_2022_access_scores_urgent.csv.xz` | — | `dashboard_data/national_capital_region_data/` |
-| `ncr_ct_gmap_2022_access_scores_urgent.csv.xz` | — | `dashboard_data/national_capital_region_data/` |
-| `ncr_tr_gmap_2022_access_scores_urgent.csv.xz` | — | `dashboard_data/national_capital_region_data/` |
-
-## Schema changes
-
-| Aspect | Old | New |
-|---|---|---|
-| Columns | geoid, region_type, region_name, measure, value, year, measure_type, data_method | geoid, year, measure, value, moe, region_type, data_method |
-| Region type format | "block group" | "block_group" |
-| Measures | 7 (including urgent_pop_cnt) | 6 |
-| Consumer BGs | ~6,087 (37 counties) | 3,626 (14 NCR counties) |
+1. **NPPES is a point-in-time snapshot.** The same facility set is used for all years (2020-2025). Year-over-year changes in the time series reflect only ACS population denominator changes, not facility openings/closures.
+2. **Geocoding gap.** 56 of 651 unique addresses (8.6%) failed Census Geocoder matching. These facilities are excluded from the FCA computation.
+3. **Administrative registrations.** Some NPPES entries may be administrative rather than patient-facing locations, inflating facility counts.
+4. **Taxonomy code coverage.** Facilities registered under different codes (e.g., hospital-based urgent care) would be missed by the 261QU0200X filter.
