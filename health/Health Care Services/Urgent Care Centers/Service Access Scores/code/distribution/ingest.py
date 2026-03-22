@@ -4,8 +4,9 @@ Uses NPPES NPI Registry data (taxonomy 261QU0200X) for urgent care facility
 locations, ACS total population at block group level, and pre-computed
 BG-to-BG travel times to compute 2SFCA, E2SFCA, and 3SFCA access scores.
 Each center has capacity=1 (facility-level, not individual providers).
-Loops over all years (2020-2025) — the same NPPES facility snapshot is used
-for every year; only the ACS population denominator changes.
+Loops over years (2020-2025), filtering facilities by enumeration date
+so that each year includes only facilities that had been NPI-registered
+by December 31 of that year.
 """
 
 import sys
@@ -65,7 +66,7 @@ def load_centroids() -> tuple[np.ndarray, np.ndarray, np.ndarray]:
 def load_facilities(config: dict) -> pd.DataFrame:
     """Load geocoded NPPES urgent care facilities.
 
-    Returns DataFrame with lat, long, state columns (one row per facility).
+    Returns DataFrame with lat, long, state, enum_year columns.
     """
     geo_path = TOPIC_DIR / config["sources"]["nppes"]["geocoded_file"]
     if not geo_path.exists():
@@ -74,7 +75,10 @@ def load_facilities(config: dict) -> pd.DataFrame:
     geo = pd.read_csv(geo_path, dtype={"postalcode": str})
     # Drop rows without valid coordinates
     geo = geo.dropna(subset=["lat", "long"])
-    log.info("Loaded %d geocoded urgent care facilities", len(geo))
+    # Parse enumeration date to year for per-year filtering
+    geo["enum_year"] = pd.to_datetime(geo["enumeration_date"], errors="coerce").dt.year
+    log.info("Loaded %d geocoded urgent care facilities (enum years %d-%d)",
+             len(geo), int(geo["enum_year"].min()), int(geo["enum_year"].max()))
     return geo
 
 
@@ -111,13 +115,9 @@ def run() -> list[RunResult]:
         config = load_config()
         years = config["output"]["years"]
 
-        # Load facilities (single NPPES snapshot, reused across all years)
-        facilities = load_facilities(config)
+        # Load all facilities; per-year filtering by enumeration date happens in loop
+        all_facilities = load_facilities(config)
         bg_geoids, bg_lats, bg_lons = load_centroids()
-        providers = snap_facilities_to_block_groups(
-            facilities, bg_geoids, bg_lats, bg_lons,
-        )
-        log.info("Snapped %d facilities to block groups", len(providers))
 
         travel_times = load_travel_times()
         census = CensusClient()
@@ -130,6 +130,18 @@ def run() -> list[RunResult]:
         for year in years:
             yt0 = time.time()
             log.info("=== Processing year %d ===", year)
+
+            # Filter to facilities enumerated by end of this year
+            year_facilities = all_facilities[all_facilities["enum_year"] <= year]
+            log.info("Year %d: %d facilities (enumerated by Dec 31)", year, len(year_facilities))
+
+            if year_facilities.empty:
+                log.warning("Year %d: no facilities — skipping", year)
+                continue
+
+            providers = snap_facilities_to_block_groups(
+                year_facilities, bg_geoids, bg_lats, bg_lons,
+            )
 
             # ACS population year: use year - 1, capped at ACS_MAX_YEAR
             acs_year = min(year - 1, ACS_MAX_YEAR)

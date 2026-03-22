@@ -1,6 +1,6 @@
 {
-  "version": "4.0.0",
-  "generated": "2026-03-22T19:30:38+00:00",
+  "version": "4.0.1",
+  "generated": "2026-03-22T19:59:09+00:00",
   "schema": [
     "geoid",
     "year",
@@ -38,12 +38,12 @@
       "size_bytes": 172400
     },
     "ncr_cttrbg_nppes_2020_2025_access_scores_urgent.csv.xz": {
-      "sha256": "d1b1394a083683ed255535ec630165d08c4e86fdb90dd300663390d9a151866d",
-      "size_bytes": 810920
+      "sha256": "3b1af031d26d7857dff13ee8bdd18e59429eb4280cfa2262e6c14889ff51d7aa",
+      "size_bytes": 992068
     },
     "va_hdcttrbg_nppes_2020_2025_access_scores_urgent.csv.xz": {
-      "sha256": "16162625adde4ff776abfa84ee446ceea56e02a6ccc5ebcb41f4d7ef0b28ab72",
-      "size_bytes": 1208156
+      "sha256": "1e4ec44448cc81fa437500220f724cf9fd60986c9841a985129faf3d84887533",
+      "size_bytes": 1392596
     }
   }
 }

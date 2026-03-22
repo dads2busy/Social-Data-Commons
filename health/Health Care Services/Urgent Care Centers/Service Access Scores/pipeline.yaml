@@ -1,5 +1,5 @@
 name: urgent_care_access_scores
-version: "4.0.0"
+version: "4.0.1"
 method: fca
 title: "Urgent Care Center Accessibility (FCA)"
 description: >-
