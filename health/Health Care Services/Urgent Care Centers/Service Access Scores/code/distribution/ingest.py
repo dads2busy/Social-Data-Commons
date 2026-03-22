@@ -75,10 +75,12 @@ def load_facilities(config: dict) -> pd.DataFrame:
     geo = pd.read_csv(geo_path, dtype={"postalcode": str})
     # Drop rows without valid coordinates
     geo = geo.dropna(subset=["lat", "long"])
-    # Parse enumeration date to year for per-year filtering
+    # Parse dates to year for per-year filtering
     geo["enum_year"] = pd.to_datetime(geo["enumeration_date"], errors="coerce").dt.year
-    log.info("Loaded %d geocoded urgent care facilities (enum years %d-%d)",
-             len(geo), int(geo["enum_year"].min()), int(geo["enum_year"].max()))
+    geo["cert_year"] = pd.to_datetime(geo["certification_date"], errors="coerce").dt.year
+    log.info("Loaded %d geocoded urgent care facilities (enum years %d-%d, cert years %d-%d)",
+             len(geo), int(geo["enum_year"].min()), int(geo["enum_year"].max()),
+             int(geo["cert_year"].min()), int(geo["cert_year"].max()))
     return geo
 
 
@@ -131,9 +133,14 @@ def run() -> list[RunResult]:
             yt0 = time.time()
             log.info("=== Processing year %d ===", year)
 
-            # Filter to facilities enumerated by end of this year
-            year_facilities = all_facilities[all_facilities["enum_year"] <= year]
-            log.info("Year %d: %d facilities (enumerated by Dec 31)", year, len(year_facilities))
+            # Filter to facilities that were active in this year:
+            # - enumerated on or before Dec 31 of this year (facility existed)
+            # - last certified in this year or the prior year (still operating)
+            #   A 1-year grace period accounts for the annual certification cycle.
+            enumerated = all_facilities["enum_year"] <= year
+            certified = all_facilities["cert_year"] >= (year - 1)
+            year_facilities = all_facilities[enumerated & certified]
+            log.info("Year %d: %d facilities (enumerated by Dec 31, certified within 1 year)", year, len(year_facilities))
 
             if year_facilities.empty:
                 log.warning("Year %d: no facilities — skipping", year)

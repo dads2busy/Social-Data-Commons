@@ -38,12 +38,13 @@ NPPES_USECOLS = [
     'Provider Business Practice Location Address Postal Code',
     'NPI Deactivation Date',
     'Provider Enumeration Date',
+    'Certification Date',
 ] + [f'Healthcare Provider Taxonomy Code_{i}' for i in range(1, 16)]
 
 # Standardized output column names
 OUTPUT_COLUMNS = [
     'npi', 'name', 'address_line_1', 'address_line_2',
-    'city', 'state', 'postalcode', 'enumeration_date',
+    'city', 'state', 'postalcode', 'enumeration_date', 'certification_date',
 ]
 
 NPPES_COLUMN_MAP = {
@@ -55,6 +56,7 @@ NPPES_COLUMN_MAP = {
     'Provider Business Practice Location Address State Name': 'state',
     'Provider Business Practice Location Address Postal Code': 'postalcode',
     'Provider Enumeration Date': 'enumeration_date',
+    'Certification Date': 'certification_date',
 }
 
 
