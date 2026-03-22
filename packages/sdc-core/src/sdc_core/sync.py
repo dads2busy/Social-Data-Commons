@@ -8,6 +8,7 @@ runs npm run build:data in the target repo.
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import subprocess
 from collections import defaultdict
@@ -165,6 +166,26 @@ def sync_dashboard(
 
     if unclassified:
         log.warning("  Could not classify: %s", [f.name for f in unclassified])
+
+    # 1b. Detect duplicate files (same pipeline, different year ranges)
+    for level, csvs in by_level.items():
+        seen: dict[str, list[Path]] = defaultdict(list)
+        for p in csvs:
+            # Normalize: replace year ranges with placeholder
+            normalized = re.sub(r"_\d{4}_\d{4}_", "_%YEARS%_", p.name)
+            seen[normalized].append(p)
+        for key, dupes in seen.items():
+            if len(dupes) > 1:
+                names = [p.name for p in dupes]
+                log.error(
+                    "  DUPLICATE FILES for '%s' — same pipeline with different year ranges: %s. "
+                    "Remove the older file(s) to prevent merge column collisions (_x/_y).",
+                    level, names,
+                )
+                raise ValueError(
+                    f"Duplicate files detected for level '{level}': {names}. "
+                    f"Remove stale file(s) from {source_dir} before syncing."
+                )
 
     # 2. Build measure_info.json by merging all pipeline measure_info files,
     #    then applying exclusions. This ensures new measures are picked up
