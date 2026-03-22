@@ -7,19 +7,19 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Count of urgent care facilities located within each geographic area, based on geocoded locations from Google Maps. Areas with zero or very few urgent care centers may indicate gaps in access to acute non-emergency medical services, forcing residents to rely on more distant or more costly emergency departments.",
+        "long_description": "Count of urgent care facilities located within each geographic area, based on geocoded locations from NPPES NPI Registry (taxonomy 261QU0200X). Areas with zero or very few urgent care centers may indicate gaps in access to acute non-emergency medical services, forcing residents to rely on more distant or more costly emergency departments.",
         "long_name": "Availability of urgent care by count",
         "measure_type": "count",
-        "short_description": "Number of urgent care facilities per geographic area from Google Maps.",
+        "short_description": "Number of urgent care facilities per geographic area from NPPES NPI Registry (taxonomy 261QU0200X).",
         "short_name": "Urgent care availability (count)",
-        "provenance": "Facility locations collected from Google Maps (2022), geocoded to lat/lon, and snapped to nearest 2020 Census block group centroid. Each facility treated as capacity=1. Counts aggregated from block group to tract and county levels.",
+        "provenance": "Facility locations from NPPES NPI Registry, filtered to taxonomy code 261QU0200X (Urgent Care Clinic/Center) in VA/DC/MD. Addresses geocoded via Census Geocoder API and snapped to nearest 2020 Census block group centroid. Each facility treated as capacity=1. Counts aggregated from block group to tract, county, and health district levels.",
         "sources": [
             {
-                "date_accessed": 2022,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
-                "name": "Google Maps",
-                "url": "https://www.google.com/maps"
+                "name": "NPPES NPI Registry",
+                "url": "https://download.cms.gov/nppes/NPI_Files.html"
             }
         ],
         "statement": "There are {value} urgent care facilities in {features.name}.",
@@ -47,14 +47,14 @@
         "short_name": "Urgent care geographic availability (2SFCA)",
         "sources": [
             {
-                "date_accessed": 2022,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
-                "name": "Google Maps",
-                "url": "https://www.google.com/maps"
+                "name": "NPPES NPI Registry",
+                "url": "https://download.cms.gov/nppes/NPI_Files.html"
             }
         ],
-        "provenance": "Spatial access scores computed using the 2-step floating catchment area (2SFCA) methodology (Luo, 2004). Facility locations from Google Maps (2022), each with capacity=1, snapped to block group centroids. Consumer population from ACS 5-year (2021) table B01001_001 at block group level for VA, MD, and DC. Travel times from pre-computed OSRM block-group-to-block-group matrices. Scores expressed per 1,000 population.",
+        "provenance": "Spatial access scores computed using the 2-step floating catchment area (2SFCA) methodology (Luo, 2004). Facility locations from NPPES NPI Registry (taxonomy 261QU0200X), each with capacity=1, snapped to block group centroids. Consumer population from ACS 5-year table B01001_001 at block group level for VA, MD, and DC. Travel times from pre-computed OSRM block-group-to-block-group matrices. Scores expressed per 1,000 population.",
         "statement": "The urgent care availability for {features.name} is {value}.",
         "type": "index",
         "unit": "",
@@ -80,14 +80,14 @@
         "short_name": "Urgent care geographic availability (E2SFCA)",
         "sources": [
             {
-                "date_accessed": 2022,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
-                "name": "Google Maps",
-                "url": "https://www.google.com/maps"
+                "name": "NPPES NPI Registry",
+                "url": "https://download.cms.gov/nppes/NPI_Files.html"
             }
         ],
-        "provenance": "Spatial access scores computed using the enhanced 2-step floating catchment area (E2SFCA) methodology (Luo & Qi, 2009). Stepped weights: 10 min=0.962, 20 min=0.704, 30 min=0.377, 60 min=0.042. Facility locations from Google Maps (2022), consumer population from ACS 5-year (2021) B01001_001 at block group level. Travel times from OSRM BG-to-BG matrices. Scores expressed per 1,000 population.",
+        "provenance": "Spatial access scores computed using the enhanced 2-step floating catchment area (E2SFCA) methodology (Luo & Qi, 2009). Stepped weights: 10 min=0.962, 20 min=0.704, 30 min=0.377, 60 min=0.042. Facility locations from NPPES NPI Registry (taxonomy 261QU0200X), consumer population from ACS 5-year B01001_001 at block group level. Travel times from OSRM BG-to-BG matrices. Scores expressed per 1,000 population.",
         "statement": "The urgent care availability for {features.name} is {value}.",
         "type": "index",
         "unit": "",
@@ -113,14 +113,14 @@
         "short_name": "Urgent care geographic availability (3SFCA)",
         "sources": [
             {
-                "date_accessed": 2022,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
-                "name": "Google Maps",
-                "url": "https://www.google.com/maps"
+                "name": "NPPES NPI Registry",
+                "url": "https://download.cms.gov/nppes/NPI_Files.html"
             }
         ],
-        "provenance": "Spatial access scores computed using the 3-step floating catchment area (3SFCA) methodology with Gaussian decay (scale=20). Facility locations from Google Maps (2022), consumer population from ACS 5-year (2021) B01001_001 at block group level. Travel times from OSRM BG-to-BG matrices. Scores normalized by competition weights.",
+        "provenance": "Spatial access scores computed using the 3-step floating catchment area (3SFCA) methodology with Gaussian decay (scale=20). Facility locations from NPPES NPI Registry (taxonomy 261QU0200X), consumer population from ACS 5-year B01001_001 at block group level. Travel times from OSRM BG-to-BG matrices. Scores normalized by competition weights.",
         "statement": "The urgent care availability for {features.name} is {value}.",
         "type": "index",
         "unit": "",
@@ -141,14 +141,14 @@
         "short_name": "Mean drive time to nearest urgent care",
         "sources": [
             {
-                "date_accessed": 2022,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
-                "name": "Google Maps",
-                "url": "https://www.google.com/maps"
+                "name": "NPPES NPI Registry",
+                "url": "https://download.cms.gov/nppes/NPI_Files.html"
             }
         ],
-        "provenance": "Drive times from OSRM pre-computed block-group-to-block-group travel time matrices. For each consumer block group, the 10 nearest provider block groups (by travel time) are identified and the mean travel time computed. Facility locations from Google Maps (2022). Aggregated to tract and county by simple mean.",
+        "provenance": "Drive times from OSRM pre-computed block-group-to-block-group travel time matrices. For each consumer block group, the 10 nearest provider block groups (by travel time) are identified and the mean travel time computed. Facility locations from NPPES NPI Registry (taxonomy 261QU0200X). Aggregated to tract and county by simple mean.",
         "statement": "The mean drive time to the ten nearest urgent care facilities from {features.name} is {value} minutes.",
         "type": "time",
         "unit": "minutes",
@@ -169,14 +169,14 @@
         "short_name": "Median drive time to nearest urgent care",
         "sources": [
             {
-                "date_accessed": 2022,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
-                "name": "Google Maps",
-                "url": "https://www.google.com/maps"
+                "name": "NPPES NPI Registry",
+                "url": "https://download.cms.gov/nppes/NPI_Files.html"
             }
         ],
-        "provenance": "Drive times from OSRM pre-computed block-group-to-block-group travel time matrices. For each consumer block group, the 10 nearest provider block groups (by travel time) are identified and the median travel time computed. Facility locations from Google Maps (2022). Aggregated to tract and county by simple mean.",
+        "provenance": "Drive times from OSRM pre-computed block-group-to-block-group travel time matrices. For each consumer block group, the 10 nearest provider block groups (by travel time) are identified and the median travel time computed. Facility locations from NPPES NPI Registry (taxonomy 261QU0200X). Aggregated to tract and county by simple mean.",
         "statement": "The median drive time to the ten nearest urgent care facilities from {features.name} is {value} minutes.",
         "type": "time",
         "unit": "minutes",
