@@ -1,5 +1,5 @@
 {
-    "ems_near_10_median": {
+    "urgent_cnt": {
         "aggregation_method": "",
         "categories": "",
         "category": "Health",
@@ -7,53 +7,27 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Median drive time in minutes to the ten closest emergency medical services facilities. Facility location data were collected from the Homeland Infrastructure Foundation-Level Data (HIFLD) repository. Drive times were computer using Open Source Routing Machine (looking at roads for 2021) Geographies: Block group (12), Census tract (11), County (5), Civic Associations (51013_ca)",
-        "long_name": "Emergency medical services availability by median drive time to the ten closest facilities in minutes",
+        "long_description": "Count of urgent care facilities located within each geographic area, based on geocoded locations from NPPES NPI Registry (taxonomy 261QU0200X). Areas with zero or very few urgent care centers may indicate gaps in access to acute non-emergency medical services, forcing residents to rely on more distant or more costly emergency departments.",
+        "long_name": "Availability of urgent care by count",
         "measure_type": "count",
-        "short_description": "",
-        "short_name": "Emergency medical services availability (drive time)",
+        "short_description": "Number of urgent care facilities per geographic area from NPPES NPI Registry (taxonomy 261QU0200X).",
+        "short_name": "Urgent care availability (count)",
+        "provenance": "Facility locations from NPPES NPI Registry, filtered to taxonomy code 261QU0200X (Urgent Care Clinic/Center) in VA/DC/MD. Addresses geocoded via Census Geocoder API and snapped to nearest 2020 Census block group centroid. Each facility treated as capacity=1. Counts aggregated from block group to tract, county, and health district levels.",
         "sources": [
             {
-                "date_accessed": 2021,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
-                "name": "Homeland Infrastructure Foundation-Level Data (HIFLD)",
-                "url": "https://hifld-geoplatform.opendata.arcgis.com/"
+                "name": "NPPES NPI Registry",
+                "url": "https://download.cms.gov/nppes/NPI_Files.html"
             }
         ],
-        "statement": "The median drive time to the ten closest emergency medical service facilities to {features.name} is {value}.",
-        "type": "drive time",
-        "unit": "",
-        "variants": ""
-    },
-    "ems_cnt": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Count of emergency medical services facilities based on facility locations. Location data was collected from the Homeland Infrastructure Foundation-Level Data (HIFLD) repository. Geographies: Block group (12), Census tract (11), County (5), Civic Associations (51013_ca)",
-        "long_name": "Availability of emergency medical services by count",
-        "measure_type": "count",
-        "short_description": "",
-        "short_name": "Emergency medical services availability (count)",
-        "sources": [
-            {
-                "date_accessed": 2021,
-                "location": "",
-                "location_url": "",
-                "name": "Homeland Infrastructure Foundation-Level Data (HIFLD)",
-                "url": "https://hifld-geoplatform.opendata.arcgis.com/"
-            }
-        ],
-        "statement": "There are {value} emergency medical services facilities in {features.name}.",
+        "statement": "There are {value} urgent care facilities in {features.name}.",
         "type": "count",
         "unit": "",
         "variants": ""
     },
-    "ems_3sfca": {
+    "urgent_2sfca": {
         "aggregation_method": "",
         "categories": "",
         "category": "Health",
@@ -66,24 +40,146 @@
         "data_type": "numeric",
         "equity_category": "Availability",
         "layer": "",
-        "long_description": "Emergency medical services availability is based on 3-step floating catchment areas. This method is an aggregation of facilities per population ratios weighted by distance or travel time in each catchment area (area within which a facility is accessible). Weights are defined as the demand for facilities (or the adult population). Geographies: Block group (12), Census tract (11), County (5), Civic Associations (51013_ca)",
-        "long_name": "Emergency medical services geographic availability (3-step floating catchment areas)",
+        "long_description": "Urgent care accessibility measured using the two-step floating catchment area (2SFCA) method with a 30-minute travel time threshold. This index captures both the supply of urgent care facilities and the demand from surrounding populations, identifying areas where residents may face barriers to timely non-emergency medical care.",
+        "long_name": "Urgent care geographic availability (2-step floating catchment areas)",
         "measure_type": "index",
-        "short_description": "",
-        "short_name": "Emergency medical services geographic availability",
+        "short_description": "Urgent-care-to-population accessibility ratio using the 2SFCA method with a 30-minute catchment.",
+        "short_name": "Urgent care geographic availability (2SFCA)",
         "sources": [
             {
-                "date_accessed": 2021,
+                "date_accessed": 2026,
                 "location": "",
                 "location_url": "",
-                "name": "Homeland Infrastructure Foundation-Level Data (HIFLD)",
-                "url": "https://hifld-geoplatform.opendata.arcgis.com/"
+                "name": "NPPES NPI Registry",
+                "url": "https://download.cms.gov/nppes/NPI_Files.html"
             }
         ],
-        "provenance": "Spatial access scores are calculated using the floating catchment area (2SFCA/3SFCA) methodology (Luo, 2004; Luo & Qi, 2009; Wan et al., 2012), which measures accessibility by computing provider-to-population ratios weighted by distance decay within catchment areas.",
-        "statement": "The emergency medical services availability for {features.name} is {value}.",
+        "provenance": "Spatial access scores computed using the 2-step floating catchment area (2SFCA) methodology (Luo, 2004). Facility locations from NPPES NPI Registry (taxonomy 261QU0200X), each with capacity=1, snapped to block group centroids. Consumer population from ACS 5-year table B01001_001 at block group level for VA, MD, and DC. Travel times from pre-computed OSRM block-group-to-block-group matrices. Scores expressed per 1,000 population.",
+        "statement": "The urgent care availability for {features.name} is {value}.",
         "type": "index",
         "unit": "",
+        "variants": ""
+    },
+    "urgent_e2sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Urgent care accessibility measured using the enhanced two-step floating catchment area (E2SFCA) method, which applies distance-decay weights within stepped travel time zones (10, 20, 30, and 60 minutes). Unlike the binary 2SFCA, E2SFCA recognizes that closer facilities are more accessible, producing a more realistic picture of urgent care availability across the region.",
+        "long_name": "Urgent care geographic availability (enhanced 2-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Urgent-care-to-population accessibility ratio using the E2SFCA method with stepped distance-decay weights.",
+        "short_name": "Urgent care geographic availability (E2SFCA)",
+        "sources": [
+            {
+                "date_accessed": 2026,
+                "location": "",
+                "location_url": "",
+                "name": "NPPES NPI Registry",
+                "url": "https://download.cms.gov/nppes/NPI_Files.html"
+            }
+        ],
+        "provenance": "Spatial access scores computed using the enhanced 2-step floating catchment area (E2SFCA) methodology (Luo & Qi, 2009). Stepped weights: 10 min=0.962, 20 min=0.704, 30 min=0.377, 60 min=0.042. Facility locations from NPPES NPI Registry (taxonomy 261QU0200X), consumer population from ACS 5-year B01001_001 at block group level. Travel times from OSRM BG-to-BG matrices. Scores expressed per 1,000 population.",
+        "statement": "The urgent care availability for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "urgent_3sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Urgent care accessibility measured using the three-step floating catchment area (3SFCA) method with Gaussian distance decay. This variant accounts for competition among consumers for facility capacity and applies a smooth Gaussian weight function, providing the most nuanced estimate of spatial access to urgent care services.",
+        "long_name": "Urgent care geographic availability (3-step floating catchment areas)",
+        "measure_type": "index",
+        "short_description": "Urgent-care-to-population accessibility ratio using the 3SFCA method with Gaussian distance decay.",
+        "short_name": "Urgent care geographic availability (3SFCA)",
+        "sources": [
+            {
+                "date_accessed": 2026,
+                "location": "",
+                "location_url": "",
+                "name": "NPPES NPI Registry",
+                "url": "https://download.cms.gov/nppes/NPI_Files.html"
+            }
+        ],
+        "provenance": "Spatial access scores computed using the 3-step floating catchment area (3SFCA) methodology with Gaussian decay (scale=20). Facility locations from NPPES NPI Registry (taxonomy 261QU0200X), consumer population from ACS 5-year B01001_001 at block group level. Travel times from OSRM BG-to-BG matrices. Scores normalized by competition weights.",
+        "statement": "The urgent care availability for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "urgent_near_10_mean": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Mean drive time in minutes to the ten nearest urgent care facilities from each block group. This measure captures the travel burden residents face when seeking non-emergency acute care, with higher values indicating greater geographic isolation from urgent care services.",
+        "long_name": "Mean drive time to ten nearest urgent care facilities",
+        "measure_type": "time",
+        "short_description": "Average driving time in minutes to the ten closest urgent care facilities.",
+        "short_name": "Mean drive time to nearest urgent care",
+        "sources": [
+            {
+                "date_accessed": 2026,
+                "location": "",
+                "location_url": "",
+                "name": "NPPES NPI Registry",
+                "url": "https://download.cms.gov/nppes/NPI_Files.html"
+            }
+        ],
+        "provenance": "Drive times from OSRM pre-computed block-group-to-block-group travel time matrices. For each consumer block group, the 10 nearest provider block groups (by travel time) are identified and the mean travel time computed. Facility locations from NPPES NPI Registry (taxonomy 261QU0200X). Aggregated to tract and county by simple mean.",
+        "statement": "The mean drive time to the ten nearest urgent care facilities from {features.name} is {value} minutes.",
+        "type": "time",
+        "unit": "minutes",
+        "variants": ""
+    },
+    "urgent_near_10_median": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Median drive time in minutes to the ten nearest urgent care facilities from each block group. The median is less sensitive to outlier travel times than the mean, providing a robust measure of typical travel burden for accessing non-emergency acute care.",
+        "long_name": "Median drive time to ten nearest urgent care facilities",
+        "measure_type": "time",
+        "short_description": "Median driving time in minutes to the ten closest urgent care facilities.",
+        "short_name": "Median drive time to nearest urgent care",
+        "sources": [
+            {
+                "date_accessed": 2026,
+                "location": "",
+                "location_url": "",
+                "name": "NPPES NPI Registry",
+                "url": "https://download.cms.gov/nppes/NPI_Files.html"
+            }
+        ],
+        "provenance": "Drive times from OSRM pre-computed block-group-to-block-group travel time matrices. For each consumer block group, the 10 nearest provider block groups (by travel time) are identified and the median travel time computed. Facility locations from NPPES NPI Registry (taxonomy 261QU0200X). Aggregated to tract and county by simple mean.",
+        "statement": "The median drive time to the ten nearest urgent care facilities from {features.name} is {value} minutes.",
+        "type": "time",
+        "unit": "minutes",
         "variants": ""
     },
     "_references": {
