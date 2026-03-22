@@ -1,27 +1,34 @@
 name: urgent_care_access_scores
-version: "2.0.0"
+version: "3.0.0"
 method: fca
 title: "Urgent Care Center Accessibility (FCA)"
 description: >-
   Floating catchment area analysis measuring urgent care center
   accessibility at block group level. Computes 2SFCA, E2SFCA, and 3SFCA
-  variants with provider counts from Google Maps urgent care locations.
-  NCR-only — provider data covers the NCR region only.
+  variants with facility counts from NPPES NPI Registry data
+  (taxonomy 261QU0200X). Covers VA and NCR with automated NPPES
+  download and Census geocoding.
 
 sources:
-  providers:
-    type: geojson
-    description: "Google Maps urgent care center geocoded locations"
-    file: "data/distribution/ncr_gmap_2022_urgent_care_points.geojson"
-    capacity_col: null
+  nppes:
+    type: nppes
+    description: "NPPES NPI Registry - Urgent Care Clinic/Center (taxonomy 261QU0200X)"
+    taxonomy_code: "261QU0200X"
+    data_file: "data/working/vadcmd_nppes_urgent_care.csv"
+    geocoded_file: "data/working/vadcmd_nppes_urgent_care_geo.csv"
+    download_url: "https://download.cms.gov/nppes/NPI_Files.html"
 
-population:
-  variable: "B01001_001"
-  acs_year: 2021
-  states: ["51", "24", "11"]
+  population:
+    type: census_acs
+    variable: "B01001_001"
+    geography: block_group
+    states: ["51", "24", "11"]
+
+crosswalks:
+  va_county_to_hd: "geographies/VA/State Geographies/Health Districts/2020/data/distribution/va_ct_to_hd_crosswalk.csv"
 
 output:
   path: data/distribution
-  geographies: [block_group, tract, county]
-  years: [2022]
-  coverage_areas: [ncr]
+  geographies: [block_group, tract, county, health_district]
+  years: [2020, 2021, 2022, 2023, 2024, 2025]
+  coverage_areas: [va, ncr]
