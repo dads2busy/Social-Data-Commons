@@ -1,7 +1,9 @@
 name: ookla_speed
-version: "1.0.0"
+version: "2.0.0"
+zenodo_deposit_id: 19192908
 title: "Ookla Speed"
-description: "Fixed and mobile broadband speed measures from Ookla Speedtest Open Data, derived from quarterly speed test tiles spatially joined to Census 2020 block groups. Fixed tiles include all wired connection types (cable, fiber, DSL, fixed wireless, and satellite). Measures include device-weighted average download and upload speeds (Mb/s) and percentage of devices exceeding broadband thresholds (25/3 Mb/s and 100/20 Mb/s). Block group values are aggregated to Census tracts and counties using simple means. This dataset is produced by the Social Data Commons at the University of Virginia."
+description: "Fixed and mobile broadband speed measures from Ookla Speedtest Open Data, derived from quarterly speed test tiles spatially joined to Census 2020 block groups. Fixed tiles include all wired connection types (cable, fiber, DSL, fixed wireless, and satellite). Measures include device-weighted average download and upload speeds (Mb/s) and percentage of devices exceeding broadband thresholds (25/3 Mb/s and 100/20 Mb/s). Block group values are aggregated to Census tracts and counties using simple means."
+temporal_label: "quarterly Ookla Open Data"
 
 sources:
   ncr:
