@@ -167,6 +167,14 @@ Supporting infrastructure and utilities:
 
 ---
 
+## License
+
+Code in this repository is licensed under the [Apache License 2.0](LICENSE).
+
+Data files in `data/` and `dashboard_data/` directories are licensed under [Creative Commons Attribution 4.0 International (CC-BY-4.0)](DATA_LICENSE).
+
+Copyright 2025 Aaron Schroeder.
+
 ## Current Status
 
 - **Demographics**: actively converting R pipelines to Python.
