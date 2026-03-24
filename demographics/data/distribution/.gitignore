@@ -1,0 +1,3 @@
+# Symlinks created temporarily for combined Zenodo upload — do not commit
+*.csv.xz
+*.csv
