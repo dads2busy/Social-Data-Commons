@@ -1,7 +1,8 @@
 name: age_demographics
 version: "1.0.0"
 title: "Age"
-description: "Population age distribution from ACS table B01001 (Sex by Age), providing counts and percentages for three age groups (under 20, 20-64, and 65+). Age groups are computed by summing sex-specific single-year age variables from 5-year ACS estimates. This dataset is produced by the Social Data Commons at the University of Virginia."
+description: "Population age distribution from ACS table B01001 (Sex by Age), providing counts and percentages for three age groups (under 20, 20-64, and 65+). Age groups are computed by summing sex-specific single-year age variables from 5-year ACS estimates."
+temporal_label: "ACS 5-year estimates"
 
 sources:
   ncr:

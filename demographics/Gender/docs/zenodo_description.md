@@ -1,5 +1,5 @@
 ## Overview
-Population gender distribution from ACS table B01001 (Sex by Age), providing counts and percentages for male and female populations. This dataset is produced by the Social Data Commons at the University of Virginia. This dataset is produced by the **Social Data Commons** at the University of Virginia as part of the **Gender Demographics** data pipeline.
+Population gender distribution from ACS table B01001 (Sex by Age), providing counts and percentages for male and female populations. This dataset is produced by the **Social Data Commons** at the University of Virginia as part of the **Gender Demographics** data pipeline.
 
 ## Provenance
 Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Female counts are from variable B01001_026. Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.
@@ -50,4 +50,4 @@ Total population count representing all residents regardless of gender. This bas
 - [American Community Survey (accessed 2025)](https://www.census.gov/programs-surveys/acs.html)
 
 ## File Format
-Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `region_type`, `region_name`, `year`, `measure`, `value`, `moe` (margin of error, where available). Larger files are provided as xz-compressed CSVs (`.csv.xz`).
+Data files are provided as xz-compressed CSVs (`.csv.xz`) with the following columns: `geoid`, `year`, `measure`, `value`, `moe` (margin of error, where available), `region_type`, `data_method` (observed, modeled, scaled, interpolated, or extrapolated). A `measure_info.json` file provides per-measure metadata.

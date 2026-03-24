@@ -1,7 +1,12 @@
-name: sdc.demographics
+name: population_demographics
 version: "1.0.0"
-title: "Population Characteristics"
-description: "Demographics dataset pipelines for Social Data Commons"
+zenodo_deposit_id: 19205882
+title: "Population Demographics: Age, Gender, and Race"
+description: "Population age, gender, and race/ethnicity distributions from ACS tables B01001 (Sex by Age), B02001 (Race), and B03003 (Hispanic or Latino Origin), providing counts and percentages at block group, tract, and county levels. All measures are standardized to 2020 Census geographies using area-weighted crosswalks, enabling consistent multi-year analysis from 2009 to 2024."
+temporal_label: "ACS 5-year estimates"
+
+output:
+  path: data/distribution
 
 topics:
   - name: gender

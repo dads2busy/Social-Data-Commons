@@ -1,0 +1,768 @@
+{
+    "gender_female_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The count of female residents captures the size of the female population in a community. Gender-disaggregated population data is essential for planning services, allocating resources, and understanding demographic composition.",
+        "long_name": "The count of females in population.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Female counts are from variable B01001_026. Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "short_description": "Count of the female population.",
+        "short_name": "Female population (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B01001, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The female population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "gender_female_percent_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The female population share measures the proportion of residents who are female. Significant departures from the statewide average can reflect local labor markets (e.g., military bases, college towns), age structure, or migration patterns.",
+        "long_name": "The percent of females in the total population.",
+        "measure_type": "",
+        "provenance": "Calculated from ACS 5-year estimates, table B01001 (Sex by Age). Female counts (B01001_026) divided by total population (B01001_001). Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "short_description": "The percent of females in the total population.",
+        "short_name": "Percentage of females (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B01001, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The percent of females is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "gender_male_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The count of male residents captures the size of the male population in a community. Gender-disaggregated population data is essential for planning services, allocating resources, and understanding demographic composition.",
+        "long_name": "The count of males in population.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Male counts are from variable B01001_002. Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "short_description": "Count of the male population.",
+        "short_name": "Male population (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B01001, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The male population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "gender_male_percent_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The male population share measures the proportion of residents who are male. Significant departures from the statewide average can reflect local labor markets (e.g., military bases, college towns), age structure, or migration patterns.",
+        "long_name": "The percent of males in the total population.",
+        "measure_type": "",
+        "provenance": "Calculated from ACS 5-year estimates, table B01001 (Sex by Age). Male counts (B01001_002) divided by total population (B01001_001). Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "short_description": "The percent of males in the total population.",
+        "short_name": "Percentage of males (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B01001, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The percent of males is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "gender_total_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Total population count representing all residents regardless of gender. This baseline figure serves as the denominator for computing gender composition percentages and is essential for contextualizing a community's demographic profile. Changes in total population over time reflect broader trends in migration, development, and economic opportunity.",
+        "long_name": "Total count of the population.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age), variable B01001_001 (total population). Values are available at Census tract, county, and block group levels on Census 2020 geography boundaries. Pre-2020 values have been standardized to 2020 boundaries using area-weighted crosswalks.",
+        "short_description": "Total count of the population.",
+        "short_name": "Total count of the population (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B01001, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "Total count of the population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "_references": {
+        "bii-redist": {
+            "id": "bii-redist",
+            "author": "Biocomplexity Institute and Initiative",
+            "year": 2022,
+            "title": "redistribute: An R package to redistribute data",
+            "version": "0.0.1",
+            "url": "https://github.com/uva-bi-sdad/redistribute"
+        }
+    },
+    "age_20_64_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The count of working-age residents (20-64) represents the primary labor force and tax base of a community. Changes in this group affect economic productivity, housing demand, and the ratio of dependents to workers.",
+        "long_name": "The population estimates between age 20 and 64.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+        "short_description": "Count of the population between age 20 and 64.",
+        "short_name": "Population between age 20 and 64 (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B01001, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The population between age 20 and 64 is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "age_20_64_percent_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The working-age population (20-64) represents the primary labor force and tax base of a community. Changes in this group affect economic productivity, housing demand, and the ratio of dependents to workers.",
+        "long_name": "The population estimates between age 20 and 64.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+        "short_description": "The percent of the population between age 20 and 64.",
+        "short_name": "Percent of the population between age 20 and 64 (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B01001, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The percent of the population between age 20 and 64 is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "age_65_plus_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The count of older adult residents (65+) captures the number of residents who are seniors. Communities with large senior populations face growing demand for geriatric health services, accessible transportation, affordable housing, and age-friendly infrastructure.",
+        "long_name": "The population over age 64.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+        "short_description": "Count of the population over age 64.",
+        "short_name": "Population over age 64 (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B01001, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The population over age 64 is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "age_65_plus_percent_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The older adult population (65+) captures the share of residents who are seniors. Communities with large senior populations face growing demand for geriatric health services, accessible transportation, affordable housing, and age-friendly infrastructure.",
+        "long_name": "The percent of the population over age 64.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+        "short_description": "The percent of the population over age 64.",
+        "short_name": "Percent of the population over age 64 (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B01001, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The percent of the population over age 64 is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "age_total_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Total population count representing all residents across all age groups. This baseline figure serves as the denominator for computing age-group percentages and is essential for understanding the scale of a community's population. Changes in total population over time reflect broader trends in migration, development, and economic opportunity.",
+        "long_name": "Total count of the population.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+        "short_description": "Total count of the population.",
+        "short_name": "Total count of the population (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B01001, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "Total count of the population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "age_under_20_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The count of youth residents (under 20) captures the number of residents who are children and adolescents. Communities with large youth populations have greater demand for schools, childcare, pediatric health services, and family support programs.",
+        "long_name": "The population estimates under age 20.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+        "short_description": "Count of the population under age 20.",
+        "short_name": "Population under age 20 (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B01001, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The population under age 20 is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "age_under_20_percent_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "The youth population (under 20) captures the share of residents who are children and adolescents. Communities with large youth populations have greater demand for schools, childcare, pediatric health services, and family support programs.",
+        "long_name": "The percent of the population under age 20.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B01001 (Sex by Age). Age groups computed by summing sex-specific single-year age variables. Percentages calculated relative to total population (B01001_001).",
+        "short_description": "The percent of the population under age 20.",
+        "short_name": "Percent of the population under age 20 (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, table B01001, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The percent of the population under age 20 is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_AAPI_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Count of Asian American/Pacific Islander residents in a community. Racial and ethnic composition data tracks the Asian American/Pacific Islander population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The Asian American/Pacific Islander population.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Asian American/Pacific Islander is a combined category from B02001_005 (Asian alone) and B02001_006 (Native Hawaiian/Other Pacific Islander alone). Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "Count of the Asian American/Pacific Islander population.",
+        "short_name": "The Asian American/Pacific Islander population (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The Asian American/Pacific Islander population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_AAPI_percent_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Racial and ethnic composition data tracks the Asian American/Pacific Islander population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The Asian American/Pacific Islander population percent.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Asian American/Pacific Islander is a combined category from B02001_005 (Asian alone) and B02001_006 (Native Hawaiian/Other Pacific Islander alone). Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "The Asian American/Pacific Islander population percent.",
+        "short_name": "The Asian American/Pacific Islander population percentage (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The Asian American/Pacific Islander population percent is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_afr_amer_alone_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Count of Black or African American residents in a community. Racial and ethnic composition data tracks the Black or African American population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The Black population.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Black or African American alone is B02001_003. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "Count of the Black or African American population.",
+        "short_name": "The Black population (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The Black population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_afr_amer_alone_percent_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Racial and ethnic composition data tracks the Black or African American population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The Black population percent.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Black or African American alone is B02001_003. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "The Black or African American population percent.",
+        "short_name": "Black population percentage (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The Black population percent is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_total_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Total population from the race/ethnicity table. This count serves as the denominator for calculating racial and ethnic composition percentages and provides the baseline population figure for a community.",
+        "long_name": "Total count of the population.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B02001 (Race). Total population is B02001_001.",
+        "short_description": "Total count of the population.",
+        "short_name": "Total count of the population (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "Total count of the population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_hispanic_or_latino_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Count of Hispanic or Latino residents in a community. Racial and ethnic composition data tracks the Hispanic or Latino population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The Hispanic/Latino population.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B03003 (Hispanic or Latino Origin). Hispanic or Latino is B03003_003. Percentages are calculated relative to total population (B03003_001 for ethnicity).",
+        "short_description": "Count of the Hispanic/Latino population.",
+        "short_name": "The Hispanic/Latino population (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The Hispanic/Latino population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_hispanic_or_latino_percent_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Racial and ethnic composition data tracks the Hispanic or Latino population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The Hispanic/Latino population percent.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, table B03003 (Hispanic or Latino Origin). Hispanic or Latino is B03003_003. Percentages are calculated relative to total population (B03003_001 for ethnicity).",
+        "short_description": "The Hispanic/Latino population percent.",
+        "short_name": "The Hispanic/Latino population percentage (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The Hispanic/Latino population percent is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_native_alone_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Count of American Indian or Alaska Native residents in a community. Racial and ethnic composition data tracks the American Indian or Alaska Native population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The Native population.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). American Indian or Alaska Native alone is B02001_004. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "Count of the American Indian or Alaska Native population.",
+        "short_name": "The Native population (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The Native population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_native_alone_percent_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Racial and ethnic composition data tracks the American Indian or Alaska Native population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The Native population percent.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). American Indian or Alaska Native alone is B02001_004. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "The American Indian or Alaska Native population percent.",
+        "short_name": "The Native population percentage (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The Native population percent is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_other_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Count of residents identifying as Some Other Race alone in a community. Racial and ethnic composition data tracks the Some Other Race population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The Other racial population.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Some Other Race alone is B02001_007. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "Count of the Other racial population.",
+        "short_name": "The Other racial population (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The Other racial population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_other_percent_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Racial and ethnic composition data tracks the Some Other Race population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The Other racial population percent.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Some Other Race alone is B02001_007. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "The Other racial population percent.",
+        "short_name": "The Other racial population percentage (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The Other racial population percent is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_two_or_more_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Count of residents identifying as Two or More Races in a community. Racial and ethnic composition data tracks the Two or More Races population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The two or more races population.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Two or More Races is B02001_008. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "Count of the Two or More Races population.",
+        "short_name": "The two or more races population (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The two or more races population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_two_or_more_percent_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Racial and ethnic composition data tracks the Two or More Races population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The two or more races population percent.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). Two or More Races is B02001_008. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "The Two or More Races population percent.",
+        "short_name": "The two or more races population percentage (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The two or more races population percent is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_wht_alone_count_geo20": {
+        "aggregation_method": "arithmetic mean",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Count of White residents in a community. Racial and ethnic composition data tracks the White population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The White population.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). White alone is B02001_002. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "Count of the White population.",
+        "short_name": "The White population (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The White population is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    },
+    "race_wht_alone_percent_geo20": {
+        "aggregation_method": "percent",
+        "categories": "",
+        "category": "Demographics",
+        "citations": "",
+        "data_type": "decimal",
+        "equity_category": "Status",
+        "layer": "",
+        "long_description": "Racial and ethnic composition data tracks the White population in a community. Understanding demographic diversity is essential for equitable resource allocation, culturally competent service delivery, and monitoring disparities across groups.",
+        "long_name": "The White population percent.",
+        "measure_type": "",
+        "provenance": "Directly tabulated from ACS 5-year estimates, tables B02001 (Race) and B03003 (Hispanic or Latino Origin). White alone is B02001_002. Percentages are calculated relative to total population (B02001_001 for race, B03003_001 for ethnicity).",
+        "short_description": "The White population percent.",
+        "short_name": "The White population percentage (2020 geographies)",
+        "sources": [
+            {
+                "name": "American Community Survey",
+                "location": "5-Year estimates, tables B02001 and B03003, via the API",
+                "location_url": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+                "date_accessed": 2025,
+                "url": "https://www.census.gov/programs-surveys/acs.html"
+            }
+        ],
+        "statement": "The White population percent is {value} in {region_name}.",
+        "type": "",
+        "unit": "individual",
+        "variants": ""
+    }
+}
