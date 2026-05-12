@@ -21,6 +21,9 @@ members = ["packages/*"]
 [tool.uv.sources]
 sdc-core = { workspace = true }
 
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
+
 [dependency-groups]
 dev = [
     "matplotlib>=3.10.8",
