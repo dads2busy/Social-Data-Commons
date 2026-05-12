@@ -52,6 +52,13 @@ def spatial_join_counties(stations: pd.DataFrame, counties_geojson: Path) -> pd.
         log.warning("%d stations fell outside any VA county polygon and were dropped", dropped)
     joined = joined.dropna(subset=["geoid"])
 
+    # Stations on county polygon boundaries match multiple counties under
+    # `intersects`. Keep the first match so each station maps to exactly one county.
+    boundary_dups = joined.duplicated(subset=["ID"]).sum()
+    if boundary_dups:
+        log.warning("%d stations matched multiple county polygons (boundary); keeping first", boundary_dups)
+    joined = joined.drop_duplicates(subset=["ID"], keep="first")
+
     return pd.DataFrame(joined.drop(columns=["geometry", "index_right"]))
 
 
