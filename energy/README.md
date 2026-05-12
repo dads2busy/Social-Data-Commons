@@ -6,8 +6,10 @@ Pipelines covering electric infrastructure, simulated residential energy demand 
 
 | Topic | Source | Status |
 |---|---|---|
-| EVChargingStations | Simulated VA EV charging-station inventory (`va_charging_stations_30.csv`) | In progress |
-| EVChargingDemand | Simulated hourly EV charging events aggregated to stations | Planned |
+| EVChargingStations | Simulated VA EV charging-station inventory (`va_charging_stations_30.csv`) | Ingest landed (no prepare.py yet) |
+| DataCenters | Existing US data centers, OSM-derived ([IM3 Atlas](https://data.msdlive.org/records/p147s-4h760)), VA-filtered | Ingest landed (no prepare.py yet) |
+| DataCentersProjected | Projected US data center siting, 20 scenarios ([IM3 CERF](https://data.msdlive.org/records/r0cga-34g05)), VA-filtered | Ingest landed (no prepare.py yet) |
+| EVChargingDemand | Simulated 2026 VA hourly EV charging events (376k events at location × hour-of-day) | Ingest landed (no prepare.py yet) |
 | ResidentialEnergyScenario | Synthetic VA household population + ResStock load + PV generation + adoption scenarios | Planned |
 
 ## Schema differences vs. other SDC categories
