@@ -1,0 +1,20 @@
+name: data_centers_projected
+description: "Projected US data center siting (IM3 CERF model), filtered to Virginia. 20 scenarios (4 demand tiers × 5 market-gravity weights)."
+
+source:
+  type: simulated
+  data_source_token: im3
+  coverage_area: va
+  scenario_canonical: im3_cerf_moderate_50   # dashboard default; all 20 are written to output
+  snapshot_year: 2035
+  state_filter: virginia                      # filters rows by `region` column (lowercase)
+  input_root: data/original                    # contains README.pdf, changelog.txt, and 4 growth-tier subdirs
+  source_crs: "ESRI:102003"
+  target_crs: "EPSG:4326"
+
+geographies:
+  va_counties: "geographies/VA/Census Geographies/County/2020/data/distribution/va_geo_census_cb_2020_counties.geojson"
+
+output:
+  point_csv: data/distribution/va_pt_im3_2035_data_centers_projected.csv.xz
+  county_csv: data/distribution/va_ct_im3_2035_data_centers_projected.csv.xz
