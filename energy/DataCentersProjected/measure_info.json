@@ -1,0 +1,50 @@
+{
+  "projected_data_center_count": {
+    "category": "Energy",
+    "long_description": "Number of projected data center facility sites within the county under a given siting scenario, by 2035. The IM3 CERF model places candidate facilities at locations that pass screening for power, water, land, and exclusion-zone constraints; the count varies across the 20 scenarios (4 demand growth tiers × 5 market gravity weights).",
+    "short_description": "Projected data center facility count per county, per scenario, by 2035.",
+    "provenance": "IM3 CERF — Data Centers model (Pacific Northwest National Laboratory, DOE Office of Science). Scenario polygons in Albers Equal Area Conic (ESRI:102003) were reprojected to WGS84, centroids computed, then spatial-joined against 2020 Census county boundaries to assign FIPS. The same `id` value across scenarios does NOT refer to the same physical site — each scenario is an independent siting.",
+    "unit": "facility",
+    "aggregation_method": "sum"
+  },
+  "total_projected_it_power_mw": {
+    "category": "Energy",
+    "long_description": "Total projected IT power capacity (megawatts) across all candidate data center facilities sited within the county under a given scenario by 2035. Captures the additional grid load a county would absorb if all projected facilities were built.",
+    "short_description": "Sum of projected data center IT power capacity (MW) per county per scenario, by 2035.",
+    "provenance": "IM3 CERF — Data Centers model. Sum of the `data_center_it_power_mw` attribute on VA-filtered scenario features, aggregated to county FIPS via centroid sjoin.",
+    "unit": "megawatt",
+    "aggregation_method": "sum"
+  },
+  "total_projected_campus_sqft": {
+    "category": "Energy",
+    "long_description": "Total projected campus floor area (square feet) across all candidate data center facilities sited within the county under a given scenario by 2035. Each candidate is a uniform 1,000,000 sq ft footprint in the IM3 model.",
+    "short_description": "Sum of projected data center campus area (sq ft) per county per scenario, by 2035.",
+    "provenance": "IM3 CERF — Data Centers model. Sum of `campus_size_square_ft` for VA-filtered features. Note: all candidate facilities have identical 1,000,000 sq ft footprints by model design; this measure is therefore proportional to count.",
+    "unit": "square_feet",
+    "aggregation_method": "sum"
+  },
+  "total_projected_cost_million_usd": {
+    "category": "Energy",
+    "long_description": "Total projected siting cost (millions of USD) for all candidate data centers within the county under a given scenario. The CERF model's locational cost captures land, infrastructure connection, and other site-development expenses; it does not include construction, equipment, or operating costs.",
+    "short_description": "Sum of projected data center siting cost ($M) per county per scenario, by 2035.",
+    "provenance": "IM3 CERF — Data Centers model. Sum of `total_cost_million_usd` for VA-filtered features.",
+    "unit": "million_usd",
+    "aggregation_method": "sum"
+  },
+  "total_projected_water_demand_mgy": {
+    "category": "Energy",
+    "long_description": "Total projected cooling water demand (million gallons per year) across candidate data centers within the county under a given scenario. Demand is the total volume withdrawn for cooling, before accounting for what is returned to the source.",
+    "short_description": "Sum of projected data center cooling water demand (MGY) per county per scenario, by 2035.",
+    "provenance": "IM3 CERF — Data Centers model. Sum of `cooling_water_demand_mgy` for VA-filtered features. The model uses the per-facility cooling-fraction (mechanical vs evaporative) when computing demand.",
+    "unit": "million_gallons_per_year",
+    "aggregation_method": "sum"
+  },
+  "total_projected_water_consumption_mgy": {
+    "category": "Energy",
+    "long_description": "Total projected cooling water consumption (million gallons per year) across candidate data centers within the county under a given scenario. Consumption is the portion of withdrawn water that is not returned to the watershed (lost to evaporation, etc.). Typically ~80% of demand for evaporative-cooled facilities.",
+    "short_description": "Sum of projected data center cooling water consumption (MGY) per county per scenario, by 2035.",
+    "provenance": "IM3 CERF — Data Centers model. Sum of `cooling_water_consumption_mgy` for VA-filtered features.",
+    "unit": "million_gallons_per_year",
+    "aggregation_method": "sum"
+  }
+}
