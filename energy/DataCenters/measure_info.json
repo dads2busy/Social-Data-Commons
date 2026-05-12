@@ -1,0 +1,42 @@
+{
+  "total_data_center_count": {
+    "category": "Energy",
+    "long_description": "Total number of data center records within the county, summed across all geometric representations (point, building, and campus). Counts the raw number of OSM-derived data center features in the IM3 Atlas. A single physical facility may contribute multiple records if OSM represents it as both a point and a polygon.",
+    "short_description": "Total data center records per county.",
+    "provenance": "IM3 Open Source Data Center Atlas v2026.02.09 (PNNL, derived from OpenStreetMap). Filtered to Virginia by `state_abb=VA`. County FIPS pre-assigned in the source dataset.",
+    "unit": "record",
+    "aggregation_method": "sum"
+  },
+  "point_data_center_count": {
+    "category": "Energy",
+    "long_description": "Number of data center records within the county that have a point geometry. Points typically represent OSM-tagged locations without a building footprint.",
+    "short_description": "Data center point records per county.",
+    "provenance": "IM3 Open Source Data Center Atlas v2026.02.09 (PNNL, derived from OpenStreetMap). Filtered to Virginia and rows where the source `type` column equals 'point'.",
+    "unit": "record",
+    "aggregation_method": "sum"
+  },
+  "building_data_center_count": {
+    "category": "Energy",
+    "long_description": "Number of data center records within the county that have a building geometry. Buildings represent individual structures within a data center facility.",
+    "short_description": "Data center building records per county.",
+    "provenance": "IM3 Open Source Data Center Atlas v2026.02.09 (PNNL, derived from OpenStreetMap). Filtered to Virginia and rows where the source `type` column equals 'building'.",
+    "unit": "record",
+    "aggregation_method": "sum"
+  },
+  "campus_data_center_count": {
+    "category": "Energy",
+    "long_description": "Number of data center records within the county that have a campus geometry. Campuses are the outermost facility footprint, often enclosing one or more buildings.",
+    "short_description": "Data center campus records per county.",
+    "provenance": "IM3 Open Source Data Center Atlas v2026.02.09 (PNNL, derived from OpenStreetMap). Filtered to Virginia and rows where the source `type` column equals 'campus'.",
+    "unit": "record",
+    "aggregation_method": "sum"
+  },
+  "total_data_center_sqft": {
+    "category": "Energy",
+    "long_description": "Total surface area (square feet) of data center facilities within the county, summed across all geometric representations. Records with missing surface area (typically point records, which lack polygon area) are treated as 0 in the sum. The true county area is therefore at least this value.",
+    "short_description": "Sum of data center facility area in square feet per county.",
+    "provenance": "IM3 Open Source Data Center Atlas v2026.02.09 (PNNL, derived from OpenStreetMap). Sum of the `sqft` column for VA-filtered rows. NaN values (point records without a polygon area) are treated as 0.",
+    "unit": "square_feet",
+    "aggregation_method": "sum"
+  }
+}
