@@ -165,3 +165,12 @@ def test_aggregate_region_type_is_county():
 def test_aggregate_moe_is_null():
     out = aggregate_to_counties(_expanded_with_geoid(), scenario="s1", scenario_date="2030-01-01")
     assert out["moe"].isna().all()
+
+
+def test_aggregate_empty_input_returns_empty_frame():
+    empty = pd.DataFrame(columns=["geoid", "station_id", "type", "count"])
+    out = aggregate_to_counties(empty, scenario="s1", scenario_date="2030-01-01")
+    assert len(out) == 0
+    assert set(out.columns) == {
+        "geoid", "datetime", "measure", "value", "moe", "region_type", "data_method", "scenario",
+    }

@@ -149,5 +149,8 @@ def aggregate_to_counties(
             "scenario": scenario,
         })
 
+    if not rows:
+        return pd.DataFrame(columns=ENERGY_LONG_FORMAT_COLUMNS)
+
     out = pd.DataFrame(rows)
     return out[ENERGY_LONG_FORMAT_COLUMNS]
