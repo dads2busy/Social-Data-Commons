@@ -23,6 +23,22 @@ from sdc_core.naming import REGION_TYPE_ABBR, build_file_name
 # Standard SDC column order
 STANDARD_COLUMNS = ["geoid", "year", "measure", "value", "moe", "region_type", "data_method"]
 
+# Standardized point-data schema for facility/lat-lon datasets.
+# Pipeline-specific attribute columns may ride alongside these and
+# pass through to GeoJSON `properties` in export_point_layer.
+POINT_SCHEMA_REQUIRED = [
+    "facility_id",
+    "facility_name",
+    "lat",
+    "lon",
+    "year",
+    "type",
+]
+
+POINT_SCHEMA_OPTIONAL = [
+    "description",
+]
+
 
 def read_data(
     path: str | pathlib.Path,
@@ -209,3 +225,127 @@ def read_measure_info(path: str | pathlib.Path) -> dict:
     path = pathlib.Path(path)
     with open(path) as f:
         return json.load(f)
+
+
+# ---------------------------------------------------------------------------
+# Point-schema I/O helpers (write_point_data, read_point_data).
+# export_point_layer (Task 3) will live here alongside these functions.
+# ---------------------------------------------------------------------------
+
+
+def write_point_data(
+    df: pd.DataFrame,
+    path: str | pathlib.Path,
+    *,
+    compress: bool = True,
+) -> pathlib.Path:
+    """Validate and write a point-schema DataFrame to .csv.xz.
+
+    Required columns: facility_id, facility_name, lat, lon, year, type.
+    Any extra columns pass through (e.g. operator, sq_ft, description).
+
+    Rows with null lat or lon are dropped. Rows with out-of-range
+    coordinates raise ValueError.
+    """
+    missing = [c for c in POINT_SCHEMA_REQUIRED if c not in df.columns]
+    if missing:
+        raise ValueError(f"missing required point column(s): {missing}")
+
+    df = df.copy()
+    df["lat"] = pd.to_numeric(df["lat"], errors="coerce")
+    df["lon"] = pd.to_numeric(df["lon"], errors="coerce")
+    df = df.dropna(subset=["facility_id", "lat", "lon"])
+
+    bad_lat = df[(df["lat"] < -90) | (df["lat"] > 90)]
+    if not bad_lat.empty:
+        raise ValueError(
+            f"lat out of range in {len(bad_lat)} rows "
+            f"(min={bad_lat['lat'].min()}, max={bad_lat['lat'].max()})"
+        )
+    bad_lon = df[(df["lon"] < -180) | (df["lon"] > 180)]
+    if not bad_lon.empty:
+        raise ValueError(
+            f"lon out of range in {len(bad_lon)} rows "
+            f"(min={bad_lon['lon'].min()}, max={bad_lon['lon'].max()})"
+        )
+
+    df["facility_id"] = df["facility_id"].astype(str)
+
+    path = pathlib.Path(path)
+    if compress and path.suffix != ".xz":
+        if path.suffix == ".csv":
+            path = path.with_suffix(".csv.xz")
+        else:
+            path = pathlib.Path(str(path) + ".csv.xz")
+
+    # Stable column order: required first, then any extras alphabetically.
+    extras = sorted(c for c in df.columns if c not in POINT_SCHEMA_REQUIRED)
+    df = df[POINT_SCHEMA_REQUIRED + extras]
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(path, index=False)
+    return path
+
+
+def read_point_data(path: str | pathlib.Path) -> pd.DataFrame:
+    """Read a point-schema .csv.xz, preserving string IDs and numeric coords."""
+    path = pathlib.Path(path)
+    df = pd.read_csv(path, dtype={"facility_id": object})
+    df["lat"] = pd.to_numeric(df["lat"], errors="coerce")
+    df["lon"] = pd.to_numeric(df["lon"], errors="coerce")
+    return df
+
+
+def export_point_layer(
+    source_path: str | pathlib.Path,
+    output_dir: str | pathlib.Path,
+    *,
+    coverage_area: str | None = None,
+    data_source: str | None = None,
+    title: str | None = None,
+) -> pathlib.Path:
+    """Read a point-schema CSV and write a GeoJSON FeatureCollection.
+
+    Output filename is built via build_file_name() using resolution="pt"
+    and the time period inferred from the year column. Each row becomes
+    a Point feature; lat/lon move into geometry, everything else
+    (including year and type) goes into properties. Null property
+    values are omitted rather than serialized as `null`.
+
+    Parameters
+    ----------
+    source_path : path to a .csv.xz written by write_point_data
+    output_dir  : directory to write the .geojson into (created if absent)
+    coverage_area, data_source, title : filename parts forwarded to build_file_name
+    """
+    import json
+
+    output_dir = pathlib.Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    df = read_point_data(source_path)
+
+    features = []
+    for row in df.to_dict(orient="records"):
+        lat = row.pop("lat")
+        lon = row.pop("lon")
+        properties = {k: v for k, v in row.items() if pd.notna(v)}
+        features.append({
+            "type": "Feature",
+            "geometry": {"type": "Point", "coordinates": [lon, lat]},
+            "properties": properties,
+        })
+
+    payload = {"type": "FeatureCollection", "features": features}
+
+    filename = build_file_name(
+        coverage_area=coverage_area,
+        resolution="pt",
+        data_source=data_source,
+        years=df["year"].unique().tolist(),
+        title=title,
+    ) + ".geojson"
+
+    out_path = output_dir / filename
+    out_path.write_text(json.dumps(payload))
+    return out_path
