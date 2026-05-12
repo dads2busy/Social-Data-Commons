@@ -924,3 +924,107 @@ Example:
 - **Keep it factual.** The report is a reference document, not a narrative. Use tables over prose where possible.
 - **One report per topic.** If the topic has multiple sources (e.g. VA + NCR), cover all of them in a single report.
 - **Deferred pipelines.** If a pipeline was evaluated and deferred, write a brief report explaining which qualification checklist items failed and why.
+
+---
+
+## 16. Point overlays (facility-level data)
+
+Some datasets (data centers, hospitals, schools, fire stations) come as individual facility records with lat/lon coordinates. These are not aggregable into the long-format schema directly — instead, a pipeline produces **two outputs**:
+
+1. **Aggregated long-format CSV** — counts/measures per geography, the usual `geoid, year, measure, value, moe, region_type, data_method` schema. Written by `ingest.py` to `data/distribution/` and flowed through `prepare.py` as normal.
+2. **Point-schema CSV** — one row per facility, written by `ingest.py` to `data/distribution/`. Converted to GeoJSON by `prepare.py` for the dashboard map overlay.
+
+### 16.1 Point schema
+
+| Column          | Type   | Required | Description                                                |
+|-----------------|--------|----------|------------------------------------------------------------|
+| `facility_id`   | str    | yes      | Stable source ID, or hashed `name+coords` fallback         |
+| `facility_name` | str    | yes      | Human-readable name shown in popups                        |
+| `lat`           | float  | yes      | WGS84 latitude, –90..90                                    |
+| `lon`           | float  | yes      | WGS84 longitude, –180..180                                 |
+| `year`          | int    | yes      | Year the facility is observed/active                       |
+| `type`          | str    | yes      | Classification for styling/filtering (e.g. `point`, `campus`, `hospital`) |
+| `description`   | str    | optional | Free text for popup                                        |
+| _pipeline-specific attributes_ | any | optional | E.g. `operator`, `sq_ft`, `beds`. Pass through to GeoJSON `properties`. Document each in `measure_info.json`. |
+
+Pipeline-specific columns are not validated by `sdc-core` — they ride alongside the required schema and surface as GeoJSON properties.
+
+### 16.2 File naming and resolution
+
+Points use the `pt` resolution abbreviation:
+
+```
+{coverage_area}_pt_{data_source}_{time_period}_{title}.csv.xz   # data/distribution/
+{coverage_area}_pt_{data_source}_{time_period}_{title}.geojson  # dashboard_data/{site}/
+```
+
+Examples:
+- `us_pt_osm_2026_data_centers.csv.xz`
+- `va_pt_hifld_2022_hospitals.geojson`
+
+Build names with `build_file_name(resolution="pt", ...)` — do not construct by hand.
+
+### 16.3 sdc-core API
+
+```python
+from sdc_core.io import (
+    POINT_SCHEMA_REQUIRED,    # ["facility_id", "facility_name", "lat", "lon", "year", "type"]
+    write_point_data,
+    read_point_data,
+    export_point_layer,
+)
+
+# In ingest.py — write the point CSV alongside the aggregated long-format CSV
+write_point_data(facilities_df, DIST_DIR / "us_pt_osm_2026_data_centers.csv.xz")
+
+# In prepare.py — convert to GeoJSON for each dashboard site
+export_point_layer(
+    source_path=DIST_DIR / "us_pt_osm_2026_data_centers.csv.xz",
+    output_dir=REPO_DIR / "dashboard_data/national_capital_region_data",
+    coverage_area="ncr",
+    data_source="osm",
+    title="data_centers",
+)
+```
+
+### 16.4 Coverage filtering
+
+When the source point dataset is nationwide but the dashboard site is regional (VA or NCR), filter the points to the site's bounding geography before calling `export_point_layer`. The cleanest way is a state-FIPS or county-FIPS filter on the source rows in `prepare.py`, then write a coverage-specific point CSV to a temp path and export from that. Do not produce a national GeoJSON and let the dashboard filter — the file ships to the browser and should be sized to its viewer.
+
+### 16.5 measure_info.json for point datasets
+
+Point datasets still use `measure_info.json`, but the entries describe the **aggregated measures** (e.g. `data_center_count`, `data_center_total_sqft`) — not the raw facility attributes. Document pipeline-specific point properties in the topic's `README.md` or in a sibling `point_properties.json` if a structured listing is needed.
+
+---
+
+## 17. Nationwide (US) coverage
+
+Some datasets are inherently national (data centers, EIA grid data, federal facilities) and should not be artificially clipped to VA/NCR at ingest time. For these:
+
+### 17.1 Ingest
+
+- Set `coverage_area="us"` when calling `build_file_name()` and `write_data()`.
+- Do not pre-filter to a state list — keep the full national table in `data/distribution/`.
+- The long-format file is named `us_{resolution}_{data_source}_{time_period}_{title}.csv.xz`.
+
+### 17.2 Dashboard targets
+
+Two patterns exist:
+
+1. **Nationwide-only dataset** → write to `dashboard_data/usa_data/`. (This directory may not exist yet — create it on the first nationwide pipeline.)
+2. **Nationwide source surfaced on regional dashboards** → filter to the site's geographies in `prepare.py` and write to `dashboard_data/virginia_public_health_data/` and/or `dashboard_data/national_capital_region_data/` as usual.
+
+Most pipelines will do both: archive the full national file at `dashboard_data/usa_data/`, and emit regional slices to the VA/NCR sites.
+
+### 17.3 build_file_name behavior
+
+`build_file_name(coverage_area="us", ...)` works as-is. `infer_coverage_area_from_states(["us"])` also returns `"us"` thanks to the `("us",): "us"` entry in `DEFAULT_COVERAGE_MAP`. There is no special `profile` value — `CensusClient.get_acs_multi(profile=...)` remains a regional concept (NCR/VA); national ACS data is fetched with explicit `states=` lists or by skipping the profile entirely.
+
+### 17.4 data_reformat_for_site for nationwide tables
+
+`data_reformat_for_site` works on nationwide files without modification, but the resulting per-level files can be very large (50k+ tracts). For dashboard performance, prefer:
+
+- Writing **county-level only** to `dashboard_data/usa_data/` for choropleth display.
+- Keeping the tract-level file in `data/distribution/` and Zenodo, but not shipping it to the dashboard.
+
+Document this choice in the topic's `README.md`.
