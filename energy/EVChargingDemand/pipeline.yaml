@@ -1,0 +1,17 @@
+name: ev_charging_demand
+description: "Simulated 2026 VA EV charging demand by location and hour-of-day, aggregated to county hourly profiles."
+
+source:
+  type: simulated
+  data_source_token: sim                       # placeholder for source attribution
+  coverage_area: va
+  scenario: va_2026_run2_eval30                # placeholder; revise when filename's run/eval suffixes are attributed
+  scenario_year: 2026
+  input_file: data/original/charging_events_va_2026.csv
+
+geographies:
+  va_counties: "geographies/VA/Census Geographies/County/2020/data/distribution/va_geo_census_cb_2020_counties.geojson"
+
+output:
+  point_csv: data/distribution/va_pt_sim_2026_ev_charging_demand.csv.xz
+  county_csv: data/distribution/va_ct_sim_2026_ev_charging_demand.csv.xz
