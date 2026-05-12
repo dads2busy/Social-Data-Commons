@@ -294,3 +294,58 @@ def read_point_data(path: str | pathlib.Path) -> pd.DataFrame:
     df["lat"] = pd.to_numeric(df["lat"], errors="coerce")
     df["lon"] = pd.to_numeric(df["lon"], errors="coerce")
     return df
+
+
+def export_point_layer(
+    source_path: str | pathlib.Path,
+    output_dir: str | pathlib.Path,
+    *,
+    coverage_area: str | None = None,
+    data_source: str | None = None,
+    title: str | None = None,
+) -> pathlib.Path:
+    """Read a point-schema CSV and write a GeoJSON FeatureCollection.
+
+    Output filename is built via build_file_name() using resolution="pt"
+    and the time period inferred from the year column. Each row becomes
+    a Point feature; lat/lon move into geometry, everything else
+    (including year and type) goes into properties. Null property
+    values are omitted rather than serialized as `null`.
+
+    Parameters
+    ----------
+    source_path : path to a .csv.xz written by write_point_data
+    output_dir  : directory to write the .geojson into (created if absent)
+    coverage_area, data_source, title : filename parts forwarded to build_file_name
+    """
+    import json
+
+    output_dir = pathlib.Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    df = read_point_data(source_path)
+
+    features = []
+    for row in df.to_dict(orient="records"):
+        lat = row.pop("lat")
+        lon = row.pop("lon")
+        properties = {k: v for k, v in row.items() if pd.notna(v)}
+        features.append({
+            "type": "Feature",
+            "geometry": {"type": "Point", "coordinates": [lon, lat]},
+            "properties": properties,
+        })
+
+    payload = {"type": "FeatureCollection", "features": features}
+
+    filename = build_file_name(
+        coverage_area=coverage_area,
+        resolution="pt",
+        data_source=data_source,
+        years=df["year"].unique().tolist(),
+        title=title,
+    ) + ".geojson"
+
+    out_path = output_dir / filename
+    out_path.write_text(json.dumps(payload))
+    return out_path
