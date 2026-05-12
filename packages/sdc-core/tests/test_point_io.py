@@ -183,3 +183,19 @@ def test_export_point_layer_omits_null_property_values(tmp_path):
     assert "operator" not in f0["properties"]
     f1 = payload["features"][1]
     assert f1["properties"]["operator"] == "Amazon"
+
+
+def test_public_imports_work():
+    # These are the documented public entry points used by pipelines.
+    from sdc_core.io import (
+        POINT_SCHEMA_OPTIONAL,
+        POINT_SCHEMA_REQUIRED,
+        export_point_layer,
+        read_point_data,
+        write_point_data,
+    )
+    assert callable(write_point_data)
+    assert callable(read_point_data)
+    assert callable(export_point_layer)
+    assert len(POINT_SCHEMA_REQUIRED) == 6
+    assert len(POINT_SCHEMA_OPTIONAL) >= 1

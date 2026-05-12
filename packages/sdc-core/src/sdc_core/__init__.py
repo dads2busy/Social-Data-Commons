@@ -23,7 +23,16 @@ from sdc_core.geo import (
     infer_region_types,
     standardize_all,
 )
-from sdc_core.io import data_reformat_for_site, read_data, write_data
+from sdc_core.io import (
+    POINT_SCHEMA_OPTIONAL,
+    POINT_SCHEMA_REQUIRED,
+    data_reformat_for_site,
+    export_point_layer,
+    read_data,
+    read_point_data,
+    write_data,
+    write_point_data,
+)
 from sdc_core.log import get_logger
 from sdc_core.naming import (
     DEFAULT_COVERAGE_MAP,
@@ -71,14 +80,19 @@ __all__ = [
     "infer_region_type",
     "infer_region_types",
     "standardize_all",
+    "POINT_SCHEMA_OPTIONAL",
+    "POINT_SCHEMA_REQUIRED",
     "data_reformat_for_site",
+    "export_point_layer",
     "get_logger",
     "load_pipeline",
     "read_data",
+    "read_point_data",
     "register_profile",
     "resolve_profile",
     "resolve_states",
     "write_data",
+    "write_point_data",
     "build_file_name",
     "infer_coverage_area_from_states",
     "infer_time_period_from_years",
