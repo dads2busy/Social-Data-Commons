@@ -254,14 +254,20 @@ def write_point_data(
     df = df.copy()
     df["lat"] = pd.to_numeric(df["lat"], errors="coerce")
     df["lon"] = pd.to_numeric(df["lon"], errors="coerce")
-    df = df.dropna(subset=["lat", "lon"])
+    df = df.dropna(subset=["facility_id", "lat", "lon"])
 
     bad_lat = df[(df["lat"] < -90) | (df["lat"] > 90)]
     if not bad_lat.empty:
-        raise ValueError(f"lat out of range in {len(bad_lat)} rows")
+        raise ValueError(
+            f"lat out of range in {len(bad_lat)} rows "
+            f"(min={bad_lat['lat'].min()}, max={bad_lat['lat'].max()})"
+        )
     bad_lon = df[(df["lon"] < -180) | (df["lon"] > 180)]
     if not bad_lon.empty:
-        raise ValueError(f"lon out of range in {len(bad_lon)} rows")
+        raise ValueError(
+            f"lon out of range in {len(bad_lon)} rows "
+            f"(min={bad_lon['lon'].min()}, max={bad_lon['lon'].max()})"
+        )
 
     df["facility_id"] = df["facility_id"].astype(str)
 

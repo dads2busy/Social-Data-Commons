@@ -73,3 +73,20 @@ def test_read_point_data_preserves_string_ids(tmp_path):
     assert loaded["facility_id"].dtype == object
     assert list(loaded["facility_id"]) == ["dc-001", "dc-002"]
     assert loaded["lat"].dtype == float
+
+
+def test_write_point_data_error_message_includes_bounds(tmp_path):
+    df = _sample_points()
+    df.loc[0, "lat"] = 95.0
+    df.loc[1, "lat"] = 100.0
+    with pytest.raises(ValueError, match="lat out of range.*min=95.*max=100"):
+        write_point_data(df, tmp_path / "bad.csv.xz")
+
+
+def test_write_point_data_drops_rows_with_null_facility_id(tmp_path):
+    df = _sample_points()
+    df.loc[0, "facility_id"] = None
+    out = write_point_data(df, tmp_path / "us_pt_osm_2026_data_centers.csv.xz")
+    round_trip = pd.read_csv(out, dtype={"facility_id": object})
+    assert list(round_trip["facility_id"]) == ["dc-002"]
+    assert "nan" not in round_trip["facility_id"].values
