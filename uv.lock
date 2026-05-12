@@ -1106,6 +1106,7 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "matplotlib" },
+    { name = "pytest" },
     { name = "seaborn" },
 ]
 
@@ -1124,6 +1125,7 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "matplotlib", specifier = ">=3.10.8" },
+    { name = "pytest", specifier = ">=9.0.2" },
     { name = "seaborn", specifier = ">=0.13.2" },
 ]
 
