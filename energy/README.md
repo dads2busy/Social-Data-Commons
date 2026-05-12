@@ -19,6 +19,21 @@ Energy pipelines bend the standard SDC long-format schema in two ways:
 
 The point schema (`sdc_core.io.POINT_SCHEMA_REQUIRED`) is unchanged — points use the existing `year: int` field. Energy-specific point datasets that need datetime granularity will get a schema extension when the need arises.
 
+## Hour-of-day-profile data convention
+
+When a dataset captures typical hour-of-day patterns (24 buckets representing average behavior across a day) rather than specific timestamps, encode the hour into `datetime` as:
+
+```
+{scenario_year}-01-01THH:00:00
+```
+
+The Jan 1 anchor is canonical — the date component is **not** a real observation date; it's a fixed marker for "typical hour-of-day pattern in this scenario year." Hour `HH` is zero-padded (0 → `"00"`, 7 → `"07"`, 23 → `"23"`).
+
+Pipelines that follow this convention:
+- `energy/EVChargingDemand/` — hourly EV charging energy and active-location counts
+
+Future pipelines (residential ResStock load profiles, hourly PV generation) will use the same convention. If a future dataset needs a real multi-day time series instead, use the full ISO 8601 datetime with the correct calendar date.
+
 ## Dashboard target
 
 Energy pipelines emit dashboard files to `dashboard_data/va_energy_data/` (separate from `virginia_public_health_data/` and `national_capital_region_data/`). A new dashboard consumer will be built against this directory.
