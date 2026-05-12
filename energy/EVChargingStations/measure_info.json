@@ -1,0 +1,66 @@
+{
+  "total_station_count": {
+    "category": "Energy",
+    "long_description": "Total number of EV charging stations within the county, counting each physical station once regardless of how many charger levels are installed. A higher count indicates more EV infrastructure density.",
+    "short_description": "Total EV charging stations per county (count of unique stations).",
+    "provenance": "Simulated EV charging station inventory for the va_2030_run30 scenario. Station lat/lon coordinates were spatial-joined to 2020 census county polygons. One station with multiple charger types is counted once in this measure.",
+    "unit": "station",
+    "aggregation_method": "sum"
+  },
+  "l1_station_count": {
+    "category": "Energy",
+    "long_description": "Number of EV charging stations within the county that have at least one Level 1 (120V) charger. Level 1 charging is the slowest and is typically used for overnight residential charging.",
+    "short_description": "EV charging stations per county with at least one Level 1 charger.",
+    "provenance": "Simulated EV charging station inventory for the va_2030_run30 scenario. Station lat/lon coordinates were spatial-joined to 2020 census county polygons. Each station is counted once per level it has, deduplicated within (county, level).",
+    "unit": "station",
+    "aggregation_method": "sum"
+  },
+  "l2_station_count": {
+    "category": "Energy",
+    "long_description": "Number of EV charging stations within the county that have at least one Level 2 (240V) charger. Level 2 is the most common public and workplace charging speed.",
+    "short_description": "EV charging stations per county with at least one Level 2 charger.",
+    "provenance": "Simulated EV charging station inventory for the va_2030_run30 scenario. Station lat/lon coordinates were spatial-joined to 2020 census county polygons. Each station is counted once per level it has, deduplicated within (county, level).",
+    "unit": "station",
+    "aggregation_method": "sum"
+  },
+  "l3_station_count": {
+    "category": "Energy",
+    "long_description": "Number of EV charging stations within the county that have at least one Level 3 (DC fast) charger. Level 3 stations support long-distance EV travel by enabling 20-80% charges in under an hour.",
+    "short_description": "EV charging stations per county with at least one Level 3 (DC fast) charger.",
+    "provenance": "Simulated EV charging station inventory for the va_2030_run30 scenario. Station lat/lon coordinates were spatial-joined to 2020 census county polygons. Each station is counted once per level it has, deduplicated within (county, level).",
+    "unit": "station",
+    "aggregation_method": "sum"
+  },
+  "total_charger_count": {
+    "category": "Energy",
+    "long_description": "Total number of individual chargers (across all levels) at all stations within the county. Higher charger counts indicate higher simultaneous-charging capacity.",
+    "short_description": "Total individual EV chargers per county (sum across all levels).",
+    "provenance": "Simulated EV charging station inventory for the va_2030_run30 scenario. Computed as the sum of l1_charger_count, l2_charger_count, and l3_charger_count from the source inventory, after spatial join to 2020 county polygons.",
+    "unit": "charger",
+    "aggregation_method": "sum"
+  },
+  "l1_charger_count": {
+    "category": "Energy",
+    "long_description": "Total number of Level 1 (120V) chargers at all stations within the county. This is the slowest charging level and is uncommon in public stations.",
+    "short_description": "Number of Level 1 chargers per county.",
+    "provenance": "Simulated EV charging station inventory for the va_2030_run30 scenario. Sum of the l1_charger_count column from the source inventory after spatial join to 2020 county polygons.",
+    "unit": "charger",
+    "aggregation_method": "sum"
+  },
+  "l2_charger_count": {
+    "category": "Energy",
+    "long_description": "Total number of Level 2 (240V) chargers at all stations within the county. Level 2 chargers are the workhorse of public EV charging — common at workplaces, shopping centers, and residential complexes.",
+    "short_description": "Number of Level 2 chargers per county.",
+    "provenance": "Simulated EV charging station inventory for the va_2030_run30 scenario. Sum of the l2_charger_count column from the source inventory after spatial join to 2020 county polygons.",
+    "unit": "charger",
+    "aggregation_method": "sum"
+  },
+  "l3_charger_count": {
+    "category": "Energy",
+    "long_description": "Total number of Level 3 (DC fast) chargers at all stations within the county. Level 3 chargers enable rapid charging and are key infrastructure for highway corridors and travel destinations.",
+    "short_description": "Number of Level 3 (DC fast) chargers per county.",
+    "provenance": "Simulated EV charging station inventory for the va_2030_run30 scenario. Sum of the l3_charger_count column from the source inventory after spatial join to 2020 county polygons.",
+    "unit": "charger",
+    "aggregation_method": "sum"
+  }
+}

@@ -1,0 +1,20 @@
+name: ev_charging_stations
+description: "Simulated EV charging station inventory for Virginia, 2030 scenario."
+
+source:
+  type: simulated
+  data_source_token: sim          # filename token; placeholder until source attribution is finalized
+  coverage_area: va
+  scenario: va_2030_run30         # placeholder; revisit when '_30' suffix meaning is clarified
+  scenario_year: 2030
+  input_file: data/original/va_charging_stations_30.csv
+
+geographies:
+  va_counties: "geographies/VA/Census Geographies/County/2020/data/distribution/va_geo_census_cb_2020_counties.geojson"
+
+output:
+  point_csv: data/distribution/va_pt_sim_2030_run30_ev_charging_stations.csv.xz
+  county_csv: data/distribution/va_ct_sim_2030_run30_ev_charging_stations.csv.xz
+
+dashboard:
+  target_dir: dashboard_data/va_energy_data
