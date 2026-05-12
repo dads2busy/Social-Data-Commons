@@ -1,0 +1,15 @@
+name: data_centers
+description: "Existing US data centers (IM3 Atlas, OSM-derived), filtered to Virginia."
+
+source:
+  type: observed
+  data_source_token: im3
+  coverage_area: va
+  scenario: im3_atlas_v2026_02_09       # source-snapshot label; bump if the source revises
+  snapshot_year: 2026
+  state_filter: VA                       # filters rows by state_abb
+  input_file: data/original/im3_atlas_data_centers.csv
+
+output:
+  point_csv: data/distribution/va_pt_im3_2026_data_centers.csv.xz
+  county_csv: data/distribution/va_ct_im3_2026_data_centers.csv.xz
