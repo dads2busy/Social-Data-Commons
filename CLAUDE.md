@@ -43,7 +43,7 @@ Read the memory index at `/Users/ads7fg/.claude/projects/-Users-ads7fg-git-natio
 - CMS PUF CSV files need `encoding="latin-1"`.
 - `prepare.py` glob patterns must distinguish ingest from prepare output (e.g. `cttr` vs `hdcttr`).
 - Every pipeline needs `pipeline.yaml`, `ingest.py`, `prepare.py`, `measure_info.json`.
-- `data_method` column is required on all distribution files (values: observed, modeled, scaled, interpolated, extrapolated).
+- `data_method` column is required on all distribution files (values: observed, modeled, simulated, scaled, interpolated, extrapolated).
 - `measure_info.json` must include `long_description`, `short_description`, and `provenance` fields (see spec section 5.1).
 - `_geo10` variants get the same text as `_geo20` plus "Values on original 2010 census tract boundaries."
 
