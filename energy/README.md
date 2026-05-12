@@ -6,8 +6,10 @@ Pipelines covering electric infrastructure, simulated residential energy demand 
 
 | Topic | Source | Status |
 |---|---|---|
-| EVChargingStations | Simulated VA EV charging-station inventory (`va_charging_stations_30.csv`) | In progress |
-| EVChargingDemand | Simulated hourly EV charging events aggregated to stations | Planned |
+| EVChargingStations | Simulated VA EV charging-station inventory (`va_charging_stations_30.csv`) | Ingest landed (no prepare.py yet) |
+| DataCenters | Existing US data centers, OSM-derived ([IM3 Atlas](https://data.msdlive.org/records/p147s-4h760)), VA-filtered | Ingest landed (no prepare.py yet) |
+| DataCentersProjected | Projected US data center siting, 20 scenarios ([IM3 CERF](https://data.msdlive.org/records/r0cga-34g05)), VA-filtered | Ingest landed (no prepare.py yet) |
+| EVChargingDemand | Simulated 2026 VA hourly EV charging events (376k events at location × hour-of-day) | Ingest landed (no prepare.py yet) |
 | ResidentialEnergyScenario | Synthetic VA household population + ResStock load + PV generation + adoption scenarios | Planned |
 
 ## Schema differences vs. other SDC categories
@@ -18,6 +20,21 @@ Energy pipelines bend the standard SDC long-format schema in two ways:
 2. **New `scenario` column.** These are simulation outputs, not observed measurements. Different simulation runs (different adoption rates, scenario years, weather days) produce different result sets that need to be distinguishable. The `scenario` column is also encoded in output filenames for archive distinguishability.
 
 The point schema (`sdc_core.io.POINT_SCHEMA_REQUIRED`) is unchanged — points use the existing `year: int` field. Energy-specific point datasets that need datetime granularity will get a schema extension when the need arises.
+
+## Hour-of-day-profile data convention
+
+When a dataset captures typical hour-of-day patterns (24 buckets representing average behavior across a day) rather than specific timestamps, encode the hour into `datetime` as:
+
+```
+{scenario_year}-01-01THH:00:00
+```
+
+The Jan 1 anchor is canonical — the date component is **not** a real observation date; it's a fixed marker for "typical hour-of-day pattern in this scenario year." Hour `HH` is zero-padded (0 → `"00"`, 7 → `"07"`, 23 → `"23"`).
+
+Pipelines that follow this convention:
+- `energy/EVChargingDemand/` — hourly EV charging energy and active-location counts
+
+Future pipelines (residential ResStock load profiles, hourly PV generation) will use the same convention. If a future dataset needs a real multi-day time series instead, use the full ISO 8601 datetime with the correct calendar date.
 
 ## Dashboard target
 

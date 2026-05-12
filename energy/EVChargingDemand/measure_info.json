@@ -1,0 +1,18 @@
+{
+  "ev_charging_demand_kwh": {
+    "category": "Energy",
+    "long_description": "Total simulated EV charging energy delivered (kWh) within the county at a given hour of day, summed across all charging locations including residential, public, and other charging points. This is a typical-day hourly profile: each `datetime` value (e.g., 2026-01-01T07:00:00) represents the hour-of-day, not a specific calendar date.",
+    "short_description": "EV charging energy demand (kWh) per county per hour-of-day, 2026 typical-day profile.",
+    "provenance": "Simulated VA charging-event records aggregated to (county, hour-of-day) by summing total_kWh_added. Source files are tagged with the scenario va_2026_run2_eval30. Charging-location lat/lon were spatial-joined to 2020 Census county boundaries to assign FIPS.",
+    "unit": "kilowatt_hour",
+    "aggregation_method": "sum"
+  },
+  "n_active_charging_locations": {
+    "category": "Energy",
+    "long_description": "Number of distinct EV charging locations within the county that delivered energy during a given hour of day. Counts unique charging_station_id values with non-zero total_kWh_added, so a single location contributing to multiple hours of the day is counted once per hour.",
+    "short_description": "Distinct active EV charging locations per county per hour-of-day, 2026 typical-day profile.",
+    "provenance": "Simulated VA charging-event records aggregated to (county, hour-of-day) by counting distinct charging_station_id values with kWh > 0. Source scenario: va_2026_run2_eval30.",
+    "unit": "location",
+    "aggregation_method": "sum"
+  }
+}
