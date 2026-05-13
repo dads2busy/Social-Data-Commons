@@ -75,7 +75,9 @@ def run() -> None:
     resstock = pd.read_csv(TOPIC_DIR / source["resstock_csv"])
     log.info("  resstock: %d rows", len(resstock))
 
-    verify_resstock_column_indexing(resstock)
+    # ResStock column-indexing verification is skipped while residential_load_kwh is deferred.
+    # The verify_resstock_column_indexing() helper remains in this module; re-enable
+    # both the verification and the compute_residential_load() call together.
 
     pieces: list[pd.DataFrame] = []
     for resolution in config["resolutions"]:
@@ -84,11 +86,10 @@ def run() -> None:
             household, adoption,
             region_type=resolution, scenario=source["scenario"],
         ))
-        pieces.append(compute_residential_load(
-            resstock, household,
-            region_type=resolution, scenario=source["scenario"],
-            scenario_year=source["scenario_year"],
-        ))
+        # residential_load_kwh is intentionally NOT called yet.
+        # The current ResStock source file covers only Accomack County (FIPS 51001, 8 tracts);
+        # publishing as "statewide residential load" would be misleading. Re-enable this call
+        # when a statewide ResStock file is supplied. See README "Deferred measures" section.
         pieces.append(compute_pv_generation(
             pv_profiles, adoption, household,
             region_type=resolution, scenario=source["scenario"],

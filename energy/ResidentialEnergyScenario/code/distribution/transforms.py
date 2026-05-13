@@ -1,8 +1,12 @@
 """Pure transformation functions for the ResidentialEnergyScenario pipeline.
 
-The three compute functions (compute_adoption_measures,
-compute_residential_load, compute_pv_generation) land in a follow-up task.
-This file currently provides shared infrastructure.
+Public functions:
+- add_geoid: helper to build 5-digit (county) or 11-digit (tract) FIPS from admin codes
+- compute_adoption_measures: 4 static adoption/count measures per geography
+- compute_residential_load: hourly residential load, scaled from ResStock sample
+  (currently NOT called from ingest.py — the source ResStock file is
+   Accomack-only; see README 'Deferred measures')
+- compute_pv_generation: hourly PV generation, scaled to all adopters
 """
 
 from __future__ import annotations

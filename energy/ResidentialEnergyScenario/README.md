@@ -1,6 +1,6 @@
 # Residential Energy Scenario (VA, 2030)
 
-Integrates four source files from a single 2030 VA residential-energy simulation into a long-format CSV with six measures at both county and tract resolution.
+Integrates four source files from a single 2030 VA residential-energy simulation into a long-format CSV with five measures at both county and tract resolution.
 
 ## Status
 
@@ -27,14 +27,14 @@ Output uses the **energy long-format schema** with both resolutions in one file:
 |-------------|-------|---------------------------------------------------------------------------------------|
 | geoid       | str   | 5-digit (county) or 11-digit (tract) FIPS, constructed from source admin codes        |
 | datetime    | str   | `"2030-01-01"` for static measures, `"2030-01-01THH:00:00"` for hourly                 |
-| measure     | str   | one of 6 (see measure_info.json)                                                       |
+| measure     | str   | one of 5 (see measure_info.json)                                                       |
 | value       | float | numeric, or NaN where the measure cannot be computed (see caveats)                     |
 | moe         | float | NaN (simulation has no measurement uncertainty)                                        |
 | region_type | str   | `"county"` or `"tract"` — discriminates resolution within the same file                |
 | data_method | str   | `"simulated"`                                                                          |
 | scenario    | str   | `"va_2030_solar_324k_0_25ev"`                                                          |
 
-## Six measures
+## Five measures
 
 | Measure | Resolution | Time | Source |
 |---|---|---|---|
@@ -42,8 +42,22 @@ Output uses the **energy long-format schema** with both resolutions in one file:
 | `pv_adoption_rate` | county + tract | static | household + adoption |
 | `ev_adoption_rate` | county + tract | static | household + adoption |
 | `battery_adoption_rate` | county + tract | static | household + adoption |
-| `residential_load_kwh` | county + tract | 24 hourly | household + resstock |
 | `pv_generation_kwh` | county + tract | 24 hourly | household + adoption + pv_profiles |
+
+## Deferred measures
+
+`residential_load_kwh` is intentionally NOT emitted in this iteration. The
+ResStock source file currently in `data/original/` covers only Accomack County
+(FIPS 51001, 8 of 1,872 VA tracts). Publishing a "statewide hourly residential
+load" measure off that file would be misleading by omission across the 132
+unmapped counties. The `compute_residential_load` transform function and its
+unit tests remain in `transforms.py` and `test_transforms.py`; the ingest call
+and ResStock-indexing verification are commented out with the rationale. When a
+statewide ResStock file replaces the Accomack-only one, uncomment both the
+verification and the call to re-enable the measure.
+
+End-use breakouts (HVAC, hot water, lights, etc.) and net load (load − generation)
+remain future work as previously planned.
 
 ## Scenario placeholder
 
@@ -66,11 +80,11 @@ uv run pytest energy/ResidentialEnergyScenario/code/distribution/test_transforms
 
 ## Outputs
 
-- `data/distribution/va_cttr_sim_2030_residential_energy_scenario.csv.xz` — single long-format CSV with 6 measures × {county, tract}
+- `data/distribution/va_cttr_sim_2030_residential_energy_scenario.csv.xz` — single long-format CSV with 5 measures × {county, tract}: 4 adoption-static measures + `pv_generation_kwh` (24 hourly)
 
 ## Known caveats
 
-- **ResStock is sparse at tract resolution.** Only 13,475 of 3.1M households (~0.4%) are simulated by ResStock; many VA tracts have zero ResStock representation and emit `NaN` for `residential_load_kwh`. County-level load is reasonably populated.
+- **`residential_load_kwh` is deferred.** See the "Deferred measures" section above.
 - **PV generation is scaled from a 23% subset.** Only 75,522 of 324,461 PV adopters have generation profiles. The pipeline computes mean profile across profiled adopters per geography, then multiplies by the total adopter count per geography. This assumes the profiled subset is locally representative.
 - **Battery adoption is real (2.6%), not zero.** An earlier reconnaissance pass misreported `is_battery` as uniformly zero; direct file verification showed 81,115 adopters.
 - **Hour-of-day-only timestamps.** `datetime` values use the energy category's hour-of-day convention (`2030-01-01THH:00:00`); they don't represent specific calendar dates. See `energy/README.md`.
