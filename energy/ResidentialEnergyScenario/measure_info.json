@@ -1,0 +1,42 @@
+{
+  "synthetic_household_count": {
+    "category": "Energy",
+    "long_description": "Number of synthetic households in the geography under the 2030 VA scenario. The synthetic population (~3.1M households) is a one-to-one model of VA households used as a join key for adoption flags and energy simulation. The unweighted count is reported, not survey-weighted household totals.",
+    "short_description": "Synthetic household count per geography in the 2030 VA scenario.",
+    "provenance": "Direct count of rows in the synthetic VA household file grouped by 5- or 11-digit FIPS constructed from the source admin1/admin2/admin3 codes. Scenario: va_2030_solar_324k_0_25ev.",
+    "unit": "household",
+    "aggregation_method": "sum"
+  },
+  "pv_adoption_rate": {
+    "category": "Energy",
+    "long_description": "Fraction of synthetic households in the geography flagged as PV adopters under the 2030 scenario. Computed as mean of the per-household is_pv binary indicator. Statewide rate is approximately 10.5% (324,461 of 3,094,255 households).",
+    "short_description": "PV adoption rate per geography in the 2030 VA scenario.",
+    "provenance": "Mean of is_pv across synthetic households joined with adoption flags on hid. Geographies constructed from admin codes.",
+    "unit": "fraction",
+    "aggregation_method": "mean"
+  },
+  "ev_adoption_rate": {
+    "category": "Energy",
+    "long_description": "Fraction of synthetic households in the geography flagged as EV adopters under the 2030 scenario. Computed as mean of is_ev. Statewide rate is approximately 14.6% (452,471 of 3,094,255 households). The scenario filename suffix '0.25_ev' refers to a model input parameter whose precise meaning is documented in the README as a known-unknown.",
+    "short_description": "EV adoption rate per geography in the 2030 VA scenario.",
+    "provenance": "Mean of is_ev across synthetic households joined with adoption flags on hid. Geographies constructed from admin codes.",
+    "unit": "fraction",
+    "aggregation_method": "mean"
+  },
+  "battery_adoption_rate": {
+    "category": "Energy",
+    "long_description": "Fraction of synthetic households in the geography flagged as battery adopters under the 2030 scenario. Computed as mean of is_battery. Statewide rate is approximately 2.6% (81,115 of 3,094,255 households). Battery adoption is meaningful in this scenario despite earlier preliminary reports incorrectly suggesting zero.",
+    "short_description": "Battery adoption rate per geography in the 2030 VA scenario.",
+    "provenance": "Mean of is_battery across synthetic households joined with adoption flags on hid.",
+    "unit": "fraction",
+    "aggregation_method": "mean"
+  },
+  "pv_generation_kwh": {
+    "category": "Energy",
+    "long_description": "Estimated total hourly photovoltaic generation (kWh) for the geography under the 2030 scenario. Computed by averaging the per-hour PV generation profile across PV adopters with profiles in the geography, then scaling by the total number of PV adopters in the geography. The PV profile file covers approximately 23% of statewide PV adopters (75,522 of 324,461); the scaling assumes the profiled subset is locally representative.",
+    "short_description": "Total estimated PV generation (kWh) per geography per hour-of-day, 2030 typical-day profile.",
+    "provenance": "Per (geoid, hour h): mean of avg_h (kW) across PV-adopter households with profiles in the geography, multiplied by the count of is_pv=1 households in the geography from the full adoption file. PV profile columns are 0-indexed (avg_0 through avg_23). Geographies with PV adopters but no profile representation emit NaN.",
+    "unit": "kilowatt_hour",
+    "aggregation_method": "sum"
+  }
+}

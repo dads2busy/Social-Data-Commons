@@ -1,0 +1,20 @@
+name: residential_energy_scenario
+description: "Integrated 2030 VA residential energy scenario: synthetic household adoption rates, ResStock-derived hourly load, and PV generation profiles, aggregated to county and tract."
+
+source:
+  type: simulated
+  data_source_token: sim
+  coverage_area: va
+  scenario: va_2030_solar_324k_0_25ev     # placeholder; revise when '0.25ev' meaning is attributed
+  scenario_year: 2030
+  household_csv: data/original/va_household.csv
+  adoption_csv: data/original/va_adoption.csv
+  pv_profiles_csv: data/original/va_pv_profiles.csv
+  resstock_csv: data/original/va_resstock.csv
+
+resolutions:
+  - county
+  - tract
+
+output:
+  combined_csv: data/distribution/va_cttr_sim_2030_residential_energy_scenario.csv.xz
