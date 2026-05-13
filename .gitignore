@@ -41,6 +41,7 @@ wheels/
 **/data/working/
 **/data/original/
 **/*.geojson
+!dashboard_data/**/*.geojson
 **/Synthetic_population/
 *.zip
 **/transitland-atlas/
