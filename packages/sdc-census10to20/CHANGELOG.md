@@ -6,6 +6,10 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- GitHub Actions workflows for PyPI Trusted Publishing (TestPyPI → PyPI on
+  `census10to20-v*` tag) and MkDocs Material → GitHub Pages docs deployment.
+
 ## [0.1.0] - 2026-05-22
 
 ### Added
