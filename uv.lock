@@ -1479,6 +1479,7 @@ dependencies = [
     { name = "pandas" },
     { name = "python-dotenv" },
     { name = "pyyaml" },
+    { name = "sdc-census10to20" },
     { name = "tqdm" },
 ]
 
@@ -1501,6 +1502,7 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=1.2.1" },
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.8" },
+    { name = "sdc-census10to20", editable = "packages/sdc-census10to20" },
     { name = "tqdm", specifier = ">=4.66" },
 ]
 provides-extras = ["geo", "dev"]
