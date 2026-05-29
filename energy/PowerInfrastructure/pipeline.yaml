@@ -1,0 +1,23 @@
+name: power_infrastructure
+description: "OpenStreetMap power plants and substations for Virginia (point overlay + county counts)."
+
+source:
+  type: observed
+  data_source_token: osm
+  coverage_area: va
+  place: "Virginia, United States"        # osmnx geocode target
+  tags:
+    power: ["plant", "substation"]        # OSM features to fetch
+  snapshot_year: 2026
+  snapshot_date: "2026-05-29"             # query date; used for `datetime`
+  scenario: "osm_overpass_2026_05_29"     # OSM snapshot label
+  source_crs: "EPSG:4326"                 # osmnx returns WGS84
+  target_crs: "ESRI:102003"               # USA Contiguous Albers — for accurate centroids
+  cache_file: data/original/osm_va_power.parquet
+
+geographies:
+  va_counties: "geographies/VA/Census Geographies/County/2020/data/distribution/va_geo_census_cb_2020_counties.geojson"
+
+output:
+  point_csv: data/distribution/va_pt_osm_2026_power_infrastructure.csv.xz
+  county_csv: data/distribution/va_ct_osm_2026_power_infrastructure.csv.xz
