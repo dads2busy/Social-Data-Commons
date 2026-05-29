@@ -60,18 +60,22 @@ uv run pytest energy/PowerInfrastructure/code/distribution/test_transforms.py -v
 
 ## Validation (sanity checks, no R reference)
 
-This is a net-new dataset; there is no prior output to compare against. After a
-run, confirm:
+This is a net-new dataset; there is no prior output to compare against. Observed
+at the **2026-05-29 snapshot** (`uv run python .../ingest.py`):
 
-- VA plant and substation counts are plausible (≈189 plants, ≈1,382 substations
-  at the 2026-05-29 snapshot).
-- Known facilities appear: North Anna (Louisa County, 51109) and Surry
-  (Surry County, 51181) nuclear stations; the Bath County pumped-storage station
-  dominates `total_plant_capacity_mw`.
-- Substation density is highest in Northern Virginia (Loudoun 51107, Fairfax 51059).
-- Rows dropped for a missing/invalid `COUNTYFIPS` are few.
-
-_Fill in the observed numbers after the first run._
+- **1,571 facility points**: 189 power plants + 1,382 substations. All coordinates
+  fall inside the VA bounding box.
+- **128 localities** in the county output (4 measures each = 512 rows). Statewide
+  totals: 1,382 substations, 188 plants counted (1 plant dropped for a missing
+  `COUNTYFIPS`), **≈31,642 MW** total operating capacity.
+- Known facilities present and correctly placed: **North Anna** (Louisa County,
+  51109; nuclear, 1,960 MW), **Surry** (51181; nuclear, 1,695 MW), and **Bath
+  County** pumped-storage (51017; 2,862 MW) — which tops `total_plant_capacity_mw`.
+- Facility density highest in Northern Virginia: Prince William (51153, 66),
+  Fairfax (51059, 65), Loudoun (51107, 39).
+- Capacity coverage: 181/189 plants report `OPER_CAP`; the rest contribute 0.
+- Exactly **1** facility was dropped from the county counts for a missing/invalid
+  `COUNTYFIPS` (it remains in the point CSV, which keeps any row with valid coords).
 
 ## Known caveats
 
