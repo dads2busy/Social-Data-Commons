@@ -1,33 +1,33 @@
 {
   "power_plant_count": {
     "category": "Energy",
-    "long_description": "Number of electricity-generating facilities (power plants) located in the county, as mapped in OpenStreetMap. Power plants include solar, natural gas, nuclear, hydroelectric, and other generating stations. Tracking generation infrastructure helps describe a county's role in the regional electricity supply and its exposure to energy transition and land-use pressures.",
-    "short_description": "Count of OSM-mapped power plants per county.",
-    "provenance": "OpenStreetMap features tagged power=plant, fetched via the Overpass API (osmnx features_from_place, place='Virginia, United States'). Each feature's centroid was spatial-joined to 2020 Census county boundaries to assign FIPS. Snapshot osm_overpass_2026_05_29.",
+    "long_description": "Number of electricity-generating facilities (power plants) located in the county, from the HIFLD power plants inventory. Power plants include hydroelectric, natural gas, nuclear, coal, solar, and other generating stations. Tracking generation infrastructure helps describe a county's role in the regional electricity supply and its exposure to energy-transition and land-use pressures.",
+    "short_description": "Count of HIFLD power plants per county.",
+    "provenance": "HIFLD Power Plants ArcGIS Feature Service (services5.arcgis.com/HDRa0B57OVrv2E1q, layer Power_Plants), republished by the 543rd Engineer Detachment GPC from the Homeland Infrastructure Foundation-Level Data program. Queried with where=STATE='VA'. County assigned from the source COUNTYFIPS field (no spatial join). Snapshot hifld_snapshot_2026_05_29.",
     "unit": "facility",
     "aggregation_method": "sum"
   },
   "substation_count": {
     "category": "Energy",
-    "long_description": "Number of electrical substations located in the county, as mapped in OpenStreetMap. Substations transform voltage and switch power between transmission and distribution networks, making them a proxy for grid density and the capacity to deliver electricity to local load. Concentrations of substations often track population centers and large electricity consumers.",
-    "short_description": "Count of OSM-mapped electrical substations per county.",
-    "provenance": "OpenStreetMap features tagged power=substation, fetched via the Overpass API (osmnx features_from_place, place='Virginia, United States'). Each feature's centroid was spatial-joined to 2020 Census county boundaries to assign FIPS. Snapshot osm_overpass_2026_05_29.",
+    "long_description": "Number of electrical substations located in the county, from the HIFLD electric substations inventory. Substations switch, transform, or regulate electric power (HIFLD includes facilities at 69 kV and above), making them a proxy for grid density and the capacity to deliver electricity to local load. Concentrations of substations often track population centers and large electricity consumers.",
+    "short_description": "Count of HIFLD electric substations per county.",
+    "provenance": "HIFLD Electric Substations ArcGIS Feature Service (services5.arcgis.com/HDRa0B57OVrv2E1q, layer Electric_Substations), republished by the 543rd Engineer Detachment GPC from the Homeland Infrastructure Foundation-Level Data program. Queried with where=STATE='VA'. County assigned from the source COUNTYFIPS field (no spatial join). Snapshot hifld_snapshot_2026_05_29.",
     "unit": "facility",
     "aggregation_method": "sum"
   },
   "power_facility_count": {
     "category": "Energy",
-    "long_description": "Total count of power infrastructure features (plants plus substations) located in the county, as mapped in OpenStreetMap. This combined measure summarizes the overall density of mapped electrical generation and distribution infrastructure in a county.",
-    "short_description": "Total count of OSM-mapped power plants and substations per county.",
-    "provenance": "Sum of power=plant and power=substation feature counts from OpenStreetMap (Overpass via osmnx), with centroids spatial-joined to 2020 Census county boundaries. Snapshot osm_overpass_2026_05_29.",
+    "long_description": "Total count of power infrastructure features (power plants plus electric substations) located in the county, from HIFLD. This combined measure summarizes the overall density of mapped electrical generation and distribution infrastructure in a county.",
+    "short_description": "Total count of HIFLD power plants and substations per county.",
+    "provenance": "Sum of HIFLD Power Plants and Electric Substations feature counts (services5.arcgis.com/HDRa0B57OVrv2E1q), queried with where=STATE='VA' and aggregated by the source COUNTYFIPS field. Snapshot hifld_snapshot_2026_05_29.",
     "unit": "facility",
     "aggregation_method": "sum"
   },
   "total_plant_capacity_mw": {
     "category": "Energy",
-    "long_description": "Sum of rated electrical generating capacity (megawatts) of power plants in the county, parsed from OpenStreetMap's plant:output:electricity tag. Capacity indicates how much generation a county hosts. Because many OSM plants lack a capacity tag, this value is a lower bound on true installed capacity.",
-    "short_description": "Sum of OSM-reported plant generating capacity (MW) per county.",
-    "provenance": "Parsed from the OpenStreetMap plant:output:electricity tag (normalized W/kW/MW/GW to MW) for power=plant features; unparseable or missing values treated as 0. Centroids spatial-joined to 2020 Census county boundaries. Snapshot osm_overpass_2026_05_29.",
+    "long_description": "Sum of operating electrical generating capacity (megawatts) of power plants in the county, from the HIFLD OPER_CAP field. Capacity indicates how much generation a county hosts. Plants whose capacity is unreported in HIFLD (coded with the -999999 sentinel) are treated as 0, so this value is a lower bound on true installed capacity.",
+    "short_description": "Sum of HIFLD operating plant capacity (MW) per county.",
+    "provenance": "Sum of the OPER_CAP field (operating capacity in MW) from the HIFLD Power Plants Feature Service for VA-filtered rows; the HIFLD null sentinel (-999999) and missing values are treated as 0. County assigned from the source COUNTYFIPS field. Snapshot hifld_snapshot_2026_05_29.",
     "unit": "megawatt",
     "aggregation_method": "sum"
   }

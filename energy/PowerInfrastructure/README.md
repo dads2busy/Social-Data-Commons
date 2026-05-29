@@ -1,9 +1,9 @@
-# Power Infrastructure (OpenStreetMap, VA)
+# Power Infrastructure (HIFLD, VA)
 
-Pulls OpenStreetMap power **plants** (`power=plant`) and **substations**
-(`power=substation`) for Virginia via the Overpass API and produces:
+Pulls HIFLD **power plants** and **electric substations** for Virginia from the
+ArcGIS REST API and produces:
 
-1. A point-schema CSV — one row per OSM feature (for a map overlay).
+1. A point-schema CSV — one row per facility (for a map overlay).
 2. A county-aggregated long-format CSV — counts and total plant capacity per county.
 
 ## Status
@@ -14,19 +14,28 @@ outputs live at `data/distribution/` only. No Zenodo publishing / no
 
 ## Source
 
-OpenStreetMap, queried live through the Overpass API via
-[`osmnx`](https://osmnx.readthedocs.io) `features_from_place("Virginia, United States",
-tags={"power": ["plant", "substation"]})`. The raw GeoDataFrame is cached to
-`data/original/osm_va_power.parquet` (gitignored) so reruns are reproducible and
-offline. Snapshot label: `osm_overpass_2026_05_29`.
+HIFLD (Homeland Infrastructure Foundation-Level Data), via the ArcGIS Feature
+Services republished by the **543rd Engineer Detachment GPC**
+(`services5.arcgis.com/HDRa0B57OVrv2E1q`):
+
+- Power plants: `.../Power_Plants/FeatureServer/0/query`
+- Substations: `.../Electric_Substations/FeatureServer/0/query`
+
+`ingest.py` pages each layer's `/query` endpoint with `where=STATE='VA'`,
+`f=json`, and `resultOffset`/`resultRecordCount` (page size 2000). County FIPS
+comes directly from the source `COUNTYFIPS` field — no spatial join. Raw per-layer
+responses are cached to `data/original/` (gitignored). Snapshot label:
+`hifld_snapshot_2026_05_29`.
 
 ## Schema
 
-Point CSV (`va_pt_osm_2026_power_infrastructure.csv.xz`): standard point schema
-(`facility_id, facility_name, lat, lon, year, type`) plus `operator`,
-`plant_source`, `plant_capacity_mw`, `voltage`, `osm_id`, `geoid`.
+Point CSV (`va_pt_hifld_2026_power_infrastructure.csv.xz`): standard point schema
+(`facility_id, facility_name, lat, lon, year, type`) plus `status`, `operator`,
+`plant_source` (PRIM_FUEL), `plant_capacity_mw` (OPER_CAP), `max_voltage`
+(MAX_VOLT), `lines`, `geoid` (COUNTYFIPS), `source_id`. `type` is `power_plant`
+or `substation`.
 
-County CSV (`va_ct_osm_2026_power_infrastructure.csv.xz`): energy long-format
+County CSV (`va_ct_hifld_2026_power_infrastructure.csv.xz`): energy long-format
 `(geoid, datetime, measure, value, moe, region_type, data_method, scenario)` with
 `data_method="observed"`. Measures: `power_plant_count`, `substation_count`,
 `power_facility_count`, `total_plant_capacity_mw`. See `measure_info.json`.
@@ -34,10 +43,8 @@ County CSV (`va_ct_osm_2026_power_infrastructure.csv.xz`): energy long-format
 ## Run
 
 ```bash
-# From repo root:
+# From repo root (needs outbound HTTPS to services5.arcgis.com):
 uv run python energy/PowerInfrastructure/code/distribution/ingest.py
-# Force a fresh Overpass query (ignore the cache):
-uv run python energy/PowerInfrastructure/code/distribution/ingest.py --refresh
 ```
 
 ## Tests
@@ -48,30 +55,32 @@ uv run pytest energy/PowerInfrastructure/code/distribution/test_transforms.py -v
 
 ## Outputs
 
-- `data/distribution/va_pt_osm_2026_power_infrastructure.csv.xz` (point CSV)
-- `data/distribution/va_ct_osm_2026_power_infrastructure.csv.xz` (county long-format)
+- `data/distribution/va_pt_hifld_2026_power_infrastructure.csv.xz` (point CSV)
+- `data/distribution/va_ct_hifld_2026_power_infrastructure.csv.xz` (county long-format)
 
 ## Validation (sanity checks, no R reference)
 
 This is a net-new dataset; there is no prior output to compare against. After a
 run, confirm:
 
-- Total plant and substation counts for VA are plausible (hundreds of substations,
-  tens-to-hundreds of plants).
+- VA plant and substation counts are plausible (≈189 plants, ≈1,382 substations
+  at the 2026-05-29 snapshot).
 - Known facilities appear: North Anna (Louisa County, 51109) and Surry
-  (Surry County, 51181) nuclear stations.
+  (Surry County, 51181) nuclear stations; the Bath County pumped-storage station
+  dominates `total_plant_capacity_mw`.
 - Substation density is highest in Northern Virginia (Loudoun 51107, Fairfax 51059).
-- The count of centroids dropped for falling outside VA counties is small.
+- Rows dropped for a missing/invalid `COUNTYFIPS` are few.
 
 _Fill in the observed numbers after the first run._
 
 ## Known caveats
 
-- **OSM completeness varies** — counts reflect what is mapped in OSM, not a
-  regulatory inventory. Undermapped areas undercount.
-- **Multi-representation** — a physical site mapped as both a node and a relation
-  could be double-counted; `facility_id` keeps them distinct, but the count
-  measures include both. Dedupe is future work.
-- **`total_plant_capacity_mw` is a lower bound** — many plants lack
-  `plant:output:electricity`.
+- **HIFLD completeness & currency** — counts reflect the HIFLD snapshot, not a
+  live regulatory inventory; substations are limited to ≥69 kV facilities.
+- **`max_voltage` / capacity null sentinel** — HIFLD codes unknown numerics as
+  `-999999`; `ingest.py` maps these to `NaN` (and to 0 in the capacity sum).
+- **`total_plant_capacity_mw` is a lower bound** — plants with unreported
+  `OPER_CAP` contribute 0.
+- **All statuses included** — facilities are counted regardless of `STATUS`
+  (e.g. operating vs. planned); `status` is carried per facility for filtering.
 - **Snapshot, not time series** — one snapshot at the query date; no historical years.
