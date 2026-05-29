@@ -1,14 +1,15 @@
-"""Ingest OpenStreetMap power plants and substations for Virginia.
+"""Ingest HIFLD power plants and electric substations for Virginia.
 
-Fetches `power=plant` / `power=substation` features via osmnx (Overpass API),
-caches the raw GeoDataFrame to data/original/, takes polygon centroids,
-spatial-joins them to VA county polygons for FIPS, and writes:
+Fetches the HIFLD Power_Plants and Electric_Substations ArcGIS REST layers
+(republished by the 543rd Engineer Detachment GPC) filtered to STATE='VA',
+shapes them to the point schema, and writes:
 
-  data/distribution/{point_csv}    point-schema rows (one per OSM feature)
+  data/distribution/{point_csv}    point-schema rows (one per facility)
   data/distribution/{county_csv}   long-format county counts + capacity
 
+County FIPS comes from the source COUNTYFIPS field (no spatial join needed).
+
 Run: uv run python energy/PowerInfrastructure/code/distribution/ingest.py
-Force a fresh Overpass query (ignore cache): add --refresh
 """
 
 from __future__ import annotations
@@ -16,8 +17,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-import geopandas as gpd
-import osmnx as ox
+import httpx
 import pandas as pd
 import yaml
 from sdc_core.io import write_data, write_point_data
@@ -25,10 +25,9 @@ from sdc_core.log import get_logger
 
 THIS_DIR = Path(__file__).resolve().parent
 TOPIC_DIR = THIS_DIR.parents[1]
-REPO_DIR = TOPIC_DIR.parents[1]
 
 sys.path.insert(0, str(THIS_DIR))
-from transforms import aggregate_to_counties, shape_to_point_schema
+from transforms import aggregate_to_counties, shape_records
 
 log = get_logger("power_infrastructure.ingest")
 
@@ -38,85 +37,70 @@ def load_config() -> dict:
         return yaml.safe_load(f)
 
 
-def fetch_features(source: dict, cache_path: Path, *, refresh: bool) -> gpd.GeoDataFrame:
-    """Query Overpass via osmnx (or read cache). Returns a flat GeoDataFrame
-    with element_type/osmid as columns and OSM tags as columns."""
-    if cache_path.exists() and not refresh:
-        log.info("Reading cached features from %s", cache_path)
-        gdf = gpd.read_parquet(cache_path)
-    else:
-        log.info("Querying Overpass for tags=%s in place=%s", source["tags"], source["place"])
-        gdf = ox.features_from_place(source["place"], tags=source["tags"])
-        log.info("Overpass returned %d features", len(gdf))
-        cache_path.parent.mkdir(parents=True, exist_ok=True)
-        # reset_index so element_type/osmid become columns and parquet round-trips.
-        gdf = gdf.reset_index()
-        gdf.to_parquet(cache_path)
-        log.info("Cached raw features to %s", cache_path)
-    if "element_type" not in gdf.columns:
-        gdf = gdf.reset_index()
-    return gdf
+def fetch_layer(layer: dict, *, state_filter: str, page_size: int) -> pd.DataFrame:
+    """Page through an ArcGIS FeatureServer /query endpoint; return attributes as a DataFrame."""
+    url = layer["url"]
+    where = f"STATE='{state_filter}'"
+    offset = 0
+    frames = []
+    while True:
+        params = {
+            "where": where,
+            "outFields": layer["out_fields"],
+            "f": "json",
+            "returnGeometry": "false",
+            "resultOffset": offset,
+            "resultRecordCount": page_size,
+            "orderByFields": layer["id_field"],
+        }
+        resp = httpx.get(url, params=params, timeout=120)
+        resp.raise_for_status()
+        payload = resp.json()
+        if "error" in payload:
+            raise RuntimeError(f"ArcGIS error from {url}: {payload['error']}")
+        feats = payload.get("features", [])
+        if not feats:
+            break
+        frames.append(pd.DataFrame([f["attributes"] for f in feats]))
+        log.info("  fetched %d rows (offset %d)", len(feats), offset)
+        if not payload.get("exceededTransferLimit") and len(feats) < page_size:
+            break
+        offset += len(feats)
+    if not frames:
+        return pd.DataFrame()
+    return pd.concat(frames, ignore_index=True)
 
 
-def reproject_and_centroid(gdf: gpd.GeoDataFrame, target_crs: str) -> gpd.GeoDataFrame:
-    """Reproject to target_crs and replace geometry with centroid Points; record lat/lon (WGS84)."""
-    reprojected = gdf.to_crs(target_crs)
-    centroids = reprojected.geometry.centroid
-    out = reprojected.copy()
-    out["geometry"] = centroids
-    wgs84 = gpd.GeoSeries(centroids, crs=target_crs).to_crs("EPSG:4326")
-    out["lat"] = wgs84.y.values
-    out["lon"] = wgs84.x.values
-    return out
-
-
-def attach_county_fips(centroids: gpd.GeoDataFrame, counties_path: Path) -> pd.DataFrame:
-    """Spatial-join centroid points to 5-digit county FIPS; drop misses, keep first on ties."""
-    counties = gpd.read_file(counties_path)[["geoid", "geometry"]]
-    if centroids.crs != counties.crs:
-        counties = counties.to_crs(centroids.crs)
-
-    joined = gpd.sjoin(centroids, counties, how="left", predicate="intersects")
-
-    dropped = joined["geoid"].isna().sum()
-    if dropped:
-        log.warning("%d centroids fell outside any VA county polygon and were dropped", dropped)
-    joined = joined.dropna(subset=["geoid"])
-
-    boundary_dups = joined.duplicated(subset=["element_type", "osmid"]).sum()
-    if boundary_dups:
-        log.warning("%d (element_type, osmid) pairs matched multiple counties; keeping first", boundary_dups)
-    joined = joined.drop_duplicates(subset=["element_type", "osmid"], keep="first")
-
-    return pd.DataFrame(joined.drop(columns=["geometry", "index_right"], errors="ignore"))
-
-
-def run(refresh: bool = False) -> None:
+def run() -> None:
     config = load_config()
     source = config["source"]
-    geos = config["geographies"]
     out = config["output"]
 
-    cache_path = TOPIC_DIR / source["cache_file"]
-    counties_path = REPO_DIR / geos["va_counties"]
     point_csv = TOPIC_DIR / out["point_csv"]
     county_csv = TOPIC_DIR / out["county_csv"]
+    cache_dir = TOPIC_DIR / out["raw_cache_dir"]
+    cache_dir.mkdir(parents=True, exist_ok=True)
 
-    gdf = fetch_features(source, cache_path, refresh=refresh)
-    log.info("Working with %d features", len(gdf))
-    if len(gdf) == 0:
-        raise SystemExit("Overpass returned no features — check tags/place in pipeline.yaml")
+    point_parts = []
+    for kind, layer in source["layers"].items():
+        log.info("Fetching HIFLD layer '%s' (STATE=%s)", kind, source["state_filter"])
+        raw = fetch_layer(layer, state_filter=source["state_filter"], page_size=source["page_size"])
+        log.info("Retrieved %d %s rows", len(raw), kind)
+        if raw.empty:
+            raise SystemExit(f"No rows returned for layer '{kind}' — check the service/where clause")
+        raw.to_parquet(cache_dir / f"hifld_va_{kind}.parquet")
+        shaped = shape_records(
+            raw,
+            kind=kind,
+            id_field=layer["id_field"],
+            id_prefix=layer["id_prefix"],
+            snapshot_year=source["snapshot_year"],
+            sentinel=source["null_sentinel"],
+        )
+        point_parts.append(shaped)
 
-    log.info("Reprojecting to %s and taking centroids", source["target_crs"])
-    gdf = reproject_and_centroid(gdf, source["target_crs"])
-
-    log.info("Spatial-joining centroids to VA counties from %s", counties_path)
-    enriched = attach_county_fips(gdf, counties_path)
-    log.info("Retained %d features with assigned county FIPS", len(enriched))
-
-    log.info("Shaping to point schema")
-    point_rows = shape_to_point_schema(enriched, snapshot_year=source["snapshot_year"])
-    log.info("Produced %d point rows", len(point_rows))
+    point_rows = pd.concat(point_parts, ignore_index=True)
+    log.info("Combined %d point rows", len(point_rows))
 
     log.info("Writing point CSV → %s", point_csv)
     point_csv.parent.mkdir(parents=True, exist_ok=True)
@@ -138,4 +122,4 @@ def run(refresh: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    run(refresh="--refresh" in sys.argv)
+    run()
