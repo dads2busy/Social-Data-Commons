@@ -45,6 +45,10 @@ def parse_capacity(value) -> float:
     Handles "100 MW", "2.5 MW", "750000 W", "750 kW", "1.5 GW", "100MW",
     and bare numbers (assumed MW). Returns NaN for empty/None/non-numeric
     values such as "yes".
+
+    Semicolon-separated multi-value strings (e.g. "100 MW;200 MW", common for
+    plants with multiple generators) use only the first value; summing
+    generators is not attempted.
     """
     if value is None:
         return math.nan
@@ -58,6 +62,9 @@ def parse_capacity(value) -> float:
     unit = match.group(2).lower()
     if unit == "":
         return number  # bare number assumed MW
+    # OSM tags electric/peak capacity as e.g. "MWe", "MWp", "kWp"; strip the suffix.
+    if unit.endswith(("e", "p")) and unit[:-1] in _UNIT_TO_MW:
+        unit = unit[:-1]
     if unit not in _UNIT_TO_MW:
         return math.nan
     return number * _UNIT_TO_MW[unit]
@@ -87,7 +94,9 @@ def shape_to_point_schema(rows: pd.DataFrame, *, snapshot_year: int) -> pd.DataF
 
     # Name with fallback "{type} (OSM {osmid})" for unnamed features.
     fallback = type_col.astype(str) + " (OSM " + osmid + ")"
-    facility_name = name.where(name.notna() & (name.astype(str) != ""), fallback)
+    facility_name = name.where(
+        name.notna() & ~name.astype(str).isin(["", "nan", "None"]), fallback
+    )
 
     capacity = _col(rows, "plant:output:electricity").map(parse_capacity)
 
@@ -146,13 +155,12 @@ def aggregate_to_counties(
     for geoid, value in total_counts.items():
         emit(geoid, "power_facility_count", int(value))
 
-    # Per-type counts
+    # Per-type counts — zero-filled so every county has both measures.
     type_to_measure = {"power_plant": "power_plant_count", "substation": "substation_count"}
     type_counts = point_rows.groupby(["geoid", "type"]).size()
-    for (geoid, type_val), value in type_counts.items():
-        measure = type_to_measure.get(type_val)
-        if measure:
-            emit(geoid, measure, int(value))
+    for geoid in total_counts.index:
+        for type_val, measure in type_to_measure.items():
+            emit(geoid, measure, int(type_counts.get((geoid, type_val), 0)))
 
     # Capacity sum (NaN -> 0)
     capacity = pd.to_numeric(point_rows["plant_capacity_mw"], errors="coerce").fillna(0)

@@ -10,7 +10,12 @@ import pandas as pd
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from transforms import parse_capacity
+from transforms import (
+    ENERGY_LONG_FORMAT_COLUMNS,
+    aggregate_to_counties,
+    parse_capacity,
+    shape_to_point_schema,
+)
 
 
 @pytest.mark.parametrize(
@@ -23,6 +28,9 @@ from transforms import parse_capacity
         ("1.5 GW", 1500.0),
         ("100MW", 100.0),       # no space
         ("100", 100.0),         # bare number assumed MW
+        ("1892 MWe", 1892.0),   # electric suffix
+        ("450 MWp", 450.0),     # peak suffix
+        ("100 kWp", 0.1),       # peak suffix on kW
         ("yes", math.nan),      # non-numeric sentinel
         ("", math.nan),
         (None, math.nan),
@@ -34,9 +42,6 @@ def test_parse_capacity(raw, expected):
         assert math.isnan(result)
     else:
         assert result == pytest.approx(expected)
-
-
-from transforms import shape_to_point_schema
 
 
 def _sample_enriched_rows():
@@ -100,9 +105,6 @@ def test_shape_to_point_schema_handles_missing_optional_columns():
     assert out["voltage"].isna().all()
 
 
-from transforms import ENERGY_LONG_FORMAT_COLUMNS, aggregate_to_counties
-
-
 def _sample_point_rows():
     return pd.DataFrame(
         {
@@ -152,6 +154,8 @@ def test_aggregate_to_counties_values():
     assert val("51059", "power_facility_count") == 1
     # County with no plants reports 0 capacity (NaN treated as 0).
     assert val("51059", "total_plant_capacity_mw") == pytest.approx(0.0)
+    # County 51059 has only a substation, but still reports a zero plant count.
+    assert val("51059", "power_plant_count") == 0
 
 
 def test_aggregate_to_counties_empty():
