@@ -1,0 +1,29 @@
+name: power_infrastructure
+description: "HIFLD power plants and electric substations for Virginia (point overlay + county counts)."
+
+source:
+  type: observed
+  data_source_token: hifld
+  coverage_area: va
+  snapshot_year: 2026
+  snapshot_date: "2026-05-29"           # query date; used for `datetime`
+  scenario: "hifld_snapshot_2026_05_29" # source-snapshot label
+  state_filter: VA                      # ArcGIS where clause: STATE='VA'
+  page_size: 2000                       # ArcGIS maxRecordCount per page
+  null_sentinel: -999999                # HIFLD numeric null marker (voltage, capacity)
+  layers:
+    power_plant:
+      url: "https://services5.arcgis.com/HDRa0B57OVrv2E1q/arcgis/rest/services/Power_Plants/FeatureServer/0/query"
+      id_field: PLANT_CODE
+      id_prefix: hifld_pp
+      out_fields: "PLANT_CODE,NAME,STATE,COUNTY,COUNTYFIPS,LATITUDE,LONGITUDE,TYPE,STATUS,OPERATOR,PRIM_FUEL,OPER_CAP"
+    substation:
+      url: "https://services5.arcgis.com/HDRa0B57OVrv2E1q/arcgis/rest/services/Electric_Substations/FeatureServer/0/query"
+      id_field: ID
+      id_prefix: hifld_ss
+      out_fields: "ID,NAME,STATE,COUNTY,COUNTYFIPS,LATITUDE,LONGITUDE,TYPE,STATUS,MAX_VOLT,MIN_VOLT,LINES"
+
+output:
+  point_csv: data/distribution/va_pt_hifld_2026_power_infrastructure.csv.xz
+  county_csv: data/distribution/va_ct_hifld_2026_power_infrastructure.csv.xz
+  raw_cache_dir: data/original          # raw per-layer JSON cached here (gitignored)
