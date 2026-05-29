@@ -98,3 +98,67 @@ def test_shape_to_point_schema_handles_missing_optional_columns():
     assert out["operator"].isna().all()
     assert "voltage" in out.columns
     assert out["voltage"].isna().all()
+
+
+from transforms import ENERGY_LONG_FORMAT_COLUMNS, aggregate_to_counties
+
+
+def _sample_point_rows():
+    return pd.DataFrame(
+        {
+            "facility_id": ["osm_way_1", "osm_way_2", "osm_node_3", "osm_node_4"],
+            "type": ["power_plant", "power_plant", "substation", "substation"],
+            "plant_capacity_mw": [100.0, 50.0, float("nan"), float("nan")],
+            "geoid": ["51085", "51085", "51085", "51059"],
+        }
+    )
+
+
+def test_aggregate_to_counties_schema():
+    out = aggregate_to_counties(
+        _sample_point_rows(),
+        scenario="osm_overpass_2026_05_29",
+        scenario_date="2026-05-29",
+    )
+    assert list(out.columns) == ENERGY_LONG_FORMAT_COLUMNS
+    assert set(out["measure"]) == {
+        "power_plant_count",
+        "substation_count",
+        "power_facility_count",
+        "total_plant_capacity_mw",
+    }
+    assert (out["region_type"] == "county").all()
+    assert (out["data_method"] == "observed").all()
+    assert (out["scenario"] == "osm_overpass_2026_05_29").all()
+    assert (out["datetime"] == "2026-05-29").all()
+
+
+def test_aggregate_to_counties_values():
+    out = aggregate_to_counties(
+        _sample_point_rows(),
+        scenario="osm_overpass_2026_05_29",
+        scenario_date="2026-05-29",
+    )
+
+    def val(geoid, measure):
+        sel = out[(out["geoid"] == geoid) & (out["measure"] == measure)]
+        return sel["value"].iloc[0] if len(sel) else None
+
+    assert val("51085", "power_plant_count") == 2
+    assert val("51085", "substation_count") == 1
+    assert val("51085", "power_facility_count") == 3
+    assert val("51085", "total_plant_capacity_mw") == pytest.approx(150.0)
+    assert val("51059", "substation_count") == 1
+    assert val("51059", "power_facility_count") == 1
+    # County with no plants reports 0 capacity (NaN treated as 0).
+    assert val("51059", "total_plant_capacity_mw") == pytest.approx(0.0)
+
+
+def test_aggregate_to_counties_empty():
+    out = aggregate_to_counties(
+        pd.DataFrame(columns=["facility_id", "type", "plant_capacity_mw", "geoid"]),
+        scenario="s",
+        scenario_date="2026-05-29",
+    )
+    assert list(out.columns) == ENERGY_LONG_FORMAT_COLUMNS
+    assert len(out) == 0

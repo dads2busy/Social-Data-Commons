@@ -106,3 +106,59 @@ def shape_to_point_schema(rows: pd.DataFrame, *, snapshot_year: int) -> pd.DataF
         "geoid": _col(rows, "geoid").astype(str).values,
     })
     return out
+
+
+def aggregate_to_counties(
+    point_rows: pd.DataFrame,
+    *,
+    scenario: str,
+    scenario_date: str,
+) -> pd.DataFrame:
+    """Aggregate shaped point rows to county-level long-format measures.
+
+    Required input columns: geoid, type, plant_capacity_mw.
+
+    Produces 4 measures per county:
+        power_plant_count        count of type == "power_plant"
+        substation_count         count of type == "substation"
+        power_facility_count     total feature count
+        total_plant_capacity_mw  sum of plant_capacity_mw (NaN -> 0)
+    """
+    if len(point_rows) == 0:
+        return pd.DataFrame(columns=ENERGY_LONG_FORMAT_COLUMNS)
+
+    rows = []
+
+    def emit(geoid, measure, value):
+        rows.append({
+            "geoid": str(geoid),
+            "datetime": scenario_date,
+            "measure": measure,
+            "value": value,
+            "moe": pd.NA,
+            "region_type": "county",
+            "data_method": "observed",
+            "scenario": scenario,
+        })
+
+    # Total feature count
+    total_counts = point_rows.groupby("geoid").size()
+    for geoid, value in total_counts.items():
+        emit(geoid, "power_facility_count", int(value))
+
+    # Per-type counts
+    type_to_measure = {"power_plant": "power_plant_count", "substation": "substation_count"}
+    type_counts = point_rows.groupby(["geoid", "type"]).size()
+    for (geoid, type_val), value in type_counts.items():
+        measure = type_to_measure.get(type_val)
+        if measure:
+            emit(geoid, measure, int(value))
+
+    # Capacity sum (NaN -> 0)
+    capacity = pd.to_numeric(point_rows["plant_capacity_mw"], errors="coerce").fillna(0)
+    cap_sums = capacity.groupby(point_rows["geoid"]).sum()
+    for geoid, value in cap_sums.items():
+        emit(geoid, "total_plant_capacity_mw", float(value))
+
+    out = pd.DataFrame(rows)
+    return out[ENERGY_LONG_FORMAT_COLUMNS]
