@@ -23,9 +23,13 @@ Services republished by the **543rd Engineer Detachment GPC**
 
 `ingest.py` pages each layer's `/query` endpoint with `where=STATE='VA'`,
 `f=json`, and `resultOffset`/`resultRecordCount` (page size 2000). County FIPS
-comes directly from the source `COUNTYFIPS` field — no spatial join. Raw per-layer
-responses are cached to `data/original/` (gitignored). Snapshot label:
-`hifld_snapshot_2026_05_29`.
+comes directly from the source `COUNTYFIPS` field. The few facilities HIFLD
+ships without a usable `COUNTYFIPS` (e.g. the offshore CVOW wind farm, coded
+`NOT AVAILABLE`) are backfilled to the **nearest** 2020 county polygon from
+their lat/lon (`transforms.backfill_geoid_by_location`, using `geographies.va_counties`),
+so they're counted rather than dropped and the point layer and county counts
+agree. Raw per-layer responses are cached to `data/original/` (gitignored).
+Snapshot label: `hifld_snapshot_2026_05_29`.
 
 ## Schema
 
@@ -76,16 +80,16 @@ at the **2026-05-29 snapshot** (`uv run python .../ingest.py`):
 - **1,571 facility points**: 189 power plants + 1,382 substations. All coordinates
   fall inside the VA bounding box.
 - **128 localities** in the county output (4 measures each = 512 rows). Statewide
-  totals: 1,382 substations, 188 plants counted (1 plant dropped for a missing
-  `COUNTYFIPS`), **≈31,642 MW** total operating capacity.
+  totals: 1,382 substations, 189 plants, **≈31,642 MW** total operating capacity.
 - Known facilities present and correctly placed: **North Anna** (Louisa County,
   51109; nuclear, 1,960 MW), **Surry** (51181; nuclear, 1,695 MW), and **Bath
   County** pumped-storage (51017; 2,862 MW) — which tops `total_plant_capacity_mw`.
 - Facility density highest in Northern Virginia: Prince William (51153, 66),
   Fairfax (51059, 65), Loudoun (51107, 39).
 - Capacity coverage: 181/189 plants report `OPER_CAP`; the rest contribute 0.
-- Exactly **1** facility was dropped from the county counts for a missing/invalid
-  `COUNTYFIPS` (it remains in the point CSV, which keeps any row with valid coords).
+- Exactly **1** facility (the offshore CVOW wind farm) ships with no usable
+  `COUNTYFIPS`; it is backfilled to the nearest county (Virginia Beach, 51810)
+  from its lat/lon, so the point layer (189 plants) and county counts agree.
 
 ## Known caveats
 

@@ -17,6 +17,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+import geopandas as gpd
 import httpx
 import pandas as pd
 import yaml
@@ -25,9 +26,14 @@ from sdc_core.log import get_logger
 
 THIS_DIR = Path(__file__).resolve().parent
 TOPIC_DIR = THIS_DIR.parents[1]
+REPO_DIR = TOPIC_DIR.parents[1]
 
 sys.path.insert(0, str(THIS_DIR))
-from transforms import aggregate_to_counties, shape_records
+from transforms import (
+    aggregate_to_counties,
+    backfill_geoid_by_location,
+    shape_records,
+)
 
 log = get_logger("power_infrastructure.ingest")
 
@@ -74,10 +80,12 @@ def fetch_layer(layer: dict, *, state_filter: str, page_size: int) -> pd.DataFra
 def run() -> None:
     config = load_config()
     source = config["source"]
+    geos = config["geographies"]
     out = config["output"]
 
     point_csv = TOPIC_DIR / out["point_csv"]
     county_csv = TOPIC_DIR / out["county_csv"]
+    counties_path = REPO_DIR / geos["va_counties"]
     cache_dir = TOPIC_DIR / out["raw_cache_dir"]
     cache_dir.mkdir(parents=True, exist_ok=True)
 
@@ -101,6 +109,18 @@ def run() -> None:
 
     point_rows = pd.concat(point_parts, ignore_index=True)
     log.info("Combined %d point rows", len(point_rows))
+
+    # HIFLD COUNTYFIPS is missing for a few facilities (e.g. offshore CVOW).
+    # Backfill those from lat/lon via nearest-county so they're counted, not
+    # dropped — keeping the point layer and county counts in agreement.
+    invalid_before = int((~point_rows["geoid"].astype(str).str.fullmatch(r"\d{5}")).sum())
+    if invalid_before:
+        log.info("Backfilling county FIPS for %d facilities with no usable COUNTYFIPS", invalid_before)
+        counties = gpd.read_file(counties_path)
+        point_rows = backfill_geoid_by_location(point_rows, counties)
+        invalid_after = int((~point_rows["geoid"].astype(str).str.fullmatch(r"\d{5}")).sum())
+        log.info("Backfilled %d; %d remain unresolved (no coordinates)",
+                 invalid_before - invalid_after, invalid_after)
 
     log.info("Writing point CSV → %s", point_csv)
     point_csv.parent.mkdir(parents=True, exist_ok=True)

@@ -6,13 +6,16 @@ import math
 import sys
 from pathlib import Path
 
+import geopandas as gpd
 import pandas as pd
 import pytest
+from shapely.geometry import Polygon
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from transforms import (
     ENERGY_LONG_FORMAT_COLUMNS,
     aggregate_to_counties,
+    backfill_geoid_by_location,
     clean_numeric,
     shape_records,
 )
@@ -170,3 +173,38 @@ def test_aggregate_to_counties_empty():
     )
     assert list(out.columns) == ENERGY_LONG_FORMAT_COLUMNS
     assert len(out) == 0
+
+
+def _two_counties():
+    """Two adjacent 1°-square county polygons in WGS84 (west=51001, east=51810)."""
+    west = Polygon([(-81, 36.5), (-79, 36.5), (-79, 37.5), (-81, 37.5)])
+    east = Polygon([(-77, 36.5), (-75, 36.5), (-75, 37.5), (-77, 37.5)])
+    return gpd.GeoDataFrame(
+        {"geoid": ["51001", "51810"]}, geometry=[west, east], crs="EPSG:4326"
+    )
+
+
+def test_backfill_geoid_by_location():
+    rows = pd.DataFrame(
+        {
+            "facility_id": ["valid", "inside_east", "offshore", "no_coords"],
+            "lat": [37.0, 37.0, 37.0, float("nan")],
+            "lon": [-80.0, -76.0, -74.0, float("nan")],   # offshore = east of the east county
+            "geoid": ["51001", "NOT AVAILABLE", "NOT AVAILABLE", "NOT AVAILABLE"],
+        }
+    )
+    out = backfill_geoid_by_location(rows, _two_counties())
+
+    by_id = out.set_index("facility_id")["geoid"]
+    assert by_id["valid"] == "51001"          # already valid -> untouched
+    assert by_id["inside_east"] == "51810"    # inside the east county
+    assert by_id["offshore"] == "51810"       # outside all -> nearest county
+    assert by_id["no_coords"] == "NOT AVAILABLE"  # no lat/lon -> left for downstream drop
+
+
+def test_backfill_geoid_noop_when_all_valid():
+    rows = pd.DataFrame(
+        {"facility_id": ["a"], "lat": [37.0], "lon": [-80.0], "geoid": ["51001"]}
+    )
+    out = backfill_geoid_by_location(rows, _two_counties())
+    pd.testing.assert_frame_equal(out, rows)
