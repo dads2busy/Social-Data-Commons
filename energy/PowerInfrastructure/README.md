@@ -8,9 +8,9 @@ ArcGIS REST API and produces:
 
 ## Status
 
-`prepare.py` is intentionally not present yet. Energy dashboards aren't wired;
-outputs live at `data/distribution/` only. No Zenodo publishing / no
-`update_version()` (energy-category convention).
+`prepare.py` copies the distribution CSVs and writes a point GeoJSON overlay into
+`dashboard_data/va_energy_data/` for the VA energy dashboard. No Zenodo publishing
+/ no `update_version()` (energy-category convention).
 
 ## Source
 
@@ -45,6 +45,8 @@ County CSV (`va_ct_hifld_2026_power_infrastructure.csv.xz`): energy long-format
 ```bash
 # From repo root (needs outbound HTTPS to services5.arcgis.com):
 uv run python energy/PowerInfrastructure/code/distribution/ingest.py
+# Then stage dashboard files into dashboard_data/va_energy_data/:
+uv run python energy/PowerInfrastructure/code/distribution/prepare.py
 ```
 
 ## Tests
@@ -55,8 +57,16 @@ uv run pytest energy/PowerInfrastructure/code/distribution/test_transforms.py -v
 
 ## Outputs
 
-- `data/distribution/va_pt_hifld_2026_power_infrastructure.csv.xz` (point CSV)
-- `data/distribution/va_ct_hifld_2026_power_infrastructure.csv.xz` (county long-format)
+`data/distribution/` (from `ingest.py`):
+
+- `va_pt_hifld_2026_power_infrastructure.csv.xz` (point CSV)
+- `va_ct_hifld_2026_power_infrastructure.csv.xz` (county long-format)
+
+`dashboard_data/va_energy_data/` (from `prepare.py`):
+
+- `va_pt_hifld_2026_power_infrastructure.csv.xz` (copied point CSV)
+- `va_ct_hifld_2026_power_infrastructure.csv.xz` (copied county CSV)
+- `va_pt_hifld_2026_power_infrastructure.geojson` (point overlay; ~1,571 features)
 
 ## Validation (sanity checks, no R reference)
 
