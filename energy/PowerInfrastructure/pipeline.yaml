@@ -23,6 +23,11 @@ source:
       id_prefix: hifld_ss
       out_fields: "ID,NAME,STATE,COUNTY,COUNTYFIPS,LATITUDE,LONGITUDE,TYPE,STATUS,MAX_VOLT,MIN_VOLT,LINES"
 
+geographies:
+  # Used only to backfill county FIPS for facilities HIFLD ships without a
+  # usable COUNTYFIPS (e.g. the offshore CVOW wind farm) via nearest-county.
+  va_counties: "geographies/VA/Census Geographies/County/2020/data/distribution/va_geo_census_cb_2020_counties.geojson"
+
 output:
   point_csv: data/distribution/va_pt_hifld_2026_power_infrastructure.csv.xz
   county_csv: data/distribution/va_ct_hifld_2026_power_infrastructure.csv.xz

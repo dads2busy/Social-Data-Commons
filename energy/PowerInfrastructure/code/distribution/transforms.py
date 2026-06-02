@@ -9,7 +9,15 @@ from __future__ import annotations
 
 import math
 
+import geopandas as gpd
 import pandas as pd
+
+# 5-digit county FIPS pattern; geoids that don't match are missing/invalid.
+FIPS_RE = r"\d{5}"
+
+# Planar CRS (NAD83 / CONUS Albers) used for nearest-county distance math so
+# the backfill measures real ground distance rather than degrees.
+BACKFILL_PLANAR_CRS = "EPSG:5070"
 
 
 ENERGY_LONG_FORMAT_COLUMNS = [
@@ -90,6 +98,53 @@ def shape_records(
         "geoid": _col(df, "COUNTYFIPS").astype(str).values,
         "source_id": src_id.values,
     })
+    return out
+
+
+def backfill_geoid_by_location(
+    point_rows: pd.DataFrame,
+    counties: gpd.GeoDataFrame,
+    *,
+    planar_crs: str = BACKFILL_PLANAR_CRS,
+) -> pd.DataFrame:
+    """Fill missing/invalid county FIPS from each point's lat/lon.
+
+    HIFLD assigns county via its COUNTYFIPS field, but a few VA facilities ship
+    with no usable FIPS (e.g. the offshore Coastal Virginia Offshore Wind farm,
+    whose COUNTYFIPS is "NOT AVAILABLE"). Without a county they'd be dropped
+    from the county aggregation while still showing on the point map — an
+    off-by-one between the two outputs.
+
+    For every row whose ``geoid`` is not a 5-digit FIPS and that has finite
+    lat/lon, this assigns the *nearest* county polygon (distance 0 when the
+    point is inside one, the adjacent county for offshore points). Rows with a
+    valid geoid are returned unchanged; rows that still can't be located (no
+    coordinates) keep their original geoid and are dropped downstream.
+
+    Pure transform: ``counties`` is an already-loaded GeoDataFrame with a
+    ``geoid`` column (file I/O stays in ingest.py).
+    """
+    geoid = point_rows["geoid"].astype(str)
+    missing = ~geoid.str.fullmatch(FIPS_RE) & point_rows["lat"].notna() & point_rows["lon"].notna()
+    if not missing.any():
+        return point_rows
+
+    counties = counties[["geoid", "geometry"]].rename(columns={"geoid": "_assigned_geoid"})
+    counties = counties.to_crs(planar_crs)
+
+    subset = point_rows.loc[missing]
+    pts = gpd.GeoDataFrame(
+        subset,
+        geometry=gpd.points_from_xy(subset["lon"], subset["lat"]),
+        crs="EPSG:4326",
+    ).to_crs(planar_crs)
+
+    joined = gpd.sjoin_nearest(pts, counties, how="left")
+    # A point equidistant from two counties yields duplicate index rows; keep one.
+    joined = joined[~joined.index.duplicated(keep="first")].reindex(subset.index)
+
+    out = point_rows.copy()
+    out.loc[missing, "geoid"] = joined["_assigned_geoid"].astype(str).values
     return out
 
 
