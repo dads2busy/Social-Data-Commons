@@ -128,6 +128,17 @@ def _redistribute_ratio_weighted(meas_slice, weight_slice, *, geoid_col, value_c
     return m[["geoid", value_col]]
 
 
+def _redistribute_replicate(meas_slice, *, geoid_col, value_col, state_fips):
+    """Each 2020 child takes its area-dominant 2010 parent's value."""
+    geoids = list(meas_slice[geoid_col].astype(str).unique())
+    xwalk = create_crosswalk(geoids, state_fips=state_fips)
+    dom_idx = xwalk.groupby("geoid20")["area_part"].idxmax()
+    dom = xwalk.loc[dom_idx, ["geoid20", "geoid10"]]
+    parent_vals = meas_slice.rename(columns={geoid_col: "geoid10"})[["geoid10", value_col]]
+    out = dom.merge(parent_vals, on="geoid10", how="left")
+    return out.rename(columns={"geoid20": "geoid"})[["geoid", value_col]]
+
+
 def convert_2010_to_2020_bounds(
     data: pd.DataFrame,
     *,
@@ -308,6 +319,12 @@ def standardize_all(
                                 geoid_col=geoid_col, value_col=value_col,
                                 state_fips=state_fips,
                             )
+                    elif mtype in ("median", "mean"):
+                        converted = _redistribute_replicate(
+                            temp[[geoid_col, value_col]],
+                            geoid_col=geoid_col, value_col=value_col,
+                            state_fips=state_fips,
+                        )
                     else:
                         raise NotImplementedError(
                             f"measure_type {mtype!r} not yet handled (measure {meas!r})"

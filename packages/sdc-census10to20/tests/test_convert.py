@@ -308,3 +308,25 @@ def test_standardize_all_ratio_population_weighted_merge_is_count_weighted(monke
     out = convert.standardize_all(data, measure_info=mi)
     pct = out[out["measure"] == "pct_geo20"].set_index("geoid")["value"]
     assert pct["51999000300"] == pytest.approx(20.0)
+
+
+def test_standardize_all_median_replicates_dominant_parent(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    # Parent .020 (median income 70000) splits into .002/.003 -> both 70000.
+    data = pd.DataFrame({
+        "geoid":       ["51001000020"],
+        "year":        [2018],
+        "measure":     ["median_income"],
+        "value":       [70000.0],
+        "moe":         [pd.NA],
+        "region_type": ["tract"],
+    })
+    mi = {"median_income_geo20": {"geo_standardize": {
+        "measure_type": "median", "replicate": True,
+    }}}
+    out = convert.standardize_all(data, measure_info=mi)
+    med = out[out["measure"] == "median_income_geo20"].set_index("geoid")["value"]
+    assert med["51001000002"] == pytest.approx(70000.0)
+    assert med["51001000003"] == pytest.approx(70000.0)
