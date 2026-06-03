@@ -75,6 +75,28 @@ def _classify_by_name(measure: str) -> str:
     return "count"  # safest default: behaves as today (area-weighted)
 
 
+def _measure_slice(data, yr, geoid_len, meas, *, year_col, geoid_col, measure_col, value_col):
+    s = data[
+        (data[year_col] == yr)
+        & (data[measure_col] == meas)
+        & (data[geoid_col].str.len() == geoid_len)
+    ]
+    return s[[geoid_col, value_col]].copy()
+
+
+def _redistribute_ratio_exact(num_slice, denom_slice, scale, *, geoid_col, value_col, state_fips):
+    """ratio_geo20 = scale * numerator_geo20 / denominator_geo20."""
+    num = convert_2010_to_2020_bounds(
+        num_slice, geoid_col=geoid_col, val_col=value_col, state_fips=state_fips,
+    )
+    den = convert_2010_to_2020_bounds(
+        denom_slice, geoid_col=geoid_col, val_col=value_col, state_fips=state_fips,
+    )
+    m = num.merge(den, on="geoid", suffixes=("_num", "_den"))
+    m[value_col] = scale * m[f"{value_col}_num"] / m[f"{value_col}_den"]
+    return m[["geoid", value_col]]
+
+
 def convert_2010_to_2020_bounds(
     data: pd.DataFrame,
     *,
@@ -211,6 +233,32 @@ def standardize_all(
                             temp, geoid_col=geoid_col, val_col=value_col,
                             state_fips=state_fips,
                         )
+                    elif mtype in ("ratio", "rate"):
+                        if spec and spec.get("numerator") and spec.get("denominator"):
+                            num_slice = _measure_slice(
+                                data, yr, geoid_len, spec["numerator"],
+                                year_col=year_col, geoid_col=geoid_col,
+                                measure_col=measure_col, value_col=value_col,
+                            )
+                            den_slice = _measure_slice(
+                                data, yr, geoid_len, spec["denominator"],
+                                year_col=year_col, geoid_col=geoid_col,
+                                measure_col=measure_col, value_col=value_col,
+                            )
+                            if num_slice.empty or den_slice.empty:
+                                raise ValueError(
+                                    f"ratio {meas!r}: numerator/denominator "
+                                    f"counts missing from frame for year {yr}"
+                                )
+                            converted = _redistribute_ratio_exact(
+                                num_slice, den_slice, spec.get("scale", 100),
+                                geoid_col=geoid_col, value_col=value_col,
+                                state_fips=state_fips,
+                            )
+                        else:
+                            raise NotImplementedError(
+                                "population-weighted ratio handled in Task 4"
+                            )
                     else:
                         raise NotImplementedError(
                             f"measure_type {mtype!r} not yet handled (measure {meas!r})"

@@ -223,3 +223,32 @@ def test_standardize_all_accepts_measure_info_and_keeps_count_behavior(monkeypat
     # split by area_part/area10: child .002 = 300, child .003 = 200
     assert geo20["51001000002"] == pytest.approx(300.0)
     assert geo20["51001000003"] == pytest.approx(200.0)
+
+
+def test_standardize_all_ratio_exact_recomputes_from_counts(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    # Parent .020 splits into .002/.003. Under-20=300, total=1000 -> 30% everywhere.
+    data = pd.DataFrame({
+        "geoid":       ["51001000020", "51001000020", "51001000020"],
+        "year":        [2018, 2018, 2018],
+        "measure":     ["under20_count", "total_count", "under20_percent"],
+        "value":       [300.0, 1000.0, 30.0],
+        "moe":         [pd.NA, pd.NA, pd.NA],
+        "region_type": ["tract", "tract", "tract"],
+    })
+    mi = {
+        "under20_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "total_count_geo20":   {"geo_standardize": {"measure_type": "count"}},
+        "under20_percent_geo20": {"geo_standardize": {
+            "measure_type": "ratio",
+            "numerator": "under20_count",
+            "denominator": "total_count",
+            "scale": 100,
+        }},
+    }
+    out = convert.standardize_all(data, measure_info=mi)
+    pct = out[out["measure"] == "under20_percent_geo20"].set_index("geoid")["value"]
+    assert pct["51001000002"] == pytest.approx(30.0)
+    assert pct["51001000003"] == pytest.approx(30.0)
