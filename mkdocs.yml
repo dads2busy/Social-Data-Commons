@@ -36,7 +36,7 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          paths: [packages/sdc-core/src, packages/sdc-census10to20/src]
+          paths: [packages/sdc-core/src, packages/sdc-redistribute/src, packages/sdc-census10to20/src]
           options:
             docstring_style: numpy
             show_source: true
@@ -69,6 +69,10 @@ nav:
           - Versioning: packages/sdc-core/reference/versioning.md
           - Zenodo: packages/sdc-core/reference/zenodo.md
           - Spatial: packages/sdc-core/reference/spatial.md
+  - sdc-redistribute:
+      - Overview: packages/sdc-redistribute/index.md
+      - Reference:
+          - Redistribute: packages/sdc-redistribute/reference/redistribute.md
   - sdc-census10to20:
       - Overview: packages/sdc-census10to20/index.md
       - Getting Started: packages/sdc-census10to20/getting-started.md
