@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-06-03
+
+### Fixed
+- `convert_2010_to_2020_bounds` now conserves counts. It weights each overlap by
+  the 2010 source-area share (`area_part / area10`); previously "moved" tracts
+  used `area_part / area20` and "same"/"split" tracts passed values through
+  unchanged, so split tracts replicated their value and totals inflated (a 1,000-
+  person tract that split became ~2,000). **Re-run any pipeline that converted
+  counts through `convert_2010_to_2020_bounds` or `standardize_all`.**
+
 ## [0.1.1] - 2026-06-03
 
 ### Added
