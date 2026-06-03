@@ -1,0 +1,30 @@
+name: Publish sdc-catchment to PyPI
+
+on:
+  push:
+    tags:
+      - "catchment-v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/sdc-catchment
+    permissions:
+      id-token: write          # OIDC Trusted Publishing — no API tokens
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0        # hatch-vcs needs full tag history
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Build wheel and sdist
+        working-directory: packages/sdc-catchment
+        run: |
+          python -m pip install --upgrade build
+          python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: packages/sdc-catchment/dist/

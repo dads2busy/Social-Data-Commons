@@ -1,0 +1,62 @@
+[project]
+name = "sdc-catchment"
+dynamic = ["version"]
+description = "Floating catchment area spatial accessibility (2SFCA, E2SFCA, and variants)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Aaron Schroeder", email = "ads7fg@virginia.edu" },
+]
+keywords = ["accessibility", "2sfca", "e2sfca", "catchment", "spatial", "gis"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "pandas>=2.0",
+]
+
+[project.urls]
+Homepage = "https://dads2busy.github.io/Social-Data-Commons/packages/sdc-catchment/"
+Documentation = "https://dads2busy.github.io/Social-Data-Commons/packages/sdc-catchment/"
+Repository = "https://github.com/dads2busy/Social-Data-Commons"
+Issues = "https://github.com/dads2busy/Social-Data-Commons/issues"
+Changelog = "https://github.com/dads2busy/Social-Data-Commons/blob/main/packages/sdc-catchment/CHANGELOG.md"
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.8"]
+docs = [
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.24",
+]
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+tag-pattern = "catchment-v(?P<version>.+)"
+
+[tool.hatch.version.raw-options]
+# Package lives in a monorepo subdir; point setuptools_scm at the repo root.
+root = "../.."
+git_describe_command = ["git", "describe", "--dirty", "--tags", "--long", "--match", "catchment-v*"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sdc_catchment"]
+
+[tool.ruff]
+line-length = 100
