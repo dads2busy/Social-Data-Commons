@@ -1,7 +1,8 @@
 # census10to20 Corruption Remediation — Design Spec
 
 **Date:** 2026-06-03
-**Status:** approved design, pending implementation plan
+**Status:** BLOCKED — design approved, but execution is gated on the intensive-measure
+fix (see §9). Do not regenerate until that fix lands and its design is approved.
 **Authoritative impact reference:** `docs/census10to20-conversion-data-impact.md`
 **Related:** `docs/specs/2026-06-03-census10to20-count-conservation-fix-design.md`,
 memory `feedback_update_version_side_effects`, `reference_census10to20_convert_semantics`
@@ -211,3 +212,27 @@ separate pilot phase — Age is simply first. Then the rest of Phase 1, then Pha
   writes `va_hdcttr_*`/`ncr_cttrbg_*` to `data/distribution/`).
 - Decide whether to also gate on block-group county ratios or tract-only (default:
   tract-only gate per the doc, block-group reported).
+
+## 9. BLOCKING DEPENDENCY — intensive-measure regression
+
+Discovered during design review: `standardize_all` area-weights **every** measure,
+not just counts. The v0.1.2 count fix therefore *also* changed intensive `_geo20`
+measures (percent/rate/median/mean/density/index) — and area-weighting an intensive
+quantity is wrong. Demonstrated on real split tract `51121020300`: a parent at 30%
+under-20 yields children reported at 1.96% / 28.0% / 0.003% (sums to 30 — the wrong
+invariant) instead of ~30% each (recompute-from-counts / population-weighted).
+
+These intensive `_geo20` measures are **displayed** (declared in `measure_info.json`,
+carried wide by `data_reformat_for_site`, referenced in both dashboards). Because
+counts and intensive measures emerge from the **same** `standardize_all` pass,
+regenerating to fix counts would simultaneously ship a severe percent regression
+(worse than the current pre-fix replication behavior).
+
+**Decision (user):** pause this remediation; design the intensive-measure fix as its
+own spec; then run ONE combined regeneration that corrects counts *and* intensive
+measures. The acceptance gate (§3.2, §5) must be extended to also verify intensive
+`_geo20` measures (e.g., ratio measures equal their count-recomputed value within
+tolerance) before any dataset is committed.
+
+See `docs/specs/2026-06-03-census10to20-intensive-measure-fix-design.md` (the
+prerequisite design).
