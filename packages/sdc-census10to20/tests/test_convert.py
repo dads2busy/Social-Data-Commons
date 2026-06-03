@@ -165,3 +165,27 @@ def test_standardize_all_keeps_2020_rows_as_geo20_only(monkeypatch, fake_crosswa
     out = convert.standardize_all(data)
 
     assert set(out["measure"]) == {"pop_geo20"}
+
+
+def test_parse_geo_standardize_info_strips_suffix_and_extracts_block():
+    from sdc_census10to20 import convert
+    mi = {
+        "_references": {"ignored": True},
+        "age_under_20_percent_geo20": {
+            "label": "Under 20",
+            "geo_standardize": {
+                "measure_type": "ratio",
+                "numerator": "age_under_20_count",
+                "denominator": "age_total_count",
+                "scale": 100,
+            },
+        },
+        "age_total_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "no_block_geo20": {"label": "no geo_standardize here"},
+    }
+    specs = convert.parse_geo_standardize_info(mi)
+    assert specs["age_under_20_percent"]["measure_type"] == "ratio"
+    assert specs["age_under_20_percent"]["numerator"] == "age_under_20_count"
+    assert specs["age_total_count"]["measure_type"] == "count"
+    assert "no_block" not in specs          # no geo_standardize block
+    assert "_references" not in specs        # underscore keys skipped

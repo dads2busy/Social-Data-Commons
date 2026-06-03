@@ -2,17 +2,48 @@
 
 from __future__ import annotations
 
+import json
+import re
 import warnings
+from pathlib import Path
 
 import pandas as pd
 
 from sdc_census10to20.crosswalk import create_crosswalk
 
-__all__ = ["convert_2010_to_2020_bounds", "standardize_all"]
+__all__ = ["convert_2010_to_2020_bounds", "parse_geo_standardize_info", "standardize_all"]
 
 
 _SUB_COUNTY_LENGTHS = {11, 12}  # tract, block group
 _GEOID_LEN_TO_REGION_TYPE = {11: "tract", 12: "block_group"}
+
+_GEO_SUFFIX_RE = re.compile(r"_(geo10|geo20)$")
+
+
+def _strip_geo_suffix(name: str) -> str:
+    return _GEO_SUFFIX_RE.sub("", name)
+
+
+def parse_geo_standardize_info(measure_info) -> dict[str, dict]:
+    """Map base measure name -> its geo_standardize spec.
+
+    ``measure_info`` may be a dict (already-loaded measure_info.json) or a path
+    to a measure_info.json file. Keys are suffixed (``..._geo20``); we strip the
+    suffix so lookups match the base measure names carried in the data frame.
+    Entries without a ``geo_standardize`` block, and underscore-prefixed keys
+    (e.g. ``_references``), are skipped.
+    """
+    if isinstance(measure_info, (str, Path)):
+        with open(measure_info) as f:
+            measure_info = json.load(f)
+    specs: dict[str, dict] = {}
+    for key, val in measure_info.items():
+        if key.startswith("_") or not isinstance(val, dict):
+            continue
+        block = val.get("geo_standardize")
+        if block:
+            specs[_strip_geo_suffix(key)] = block
+    return specs
 
 
 def convert_2010_to_2020_bounds(
