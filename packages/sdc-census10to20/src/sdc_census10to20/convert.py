@@ -75,7 +75,7 @@ def _classify_by_name(measure: str) -> str:
     return "count"  # safest default: behaves as today (area-weighted)
 
 
-def _measure_slice(data, yr, geoid_len, meas, *, year_col, geoid_col, measure_col, value_col):
+def _measure_slice(data: pd.DataFrame, yr, geoid_len, meas, *, year_col, geoid_col, measure_col, value_col) -> pd.DataFrame:
     s = data[
         (data[year_col] == yr)
         & (data[measure_col] == meas)
@@ -85,7 +85,17 @@ def _measure_slice(data, yr, geoid_len, meas, *, year_col, geoid_col, measure_co
 
 
 def _redistribute_ratio_exact(num_slice, denom_slice, scale, *, geoid_col, value_col, state_fips):
-    """ratio_geo20 = scale * numerator_geo20 / denominator_geo20."""
+    """ratio_geo20 = scale * numerator_geo20 / denominator_geo20.
+
+    The merge uses ``on="geoid"`` because ``convert_2010_to_2020_bounds`` always
+    returns a frame whose geography column is named ``"geoid"`` (the 2020 GEOID),
+    regardless of the caller's ``geoid_col``.
+
+    ``scale`` converts the count-derived fraction to display units (e.g. 100 for
+    percent, 100 000 for per-100k rates).  When ``denominator_geo20`` is 0 the
+    result is NaN/inf — intentionally left unguarded, as a zero denominator means
+    an empty geography and an undefined rate by convention.
+    """
     num = convert_2010_to_2020_bounds(
         num_slice, geoid_col=geoid_col, val_col=value_col, state_fips=state_fips,
     )
