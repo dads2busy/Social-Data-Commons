@@ -167,6 +167,19 @@ def test_standardize_all_keeps_2020_rows_as_geo20_only(monkeypatch, fake_crosswa
     assert set(out["measure"]) == {"pop_geo20"}
 
 
+def test_parse_geo_standardize_info_reads_from_path(tmp_path):
+    import json
+    from sdc_census10to20 import convert
+    p = tmp_path / "measure_info.json"
+    p.write_text(json.dumps({
+        "pop_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "_references": {"x": 1},
+    }))
+    specs = convert.parse_geo_standardize_info(p)
+    assert specs["pop_count"]["measure_type"] == "count"
+    assert "_references" not in specs
+
+
 def test_parse_geo_standardize_info_strips_suffix_and_extracts_block():
     from sdc_census10to20 import convert
     mi = {

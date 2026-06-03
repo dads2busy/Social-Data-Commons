@@ -34,7 +34,7 @@ def parse_geo_standardize_info(measure_info) -> dict[str, dict]:
     (e.g. ``_references``), are skipped.
     """
     if isinstance(measure_info, (str, Path)):
-        with open(measure_info) as f:
+        with open(measure_info, encoding="utf-8") as f:
             measure_info = json.load(f)
     specs: dict[str, dict] = {}
     for key, val in measure_info.items():
@@ -42,6 +42,8 @@ def parse_geo_standardize_info(measure_info) -> dict[str, dict]:
             continue
         block = val.get("geo_standardize")
         if block:
+            # If both _geo10 and _geo20 variants appear, the later key wins.
+            # That is fine: both share identical geo_standardize metadata.
             specs[_strip_geo_suffix(key)] = block
     return specs
 
