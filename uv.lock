@@ -1418,6 +1418,11 @@ dev = [
     { name = "pytest" },
     { name = "seaborn" },
 ]
+docs = [
+    { name = "mkdocs" },
+    { name = "mkdocs-material" },
+    { name = "mkdocstrings", extra = ["python"] },
+]
 
 [package.metadata]
 requires-dist = [
@@ -1437,6 +1442,11 @@ dev = [
     { name = "matplotlib", specifier = ">=3.10.8" },
     { name = "pytest", specifier = ">=9.0.2" },
     { name = "seaborn", specifier = ">=0.13.2" },
+]
+docs = [
+    { name = "mkdocs", specifier = ">=1.6" },
+    { name = "mkdocs-material", specifier = ">=9.5" },
+    { name = "mkdocstrings", extras = ["python"], specifier = ">=0.24" },
 ]
 
 [[package]]
