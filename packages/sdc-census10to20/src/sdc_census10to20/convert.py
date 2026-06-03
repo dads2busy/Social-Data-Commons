@@ -48,6 +48,29 @@ def parse_geo_standardize_info(measure_info) -> dict[str, dict]:
     return specs
 
 
+_COUNT_HINTS = ("count", "_pop", "population", "households", "total")
+_INTENSIVE_HINTS = (
+    "percent", "_pct", "rate", "median", "mean", "average", "avg",
+    "index", "score", "gini", "density", "ratio", "frac",
+)
+
+
+def _classify_by_name(measure: str) -> str:
+    """Fallback classification when no geo_standardize metadata is provided."""
+    m = measure.lower()
+    if "density" in m:
+        return "density"
+    if "median" in m:
+        return "median"
+    if any(h in m for h in ("mean", "average", "avg")):
+        return "mean"
+    if any(h in m for h in _INTENSIVE_HINTS):
+        return "ratio"
+    if any(h in m for h in _COUNT_HINTS):
+        return "count"
+    return "count"  # safest default: behaves as today (area-weighted)
+
+
 def convert_2010_to_2020_bounds(
     data: pd.DataFrame,
     *,
@@ -123,6 +146,7 @@ def convert_2010_to_2020_bounds(
 def standardize_all(
     data: pd.DataFrame,
     *,
+    measure_info=None,
     filter_geo: str = "state",
     geoid_col: str = "geoid",
     measure_col: str = "measure",
@@ -159,6 +183,8 @@ def standardize_all(
         axis=1,
     )
 
+    specs = parse_geo_standardize_info(measure_info) if measure_info is not None else {}
+
     standardized_parts: list[pd.DataFrame] = []
 
     for yr in years:
@@ -173,12 +199,19 @@ def standardize_all(
                     if temp.empty:
                         continue
 
-                    converted = convert_2010_to_2020_bounds(
-                        temp,
-                        geoid_col=geoid_col,
-                        val_col=value_col,
-                        state_fips=state_fips,
-                    )
+                    spec = specs.get(meas)
+                    mtype = spec["measure_type"] if spec else _classify_by_name(meas)
+
+                    if mtype == "count":
+                        converted = convert_2010_to_2020_bounds(
+                            temp, geoid_col=geoid_col, val_col=value_col,
+                            state_fips=state_fips,
+                        )
+                    else:
+                        raise NotImplementedError(
+                            f"measure_type {mtype!r} not yet handled (measure {meas!r})"
+                        )
+
                     converted[year_col] = yr
                     converted[measure_col] = f"{meas}_geo20"
                     converted[moe_col] = pd.NA

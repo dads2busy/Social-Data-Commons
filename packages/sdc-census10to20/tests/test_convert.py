@@ -202,3 +202,24 @@ def test_parse_geo_standardize_info_strips_suffix_and_extracts_block():
     assert specs["age_total_count"]["measure_type"] == "count"
     assert "no_block" not in specs          # no geo_standardize block
     assert "_references" not in specs        # underscore keys skipped
+
+
+def test_standardize_all_accepts_measure_info_and_keeps_count_behavior(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    data = pd.DataFrame({
+        "geoid": ["51001000020"],
+        "year": [2018],
+        "measure": ["pop"],
+        "value": [500.0],
+        "moe": [pd.NA],
+        "region_type": ["tract"],
+    })
+    mi = {"pop_geo20": {"geo_standardize": {"measure_type": "count"}}}
+    out = convert.standardize_all(data, measure_info=mi)
+
+    geo20 = out[out["measure"] == "pop_geo20"].set_index("geoid")["value"]
+    # split by area_part/area10: child .002 = 300, child .003 = 200
+    assert geo20["51001000002"] == pytest.approx(300.0)
+    assert geo20["51001000003"] == pytest.approx(200.0)
