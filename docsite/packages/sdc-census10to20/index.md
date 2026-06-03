@@ -4,7 +4,7 @@ Redistribute 2010-2019 census data onto 2020 census boundaries.
 
 This package is the Python port of the R package
 [`sdc.census10to20`](https://uva-bi-sdad.github.io/sdc.censes10to20/). It is
-used by the [Social Data Commons](https://github.com/uva-bi-sdad) pipelines to
+used by the [Social Data Commons](https://github.com/dads2busy/Social-Data-Commons) pipelines to
 make tract- and block-group-level data comparable across the boundary changes
 that occurred between the 2010 and 2020 decennial censuses.
 
@@ -34,5 +34,5 @@ For each case this package can:
    original `_geo10`-suffixed measure and the redistributed `_geo20`-suffixed
    measure ([`standardize_all`][sdc_census10to20.standardize_all]).
 
-See the [Getting Started](articles/getting-started.md) article for a worked
+See the [Getting Started](getting-started.md) article for a worked
 Virginia example.

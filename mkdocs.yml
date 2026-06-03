@@ -1,0 +1,79 @@
+site_name: Social Data Commons
+site_description: Python packages for the Social Data Commons data pipelines
+site_url: https://dads2busy.github.io/Social-Data-Commons/
+repo_url: https://github.com/dads2busy/Social-Data-Commons
+repo_name: dads2busy/Social-Data-Commons
+edit_uri: edit/main/docsite/
+
+docs_dir: docsite
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [packages/sdc-core/src, packages/sdc-census10to20/src]
+          options:
+            docstring_style: numpy
+            show_source: true
+            show_root_heading: true
+            show_signature_annotations: true
+            separate_signature: true
+            merge_init_into_class: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - sdc-core:
+      - Overview: packages/sdc-core/index.md
+      - Reference:
+          - Census: packages/sdc-core/reference/census.md
+          - Geographies: packages/sdc-core/reference/geo.md
+          - IO: packages/sdc-core/reference/io.md
+          - Naming: packages/sdc-core/reference/naming.md
+          - Pipeline: packages/sdc-core/reference/pipeline.md
+          - Versioning: packages/sdc-core/reference/versioning.md
+          - Zenodo: packages/sdc-core/reference/zenodo.md
+          - Spatial: packages/sdc-core/reference/spatial.md
+  - sdc-census10to20:
+      - Overview: packages/sdc-census10to20/index.md
+      - Getting Started: packages/sdc-census10to20/getting-started.md
+      - Reference:
+          - standardize_all: packages/sdc-census10to20/reference/standardize_all.md
+          - convert_2010_to_2020_bounds: packages/sdc-census10to20/reference/convert_2010_to_2020_bounds.md
+          - create_crosswalk: packages/sdc-census10to20/reference/create_crosswalk.md
+          - get_2010_2020_bound_changes: packages/sdc-census10to20/reference/get_2010_2020_bound_changes.md

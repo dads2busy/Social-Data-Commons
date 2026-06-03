@@ -73,3 +73,6 @@ texput.log
 
 # Superpowers (local tooling)
 docs/superpowers/
+
+# MkDocs build output
+/site/

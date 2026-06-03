@@ -1,18 +1,22 @@
-name: Deploy sdc-census10to20 docs
+name: Deploy docs
 
 on:
   push:
     branches: [main]
     paths:
-      - "packages/sdc-census10to20/docs/**"
-      - "packages/sdc-census10to20/mkdocs.yml"
-      - "packages/sdc-census10to20/src/**"
+      - "docsite/**"
+      - "mkdocs.yml"
+      - "packages/*/src/**"
       - ".github/workflows/docs.yml"
 
 permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
@@ -22,17 +26,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
       - name: Install docs deps
-        run: |
-          pip install -e "packages/sdc-census10to20[docs]"
+        run: uv sync --group docs
       - name: Build docs
-        working-directory: packages/sdc-census10to20
-        run: mkdocs build --strict
+        run: uv run mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: packages/sdc-census10to20/site
+          path: site
       - uses: actions/deploy-pages@v4
         id: deployment
