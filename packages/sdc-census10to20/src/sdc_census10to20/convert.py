@@ -49,6 +49,10 @@ def parse_geo_standardize_info(measure_info) -> dict[str, dict]:
 
 
 _COUNT_HINTS = ("count", "_pop", "population", "households", "total")
+# Broad "intensive" hints for the ratio catch-all in _classify_by_name. Some entries
+# (density, median, mean/average/avg, ratio) are also matched by earlier dedicated
+# branches there; they are kept here for completeness/defensiveness when the tuple is
+# reused, but in _classify_by_name those earlier branches win.
 _INTENSIVE_HINTS = (
     "percent", "_pct", "rate", "median", "mean", "average", "avg",
     "index", "score", "gini", "density", "ratio", "frac",
