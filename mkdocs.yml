@@ -71,15 +71,22 @@ nav:
           - Spatial: packages/sdc-core/reference/spatial.md
   - sdc-catchment:
       - Overview: packages/sdc-catchment/index.md
+      - Articles:
+          - Introduction to floating catchment areas: packages/sdc-catchment/articles/introduction.md
+          - Case study: packages/sdc-catchment/articles/case-study.md
       - Reference:
           - Catchment: packages/sdc-catchment/reference/catchment.md
   - sdc-redistribute:
       - Overview: packages/sdc-redistribute/index.md
+      - Articles:
+          - Introduction: packages/sdc-redistribute/articles/introduction.md
+          - Method comparison: packages/sdc-redistribute/articles/method-comparison.md
       - Reference:
           - Redistribute: packages/sdc-redistribute/reference/redistribute.md
   - sdc-census10to20:
       - Overview: packages/sdc-census10to20/index.md
-      - Getting Started: packages/sdc-census10to20/getting-started.md
+      - Articles:
+          - Introduction: packages/sdc-census10to20/articles/introduction.md
       - Reference:
           - standardize_all: packages/sdc-census10to20/reference/standardize_all.md
           - convert_2010_to_2020_bounds: packages/sdc-census10to20/reference/convert_2010_to_2020_bounds.md

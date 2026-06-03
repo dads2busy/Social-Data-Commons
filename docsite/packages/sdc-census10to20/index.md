@@ -34,5 +34,5 @@ For each case this package can:
    original `_geo10`-suffixed measure and the redistributed `_geo20`-suffixed
    measure ([`standardize_all`][sdc_census10to20.standardize_all]).
 
-See the [Getting Started](getting-started.md) article for a worked
+See the [Getting Started](articles/introduction.md) article for a worked
 Virginia example.
