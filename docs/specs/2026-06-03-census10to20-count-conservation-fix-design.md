@@ -23,6 +23,26 @@ Real case — 2010 tract `51121020300` (1,000 people) split into two 2020 tracts
 
 Both are wrong for counts.
 
+## Why fix in place (not delegate to `sdc-redistribute`)
+
+`sdc-redistribute.redistribute_direct` already computes the correct,
+count-conserving weight `intersection_area / source_area` (= `area_part/area10`)
+— so the area-weighting "wheel" exists. We deliberately **keep `convert`
+crosswalk-based and just fix its formula** rather than delegate, because the two
+differ in *weight source*, and the crosswalk is `census10to20`'s distinct value:
+
+- `convert` uses the **official Census 2010↔2020 relationship file** — authoritative,
+  citable, reproducible, lightweight (a CSV), and **land-area** based (`AREALAND_PART`),
+  so population isn't pushed into water.
+- `redistribute` computes overlaps from **live geometry overlay** — flexible (area
+  *or* parcel/dasymetric) but heavier, less standardized (results vary with the
+  geometry/projection chosen), and a naive full-polygon area overlay counts water.
+
+They are complementary: `census10to20` = authoritative area-based 2010→2020
+standardization via the official crosswalk; `redistribute` = general-purpose
+geometry/parcel engine for arbitrary frames or dasymetric accuracy. A future DRY
+refactor (a shared weight-application primitive) is possible but out of scope.
+
 ## The fix
 
 Replace the branching with a single source-area-weighted sum:
