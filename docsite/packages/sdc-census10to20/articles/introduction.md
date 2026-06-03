@@ -1,4 +1,4 @@
-# Getting Started
+# Introduction
 
 This article walks through the standard workflow: take a long-format dataset
 covering years before and after the 2020 census, and produce a unified frame
@@ -89,3 +89,8 @@ print(cw)
 ```
 
 `type_change` will tell you which case applies for each pairing.
+
+## See also
+
+- [standardize_all reference](../reference/standardize_all.md)
+- [convert_2010_to_2020_bounds reference](../reference/convert_2010_to_2020_bounds.md)
