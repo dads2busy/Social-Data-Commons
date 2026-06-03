@@ -70,6 +70,53 @@ Decay behaviour is set by the `weight` kernel and its `scale`. `KERNELS` provide
 `linear`, `gaussian`, `gravity`, `exponential`, `logistic`, and `logarithmic`;
 `max_cost` adds a hard travel bound on top of any kernel.
 
+## On real geography
+
+The same call scales straight to real data. Here every block group in Arlington
+County, VA is a demand unit (located at its centroid), with three clinics placed
+inside the county. The block-group geometries ship with this page as
+`county_bgs.geojson`; we project to UTM 18N so distances are in meters.
+
+```python
+import numpy as np
+import pandas as pd
+import geopandas as gpd
+from sdc_catchment import catchment_ratio, euclidean_cost
+
+# Arlington County's 204 block groups (ships with this page), projected to meters.
+bgs = gpd.read_file("county_bgs.geojson").to_crs(32618).reset_index(drop=True)
+bgs["geoid"] = bgs["geoid"].astype(str)
+cent = bgs.geometry.centroid
+bg_xy = np.c_[cent.x.values, cent.y.values]
+
+# Each block group is a demand unit with a synthetic population.
+rng = np.random.default_rng(0)
+consumers = pd.DataFrame({"geoid": bgs["geoid"], "value": rng.integers(500, 2500, len(bgs)).astype(float)})
+
+# Three clinics inside the county (centroids of 3 evenly-spaced block groups).
+idx = np.linspace(0, len(bgs) - 1, 3).astype(int)
+clinics = pd.DataFrame({"geoid": ["A", "B", "C"], "value": [20.0, 15.0, 30.0]})
+cost = euclidean_cost(bg_xy, bg_xy[idx])
+
+access = catchment_ratio(consumers, clinics, cost, weight="gaussian", scale=2000.0, max_cost=8000.0)
+beds_per_1000 = (access * 1000).round(3)
+print(beds_per_1000.head().to_string())
+```
+
+```text
+510131001001    0.823
+510131001002    0.767
+510131001003    0.663
+510131001004    0.756
+510131002001    0.614
+```
+
+![Accessibility to three clinics across Arlington County block groups, gaussian decay](img/catchment-county-access.png)
+
+*Each block group is shaded by clinic beds accessible per 1,000 residents; access
+falls off with distance from the three clinics (stars). This is the same
+`catchment_ratio` call as above, on 204 real block groups instead of three points.*
+
 ## See also
 
 - [catchment reference](../reference/catchment.md)
