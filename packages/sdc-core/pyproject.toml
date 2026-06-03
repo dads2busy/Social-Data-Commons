@@ -13,11 +13,13 @@ dependencies = [
     "python-dotenv>=1.2.1",
     "sdc-census10to20",
     "sdc-redistribute",
+    "sdc-catchment",
 ]
 
 [tool.uv.sources]
 sdc-census10to20 = { workspace = true }
 sdc-redistribute = { workspace = true }
+sdc-catchment = { workspace = true }
 
 [project.optional-dependencies]
 geo = ["geopandas>=1.0"]

@@ -14,6 +14,7 @@ dependencies = [
     "sdc-core",
     "sdc-census10to20",
     "sdc-redistribute",
+    "sdc-catchment",
     "xlrd>=2.0.2",
 ]
 
@@ -24,6 +25,7 @@ members = ["packages/*"]
 sdc-core = { workspace = true }
 sdc-census10to20 = { workspace = true }
 sdc-redistribute = { workspace = true }
+sdc-catchment = { workspace = true }
 
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib"
