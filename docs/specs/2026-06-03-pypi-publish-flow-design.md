@@ -46,12 +46,18 @@ docs site (`docs/specs/2026-06-03-sdc-docs-site-design.md`).
   tag-pattern = "census10to20-v(?P<version>.+)"
 
   [tool.hatch.version.raw-options]
+  root = "../.."
   git_describe_command = ["git", "describe", "--dirty", "--tags", "--long", "--match", "census10to20-v*"]
   ```
 
-  The `--match census10to20-v*` is **essential in a monorepo**: without it,
-  `git describe` would pick up a future `redistribute-v*` / `catchment-v*` tag
-  and compute the wrong version for this package.
+  Two monorepo-specific options, both essential:
+  - `root = "../.."` points setuptools_scm at the repo root. The package lives
+    in a subdirectory; without this, setuptools_scm treats the package dir as
+    the git root and fails with `unable to detect version` (even though
+    `git describe` works from there).
+  - `--match census10to20-v*` filters `git describe` to this package's tags;
+    without it, a future `redistribute-v*` / `catchment-v*` tag would compute
+    the wrong version for this package.
 
 - `src/sdc_census10to20/__init__.py`: replace the hardcoded
   `__version__ = "0.1.0"` with a metadata lookup so the runtime version tracks

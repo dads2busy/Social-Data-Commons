@@ -108,6 +108,8 @@ source = "vcs"
 tag-pattern = "census10to20-v(?P<version>.+)"
 
 [tool.hatch.version.raw-options]
+# Package lives in a monorepo subdir; point setuptools_scm at the repo root.
+root = "../.."
 git_describe_command = ["git", "describe", "--dirty", "--tags", "--long", "--match", "census10to20-v*"]
 
 [tool.hatch.build.targets.wheel]
