@@ -14,10 +14,39 @@ block groups), producing `_geo10`/`_geo20`-suffixed measures.
 uv add sdc-redistribute   # or: pip install sdc-redistribute
 ```
 
+## Quickstart
+
+Split a tract's count onto two equal-area block groups (geometries generated
+inline so the example is self-contained):
+
+```python
+import tempfile, pathlib
+import geopandas as gpd
+import pandas as pd
+from shapely.geometry import box
+from sdc_redistribute import redistribute_direct
+
+tmp = pathlib.Path(tempfile.mkdtemp())
+gpd.GeoDataFrame({"geoid": ["T1"]}, geometry=[box(0, 0, 2, 2)], crs="EPSG:4326").to_file(tmp / "tract.geojson", driver="GeoJSON")
+gpd.GeoDataFrame({"geoid": ["BG1", "BG2"]}, geometry=[box(0, 0, 1, 2), box(1, 0, 2, 2)], crs="EPSG:4326").to_file(tmp / "bg.geojson", driver="GeoJSON")
+
+source_df = pd.DataFrame({"geoid": ["T1"], "year": [2020], "measure": ["pop"], "value": [100.0]})
+out = redistribute_direct(source_df, source_geo=tmp / "tract.geojson",
+                          target_geos={"block_group": tmp / "bg.geojson"}, count_cols=["pop"])
+print(out[["geoid", "measure", "value"]].to_string(index=False))
+#  geoid    measure  value
+#    BG1 pop_direct   50.0
+#    BG2 pop_direct   50.0
+```
+
 ## Public API
 
 - `redistribute_direct` — area-proportional redistribution between two geographies.
 - `redistribute_parcels` — parcel-centroid-weighted redistribution.
 - `run_redistribution` — high-level wrapper driven by a pipeline.yaml config block.
 
-See the [documentation](https://dads2busy.github.io/Social-Data-Commons/packages/sdc-redistribute/).
+## Documentation
+
+- [Introduction](https://dads2busy.github.io/Social-Data-Commons/packages/sdc-redistribute/articles/introduction/)
+- [Method comparison](https://dads2busy.github.io/Social-Data-Commons/packages/sdc-redistribute/articles/method-comparison/)
+- [API reference](https://dads2busy.github.io/Social-Data-Commons/packages/sdc-redistribute/reference/redistribute/)
