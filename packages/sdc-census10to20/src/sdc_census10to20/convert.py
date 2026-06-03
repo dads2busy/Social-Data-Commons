@@ -136,6 +136,12 @@ def _redistribute_replicate(meas_slice, *, geoid_col, value_col, state_fips):
     dom = xwalk.loc[dom_idx, ["geoid20", "geoid10"]]
     parent_vals = meas_slice.rename(columns={geoid_col: "geoid10"})[["geoid10", value_col]]
     out = dom.merge(parent_vals, on="geoid10", how="left")
+    if out[value_col].isna().any():
+        warnings.warn(
+            "some 2020 tracts had no dominant 2010 parent in the input data; "
+            "their replicated value is NaN",
+            stacklevel=2,
+        )
     return out.rename(columns={"geoid20": "geoid"})[["geoid", value_col]]
 
 
@@ -319,7 +325,7 @@ def standardize_all(
                                 geoid_col=geoid_col, value_col=value_col,
                                 state_fips=state_fips,
                             )
-                    elif mtype in ("median", "mean"):
+                    elif mtype in ("median", "mean"):  # Non-additive intensive measures: replicate the area-dominant parent (no true reaggregation).
                         converted = _redistribute_replicate(
                             temp[[geoid_col, value_col]],
                             geoid_col=geoid_col, value_col=value_col,
