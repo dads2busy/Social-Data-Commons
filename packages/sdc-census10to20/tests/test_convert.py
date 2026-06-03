@@ -45,26 +45,74 @@ def test_convert_passes_same_values_through(monkeypatch, fake_crosswalk):
 
 
 def test_convert_distributes_split_values(monkeypatch, fake_crosswalk):
-    """A split source tract sends its full value to each child tract."""
+    """A split source tract splits its value among children by source-area share."""
     monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
 
     data = pd.DataFrame({"geoid": ["51001000020"], "value": [500.0]})
     out = convert.convert_2010_to_2020_bounds(data)
 
-    children = out[out["geoid"].isin(["51001000002", "51001000003"])]
-    assert (children["value"] == 500.0).all()
+    vals = out.set_index("geoid")["value"]
+    # area_part/area10: child A = 500*600/1000 = 300; child B = 500*400/1000 = 200
+    assert vals["51001000002"] == pytest.approx(300.0)
+    assert vals["51001000003"] == pytest.approx(200.0)
+    assert vals[["51001000002", "51001000003"]].sum() == pytest.approx(500.0)
 
 
 def test_convert_area_weights_moved_values(monkeypatch, fake_crosswalk):
-    """Moved relationships scale by area_part / area20."""
+    """Moved relationships scale by area_part / area10 (source-area share)."""
     monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
 
     data = pd.DataFrame({"geoid": ["51001000030"], "value": [1200.0]})
     out = convert.convert_2010_to_2020_bounds(data)
 
-    # Each moved row: area_part=400, area20=600 → pct_overlap = 2/3 → value 800
+    # Each moved row: area_part=400, area10=1000 -> 1200 * 0.4 = 480
     moved = out[out["geoid"].isin(["51001000004", "51001000005"])]
-    assert moved["value"].tolist() == pytest.approx([800.0, 800.0])
+    assert moved["value"].tolist() == pytest.approx([480.0, 480.0])
+
+
+def test_convert_conserves_total_over_complete_crosswalk(monkeypatch):
+    """When a source's overlaps tile it (sum area_part == area10), the total is preserved."""
+    crosswalk = pd.DataFrame({
+        "geoid20":    ["51001000101", "51001000102"],
+        "geoid10":    ["51001000100", "51001000100"],
+        "area10":     [1000, 1000],
+        "area20":     [600, 400],
+        "area_part":  [600, 400],   # sums to area10 -> fully tiled
+        "type_change": ["split", "split"],
+    })
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: crosswalk)
+
+    data = pd.DataFrame({"geoid": ["51001000100"], "value": [1000.0]})
+    out = convert.convert_2010_to_2020_bounds(data)
+    assert out["value"].sum() == pytest.approx(1000.0)
+
+
+def test_convert_conserves_county_total(monkeypatch):
+    """A county's total is unchanged by reprojection (county boundary fixed).
+
+    Two 2010 sources fully tile into 2020 tracts within the same county,
+    including a 2020 tract (M) fed by both sources (a merge).
+    """
+    crosswalk = pd.DataFrame({
+        "geoid20":    ["51999000A", "51999000M", "51999000M", "51999000D"],
+        "geoid10":    ["51999000S1", "51999000S1", "51999000S2", "51999000S2"],
+        "area10":     [1000, 1000, 1000, 1000],
+        "area20":     [600, 1000, 1000, 800],
+        "area_part":  [600, 400, 600, 400],  # S1: 600+400=1000; S2: 600+400=1000
+        "type_change": ["split", "moved", "moved", "split"],
+    })
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: crosswalk)
+
+    data = pd.DataFrame({"geoid": ["51999000S1", "51999000S2"], "value": [1000.0, 2000.0]})
+    out = convert.convert_2010_to_2020_bounds(data)
+
+    # county boundary fixed -> all output geoids are in county 51999, total preserved
+    assert (out["geoid"].str[:5] == "51999").all()
+    assert out["value"].sum() == pytest.approx(3000.0)
+    vals = out.set_index("geoid")["value"]
+    assert vals["51999000A"] == pytest.approx(600.0)   # 1000 * 600/1000
+    assert vals["51999000M"] == pytest.approx(1600.0)  # 1000*400/1000 + 2000*600/1000
+    assert vals["51999000D"] == pytest.approx(800.0)   # 2000 * 400/1000
 
 
 def test_convert_rejects_missing_geoids():
