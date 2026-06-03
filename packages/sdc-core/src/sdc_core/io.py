@@ -81,6 +81,7 @@ def write_data(
     standardize: bool = True,
     census_standardize: bool = False,
     compress: bool = True,
+    measure_info=None,
 ) -> pathlib.Path:
     """Write a DataFrame in standard SDC format.
 
@@ -98,6 +99,8 @@ def write_data(
         both _geo10/_geo20 variants when applicable.
     compress : bool
         If True, write as .csv.xz.
+    measure_info : optional measure_info.json dict or path; passed to
+        standardize_all for type-aware census standardization.
 
     Returns
     -------
@@ -113,7 +116,7 @@ def write_data(
             path = pathlib.Path(str(path) + ".csv.xz")
 
     if census_standardize:
-        df = standardize_all(df)
+        df = standardize_all(df, measure_info=measure_info)
 
     if standardize:
         # Keep only standard columns, in order; fill missing with NaN
