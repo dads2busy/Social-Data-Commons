@@ -90,6 +90,50 @@ print(cw)
 
 `type_change` will tell you which case applies for each pairing.
 
+## Visualizing a boundary change
+
+`convert_2010_to_2020_bounds` re-expresses a complete 2010-boundary dataset on
+2020 tract boundaries (area-weighted for tracts that were redrawn). Here every
+2010 tract in Buchanan County, VA gets a synthetic population, and we convert the
+whole county at once. The tract geometries ship with this page.
+
+```python
+import geopandas as gpd
+import numpy as np
+import pandas as pd
+from sdc_census10to20 import convert_2010_to_2020_bounds
+
+tracts_2010 = gpd.read_file("tracts_2010.geojson").sort_values("geoid").reset_index(drop=True)
+
+# Synthetic 2010 populations (one row per 2010 tract).
+rng = np.random.default_rng(0)
+data = pd.DataFrame({"geoid": tracts_2010["geoid"], "value": rng.integers(800, 5000, len(tracts_2010)).astype(float)})
+
+# Convert the whole county onto 2020 boundaries (fetches the Census crosswalk).
+out = convert_2010_to_2020_bounds(data, state_fips="51")
+print("2010 total:", data["value"].sum(), " 2020 total:", round(out["value"].sum(), 1))
+print(out.head().to_string(index=False))
+```
+
+```text
+2010 total: 16906.0  2020 total: 16903.4
+      geoid       value
+51027010400 1933.000000
+51027010700 1116.000000
+51027010100 4371.421901
+51027010200 3475.017392
+51027010300 2945.787759
+```
+
+![Buchanan County population shown on 2010 tract boundaries vs 2020 tract boundaries](img/census10to20-boundary-change.png)
+
+*The same population, re-expressed on the redrawn 2020 tracts. Because the whole
+county is converted together, the total is preserved (area-weighting only moves
+people between tracts whose boundaries shifted).*
+
+> `convert_2010_to_2020_bounds` downloads the Census 2010↔2020 relationship file,
+> so this example needs network access.
+
 ## See also
 
 - [standardize_all reference](../reference/standardize_all.md)
