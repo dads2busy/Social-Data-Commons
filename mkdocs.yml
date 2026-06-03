@@ -36,7 +36,7 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          paths: [packages/sdc-core/src, packages/sdc-catchment/src, packages/sdc-redistribute/src, packages/sdc-census10to20/src]
+          paths: [packages/sdc-catchment/src, packages/sdc-redistribute/src, packages/sdc-census10to20/src]
           options:
             docstring_style: numpy
             show_source: true
@@ -58,17 +58,6 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - sdc-core:
-      - Overview: packages/sdc-core/index.md
-      - Reference:
-          - Census: packages/sdc-core/reference/census.md
-          - Geographies: packages/sdc-core/reference/geo.md
-          - IO: packages/sdc-core/reference/io.md
-          - Naming: packages/sdc-core/reference/naming.md
-          - Pipeline: packages/sdc-core/reference/pipeline.md
-          - Versioning: packages/sdc-core/reference/versioning.md
-          - Zenodo: packages/sdc-core/reference/zenodo.md
-          - Spatial: packages/sdc-core/reference/spatial.md
   - sdc-catchment:
       - Overview: packages/sdc-catchment/index.md
       - Articles:
