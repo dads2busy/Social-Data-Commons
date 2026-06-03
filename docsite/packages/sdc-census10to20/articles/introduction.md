@@ -53,14 +53,15 @@ which:
    (tract or block group).
 2. Classifies each row of the crosswalk as `same`, `split`, or `moved` based
    on counts and area overlap.
-3. For `same` and `split` rows, passes the source value through to each target
-   geoid.
-4. For `moved` rows, multiplies the source value by `area_part / area20` and
-   sums across all source contributors to each target geoid.
+3. Distributes each 2010 tract's value to the overlapping 2020 tracts in
+   proportion to the share of the **2010 source** area in each overlap
+   (`area_part / area10`).
 
-This area-weighted approach is suitable for counts and densities. For rates,
-ratios, and indices, redistribute the numerator and denominator separately and
-recompute the ratio at the 2020 level.
+Because a source tract's overlaps tile it, the shares sum to 1 and the total is
+**conserved** — a county's population is unchanged by reprojection onto 2020
+boundaries (its county boundary didn't move). This is count-preserving areal
+interpolation. For rates and indices, redistribute the numerator and denominator
+separately and recompute the ratio at the 2020 level.
 
 ## Working with a single year/measure
 
