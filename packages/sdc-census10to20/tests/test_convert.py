@@ -405,3 +405,50 @@ def test_standardize_all_raises_on_unknown_measure_type(monkeypatch, fake_crossw
     mi = {"weird_geo20": {"geo_standardize": {"measure_type": "bogus"}}}
     with pytest.raises(ValueError, match="unknown measure_type"):
         convert.standardize_all(data, measure_info=mi)
+
+
+def test_standardize_all_mixed_measure_types_integration(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    g = "51001000020"  # splits 600/400 into .002/.003
+    rows = [
+        (g, "under20_count", 300.0),
+        (g, "total_count",   1000.0),
+        (g, "under20_pct",   30.0),    # exact ratio -> 30 / 30
+        (g, "uninsured_pct", 42.0),    # weighted ratio -> 42 / 42
+        (g, "median_income", 70000.0), # replicate -> 70000 / 70000
+        (g, "pop_density",   1.0),     # 600/600, 400/400 -> 1.0 / 1.0
+        (g, "hazard_index",  0.7),     # skipped
+    ]
+    data = pd.DataFrame({
+        "geoid":       [r[0] for r in rows],
+        "year":        [2018] * len(rows),
+        "measure":     [r[1] for r in rows],
+        "value":       [r[2] for r in rows],
+        "moe":         [pd.NA] * len(rows),
+        "region_type": ["tract"] * len(rows),
+    })
+    mi = {
+        "under20_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "total_count_geo20":   {"geo_standardize": {"measure_type": "count"}},
+        "under20_pct_geo20":   {"geo_standardize": {"measure_type": "ratio",
+            "numerator": "under20_count", "denominator": "total_count", "scale": 100}},
+        "uninsured_pct_geo20": {"geo_standardize": {"measure_type": "ratio",
+            "weight": "total_count"}},
+        "median_income_geo20": {"geo_standardize": {"measure_type": "median"}},
+        "pop_density_geo20":   {"geo_standardize": {"measure_type": "density",
+            "count": "under20_count"}},  # using under20_count as the extensive count for the test
+        "hazard_index_geo20":  {"geo_standardize": {"measure_type": "index",
+            "interpolate": False}},
+    }
+    out = convert.standardize_all(data, measure_info=mi)
+    g20 = out[out["measure"].str.endswith("_geo20")]
+    by = lambda m: g20[g20["measure"] == m].set_index("geoid")["value"]
+
+    assert by("under20_pct_geo20")["51001000002"] == pytest.approx(30.0)
+    assert by("uninsured_pct_geo20")["51001000003"] == pytest.approx(42.0)
+    assert by("median_income_geo20")["51001000002"] == pytest.approx(70000.0)
+    # density uses under20_count(300) split 180/120 over area20 600/400 = 0.3/0.3
+    assert by("pop_density_geo20")["51001000002"] == pytest.approx(0.3)
+    assert "hazard_index_geo20" not in set(g20["measure"])
