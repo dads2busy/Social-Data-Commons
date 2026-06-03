@@ -252,3 +252,59 @@ def test_standardize_all_ratio_exact_recomputes_from_counts(monkeypatch, fake_cr
     pct = out[out["measure"] == "under20_percent_geo20"].set_index("geoid")["value"]
     assert pct["51001000002"] == pytest.approx(30.0)
     assert pct["51001000003"] == pytest.approx(30.0)
+
+
+def test_standardize_all_ratio_population_weighted_split_is_exact(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    # Pure split parent .020 at 42% with weight (pop) 1000 -> each child 42%.
+    data = pd.DataFrame({
+        "geoid":       ["51001000020", "51001000020"],
+        "year":        [2018, 2018],
+        "measure":     ["uninsured_pct", "total_population"],
+        "value":       [42.0, 1000.0],
+        "moe":         [pd.NA, pd.NA],
+        "region_type": ["tract", "tract"],
+    })
+    mi = {
+        "total_population_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "uninsured_pct_geo20": {"geo_standardize": {
+            "measure_type": "ratio", "weight": "total_population",
+        }},
+    }
+    out = convert.standardize_all(data, measure_info=mi)
+    pct = out[out["measure"] == "uninsured_pct_geo20"].set_index("geoid")["value"]
+    assert pct["51001000002"] == pytest.approx(42.0)
+    assert pct["51001000003"] == pytest.approx(42.0)
+
+
+def test_standardize_all_ratio_population_weighted_merge_is_count_weighted(monkeypatch):
+    from sdc_census10to20 import convert
+    # Merge: 2020 tract 51999000300 fed by two 2010 parents with different pcts + pops.
+    # Geoids are 11 chars (tract length) so standardize_all processes them.
+    crosswalk = pd.DataFrame({
+        "geoid20":     ["51999000300", "51999000300"],
+        "geoid10":     ["51999000100", "51999000200"],
+        "area10":      [1000, 1000],
+        "area20":      [2000, 2000],
+        "area_part":   [1000, 1000],   # each parent fully into 300
+        "type_change": ["moved", "moved"],
+    })
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: crosswalk)
+
+    data = pd.DataFrame({
+        "geoid":       ["51999000100", "51999000200", "51999000100", "51999000200"],
+        "year":        [2018, 2018, 2018, 2018],
+        "measure":     ["pct", "pct", "pop", "pop"],
+        "value":       [10.0, 50.0, 300.0, 100.0],   # weighted avg = (10*300+50*100)/400 = 20
+        "moe":         [pd.NA, pd.NA, pd.NA, pd.NA],
+        "region_type": ["tract", "tract", "tract", "tract"],
+    })
+    mi = {
+        "pop_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "pct_geo20": {"geo_standardize": {"measure_type": "ratio", "weight": "pop"}},
+    }
+    out = convert.standardize_all(data, measure_info=mi)
+    pct = out[out["measure"] == "pct_geo20"].set_index("geoid")["value"]
+    assert pct["51999000300"] == pytest.approx(20.0)

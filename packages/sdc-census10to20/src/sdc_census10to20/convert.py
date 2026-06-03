@@ -107,6 +107,27 @@ def _redistribute_ratio_exact(num_slice, denom_slice, scale, *, geoid_col, value
     return m[["geoid", value_col]]
 
 
+def _redistribute_ratio_weighted(meas_slice, weight_slice, *, geoid_col, value_col, state_fips):
+    """Population-weighted average: convert(value*weight) / convert(weight).
+
+    Values are already in display units (e.g. 42.0), so no scale factor. The
+    merge key is "geoid" because convert_2010_to_2020_bounds always returns a
+    frame whose geography column is named "geoid".
+    """
+    merged = meas_slice.merge(weight_slice, on=geoid_col, suffixes=("_v", "_w"))
+    merged["_vw"] = merged[f"{value_col}_v"] * merged[f"{value_col}_w"]
+    vw = merged[[geoid_col, "_vw"]].rename(columns={"_vw": value_col})
+    num = convert_2010_to_2020_bounds(
+        vw, geoid_col=geoid_col, val_col=value_col, state_fips=state_fips,
+    )
+    den = convert_2010_to_2020_bounds(
+        weight_slice, geoid_col=geoid_col, val_col=value_col, state_fips=state_fips,
+    )
+    m = num.merge(den, on="geoid", suffixes=("_num", "_den"))
+    m[value_col] = m[f"{value_col}_num"] / m[f"{value_col}_den"]
+    return m[["geoid", value_col]]
+
+
 def convert_2010_to_2020_bounds(
     data: pd.DataFrame,
     *,
@@ -266,8 +287,26 @@ def standardize_all(
                                 state_fips=state_fips,
                             )
                         else:
-                            raise NotImplementedError(
-                                "population-weighted ratio handled in Task 4"
+                            weight = spec.get("weight") if spec else None
+                            if not weight:
+                                raise ValueError(
+                                    f"ratio {meas!r}: declare numerator+denominator "
+                                    f"or a weight in geo_standardize"
+                                )
+                            w_slice = _measure_slice(
+                                data, yr, geoid_len, weight,
+                                year_col=year_col, geoid_col=geoid_col,
+                                measure_col=measure_col, value_col=value_col,
+                            )
+                            if w_slice.empty:
+                                raise ValueError(
+                                    f"ratio {meas!r}: weight {weight!r} missing "
+                                    f"from frame for year {yr}"
+                                )
+                            converted = _redistribute_ratio_weighted(
+                                temp[[geoid_col, value_col]], w_slice,
+                                geoid_col=geoid_col, value_col=value_col,
+                                state_fips=state_fips,
                             )
                     else:
                         raise NotImplementedError(
