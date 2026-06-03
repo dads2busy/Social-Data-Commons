@@ -58,3 +58,11 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - sdc-census10to20:
+      - Overview: packages/sdc-census10to20/index.md
+      - Getting Started: packages/sdc-census10to20/getting-started.md
+      - Reference:
+          - standardize_all: packages/sdc-census10to20/reference/standardize_all.md
+          - convert_2010_to_2020_bounds: packages/sdc-census10to20/reference/convert_2010_to_2020_bounds.md
+          - create_crosswalk: packages/sdc-census10to20/reference/create_crosswalk.md
+          - get_2010_2020_bound_changes: packages/sdc-census10to20/reference/get_2010_2020_bound_changes.md
