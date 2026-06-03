@@ -366,6 +366,8 @@ def standardize_all(
                             c_slice, geoid_col=geoid_col, value_col=value_col,
                             state_fips=state_fips,
                         )
+                    elif mtype == "index" or (spec and spec.get("interpolate") is False):
+                        continue  # indices recomputed from standardized inputs downstream
                     else:
                         raise NotImplementedError(
                             f"measure_type {mtype!r} not yet handled (measure {meas!r})"

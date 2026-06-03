@@ -356,3 +356,25 @@ def test_standardize_all_density_recomputed_from_count_and_area20(monkeypatch, f
     dens = out[out["measure"] == "pop_density_geo20"].set_index("geoid")["value"]
     assert dens["51001000002"] == pytest.approx(1.0)
     assert dens["51001000003"] == pytest.approx(1.0)
+
+
+def test_standardize_all_index_is_not_interpolated(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    data = pd.DataFrame({
+        "geoid":       ["51001000020"],
+        "year":        [2018],
+        "measure":     ["hazard_index"],
+        "value":       [0.7],
+        "moe":         [pd.NA],
+        "region_type": ["tract"],
+    })
+    mi = {"hazard_index_geo20": {"geo_standardize": {
+        "measure_type": "index", "interpolate": False,
+    }}}
+    out = convert.standardize_all(data, measure_info=mi)
+    measures = set(out["measure"])
+    # original pre-2020 row is suffixed _geo10; NO interpolated _geo20 emitted
+    assert "hazard_index_geo10" in measures
+    assert "hazard_index_geo20" not in measures
