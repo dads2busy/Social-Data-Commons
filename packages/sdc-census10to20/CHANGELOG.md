@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2026-06-03
+
+### Performance
+- The Census 2010↔2020 relationship file is now downloaded once per process
+  (memoized by resolution + state) instead of on every
+  `get_2010_2020_bound_changes` call. `convert_2010_to_2020_bounds` /
+  `standardize_all` runs that previously took minutes now take seconds. No change
+  to outputs.
+
 ## [0.1.2] - 2026-06-03
 
 ### Fixed

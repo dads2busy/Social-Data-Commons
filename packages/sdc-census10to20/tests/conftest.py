@@ -6,6 +6,16 @@ import pandas as pd
 import pytest
 
 
+@pytest.fixture(autouse=True)
+def _clear_relationship_cache():
+    """Reset the in-process relationship-file cache so tests are isolated."""
+    from sdc_census10to20 import crosswalk as _cw
+
+    getattr(_cw, "_RELATIONSHIP_CACHE", {}).clear()
+    yield
+    getattr(_cw, "_RELATIONSHIP_CACHE", {}).clear()
+
+
 @pytest.fixture
 def synthetic_tract_relationship_csv() -> pd.DataFrame:
     """A canned Census 2010→2020 tract relationship frame.
