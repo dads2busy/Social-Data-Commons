@@ -16,7 +16,6 @@ pip install sdc-redistribute
 import tempfile, pathlib
 import geopandas as gpd
 import pandas as pd
-from shapely.geometry import box
 from sdc_redistribute import redistribute_direct
 ```
 
@@ -24,50 +23,53 @@ from sdc_redistribute import redistribute_direct
 
 `redistribute_direct` takes long-format source data, a GeoJSON for the source
 geometries, and a `{region_type: geojson}` mapping for each target geography.
-Here a single tract holding 100 people is split into two equal-area block groups.
-We generate the tiny geometries at runtime so the example is self-contained.
+Here we use a real census tract in Arlington County, VA (`51013100100`) and its
+four 2020 block groups, shipped with this page as a small GeoJSON. We give the
+tract 1,000 people and redistribute them down to the block groups.
 
 ```python
+# tract_bgs.geojson ships with this article: the four block groups of tract 51013100100.
+bgs = gpd.read_file("tract_bgs.geojson")
+bgs["geoid"] = bgs["geoid"].astype(str)
+tract_id = bgs["geoid"].str[:11].iloc[0]
+
+# The tract is the union (dissolve) of its block groups.
+tract = bgs.dissolve().assign(geoid=tract_id)[["geoid", "geometry"]]
+
+# redistribute_direct reads GeoJSON paths, so write the geometries out.
 tmp = pathlib.Path(tempfile.mkdtemp())
+tract.to_file(tmp / "tract.geojson", driver="GeoJSON")
+bgs[["geoid", "geometry"]].to_file(tmp / "bgs.geojson", driver="GeoJSON")
 
-# One source tract (T1) covering a 2x2 square.
-source = gpd.GeoDataFrame({"geoid": ["T1"]}, geometry=[box(0, 0, 2, 2)], crs="EPSG:4326")
-src_path = tmp / "tract.geojson"
-source.to_file(src_path, driver="GeoJSON")
-
-# Two block groups splitting the tract into left/right halves.
-bg = gpd.GeoDataFrame(
-    {"geoid": ["BG1", "BG2"]},
-    geometry=[box(0, 0, 1, 2), box(1, 0, 2, 2)],
-    crs="EPSG:4326",
-)
-bg_path = tmp / "bg.geojson"
-bg.to_file(bg_path, driver="GeoJSON")
-
-# Long-format source data: 100 people in T1 in 2020.
+# 1,000 people recorded for the whole tract in 2020.
 source_df = pd.DataFrame(
-    {"geoid": ["T1"], "year": [2020], "measure": ["pop"], "value": [100.0]}
+    {"geoid": [tract_id], "year": [2020], "measure": ["pop"], "value": [1000.0]}
 )
 
 out = redistribute_direct(
     source_df,
-    source_geo=src_path,
-    target_geos={"block_group": bg_path},
+    source_geo=tmp / "tract.geojson",
+    target_geos={"block_group": tmp / "bgs.geojson"},
     count_cols=["pop"],
 )
-print(out.to_string(index=False))
+print(out[["geoid", "measure", "value"]].to_string(index=False))
 ```
 
 ```text
-geoid    measure  value  year region_type  moe
-  BG1 pop_direct   50.0  2020 block_group <NA>
-  BG2 pop_direct   50.0  2020 block_group <NA>
+       geoid    measure      value
+510131001001 pop_direct 351.635089
+510131001002 pop_direct 160.281519
+510131001003 pop_direct 309.106123
+510131001004 pop_direct 178.977268
 ```
 
-The tract's 100 people are split in proportion to each block group's share of the
-tract's area. Because the two block groups are equal in area, each receives 50.
-The output is long-format, one row per target geoid, and the measure is suffixed
-`_direct` to record the method used.
+![A census tract's 1,000 people redistributed to its four block groups by area](img/redistribute-tract-to-bg.png)
+
+*The tract's count is split across its block groups in proportion to each one's
+share of the tract area — the largest block group receives the most people.*
+
+The output is long-format, one row per target geoid, the values sum back to the
+tract's 1,000, and the measure is suffixed `_direct` to record the method used.
 
 Area-weighting assumes the count is spread evenly across the source geometry.
 When that assumption is poor — population clusters in part of a tract — use
