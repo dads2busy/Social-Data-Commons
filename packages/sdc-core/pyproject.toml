@@ -12,10 +12,12 @@ dependencies = [
     "tqdm>=4.66",
     "python-dotenv>=1.2.1",
     "sdc-census10to20",
+    "sdc-redistribute",
 ]
 
 [tool.uv.sources]
 sdc-census10to20 = { workspace = true }
+sdc-redistribute = { workspace = true }
 
 [project.optional-dependencies]
 geo = ["geopandas>=1.0"]
