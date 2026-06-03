@@ -62,6 +62,7 @@ def test_ratio_specs_reference_published_counts(dataset):
         num, den = spec.get("numerator"), spec.get("denominator")
         assert num and den, f"{dataset}: {base} ratio missing numerator/denominator"
         assert "scale" in spec, f"{dataset}: {base} ratio missing scale"
+        assert spec["scale"] > 0, f"{dataset}: {base} scale must be positive, got {spec['scale']!r}"
         assert num in count_bases, f"{dataset}: {base} numerator {num!r} not a published count"
         assert den in count_bases, f"{dataset}: {base} denominator {den!r} not a published count"
 
