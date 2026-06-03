@@ -59,6 +59,33 @@ def test_create_crosswalk_skips_unknown_resolution(
     assert "geoid10" in out.columns
 
 
+def test_relationship_file_fetched_once(monkeypatch, synthetic_tract_relationship_csv):
+    calls = {"n": 0}
+
+    def fake_read_csv(*a, **k):
+        calls["n"] += 1
+        return synthetic_tract_relationship_csv
+
+    monkeypatch.setattr(pd, "read_csv", fake_read_csv)
+
+    cw.get_2010_2020_bound_changes(res="tract")
+    cw.get_2010_2020_bound_changes(res="tract", geoids=["51001000010"])
+
+    assert calls["n"] == 1  # downloaded once, reused from cache
+
+
+def test_load_relationship_returns_independent_copies(monkeypatch, synthetic_tract_relationship_csv):
+    monkeypatch.setattr(pd, "read_csv", lambda *a, **k: synthetic_tract_relationship_csv)
+
+    f1 = cw._load_relationship("tract", "51")
+    f2 = cw._load_relationship("tract", "51")
+    assert f1 is not f2  # fresh copy each call
+
+    f1.loc[f1.index[0], "area10"] = -1  # mutate one copy
+    f3 = cw._load_relationship("tract", "51")
+    assert (f3["area10"] != -1).all()  # cache not corrupted
+
+
 def test_create_crosswalk_empty_when_no_supported_resolutions(monkeypatch):
     out = cw.create_crosswalk(["51001"])  # only county-length
 

@@ -7,6 +7,48 @@ import pandas as pd
 __all__ = ["get_2010_2020_bound_changes", "create_crosswalk"]
 
 
+_RELATIONSHIP_CACHE: dict[tuple[str, str], pd.DataFrame] = {}
+
+
+def _load_relationship(res: str, state_fips: str) -> pd.DataFrame:
+    """Download + prep the Census relationship file, once per (res, state_fips)."""
+    if res == "tract":
+        file_path = (
+            "https://www2.census.gov/geo/docs/maps-data/data/rel2020/"
+            "tract/tab20_tract20_tract10_natl.txt"
+        )
+        res_code = "TRACT"
+    elif res == "block group":
+        file_path = (
+            "https://www2.census.gov/geo/docs/maps-data/data/rel2020/blkgrp/"
+            f"tab20_blkgrp20_blkgrp10_st{state_fips}.txt"
+        )
+        res_code = "BLKGRP"
+    else:
+        raise ValueError('Invalid resolution. Use "tract" or "block group".')
+
+    key = (res, state_fips)
+    if key not in _RELATIONSHIP_CACHE:
+        crosswalk = pd.read_csv(
+            file_path,
+            sep="|",
+            dtype={f"GEOID_{res_code}_10": str, f"GEOID_{res_code}_20": str},
+        )
+        keep_cols = [
+            f"GEOID_{res_code}_20",
+            f"GEOID_{res_code}_10",
+            f"AREALAND_{res_code}_20",
+            f"AREALAND_{res_code}_10",
+            "AREALAND_PART",
+        ]
+        crosswalk = crosswalk[keep_cols]
+        crosswalk = crosswalk[crosswalk["AREALAND_PART"] != 0]
+        crosswalk.columns = ["geoid20", "geoid10", "area20", "area10", "area_part"]
+        _RELATIONSHIP_CACHE[key] = crosswalk
+
+    return _RELATIONSHIP_CACHE[key].copy()
+
+
 def get_2010_2020_bound_changes(
     res: str = "tract",
     geoids: list[str] | None = None,
@@ -35,41 +77,7 @@ def get_2010_2020_bound_changes(
           boundary movement
         - ``"moved"`` — partial overlap; boundary shifted
     """
-    if res == "tract":
-        file_path = (
-            "https://www2.census.gov/geo/docs/maps-data/data/rel2020/"
-            "tract/tab20_tract20_tract10_natl.txt"
-        )
-        res_code = "TRACT"
-    elif res == "block group":
-        file_path = (
-            "https://www2.census.gov/geo/docs/maps-data/data/rel2020/blkgrp/"
-            f"tab20_blkgrp20_blkgrp10_st{state_fips}.txt"
-        )
-        res_code = "BLKGRP"
-    else:
-        raise ValueError('Invalid resolution. Use "tract" or "block group".')
-
-    crosswalk = pd.read_csv(
-        file_path,
-        sep="|",
-        dtype={
-            f"GEOID_{res_code}_10": str,
-            f"GEOID_{res_code}_20": str,
-        },
-    )
-
-    keep_cols = [
-        f"GEOID_{res_code}_20",
-        f"GEOID_{res_code}_10",
-        f"AREALAND_{res_code}_20",
-        f"AREALAND_{res_code}_10",
-        "AREALAND_PART",
-    ]
-    crosswalk = crosswalk[keep_cols]
-    crosswalk = crosswalk[crosswalk["AREALAND_PART"] != 0]
-
-    crosswalk.columns = ["geoid20", "geoid10", "area20", "area10", "area_part"]
+    crosswalk = _load_relationship(res, state_fips)
 
     if geoids is not None:
         crosswalk = crosswalk[crosswalk["geoid10"].isin(geoids)]
