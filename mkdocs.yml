@@ -58,6 +58,17 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - sdc-core:
+      - Overview: packages/sdc-core/index.md
+      - Reference:
+          - Census: packages/sdc-core/reference/census.md
+          - Geographies: packages/sdc-core/reference/geo.md
+          - IO: packages/sdc-core/reference/io.md
+          - Naming: packages/sdc-core/reference/naming.md
+          - Pipeline: packages/sdc-core/reference/pipeline.md
+          - Versioning: packages/sdc-core/reference/versioning.md
+          - Zenodo: packages/sdc-core/reference/zenodo.md
+          - Spatial: packages/sdc-core/reference/spatial.md
   - sdc-census10to20:
       - Overview: packages/sdc-census10to20/index.md
       - Getting Started: packages/sdc-census10to20/getting-started.md
