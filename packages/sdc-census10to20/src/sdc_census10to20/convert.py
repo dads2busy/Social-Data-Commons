@@ -290,7 +290,17 @@ def standardize_all(
                         continue
 
                     spec = specs.get(meas)
-                    mtype = spec["measure_type"] if spec else _classify_by_name(meas)
+                    if spec:
+                        mtype = spec["measure_type"]
+                    else:
+                        mtype = _classify_by_name(meas)
+                        if measure_info is not None:
+                            warnings.warn(
+                                f"measure {meas!r} has no geo_standardize metadata; "
+                                f"falling back to name heuristic -> {mtype!r}",
+                                UserWarning,
+                                stacklevel=2,
+                            )
 
                     if mtype == "count":
                         converted = convert_2010_to_2020_bounds(
@@ -369,8 +379,8 @@ def standardize_all(
                     elif mtype == "index" or (spec and spec.get("interpolate") is False):
                         continue  # indices recomputed from standardized inputs downstream
                     else:
-                        raise NotImplementedError(
-                            f"measure_type {mtype!r} not yet handled (measure {meas!r})"
+                        raise ValueError(
+                            f"unknown measure_type {mtype!r} for measure {meas!r}"
                         )
 
                     converted[year_col] = yr

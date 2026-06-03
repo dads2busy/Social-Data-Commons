@@ -378,3 +378,30 @@ def test_standardize_all_index_is_not_interpolated(monkeypatch, fake_crosswalk):
     # original pre-2020 row is suffixed _geo10; NO interpolated _geo20 emitted
     assert "hazard_index_geo10" in measures
     assert "hazard_index_geo20" not in measures
+
+
+def test_standardize_all_warns_when_no_metadata_uses_heuristic(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    data = pd.DataFrame({
+        "geoid": ["51001000020"], "year": [2018], "measure": ["mystery_count"],
+        "value": [500.0], "moe": [pd.NA], "region_type": ["tract"],
+    })
+    with pytest.warns(UserWarning, match="no geo_standardize metadata"):
+        out = convert.standardize_all(data, measure_info={})  # empty -> heuristic
+    # 'mystery_count' heuristically a count -> still produces a _geo20
+    assert "mystery_count_geo20" in set(out["measure"])
+
+
+def test_standardize_all_raises_on_unknown_measure_type(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    data = pd.DataFrame({
+        "geoid": ["51001000020"], "year": [2018], "measure": ["weird"],
+        "value": [1.0], "moe": [pd.NA], "region_type": ["tract"],
+    })
+    mi = {"weird_geo20": {"geo_standardize": {"measure_type": "bogus"}}}
+    with pytest.raises(ValueError, match="unknown measure_type"):
+        convert.standardize_all(data, measure_info=mi)
