@@ -1451,7 +1451,6 @@ docs = [
 
 [[package]]
 name = "sdc-census10to20"
-version = "0.1.0"
 source = { editable = "packages/sdc-census10to20" }
 dependencies = [
     { name = "pandas" },
