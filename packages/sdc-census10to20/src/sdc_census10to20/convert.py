@@ -25,8 +25,11 @@ def convert_2010_to_2020_bounds(
     """Redistribute a single year/measure of 2010-vintage values onto 2020 boundaries.
 
     The input frame must contain exactly one row per GEOID (one year, one
-    measure). For "moved" boundaries the value is split by area-proportional
-    weighting; "same" and "split" boundaries pass the value through unchanged.
+    measure). Each 2010 source distributes its value to the overlapping 2020
+    tracts by the fraction of the *source* area in each overlap
+    (``area_part / area10``); a source's overlaps tile it, so the fractions sum to
+    1 and the total is conserved (count-preserving areal interpolation, using the
+    Census relationship file's land-area overlaps).
 
     Parameters
     ----------
@@ -72,18 +75,14 @@ def convert_2010_to_2020_bounds(
 
     joined = crosswalk.merge(data, left_on="geoid10", right_on=geoid_col, how="left")
 
-    same_bounds = (
-        joined[joined["type_change"].isin(["same", "split"])]
-        .groupby("geoid20", as_index=False)["value"]
-        .first()
-    )
-
-    moved_bounds = joined[joined["type_change"] == "moved"].copy()
-    moved_bounds["pct_overlap"] = moved_bounds["area_part"] / moved_bounds["area20"]
-    moved_bounds["value"] = moved_bounds["value"] * moved_bounds["pct_overlap"]
-    moved_bounds = moved_bounds.groupby("geoid20", as_index=False)["value"].sum()
-
-    redistributed = pd.concat([same_bounds, moved_bounds], ignore_index=True)
+    # Areal interpolation that conserves counts: each 2010 source distributes its
+    # value to overlapping 2020 tracts by the fraction of the *source* area in the
+    # overlap (area_part / area10). A source's overlaps tile it, so the fractions
+    # sum to 1 and the source's full value is distributed. type_change does not
+    # affect the math -- the geometry in area_part/area10 already encodes same vs
+    # split vs moved.
+    joined["value"] = joined["value"] * (joined["area_part"] / joined["area10"])
+    redistributed = joined.groupby("geoid20", as_index=False)["value"].sum()
     redistributed = redistributed.rename(columns={"geoid20": "geoid", "value": val_col})
     return redistributed
 
