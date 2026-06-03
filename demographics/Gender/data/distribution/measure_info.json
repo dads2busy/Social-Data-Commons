@@ -25,7 +25,8 @@
     "statement": "The female population is {value} in {region_name}.",
     "type": "",
     "unit": "individual",
-    "variants": ""
+    "variants": "",
+    "geo_standardize": {"measure_type": "count"}
   },
   "gender_female_percent_geo20": {
     "aggregation_method": "percent",
@@ -53,7 +54,8 @@
     "statement": "The percent of females is {value} in {region_name}.",
     "type": "",
     "unit": "individual",
-    "variants": ""
+    "variants": "",
+    "geo_standardize": {"measure_type": "ratio", "numerator": "gender_female_count", "denominator": "gender_total_count", "scale": 100}
   },
   "gender_male_count_geo20": {
     "aggregation_method": "arithmetic mean",
@@ -81,7 +83,8 @@
     "statement": "The male population is {value} in {region_name}.",
     "type": "",
     "unit": "individual",
-    "variants": ""
+    "variants": "",
+    "geo_standardize": {"measure_type": "count"}
   },
   "gender_male_percent_geo20": {
     "aggregation_method": "percent",
@@ -109,7 +112,8 @@
     "statement": "The percent of males is {value} in {region_name}.",
     "type": "",
     "unit": "individual",
-    "variants": ""
+    "variants": "",
+    "geo_standardize": {"measure_type": "ratio", "numerator": "gender_male_count", "denominator": "gender_total_count", "scale": 100}
   },
   "gender_total_count_geo20": {
     "aggregation_method": "arithmetic mean",
@@ -137,7 +141,8 @@
     "statement": "Total count of the population is {value} in {region_name}.",
     "type": "",
     "unit": "individual",
-    "variants": ""
+    "variants": "",
+    "geo_standardize": {"measure_type": "count"}
   },
   "_references": {
     "bii-redist": {
