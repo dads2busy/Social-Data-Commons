@@ -1,98 +1,105 @@
-# census10to20 Introduction Map — Design
+# census10to20 Introduction Map — Design (revised)
 
 ## Overview
 
-Add a real-geography before/after map to the `sdc-census10to20` introduction
-article showing a value recorded on a real **2010** census tract redistributed
-onto the overlapping **2020** tracts via `convert_2010_to_2020_bounds`. Same
-static-PNG rendering pattern as the redistribute and catchment intro maps;
-adapted to census10to20's boundary-change story.
+Add a real-geography **before/after** map to the `sdc-census10to20` introduction
+showing a small county's tract-level values converted from **2010** boundaries to
+**2020** boundaries with `convert_2010_to_2020_bounds`. Static-PNG pattern as the
+other intro maps.
 
-## Direction settled in brainstorming
+> **Revision note (2026-06-03):** the original single-tract design was scrapped
+> during implementation. `convert_2010_to_2020_bounds` is **not** count-conserving
+> for a single-tract input — for "moved" tracts it computes
+> `value × area_part/area20` (the fraction of each *2020* tract covered) and sums
+> across *all* overlapping 2010 sources. Feeding it one tract makes every 2020
+> tract it fully covers inherit the *full* value (a 1,000-person tract produced a
+> 3,017 total). The function is meant to convert a **complete** 2010 dataset to
+> 2020 boundaries. So the illustration must be **area-level** (a full set of a
+> small area's 2010 tracts), where conversion behaves as area-weighted
+> reaggregation and totals are approximately preserved.
 
-- **Depicts:** one real VA "moved" 2010 tract (1,000 people) → its 2020 successor
-  tracts, area-weighted. Two-panel before/after choropleth.
-- **Real geometry from committed files:** 2010-vintage `education/docs/maps/tract_2018.geojson`
-  (3,475 VA tracts, `GEOID`/`geometry`, EPSG:4269) and 2020-vintage
-  `education/docs/maps/tract_2020.geojson` (3,857 tracts). Extract one tract +
-  its successors into small per-article assets.
-- **Network dependency accepted (intrinsic).** `convert_2010_to_2020_bounds` and
-  `get_2010_2020_bound_changes` fetch the Census 2010↔2020 relationship file
-  (`https://www2.census.gov/geo/docs/maps-data/data/rel2020/...`); there is no
-  bundled crosswalk. The article's existing examples already rely on this. The
-  committed PNG renders offline; re-running the figure/example needs network.
-- **Additive:** keep the existing `standardize_all` intro content; add a new
-  "Visualizing a boundary change" section with the map.
+## Direction settled in brainstorming + revision
+
+- **Depicts:** a small VA county's 2010 tracts (each with a synthetic population)
+  converted as a full set onto its 2020 tracts — two choropleths of the same
+  measure over the same county footprint (2010 boundaries vs 2020 boundaries).
+- **County: 51027 (Buchanan County, VA)** — chosen because the full-set
+  conversion is essentially total-conserving (validated: 7 input tracts,
+  input sum 22,925 → output sum 22,925) and it has a readable tract count.
+- **Real geometry from committed files:** 2010-vintage
+  `education/docs/maps/tract_2018.geojson`, 2020-vintage `tract_2020.geojson`
+  (both VA, `GEOID`/`geometry`, EPSG:4269). Extract the county's tracts into
+  small assets.
+- **Network dependency accepted (intrinsic):** `convert_2010_to_2020_bounds`
+  fetches the Census relationship file; the article's other examples already do.
+  Committed PNG renders offline.
+- **Additive:** keep the existing `standardize_all` intro content; add a
+  "Visualizing a boundary change" section.
 - **Docs-only — no PyPI release.**
 
-## Verified facts
+## Verified API / semantics
 
-- Crosswalk (`get_2010_2020_bound_changes(res="tract")`, VA) columns:
-  `geoid20, geoid10, area20, area10, area_part, type_change`. `type_change`
-  values: `moved` (most common), `same`, `split`.
-- `convert_2010_to_2020_bounds(data, *, geoid_col="geoid", val_col="value", state_fips="51")`:
-  one row per 2010 GEOID in → 2020-GEOID rows out; "moved" boundaries are split
-  area-proportionally (`area_part / area20`), "same"/"split" pass through.
-- For a **moved** 2010 tract mapping to multiple 2020 tracts, a single 1,000-person
-  input is divided across the successors — the meaningful before/after.
+- `convert_2010_to_2020_bounds(data, *, geoid_col="geoid", val_col="value", state_fips="51")`
+  → columns `geoid` (2020) + value. Input: one row per 2010 GEOID. "moved" →
+  `value × area_part/area20` summed across sources; "same"/"split" pass through.
+- Used on a **full** county of 2010 tracts, each 2020 tract's coverage fractions
+  from its overlapping 2010 sources sum to ≈1, so the result is an area-weighted
+  reaggregation with totals approximately preserved (minor leakage where county
+  tracts straddle the county line).
 
-## Tract selection (deterministic)
+## Tract cluster selection (deterministic)
 
-In the extraction step:
-1. Fetch the VA tract crosswalk.
-2. Restrict to `type_change == "moved"`.
-3. Group by `geoid10`; keep those mapping to 2–4 distinct `geoid20`.
-4. Require the `geoid10` to be present in `tract_2018.geojson` and **all** its
-   `geoid20` successors present in `tract_2020.geojson` (so every polygon can be
-   drawn).
-5. Choose the first such `geoid10` by sorted order (deterministic).
+Hard-code county FIPS **`51027`** (validated above). The extraction:
+1. Loads 2010 VA tracts (`tract_2018`) and 2020 VA tracts (`tract_2020`).
+2. `cty10 = tracts where GEOID[:5] == "51027"` (the input set).
+3. `cty20 = 2020 tracts where GEOID[:5] == "51027"` (the drawn 2020 footprint).
+4. Writes both to assets. Assigns synthetic populations with a fixed RNG seed.
 
-This guarantees a drawable, genuinely-divided example with no manual picking.
+(If 51027's geometry is somehow missing from a file, fall back to `51005`, the
+next-best validated county — noted in the plan.)
 
 ## Data assets
 
-- `docsite/packages/sdc-census10to20/articles/data/tract_2010.geojson` — the one
-  chosen 2010 tract polygon (from `tract_2018.geojson`), column `geoid`.
-- `docsite/packages/sdc-census10to20/articles/data/tracts_2020.geojson` — its
-  2020 successor tracts (from `tract_2020.geojson`), column `geoid`.
+- `docsite/packages/sdc-census10to20/articles/data/tracts_2010.geojson` — the
+  county's 2010 tracts, column `geoid`.
+- `docsite/packages/sdc-census10to20/articles/data/tracts_2020.geojson` — the
+  county's 2020 tracts, column `geoid`.
 
 ## Example (added to the article)
 
-A new "Visualizing a boundary change" section:
-
-1. Build a one-row input: the chosen 2010 `geoid` with `value = 1000`.
+A "Visualizing a boundary change" section:
+1. Load `tracts_2010.geojson`; assign each tract a synthetic population
+   (fixed seed) — a small long-format frame (`geoid`, `value`).
 2. `convert_2010_to_2020_bounds(data, state_fips="51")` → values on the 2020
-   successor geoids (real captured output shown).
-3. Note the values sum back to ~1,000 (area-weighted split for the "moved" case).
-
-The example is shown with the real chosen GEOID; output captured by running.
+   tracts (real captured output; show `head()` and the input/output totals).
+3. Note the total is approximately preserved (area-weighted reaggregation), with
+   minor leakage at the county edge.
 
 ## Figure
 
 `docsite/packages/sdc-census10to20/articles/figures/census10to20_map.py` — reads
-the two assets, runs `convert_2010_to_2020_bounds`, renders a two-panel PNG
-(`articles/img/census10to20-boundary-change.png`), projected EPSG:32618:
+both assets + the synthetic populations, runs `convert_2010_to_2020_bounds`,
+renders a **two-panel** PNG (`articles/img/census10to20-boundary-change.png`),
+projected EPSG:32618, with a **shared color scale** across panels:
 
-- **Left:** the 2010 tract, single polygon, labeled with the GEOID + "1,000 people".
-- **Right:** the 2020 successor tracts, choropleth-shaded by redistributed value,
-  with a colorbar.
+- **Left:** the 2010 tracts, choropleth by population, titled "2010 boundaries".
+- **Right:** the county's 2020 tracts, choropleth by the converted population,
+  titled "2020 boundaries". The redrawn boundaries are visible between panels.
 
-Caption: the 2010-boundary value is split across the 2020 tracts that replaced it.
+Caption: the same population, re-expressed on the redrawn 2020 tracts.
 
 ## Verification / success criteria
 
-- The extraction picks a real moved tract, writes both assets, prints the chosen
-  GEOID + successor count.
-- The figure script runs (with network for the crosswalk), writes the PNG, and
-  prints the per-2020-geoid values summing to ~1,000.
+- Extraction writes both county assets (2010 and 2020 tracts present, drawable).
+- The figure script runs (network for the crosswalk), writes the PNG, prints the
+  input total and 2020 output total (close, modulo edge leakage).
 - The added example's output block matches real captured output.
-- `mkdocs build --strict` clean; the PNG is in the built `site/`.
-- After merge + deploy: the article page returns 200 and the image URL
-  (`.../articles/img/census10to20-boundary-change.png`) returns 200.
+- Both panels share a color scale and show the same county with different tract
+  boundaries.
+- `mkdocs build --strict` clean; PNG in the built `site/`.
+- After merge + deploy: article 200; image URL 200.
 
 ## Out of scope
 
-- Block-group-level boundary-change map.
-- Offline-caching the crosswalk / removing the network dependency.
-- Changes to the other articles or any package source.
-- Any PyPI release.
+- Block-group-level map; removing the network dependency; other articles; any
+  package source change; any PyPI release.
