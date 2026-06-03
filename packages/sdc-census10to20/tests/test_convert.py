@@ -330,3 +330,29 @@ def test_standardize_all_median_replicates_dominant_parent(monkeypatch, fake_cro
     med = out[out["measure"] == "median_income_geo20"].set_index("geoid")["value"]
     assert med["51001000002"] == pytest.approx(70000.0)
     assert med["51001000003"] == pytest.approx(70000.0)
+
+
+def test_standardize_all_density_recomputed_from_count_and_area20(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    # Parent .020: population 1000 splits 600/400 into children with area20 600/400.
+    # child .002: pop 600 / area20 600 = 1.0 ; child .003: pop 400 / area20 400 = 1.0
+    data = pd.DataFrame({
+        "geoid":       ["51001000020", "51001000020"],
+        "year":        [2018, 2018],
+        "measure":     ["pop_count", "pop_density"],
+        "value":       [1000.0, 1.0],
+        "moe":         [pd.NA, pd.NA],
+        "region_type": ["tract", "tract"],
+    })
+    mi = {
+        "pop_count_geo20":   {"geo_standardize": {"measure_type": "count"}},
+        "pop_density_geo20": {"geo_standardize": {
+            "measure_type": "density", "count": "pop_count",
+        }},
+    }
+    out = convert.standardize_all(data, measure_info=mi)
+    dens = out[out["measure"] == "pop_density_geo20"].set_index("geoid")["value"]
+    assert dens["51001000002"] == pytest.approx(1.0)
+    assert dens["51001000003"] == pytest.approx(1.0)

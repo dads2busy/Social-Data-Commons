@@ -128,6 +128,22 @@ def _redistribute_ratio_weighted(meas_slice, weight_slice, *, geoid_col, value_c
     return m[["geoid", value_col]]
 
 
+def _redistribute_density(count_slice, *, geoid_col, value_col, state_fips):
+    """density_geo20 = count_geo20 / area20 (2020 land area)."""
+    count20 = convert_2010_to_2020_bounds(
+        count_slice, geoid_col=geoid_col, val_col=value_col, state_fips=state_fips,
+    )
+    geoids = list(count_slice[geoid_col].astype(str).unique())
+    xwalk = create_crosswalk(geoids, state_fips=state_fips)
+    area20 = (
+        xwalk.drop_duplicates("geoid20")[["geoid20", "area20"]]
+        .rename(columns={"geoid20": "geoid"})
+    )
+    m = count20.merge(area20, on="geoid")
+    m[value_col] = m[value_col] / m["area20"]
+    return m[["geoid", value_col]]
+
+
 def _redistribute_replicate(meas_slice, *, geoid_col, value_col, state_fips):
     """Each 2020 child takes its area-dominant 2010 parent's value."""
     geoids = list(meas_slice[geoid_col].astype(str).unique())
@@ -329,6 +345,25 @@ def standardize_all(
                         converted = _redistribute_replicate(
                             temp[[geoid_col, value_col]],
                             geoid_col=geoid_col, value_col=value_col,
+                            state_fips=state_fips,
+                        )
+                    elif mtype == "density":
+                        if not (spec and spec.get("count")):
+                            raise ValueError(
+                                f"density {meas!r}: declare 'count' in geo_standardize"
+                            )
+                        c_slice = _measure_slice(
+                            data, yr, geoid_len, spec["count"],
+                            year_col=year_col, geoid_col=geoid_col,
+                            measure_col=measure_col, value_col=value_col,
+                        )
+                        if c_slice.empty:
+                            raise ValueError(
+                                f"density {meas!r}: count {spec['count']!r} missing "
+                                f"from frame for year {yr}"
+                            )
+                        converted = _redistribute_density(
+                            c_slice, geoid_col=geoid_col, value_col=value_col,
                             state_fips=state_fips,
                         )
                     else:
