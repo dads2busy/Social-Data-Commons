@@ -93,10 +93,12 @@ print(cw)
 
 ## Visualizing a boundary change
 
-`convert_2010_to_2020_bounds` re-expresses a complete 2010-boundary dataset on
-2020 tract boundaries (area-weighted for tracts that were redrawn). Here every
-2010 tract in Buchanan County, VA gets a synthetic population, and we convert the
-whole county at once. The tract geometries ship with this page.
+`convert_2010_to_2020_bounds` redistributes a complete 2010-boundary dataset onto
+2020 tract boundaries (area-weighted for tracts that were redrawn). Montgomery
+County, VA had its tracts redrawn between 2010 and 2020 — 16 tracts became 23,
+several splitting into smaller pieces — while the county boundary stayed put. Here
+every 2010 tract gets a synthetic population, and we convert the whole county at
+once. The tract geometries ship with this page.
 
 ```python
 import geopandas as gpd
@@ -117,20 +119,22 @@ print(out.head().to_string(index=False))
 ```
 
 ```text
-2010 total: 16906.0  2020 total: 16903.4
+2010 total: 46688.0  2020 total: 46688.0
       geoid       value
-51027010400 1933.000000
-51027010700 1116.000000
-51027010100 4371.421901
-51027010200 3475.017392
-51027010300 2945.787759
+51063920104   20.237667
+51121020100 4372.473878
+51121020201 3475.000000
+51121020202 2946.373028
+51121020301  126.482992
 ```
 
-![Buchanan County population shown on 2010 tract boundaries vs 2020 tract boundaries](img/census10to20-boundary-change.png)
+![Montgomery County population shown on 2010 tract boundaries vs 2020 tract boundaries](img/census10to20-boundary-change.png)
 
-*The same population, re-expressed on the redrawn 2020 tracts. Because the whole
-county is converted together, the total is preserved (area-weighting only moves
-people between tracts whose boundaries shifted).*
+*The same 46,688 people, redistributed onto the redrawn 2020 tracts. The total is
+**preserved** — each 2010 tract's count is split among the 2020 tracts that
+replaced it in proportion to shared area, so a county's population is unchanged by
+the reprojection. (A tiny amount lands in a neighboring county where a 2010 tract
+straddled the county line — `51063920104` above.)*
 
 > `convert_2010_to_2020_bounds` downloads the Census 2010↔2020 relationship file,
 > so this example needs network access.

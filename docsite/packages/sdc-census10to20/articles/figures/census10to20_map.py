@@ -42,7 +42,7 @@ b.plot(ax=ax[1], column="pop", cmap="Oranges", norm=norm, edgecolor="black",
 ax[1].set_title("2020 tract boundaries"); ax[1].axis("off")
 sm = mpl.cm.ScalarMappable(cmap="Oranges", norm=norm); sm.set_array([])
 fig.colorbar(sm, ax=ax, fraction=0.025, pad=0.02, label="population")
-fig.suptitle("Buchanan County, VA — population on 2010 vs 2020 tract boundaries", y=0.98)
+fig.suptitle("Montgomery County, VA — population on 2010 vs 2020 tract boundaries", y=0.98)
 fig.savefig(img, dpi=130, bbox_inches="tight")
 print("wrote", img)
 print("input total:", round(float(inp["value"].sum()), 1))
