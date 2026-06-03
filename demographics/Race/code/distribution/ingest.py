@@ -16,6 +16,7 @@ from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
+MEASURE_INFO = TOPIC_DIR / "data/distribution/measure_info.json"
 log = get_logger("race.ingest")
 
 
@@ -101,6 +102,7 @@ def run_source(
             result,
             out_dir / filename,
             census_standardize=standardize,
+            measure_info=MEASURE_INFO if MEASURE_INFO.exists() else None,
         )
         log.info("Wrote %d rows to %s", len(result), out_path)
 

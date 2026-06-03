@@ -95,3 +95,10 @@ def test_ratios_recompute_to_parent_value(dataset, monkeypatch, split_crosswalk)
         got = out[out["measure"] == f"{base}_geo20"].set_index("geoid")["value"]
         assert got["51001000002"] == pytest.approx(expected), f"{dataset}:{base} child A"
         assert got["51001000003"] == pytest.approx(expected), f"{dataset}:{base} child B"
+
+
+@pytest.mark.parametrize("dataset", PHASE_1A)
+def test_ingest_wires_measure_info(dataset):
+    src = (REPO_ROOT / dataset / "code/distribution/ingest.py").read_text(encoding="utf-8")
+    assert "MEASURE_INFO" in src, f"{dataset}: ingest.py missing MEASURE_INFO constant"
+    assert "measure_info=" in src, f"{dataset}: ingest.py write_data not passing measure_info"
