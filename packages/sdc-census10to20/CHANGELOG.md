@@ -4,16 +4,13 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-
-### Added
-- GitHub Actions workflows for PyPI Trusted Publishing (TestPyPI → PyPI on
-  `census10to20-v*` tag) and MkDocs Material → GitHub Pages docs deployment.
-
-## [0.1.0] - 2026-05-22
+## [0.1.0] - 2026-06-03
 
 ### Added
 - Initial Python port of the R `sdc.census10to20` package.
+- First release to PyPI via GitHub Actions Trusted Publishing (PyPI-only, on a
+  `census10to20-v*` tag); documentation published on the Social Data Commons
+  umbrella site.
 
 ### Fixed
 - `get_2010_2020_bound_changes` now matches the R `case_when` first-match-wins
