@@ -13,6 +13,7 @@ dependencies = [
     "scipy>=1.14.0",
     "sdc-core",
     "sdc-census10to20",
+    "sdc-redistribute",
     "xlrd>=2.0.2",
 ]
 
@@ -22,6 +23,7 @@ members = ["packages/*"]
 [tool.uv.sources]
 sdc-core = { workspace = true }
 sdc-census10to20 = { workspace = true }
+sdc-redistribute = { workspace = true }
 
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib"

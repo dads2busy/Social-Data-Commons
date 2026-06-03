@@ -1,4 +1,4 @@
-"""Tests for sdc_core.redistribute."""
+"""Tests for sdc_redistribute."""
 
 import pandas as pd
 import pytest
@@ -8,7 +8,7 @@ shapely = pytest.importorskip("shapely")
 
 from shapely.geometry import box
 
-from sdc_core.redistribute import redistribute_direct, redistribute_parcels
+from sdc_redistribute import redistribute_direct, redistribute_parcels
 
 
 @pytest.fixture
