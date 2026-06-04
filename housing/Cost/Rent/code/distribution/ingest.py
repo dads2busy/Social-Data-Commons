@@ -20,6 +20,7 @@ from sdc_core.result import RunResult
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 DIST_DIR = TOPIC_DIR / "data" / "distribution"
 WORKING_DIR = TOPIC_DIR / "data" / "working"
+MEASURE_INFO = DIST_DIR / "measure_info.json"
 
 log = get_logger("housing_cost.ingest")
 
@@ -429,6 +430,7 @@ def run() -> list[RunResult]:
 
     ncr_counties = hud["ncr_counties"]
     years = config["sources"]["va"]["years"]  # same for both sources
+    _CUTOFF = max(years) + 1  # all years are on 2010-vintage tracts → convert all
 
     results = []
     all_frames = []
@@ -474,7 +476,8 @@ def run() -> list[RunResult]:
             geographies=["county", "tract"],
         )
         va_path = write_data(va_data, DIST_DIR / f"{va_name}.csv.xz",
-                             census_standardize=False)
+                             census_standardize=True, measure_info=MEASURE_INFO,
+                             vintage_cutoff_year=_CUTOFF)
         log.info("Wrote VA: %d rows → %s", len(va_data), va_path.name)
 
     # Write NCR output
@@ -485,7 +488,8 @@ def run() -> list[RunResult]:
             geographies=["county", "tract"],
         )
         ncr_path = write_data(ncr_data, DIST_DIR / f"{ncr_name}.csv.xz",
-                              census_standardize=False)
+                              census_standardize=True, measure_info=MEASURE_INFO,
+                              vintage_cutoff_year=_CUTOFF)
         log.info("Wrote NCR: %d rows → %s", len(ncr_data), ncr_path.name)
 
     return results
