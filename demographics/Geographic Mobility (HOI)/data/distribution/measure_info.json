@@ -1,5 +1,6 @@
 {
   "perc_moving_geo20": {
+    "geo_standardize": {"measure_type": "ratio", "numerator": "geo_mobility_moving_count", "denominator": "geo_mobility_total_count", "scale": 100},
     "aggregation_method": "Population Weighted Average",
     "categories": "",
     "category": "Demographics",
@@ -28,6 +29,7 @@
     "variants": ""
   },
   "perc_moving_direct_geo20": {
+    "geo_standardize": {"measure_type": "external"},
     "aggregation_method": "Population Weighted Average",
     "categories": "",
     "category": "Demographics",
@@ -56,6 +58,7 @@
     "variants": ""
   },
   "geo_mobility_total_count_geo20": {
+    "geo_standardize": {"measure_type": "count"},
     "aggregation_method": "Sum",
     "categories": "",
     "category": "Demographics",
@@ -84,6 +87,7 @@
     "variants": ""
   },
   "geo_mobility_moving_count_geo20": {
+    "geo_standardize": {"measure_type": "count"},
     "aggregation_method": "Sum",
     "categories": "",
     "category": "Demographics",
