@@ -1,5 +1,5 @@
 name: race_demographics
-version: "1.0.0"
+version: "1.0.1"
 title: "Race"
 description: "Race and ethnicity distribution from ACS tables B02001 (Race) and B03003 (Hispanic or Latino Origin), providing counts and percentages for seven race/ethnicity categories including White, Black/African American, American Indian/Alaska Native, Asian American/Pacific Islander, Other, Two or More Races, and Hispanic/Latino."
 temporal_label: "ACS 5-year estimates"

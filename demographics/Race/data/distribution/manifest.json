@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-13T14:21:15+00:00",
+  "version": "1.0.1",
+  "generated": "2026-06-04T12:01:09+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "race_AAPI_count_geo10",
@@ -42,7 +43,6 @@
     "race_wht_alone_percent_geo20"
   ],
   "years": [
-    2009,
     2010,
     2011,
     2012,
@@ -64,15 +64,15 @@
     "24",
     "51"
   ],
-  "row_count": 4201965,
+  "row_count": 4685415,
   "files": {
-    "ncr_cttrbg_census_acs_2009_2024_race_demographics.csv.xz": {
-      "sha256": "6304961ac17b457133e52735d5916aba6c3fe1b4b57edaf26aac926bbf999e83",
-      "size_bytes": 18105952
+    "ncr_cttrbg_census_acs_2010_2024_race_demographics.csv.xz": {
+      "sha256": "e4fdb40fd6d48732cb22d4c19a50fbf5d75f2dbd55e6dc1dea5a7f6a7eebe751",
+      "size_bytes": 22420728
     },
-    "va_hdcttr_census_acs_2009_2024_race_demographics.csv.xz": {
-      "sha256": "44270903e82da5d2d2e6f72d9b7e6b40fd104a41f478a29eb6776c0a7a9adf21",
-      "size_bytes": 4574580
+    "va_hdcttr_census_acs_2010_2024_race_demographics.csv.xz": {
+      "sha256": "7d0b12c1ffb086a270407abee4f7d85a926229090f7551f2c583d0f901412f82",
+      "size_bytes": 4789764
     }
   }
 }
