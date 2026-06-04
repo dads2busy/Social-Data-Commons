@@ -27,3 +27,17 @@ def test_run_entrypoint_calls_module_function_not_main(tmp_path):
     )
     result = run_entrypoint(mod, "run")
     assert result == "ok"
+
+
+def test_dry_run_reports_before_acceptance_on_age():
+    from driver import regenerate_dataset
+    from datasets import BASE_ACS
+    repo = Path(__file__).resolve().parents[2]
+    age = next(e for e in BASE_ACS if e["topic"] == "demographics/Age")
+    report = regenerate_dataset(age, repo_root=repo, dry_run=True)
+    assert report["dry_run"] is True
+    assert report["regenerated"] is False
+    assert report["committed"] is False
+    # The committed Age data is still corrupt -> BEFORE acceptance fails (inflation).
+    assert report["before"]["status"] == "fail"
+    assert report["before"]["max_ratio"] > 1.1
