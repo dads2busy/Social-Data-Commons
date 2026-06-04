@@ -71,7 +71,11 @@ def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
         df[col] = df[col].fillna(0.0)
 
     id_cols = ["geoid", "year", "region_type"]
-    measure_cols = [c for c in df.columns if c.startswith("perc_hh_")]
+    count_cols = [
+        "hh_with_broadband", "hh_with_cable_fiber_dsl",
+        "hh_without_internet", "total_hh",
+    ]
+    measure_cols = [c for c in df.columns if c.startswith("perc_hh_")] + count_cols
 
     long = df[id_cols + measure_cols].melt(
         id_vars=id_cols,
@@ -117,7 +121,7 @@ def run() -> None:
             )
             + ".csv.xz"
         )
-        va_dist_path = write_data(va_long, DIST_DIR / filename, census_standardize=True)
+        va_dist_path = write_data(va_long, DIST_DIR / filename, census_standardize=True, measure_info=measure_info)
         log.info("Wrote %d rows to %s", len(va_long), va_dist_path)
 
         paths = data_reformat_for_site(
@@ -155,7 +159,7 @@ def run() -> None:
             )
             + ".csv.xz"
         )
-        ncr_dist_path = write_data(ncr_long, DIST_DIR / filename, census_standardize=True)
+        ncr_dist_path = write_data(ncr_long, DIST_DIR / filename, census_standardize=True, measure_info=measure_info)
         log.info("Wrote %d rows to %s", len(ncr_long), ncr_dist_path)
 
         paths = data_reformat_for_site(

@@ -22,6 +22,7 @@
       }
     ],
     "provenance": "Computed from ACS 5-year estimates, Table B28002 (Presence and Types of Internet Subscriptions in Household): B28002_004 (broadband of any type) / B28002_001 (total households) \u00d7 100. Broadband is defined by the Census Bureau as any internet subscription type other than dial-up.",
+    "geo_standardize": {"measure_type": "ratio", "numerator": "hh_with_broadband", "denominator": "total_hh", "scale": 100},
     "statement": "{value}% of households in {features.name} have a broadband connection.",
     "type": "percent",
     "unit": "percent",
@@ -50,6 +51,7 @@
       }
     ],
     "provenance": "Computed from ACS 5-year estimates, Table B28002: B28002_007 (cable, fiber optic, or DSL subscription) / B28002_001 (total households) \u00d7 100.",
+    "geo_standardize": {"measure_type": "ratio", "numerator": "hh_with_cable_fiber_dsl", "denominator": "total_hh", "scale": 100},
     "statement": "{value}% of households in {features.name} have a cable, fiber, or DSL connection.",
     "type": "percent",
     "unit": "percent",
@@ -78,6 +80,7 @@
       }
     ],
     "provenance": "Computed from ACS 5-year estimates, Table B28002: B28002_013 (no internet access) / B28002_001 (total households) \u00d7 100.",
+    "geo_standardize": {"measure_type": "ratio", "numerator": "hh_without_internet", "denominator": "total_hh", "scale": 100},
     "statement": "{value}% of households in {features.name} do not have internet access.",
     "type": "percent",
     "unit": "percent",
