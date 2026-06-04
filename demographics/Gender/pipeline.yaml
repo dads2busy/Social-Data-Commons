@@ -8,7 +8,7 @@ sources:
   ncr:
     type: census_acs
     profile: NCR
-    years: [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
     geographies: [tract, county, block_group]
     variables:
       total_pop: "B01001_001"
@@ -18,7 +18,7 @@ sources:
   va:
     type: census_acs
     profile: VA
-    years: [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
     geographies: [tract, county]
     variables:
       total_pop: "B01001_001"
