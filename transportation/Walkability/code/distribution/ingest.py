@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import yaml
-from sdc_core.geo import convert_2010_to_2020_bounds
+from sdc_core.geo import replicate_2010_to_2020_bounds
 from sdc_core.io import write_data
 from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
@@ -147,14 +147,14 @@ def add_geo_suffixes(df: pd.DataFrame, state_fips_list: list[str]) -> pd.DataFra
     geo10 = tracts.copy()
     geo10["measure"] = geo10["measure"] + "_geo10"
 
-    # Tracts: _geo20 via convert_2010_to_2020_bounds
+    # Tracts: _geo20 via replicate_2010_to_2020_bounds
     geo20_parts = []
     national = len(state_fips_list) > 5
 
     for year, year_df in tracts.groupby("year"):
         if national:
             # National: one call per year (tract crosswalk is a national file)
-            converted = convert_2010_to_2020_bounds(
+            converted = replicate_2010_to_2020_bounds(
                 year_df[["geoid", "value"]],
             )
             converted["year"] = year
@@ -168,7 +168,7 @@ def add_geo_suffixes(df: pd.DataFrame, state_fips_list: list[str]) -> pd.DataFra
                 st_tracts = year_df[year_df["geoid"].str[:2] == st_fips]
                 if st_tracts.empty:
                     continue
-                converted = convert_2010_to_2020_bounds(
+                converted = replicate_2010_to_2020_bounds(
                     st_tracts[["geoid", "value"]],
                     state_fips=st_fips,
                 )

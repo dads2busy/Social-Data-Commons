@@ -53,6 +53,7 @@
     "statement": "The Walkability Index in {region_name} is {value}.",
     "type": "index",
     "unit": "index score",
-    "variants": ""
+    "variants": "",
+    "geo_standardize": {"measure_type": "external"}
   }
 }
