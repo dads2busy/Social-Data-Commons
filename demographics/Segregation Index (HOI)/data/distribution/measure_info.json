@@ -9,6 +9,7 @@
     "layer": "",
     "long_description": "The Segregation Index measures how much a community's racial and ethnic composition differs from the state as a whole, using the Entropy Index (Theil's H) across eight racial/ethnic categories. Communities with high segregation values tend to have more concentrated poverty, unequal access to services, and wider disparities in educational and economic outcomes. As a component of the VDH Health Opportunity Index Social Impact profile, this measure helps identify areas where residential sorting by race may reinforce structural inequities.",
     "long_name": "Segregation Indicator",
+    "geo_standardize": {"measure_type": "replicate"},
     "measure_type": "index",
     "short_description": "Entropy Index (Theil's H) measuring how sub-area racial/ethnic composition differs from the overall state composition.",
     "short_name": "Segregation indicator",
