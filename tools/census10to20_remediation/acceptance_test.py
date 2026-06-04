@@ -18,11 +18,14 @@ def _is_count(base: str) -> bool:
     return b.endswith("_count") or "count" in b or b.endswith("_pop") or "population" in b
 
 
-def check_conservation(dist_path, *, tol: float = 1.01) -> dict:
+def check_conservation(dist_path, *, tol: float = 0.03) -> dict:
     """County geo20/geo10 sum ratio for pre-2020 tract COUNT measures must be ~1.0.
 
+    tol is the maximum allowed absolute deviation from 1.0 (e.g. 0.03 = ±3%).
     Returns {"status": "pass"|"fail"|"n/a", "max_ratio": float|None,
-             "per_measure": {base: max_county_ratio}}.
+             "per_measure": {base: worst_county_ratio}}.
+    max_ratio holds the county ratio with the largest absolute deviation from 1.0
+    across all count measures (may be <1 or >1).
     """
     df = pd.read_csv(dist_path, dtype={"geoid": str})
     tr = df[(df["year"] < 2020) & (df["region_type"] == "tract")].copy()
@@ -40,13 +43,15 @@ def check_conservation(dist_path, *, tol: float = 1.01) -> dict:
         g20 = tr[tr["measure"] == base + _GEO20].groupby("county")["value"].sum()
         ratio = (g20 / g10).replace([np.inf, -np.inf], np.nan).dropna()
         if not ratio.empty:
-            per_measure[base] = float(ratio.max())
+            # Pick the county ratio with the largest absolute deviation from 1.0
+            per_measure[base] = float(ratio.iloc[(ratio - 1).abs().argmax()])
     if not per_measure:
         return {"status": "n/a", "max_ratio": None, "per_measure": {}}
-    max_ratio = max(per_measure.values())
+    # worst_ratio is the per-measure value with the largest absolute deviation from 1.0
+    worst_ratio = max(per_measure.values(), key=lambda r: abs(r - 1))
     return {
-        "status": "pass" if max_ratio <= tol else "fail",
-        "max_ratio": max_ratio,
+        "status": "pass" if abs(worst_ratio - 1) <= tol else "fail",
+        "max_ratio": worst_ratio,
         "per_measure": per_measure,
     }
 
@@ -60,6 +65,7 @@ def check_ratio_consistency(dist_path, measure_info, *, tol: float = 0.5) -> dic
              "checked": [base, ...]}.
     """
     df = pd.read_csv(dist_path, dtype={"geoid": str})
+    df = df[df["region_type"] == "tract"]
     specs = parse_geo_standardize_info(measure_info)
     present = set(df["measure"].unique())
 

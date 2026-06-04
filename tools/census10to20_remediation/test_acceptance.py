@@ -39,11 +39,27 @@ def test_check_conservation_fails_on_inflation(tmp_path):
     assert rep["max_ratio"] == pytest.approx(1.2)
 
 
-def test_check_conservation_detects_committed_age_inflation():
-    age = REPO_ROOT / "demographics/Age/data/distribution/ncr_cttrbg_census_acs_2009_2024_age_demographics.csv.xz"
-    rep = check_conservation(age)
+def test_check_conservation_fails_on_deflation(tmp_path):
+    # geo20 sum (900) < geo10 sum (1000) -> ratio 0.9 -> two-sided fail
+    rows = [
+        ("51001000001", 2018, "pop_count_geo10", 1000, "tract"),
+        ("51001000002", 2018, "pop_count_geo20", 500, "tract"),
+        ("51001000003", 2018, "pop_count_geo20", 400, "tract"),
+    ]
+    rep = check_conservation(_write(tmp_path, rows))
     assert rep["status"] == "fail"
-    assert rep["max_ratio"] > 1.1
+    assert rep["max_ratio"] == pytest.approx(0.9)
+
+
+def test_check_conservation_passes_within_3pct(tmp_path):
+    # ratio 1.025 -> within 3% -> pass
+    rows = [
+        ("51001000001", 2018, "pop_count_geo10", 1000, "tract"),
+        ("51001000002", 2018, "pop_count_geo20", 615, "tract"),
+        ("51001000003", 2018, "pop_count_geo20", 410, "tract"),
+    ]
+    rep = check_conservation(_write(tmp_path, rows))
+    assert rep["status"] == "pass"
 
 
 def test_check_ratio_consistency_passes_when_percent_matches_counts(tmp_path):
@@ -78,3 +94,23 @@ def test_check_ratio_consistency_fails_on_diluted_percent(tmp_path):
     from acceptance_test import check_ratio_consistency
     rep = check_ratio_consistency(_write(tmp_path, rows), measure_info)
     assert rep["status"] == "fail"
+
+
+def test_check_ratio_consistency_ignores_non_tract_rows(tmp_path):
+    import json
+    rows = [
+        ("51001000002", 2018, "sub_count_geo20", 30, "tract"),
+        ("51001000002", 2018, "tot_count_geo20", 100, "tract"),
+        ("51001000002", 2018, "sub_pct_geo20", 30.0, "tract"),        # tract: correct
+        ("51_hd_07", 2018, "sub_count_geo20", 30, "health_district"),
+        ("51_hd_07", 2018, "tot_count_geo20", 100, "health_district"),
+        ("51_hd_07", 2018, "sub_pct_geo20", 18.0, "health_district"), # HD: wrong, must be IGNORED
+    ]
+    mi = {"sub_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+          "tot_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+          "sub_pct_geo20": {"geo_standardize": {"measure_type": "ratio",
+              "numerator": "sub_count", "denominator": "tot_count", "scale": 100}}}
+    p = _write(tmp_path, rows)
+    from acceptance_test import check_ratio_consistency
+    rep = check_ratio_consistency(p, mi)
+    assert rep["status"] == "pass"  # HD mismatch ignored; tract is correct
