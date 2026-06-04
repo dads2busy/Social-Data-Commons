@@ -289,13 +289,44 @@ def _md_measures(measure_info: dict | None) -> str:
     has_parcels = any("_parcels" in k for k in measures)
     has_direct = any("_direct" in k for k in measures)
 
+    # Detect whether values underwent 2010->2020 census standardization
+    # (vs being produced natively on 2020 geographies) via geo_standardize metadata.
+    gs_types = {
+        (info.get("geo_standardize") or {}).get("measure_type")
+        for info in measures.values()
+        if isinstance(info, dict)
+    }
+    gs_types.discard(None)
+    standardized = bool(gs_types - {"geo2020"})
+    has_counts = "count" in gs_types
+    has_intensive = bool(gs_types - {"geo2020", "count"})
+
     notes: list[str] = []
     if has_geo20 or has_geo10:
-        note = "Measures containing `_geo20` are computed using 2020 Census geographic boundaries"
+        note = "Measures containing `_geo20` are reported on 2020 Census tract boundaries"
         if has_geo10:
-            note += ", while those containing `_geo10` use 2010 Census geographic boundaries"
+            note += ", while those containing `_geo10` use the original 2010 Census boundaries"
         note += "."
         notes.append(note)
+    if standardized:
+        clauses: list[str] = []
+        if has_counts:
+            clauses.append(
+                "count measures are reallocated by land-area weighting, which conserves "
+                "regional totals"
+            )
+        if has_intensive:
+            clauses.append(
+                "intensive measures (rates, percentages, medians, per-household quantities, "
+                "densities, and composite indices) are assigned the value of the "
+                "area-dominant 2010 tract rather than area-averaged, so the measure's scale "
+                "is preserved"
+            )
+        if clauses:
+            notes.append(
+                "Pre-2020 estimates are standardized from 2010 to 2020 census tract "
+                "boundaries using an area-based crosswalk: " + "; ".join(clauses) + "."
+            )
     if has_parcels or has_direct:
         notes.append(
             "Measures containing `_parcels` use parcel-based redistribution "
