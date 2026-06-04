@@ -1,5 +1,5 @@
 name: veteran_demographics
-version: "1.0.0"
+version: "1.0.1"
 title: "Veteran"
 description: "Veteran population estimates from ACS table B21001 (Sex by Age by Veteran Status for the Civilian Population 18 Years and Over), providing counts and percentages of veterans in the civilian population aged 18 and older. This dataset is produced by the Social Data Commons at the University of Virginia."
 
