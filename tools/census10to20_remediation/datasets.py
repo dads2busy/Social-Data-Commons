@@ -9,10 +9,12 @@ confirmed when that phase runs). 3a covers the uniform base-ACS group.
 
 INGEST = "code/distribution/ingest.py:run"
 PREPARE = "code/distribution/prepare.py:run"
+MEASURE_INFO = "data/distribution/measure_info.json"
 
 
 def _base(topic, glob):
-    return {"topic": topic, "entrypoints": [INGEST, PREPARE], "dist_glob": glob}
+    return {"topic": topic, "entrypoints": [INGEST, PREPARE], "dist_glob": glob,
+            "measure_info": MEASURE_INFO}
 
 
 BASE_ACS = [

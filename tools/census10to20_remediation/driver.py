@@ -57,6 +57,26 @@ def _acceptance_conservation(entry, repo_root):
             "per_file": {Path(f).name: r for f, r in zip(files, reps)}}
 
 
+def _acceptance(entry, repo_root):
+    """Combined gate: count conservation (all files) + ratio consistency (all files)."""
+    from acceptance_test import check_ratio_consistency
+    import json as _json
+
+    cons = _acceptance_conservation(entry, repo_root)
+    mi_path = Path(repo_root) / entry["topic"] / entry["measure_info"]
+    measure_info = _json.loads(mi_path.read_text()) if mi_path.exists() else {}
+    ratio_reps = [check_ratio_consistency(f, measure_info) for f in _dist_files(entry, repo_root)]
+    ratio_status = (
+        "fail" if any(r["status"] == "fail" for r in ratio_reps)
+        else ("n/a" if all(r["status"] == "n/a" for r in ratio_reps) else "pass")
+    )
+    overall = "fail" if cons["status"] == "fail" or ratio_status == "fail" else (
+        "n/a" if cons["status"] == "n/a" and ratio_status == "n/a" else "pass"
+    )
+    return {"status": overall, "conservation": cons,
+            "ratio": {"status": ratio_status, "reps": ratio_reps}}
+
+
 def regenerate_dataset(entry, *, repo_root, dry_run: bool):
     """Regenerate one dataset (or, in dry_run, only report BEFORE acceptance).
 
@@ -68,7 +88,7 @@ def regenerate_dataset(entry, *, repo_root, dry_run: bool):
     and committing. 3a only validates the dry-run path.
     """
     repo_root = Path(repo_root)
-    before = _acceptance_conservation(entry, repo_root)
+    before = _acceptance(entry, repo_root)
     report = {
         "topic": entry["topic"], "dry_run": dry_run,
         "before": before, "regenerated": False, "committed": False,

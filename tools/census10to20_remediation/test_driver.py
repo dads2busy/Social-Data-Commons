@@ -41,8 +41,39 @@ def test_dry_run_reports_before_acceptance_on_age():
     assert report["regenerated"] is False
     assert report["committed"] is False
     # The committed Age data is still corrupt -> BEFORE acceptance fails (inflation).
-    assert report["before"]["status"] == "fail"
-    assert report["before"]["max_ratio"] > 1.1
+    assert report["before"]["conservation"]["status"] == "fail"
+    assert report["before"]["conservation"]["max_ratio"] > 1.1
+
+
+def test_acceptance_combines_conservation_and_ratio(tmp_path):
+    import json, pandas as pd
+    from driver import _acceptance
+
+    topic = tmp_path / "demo"
+    dist = topic / "data" / "distribution"
+    dist.mkdir(parents=True)
+    rows = pd.DataFrame({
+        "geoid": ["51001000001", "51001000002", "51001000003", "51001000002", "51001000002"],
+        "year": [2018, 2018, 2018, 2018, 2018],
+        "measure": ["tot_count_geo10", "tot_count_geo20", "tot_count_geo20",
+                    "sub_count_geo20", "sub_pct_geo20"],
+        "value": [1000, 600, 400, 30, 18.0],  # tot conserved (1.0); sub_pct diluted (18 vs 100*30/?)
+        "moe": [pd.NA] * 5,
+        "region_type": ["tract"] * 5,
+    })
+    rows.to_csv(dist / "d.csv.xz", index=False)
+    mi = {
+        "tot_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "sub_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "sub_pct_geo20": {"geo_standardize": {"measure_type": "ratio",
+            "numerator": "sub_count", "denominator": "tot_count", "scale": 100}},
+    }
+    (dist / "measure_info.json").write_text(json.dumps(mi))
+    entry = {"topic": "demo", "dist_glob": "data/distribution/d.csv.xz",
+             "measure_info": "data/distribution/measure_info.json"}
+    rep = _acceptance(entry, tmp_path)
+    assert rep["ratio"]["status"] == "fail"   # 18.0 != 100*30/tot_count for that geoid
+    assert rep["status"] == "fail"
 
 
 def test_dist_files_returns_all_matches_and_acceptance_aggregates(tmp_path):
