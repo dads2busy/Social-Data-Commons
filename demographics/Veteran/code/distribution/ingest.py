@@ -16,6 +16,7 @@ from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
+MEASURE_INFO = TOPIC_DIR / "data/distribution/measure_info.json"
 log = get_logger("veteran.ingest")
 
 
@@ -28,6 +29,7 @@ def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
     """Compute veteran counts and percentages."""
     df = df.copy()
     df["veteran_count"] = df["veteran"]
+    df["veteran_denom_count"] = df["vet_denom"]
     df["veteran_percent"] = 100 * df["veteran"] / df["vet_denom"]
 
     id_cols = ["geoid", "year", "region_type"]
@@ -73,6 +75,7 @@ def run_source(name: str, src: dict, out_dir: Path, standardize: bool) -> RunRes
             result,
             out_dir / filename,
             census_standardize=standardize,
+            measure_info=MEASURE_INFO if MEASURE_INFO.exists() else None,
         )
         log.info("Wrote %d rows to %s", len(result), out_path)
 

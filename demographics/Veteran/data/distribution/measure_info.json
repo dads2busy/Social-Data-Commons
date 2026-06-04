@@ -1,5 +1,6 @@
 {
   "veteran_count_geo20": {
+    "geo_standardize": {"measure_type": "count"},
     "aggregation_method": "count",
     "categories": "",
     "category": "Demographics",
@@ -28,6 +29,7 @@
     "variants": ""
   },
   "veteran_percent_geo20": {
+    "geo_standardize": {"measure_type": "ratio", "numerator": "veteran_count", "denominator": "veteran_denom_count", "scale": 100},
     "aggregation_method": "percent",
     "categories": "",
     "category": "Demographics",
