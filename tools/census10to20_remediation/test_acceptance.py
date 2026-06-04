@@ -44,3 +44,37 @@ def test_check_conservation_detects_committed_age_inflation():
     rep = check_conservation(age)
     assert rep["status"] == "fail"
     assert rep["max_ratio"] > 1.1
+
+
+def test_check_ratio_consistency_passes_when_percent_matches_counts(tmp_path):
+    rows = [
+        ("51001000002", 2018, "u20_count_geo20", 30, "tract"),
+        ("51001000002", 2018, "tot_count_geo20", 100, "tract"),
+        ("51001000002", 2018, "u20_pct_geo20", 30.0, "tract"),  # 100*30/100
+    ]
+    measure_info = {
+        "u20_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "tot_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "u20_pct_geo20": {"geo_standardize": {"measure_type": "ratio",
+            "numerator": "u20_count", "denominator": "tot_count", "scale": 100}},
+    }
+    from acceptance_test import check_ratio_consistency
+    rep = check_ratio_consistency(_write(tmp_path, rows), measure_info)
+    assert rep["status"] == "pass"
+
+
+def test_check_ratio_consistency_fails_on_diluted_percent(tmp_path):
+    rows = [
+        ("51001000002", 2018, "u20_count_geo20", 30, "tract"),
+        ("51001000002", 2018, "tot_count_geo20", 100, "tract"),
+        ("51001000002", 2018, "u20_pct_geo20", 18.0, "tract"),  # diluted (should be 30)
+    ]
+    measure_info = {
+        "u20_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "tot_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "u20_pct_geo20": {"geo_standardize": {"measure_type": "ratio",
+            "numerator": "u20_count", "denominator": "tot_count", "scale": 100}},
+    }
+    from acceptance_test import check_ratio_consistency
+    rep = check_ratio_consistency(_write(tmp_path, rows), measure_info)
+    assert rep["status"] == "fail"

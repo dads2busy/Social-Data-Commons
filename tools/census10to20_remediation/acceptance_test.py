@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import numpy as np
 import pandas as pd
+from sdc_census10to20 import parse_geo_standardize_info
 
 _GEO20 = "_geo20"
 _GEO10 = "_geo10"
@@ -47,4 +48,44 @@ def check_conservation(dist_path, *, tol: float = 1.01) -> dict:
         "status": "pass" if max_ratio <= tol else "fail",
         "max_ratio": max_ratio,
         "per_measure": per_measure,
+    }
+
+
+def check_ratio_consistency(dist_path, measure_info, *, tol: float = 0.5) -> dict:
+    """Each ratio _geo20 must equal scale * numerator_geo20 / denominator_geo20.
+
+    Only ratio specs whose numerator AND denominator _geo20 are present in the file
+    are checked (frame-change datasets drop their helper counts, so they are skipped).
+    Returns {"status": "pass"|"fail"|"n/a", "max_abs_diff": float|None,
+             "checked": [base, ...]}.
+    """
+    df = pd.read_csv(dist_path, dtype={"geoid": str})
+    specs = parse_geo_standardize_info(measure_info)
+    present = set(df["measure"].unique())
+
+    def series(base):
+        return df[df["measure"] == base + _GEO20].set_index(["geoid", "year"])["value"]
+
+    checked, max_diff = [], 0.0
+    for base, spec in specs.items():
+        if spec.get("measure_type") not in ("ratio", "rate"):
+            continue
+        num, den = spec.get("numerator"), spec.get("denominator")
+        if not (num and den):
+            continue
+        if not ({num + _GEO20, den + _GEO20, base + _GEO20} <= present):
+            continue
+        scale = spec.get("scale", 100)
+        recomputed = scale * series(num) / series(den)
+        published = series(base)
+        diff = (recomputed - published).abs().replace([np.inf, -np.inf], np.nan).dropna()
+        if not diff.empty:
+            checked.append(base)
+            max_diff = max(max_diff, float(diff.max()))
+    if not checked:
+        return {"status": "n/a", "max_abs_diff": None, "checked": []}
+    return {
+        "status": "pass" if max_diff <= tol else "fail",
+        "max_abs_diff": max_diff,
+        "checked": checked,
     }
