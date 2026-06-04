@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-13T14:19:47+00:00",
+  "version": "2.0.1",
+  "generated": "2026-06-04T12:32:18+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "gini_index_geo10",
@@ -30,15 +31,19 @@
     "24",
     "51"
   ],
-  "row_count": 90845,
+  "row_count": 123630,
   "files": {
     "ncr_cttr_census_acs_2015_2024_income_inequality.csv.xz": {
-      "sha256": "3cb075c7a0ccaf2fe8dc622165bebb8cdcfa1fc602337e1f18ea12ad68157df4",
-      "size_bytes": 331804
+      "sha256": "f94e74b47c2775c4aa42ed35fc47fb4acda1a3310d8013b8ba5238accb26f84f",
+      "size_bytes": 288152
+    },
+    "va_cttr_census_acs_2015_2024_income_inequality.csv.xz": {
+      "sha256": "d48d43b00b1695e6ea20625726efd402813c9218615c28c17c851947134ee9cd",
+      "size_bytes": 163360
     },
     "va_hdcttr_census_acs_2015_2024_income_inequality.csv.xz": {
-      "sha256": "f2248a95cf8604531819f916726339c2c1ba99e7d4a9ba7f89a0cf6ba2bcbb17",
-      "size_bytes": 172772
+      "sha256": "36a4a34cd8882cc627d760db0bf312aa24340b2a1512216b02fbe946ba7b00db",
+      "size_bytes": 140168
     }
   }
 }
