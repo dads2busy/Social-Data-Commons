@@ -19,3 +19,22 @@ def test_write_data_passes_measure_info_to_standardize(monkeypatch, tmp_path):
     mi = {"pop_geo20": {"geo_standardize": {"measure_type": "count"}}}
     write_data(df, tmp_path / "out.csv", census_standardize=True, measure_info=mi)
     assert captured["measure_info"] == mi
+
+
+def test_write_data_forwards_input_only_measures(monkeypatch, tmp_path):
+    captured = {}
+
+    def fake_standardize_all(df, *, measure_info=None, input_only_measures=None, **kw):
+        captured["input_only_measures"] = input_only_measures
+        return df
+
+    import sdc_core.io as io
+    monkeypatch.setattr(io, "standardize_all", fake_standardize_all)
+
+    df = pd.DataFrame({
+        "geoid": ["51001000020"], "year": [2018], "measure": ["pop"],
+        "value": [1.0], "moe": [pd.NA], "region_type": ["tract"],
+    })
+    write_data(df, tmp_path / "out.csv", census_standardize=True,
+               measure_info={"pop_geo20": {}}, input_only_measures={"denom"})
+    assert captured["input_only_measures"] == {"denom"}
