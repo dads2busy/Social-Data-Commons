@@ -1,5 +1,6 @@
 {
   "environmental_hazard_index_geo20": {
+    "geo_standardize": {"measure_type": "external"},
     "aggregation_method": "mean",
     "categories": "",
     "category": "Environmental Health",

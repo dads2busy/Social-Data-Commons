@@ -23,7 +23,7 @@ import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
 
-from sdc_core.geo import convert_2010_to_2020_bounds
+from sdc_core.geo import replicate_2010_to_2020_bounds
 from sdc_core.io import write_data
 from sdc_core.log import get_logger
 from sdc_core.naming import build_file_name
@@ -324,7 +324,7 @@ def _process_coverage(
             output_frames.append(geo10[["geoid", "year", "measure", "value", "moe", "region_type"]])
 
             # Crosswalk to 2020 geo
-            converted = convert_2010_to_2020_bounds(
+            converted = replicate_2010_to_2020_bounds(
                 year_data[["geoid", "value"]],
                 geoid_col="geoid",
                 val_col="value",
