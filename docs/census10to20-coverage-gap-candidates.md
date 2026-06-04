@@ -53,6 +53,22 @@ These are already on 2020 geographies by construction — no conversion needed.
 
 ---
 
+## Execution outcome (2026-06-04, branch census10to20-coverage-gap)
+
+Standardized via the configurable `vintage_cutoff_year` mechanism: **PLACES** (cutoff 2022),
+**Rent** (all years 2010-vintage), **OB-GYN / Pediatric / Primary Care** access scores (cutoff
+2021), and **SNAP** (cutoff 2020; prepare's health-district percent recompute updated to use the
+`_geo20` counts).
+
+**Deferred to a separate investigation** (pre-existing problems beyond standardization, matching
+the Hospitals case):
+- **Worker_diversity** — its distribution data emits **116 measures but only 78 are documented**
+  in `measure_info.json` (38 unprefixed `age_*`/`earnings_*`/`industry_*` measures have no
+  metadata). Standardizing would route the 38 undocumented measures through the name heuristic.
+  Fix the `measure_info` completeness first (document or stop emitting the 38), then standardize.
+- **Hospitals and Emergency Rooms/Service Access Scores** — erratic per-year tract geography
+  (see above), needs its geography handling understood/fixed first.
+
 ## Recommended approach (same playbook as the 24)
 
 For each of the 9, per dataset:
