@@ -1,5 +1,5 @@
 name: gender_demographics
-version: "1.0.0"
+version: "1.0.1"
 title: "Gender"
 description: "Population gender distribution from ACS table B01001 (Sex by Age), providing counts and percentages for male and female populations."
 temporal_label: "ACS 5-year estimates"

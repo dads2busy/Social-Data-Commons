@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-05T21:39:20+00:00",
+  "version": "1.0.1",
+  "generated": "2026-06-04T12:20:57+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "gender_female_count_geo10",
@@ -22,7 +23,6 @@
     "gender_total_count_geo20"
   ],
   "years": [
-    2009,
     2010,
     2011,
     2012,
@@ -44,15 +44,15 @@
     "24",
     "51"
   ],
-  "row_count": 1397855,
+  "row_count": 1561805,
   "files": {
-    "ncr_cttrbg_census_acs_2009_2024_gender_demographics.csv.xz": {
-      "sha256": "f2ea3ea26e2de9df1027fa108858641e12a5c6ded6b06c03b7254e9537b21958",
-      "size_bytes": 6461788
+    "ncr_cttrbg_census_acs_2010_2024_gender_demographics.csv.xz": {
+      "sha256": "d17455b3259ddea2f9aca033ad69c0f88d716662fc1c65583b56f84dfa5801fa",
+      "size_bytes": 8100112
     },
-    "va_hdcttr_census_acs_2009_2024_gender_demographics.csv.xz": {
-      "sha256": "bdedee660d5709850e74557f95c51ba67ed33b6d2bd50e7224c7271fe99b4d07",
-      "size_bytes": 1543848
+    "va_hdcttr_census_acs_2010_2024_gender_demographics.csv.xz": {
+      "sha256": "49977f3f3d380875e26eaf1514a6b8fbd22b61101feda27cf97f3f64f852da64",
+      "size_bytes": 1656264
     }
   }
 }
