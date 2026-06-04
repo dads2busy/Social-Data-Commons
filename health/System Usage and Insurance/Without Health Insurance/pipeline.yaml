@@ -1,5 +1,5 @@
 name: without_health_insurance
-version: "1.0.0"
+version: "1.0.1"
 title: "Without Health Insurance"
 description: "Health insurance coverage rates for the working-age population (19-64) from ACS table B27010. Computes both uninsured and insured percentages."
 
