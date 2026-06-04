@@ -21,6 +21,7 @@ from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 DIST_DIR = TOPIC_DIR / "data/distribution"
+MEASURE_INFO = TOPIC_DIR / "data/distribution/measure_info.json"
 
 log = get_logger("employment.ingest")
 
@@ -33,11 +34,19 @@ def load_config() -> dict:
 def compute_emp_rate(df: pd.DataFrame) -> pd.DataFrame:
     mask = df["civilian_lf"].gt(0) & df["civilian_lf"].notna()
     df = df[mask].copy()
-    out = df[["geoid", "year", "region_type"]].copy()
-    out["measure"] = "emp_rate"
-    out["value"] = (df["employed"] / df["civilian_lf"] * 100).round(4)
-    out["moe"] = pd.NA
-    return out
+    id_cols = ["geoid", "year", "region_type"]
+    parts = []
+    for measure, val in [
+        ("emp_rate", (df["employed"] / df["civilian_lf"] * 100).round(4)),
+        ("emp_employed_count", df["employed"]),
+        ("emp_civilian_lf_count", df["civilian_lf"]),
+    ]:
+        part = df[id_cols].copy()
+        part["measure"] = measure
+        part["value"] = val
+        part["moe"] = pd.NA
+        parts.append(part)
+    return pd.concat(parts, ignore_index=True)
 
 
 def compute_labor_rate(df: pd.DataFrame) -> pd.DataFrame:
@@ -102,6 +111,7 @@ def run_source(
             result,
             out_dir / f"{auto_name}.csv.xz",
             census_standardize=True,
+            measure_info=MEASURE_INFO if MEASURE_INFO.exists() else None,
         )
         log.info("Wrote %d rows to %s", len(result), out_path)
 

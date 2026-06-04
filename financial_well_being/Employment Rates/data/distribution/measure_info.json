@@ -1,5 +1,6 @@
 {
   "labor_participate_rate_geo20": {
+    "geo_standardize": {"measure_type": "replicate"},
     "aggregation_method": "percent",
     "categories": "",
     "category": "Employment/Workforce Development",
@@ -28,6 +29,7 @@
     "variants": ""
   },
   "emp_rate_geo20": {
+    "geo_standardize": {"measure_type": "ratio", "numerator": "emp_employed_count", "denominator": "emp_civilian_lf_count", "scale": 100},
     "aggregation_method": "percent",
     "categories": "",
     "category": "Employment/Workforce Development",
