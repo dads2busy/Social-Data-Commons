@@ -1,6 +1,6 @@
 {
   "material_deprivation_indicator_geo20": {
-    "geo_standardize": {"measure_type": "index", "interpolate": false},
+    "geo_standardize": {"measure_type": "replicate"},
     "aggregation_method": "mean",
     "categories": "",
     "category": "Financial Well Being",
