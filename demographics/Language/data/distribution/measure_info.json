@@ -1,5 +1,6 @@
 {
   "language_hh_limited_english_count_geo20": {
+    "geo_standardize": {"measure_type": "count"},
     "aggregation_method": "arithmetic mean",
     "categories": "",
     "category": "Demographics",
@@ -28,6 +29,7 @@
     "variants": ""
   },
   "language_hh_limited_english_percent_geo20": {
+    "geo_standardize": {"measure_type": "ratio", "numerator": "language_hh_limited_english_count", "denominator": "language_total_hh_count", "scale": 100},
     "aggregation_method": "percent",
     "categories": "",
     "category": "Demographics",

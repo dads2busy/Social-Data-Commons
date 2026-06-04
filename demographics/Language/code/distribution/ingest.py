@@ -16,6 +16,7 @@ from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
+MEASURE_INFO = TOPIC_DIR / "data/distribution/measure_info.json"
 log = get_logger("language.ingest")
 
 
@@ -36,6 +37,7 @@ def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     df["language_hh_limited_english_count"] = df["hh_limited_english"]
+    df["language_total_hh_count"] = df["total_hh"]
     df["language_hh_limited_english_percent"] = (
         100 * df["hh_limited_english"] / df["total_hh"]
     )
@@ -83,6 +85,7 @@ def run_source(name: str, src: dict, out_dir: Path, standardize: bool) -> RunRes
             result,
             out_dir / filename,
             census_standardize=standardize,
+            measure_info=MEASURE_INFO if MEASURE_INFO.exists() else None,
         )
         log.info("Wrote %d rows to %s", len(result), out_path)
 
