@@ -33,6 +33,7 @@
     }
   },
   "acs_postsecondary_percent_geo20": {
+    "geo_standardize": {"measure_type": "ratio", "numerator": "acs_postsecondary_count", "denominator": "acs_postsecondary_denom_count", "scale": 100},
     "aggregation_method": "percent",
     "categories": "",
     "category": "Education",
@@ -61,6 +62,7 @@
     "variants": ""
   },
   "acs_postsecondary_count_geo20": {
+    "geo_standardize": {"measure_type": "count"},
     "aggregation_method": "count",
     "categories": "",
     "category": "Education",

@@ -25,6 +25,7 @@ from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 DIST_DIR = TOPIC_DIR / "data/distribution"
+MEASURE_INFO = TOPIC_DIR / "data/distribution/measure_info.json"
 WORKING_DIR = TOPIC_DIR / "data/working"
 
 log = get_logger("postsecondary.ingest")
@@ -68,6 +69,8 @@ def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
     for measure, val, moe in [
         ("acs_postsecondary_count", count, moe_count),
         ("acs_postsecondary_percent", pct, moe_pct),
+        ("acs_postsecondary_denom_count", df["total"],
+         df.get("total_moe", pd.Series(0, index=df.index))),
     ]:
         part = df[id_cols].copy()
         part["measure"] = measure
@@ -115,6 +118,7 @@ def run_source(
             result,
             out_dir / f"{auto_name}.csv.xz",
             census_standardize=True,
+            measure_info=MEASURE_INFO if MEASURE_INFO.exists() else None,
         )
         log.info("Wrote %d rows to %s", len(result), out_path)
 
