@@ -253,5 +253,6 @@ from sdc_census10to20 import (  # noqa: E402,F401
     convert_2010_to_2020_bounds,
     create_crosswalk,
     get_2010_2020_bound_changes,
+    replicate_2010_to_2020_bounds,
     standardize_all,
 )

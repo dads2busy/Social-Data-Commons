@@ -11,7 +11,7 @@ import pandas as pd
 
 from sdc_census10to20.crosswalk import create_crosswalk
 
-__all__ = ["convert_2010_to_2020_bounds", "parse_geo_standardize_info", "referenced_helper_measures", "standardize_all"]
+__all__ = ["convert_2010_to_2020_bounds", "parse_geo_standardize_info", "referenced_helper_measures", "replicate_2010_to_2020_bounds", "standardize_all"]
 
 
 _SUB_COUNTY_LENGTHS = {11, 12}  # tract, block group
@@ -169,21 +169,41 @@ def _redistribute_density(count_slice, *, geoid_col, value_col, state_fips, area
     return m[["geoid", value_col]]
 
 
-def _redistribute_replicate(meas_slice, *, geoid_col, value_col, state_fips):
-    """Each 2020 child takes its area-dominant 2010 parent's value."""
-    geoids = list(meas_slice[geoid_col].astype(str).unique())
+def replicate_2010_to_2020_bounds(data, *, geoid_col="geoid", val_col="value", state_fips="51"):
+    """Replicate a single year/measure of 2010-vintage values onto 2020 boundaries.
+
+    Each 2020 tract takes the value of its area-dominant 2010 parent (largest
+    land-area overlap). Use for non-additive per-tract statistics/indices that
+    cannot be areal-interpolated (median, gini, entropy, PCA z-score, rank-sum,
+    regression index) — the parent's value is the best estimate for each child
+    absent sub-tract detail. Sibling of ``convert_2010_to_2020_bounds`` (which is
+    for extensive count measures).
+
+    Returns a frame with columns ``["geoid", val_col]`` on 2020 boundaries.
+    """
+    data = data.copy()
+    data[geoid_col] = data[geoid_col].astype(str)
+    geoids = list(data[geoid_col].unique())
     xwalk = create_crosswalk(geoids, state_fips=state_fips)
     dom_idx = xwalk.groupby("geoid20")["area_part"].idxmax()
     dom = xwalk.loc[dom_idx, ["geoid20", "geoid10"]]
-    parent_vals = meas_slice.rename(columns={geoid_col: "geoid10"})[["geoid10", value_col]]
+    parent_vals = data.rename(columns={geoid_col: "geoid10"})[["geoid10", val_col]]
     out = dom.merge(parent_vals, on="geoid10", how="left")
-    if out[value_col].isna().any():
+    out = out.rename(columns={"geoid20": "geoid"})[["geoid", val_col]]
+    if out[val_col].isna().any():
         warnings.warn(
             "some 2020 tracts had no dominant 2010 parent in the input data; "
             "their replicated value is NaN",
             stacklevel=2,
         )
-    return out.rename(columns={"geoid20": "geoid"})[["geoid", value_col]]
+    return out
+
+
+def _redistribute_replicate(meas_slice, *, geoid_col, value_col, state_fips):
+    """Each 2020 child takes its area-dominant 2010 parent's value."""
+    return replicate_2010_to_2020_bounds(
+        meas_slice, geoid_col=geoid_col, val_col=value_col, state_fips=state_fips,
+    )
 
 
 def convert_2010_to_2020_bounds(

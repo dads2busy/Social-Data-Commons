@@ -571,3 +571,16 @@ def test_standardize_all_geo2020_passes_through_without_conversion(monkeypatch, 
     g20 = out[out["measure"] == "my_rate_geo20"]
     assert set(g20["geoid"]) == {"51001000020"}          # unchanged, NOT split into children
     assert g20["value"].iloc[0] == pytest.approx(42.0)
+
+
+def test_replicate_2010_to_2020_bounds_takes_dominant_parent(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import replicate_2010_to_2020_bounds
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    # Parent .020 (value 0.7) splits into .002/.003 -> both take 0.7 (dominant parent).
+    data = pd.DataFrame({"geoid": ["51001000020"], "value": [0.7]})
+    out = replicate_2010_to_2020_bounds(data, geoid_col="geoid", val_col="value")
+    vals = out.set_index("geoid")["value"]
+    assert vals["51001000002"] == pytest.approx(0.7)
+    assert vals["51001000003"] == pytest.approx(0.7)
