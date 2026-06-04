@@ -53,7 +53,7 @@ Predicted fraction of commuters using public transit from the CNT transit use re
 - **B25009_010**: Hh Size Renter
 
 ## Measures (6)
-*Note on naming conventions: Measures containing `_geo20` are computed using 2020 Census geographic boundaries.*
+*Note on naming conventions: Measures containing `_geo20` are reported on 2020 Census tract boundaries. Pre-2020 estimates are standardized from 2010 to 2020 census tract boundaries using an area-based crosswalk: intensive measures (rates, percentages, medians, per-household quantities, densities, and composite indices) are assigned the value of the area-dominant 2010 tract rather than area-averaged, so the measure's scale is preserved.*
 
 - **affordability_index_geo20**: Housing + Transportation Affordability Index (mean, unit: percent)
   Proportion of income spent on combined housing and transportation costs for a Regional Typical Household.
@@ -75,4 +75,4 @@ Predicted fraction of commuters using public transit from the CNT transit use re
 - [General Transit Feed Specification (GTFS)](https://mobilitydatabase.org/)
 
 ## File Format
-Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `region_type`, `region_name`, `year`, `measure`, `value`, `moe` (margin of error, where available). Larger files are provided as xz-compressed CSVs (`.csv.xz`).
+Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `year`, `measure`, `value`, `moe` (margin of error, where available), `region_type`, `data_method` (observed, modeled, scaled, interpolated, or extrapolated). Per-measure metadata (descriptions, units, and sources) is documented in the dataset's `measure_info.json` in the Social Data Commons repository.

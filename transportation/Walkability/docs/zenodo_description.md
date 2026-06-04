@@ -23,7 +23,7 @@ The Walkability Index is a composite measure that ranks block groups according t
 - **Custom NatWalkInd = D2A_Ranked/6 + D2B_Ranked/6 + D3B_Ranked/3 + D4C_Ranked/3**: Walkability Index
 
 ## Measures (1)
-*Note on naming conventions: Measures containing `_geo20` are computed using 2020 Census geographic boundaries.*
+*Note on naming conventions: Measures containing `_geo20` are reported on 2020 Census tract boundaries. Pre-2020 estimates are standardized from 2010 to 2020 census tract boundaries using an area-based crosswalk: intensive measures (rates, percentages, medians, per-household quantities, densities, and composite indices) are assigned the value of the area-dominant 2010 tract rather than area-averaged, so the measure's scale is preserved.*
 
 - **walkability_index_geo20**: Walkability Index (population-weighted mean, unit: index score)
   Composite walkability score (1-20) combining employment entropy, street connectivity, and transit proximity, updated annually from LODES, EPA SLD, and GTFS data.
@@ -36,4 +36,4 @@ The Walkability Index is a composite measure that ranks block groups according t
 - [Census Bureau (accessed 2025)](https://www.census.gov)
 
 ## File Format
-Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `region_type`, `region_name`, `year`, `measure`, `value`, `moe` (margin of error, where available). Larger files are provided as xz-compressed CSVs (`.csv.xz`).
+Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `year`, `measure`, `value`, `moe` (margin of error, where available), `region_type`, `data_method` (observed, modeled, scaled, interpolated, or extrapolated). Per-measure metadata (descriptions, units, and sources) is documented in the dataset's `measure_info.json` in the Social Data Commons repository.

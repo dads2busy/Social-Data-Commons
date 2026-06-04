@@ -17,7 +17,7 @@ The Employment Access Index quantifies how easily residents of a community can r
 - [TABBLOCK20, BG, TRACT, COUNTY shapefiles (INTPTLAT, INTPTLON fields)](https://www2.census.gov/geo/tiger/TIGER2020/)
 
 ## Measures (1)
-*Note on naming conventions: Measures containing `_geo20` are computed using 2020 Census geographic boundaries.*
+*Note on naming conventions: Measures containing `_geo20` are reported on 2020 Census tract boundaries.*
 
 - **employment_access_index_geo20**: Employment Access Index (mean, unit: index score)
   Gravity-based index of employment accessibility measuring proximity to jobs, weighted by distance decay.
@@ -27,4 +27,4 @@ The Employment Access Index quantifies how easily residents of a community can r
 - [TIGER/Line Shapefiles (2020 Census Geography) (accessed 2026)](https://www2.census.gov/geo/tiger/TIGER2020/)
 
 ## File Format
-Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `region_type`, `region_name`, `year`, `measure`, `value`, `moe` (margin of error, where available). Larger files are provided as xz-compressed CSVs (`.csv.xz`).
+Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `year`, `measure`, `value`, `moe` (margin of error, where available), `region_type`, `data_method` (observed, modeled, scaled, interpolated, or extrapolated). Per-measure metadata (descriptions, units, and sources) is documented in the dataset's `measure_info.json` in the Social Data Commons repository.

@@ -32,7 +32,7 @@ The Material Deprivation Index captures the extent to which a community lacks ba
 - **S2502_C05_001**: Renter Occupied Units
 
 ## Measures (1)
-*Note on naming conventions: Measures containing `_geo20` are computed using 2020 Census geographic boundaries.*
+*Note on naming conventions: Measures containing `_geo20` are reported on 2020 Census tract boundaries. Pre-2020 estimates are standardized from 2010 to 2020 census tract boundaries using an area-based crosswalk: intensive measures (rates, percentages, medians, per-household quantities, densities, and composite indices) are assigned the value of the area-dominant 2010 tract rather than area-averaged, so the measure's scale is preserved.*
 
 - **material_deprivation_indicator_geo20**: Material Deprivation Indicator (mean)
   Townsend Material Deprivation Index (0-1) combining unemployment, overcrowding, non-car ownership, and non-home ownership.
@@ -41,4 +41,4 @@ The Material Deprivation Index captures the extent to which a community lacks ba
 - [U.S. Census Bureau (accessed 2025)](https://www.census.gov/programs-surveys/acs.html)
 
 ## File Format
-Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `region_type`, `region_name`, `year`, `measure`, `value`, `moe` (margin of error, where available). Larger files are provided as xz-compressed CSVs (`.csv.xz`).
+Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `year`, `measure`, `value`, `moe` (margin of error, where available), `region_type`, `data_method` (observed, modeled, scaled, interpolated, or extrapolated). Per-measure metadata (descriptions, units, and sources) is documented in the dataset's `measure_info.json` in the Social Data Commons repository.
