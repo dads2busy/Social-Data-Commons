@@ -18,6 +18,7 @@ from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
+MEASURE_INFO = TOPIC_DIR / "data/distribution/measure_info.json"
 log = get_logger("population_density.ingest")
 
 TIGER_URLS = (
@@ -168,11 +169,18 @@ def run_source(
         area = fetch_land_area(tiger)
 
         pop = pop.merge(area[["geoid", "land_area_sqmi"]], on="geoid", how="left")
-        pop["value"] = pop["total_pop"] / pop["land_area_sqmi"]
-        pop["measure"] = "population_density"
-        pop["moe"] = pd.NA
+        density = pop[["geoid", "year", "region_type"]].copy()
+        density["measure"] = "population_density"
+        density["value"] = pop["total_pop"] / pop["land_area_sqmi"]
+        density["moe"] = pd.NA
 
-        result = pop[["geoid", "year", "measure", "value", "moe", "region_type"]]
+        popcount = pop[["geoid", "year", "region_type"]].copy()
+        popcount["measure"] = "population_count"
+        popcount["value"] = pop["total_pop"]
+        popcount["moe"] = pd.NA
+
+        result = pd.concat([density, popcount], ignore_index=True)
+        result = result[["geoid", "year", "measure", "value", "moe", "region_type"]]
         result = result.dropna(subset=["value"])
 
         states = resolve_states(src)
@@ -188,6 +196,7 @@ def run_source(
             result,
             out_dir / filename,
             census_standardize=standardize,
+            measure_info=MEASURE_INFO if MEASURE_INFO.exists() else None,
         )
         log.info("Wrote %d rows to %s", len(result), out_path)
 

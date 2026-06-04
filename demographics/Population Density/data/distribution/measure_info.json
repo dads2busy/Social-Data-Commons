@@ -1,5 +1,6 @@
 {
   "population_density_geo20": {
+    "geo_standardize": {"measure_type": "density", "count": "population_count", "area_divisor": 2589988.11},
     "aggregation_method": "Population Weighted Average",
     "categories": "",
     "category": "Demographics",
