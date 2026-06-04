@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-13T14:19:27+00:00",
+  "version": "2.0.1",
+  "generated": "2026-06-04T12:34:23+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "emp_rate_geo10",
@@ -32,23 +33,27 @@
     "24",
     "51"
   ],
-  "row_count": 180680,
+  "row_count": 213465,
   "files": {
     "ncr_cttr_census_acs_2015_2024_employment_rate.csv.xz": {
-      "sha256": "0b12be33e185f253d2f451ef30be55abb31713adf85cd2760d7b2a74a5e526c4",
-      "size_bytes": 287076
+      "sha256": "6478164de9c22c7e75c17e5c268f188fb07a1a4dd91e92334775313647514a92",
+      "size_bytes": 337964
     },
     "ncr_cttr_census_acs_2015_2024_labor_participate_rate.csv.xz": {
-      "sha256": "bc632ba54d2020abba904cd42d6148311c4116c4e1ff96026767d03d458f4636",
-      "size_bytes": 274144
+      "sha256": "22d8e225820e3837c7404a44ad8978472cc403950416461aa44057acd261130c",
+      "size_bytes": 218368
+    },
+    "va_cttr_census_acs_2015_2024_labor_participate_rate.csv.xz": {
+      "sha256": "c2c73109973de3702e2fce6a29083bcd6ae0f01c8a258c2a6e1a605e6613e7c0",
+      "size_bytes": 124456
     },
     "va_hdcttr_census_acs_2015_2024_employment_rate.csv.xz": {
-      "sha256": "cd6e798f6831cb1e468c21975e81fffda5d23c2f74cd4c355f4e4394233d01b2",
-      "size_bytes": 143908
+      "sha256": "14fc535172b1a73393ac2b30246dbfa5505ac41190dba6313443141f098f4722",
+      "size_bytes": 174512
     },
     "va_hdcttr_census_acs_2015_2024_labor_participate_rate.csv.xz": {
-      "sha256": "1faba73f6b8c84df6861df738854bc073f1936e87048cb83bcf8863220f82064",
-      "size_bytes": 148484
+      "sha256": "02da413948e3561b8cb7101d0d0b7af8bab1c2e853fb33f48e040f5921775396",
+      "size_bytes": 114244
     }
   }
 }
