@@ -36,3 +36,15 @@ BASE_ACS = [
     _base("broadband/Household Broadband", "data/distribution/*broadband*.csv.xz"),
     _base("transportation/Population Characteristics", "data/distribution/*population_characteristics*.csv.xz"),
 ]
+
+COMPOSITES = [
+    _base("demographics/Segregation Index (HOI)", "data/distribution/*segregation*.csv.xz"),
+    _base("public_safety/Incarceration (HOI)", "data/distribution/*incarceration*.csv.xz"),
+    _base("financial_well_being/Employment Access Index", "data/distribution/*employment_access*.csv.xz"),
+    _base("environment/Environmental Hazard Index (HOI)", "data/distribution/*environmental*.csv.xz"),
+    _base("transportation/Walkability", "data/distribution/*walkability*.csv.xz"),
+    _base("food/Food Access/Food Accessibility Indicator (HOI)", "data/distribution/*food_access*.csv.xz"),
+    _base("housing/Cost/Affordability_HT", "data/distribution/*affordability*.csv.xz"),
+]
+
+ALL_DATASETS = BASE_ACS + COMPOSITES

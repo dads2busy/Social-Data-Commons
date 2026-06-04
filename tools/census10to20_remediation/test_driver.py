@@ -8,6 +8,23 @@ from driver import run_entrypoint
 from datasets import BASE_ACS
 
 
+def test_all_manifest_entries_resolve():
+    import glob
+    from datasets import ALL_DATASETS
+    repo = Path(__file__).resolve().parents[2]
+    assert len(ALL_DATASETS) == 24, f"expected 24 datasets, got {len(ALL_DATASETS)}"
+    for entry in ALL_DATASETS:
+        topic = repo / entry["topic"]
+        assert topic.is_dir(), f"missing topic dir: {entry['topic']}"
+        for ep in entry["entrypoints"]:
+            mod_rel, _, func = ep.partition(":")
+            assert (topic / mod_rel).is_file(), f"missing module: {entry['topic']}/{mod_rel}"
+        mi = topic / entry["measure_info"]
+        assert mi.is_file(), f"missing measure_info: {entry['topic']}/{entry['measure_info']}"
+        matches = glob.glob(str(topic / entry["dist_glob"]))
+        assert matches, f"dist_glob matches nothing: {entry['topic']} :: {entry['dist_glob']}"
+
+
 def test_base_acs_manifest_paths_resolve():
     repo = Path(__file__).resolve().parents[2]
     assert BASE_ACS, "manifest is empty"
