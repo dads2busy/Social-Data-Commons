@@ -1,6 +1,7 @@
 {
     "perc_male": {
         "aggregation_method": "mean",
+        "geo_standardize": {"measure_type": "replicate"},
         "categories": "",
         "category": "Demographics",
         "citations": "",
@@ -29,6 +30,7 @@
     },
     "perc_children_raised_by_GPs": {
         "aggregation_method": "mean",
+        "geo_standardize": {"measure_type": "replicate"},
         "categories": "",
         "category": "Demographics",
         "citations": "",
@@ -57,6 +59,7 @@
     },
     "disconnectedYouth": {
         "aggregation_method": "mean",
+        "geo_standardize": {"measure_type": "replicate"},
         "categories": "",
         "category": "Demographics",
         "citations": "",
@@ -85,6 +88,7 @@
     },
     "voterTurnout": {
         "aggregation_method": "mean",
+        "geo_standardize": {"measure_type": "replicate"},
         "categories": "",
         "category": "Demographics",
         "citations": "",

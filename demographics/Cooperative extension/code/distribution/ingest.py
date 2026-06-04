@@ -22,6 +22,7 @@ from sdc_core.sources.chr import ingest_chr
 from tqdm import tqdm
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
+MEASURE_INFO = TOPIC_DIR / "data/distribution/measure_info.json"
 DIST_DIR = TOPIC_DIR / "data/distribution"
 
 log = get_logger("cooperative_extension.ingest")
@@ -141,6 +142,7 @@ def run_source(name: str, source_cfg: dict, out_cfg: dict, title: str | None) ->
             result,
             out_dir / filename,
             census_standardize=out_cfg.get("standardize", False),
+            measure_info=MEASURE_INFO if MEASURE_INFO.exists() else None,
         )
         log.info("Wrote %d rows to %s", len(result), out_path)
 
