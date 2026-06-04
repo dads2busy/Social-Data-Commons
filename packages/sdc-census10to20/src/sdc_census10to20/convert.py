@@ -273,6 +273,40 @@ def standardize_all(
     downstream consumers can compare or pick.
 
     Assumes SDC long format: ``(geoid, year, measure, value, moe[, region_type])``.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input frame in SDC long format.
+    measure_info : dict or path-like, optional
+        Loaded ``measure_info.json`` dict or path to one.  Used to derive
+        ``geo_standardize`` specs and, when ``input_only_measures`` is ``None``,
+        to auto-detect helper measures via ``referenced_helper_measures``.
+    input_only_measures : iterable of str, optional
+        Measures to keep in the input frame for ratio/density recompute but
+        EXCLUDE from the standardized output (no ``_geo10``/``_geo20`` emitted,
+        no heuristic warning).  When ``None`` and ``measure_info`` is given,
+        auto-derives the referenced-but-unpublished helper counts via
+        ``referenced_helper_measures``.
+    filter_geo : str
+        ``"state"`` (default) or ``"county"`` — restricts output to GEOIDs
+        whose state/county prefix appears in the original data.
+    geoid_col : str
+        Column name for the GEOID (default ``"geoid"``).
+    measure_col : str
+        Column name for the measure identifier (default ``"measure"``).
+    year_col : str
+        Column name for the vintage year (default ``"year"``).
+    value_col : str
+        Column name for the numeric value (default ``"value"``).
+    moe_col : str
+        Column name for the margin of error (default ``"moe"``).
+    region_type_col : str
+        Optional column name for the region type label (default
+        ``"region_type"``); included in output only if present in ``data``.
+    state_fips : str
+        State FIPS code used to fetch the Census relationship file
+        (default ``"51"`` — Virginia).
     """
     years = data[year_col].unique()
     measures = data[measure_col].unique()
@@ -307,6 +341,7 @@ def standardize_all(
     for yr in years:
         if yr < 2020:
             for meas in measures:
+                # Helper (input-only) measures stay in `data` for recompute but emit no output rows.
                 if meas in input_only:
                     continue
                 for geoid_len in _SUB_COUNTY_LENGTHS:
