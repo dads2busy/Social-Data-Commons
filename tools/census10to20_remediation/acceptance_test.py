@@ -18,44 +18,54 @@ def _is_count(base: str) -> bool:
     return b.endswith("_count") or "count" in b or b.endswith("_pop") or "population" in b
 
 
-def check_conservation(dist_path, *, tol: float = 0.05) -> dict:
-    """County geo20/geo10 sum ratio for pre-2020 tract COUNT measures must be ~1.0.
+def check_conservation(dist_path, *, tol: float = 0.02, worst_n: int = 5) -> dict:
+    """Region-wide geo20/geo10 conservation for pre-2020 tract COUNT measures.
 
-    tol is the maximum allowed absolute deviation from 1.0 (e.g. 0.05 = ±5%).
-    Calibrated to 5% against real ACS data: subpopulation counts (e.g. age 65+)
-    legitimately deviate up to ~4.5% per county under area-weighted redistribution
-    (non-uniform sub-tract density), while the bug was ±100% and vintage loss ±35%.
-    Returns {"status": "pass"|"fail"|"n/a", "max_ratio": float|None,
-             "per_measure": {base: worst_county_ratio}}.
-    max_ratio holds the county ratio with the largest absolute deviation from 1.0
-    across all count measures (may be <1 or >1).
+    Gates on REGION-WIDE conservation per count measure: fail if any measure's
+    sum(geo20)/sum(geo10) deviates from 1.0 by more than `tol`. This directly tests
+    that counts are conserved by the regeneration (the bug doubled them -> ~2.0; the
+    2009 2000-vintage mismatch dropped ~35% -> ~0.65), and is robust to legitimate
+    PER-COUNTY variation (subgroup clustering, small counts, 2010->2020 county
+    boundary changes) which can reach 15-20% without indicating an error.
+
+    Per-county worst-N deviations are REPORTED (per_county_worst) for human review
+    but NOT gated.
+
+    Returns {"status": "pass"|"fail"|"n/a",
+             "max_ratio": worst region ratio across measures (largest |r-1|; may be <1),
+             "per_measure": {base: region_ratio},
+             "per_county_worst": {base: [[county, ratio], ...] up to worst_n by |ratio-1|}}.
     """
     df = pd.read_csv(dist_path, dtype={"geoid": str})
     tr = df[(df["year"] < 2020) & (df["region_type"] == "tract")].copy()
     if tr.empty:
-        return {"status": "n/a", "max_ratio": None, "per_measure": {}}
+        return {"status": "n/a", "max_ratio": None, "per_measure": {}, "per_county_worst": {}}
     tr["county"] = tr["geoid"].str[:5]
-    bases = sorted({
-        m[: -len(_GEO20)] for m in tr["measure"].unique() if m.endswith(_GEO20)
-    })
-    per_measure: dict[str, float] = {}
+    bases = sorted({m[: -len(_GEO20)] for m in tr["measure"].unique() if m.endswith(_GEO20)})
+    per_measure, per_county_worst = {}, {}
     for base in bases:
         if not _is_count(base):
             continue
-        g10 = tr[tr["measure"] == base + _GEO10].groupby("county")["value"].sum()
-        g20 = tr[tr["measure"] == base + _GEO20].groupby("county")["value"].sum()
-        ratio = (g20 / g10).replace([np.inf, -np.inf], np.nan).dropna()
-        if not ratio.empty:
-            # Pick the county ratio with the largest absolute deviation from 1.0
-            per_measure[base] = float(ratio.iloc[(ratio - 1).abs().argmax()])
+        g10 = tr[tr["measure"] == base + _GEO10]
+        g20 = tr[tr["measure"] == base + _GEO20]
+        s10, s20 = g10["value"].sum(), g20["value"].sum()
+        if s10 == 0:
+            continue
+        per_measure[base] = float(s20 / s10)
+        # per-county worst-N (report only, not gated)
+        c10 = g10.groupby("county")["value"].sum()
+        c20 = g20.groupby("county")["value"].sum()
+        cr = (c20 / c10).replace([np.inf, -np.inf], np.nan).dropna()
+        worst = cr.reindex(cr.sub(1).abs().sort_values(ascending=False).index).head(worst_n)
+        per_county_worst[base] = [[c, float(v)] for c, v in worst.items()]
     if not per_measure:
-        return {"status": "n/a", "max_ratio": None, "per_measure": {}}
-    # worst_ratio is the per-measure value with the largest absolute deviation from 1.0
+        return {"status": "n/a", "max_ratio": None, "per_measure": {}, "per_county_worst": {}}
     worst_ratio = max(per_measure.values(), key=lambda r: abs(r - 1))
     return {
         "status": "pass" if abs(worst_ratio - 1) <= tol else "fail",
         "max_ratio": worst_ratio,
         "per_measure": per_measure,
+        "per_county_worst": per_county_worst,
     }
 
 

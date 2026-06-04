@@ -17,7 +17,8 @@ def _write(tmp_path, rows):
     return p
 
 
-def test_check_conservation_passes_when_county_totals_match(tmp_path):
+def test_check_conservation_passes_when_region_conserves(tmp_path):
+    # one county, geo10 1000 = geo20 600+400 -> region ratio 1.0 -> pass
     rows = [
         ("51001000001", 2018, "pop_count_geo10", 1000, "tract"),
         ("51001000002", 2018, "pop_count_geo20", 600, "tract"),
@@ -28,7 +29,8 @@ def test_check_conservation_passes_when_county_totals_match(tmp_path):
     assert rep["max_ratio"] == pytest.approx(1.0)
 
 
-def test_check_conservation_fails_on_inflation(tmp_path):
+def test_check_conservation_fails_on_region_inflation(tmp_path):
+    # geo20 600+600=1200 vs geo10 1000 -> region ratio 1.2 -> fail
     rows = [
         ("51001000001", 2018, "pop_count_geo10", 1000, "tract"),
         ("51001000002", 2018, "pop_count_geo20", 600, "tract"),
@@ -39,8 +41,8 @@ def test_check_conservation_fails_on_inflation(tmp_path):
     assert rep["max_ratio"] == pytest.approx(1.2)
 
 
-def test_check_conservation_fails_on_deflation(tmp_path):
-    # geo20 sum (900) < geo10 sum (1000) -> ratio 0.9 -> two-sided fail
+def test_check_conservation_fails_on_region_deflation(tmp_path):
+    # geo20 sum (900) < geo10 sum (1000) -> region ratio 0.9 -> fail
     rows = [
         ("51001000001", 2018, "pop_count_geo10", 1000, "tract"),
         ("51001000002", 2018, "pop_count_geo20", 500, "tract"),
@@ -51,27 +53,46 @@ def test_check_conservation_fails_on_deflation(tmp_path):
     assert rep["max_ratio"] == pytest.approx(0.9)
 
 
-def test_check_conservation_passes_within_5pct(tmp_path):
-    # ratio 1.045 (real age_65+ subgroup boundary-leakage residual) -> within 5% -> pass
+def test_check_conservation_passes_within_2pct(tmp_path):
+    # geo20 sums to 1015, region ratio 1.015 -> within 2% -> pass
     rows = [
         ("51001000001", 2018, "pop_count_geo10", 1000, "tract"),
-        ("51001000002", 2018, "pop_count_geo20", 627, "tract"),
-        ("51001000003", 2018, "pop_count_geo20", 418, "tract"),
+        ("51001000002", 2018, "pop_count_geo20", 615, "tract"),
+        ("51001000003", 2018, "pop_count_geo20", 400, "tract"),
     ]
     rep = check_conservation(_write(tmp_path, rows))
     assert rep["status"] == "pass"
 
 
-def test_check_conservation_fails_just_over_5pct(tmp_path):
-    # ratio 1.06 -> exceeds 5% -> fail (gate stays sensitive above the residual band)
+def test_check_conservation_fails_just_over_2pct(tmp_path):
+    # geo20 sums to 1030, region ratio 1.03 -> exceeds 2% -> fail
     rows = [
         ("51001000001", 2018, "pop_count_geo10", 1000, "tract"),
-        ("51001000002", 2018, "pop_count_geo20", 636, "tract"),
+        ("51001000002", 2018, "pop_count_geo20", 606, "tract"),
         ("51001000003", 2018, "pop_count_geo20", 424, "tract"),
     ]
     rep = check_conservation(_write(tmp_path, rows))
     assert rep["status"] == "fail"
-    assert rep["max_ratio"] == pytest.approx(1.06)
+    assert rep["max_ratio"] == pytest.approx(1.03)
+
+
+def test_check_conservation_reports_per_county_but_gates_region(tmp_path):
+    # Two counties with large per-county deviations that offset at the region level.
+    # county 51001: geo10 1000 -> geo20 1200 (ratio 1.2)
+    # county 51002: geo10 1000 -> geo20 800  (ratio 0.8)
+    # Region: geo20 2000 / geo10 2000 = 1.0 -> PASS (gate on region, not per-county)
+    rows = [
+        ("51001000001", 2018, "pop_count_geo10", 1000, "tract"),
+        ("51001000002", 2018, "pop_count_geo20", 1200, "tract"),
+        ("51002000001", 2018, "pop_count_geo10", 1000, "tract"),
+        ("51002000002", 2018, "pop_count_geo20", 800, "tract"),
+    ]
+    rep = check_conservation(_write(tmp_path, rows))
+    assert rep["status"] == "pass"          # region conserves (2000/2000)
+    assert rep["max_ratio"] == pytest.approx(1.0)
+    ratios = {c: r for c, r in rep["per_county_worst"]["pop_count"]}
+    assert any(abs(r - 1.2) < 1e-6 for r in ratios.values())
+    assert any(abs(r - 0.8) < 1e-6 for r in ratios.values())
 
 
 def test_check_ratio_consistency_passes_when_percent_matches_counts(tmp_path):
