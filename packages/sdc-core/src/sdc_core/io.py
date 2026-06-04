@@ -83,6 +83,7 @@ def write_data(
     compress: bool = True,
     measure_info=None,
     input_only_measures=None,
+    vintage_cutoff_year: int = 2020,
 ) -> pathlib.Path:
     """Write a DataFrame in standard SDC format.
 
@@ -118,7 +119,7 @@ def write_data(
             path = pathlib.Path(str(path) + ".csv.xz")
 
     if census_standardize:
-        df = standardize_all(df, measure_info=measure_info, input_only_measures=input_only_measures)
+        df = standardize_all(df, measure_info=measure_info, input_only_measures=input_only_measures, vintage_cutoff_year=vintage_cutoff_year)
 
     if standardize:
         # Keep only standard columns, in order; fill missing with NaN

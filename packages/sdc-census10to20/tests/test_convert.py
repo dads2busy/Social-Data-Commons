@@ -584,3 +584,19 @@ def test_replicate_2010_to_2020_bounds_takes_dominant_parent(monkeypatch, fake_c
     vals = out.set_index("geoid")["value"]
     assert vals["51001000002"] == pytest.approx(0.7)
     assert vals["51001000003"] == pytest.approx(0.7)
+
+
+def test_vintage_cutoff_treats_2020_as_pre_cutoff(monkeypatch, synthetic_tract_relationship_csv):
+    import pandas as pd
+    from sdc_census10to20.convert import standardize_all
+    monkeypatch.setattr(pd, "read_csv", lambda *a, **k: synthetic_tract_relationship_csv)
+    df = pd.DataFrame({
+        "geoid": ["51001000010"], "year": [2020], "measure": ["idx"],
+        "value": [5.0], "moe": [pd.NA], "region_type": ["tract"],
+    })
+    mi = {"idx": {"geo_standardize": {"measure_type": "replicate"}}}
+    out_default = standardize_all(df, measure_info=mi, state_fips="51")
+    assert not out_default["measure"].str.endswith("_geo10").any()
+    out_cut = standardize_all(df, measure_info=mi, vintage_cutoff_year=2021, state_fips="51")
+    assert out_cut["measure"].str.endswith("_geo10").any()
+    assert out_cut["measure"].str.endswith("_geo20").any()

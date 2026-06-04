@@ -291,6 +291,7 @@ def standardize_all(
     moe_col: str = "moe",
     region_type_col: str = "region_type",
     state_fips: str = "51",
+    vintage_cutoff_year: int = 2020,
 ) -> pd.DataFrame:
     """Standardize 2010 geographies to 2020 boundaries for tract and block-group rows.
 
@@ -363,7 +364,7 @@ def standardize_all(
             if row[measure_col] in native_2020
             else (
                 f"{row[measure_col]}_geo10"
-                if row[year_col] < 2020 and len(row[geoid_col]) in _SUB_COUNTY_LENGTHS
+                if row[year_col] < vintage_cutoff_year and len(row[geoid_col]) in _SUB_COUNTY_LENGTHS
                 else f"{row[measure_col]}_geo20"
             )
         ),
@@ -373,7 +374,7 @@ def standardize_all(
     standardized_parts: list[pd.DataFrame] = []
 
     for yr in years:
-        if yr < 2020:
+        if yr < vintage_cutoff_year:
             for meas in measures:
                 # Helper (input-only) and geo2020-native measures emit no converted rows.
                 if meas in input_only or meas in native_2020:
