@@ -186,7 +186,10 @@ def run() -> None:
             )
             + ".csv.xz"
         )
-        va_dist_path = write_data(va_townsend, DIST_DIR / filename, census_standardize=True)
+        va_dist_path = write_data(
+            va_townsend, DIST_DIR / filename, census_standardize=True,
+            measure_info=MEASURE_INFO if MEASURE_INFO.exists() else None,
+        )
         log.info("Wrote %d rows to %s", len(va_townsend), va_dist_path)
 
         paths = data_reformat_for_site(
@@ -225,7 +228,10 @@ def run() -> None:
             )
             + ".csv.xz"
         )
-        ncr_dist_path = write_data(ncr_townsend, DIST_DIR / filename, census_standardize=True)
+        ncr_dist_path = write_data(
+            ncr_townsend, DIST_DIR / filename, census_standardize=True,
+            measure_info=MEASURE_INFO if MEASURE_INFO.exists() else None,
+        )
         log.info("Wrote %d rows to %s", len(ncr_townsend), ncr_dist_path)
 
         paths = data_reformat_for_site(
