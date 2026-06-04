@@ -8,6 +8,7 @@ Source: CDC PLACES — https://www.cdc.gov/places/
 API: Socrata Open Data API at data.cdc.gov
 """
 
+import json
 import time
 from pathlib import Path
 
@@ -23,6 +24,7 @@ from sdc_core.result import RunResult
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = TOPIC_DIR.parents[2]  # 3-level nesting: health/Mental Health/Mental and Physical Healthy Days
 DIST_DIR = TOPIC_DIR / "data/distribution"
+_MI = json.load(open(TOPIC_DIR / "data/distribution/measure_info.json"))
 
 log = get_logger("healthy_days.ingest")
 
@@ -280,9 +282,11 @@ def run_source(
             source_type="cdc_places",
             title="healthy_days",
         )
-        # census_standardize=False: PLACES provides estimates on each release's
-        # native tract boundaries; do not redistribute across boundary vintages
-        out_path = write_data(df, out_dir / f"{auto_name}.csv.xz")
+        # Standardized to 2020 boundaries (project-wide policy supersedes the prior
+        # native-boundary choice). PLACES switched to 2020 tracts at the 2022/2023
+        # release, so years < 2022 are 2010-vintage.
+        out_path = write_data(df, out_dir / f"{auto_name}.csv.xz",
+                              census_standardize=True, measure_info=_MI, vintage_cutoff_year=2022)
         log.info("Wrote %d rows (%d tracts, %d counties) to %s",
                  len(df),
                  (df["region_type"] == "tract").sum(),
