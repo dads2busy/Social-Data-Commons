@@ -1,6 +1,6 @@
 {
-  "version": "2.0.0",
-  "generated": "2026-03-13T14:32:42+00:00",
+  "version": "3.0.1",
+  "generated": "2026-06-04T12:39:38+00:00",
   "schema": [
     "geoid",
     "year",
@@ -8,11 +8,7 @@
     "value",
     "moe",
     "region_type",
-    "data_method",
-    "total_hh",
-    "hh_without_internet",
-    "hh_with_broadband",
-    "hh_with_cable_fiber_dsl"
+    "data_method"
   ],
   "measures": [
     "perc_hh_with_broadband_geo10",
@@ -37,23 +33,15 @@
     "24",
     "51"
   ],
-  "row_count": 869967,
+  "row_count": 693057,
   "files": {
     "ncr_cttrbg_census_acs_2017_2024_household_broadband.csv.xz": {
-      "sha256": "e27f2e06b32757b1453b23d5ba13aa9510835eff5a1a8d546830a35f5b9e7817",
-      "size_bytes": 3055104
-    },
-    "ncr_cttrbg_census_acs_2017_2024_household_broadband_raw.csv.xz": {
-      "sha256": "1d6796b057da4a0a570256bdc7c7963e69597132729b1452fcc4222f7c529bce",
-      "size_bytes": 923848
-    },
-    "va_cttrbg_census_acs_2017_2024_household_broadband_raw.csv.xz": {
-      "sha256": "4412da2cad3a9d4e479c94ac38e71c08b97b48887d59603a7d2bc297493ff6ed",
-      "size_bytes": 524536
+      "sha256": "8c8786cf6ed0faa50d810670acbe380f14def25b6101abef32909a426e5fee83",
+      "size_bytes": 3044564
     },
     "va_hdcttrbg_census_acs_2017_2024_household_broadband.csv.xz": {
-      "sha256": "b340e6624c9b01eedff6041479537ba12b2f72506c5224293b6d0d0101f4ea92",
-      "size_bytes": 1903456
+      "sha256": "9df6bdda2fa39bc57360c71c8f32537c9909ddf6fee00eeac65fd3051de5c6a8",
+      "size_bytes": 1888520
     }
   }
 }
