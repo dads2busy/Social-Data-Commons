@@ -1,277 +1,295 @@
 {
-    "peds_cnt": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Count of pediatric medicine physicians located within each geographic area. Pediatricians are identified from the CMS Doctors and Clinicians dataset by filtering to providers with a PEDIATRIC MEDICINE specialty designation and MD/DO credentials. Higher counts indicate greater local availability of pediatric care providers, though counts alone do not account for population demand or geographic accessibility barriers.",
-        "long_name": "Pediatric care availability by count",
-        "measure_type": "count",
-        "short_description": "Number of pediatric medicine physicians (MD/DO) from CMS Doctors and Clinicians data within each area.",
-        "short_name": "Pediatric care availability (count)",
-        "provenance": "Provider counts derived from CMS Doctors and Clinicians dataset (2018-2025), filtered to PEDIATRIC MEDICINE specialty with MD/DO credentials in VA/DC/MD. Addresses geocoded via Census Geocoder API and snapped to nearest 2020 block group centroid. Counts summed from block group to tract, county, and health district.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
-            }
-        ],
-        "statement": "There are {value} pediatricians in {features.name}.",
-        "type": "count",
-        "unit": "",
-        "variants": ""
-    },
-    "peds_near_10_mean": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Average travel time in minutes to the nearest 10 pediatric medicine physicians from each block group centroid. This measure captures geographic proximity to pediatric care, with higher values indicating communities where families must travel farther to access multiple pediatric providers. Areas with long travel times to pediatricians may face barriers to routine well-child visits, vaccinations, and acute care for children.",
-        "long_name": "Mean travel time to nearest 10 pediatricians",
-        "measure_type": "count",
-        "short_description": "Mean driving time in minutes from block group centroid to the 10 nearest pediatric medicine physicians.",
-        "short_name": "Mean travel time to nearest 10 pediatricians",
-        "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrices (2020 boundaries). For each block group, the 10 nearest pediatrician locations (by travel time) are identified and their mean travel time computed. Aggregated to tract/county/HD via simple mean across constituent block groups.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
-            }
-        ],
-        "statement": "The mean travel time to the nearest 10 pediatricians from {features.name} is {value} minutes.",
-        "type": "count",
-        "unit": "minutes",
-        "variants": ""
-    },
-    "peds_near_10_median": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": "",
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Median travel time in minutes to the nearest 10 pediatric medicine physicians from each block group centroid. The median is more robust to outliers than the mean, providing a better sense of typical accessibility. Communities with high median travel times face systematic barriers to pediatric care access that may result in delayed treatment and lower utilization of preventive services for children.",
-        "long_name": "Median travel time to nearest 10 pediatricians",
-        "measure_type": "count",
-        "short_description": "Median driving time in minutes from block group centroid to the 10 nearest pediatric medicine physicians.",
-        "short_name": "Median travel time to nearest 10 pediatricians",
-        "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrices (2020 boundaries). For each block group, the 10 nearest pediatrician locations (by travel time) are identified and their median travel time computed. Aggregated to tract/county/HD via simple mean of block group medians.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
-            }
-        ],
-        "statement": "The median travel time to the nearest 10 pediatricians from {features.name} is {value} minutes.",
-        "type": "count",
-        "unit": "minutes",
-        "variants": ""
-    },
-    "peds_2sfca": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": [
-            "lou04",
-            "lou09",
-            "lou03",
-            "saxon20"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Pediatric care accessibility measured using the two-step floating catchment area (2SFCA) method. This index accounts for both the supply of pediatricians and the demand from the population aged 0-17, weighted by travel time within a 30-minute catchment. Higher values indicate better spatial access to pediatric care relative to the child population, while lower values suggest potential shortages that could affect timely access to well-child visits and acute care.",
-        "long_name": "Pediatric care geographic availability (2-step floating catchment areas)",
-        "measure_type": "index",
-        "short_description": "Spatial accessibility index for pediatric physicians per 1,000 children aged 0-17, using 2-step floating catchment area method.",
-        "short_name": "Pediatric care geographic availability (2SFCA)",
-        "provenance": "Two-step floating catchment area (2SFCA) with 30-minute travel time threshold. Supply: CMS Doctors and Clinicians PEDIATRIC MEDICINE providers (MD/DO) in VA/DC/MD, geocoded and snapped to 2020 block group centroids. Demand: ACS B01001 population ages 0-17 (variables B01001_003-006, B01001_027-030) at block group level. Travel costs from OSRM driving time matrices. Values expressed per 1,000 population. Aggregated to tract/county via population-weighted mean.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
-            }
-        ],
-        "statement": "The pediatric care availability for {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "peds_e2sfca": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": [
-            "lou04",
-            "lou09",
-            "lou03",
-            "saxon20"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Pediatric care accessibility measured using the enhanced two-step floating catchment area (E2SFCA) method. Unlike the basic 2SFCA, this variant applies stepped distance decay weights (10 min: 0.962, 20 min: 0.704, 30 min: 0.377, 60 min: 0.042), better reflecting how families' willingness to travel for pediatric care decreases with distance. Higher values indicate greater spatial accessibility to pediatric physicians relative to child population demand.",
-        "long_name": "Pediatric care geographic availability (enhanced 2-step floating catchment areas)",
-        "measure_type": "index",
-        "short_description": "Spatial accessibility index for pediatric physicians per 1,000 children aged 0-17, using enhanced 2-step floating catchment area method with distance decay.",
-        "short_name": "Pediatric care geographic availability (E2SFCA)",
-        "provenance": "Enhanced two-step floating catchment area (E2SFCA) with stepped distance decay weights: 10 min=0.962, 20 min=0.704, 30 min=0.377, 60 min=0.042. Supply: CMS Doctors and Clinicians PEDIATRIC MEDICINE providers. Demand: ACS B01001 population ages 0-17. Travel costs from OSRM driving time matrices. Values per 1,000 population. Aggregated to tract/county via population-weighted mean.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
-            }
-        ],
-        "statement": "The pediatric care availability for {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "peds_3sfca": {
-        "aggregation_method": "",
-        "categories": "",
-        "category": "Health",
-        "citations": [
-            "lou04",
-            "lou09",
-            "lou03",
-            "saxon20"
-        ],
-        "data_type": "numeric",
-        "equity_category": "Availability",
-        "layer": "",
-        "long_description": "Pediatric care accessibility measured using the three-step floating catchment area (3SFCA) method with Gaussian distance decay. This is the most sophisticated FCA variant, normalizing competition weights so that each consumer's demand is distributed proportionally across reachable providers. It provides the most realistic estimate of pediatric care accessibility by accounting for provider competition and distance sensitivity simultaneously.",
-        "long_name": "Pediatric care geographic availability (3-step floating catchment areas)",
-        "measure_type": "index",
-        "short_description": "Spatial accessibility index for pediatric physicians per 1,000 children aged 0-17, using 3-step floating catchment area method with Gaussian decay.",
-        "short_name": "Pediatric care geographic availability (3SFCA)",
-        "provenance": "Three-step floating catchment area (3SFCA) with Gaussian distance decay (scale=20) and normalized competition weights. Supply: CMS Doctors and Clinicians PEDIATRIC MEDICINE providers. Demand: ACS B01001 population ages 0-17. Travel costs from OSRM driving time matrices. Values per 1,000 population. Aggregated to tract/county via population-weighted mean.",
-        "sources": [
-            {
-                "date_accessed": 2025,
-                "location": "",
-                "location_url": "",
-                "name": "CMS Doctors and Clinicians",
-                "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
-            }
-        ],
-        "statement": "The pediatric care availability for {features.name} is {value}.",
-        "type": "index",
-        "unit": "",
-        "variants": ""
-    },
-    "_references": {
-        "lou04": {
-            "id": "lou04",
-            "author": [
-                {
-                    "given": "Wei",
-                    "family": "Lou"
-                }
-            ],
-            "year": 2004,
-            "title": "Using a gis-based floating catchment method to assess areas with shortage of physicians",
-            "journal": "Health & Place",
-            "volume": "10",
-            "number": 1,
-            "page": "1-11",
-            "doi": "10.1016/S1353-8292(02)00067-9"
-        },
-        "lou09": {
-            "id": "lou09",
-            "author": [
-                {
-                    "given": "Wei",
-                    "family": "Lou"
-                },
-                {
-                    "given": "Yi",
-                    "family": "Qi"
-                }
-            ],
-            "year": 2009,
-            "title": "An enhanced two-step floating catchment area (e2sfca) method for measuring spatial accessibility to primary care physicians",
-            "journal": "Health & Place",
-            "volume": "15",
-            "number": 4,
-            "page": "1100-1107",
-            "doi": "10.1016/j.healthplace.2009.06.002"
-        },
-        "lou03": {
-            "id": "lou03",
-            "author": [
-                {
-                    "given": "Wei",
-                    "family": "Lou"
-                },
-                {
-                    "given": "Fahui",
-                    "family": "Wang"
-                }
-            ],
-            "year": 2003,
-            "title": "Measures of spatial accessibility to health care in a gis environment: synthesis and a case study in the Chicago region",
-            "journal": "Environment and Planning B: Planning and Design",
-            "volume": "30",
-            "number": 6,
-            "page": "865-884",
-            "doi": "10.1068/b29120"
-        },
-        "saxon20": {
-            "id": "saxon20",
-            "author": [
-                {
-                    "given": "James",
-                    "family": "Saxon"
-                },
-                {
-                    "given": "Julia",
-                    "family": "Koschinsky"
-                },
-                {
-                    "given": "Karina",
-                    "family": "Acosta"
-                },
-                {
-                    "given": "Vidal",
-                    "family": "Anguiano"
-                },
-                {
-                    "given": "Luc",
-                    "family": "Anselin"
-                },
-                {
-                    "given": "Sergio",
-                    "family": "Rey"
-                }
-            ],
-            "year": 2020,
-            "title": "An Open Software Environment to Make Spatial Access Metrics More Accessible",
-            "journal": "University of Chicago: Center for Spatial Data Science",
-            "volume": "Preprint",
-            "doi": "10.13140/RG.2.2.12396.28807"
-        }
+  "peds_cnt": {
+    "aggregation_method": "",
+    "categories": "",
+    "category": "Health",
+    "citations": "",
+    "data_type": "numeric",
+    "equity_category": "Availability",
+    "layer": "",
+    "long_description": "Count of pediatric medicine physicians located within each geographic area. Pediatricians are identified from the CMS Doctors and Clinicians dataset by filtering to providers with a PEDIATRIC MEDICINE specialty designation and MD/DO credentials. Higher counts indicate greater local availability of pediatric care providers, though counts alone do not account for population demand or geographic accessibility barriers.",
+    "long_name": "Pediatric care availability by count",
+    "measure_type": "count",
+    "short_description": "Number of pediatric medicine physicians (MD/DO) from CMS Doctors and Clinicians data within each area.",
+    "short_name": "Pediatric care availability (count)",
+    "provenance": "Provider counts derived from CMS Doctors and Clinicians dataset (2018-2025), filtered to PEDIATRIC MEDICINE specialty with MD/DO credentials in VA/DC/MD. Addresses geocoded via Census Geocoder API and snapped to nearest 2020 block group centroid. Counts summed from block group to tract, county, and health district.",
+    "sources": [
+      {
+        "date_accessed": 2025,
+        "location": "",
+        "location_url": "",
+        "name": "CMS Doctors and Clinicians",
+        "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
+      }
+    ],
+    "statement": "There are {value} pediatricians in {features.name}.",
+    "type": "count",
+    "unit": "",
+    "variants": "",
+    "geo_standardize": {
+      "measure_type": "count"
     }
+  },
+  "peds_near_10_mean": {
+    "aggregation_method": "",
+    "categories": "",
+    "category": "Health",
+    "citations": "",
+    "data_type": "numeric",
+    "equity_category": "Availability",
+    "layer": "",
+    "long_description": "Average travel time in minutes to the nearest 10 pediatric medicine physicians from each block group centroid. This measure captures geographic proximity to pediatric care, with higher values indicating communities where families must travel farther to access multiple pediatric providers. Areas with long travel times to pediatricians may face barriers to routine well-child visits, vaccinations, and acute care for children.",
+    "long_name": "Mean travel time to nearest 10 pediatricians",
+    "measure_type": "count",
+    "short_description": "Mean driving time in minutes from block group centroid to the 10 nearest pediatric medicine physicians.",
+    "short_name": "Mean travel time to nearest 10 pediatricians",
+    "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrices (2020 boundaries). For each block group, the 10 nearest pediatrician locations (by travel time) are identified and their mean travel time computed. Aggregated to tract/county/HD via simple mean across constituent block groups.",
+    "sources": [
+      {
+        "date_accessed": 2025,
+        "location": "",
+        "location_url": "",
+        "name": "CMS Doctors and Clinicians",
+        "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
+      }
+    ],
+    "statement": "The mean travel time to the nearest 10 pediatricians from {features.name} is {value} minutes.",
+    "type": "count",
+    "unit": "minutes",
+    "variants": "",
+    "geo_standardize": {
+      "measure_type": "replicate"
+    }
+  },
+  "peds_near_10_median": {
+    "aggregation_method": "",
+    "categories": "",
+    "category": "Health",
+    "citations": "",
+    "data_type": "numeric",
+    "equity_category": "Availability",
+    "layer": "",
+    "long_description": "Median travel time in minutes to the nearest 10 pediatric medicine physicians from each block group centroid. The median is more robust to outliers than the mean, providing a better sense of typical accessibility. Communities with high median travel times face systematic barriers to pediatric care access that may result in delayed treatment and lower utilization of preventive services for children.",
+    "long_name": "Median travel time to nearest 10 pediatricians",
+    "measure_type": "count",
+    "short_description": "Median driving time in minutes from block group centroid to the 10 nearest pediatric medicine physicians.",
+    "short_name": "Median travel time to nearest 10 pediatricians",
+    "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrices (2020 boundaries). For each block group, the 10 nearest pediatrician locations (by travel time) are identified and their median travel time computed. Aggregated to tract/county/HD via simple mean of block group medians.",
+    "sources": [
+      {
+        "date_accessed": 2025,
+        "location": "",
+        "location_url": "",
+        "name": "CMS Doctors and Clinicians",
+        "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
+      }
+    ],
+    "statement": "The median travel time to the nearest 10 pediatricians from {features.name} is {value} minutes.",
+    "type": "count",
+    "unit": "minutes",
+    "variants": "",
+    "geo_standardize": {
+      "measure_type": "replicate"
+    }
+  },
+  "peds_2sfca": {
+    "aggregation_method": "",
+    "categories": "",
+    "category": "Health",
+    "citations": [
+      "lou04",
+      "lou09",
+      "lou03",
+      "saxon20"
+    ],
+    "data_type": "numeric",
+    "equity_category": "Availability",
+    "layer": "",
+    "long_description": "Pediatric care accessibility measured using the two-step floating catchment area (2SFCA) method. This index accounts for both the supply of pediatricians and the demand from the population aged 0-17, weighted by travel time within a 30-minute catchment. Higher values indicate better spatial access to pediatric care relative to the child population, while lower values suggest potential shortages that could affect timely access to well-child visits and acute care.",
+    "long_name": "Pediatric care geographic availability (2-step floating catchment areas)",
+    "measure_type": "index",
+    "short_description": "Spatial accessibility index for pediatric physicians per 1,000 children aged 0-17, using 2-step floating catchment area method.",
+    "short_name": "Pediatric care geographic availability (2SFCA)",
+    "provenance": "Two-step floating catchment area (2SFCA) with 30-minute travel time threshold. Supply: CMS Doctors and Clinicians PEDIATRIC MEDICINE providers (MD/DO) in VA/DC/MD, geocoded and snapped to 2020 block group centroids. Demand: ACS B01001 population ages 0-17 (variables B01001_003-006, B01001_027-030) at block group level. Travel costs from OSRM driving time matrices. Values expressed per 1,000 population. Aggregated to tract/county via population-weighted mean.",
+    "sources": [
+      {
+        "date_accessed": 2025,
+        "location": "",
+        "location_url": "",
+        "name": "CMS Doctors and Clinicians",
+        "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
+      }
+    ],
+    "statement": "The pediatric care availability for {features.name} is {value}.",
+    "type": "index",
+    "unit": "",
+    "variants": "",
+    "geo_standardize": {
+      "measure_type": "replicate"
+    }
+  },
+  "peds_e2sfca": {
+    "aggregation_method": "",
+    "categories": "",
+    "category": "Health",
+    "citations": [
+      "lou04",
+      "lou09",
+      "lou03",
+      "saxon20"
+    ],
+    "data_type": "numeric",
+    "equity_category": "Availability",
+    "layer": "",
+    "long_description": "Pediatric care accessibility measured using the enhanced two-step floating catchment area (E2SFCA) method. Unlike the basic 2SFCA, this variant applies stepped distance decay weights (10 min: 0.962, 20 min: 0.704, 30 min: 0.377, 60 min: 0.042), better reflecting how families' willingness to travel for pediatric care decreases with distance. Higher values indicate greater spatial accessibility to pediatric physicians relative to child population demand.",
+    "long_name": "Pediatric care geographic availability (enhanced 2-step floating catchment areas)",
+    "measure_type": "index",
+    "short_description": "Spatial accessibility index for pediatric physicians per 1,000 children aged 0-17, using enhanced 2-step floating catchment area method with distance decay.",
+    "short_name": "Pediatric care geographic availability (E2SFCA)",
+    "provenance": "Enhanced two-step floating catchment area (E2SFCA) with stepped distance decay weights: 10 min=0.962, 20 min=0.704, 30 min=0.377, 60 min=0.042. Supply: CMS Doctors and Clinicians PEDIATRIC MEDICINE providers. Demand: ACS B01001 population ages 0-17. Travel costs from OSRM driving time matrices. Values per 1,000 population. Aggregated to tract/county via population-weighted mean.",
+    "sources": [
+      {
+        "date_accessed": 2025,
+        "location": "",
+        "location_url": "",
+        "name": "CMS Doctors and Clinicians",
+        "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
+      }
+    ],
+    "statement": "The pediatric care availability for {features.name} is {value}.",
+    "type": "index",
+    "unit": "",
+    "variants": "",
+    "geo_standardize": {
+      "measure_type": "replicate"
+    }
+  },
+  "peds_3sfca": {
+    "aggregation_method": "",
+    "categories": "",
+    "category": "Health",
+    "citations": [
+      "lou04",
+      "lou09",
+      "lou03",
+      "saxon20"
+    ],
+    "data_type": "numeric",
+    "equity_category": "Availability",
+    "layer": "",
+    "long_description": "Pediatric care accessibility measured using the three-step floating catchment area (3SFCA) method with Gaussian distance decay. This is the most sophisticated FCA variant, normalizing competition weights so that each consumer's demand is distributed proportionally across reachable providers. It provides the most realistic estimate of pediatric care accessibility by accounting for provider competition and distance sensitivity simultaneously.",
+    "long_name": "Pediatric care geographic availability (3-step floating catchment areas)",
+    "measure_type": "index",
+    "short_description": "Spatial accessibility index for pediatric physicians per 1,000 children aged 0-17, using 3-step floating catchment area method with Gaussian decay.",
+    "short_name": "Pediatric care geographic availability (3SFCA)",
+    "provenance": "Three-step floating catchment area (3SFCA) with Gaussian distance decay (scale=20) and normalized competition weights. Supply: CMS Doctors and Clinicians PEDIATRIC MEDICINE providers. Demand: ACS B01001 population ages 0-17. Travel costs from OSRM driving time matrices. Values per 1,000 population. Aggregated to tract/county via population-weighted mean.",
+    "sources": [
+      {
+        "date_accessed": 2025,
+        "location": "",
+        "location_url": "",
+        "name": "CMS Doctors and Clinicians",
+        "url": "https://data.cms.gov/provider-data/dataset/mj5m-pzi6"
+      }
+    ],
+    "statement": "The pediatric care availability for {features.name} is {value}.",
+    "type": "index",
+    "unit": "",
+    "variants": "",
+    "geo_standardize": {
+      "measure_type": "replicate"
+    }
+  },
+  "_references": {
+    "lou04": {
+      "id": "lou04",
+      "author": [
+        {
+          "given": "Wei",
+          "family": "Lou"
+        }
+      ],
+      "year": 2004,
+      "title": "Using a gis-based floating catchment method to assess areas with shortage of physicians",
+      "journal": "Health & Place",
+      "volume": "10",
+      "number": 1,
+      "page": "1-11",
+      "doi": "10.1016/S1353-8292(02)00067-9"
+    },
+    "lou09": {
+      "id": "lou09",
+      "author": [
+        {
+          "given": "Wei",
+          "family": "Lou"
+        },
+        {
+          "given": "Yi",
+          "family": "Qi"
+        }
+      ],
+      "year": 2009,
+      "title": "An enhanced two-step floating catchment area (e2sfca) method for measuring spatial accessibility to primary care physicians",
+      "journal": "Health & Place",
+      "volume": "15",
+      "number": 4,
+      "page": "1100-1107",
+      "doi": "10.1016/j.healthplace.2009.06.002"
+    },
+    "lou03": {
+      "id": "lou03",
+      "author": [
+        {
+          "given": "Wei",
+          "family": "Lou"
+        },
+        {
+          "given": "Fahui",
+          "family": "Wang"
+        }
+      ],
+      "year": 2003,
+      "title": "Measures of spatial accessibility to health care in a gis environment: synthesis and a case study in the Chicago region",
+      "journal": "Environment and Planning B: Planning and Design",
+      "volume": "30",
+      "number": 6,
+      "page": "865-884",
+      "doi": "10.1068/b29120"
+    },
+    "saxon20": {
+      "id": "saxon20",
+      "author": [
+        {
+          "given": "James",
+          "family": "Saxon"
+        },
+        {
+          "given": "Julia",
+          "family": "Koschinsky"
+        },
+        {
+          "given": "Karina",
+          "family": "Acosta"
+        },
+        {
+          "given": "Vidal",
+          "family": "Anguiano"
+        },
+        {
+          "given": "Luc",
+          "family": "Anselin"
+        },
+        {
+          "given": "Sergio",
+          "family": "Rey"
+        }
+      ],
+      "year": 2020,
+      "title": "An Open Software Environment to Make Spatial Access Metrics More Accessible",
+      "journal": "University of Chicago: Center for Spatial Data Science",
+      "volume": "Preprint",
+      "doi": "10.13140/RG.2.2.12396.28807"
+    }
+  }
 }
