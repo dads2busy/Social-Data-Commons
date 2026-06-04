@@ -27,10 +27,13 @@ REPLICATE_DATASETS = [
     "transportation/Population Characteristics",
     "demographics/Cooperative extension",
     "financial_well_being/Employment Rates",
+    "financial_well_being/Material_Deprivation",
+    "demographics/Segregation Index (HOI)",
+    "housing/Cost/Affordability_HT",
 ]
 
 # Composite index skipped here; recomputed from standardized inputs in Phase 2.
-INDEX_SKIP_DATASETS = ["financial_well_being/Material_Deprivation"]
+INDEX_SKIP_DATASETS = []  # Material Deprivation moved to REPLICATE in Phase 2c-1
 
 # Percents recompute exactly from a denominator melted into the frame as a helper
 # count (dropped from output via input_only auto-derive).
