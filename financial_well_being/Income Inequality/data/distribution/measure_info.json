@@ -1,5 +1,6 @@
 {
     "gini_index_geo20": {
+        "geo_standardize": {"measure_type": "replicate"},
         "aggregation_method": "mean",
         "categories": "",
         "category": "Financial Well Being",
