@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-05T21:55:36+00:00",
+  "version": "1.0.1",
+  "generated": "2026-06-04T12:27:06+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "language_hh_limited_english_count_geo10",
@@ -31,15 +32,15 @@
     "24",
     "51"
   ],
-  "row_count": 341952,
+  "row_count": 389560,
   "files": {
     "ncr_cttrbg_census_acs_2016_2024_language_demographics.csv.xz": {
-      "sha256": "6e767c3e982b727a67f9c944859e81da2f7fd1d4f77774e1002e86d1e2edc16d",
-      "size_bytes": 1477112
+      "sha256": "827bb20e559b42b8b989d549c2c347caab40973e36cf14813d980af01dbb0744",
+      "size_bytes": 1783220
     },
     "va_hdcttr_census_acs_2016_2024_language_demographics.csv.xz": {
-      "sha256": "43576cd8f14fa6f96d097918617efefcb5d266da702374650e3a5f2a2304e79e",
-      "size_bytes": 290384
+      "sha256": "7847fdcfc90496ac8023318fd82a5276e50c2147b836b7ff21f8e1e70eb3bb66",
+      "size_bytes": 312440
     }
   }
 }

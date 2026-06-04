@@ -1,5 +1,5 @@
 name: language_demographics
-version: "1.0.0"
+version: "1.0.1"
 title: "Language"
 description: "Limited English speaking household estimates from ACS table C16002 (Household Language by Household Limited English Speaking Status), providing counts and percentages of households where no member 14 years and older speaks English 'very well.' Limited English households are summed across four language groups: Spanish, Indo-European, Asian/Pacific Islander, and other languages. This dataset is produced by the Social Data Commons at the University of Virginia."
 
