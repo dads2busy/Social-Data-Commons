@@ -21,6 +21,7 @@ REPLICATE_DATASETS = [
     "financial_well_being/Income Inequality",
     "transportation/Population Characteristics",
     "demographics/Cooperative extension",
+    "financial_well_being/Employment Rates",
 ]
 
 # Composite index skipped here; recomputed from standardized inputs in Phase 2.
@@ -32,14 +33,21 @@ EXACT_RATIO_FRAMECHANGE_DATASETS = [
     "demographics/Veteran",
     "demographics/Language",
     "education/Postsecondary",
+    "health/System Usage and Insurance/Without Health Insurance",
+    "financial_well_being/Employment Rates",
 ]
 
-ALL_DATASETS = (
+# Density measures recomputed as count_geo20 / (area20 / area_divisor); the count
+# is melted into the frame as a helper and dropped from output.
+DENSITY_DATASETS = ["demographics/Population Density"]
+
+ALL_DATASETS = list(dict.fromkeys(
     EXACT_RATIO_DATASETS
     + REPLICATE_DATASETS
     + INDEX_SKIP_DATASETS
     + EXACT_RATIO_FRAMECHANGE_DATASETS
-)
+    + DENSITY_DATASETS
+))
 
 # Where each dataset's census_standardize=True write_data call lives.
 STANDARDIZE_FILE = {d: "code/distribution/ingest.py" for d in ALL_DATASETS}
@@ -195,6 +203,35 @@ def test_framechange_ratios_recompute_and_drop_helpers(dataset, monkeypatch, spl
         got = out[out["measure"] == f"{base}_geo20"].set_index("geoid")["value"]
         assert got["51001000002"] == pytest.approx(expected), f"{dataset}:{base} A"
         assert got["51001000003"] == pytest.approx(expected), f"{dataset}:{base} B"
+    for h in helpers:
+        assert f"{h}_geo20" not in out_measures, f"{dataset}: helper {h} leaked _geo20"
+        assert f"{h}_geo10" not in out_measures, f"{dataset}: helper {h} leaked _geo10"
+
+
+@pytest.mark.parametrize("dataset", DENSITY_DATASETS)
+def test_density_recompute_and_drop_helper(dataset, monkeypatch, split_crosswalk):
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: split_crosswalk)
+    mi = _measure_info(dataset)
+    specs = parse_geo_standardize_info(mi)
+    helpers = convert.referenced_helper_measures(mi)
+    assert helpers, f"{dataset}: expected a helper (input-only) count for density"
+    dens = {b: s for b, s in specs.items() if s.get("measure_type") == "density"}
+    assert dens, f"{dataset}: no density measures"
+
+    counts = {s["count"] for s in dens.values()}
+    # pop == area10 (1000 in the fixture) so count_geo20/area20 == 1.0 per child;
+    # then density == area_divisor.
+    measure_values = {c: 1000.0 for c in counts}
+    measure_values.update({b: 0.0 for b in dens})
+    data = _synthetic_frame("51001000020", measure_values)
+
+    out = convert.standardize_all(data, measure_info=mi)  # auto-derives input_only
+    out_measures = set(out["measure"])
+    for base, spec in dens.items():
+        ad = spec.get("area_divisor", 1.0)
+        got = out[out["measure"] == f"{base}_geo20"].set_index("geoid")["value"]
+        assert got["51001000002"] == pytest.approx(ad), f"{dataset}:{base} A"
+        assert got["51001000003"] == pytest.approx(ad), f"{dataset}:{base} B"
     for h in helpers:
         assert f"{h}_geo20" not in out_measures, f"{dataset}: helper {h} leaked _geo20"
         assert f"{h}_geo10" not in out_measures, f"{dataset}: helper {h} leaked _geo10"
