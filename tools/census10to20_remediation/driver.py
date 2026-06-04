@@ -100,6 +100,12 @@ def _commit_dataset(entry, repo_root, message) -> None:
                    cwd=str(repo_root), check=True, capture_output=True, text=True)
     subprocess.run(["git", "add", f"{topic}/pipeline.yaml"],
                    cwd=str(repo_root), check=True, capture_output=True, text=True)
+    # The per-dataset prepare overwrites the shared dashboard measure_info.json
+    # (shutil.copy2, last-dataset-wins; not a merged artifact). Never commit it -
+    # restore to HEAD before staging so other datasets' entries aren't destroyed.
+    for mi in Path(repo_root).glob("dashboard_data/*/measure_info.json"):
+        subprocess.run(["git", "checkout", "HEAD", "--", str(mi.relative_to(repo_root))],
+                       cwd=str(repo_root), check=False, capture_output=True, text=True)
     subprocess.run(["git", "add", "-A", "dashboard_data"], cwd=str(repo_root),
                    check=False, capture_output=True, text=True)
     subprocess.run(["git", "commit", "-m", message], cwd=str(repo_root),

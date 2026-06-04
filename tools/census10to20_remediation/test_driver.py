@@ -217,3 +217,39 @@ def test_real_mode_removes_stale_renamed_outputs(tmp_path, monkeypatch):
     assert report["after"]["status"] == "pass"
     assert report["after"]["conservation"]["max_ratio"] == pytest.approx(1.0)
     assert report["committed"] is True
+
+
+def test_commit_dataset_does_not_commit_clobbered_measure_info(tmp_path):
+    import subprocess, json
+    import driver as drv
+
+    repo = tmp_path
+    def git(*a): subprocess.run(["git", *a], cwd=repo, check=True, capture_output=True, text=True)
+    git("init"); git("config", "user.email", "t@t"); git("config", "user.name", "t")
+    # committed shared dashboard measure_info with TWO datasets' entries
+    site = repo / "dashboard_data" / "ncr"; site.mkdir(parents=True)
+    mi = site / "measure_info.json"
+    mi.write_text(json.dumps({"broadband_x": {"a": 1}, "health_y": {"b": 2}}))
+    dist = repo / "demo" / "data" / "distribution"; dist.mkdir(parents=True)
+    (dist / "ncr_demo.csv.xz").write_text("seed")
+    (repo / "demo" / "pipeline.yaml").write_text("version: '1.0.0'\n")
+    git("add", "-A"); git("commit", "-m", "seed")
+
+    # simulate a prepare run: clobber measure_info to ONE dataset + write a new data file
+    mi.write_text(json.dumps({"age_z": {"c": 3}}))             # clobbered (lost broadband/health)
+    (site / "ncr_ct_demo.csv.xz").write_text("new dashboard data")
+    (dist / "ncr_demo.csv.xz").write_text("regenerated")
+
+    entry = {"topic": "demo"}
+    drv._commit_dataset(entry, repo, "regenerate demo")
+
+    # the committed measure_info must STILL have both original datasets (not clobbered)
+    committed_mi = subprocess.run(["git", "show", "HEAD:dashboard_data/ncr/measure_info.json"],
+                                  cwd=repo, capture_output=True, text=True).stdout
+    assert json.loads(committed_mi) == {"broadband_x": {"a": 1}, "health_y": {"b": 2}}
+    # but the regenerated data + dashboard csv ARE committed
+    tree = subprocess.run(["git", "show", "--stat", "HEAD"], cwd=repo, capture_output=True, text=True).stdout
+    assert "ncr_ct_demo.csv.xz" in tree
+    assert "ncr_demo.csv.xz" in tree
+    # working-tree measure_info is restored to the committed (un-clobbered) content
+    assert json.loads(mi.read_text()) == {"broadband_x": {"a": 1}, "health_y": {"b": 2}}
