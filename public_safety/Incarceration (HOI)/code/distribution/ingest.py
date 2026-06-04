@@ -25,6 +25,7 @@ from sdc_core.naming import build_file_name
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
+MEASURE_INFO = TOPIC_DIR / "data/distribution/measure_info.json"
 ORIG_DIR = TOPIC_DIR / "data/original"
 DIST_DIR = TOPIC_DIR / "data/distribution"
 
@@ -189,7 +190,12 @@ def run() -> RunResult:
             title="incarceration_rate",
             geographies=["tract"],
         )
-        out_path = write_data(combined, DIST_DIR / f"{out_name}.csv.xz", census_standardize=True)
+        out_path = write_data(
+            combined,
+            DIST_DIR / f"{out_name}.csv.xz",
+            census_standardize=True,
+            measure_info=MEASURE_INFO if MEASURE_INFO.exists() else None,
+        )
         log.info("Wrote %s", out_path)
 
         return RunResult(

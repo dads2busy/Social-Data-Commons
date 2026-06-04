@@ -12,6 +12,7 @@
     "layer": "",
     "long_description": "The incarceration rate estimates how many people per 100,000 residents are held in jail, allocated to the census tracts where they lived before incarceration. Communities with high rates experience disproportionate removal of residents into the criminal justice system, which disrupts families, reduces household income, and weakens social networks. Only jail population is captured; state prison data is not available at the county level for Virginia.",
     "long_name": "Incarceration Rate Per 100,000",
+    "geo_standardize": {"measure_type": "geo2020"},
     "measure_type": "rate",
     "short_description": "Jail incarceration rate per 100,000 residents, allocated to tracts by pre-incarceration residence.",
     "short_name": "Incarceration Rate",
