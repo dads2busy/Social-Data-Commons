@@ -25,7 +25,8 @@
     "type": "drive time",
     "unit": "minutes",
     "variants": "",
-    "provenance": "American Community Survey 5-Year Estimates, Table S0801 (Commuting Characteristics by Sex). Tract-level data standardized to 2020 census boundaries via area-weighted redistribution."
+    "provenance": "American Community Survey 5-Year Estimates, Table S0801 (Commuting Characteristics by Sex). Tract-level data standardized to 2020 census boundaries via area-weighted redistribution.",
+    "geo_standardize": {"measure_type": "mean"}
   },
   "perc_carpool_geo20": {
     "aggregation_method": "Mean",
@@ -53,7 +54,8 @@
     "type": "percent",
     "unit": "percent",
     "variants": "",
-    "provenance": "American Community Survey 5-Year Estimates, Table S0801 (Commuting Characteristics by Sex). Tract-level data standardized to 2020 census boundaries via area-weighted redistribution."
+    "provenance": "American Community Survey 5-Year Estimates, Table S0801 (Commuting Characteristics by Sex). Tract-level data standardized to 2020 census boundaries via area-weighted redistribution.",
+    "geo_standardize": {"measure_type": "replicate"}
   },
   "perc_no_vehicle_geo20": {
     "aggregation_method": "Mean",
@@ -81,6 +83,7 @@
     "type": "percent",
     "unit": "percent",
     "variants": "",
-    "provenance": "American Community Survey 5-Year Estimates, Table S2504 (Physical Housing Characteristics for Occupied Housing Units). Tract-level data standardized to 2020 census boundaries via area-weighted redistribution."
+    "provenance": "American Community Survey 5-Year Estimates, Table S2504 (Physical Housing Characteristics for Occupied Housing Units). Tract-level data standardized to 2020 census boundaries via area-weighted redistribution.",
+    "geo_standardize": {"measure_type": "replicate"}
   }
 }
