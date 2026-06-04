@@ -160,7 +160,10 @@ def test_real_mode_runs_gates_versions_commits(tmp_path, monkeypatch):
     assert report["after"]["status"] == "pass"
     assert report["before"]["conservation"]["max_ratio"] == pytest.approx(1.5)
     assert report["after"]["conservation"]["max_ratio"] == pytest.approx(1.0)
-    assert calls == {"version": 1, "tag": 1, "commit": 1}
+    # Tags are deferred for the remediation: version bump + commit, NO tag.
+    assert calls["version"] == 1
+    assert calls["commit"] == 1
+    assert calls["tag"] == 0
     assert report["committed"] is True
 
 

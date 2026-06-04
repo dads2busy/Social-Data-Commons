@@ -187,9 +187,10 @@ def regenerate_dataset(entry, *, repo_root, dry_run: bool):
     if after["status"] == "fail" or not _inflation_reduced(before, after):
         report["gate"] = "failed"
         return report
-    result = update_version(topic_dir, force_level="patch", auto_tag=False, auto_release=False)
-    if result is not None and getattr(result, "tag", None):
-        _local_tag(result.tag, repo_root)
+    # Version bump (local patch, no publish). Tags are DEFERRED for the remediation:
+    # the repo already has extensive historical version tags (collisions), so per-dataset
+    # tags are created later in a deliberate publish/versioning step, not here.
+    update_version(topic_dir, force_level="patch", auto_tag=False, auto_release=False)
     _commit_dataset(entry, repo_root,
                     f"fix({entry['topic']}): regenerate census10to20 _geo20 (remediation)")
     report["committed"] = True
