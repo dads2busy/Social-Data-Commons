@@ -1,6 +1,6 @@
 {
-  "version": "5.0.0",
-  "generated": "2026-03-13T14:20:16+00:00",
+  "version": "5.0.2",
+  "generated": "2026-06-04T13:26:17+00:00",
   "schema": [
     "geoid",
     "year",
@@ -77,19 +77,19 @@
     "56",
     "72"
   ],
-  "row_count": 2710862,
+  "row_count": 2710617,
   "files": {
     "ncr_cttr_bi_2017_2023_walkability_index.csv.xz": {
-      "sha256": "bcab58732c9b6d31dff6a64c4a7bc62384691e2207f61f4b3fdae12ee60f988f",
-      "size_bytes": 74780
+      "sha256": "0902bdeb80c4f3930c3ebf5b9fd095180fe4f6d5616467cd17d78e1fa1aa2e78",
+      "size_bytes": 51504
     },
     "us_cttrbg_bi_2017_2023_walkability_index.csv.xz": {
-      "sha256": "c9bd2ec8229d7b1488bc769c8e9235bb2e1683239e8006062503c3a7c63452a3",
-      "size_bytes": 9778696
+      "sha256": "0d7f8fc581010d7163be497eebd3c444f7de52adb120a65408319e85e7fb9635",
+      "size_bytes": 8560620
     },
     "va_hdcttr_bi_2017_2023_walkability_index.csv.xz": {
-      "sha256": "f4a1ed1281ab0753a8d7f2be6e0f14806f1256eda9d61484aec22b34a92c3463",
-      "size_bytes": 119252
+      "sha256": "336921d1911beca58d0180476bb43ae43154584c9008ca8cd6cf33cfa00dbcf8",
+      "size_bytes": 78404
     }
   }
 }
