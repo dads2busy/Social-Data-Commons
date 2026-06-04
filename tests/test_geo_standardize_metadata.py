@@ -12,7 +12,12 @@ from sdc_census10to20 import convert, parse_geo_standardize_info
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 # Percents recompute exactly from published in-frame counts.
-EXACT_RATIO_DATASETS = ["demographics/Age", "demographics/Race", "demographics/Gender"]
+EXACT_RATIO_DATASETS = [
+    "demographics/Age",
+    "demographics/Race",
+    "demographics/Gender",
+    "demographics/Geographic Mobility (HOI)",
+]
 
 # Intensive measures replicate the area-dominant parent (median/mean/replicate).
 REPLICATE_DATASETS = [
@@ -55,7 +60,7 @@ STANDARDIZE_FILE = {d: "code/distribution/ingest.py" for d in ALL_DATASETS}
 STANDARDIZE_FILE["financial_well_being/Material_Deprivation"] = "code/distribution/prepare.py"
 STANDARDIZE_FILE["broadband/Household Broadband"] = "code/distribution/prepare.py"
 
-VALID_TYPES = {"count", "ratio", "rate", "median", "mean", "replicate", "density", "index"}
+VALID_TYPES = {"count", "ratio", "rate", "median", "mean", "replicate", "density", "index", "external"}
 REPLICATE_TYPES = {"median", "mean", "replicate"}
 
 
