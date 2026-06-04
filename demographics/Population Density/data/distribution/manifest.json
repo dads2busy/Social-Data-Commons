@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-13T17:16:39+00:00",
+  "version": "2.0.1",
+  "generated": "2026-06-04T12:27:26+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "population_density_geo10",
@@ -28,15 +29,15 @@
   "regions": [
     "51"
   ],
-  "row_count": 109770,
+  "row_count": 143765,
   "files": {
     "ncr_cttrbg_census_acs_2015_2024_population_density.csv.xz": {
-      "sha256": "6265df24709bbeac85576f0c9a83a715ebf04a4efab3753432d70d2f823572b7",
-      "size_bytes": 796720
+      "sha256": "8af33c759e7e1e6169da055ae535ad1409f47f4523e15c639dbe0a58a0b8fe04",
+      "size_bytes": 1055628
     },
     "va_hdcttr_census_acs_2015_2024_population_density.csv.xz": {
-      "sha256": "e1ddf6bdbc9f5b76bc1a64ca07dda5e42db06331818b5e4cbe3280b3fd2e643c",
-      "size_bytes": 272332
+      "sha256": "7c207711a7047a5c4d7f8710deaf32980dd45cd2085cc4d573b2cac7c4965c0c",
+      "size_bytes": 298480
     }
   }
 }
