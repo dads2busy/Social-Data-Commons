@@ -482,3 +482,46 @@ def test_referenced_helper_measures_derives_unpublished_referenced_counts():
     assert referenced_helper_measures(mi) == {"denom_count"}
     # No ratios / all-published -> empty set.
     assert referenced_helper_measures({"x_geo20": {"geo_standardize": {"measure_type": "count"}}}) == set()
+
+
+def test_standardize_all_auto_drops_helper_counts_but_recomputes_ratio(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    data = pd.DataFrame({
+        "geoid":       ["51001000020", "51001000020", "51001000020"],
+        "year":        [2018, 2018, 2018],
+        "measure":     ["sub_count", "denom_count", "sub_pct"],
+        "value":       [300.0, 1000.0, 30.0],
+        "moe":         [pd.NA, pd.NA, pd.NA],
+        "region_type": ["tract", "tract", "tract"],
+    })
+    mi = {
+        "sub_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "sub_pct_geo20": {"geo_standardize": {
+            "measure_type": "ratio", "numerator": "sub_count",
+            "denominator": "denom_count", "scale": 100,
+        }},
+    }
+    # denom_count referenced but unpublished -> auto-derived as input-only.
+    out = convert.standardize_all(data, measure_info=mi)
+    m = set(out["measure"])
+    pct = out[out["measure"] == "sub_pct_geo20"].set_index("geoid")["value"]
+    assert pct["51001000002"] == pytest.approx(30.0)
+    assert pct["51001000003"] == pytest.approx(30.0)
+    assert "sub_count_geo20" in m
+    assert "denom_count_geo20" not in m
+    assert "denom_count_geo10" not in m
+
+
+def test_standardize_all_explicit_input_only_overrides(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+    data = pd.DataFrame({
+        "geoid": ["51001000020"], "year": [2018], "measure": ["pop"],
+        "value": [500.0], "moe": [pd.NA], "region_type": ["tract"],
+    })
+    mi = {"pop_geo20": {"geo_standardize": {"measure_type": "count"}}}
+    out = convert.standardize_all(data, measure_info=mi, input_only_measures={"pop"})
+    assert "pop_geo20" not in set(out["measure"])
+    assert "pop_geo10" not in set(out["measure"])

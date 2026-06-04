@@ -256,6 +256,7 @@ def standardize_all(
     data: pd.DataFrame,
     *,
     measure_info=None,
+    input_only_measures=None,
     filter_geo: str = "state",
     geoid_col: str = "geoid",
     measure_col: str = "measure",
@@ -282,7 +283,16 @@ def standardize_all(
     data = data[columns].copy()
     data[geoid_col] = data[geoid_col].astype(str)
 
-    original = data.copy()
+    specs = parse_geo_standardize_info(measure_info) if measure_info is not None else {}
+
+    if input_only_measures is not None:
+        input_only = set(input_only_measures)
+    elif measure_info is not None:
+        input_only = referenced_helper_measures(measure_info)
+    else:
+        input_only = set()
+
+    original = data[~data[measure_col].isin(input_only)].copy()
     original[measure_col] = original.apply(
         lambda row: (
             f"{row[measure_col]}_geo10"
@@ -292,13 +302,13 @@ def standardize_all(
         axis=1,
     )
 
-    specs = parse_geo_standardize_info(measure_info) if measure_info is not None else {}
-
     standardized_parts: list[pd.DataFrame] = []
 
     for yr in years:
         if yr < 2020:
             for meas in measures:
+                if meas in input_only:
+                    continue
                 for geoid_len in _SUB_COUNTY_LENGTHS:
                     temp = data[
                         (data[year_col] == yr)
