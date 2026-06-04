@@ -1,5 +1,5 @@
 name: obgyn_access_scores
-version: "2.0.0"
+version: "3.0.0"
 zenodo_deposit_id: 19152569
 method: fca
 title: "OB-GYN Service Accessibility (FCA)"
