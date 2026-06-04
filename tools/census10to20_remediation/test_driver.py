@@ -222,6 +222,22 @@ def test_real_mode_removes_stale_renamed_outputs(tmp_path, monkeypatch):
     assert report["committed"] is True
 
 
+def test_run_entrypoint_supports_relative_imports(tmp_path):
+    # Simulate a pipeline package (code/distribution with __init__.py) whose entry
+    # module uses a relative import of a sibling module, and a __main__ guard.
+    pkg = tmp_path / "code" / "distribution"
+    pkg.mkdir(parents=True)
+    (pkg / "__init__.py").write_text("")
+    (pkg / "sib.py").write_text("VALUE = 'from-sibling'\n")
+    (pkg / "ingest.py").write_text(
+        "from .sib import VALUE\n"
+        "def run():\n    return VALUE\n"
+        "if __name__ == '__main__':\n    raise SystemExit('main must not run')\n"
+    )
+    result = run_entrypoint(pkg / "ingest.py", "run")
+    assert result == "from-sibling"   # relative import resolved, __main__ skipped
+
+
 def test_commit_dataset_does_not_commit_clobbered_measure_info(tmp_path):
     import subprocess, json
     import driver as drv

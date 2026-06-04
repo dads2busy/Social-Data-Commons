@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import glob as _glob
+import importlib.machinery
 import importlib.util
 import os
 import re
@@ -23,15 +24,44 @@ from acceptance_test import check_conservation
 
 
 def run_entrypoint(module_path, func_name: str):
-    """Import a module by file path and call one of its functions.
+    """Import a module by file path (as a member of a synthetic package rooted at
+    its directory) and call one of its functions.
 
-    Executes module top-level code (imports, constants) but NOT the
-    ``if __name__ == "__main__"`` block — so a pipeline's ``run()`` is invoked
-    without triggering the ``update_version`` auto-publish in its ``__main__``.
+    Registering a synthetic package with submodule_search_locations = the module's
+    directory lets the module use relative imports (``from .sibling import ...``).
+    The module is loaded under a non-``__main__`` name, so a pipeline's
+    ``if __name__ == "__main__": update_version(...)`` auto-publish block never runs.
     """
-    module_path = Path(module_path)
-    spec = importlib.util.spec_from_file_location(f"_regen_{module_path.stem}", module_path)
+    module_path = Path(module_path).resolve()
+    pkg_dir = module_path.parent
+    pkg_name = f"_regen_pkg_{pkg_dir.name}_{abs(hash(str(pkg_dir))) % 10**8}"
+    if pkg_name not in sys.modules:
+        init = pkg_dir / "__init__.py"
+        if init.exists():
+            pkg_spec = importlib.util.spec_from_file_location(
+                pkg_name,
+                str(init),
+                submodule_search_locations=[str(pkg_dir)],
+            )
+            pkg = importlib.util.module_from_spec(pkg_spec)
+            sys.modules[pkg_name] = pkg
+            if pkg_spec.loader is not None:
+                pkg_spec.loader.exec_module(pkg)
+        else:
+            # Namespace package: no __init__.py; build a minimal package object
+            # so that relative imports in the child module can resolve siblings.
+            pkg_spec = importlib.machinery.ModuleSpec(
+                pkg_name, None,
+                is_package=True,
+            )
+            pkg_spec.submodule_search_locations = [str(pkg_dir)]
+            pkg = importlib.util.module_from_spec(pkg_spec)
+            sys.modules[pkg_name] = pkg
+    mod_name = f"{pkg_name}.{module_path.stem}"
+    spec = importlib.util.spec_from_file_location(mod_name, module_path)
     module = importlib.util.module_from_spec(spec)
+    module.__package__ = pkg_name
+    sys.modules[mod_name] = module
     spec.loader.exec_module(module)
     fn = getattr(module, func_name)
     return fn()
