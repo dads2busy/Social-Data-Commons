@@ -56,9 +56,20 @@ These are already on 2020 geographies by construction — no conversion needed.
 ## Execution outcome (2026-06-04, branch census10to20-coverage-gap)
 
 Standardized via the configurable `vintage_cutoff_year` mechanism: **PLACES** (cutoff 2022),
-**Rent** (all years 2010-vintage), **OB-GYN / Pediatric / Primary Care** access scores (cutoff
-2021), and **SNAP** (cutoff 2020; prepare's health-district percent recompute updated to use the
-`_geo20` counts).
+**Rent** (all years 2010-vintage), and **SNAP** (cutoff 2020; prepare's health-district percent
+recompute updated to use the `_geo20` counts).
+
+**Reverted — excluded from the standardize-everything rule (2026-06-04):** the three physician
+**Service Access Scores** (OB-GYN, Pediatric, Primary Care) were initially standardized (cutoff
+2021) but then **reverted to native**. They have a Data & Policy data paper
+(`health/Health Care Services/Physicians/docs/article/`) built around native per-year block-group
+geography; standardizing replicated pre-2021 FCA scores onto 2020 boundaries, changing the measure
+schema (`_geo10`/`_geo20`) and the methodology the paper describes. Repo + GitHub releases reverted
+to v2.0.0/v2.0.0/v4.0.1 (bare measures). The standardized Zenodo versions (10.5281/zenodo.20547473,
+.20547481, .20547488) are permanent (Zenodo never deletes) and are annotated "Reverted — do not
+use"; the paper-cited versions (.19152569, .19152601, .19152538) had their superseded notices
+removed and are canonical again. FCA accessibility scores are a poor fit for dominant-parent
+replication — native per-year geography is more defensible for them.
 
 **Deferred to a separate investigation** (pre-existing problems beyond standardization, matching
 the Hospitals case):
