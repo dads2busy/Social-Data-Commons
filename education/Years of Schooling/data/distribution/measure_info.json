@@ -9,6 +9,7 @@
     "layer": "",
     "long_description": "Average years of schooling estimates the typical education level of adults in a community by converting Census educational attainment categories into equivalent years of formal education. Areas with lower average schooling tend to have fewer economic opportunities, lower health literacy, and reduced civic engagement. This measure serves as a key input to the VDH Health Opportunity Index, where it contributes to the Consumer Opportunity profile.",
     "long_name": "Education Index (Average Years of Schooling)",
+    "geo_standardize": {"measure_type": "mean"},
     "measure_type": "average",
     "provenance": "Computed from ACS 5-year estimates, table B15003 (Sex by Age by Educational Attainment for the Population 18 Years and Over). Each educational attainment category is mapped to a number of years using the crosswalk in Bennett, D.L. (2011), 'Educational Inequality in the United States,' Center for College Affordability and Productivity. The population-weighted average across all attainment levels produces a single years-of-schooling estimate per geography.",
     "short_description": "Average years of formal education among adults, derived from ACS educational attainment categories.",
