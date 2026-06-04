@@ -9,6 +9,7 @@
     "layer": "",
     "long_description": "The Employment Access Index quantifies how easily residents of a community can reach jobs, using a gravity model that accounts for both the number of nearby jobs and the distance to them. Communities with low employment access face longer commutes, higher transportation costs, and fewer economic opportunities, all of which contribute to financial instability and reduced quality of life. This measure is a key input to the VDH Health Opportunity Index, where it contributes to the Economic Opportunity profile.",
     "long_name": "Employment Access Index",
+    "geo_standardize": {"measure_type": "geo2020"},
     "measure_type": "index",
     "provenance": "Computed using a gravity model from LEHD-LODES Workplace Area Characteristics (WAC) job counts and TIGER/Line Census block centroids. Employment intensity is calculated as the sum of jobs divided by the square of the distance (in miles) from each Census block group to all nearby employment locations, using a hierarchical distance approximation: individual block-level job counts within 34 miles, tract-level aggregates from 34 to 165 miles, and county-level aggregates from 165 to 200 miles. Inspired by the Center for Neighborhood Technology (CNT) H+T Affordability Index gravity model approach.",
     "short_description": "Gravity-based index of employment accessibility measuring proximity to jobs, weighted by distance decay.",
