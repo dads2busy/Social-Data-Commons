@@ -1,5 +1,5 @@
 name: incarceration_rate
-version: "1.0.1"
+version: "1.0.3"
 title: "Incarceration Rate (HOI)"
 description: >-
   Incarceration rate per 100,000 population derived from two sources:

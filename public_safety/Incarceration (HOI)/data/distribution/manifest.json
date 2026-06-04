@@ -1,6 +1,6 @@
 {
-  "version": "1.0.1",
-  "generated": "2026-03-12T20:12:51+00:00",
+  "version": "1.0.3",
+  "generated": "2026-06-04T13:01:44+00:00",
   "schema": [
     "geoid",
     "year",
@@ -26,11 +26,11 @@
   "regions": [
     "51"
   ],
-  "row_count": 18928,
+  "row_count": 17584,
   "files": {
     "va_hdcttr_vera_ppi_2016_2023_incarceration_rate.csv.xz": {
-      "sha256": "93d1f0e76d5f16ed576aaf75e46565123d1d73c34d7c421ec71c18f1c182f0c6",
-      "size_bytes": 88692
+      "sha256": "3d222051fad72e5e4d007d0aa89fbe81708184bab502747a3ce01aa93b7f91e0",
+      "size_bytes": 69072
     }
   }
 }
