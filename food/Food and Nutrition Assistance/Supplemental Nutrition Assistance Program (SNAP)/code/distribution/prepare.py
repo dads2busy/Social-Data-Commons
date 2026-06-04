@@ -71,8 +71,9 @@ def build_va_with_health_districts(va_source: Path, crosswalk_path: Path) -> Pat
         xwalk = pd.concat([xwalk, bedford_row], ignore_index=True)
 
     # Aggregate count and population by sum
+    # After census standardization, county rows carry the _geo20 suffix.
     sum_measures = counties[
-        counties["measure"].isin(["hh_received_snap_cnt", "population"])
+        counties["measure"].isin(["hh_received_snap_cnt_geo20", "population_geo20"])
     ]
     hd_sums = aggregate_with_crosswalk(
         sum_measures,
@@ -92,10 +93,10 @@ def build_va_with_health_districts(va_source: Path, crosswalk_path: Path) -> Pat
     ).reset_index()
 
     hd_pct = hd_wide[["geoid", "year", "region_type"]].copy()
-    hd_pct["measure"] = "hh_received_snap_pct"
+    hd_pct["measure"] = "hh_received_snap_pct_geo20"
     hd_pct["value"] = (
-        hd_wide["hh_received_snap_cnt"] / hd_wide["population"] * 100
-    ).where(hd_wide["population"].gt(0), other=0.0)
+        hd_wide["hh_received_snap_cnt_geo20"] / hd_wide["population_geo20"] * 100
+    ).where(hd_wide["population_geo20"].gt(0), other=0.0)
     hd_pct["moe"] = pd.NA
 
     hd_sums["moe"] = pd.NA
@@ -168,8 +169,7 @@ def run() -> None:
     else:
         log.warning("No NCR source in %s", DIST_DIR)
 
-    update_version(TOPIC_DIR)
-
 
 if __name__ == "__main__":
     run()
+    update_version(TOPIC_DIR)

@@ -19,6 +19,7 @@ from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 DIST_DIR = TOPIC_DIR / "data/distribution"
+MEASURE_INFO = DIST_DIR / "measure_info.json"  # path; standardize_all loads it
 
 log = get_logger("snap.ingest")
 
@@ -81,7 +82,8 @@ def run_source(
             source_type=src.get("type"),
             title="hh_receiving_snap",
         )
-        out_path = write_data(result, out_dir / f"{auto_name}.csv.xz")
+        out_path = write_data(result, out_dir / f"{auto_name}.csv.xz",
+                              census_standardize=True, measure_info=MEASURE_INFO)
         log.info("Wrote %d rows to %s", len(result), out_path)
 
         return RunResult(

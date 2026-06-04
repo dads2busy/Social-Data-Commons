@@ -1,21 +1,25 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-13T14:19:38+00:00",
+  "version": "2.0.0",
+  "generated": "2026-06-04T18:35:57+00:00",
   "schema": [
     "geoid",
-    "region_type",
-    "region_name",
     "year",
     "measure",
     "value",
-    "measure_type",
     "moe",
+    "region_type",
     "data_method"
   ],
   "measures": [
     "hh_received_snap_cnt",
+    "hh_received_snap_cnt_geo10",
+    "hh_received_snap_cnt_geo20",
     "hh_received_snap_pct",
-    "population"
+    "hh_received_snap_pct_geo10",
+    "hh_received_snap_pct_geo20",
+    "population",
+    "population_geo10",
+    "population_geo20"
   ],
   "years": [
     2013,
@@ -28,30 +32,39 @@
     2020,
     2021,
     2022,
-    2023
+    2023,
+    2024
   ],
   "regions": [
     "11",
     "24",
     "51"
   ],
-  "row_count": 1119957,
+  "row_count": 2573823,
   "files": {
-    "ncr_cttrbg_acs_2013_2023_hh_receiving_snap.csv.xz": {
-      "sha256": "a2a154c7642b52bb745bb6dcde4aaabaa60c94c057f8ab22d85ceb95635e437e",
-      "size_bytes": 783440
-    },
     "ncr_cttrbg_census_acs_2013_2023_hh_receiving_snap.csv.xz": {
-      "sha256": "e4eaa6f3a26ba41b50196504e75b31df0c879845a35ae509a2b8cffe6fb097a6",
-      "size_bytes": 1973964
+      "sha256": "5cc92e4b23808c4fd1fabcb4576804caf2949d519c3e29a6ab35ddf6fcd7d47e",
+      "size_bytes": 2067140
+    },
+    "ncr_cttrbg_census_acs_2013_2024_hh_receiving_snap.csv.xz": {
+      "sha256": "97f5153e4627f9a89cccadc24046a758b0d373e034866d068cfc41464c312ec7",
+      "size_bytes": 3650920
     },
     "va_cttrbg_census_acs_2013_2023_hh_receiving_snap.csv.xz": {
-      "sha256": "1b1e939ee3485b93ba4fbcc8280b617c0890f1c6977ca2620a4c325579792900",
-      "size_bytes": 1122916
+      "sha256": "b7ff3c717853f9aa286b328d5ecafefccb043da9ba1de27c4b7a6f29b8c0c6ce",
+      "size_bytes": 1175360
+    },
+    "va_cttrbg_census_acs_2013_2024_hh_receiving_snap.csv.xz": {
+      "sha256": "93910842a02a8ca6f2c3566216ac4fd3feabf2262290073d0ef74260aa075f3c",
+      "size_bytes": 2434832
     },
     "va_hdcttrbg_acs_2013_2023_hh_receiving_snap.csv.xz": {
-      "sha256": "8093e8dede8c1ceb4caedefa4a2c8f35e995f86c24a4caf7ec1673a4ecaec1eb",
-      "size_bytes": 1078960
+      "sha256": "525bde10a6ae62b54c90a9fe3ff3e028205ed3e66218eeba6fcd2d6809d6fc81",
+      "size_bytes": 1129924
+    },
+    "va_hdcttrbg_acs_2013_2024_hh_receiving_snap.csv.xz": {
+      "sha256": "ea254717b58b747ed90799ecec95b818b5ce644b2d15933c700a70470a2fce76",
+      "size_bytes": 2220780
     }
   }
 }
