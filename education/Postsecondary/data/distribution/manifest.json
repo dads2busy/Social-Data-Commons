@@ -1,6 +1,6 @@
 {
-  "version": "2.0.0",
-  "generated": "2026-03-13T14:31:48+00:00",
+  "version": "2.0.2",
+  "generated": "2026-06-04T12:38:25+00:00",
   "schema": [
     "geoid",
     "year",
@@ -38,19 +38,15 @@
     "24",
     "51"
   ],
-  "row_count": 407204,
+  "row_count": 299366,
   "files": {
     "ncr_cttr_census_acs_2010_2024_postsecondary.csv.xz": {
-      "sha256": "cec93e2432a05d102e47b18044407c94aaefd64ae7e7721b11a331edfd737148",
-      "size_bytes": 1443776
-    },
-    "va_cttr_census_acs_2010_2024_postsecondary.csv.xz": {
-      "sha256": "49060d2b0248cf18bd4fd02cbb7949a9de1c6cdd97ecfcdf5701ed96a3a10504",
-      "size_bytes": 825868
+      "sha256": "76f72452f20e9e2dfe9e4918a1f98ff361a9942c4e8916c0ab6c05b5cc4f09e5",
+      "size_bytes": 1599308
     },
     "va_hdcttr_census_acs_2010_2024_postsecondary.csv.xz": {
-      "sha256": "eac0166cb1f79426b3235731e76f3f9b1316c9db802b01524510cada917958e8",
-      "size_bytes": 763944
+      "sha256": "1b69ebbbf2ca0413766d5a88f9d59da46c9ed715ef6a542c545787682dcbc925",
+      "size_bytes": 882532
     }
   }
 }
