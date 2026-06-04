@@ -20,6 +20,9 @@ def main(topic):
     for f in sorted(glob.glob(topic + "/data/distribution/*.csv.xz")):
         r = check_conservation(f)
         d = pd.read_csv(f, usecols=lambda c: c in ("measure", "region_type"))
+        if "measure" not in d.columns:
+            print(f"  {f.split('/')[-1]}: skipped (no 'measure' column)")
+            continue
         ms = d["measure"]
         has_geo20 = ms.str.endswith("_geo20").any()
         has_geo10 = ms.str.endswith("_geo10").any()

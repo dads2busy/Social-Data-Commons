@@ -37,6 +37,8 @@ def check_conservation(dist_path, *, tol: float = 0.02, worst_n: int = 5) -> dic
              "per_county_worst": {base: [[county, ratio], ...] up to worst_n by |ratio-1|}}.
     """
     df = pd.read_csv(dist_path, dtype={"geoid": str})
+    if "region_type" not in df.columns:
+        return {"status": "n/a", "max_ratio": None, "per_measure": {}, "per_county_worst": {}}
     tr = df[(df["year"] < 2020) & (df["region_type"] == "tract")].copy()
     if tr.empty:
         return {"status": "n/a", "max_ratio": None, "per_measure": {}, "per_county_worst": {}}
@@ -78,6 +80,8 @@ def check_ratio_consistency(dist_path, measure_info, *, tol: float = 0.5) -> dic
              "checked": [base, ...]}.
     """
     df = pd.read_csv(dist_path, dtype={"geoid": str})
+    if "region_type" not in df.columns:
+        return {"status": "n/a", "max_abs_diff": None, "checked": []}
     df = df[df["region_type"] == "tract"]
     specs = parse_geo_standardize_info(measure_info)
     present = set(df["measure"].unique())
