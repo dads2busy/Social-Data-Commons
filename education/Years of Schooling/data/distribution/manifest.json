@@ -1,6 +1,6 @@
 {
-  "version": "2.0.0",
-  "generated": "2026-03-13T14:30:51+00:00",
+  "version": "2.0.2",
+  "generated": "2026-06-04T12:36:35+00:00",
   "schema": [
     "geoid",
     "year",
@@ -31,19 +31,15 @@
     "24",
     "51"
   ],
-  "row_count": 122478,
+  "row_count": 90018,
   "files": {
     "ncr_cttr_census_acs_2015_2024_years_of_schooling.csv.xz": {
-      "sha256": "06d554a7e2e7ec7533b0cf72765da9e6ba925a65342358dc2c939004a7f9c2a1",
-      "size_bytes": 222316
-    },
-    "va_cttr_census_acs_2015_2024_years_of_schooling.csv.xz": {
-      "sha256": "851174990a4e423679776f10de260f5df72e6817cc58dd2bb23ecebc56273930",
-      "size_bytes": 128648
+      "sha256": "e1b1203fd30022785232e4009d12cf58bee9f25660d8d4c390c7fb6af0b7b0d0",
+      "size_bytes": 173220
     },
     "va_hdcttr_census_acs_2015_2024_years_of_schooling.csv.xz": {
-      "sha256": "c769609fb91bde79d66da2eaa5c8f411388d0deeaf08d1ea69647da99577db8b",
-      "size_bytes": 111816
+      "sha256": "cf04ad90af6ccd8930e2f86bcc84965d5893ed7529df79954a22ee6b0aa2208b",
+      "size_bytes": 76228
     }
   }
 }
