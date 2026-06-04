@@ -147,8 +147,14 @@ def _redistribute_ratio_weighted(meas_slice, weight_slice, *, geoid_col, value_c
     return m[["geoid", value_col]]
 
 
-def _redistribute_density(count_slice, *, geoid_col, value_col, state_fips):
-    """density_geo20 = count_geo20 / area20 (2020 land area)."""
+def _redistribute_density(count_slice, *, geoid_col, value_col, state_fips, area_divisor=1.0):
+    """density_geo20 = count_geo20 / (area20 / area_divisor).
+
+    ``area20`` from the crosswalk is land area in the relationship file's units
+    (square meters). ``area_divisor`` converts to the published area unit
+    (e.g. 2_589_988.11 m²/mi² -> persons per square mile). Default 1.0 leaves
+    ``area20`` units unchanged.
+    """
     count20 = convert_2010_to_2020_bounds(
         count_slice, geoid_col=geoid_col, val_col=value_col, state_fips=state_fips,
     )
@@ -159,7 +165,7 @@ def _redistribute_density(count_slice, *, geoid_col, value_col, state_fips):
         .rename(columns={"geoid20": "geoid"})
     )
     m = count20.merge(area20, on="geoid")
-    m[value_col] = m[value_col] / m["area20"]
+    m[value_col] = m[value_col] / (m["area20"] / area_divisor)
     return m[["geoid", value_col]]
 
 
@@ -439,6 +445,7 @@ def standardize_all(
                         converted = _redistribute_density(
                             c_slice, geoid_col=geoid_col, value_col=value_col,
                             state_fips=state_fips,
+                            area_divisor=spec.get("area_divisor", 1.0),
                         )
                     elif mtype == "index" or (spec and spec.get("interpolate") is False):
                         continue  # indices recomputed from standardized inputs downstream

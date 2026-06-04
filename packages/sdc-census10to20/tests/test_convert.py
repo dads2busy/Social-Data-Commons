@@ -525,3 +525,29 @@ def test_standardize_all_explicit_input_only_overrides(monkeypatch, fake_crosswa
     out = convert.standardize_all(data, measure_info=mi, input_only_measures={"pop"})
     assert "pop_geo20" not in set(out["measure"])
     assert "pop_geo10" not in set(out["measure"])
+
+
+def test_standardize_all_density_applies_area_divisor(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    # In fake_crosswalk, area_part == area20 and area10 == 1000, so for pop == 1000
+    # count_geo20 / area20 == 1.0 per child; with area_divisor=10 the density is 10.0.
+    data = pd.DataFrame({
+        "geoid":       ["51001000020", "51001000020"],
+        "year":        [2018, 2018],
+        "measure":     ["pop_count", "pop_density"],
+        "value":       [1000.0, 1.0],
+        "moe":         [pd.NA, pd.NA],
+        "region_type": ["tract", "tract"],
+    })
+    mi = {
+        "pop_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "pop_density_geo20": {"geo_standardize": {
+            "measure_type": "density", "count": "pop_count", "area_divisor": 10.0,
+        }},
+    }
+    out = convert.standardize_all(data, measure_info=mi)
+    dens = out[out["measure"] == "pop_density_geo20"].set_index("geoid")["value"]
+    assert dens["51001000002"] == pytest.approx(10.0)
+    assert dens["51001000003"] == pytest.approx(10.0)
