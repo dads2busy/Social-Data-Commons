@@ -3,8 +3,11 @@ from __future__ import annotations
 
 import glob as _glob
 import importlib.util
+import os
+import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 from sdc_core.versioning import update_version
@@ -118,6 +121,35 @@ def _inflation_reduced(before, after) -> bool:
     return abs(a - 1) <= max(abs(b - 1), 0.03)
 
 
+def _remove_stale_outputs(entry, repo_root, run_start: float) -> list:
+    """Remove this dataset's outputs not (re)written by the current run.
+
+    Distribution dir is dataset-private: any *.csv.xz older than run_start is a
+    stale prior-vintage output (e.g. a renamed _2009_2024 file). Dashboard dirs are
+    shared, so restrict to this dataset's files by title (the token after the
+    _YYYY_YYYY_ year range in a freshly-written dist filename). Removed files are
+    later staged for deletion by _commit_dataset's `git add -A`.
+    """
+    repo_root = Path(repo_root)
+    dist_dir = repo_root / entry["topic"] / "data" / "distribution"
+    removed, fresh = [], []
+    for f in _glob.glob(str(dist_dir / "*.csv.xz")):
+        if os.path.getmtime(f) < run_start:
+            os.remove(f); removed.append(f)
+        else:
+            fresh.append(f)
+    title = None
+    for f in fresh:
+        m = re.search(r"_\d{4}_\d{4}_(.+)\.csv\.xz$", Path(f).name)
+        if m:
+            title = m.group(1); break
+    if title:
+        for f in _glob.glob(str(repo_root / "dashboard_data" / "*" / f"*{title}*.csv.xz")):
+            if os.path.getmtime(f) < run_start:
+                os.remove(f); removed.append(f)
+    return removed
+
+
 def regenerate_dataset(entry, *, repo_root, dry_run: bool):
     """Regenerate one dataset (or, in dry_run, only report BEFORE acceptance).
 
@@ -137,9 +169,12 @@ def regenerate_dataset(entry, *, repo_root, dry_run: bool):
     if dry_run:
         return report
     topic_dir = Path(repo_root) / entry["topic"]
+    run_start = time.time()
     for ep in entry["entrypoints"]:
         mod_rel, _, func = ep.partition(":")
         run_entrypoint(topic_dir / mod_rel, func)
+    stale_removed = _remove_stale_outputs(entry, repo_root, run_start)
+    report["stale_removed"] = stale_removed
     after = _acceptance(entry, repo_root)
     report["after"] = after
     report["regenerated"] = True

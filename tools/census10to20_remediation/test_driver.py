@@ -174,3 +174,46 @@ def test_inflation_reduced_edge_cases():
     assert _inflation_reduced(r1, r2) is False                  # got worse
     assert _inflation_reduced(r2, none_rep) is False            # count dropped after -> fail (regression)
     assert _inflation_reduced(none_rep, r1) is False            # count appeared after -> fail (suspicious)
+
+
+def test_real_mode_removes_stale_renamed_outputs(tmp_path, monkeypatch):
+    import json, os, pandas as pd
+    import driver as drv
+
+    topic = tmp_path / "demo"
+    dist = topic / "data" / "distribution"
+    code = topic / "code" / "distribution"
+    dist.mkdir(parents=True); code.mkdir(parents=True)
+    # OLD-named, corrupt (inflated 1.5), with an ANCIENT mtime -> stale
+    old = dist / "ncr_x_census_acs_2009_2024_demo.csv.xz"
+    pd.DataFrame({
+        "geoid": ["51001000001", "51001000002", "51001000003"], "year": [2018]*3,
+        "measure": ["c_count_geo10", "c_count_geo20", "c_count_geo20"], "value": [1000, 900, 600],
+        "moe": [pd.NA]*3, "region_type": ["tract"]*3,
+    }).to_csv(old, index=False)
+    os.utime(old, (1, 1))  # 1970 -> definitely older than run_start
+    (dist / "measure_info.json").write_text(json.dumps(
+        {"c_count_geo20": {"geo_standardize": {"measure_type": "count"}}}))
+    # ingest writes the NEW-named file (2010_2024), conserved (1.0); does NOT touch the old name
+    (code / "ingest.py").write_text(
+        "import pandas as pd\nfrom pathlib import Path\n"
+        "def run():\n"
+        "    p = Path(__file__).resolve().parents[2] / 'data/distribution/ncr_x_census_acs_2010_2024_demo.csv.xz'\n"
+        "    pd.DataFrame({'geoid':['51001000001','51001000002','51001000003'],'year':[2018]*3,"
+        "'measure':['c_count_geo10','c_count_geo20','c_count_geo20'],'value':[1000,600,400],'moe':[pd.NA]*3,"
+        "'region_type':['tract']*3}).to_csv(p, index=False)\n")
+    (code / "prepare.py").write_text("def run():\n    pass\n")
+    monkeypatch.setattr(drv, "update_version", lambda *a, **k: type("R", (), {"tag": "demo/v1.0.1"})())
+    monkeypatch.setattr(drv, "_local_tag", lambda *a, **k: None)
+    monkeypatch.setattr(drv, "_commit_dataset", lambda *a, **k: None)
+
+    entry = {"topic": "demo", "dist_glob": "data/distribution/*demo.csv.xz",
+             "measure_info": "data/distribution/measure_info.json",
+             "entrypoints": ["code/distribution/ingest.py:run", "code/distribution/prepare.py:run"]}
+    report = drv.regenerate_dataset(entry, repo_root=tmp_path, dry_run=False)
+    # stale old-named file removed; fresh new-named present; gate passed on fresh only
+    assert not old.exists()
+    assert (dist / "ncr_x_census_acs_2010_2024_demo.csv.xz").exists()
+    assert report["after"]["status"] == "pass"
+    assert report["after"]["conservation"]["max_ratio"] == pytest.approx(1.0)
+    assert report["committed"] is True
