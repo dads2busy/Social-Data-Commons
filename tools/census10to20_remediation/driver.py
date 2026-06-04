@@ -98,11 +98,18 @@ def _commit_dataset(entry, repo_root, message) -> None:
 
 
 def _inflation_reduced(before, after) -> bool:
-    """True if the count-inflation signature dropped (or there was none to begin with)."""
+    """True if the count-inflation signature dropped (or there was never a count to inflate).
+
+    A count measure present BEFORE but absent AFTER (a is None, b is not None) is a
+    silent regression -> return False (gate fails). Genuinely count-less datasets
+    (both None) pass.
+    """
     b = before["conservation"]["max_ratio"]
     a = after["conservation"]["max_ratio"]
-    if b is None or a is None:
+    if a is None and b is None:
         return True
+    if a is None or b is None:
+        return False
     return a < b
 
 

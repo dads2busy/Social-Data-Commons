@@ -160,3 +160,15 @@ def test_real_mode_runs_gates_versions_commits(tmp_path, monkeypatch):
     assert report["after"]["conservation"]["max_ratio"] == pytest.approx(1.0)
     assert calls == {"version": 1, "tag": 1, "commit": 1}
     assert report["committed"] is True
+
+
+def test_inflation_reduced_edge_cases():
+    from driver import _inflation_reduced
+    none_rep = {"conservation": {"max_ratio": None}}
+    r2 = {"conservation": {"max_ratio": 2.0}}
+    r1 = {"conservation": {"max_ratio": 1.0}}
+    assert _inflation_reduced(none_rep, none_rep) is True       # never a count -> pass
+    assert _inflation_reduced(r2, r1) is True                   # 2.0 -> 1.0 reduced
+    assert _inflation_reduced(r1, r2) is False                  # got worse
+    assert _inflation_reduced(r2, none_rep) is False            # count dropped after -> fail (regression)
+    assert _inflation_reduced(none_rep, r1) is False            # count appeared after -> fail (suspicious)
