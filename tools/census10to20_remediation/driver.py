@@ -3,8 +3,11 @@ from __future__ import annotations
 
 import glob as _glob
 import importlib.util
+import subprocess
 import sys
 from pathlib import Path
+
+from sdc_core.versioning import update_version
 
 # Ensure the package directory is on sys.path so that sibling modules
 # (acceptance_test, datasets) are importable when driver is imported directly
@@ -77,6 +80,32 @@ def _acceptance(entry, repo_root):
             "ratio": {"status": ratio_status, "reps": ratio_reps}}
 
 
+def _local_tag(tag: str, repo_root) -> None:
+    """Create an annotated tag locally WITHOUT pushing."""
+    subprocess.run(["git", "tag", "-a", tag, "-m", f"remediation {tag}"],
+                   cwd=str(repo_root), check=True, capture_output=True, text=True)
+
+
+def _commit_dataset(entry, repo_root, message) -> None:
+    """Stage the dataset's regenerated outputs + metadata and commit."""
+    topic = entry["topic"]
+    subprocess.run(["git", "add", f"{topic}/data/distribution", f"{topic}/pipeline.yaml"],
+                   cwd=str(repo_root), check=True, capture_output=True, text=True)
+    subprocess.run(["git", "add", "dashboard_data"], cwd=str(repo_root),
+                   check=False, capture_output=True, text=True)
+    subprocess.run(["git", "commit", "-m", message], cwd=str(repo_root),
+                   check=True, capture_output=True, text=True)
+
+
+def _inflation_reduced(before, after) -> bool:
+    """True if the count-inflation signature dropped (or there was none to begin with)."""
+    b = before["conservation"]["max_ratio"]
+    a = after["conservation"]["max_ratio"]
+    if b is None or a is None:
+        return True
+    return a < b
+
+
 def regenerate_dataset(entry, *, repo_root, dry_run: bool):
     """Regenerate one dataset (or, in dry_run, only report BEFORE acceptance).
 
@@ -95,6 +124,20 @@ def regenerate_dataset(entry, *, repo_root, dry_run: bool):
     }
     if dry_run:
         return report
-    raise NotImplementedError(
-        "real-mode regeneration is executed in Phase 3b (run with SDC_NO_PUBLISH=1)"
-    )
+    topic_dir = Path(repo_root) / entry["topic"]
+    for ep in entry["entrypoints"]:
+        mod_rel, _, func = ep.partition(":")
+        run_entrypoint(topic_dir / mod_rel, func)
+    after = _acceptance(entry, repo_root)
+    report["after"] = after
+    report["regenerated"] = True
+    if after["status"] == "fail" or not _inflation_reduced(before, after):
+        report["gate"] = "failed"
+        return report
+    result = update_version(topic_dir, force_level="patch", auto_tag=False, auto_release=False)
+    if result is not None and getattr(result, "tag", None):
+        _local_tag(result.tag, repo_root)
+    _commit_dataset(entry, repo_root,
+                    f"fix({entry['topic']}): regenerate census10to20 _geo20 (remediation)")
+    report["committed"] = True
+    return report

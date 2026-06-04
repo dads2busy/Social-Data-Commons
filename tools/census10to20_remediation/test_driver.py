@@ -100,3 +100,46 @@ def test_dist_files_returns_all_matches_and_acceptance_aggregates(tmp_path):
     rep = _acceptance_conservation(entry, tmp_path)
     assert rep["status"] == "fail"
     assert rep["max_ratio"] == pytest.approx(1.5)
+
+
+def test_real_mode_runs_gates_versions_commits(tmp_path, monkeypatch):
+    import json, pandas as pd
+    import driver as drv
+
+    topic = tmp_path / "demo"
+    dist = topic / "data" / "distribution"
+    code = topic / "code" / "distribution"
+    dist.mkdir(parents=True); code.mkdir(parents=True)
+    pd.DataFrame({
+        "geoid": ["51001000001", "51001000002", "51001000003"], "year": [2018]*3,
+        "measure": ["c_count_geo10", "c_count_geo20", "c_count_geo20"], "value": [1000, 900, 600],
+        "moe": [pd.NA]*3, "region_type": ["tract"]*3,
+    }).to_csv(dist / "d.csv.xz", index=False)
+    (dist / "measure_info.json").write_text(json.dumps(
+        {"c_count_geo20": {"geo_standardize": {"measure_type": "count"}}}))
+    (code / "ingest.py").write_text(
+        "import pandas as pd\nfrom pathlib import Path\n"
+        "def run():\n"
+        "    p = Path(__file__).resolve().parents[2] / 'data/distribution/d.csv.xz'\n"
+        "    pd.DataFrame({'geoid':['51001000001','51001000002','51001000003'],'year':[2018]*3,"
+        "'measure':['c_count_geo10','c_count_geo20','c_count_geo20'],'value':[1000,600,400],'moe':[pd.NA]*3,"
+        "'region_type':['tract']*3}).to_csv(p, index=False)\n")
+    (code / "prepare.py").write_text("def run():\n    pass\n")
+
+    calls = {"version": 0, "tag": 0, "commit": 0}
+    monkeypatch.setattr(drv, "update_version",
+        lambda *a, **k: (calls.__setitem__("version", calls["version"] + 1),
+                         type("R", (), {"tag": "demo/v1.0.1", "new_version": "1.0.1"})())[1])
+    monkeypatch.setattr(drv, "_local_tag", lambda *a, **k: calls.__setitem__("tag", calls["tag"] + 1))
+    monkeypatch.setattr(drv, "_commit_dataset", lambda *a, **k: calls.__setitem__("commit", calls["commit"] + 1))
+
+    entry = {"topic": "demo", "dist_glob": "data/distribution/d.csv.xz",
+             "measure_info": "data/distribution/measure_info.json",
+             "entrypoints": ["code/distribution/ingest.py:run", "code/distribution/prepare.py:run"]}
+    report = drv.regenerate_dataset(entry, repo_root=tmp_path, dry_run=False)
+    assert report["regenerated"] is True
+    assert report["after"]["status"] == "pass"
+    assert report["before"]["conservation"]["max_ratio"] == pytest.approx(1.5)
+    assert report["after"]["conservation"]["max_ratio"] == pytest.approx(1.0)
+    assert calls == {"version": 1, "tag": 1, "commit": 1}
+    assert report["committed"] is True
