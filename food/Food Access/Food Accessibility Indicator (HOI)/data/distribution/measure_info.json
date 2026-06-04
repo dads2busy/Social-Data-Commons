@@ -1,5 +1,6 @@
 {
   "food_access_percentage_geo20": {
+    "geo_standardize": {"measure_type": "external"},
     "aggregation_method": "mean",
     "categories": "",
     "category": "Nutrition and Food Security",

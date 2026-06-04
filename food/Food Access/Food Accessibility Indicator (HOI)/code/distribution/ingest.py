@@ -109,28 +109,18 @@ def load_crosswalk() -> pd.DataFrame:
 
 
 def convert_tracts_2010_to_2020(df: pd.DataFrame, xwalk: pd.DataFrame) -> pd.DataFrame:
-    """Convert 2010 tract data to 2020 boundaries using area-weighted crosswalk.
+    """Replicate 2010-tract values onto 2020 tracts via the area-dominant parent.
 
-    For tracts that split or shifted boundaries, the value is weighted by the
-    fraction of the 2020 tract's land area that came from each 2010 tract.
+    Each 2020 tract takes the value of the 2010 tract contributing the most land
+    area to it. The food-access percentage is a per-tract statistic, not an
+    additive count, so it is replicated (not area-weighted) to avoid dilution.
     """
-    # Compute overlap weight: what fraction of the 2020 tract came from this 2010 tract
     xwalk = xwalk.copy()
-    xwalk["weight"] = xwalk["arealand_part"] / xwalk["arealand_2020"]
-    xwalk.loc[xwalk["weight"] > 1.0, "weight"] = 1.0  # cap rounding errors
-
-    merged = xwalk.merge(df, on="geoid_2010", how="inner")
-    merged["weighted_value"] = merged["value"] * merged["weight"]
-
-    # Sum weighted contributions for each 2020 tract
-    result = (
-        merged.groupby("geoid_2020")
-        .agg(value=("weighted_value", "sum"))
-        .reset_index()
-        .rename(columns={"geoid_2020": "geoid"})
-    )
-
-    log.info("  Converted %d 2010-tracts → %d 2020-tracts", len(df), len(result))
+    dom_idx = xwalk.groupby("geoid_2020")["arealand_part"].idxmax()
+    dom = xwalk.loc[dom_idx, ["geoid_2020", "geoid_2010"]]
+    result = dom.merge(df, on="geoid_2010", how="inner")
+    result = result.rename(columns={"geoid_2020": "geoid"})[["geoid", "value"]]
+    log.info("  Replicated %d 2010-tracts -> %d 2020-tracts", len(df), len(result))
     return result
 
 
@@ -224,7 +214,8 @@ def run() -> RunResult:
             title="food_access",
             geographies=["tract"],
         )
-        out_path = write_data(long, DIST_DIR / f"{out_name}.csv.xz", census_standardize=True)
+        long["measure"] = "food_access_percentage_geo20"
+        out_path = write_data(long, DIST_DIR / f"{out_name}.csv.xz", census_standardize=False)
         log.info("Wrote %s", out_path)
 
         return RunResult(
