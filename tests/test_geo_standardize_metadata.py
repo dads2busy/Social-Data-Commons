@@ -35,6 +35,7 @@ EXACT_RATIO_FRAMECHANGE_DATASETS = [
     "education/Postsecondary",
     "health/System Usage and Insurance/Without Health Insurance",
     "financial_well_being/Employment Rates",
+    "broadband/Household Broadband",
 ]
 
 # Density measures recomputed as count_geo20 / (area20 / area_divisor); the count
@@ -52,6 +53,7 @@ ALL_DATASETS = list(dict.fromkeys(
 # Where each dataset's census_standardize=True write_data call lives.
 STANDARDIZE_FILE = {d: "code/distribution/ingest.py" for d in ALL_DATASETS}
 STANDARDIZE_FILE["financial_well_being/Material_Deprivation"] = "code/distribution/prepare.py"
+STANDARDIZE_FILE["broadband/Household Broadband"] = "code/distribution/prepare.py"
 
 VALID_TYPES = {"count", "ratio", "rate", "median", "mean", "replicate", "density", "index"}
 REPLICATE_TYPES = {"median", "mean", "replicate"}
