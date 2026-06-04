@@ -1,5 +1,5 @@
 name: age_demographics
-version: "1.0.0"
+version: "1.0.1"
 title: "Age"
 description: "Population age distribution from ACS table B01001 (Sex by Age), providing counts and percentages for three age groups (under 20, 20-64, and 65+). Age groups are computed by summing sex-specific single-year age variables from 5-year ACS estimates."
 temporal_label: "ACS 5-year estimates"
@@ -10,7 +10,6 @@ sources:
     profile: NCR
     years:
       [
-        2009,
         2010,
         2011,
         2012,
@@ -82,7 +81,6 @@ sources:
     profile: VA
     years:
       [
-        2009,
         2010,
         2011,
         2012,

@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-05T21:55:23+00:00",
+  "version": "1.0.1",
+  "generated": "2026-06-04T04:17:33+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "age_20_64_count_geo10",
@@ -26,7 +27,6 @@
     "age_under_20_percent_geo20"
   ],
   "years": [
-    2009,
     2010,
     2011,
     2012,
@@ -48,15 +48,15 @@
     "24",
     "51"
   ],
-  "row_count": 1950313,
+  "row_count": 2180473,
   "files": {
-    "ncr_cttrbg_census_acs_2009_2024_age_demographics.csv.xz": {
-      "sha256": "b754fe36c2c0fcfa03f8c3457e2478f1f03adc01566e551e5d6647ea81ba13cc",
-      "size_bytes": 9289872
+    "ncr_cttrbg_census_acs_2010_2024_age_demographics.csv.xz": {
+      "sha256": "4a0eaf89eb90054ceb6287b9bcf32ad5bab3271aacd447affbbda02316862c79",
+      "size_bytes": 11590128
     },
-    "va_hdcttr_census_acs_2009_2024_age_demographics.csv.xz": {
-      "sha256": "b604f11b3535584cef5bec8b3bc9ee754f5621e7cb7dfa6efc89dcfc2a100140",
-      "size_bytes": 2219680
+    "va_hdcttr_census_acs_2010_2024_age_demographics.csv.xz": {
+      "sha256": "d3d66361a75d48cb65afa0099263c13180e6f2159f2ce652a6ee0b9c85ff9ddf",
+      "size_bytes": 2359872
     }
   }
 }
