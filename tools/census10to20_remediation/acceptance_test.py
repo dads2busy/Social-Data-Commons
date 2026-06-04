@@ -18,10 +18,13 @@ def _is_count(base: str) -> bool:
     return b.endswith("_count") or "count" in b or b.endswith("_pop") or "population" in b
 
 
-def check_conservation(dist_path, *, tol: float = 0.03) -> dict:
+def check_conservation(dist_path, *, tol: float = 0.05) -> dict:
     """County geo20/geo10 sum ratio for pre-2020 tract COUNT measures must be ~1.0.
 
-    tol is the maximum allowed absolute deviation from 1.0 (e.g. 0.03 = ±3%).
+    tol is the maximum allowed absolute deviation from 1.0 (e.g. 0.05 = ±5%).
+    Calibrated to 5% against real ACS data: subpopulation counts (e.g. age 65+)
+    legitimately deviate up to ~4.5% per county under area-weighted redistribution
+    (non-uniform sub-tract density), while the bug was ±100% and vintage loss ±35%.
     Returns {"status": "pass"|"fail"|"n/a", "max_ratio": float|None,
              "per_measure": {base: worst_county_ratio}}.
     max_ratio holds the county ratio with the largest absolute deviation from 1.0

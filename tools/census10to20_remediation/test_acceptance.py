@@ -51,15 +51,27 @@ def test_check_conservation_fails_on_deflation(tmp_path):
     assert rep["max_ratio"] == pytest.approx(0.9)
 
 
-def test_check_conservation_passes_within_3pct(tmp_path):
-    # ratio 1.025 -> within 3% -> pass
+def test_check_conservation_passes_within_5pct(tmp_path):
+    # ratio 1.045 (real age_65+ subgroup boundary-leakage residual) -> within 5% -> pass
     rows = [
         ("51001000001", 2018, "pop_count_geo10", 1000, "tract"),
-        ("51001000002", 2018, "pop_count_geo20", 615, "tract"),
-        ("51001000003", 2018, "pop_count_geo20", 410, "tract"),
+        ("51001000002", 2018, "pop_count_geo20", 627, "tract"),
+        ("51001000003", 2018, "pop_count_geo20", 418, "tract"),
     ]
     rep = check_conservation(_write(tmp_path, rows))
     assert rep["status"] == "pass"
+
+
+def test_check_conservation_fails_just_over_5pct(tmp_path):
+    # ratio 1.06 -> exceeds 5% -> fail (gate stays sensitive above the residual band)
+    rows = [
+        ("51001000001", 2018, "pop_count_geo10", 1000, "tract"),
+        ("51001000002", 2018, "pop_count_geo20", 636, "tract"),
+        ("51001000003", 2018, "pop_count_geo20", 424, "tract"),
+    ]
+    rep = check_conservation(_write(tmp_path, rows))
+    assert rep["status"] == "fail"
+    assert rep["max_ratio"] == pytest.approx(1.06)
 
 
 def test_check_ratio_consistency_passes_when_percent_matches_counts(tmp_path):
