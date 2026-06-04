@@ -24,6 +24,7 @@ from sdc_core.naming import build_file_name
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
+MEASURE_INFO = TOPIC_DIR / "data/distribution/measure_info.json"
 REPO_DIR = TOPIC_DIR.parents[2]
 DIST_DIR = TOPIC_DIR / "data/distribution"
 WORKING_DIR = TOPIC_DIR / "data/working"
@@ -114,7 +115,12 @@ def run_reproduction(
             title="affordability_ht_index",
         )
         filename = f"{auto_name}.csv.xz"
-        out_path = write_data(output, WORKING_DIR / filename, census_standardize=True)
+        out_path = write_data(
+            output,
+            WORKING_DIR / filename,
+            census_standardize=True,
+            measure_info=MEASURE_INFO if MEASURE_INFO.exists() else None,
+        )
         log.info("Wrote %d rows to %s", len(output), out_path)
 
         return RunResult(

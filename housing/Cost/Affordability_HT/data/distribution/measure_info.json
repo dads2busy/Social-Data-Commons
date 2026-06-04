@@ -1,5 +1,6 @@
 {
   "affordability_index_geo20": {
+    "geo_standardize": {"measure_type": "replicate"},
     "category": "Housing",
     "data_type": "numeric",
     "unit": "percent",
@@ -36,6 +37,7 @@
     ]
   },
   "housing_cost_pct_geo20": {
+    "geo_standardize": {"measure_type": "replicate"},
     "category": "Housing",
     "data_type": "numeric",
     "unit": "percent",
@@ -55,6 +57,7 @@
     ]
   },
   "transport_cost_pct_geo20": {
+    "geo_standardize": {"measure_type": "replicate"},
     "category": "Transportation",
     "data_type": "numeric",
     "unit": "percent",
@@ -74,6 +77,7 @@
     ]
   },
   "autos_per_hh_geo20": {
+    "geo_standardize": {"measure_type": "replicate"},
     "category": "Transportation",
     "data_type": "numeric",
     "unit": "vehicles",
@@ -93,6 +97,7 @@
     ]
   },
   "vmt_per_hh_geo20": {
+    "geo_standardize": {"measure_type": "replicate"},
     "category": "Transportation",
     "data_type": "numeric",
     "unit": "miles",
@@ -112,6 +117,7 @@
     ]
   },
   "transit_frac_geo20": {
+    "geo_standardize": {"measure_type": "replicate"},
     "category": "Transportation",
     "data_type": "numeric",
     "unit": "percent",
