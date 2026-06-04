@@ -1,6 +1,6 @@
 {
-  "version": "2.0.0",
-  "generated": "2026-03-13T14:30:49+00:00",
+  "version": "3.0.1",
+  "generated": "2026-06-04T12:34:41+00:00",
   "schema": [
     "geoid",
     "year",
@@ -8,21 +8,7 @@
     "value",
     "moe",
     "region_type",
-    "data_method",
-    "adult_pop",
-    "unemployed",
-    "occupancy_all",
-    "occupant_1",
-    "occupant_2",
-    "occupant_3",
-    "occupant_4",
-    "occupant_5",
-    "occupant_6",
-    "households_total",
-    "hh_owner_no_veh",
-    "hh_renter_no_veh",
-    "all_units",
-    "rent_units"
+    "data_method"
   ],
   "measures": [
     "material_deprivation_indicator_geo10",
@@ -45,23 +31,15 @@
     "24",
     "51"
   ],
-  "row_count": 151135,
+  "row_count": 90845,
   "files": {
     "ncr_cttr_census_acs_2015_2024_material_deprivation.csv.xz": {
-      "sha256": "9d87cf481195fc23c1691dfcd319381000fa6c2b67fb1e4069cb0a733ba16cdc",
-      "size_bytes": 256540
-    },
-    "ncr_cttr_census_acs_2015_2024_material_deprivation_raw.csv.xz": {
-      "sha256": "4ea0e5038374e09d5a877d5ffb5ae1b40bdfc36319e64c54b150d5d00b3da7f7",
-      "size_bytes": 641812
-    },
-    "va_cttr_census_acs_2015_2024_material_deprivation_raw.csv.xz": {
-      "sha256": "a66edb6cbd7d5a01dc114d3fb975e73459d8582dd27bd2c404b9bb500141bc51",
-      "size_bytes": 363076
+      "sha256": "956c3e9c7ba6c807e38770865136a1d64498cba5967209663d93cc17c196999f",
+      "size_bytes": 200000
     },
     "va_hdcttr_census_acs_2015_2024_material_deprivation.csv.xz": {
-      "sha256": "d2d7f12e7e31350bffd47d07260e0a4c1e043649988b746af04c574ca5a331c4",
-      "size_bytes": 149984
+      "sha256": "833057792a3035c97a886a7f6846c5a12a8bbf6d5ce2bd0b4f26531358191672",
+      "size_bytes": 113136
     }
   }
 }
