@@ -295,9 +295,9 @@ def standardize_all(
 ) -> pd.DataFrame:
     """Standardize 2010 geographies to 2020 boundaries for tract and block-group rows.
 
-    Returns both the original measure (with ``_geo10`` suffix for pre-2020 sub-county
-    rows, ``_geo20`` otherwise) and the redistributed measure (``_geo20`` suffix) so
-    downstream consumers can compare or pick.
+    Returns both the original measure (with ``_geo10`` suffix for sub-county rows whose
+    year is before ``vintage_cutoff_year`` — 2020 by default — ``_geo20`` otherwise) and
+    the redistributed measure (``_geo20`` suffix) so downstream consumers can compare or pick.
 
     Assumes SDC long format: ``(geoid, year, measure, value, moe[, region_type])``.
 
@@ -334,6 +334,10 @@ def standardize_all(
     state_fips : str
         State FIPS code used to fetch the Census relationship file
         (default ``"51"`` — Virginia).
+    vintage_cutoff_year : int
+        Sub-county rows with ``year < vintage_cutoff_year`` are treated as
+        2010-vintage (emit ``_geo10`` plus a converted ``_geo20``); rows at or
+        above it are native 2020 (default ``2020`` reproduces the prior behavior).
     """
     years = data[year_col].unique()
     measures = data[measure_col].unique()

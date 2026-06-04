@@ -104,6 +104,9 @@ def write_data(
     measure_info : optional measure_info.json dict or path; passed to
         standardize_all for type-aware census standardization.
     input_only_measures : forwarded to standardize_all; helper measures excluded from output.
+    vintage_cutoff_year : int
+        Forwarded to standardize_all; sub-county rows with year < this value are
+        treated as 2010-vintage (converted to 2020), others as native 2020 (default 2020).
 
     Returns
     -------
