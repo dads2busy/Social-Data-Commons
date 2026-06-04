@@ -43,3 +43,12 @@ def test_geo2020_native_omits_conversion_note():
     md = _build(mi)
     assert "standardized from 2010 to 2020" not in md
     assert "2020 Census tract boundaries" in md
+
+
+def test_file_format_describes_uncompressed_csv():
+    # Zenodo deposits hold decompressed .csv (not .csv.xz), and measure_info.json
+    # is not bundled in the deposit.
+    md = _build({"x_geo20": {"long_description": "X. Y.",
+                             "geo_standardize": {"measure_type": "geo2020"}}})
+    assert ".csv.xz" not in md
+    assert "provided as CSVs (`.csv`)" in md
