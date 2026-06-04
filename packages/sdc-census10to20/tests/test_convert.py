@@ -467,3 +467,18 @@ def test_standardize_all_replicate_type_replicates_dominant_parent(monkeypatch, 
     s = out[out["measure"] == "some_score_geo20"].set_index("geoid")["value"]
     assert s["51001000002"] == pytest.approx(0.42)
     assert s["51001000003"] == pytest.approx(0.42)
+
+
+def test_referenced_helper_measures_derives_unpublished_referenced_counts():
+    from sdc_census10to20 import referenced_helper_measures
+    mi = {
+        "sub_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+        "sub_pct_geo20": {"geo_standardize": {
+            "measure_type": "ratio", "numerator": "sub_count",
+            "denominator": "denom_count", "scale": 100,
+        }},
+    }
+    # sub_count is published (its own measure); denom_count is referenced but not published.
+    assert referenced_helper_measures(mi) == {"denom_count"}
+    # No ratios / all-published -> empty set.
+    assert referenced_helper_measures({"x_geo20": {"geo_standardize": {"measure_type": "count"}}}) == set()

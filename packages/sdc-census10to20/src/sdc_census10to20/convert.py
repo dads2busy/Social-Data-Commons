@@ -11,7 +11,7 @@ import pandas as pd
 
 from sdc_census10to20.crosswalk import create_crosswalk
 
-__all__ = ["convert_2010_to_2020_bounds", "parse_geo_standardize_info", "standardize_all"]
+__all__ = ["convert_2010_to_2020_bounds", "parse_geo_standardize_info", "referenced_helper_measures", "standardize_all"]
 
 
 _SUB_COUNTY_LENGTHS = {11, 12}  # tract, block group
@@ -46,6 +46,25 @@ def parse_geo_standardize_info(measure_info) -> dict[str, dict]:
             # That is fine: both share identical geo_standardize metadata.
             specs[_strip_geo_suffix(key)] = block
     return specs
+
+
+def referenced_helper_measures(measure_info) -> set[str]:
+    """Base measure names referenced as numerator/denominator/count/weight by some
+    geo_standardize spec but NOT themselves published measures.
+
+    These are melted into the standardization frame only to recompute ratios or
+    density; they are excluded from the standardized output (see
+    ``standardize_all``'s ``input_only_measures``).
+    """
+    specs = parse_geo_standardize_info(measure_info)
+    published = set(specs)
+    referenced: set[str] = set()
+    for spec in specs.values():
+        for field in ("numerator", "denominator", "count", "weight"):
+            ref = spec.get(field)
+            if ref:
+                referenced.add(ref)
+    return referenced - published
 
 
 _COUNT_HINTS = ("count", "_pop", "population", "households", "total")
