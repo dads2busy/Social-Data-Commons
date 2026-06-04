@@ -452,3 +452,18 @@ def test_standardize_all_mixed_measure_types_integration(monkeypatch, fake_cross
     # density uses under20_count(300) split 180/120 over area20 600/400 = 0.3/0.3
     assert by("pop_density_geo20")["51001000002"] == pytest.approx(0.3)
     assert "hazard_index_geo20" not in set(g20["measure"])
+
+
+def test_standardize_all_replicate_type_replicates_dominant_parent(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    data = pd.DataFrame({
+        "geoid": ["51001000020"], "year": [2018], "measure": ["some_score"],
+        "value": [0.42], "moe": [pd.NA], "region_type": ["tract"],
+    })
+    mi = {"some_score_geo20": {"geo_standardize": {"measure_type": "replicate"}}}
+    out = convert.standardize_all(data, measure_info=mi)
+    s = out[out["measure"] == "some_score_geo20"].set_index("geoid")["value"]
+    assert s["51001000002"] == pytest.approx(0.42)
+    assert s["51001000003"] == pytest.approx(0.42)

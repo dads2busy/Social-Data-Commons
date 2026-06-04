@@ -351,7 +351,7 @@ def standardize_all(
                                 geoid_col=geoid_col, value_col=value_col,
                                 state_fips=state_fips,
                             )
-                    elif mtype in ("median", "mean"):  # Non-additive intensive measures: replicate the area-dominant parent (no true reaggregation).
+                    elif mtype in ("median", "mean", "replicate"):  # Non-additive intensive measures: replicate the area-dominant parent (no true reaggregation).
                         converted = _redistribute_replicate(
                             temp[[geoid_col, value_col]],
                             geoid_col=geoid_col, value_col=value_col,
