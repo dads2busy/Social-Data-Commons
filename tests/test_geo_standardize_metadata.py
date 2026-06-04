@@ -26,7 +26,20 @@ REPLICATE_DATASETS = [
 # Composite index skipped here; recomputed from standardized inputs in Phase 2.
 INDEX_SKIP_DATASETS = ["financial_well_being/Material_Deprivation"]
 
-ALL_DATASETS = EXACT_RATIO_DATASETS + REPLICATE_DATASETS + INDEX_SKIP_DATASETS
+# Percents recompute exactly from a denominator melted into the frame as a helper
+# count (dropped from output via input_only auto-derive).
+EXACT_RATIO_FRAMECHANGE_DATASETS = [
+    "demographics/Veteran",
+    "demographics/Language",
+    "education/Postsecondary",
+]
+
+ALL_DATASETS = (
+    EXACT_RATIO_DATASETS
+    + REPLICATE_DATASETS
+    + INDEX_SKIP_DATASETS
+    + EXACT_RATIO_FRAMECHANGE_DATASETS
+)
 
 # Where each dataset's census_standardize=True write_data call lives.
 STANDARDIZE_FILE = {d: "code/distribution/ingest.py" for d in ALL_DATASETS}
@@ -154,6 +167,37 @@ def test_index_measures_not_interpolated(dataset, monkeypatch, split_crosswalk):
     for base in idx:
         assert f"{base}_geo10" in measures, f"{dataset}:{base} _geo10 should exist"
         assert f"{base}_geo20" not in measures, f"{dataset}:{base} _geo20 should be skipped"
+
+
+@pytest.mark.parametrize("dataset", EXACT_RATIO_FRAMECHANGE_DATASETS)
+def test_framechange_ratios_recompute_and_drop_helpers(dataset, monkeypatch, split_crosswalk):
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: split_crosswalk)
+    mi = _measure_info(dataset)
+    specs = parse_geo_standardize_info(mi)
+    helpers = convert.referenced_helper_measures(mi)
+    assert helpers, f"{dataset}: expected helper (input-only) counts referenced by ratios"
+    ratios = {b: s for b, s in specs.items() if s.get("measure_type") in ("ratio", "rate")}
+    assert ratios, f"{dataset}: no ratio measures"
+
+    counts = set()
+    for s in ratios.values():
+        counts.add(s["numerator"])
+        counts.add(s["denominator"])
+    values = {c: 100.0 * (i + 1) for i, c in enumerate(sorted(counts))}
+    measure_values = dict(values)
+    measure_values.update({b: 0.0 for b in ratios})  # ratio input recomputed
+    data = _synthetic_frame("51001000020", measure_values)
+
+    out = convert.standardize_all(data, measure_info=mi)  # auto-derives input_only
+    out_measures = set(out["measure"])
+    for base, spec in ratios.items():
+        expected = spec["scale"] * values[spec["numerator"]] / values[spec["denominator"]]
+        got = out[out["measure"] == f"{base}_geo20"].set_index("geoid")["value"]
+        assert got["51001000002"] == pytest.approx(expected), f"{dataset}:{base} A"
+        assert got["51001000003"] == pytest.approx(expected), f"{dataset}:{base} B"
+    for h in helpers:
+        assert f"{h}_geo20" not in out_measures, f"{dataset}: helper {h} leaked _geo20"
+        assert f"{h}_geo10" not in out_measures, f"{dataset}: helper {h} leaked _geo10"
 
 
 @pytest.mark.parametrize("dataset", ALL_DATASETS)
