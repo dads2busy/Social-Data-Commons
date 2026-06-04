@@ -332,12 +332,20 @@ def standardize_all(
     else:
         input_only = set()
 
+    native_2020 = {
+        b for b, s in specs.items() if s.get("measure_type") == "geo2020"
+    }
+
     original = data[~data[measure_col].isin(input_only)].copy()
     original[measure_col] = original.apply(
         lambda row: (
-            f"{row[measure_col]}_geo10"
-            if row[year_col] < 2020 and len(row[geoid_col]) in _SUB_COUNTY_LENGTHS
-            else f"{row[measure_col]}_geo20"
+            f"{row[measure_col]}_geo20"
+            if row[measure_col] in native_2020
+            else (
+                f"{row[measure_col]}_geo10"
+                if row[year_col] < 2020 and len(row[geoid_col]) in _SUB_COUNTY_LENGTHS
+                else f"{row[measure_col]}_geo20"
+            )
         ),
         axis=1,
     )
@@ -347,8 +355,8 @@ def standardize_all(
     for yr in years:
         if yr < 2020:
             for meas in measures:
-                # Helper (input-only) measures stay in `data` for recompute but emit no output rows.
-                if meas in input_only:
+                # Helper (input-only) and geo2020-native measures emit no converted rows.
+                if meas in input_only or meas in native_2020:
                     continue
                 for geoid_len in _SUB_COUNTY_LENGTHS:
                     temp = data[

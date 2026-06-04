@@ -551,3 +551,23 @@ def test_standardize_all_density_applies_area_divisor(monkeypatch, fake_crosswal
     dens = out[out["measure"] == "pop_density_geo20"].set_index("geoid")["value"]
     assert dens["51001000002"] == pytest.approx(10.0)
     assert dens["51001000003"] == pytest.approx(10.0)
+
+
+def test_standardize_all_geo2020_passes_through_without_conversion(monkeypatch, fake_crosswalk):
+    from sdc_census10to20 import convert
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: fake_crosswalk)
+
+    # A pre-2020 sub-county row of a 2020-native measure must emit _geo20 unchanged
+    # (no _geo10, no split into children).
+    data = pd.DataFrame({
+        "geoid": ["51001000020"], "year": [2018], "measure": ["my_rate"],
+        "value": [42.0], "moe": [pd.NA], "region_type": ["tract"],
+    })
+    mi = {"my_rate_geo20": {"geo_standardize": {"measure_type": "geo2020"}}}
+    out = convert.standardize_all(data, measure_info=mi)
+    measures = set(out["measure"])
+    assert "my_rate_geo20" in measures
+    assert "my_rate_geo10" not in measures
+    g20 = out[out["measure"] == "my_rate_geo20"]
+    assert set(g20["geoid"]) == {"51001000020"}          # unchanged, NOT split into children
+    assert g20["value"].iloc[0] == pytest.approx(42.0)
