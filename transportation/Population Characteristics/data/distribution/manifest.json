@@ -1,6 +1,6 @@
 {
-  "version": "3.0.1",
-  "generated": "2026-03-16T16:07:24+00:00",
+  "version": "3.0.3",
+  "generated": "2026-06-04T12:40:04+00:00",
   "schema": [
     "geoid",
     "year",
@@ -38,16 +38,16 @@
   "row_count": 366384,
   "files": {
     "ncr_cttr_census_acs_2015_2024_population_characteristics.csv.xz": {
-      "sha256": "65efe5fd51466b9fe4ddf2a5f06e5ab34f6a78a6ccc42a3b7d1198f11738c328",
-      "size_bytes": 645356
+      "sha256": "7fb0216b31562f0b99d08328e3a32000caa66f00db7be757a4488a493ac7a45b",
+      "size_bytes": 479288
     },
     "va_cttr_census_acs_2015_2024_population_characteristics.csv.xz": {
-      "sha256": "c54c6d974012bb47d394da3f7f22ae4477098b50060efab7360000a79fdc004c",
-      "size_bytes": 371820
+      "sha256": "b1113c31fc2e7ed076b3d5feb2ce6f5c956b8c12c595e26bf60185ff427fd920",
+      "size_bytes": 268532
     },
     "va_hdcttr_census_acs_2015_2024_population_characteristics.csv.xz": {
-      "sha256": "c3c0760521d6a1c186d42f7e3ec1db77752e34111f23cf652fdfcae251f4da7e",
-      "size_bytes": 327832
+      "sha256": "8472f2a73c0c1f5fb15c23f9e1a2868a32bd8d0250800e7cb3e6879b384876ff",
+      "size_bytes": 215064
     }
   }
 }
