@@ -1,5 +1,5 @@
 name: cooperative_extension
-version: "1.0.0"
+version: "1.0.1"
 title: "Cooperative Extension"
 description: "Cooperative extension demographic measures combining ACS data (percent male from table S0101, children raised by grandparents from table B10001) with County Health Rankings data (disconnected youth, voter turnout) for Virginia counties. This dataset is produced by the Social Data Commons at the University of Virginia."
 temporal_label: "ACS 5-year estimates + County Health Rankings (annual)"

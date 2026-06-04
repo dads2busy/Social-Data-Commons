@@ -1,0 +1,49 @@
+{
+  "version": "1.0.1",
+  "generated": "2026-06-04T12:27:46+00:00",
+  "schema": [
+    "geoid",
+    "year",
+    "measure",
+    "value",
+    "moe",
+    "region_type",
+    "data_method"
+  ],
+  "measures": [
+    "disconnectedYouth_geo20",
+    "perc_children_raised_by_GPs_geo10",
+    "perc_children_raised_by_GPs_geo20",
+    "perc_male_geo10",
+    "perc_male_geo20",
+    "voterTurnout_geo20"
+  ],
+  "years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "regions": [
+    "51"
+  ],
+  "row_count": 108644,
+  "files": {
+    "cttr_mixed_2010_2024_cooperative_extension.csv.xz": {
+      "sha256": "57ed1821d20a4c7914ad6c54912bad4778da5e6eca26b0ccf40f492d38032fcc",
+      "size_bytes": 593832
+    }
+  }
+}
