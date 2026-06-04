@@ -31,11 +31,30 @@ def run_entrypoint(module_path, func_name: str):
     return fn()
 
 
-def _dist_file(entry, repo_root):
+def _dist_files(entry, repo_root):
     matches = sorted(_glob.glob(str(Path(repo_root) / entry["topic"] / entry["dist_glob"])))
     if not matches:
         raise FileNotFoundError(f"{entry['topic']}: no file matches {entry['dist_glob']}")
-    return matches[-1]
+    return matches
+
+
+def _acceptance_conservation(entry, repo_root):
+    """Run check_conservation over ALL of a dataset's distribution files; aggregate.
+
+    status = fail if any file fails; n/a only if every file is n/a; else pass.
+    max_ratio = worst (largest) across files.
+    """
+    files = _dist_files(entry, repo_root)
+    reps = [check_conservation(f) for f in files]
+    ratios = [r["max_ratio"] for r in reps if r["max_ratio"] is not None]
+    if any(r["status"] == "fail" for r in reps):
+        status = "fail"
+    elif all(r["status"] == "n/a" for r in reps):
+        status = "n/a"
+    else:
+        status = "pass"
+    return {"status": status, "max_ratio": max(ratios) if ratios else None,
+            "per_file": {Path(f).name: r for f, r in zip(files, reps)}}
 
 
 def regenerate_dataset(entry, *, repo_root, dry_run: bool):
@@ -49,7 +68,7 @@ def regenerate_dataset(entry, *, repo_root, dry_run: bool):
     and committing. 3a only validates the dry-run path.
     """
     repo_root = Path(repo_root)
-    before = check_conservation(_dist_file(entry, repo_root))
+    before = _acceptance_conservation(entry, repo_root)
     report = {
         "topic": entry["topic"], "dry_run": dry_run,
         "before": before, "regenerated": False, "committed": False,
