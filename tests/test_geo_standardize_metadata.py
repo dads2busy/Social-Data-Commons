@@ -47,12 +47,20 @@ EXACT_RATIO_FRAMECHANGE_DATASETS = [
 # is melted into the frame as a helper and dropped from output.
 DENSITY_DATASETS = ["demographics/Population Density"]
 
+# Data already on 2020 boundaries for all years (PPI 2020 tracts, TIGER2020) —
+# pass through as _geo20, no conversion.
+GEO2020_DATASETS = [
+    "public_safety/Incarceration (HOI)",
+    "financial_well_being/Employment Access Index",
+]
+
 ALL_DATASETS = list(dict.fromkeys(
     EXACT_RATIO_DATASETS
     + REPLICATE_DATASETS
     + INDEX_SKIP_DATASETS
     + EXACT_RATIO_FRAMECHANGE_DATASETS
     + DENSITY_DATASETS
+    + GEO2020_DATASETS
 ))
 
 # Where each dataset's census_standardize=True write_data call lives.
@@ -60,7 +68,7 @@ STANDARDIZE_FILE = {d: "code/distribution/ingest.py" for d in ALL_DATASETS}
 STANDARDIZE_FILE["financial_well_being/Material_Deprivation"] = "code/distribution/prepare.py"
 STANDARDIZE_FILE["broadband/Household Broadband"] = "code/distribution/prepare.py"
 
-VALID_TYPES = {"count", "ratio", "rate", "median", "mean", "replicate", "density", "index", "external"}
+VALID_TYPES = {"count", "ratio", "rate", "median", "mean", "replicate", "density", "index", "external", "geo2020"}
 REPLICATE_TYPES = {"median", "mean", "replicate"}
 
 
@@ -242,6 +250,25 @@ def test_density_recompute_and_drop_helper(dataset, monkeypatch, split_crosswalk
     for h in helpers:
         assert f"{h}_geo20" not in out_measures, f"{dataset}: helper {h} leaked _geo20"
         assert f"{h}_geo10" not in out_measures, f"{dataset}: helper {h} leaked _geo10"
+
+
+@pytest.mark.parametrize("dataset", GEO2020_DATASETS)
+def test_geo2020_measures_pass_through_as_geo20(dataset, monkeypatch, split_crosswalk):
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: split_crosswalk)
+    mi = _measure_info(dataset)
+    specs = parse_geo_standardize_info(mi)
+    native = sorted(b for b, s in specs.items() if s.get("measure_type") == "geo2020")
+    assert native, f"{dataset}: no geo2020 measures"
+    values = {b: 10.0 * (i + 1) for i, b in enumerate(native)}
+    data = _synthetic_frame("51001000020", values)  # pre-2020 sub-county row
+    out = convert.standardize_all(data, measure_info=mi)
+    out_measures = set(out["measure"])
+    for base in native:
+        assert f"{base}_geo20" in out_measures, f"{dataset}: {base}_geo20 missing"
+        assert f"{base}_geo10" not in out_measures, f"{dataset}: {base} should not emit _geo10"
+        g20 = out[out["measure"] == f"{base}_geo20"]
+        assert set(g20["geoid"]) == {"51001000020"}, f"{dataset}: {base} geoid changed (was converted)"
+        assert g20["value"].iloc[0] == pytest.approx(values[base])
 
 
 @pytest.mark.parametrize("dataset", ALL_DATASETS)
