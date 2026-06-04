@@ -1,6 +1,6 @@
 {
-  "version": "2.0.0",
-  "generated": "2026-03-13T14:31:29+00:00",
+  "version": "2.0.2",
+  "generated": "2026-06-04T12:29:10+00:00",
   "schema": [
     "geoid",
     "year",
@@ -41,15 +41,15 @@
     "24",
     "51"
   ],
-  "row_count": 687613,
+  "row_count": 687708,
   "files": {
     "ncr_cttrbg_census_acs_2015_2024_geographic_mobility_hoi.csv.xz": {
-      "sha256": "f4b3e18b2312add6efb938f11d3ef13c64ad202975f0d4b91a45848f5b3322c8",
-      "size_bytes": 2592068
+      "sha256": "f768ea6e9e1fa192fcf797eceb788ed69fbeb3bebc6a35c5c734a0efd2486797",
+      "size_bytes": 2661436
     },
     "va_hdcttrbg_census_acs_2015_2024_geographic_mobility_hoi.csv.xz": {
-      "sha256": "64ec972db9159f3c77ca8275c3848e4f68874652c0f5dc9052867874ac552088",
-      "size_bytes": 3167892
+      "sha256": "b5a37eee64b3bfe01c4d971438a849589fb5b04c856732adbabaff57730a79ff",
+      "size_bytes": 3220620
     }
   }
 }

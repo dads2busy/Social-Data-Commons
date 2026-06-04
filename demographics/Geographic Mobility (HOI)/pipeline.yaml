@@ -1,5 +1,5 @@
 name: geographic_mobility_hoi
-version: "2.0.0"
+version: "2.0.2"
 title: "Geographic Mobility (HOI)"
 description: "Geographic mobility rates from ACS table B07204 (Geographical Mobility in the Past Year by Educational Attainment), measuring the percentage of the population that moved in the past year. Block group estimates are produced via areal interpolation from tract-level data. This dataset is produced by the Social Data Commons at the University of Virginia as part of the Health Opportunity Index (HOI)."
 
