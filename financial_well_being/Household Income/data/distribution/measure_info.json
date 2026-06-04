@@ -1,5 +1,6 @@
 {
   "median_household_income_geo20": {
+    "geo_standardize": {"measure_type": "median"},
     "aggregation_method": "median",
     "categories": "",
     "category": "Financial Well Being",
