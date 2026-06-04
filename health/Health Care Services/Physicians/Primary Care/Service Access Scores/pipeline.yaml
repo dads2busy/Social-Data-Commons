@@ -1,5 +1,5 @@
 name: primcare_access_scores
-version: "5.0.0"
+version: "4.0.1"
 zenodo_deposit_id: 19152538
 method: fca
 title: "Primary Care Service Accessibility (FCA)"

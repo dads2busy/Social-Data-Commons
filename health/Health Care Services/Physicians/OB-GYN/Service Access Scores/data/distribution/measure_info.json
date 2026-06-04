@@ -1,203 +1,185 @@
 {
-  "obgyn_cnt": {
-    "aggregation_method": "",
-    "categories": "",
-    "category": "Health",
-    "citations": "",
-    "data_type": "numeric",
-    "equity_category": "Availability",
-    "layer": "",
-    "long_description": "Count of OB-GYN physicians per block group, derived from CMS Doctors and Clinicians enrollment data. Areas with few or no OB-GYN providers face potential gaps in reproductive and maternal health care, which can lead to delayed prenatal visits and worse birth outcomes.",
-    "long_name": "OB-GYN physician count",
-    "measure_type": "count",
-    "short_description": "Number of OB-GYN physicians located in each geographic area.",
-    "short_name": "OB-GYN physician count",
-    "sources": [
-      {
-        "date_accessed": 2025,
-        "location": "",
-        "location_url": "",
-        "name": "CMS Doctors and Clinicians",
-        "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
-      }
-    ],
-    "provenance": "Provider counts from CMS Doctors and Clinicians national downloadable file, filtered to Obstetrics/Gynecology specialty (primary or secondary) with MD/DO credentials in VA, DC, and MD. Addresses geocoded via Census Geocoder and snapped to nearest 2020 block group centroid. Counts represent unique NPIs per block group.",
-    "statement": "There are {value} OB-GYN physicians in {features.name}.",
-    "type": "count",
-    "unit": "",
-    "variants": "",
-    "geo_standardize": {
-      "measure_type": "count"
+    "obgyn_cnt": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Count of OB-GYN physicians per block group, derived from CMS Doctors and Clinicians enrollment data. Areas with few or no OB-GYN providers face potential gaps in reproductive and maternal health care, which can lead to delayed prenatal visits and worse birth outcomes.",
+        "long_name": "OB-GYN physician count",
+        "measure_type": "count",
+        "short_description": "Number of OB-GYN physicians located in each geographic area.",
+        "short_name": "OB-GYN physician count",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
+            }
+        ],
+        "provenance": "Provider counts from CMS Doctors and Clinicians national downloadable file, filtered to Obstetrics/Gynecology specialty (primary or secondary) with MD/DO credentials in VA, DC, and MD. Addresses geocoded via Census Geocoder and snapped to nearest 2020 block group centroid. Counts represent unique NPIs per block group.",
+        "statement": "There are {value} OB-GYN physicians in {features.name}.",
+        "type": "count",
+        "unit": "",
+        "variants": ""
+    },
+    "obgyn_near_10_mean": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Average travel time in minutes to the nearest 10 OB-GYN provider locations from each block group. This measure captures geographic barriers to reproductive health care: longer travel times are associated with fewer prenatal visits, delayed emergency obstetric care, and higher rates of adverse maternal outcomes.",
+        "long_name": "Mean travel time to nearest 10 OB-GYN locations",
+        "measure_type": "time",
+        "short_description": "Mean driving time in minutes to the 10 closest OB-GYN provider locations.",
+        "short_name": "Mean travel to nearest 10 OB-GYN",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
+            }
+        ],
+        "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrix. For each consumer block group, the 10 nearest provider block groups (by travel time) are identified and the mean travel time is computed. Provider locations from CMS Doctors and Clinicians, filtered to Obstetrics/Gynecology specialty.",
+        "statement": "The mean travel time to the nearest 10 OB-GYN locations from {features.name} is {value} minutes.",
+        "type": "time",
+        "unit": "minutes",
+        "variants": ""
+    },
+    "obgyn_near_10_median": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": "",
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "Median travel time in minutes to the nearest 10 OB-GYN provider locations from each block group. The median is less sensitive to outlier locations than the mean, providing a robust indicator of typical geographic access to reproductive health services.",
+        "long_name": "Median travel time to nearest 10 OB-GYN locations",
+        "measure_type": "time",
+        "short_description": "Median driving time in minutes to the 10 closest OB-GYN provider locations.",
+        "short_name": "Median travel to nearest 10 OB-GYN",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
+            }
+        ],
+        "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrix. For each consumer block group, the 10 nearest provider block groups (by travel time) are identified and the median travel time is computed. Provider locations from CMS Doctors and Clinicians, filtered to Obstetrics/Gynecology specialty.",
+        "statement": "The median travel time to the nearest 10 OB-GYN locations from {features.name} is {value} minutes.",
+        "type": "time",
+        "unit": "minutes",
+        "variants": ""
+    },
+    "obgyn_2sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "OB-GYN care accessibility measured using the two-step floating catchment area (2SFCA) method with a 30-minute travel threshold. This index quantifies geographic access to reproductive health services by computing provider-to-population ratios within overlapping service areas. Lower scores indicate areas where the female population age 15+ faces greater competition for limited OB-GYN capacity.",
+        "long_name": "OB-GYN care geographic availability (2SFCA)",
+        "measure_type": "index",
+        "short_description": "Spatial accessibility index for OB-GYN services using the two-step floating catchment area method.",
+        "short_name": "OB-GYN availability (2SFCA)",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
+            }
+        ],
+        "provenance": "Spatial access scores computed using the 2SFCA methodology (Luo, 2004) with a 30-minute travel time threshold. Provider capacity = unique NPI count per location from CMS Doctors and Clinicians (Obstetrics/Gynecology). Consumer demand = female population age 15+ from ACS table B01001 (variables B01001_030 through B01001_049). Travel times from pre-computed OSRM BG-to-BG matrix. Scores expressed per 1,000 population.",
+        "statement": "The OB-GYN availability (2SFCA) for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "obgyn_e2sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "OB-GYN care accessibility measured using the enhanced two-step floating catchment area (E2SFCA) method with stepped distance-decay weights. Unlike the basic 2SFCA, E2SFCA applies decreasing weights at 10, 20, 30, and 60-minute travel bands, reflecting the reality that patients are less likely to use providers farther away. This produces a more realistic picture of effective access to reproductive health care.",
+        "long_name": "OB-GYN care geographic availability (E2SFCA)",
+        "measure_type": "index",
+        "short_description": "Spatial accessibility index for OB-GYN services using the enhanced two-step floating catchment area method with distance-decay weights.",
+        "short_name": "OB-GYN availability (E2SFCA)",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
+            }
+        ],
+        "provenance": "Spatial access scores computed using the E2SFCA methodology (Luo & Qi, 2009) with stepped weights: 10 min (0.962), 20 min (0.704), 30 min (0.377), 60 min (0.042). Provider capacity = unique NPI count per location from CMS Doctors and Clinicians (Obstetrics/Gynecology). Consumer demand = female population age 15+ from ACS table B01001 (variables B01001_030 through B01001_049). Travel times from pre-computed OSRM BG-to-BG matrix. Scores expressed per 1,000 population.",
+        "statement": "The OB-GYN availability (E2SFCA) for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
+    },
+    "obgyn_3sfca": {
+        "aggregation_method": "",
+        "categories": "",
+        "category": "Health",
+        "citations": [
+            "lou04",
+            "lou09",
+            "lou03",
+            "saxon20"
+        ],
+        "data_type": "numeric",
+        "equity_category": "Availability",
+        "layer": "",
+        "long_description": "OB-GYN care accessibility measured using the three-step floating catchment area (3SFCA) method with Gaussian distance decay. The 3SFCA adds a selection-weight step that accounts for the competitive effect among nearby providers, yielding an accessibility score that reflects both spatial proximity and choice behavior in reproductive health service utilization.",
+        "long_name": "OB-GYN care geographic availability (3SFCA)",
+        "measure_type": "index",
+        "short_description": "Spatial accessibility index for OB-GYN services using the three-step floating catchment area method with Gaussian decay.",
+        "short_name": "OB-GYN availability (3SFCA)",
+        "sources": [
+            {
+                "date_accessed": 2025,
+                "location": "",
+                "location_url": "",
+                "name": "CMS Doctors and Clinicians",
+                "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
+            }
+        ],
+        "provenance": "Spatial access scores computed using the 3SFCA methodology (Wan et al., 2012) with Gaussian distance decay (scale=20). Provider capacity = unique NPI count per location from CMS Doctors and Clinicians (Obstetrics/Gynecology). Consumer demand = female population age 15+ from ACS table B01001 (variables B01001_030 through B01001_049). Travel times from pre-computed OSRM BG-to-BG matrix. Scores normalized by selection weights.",
+        "statement": "The OB-GYN availability (3SFCA) for {features.name} is {value}.",
+        "type": "index",
+        "unit": "",
+        "variants": ""
     }
-  },
-  "obgyn_near_10_mean": {
-    "aggregation_method": "",
-    "categories": "",
-    "category": "Health",
-    "citations": "",
-    "data_type": "numeric",
-    "equity_category": "Availability",
-    "layer": "",
-    "long_description": "Average travel time in minutes to the nearest 10 OB-GYN provider locations from each block group. This measure captures geographic barriers to reproductive health care: longer travel times are associated with fewer prenatal visits, delayed emergency obstetric care, and higher rates of adverse maternal outcomes.",
-    "long_name": "Mean travel time to nearest 10 OB-GYN locations",
-    "measure_type": "time",
-    "short_description": "Mean driving time in minutes to the 10 closest OB-GYN provider locations.",
-    "short_name": "Mean travel to nearest 10 OB-GYN",
-    "sources": [
-      {
-        "date_accessed": 2025,
-        "location": "",
-        "location_url": "",
-        "name": "CMS Doctors and Clinicians",
-        "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
-      }
-    ],
-    "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrix. For each consumer block group, the 10 nearest provider block groups (by travel time) are identified and the mean travel time is computed. Provider locations from CMS Doctors and Clinicians, filtered to Obstetrics/Gynecology specialty.",
-    "statement": "The mean travel time to the nearest 10 OB-GYN locations from {features.name} is {value} minutes.",
-    "type": "time",
-    "unit": "minutes",
-    "variants": "",
-    "geo_standardize": {
-      "measure_type": "replicate"
-    }
-  },
-  "obgyn_near_10_median": {
-    "aggregation_method": "",
-    "categories": "",
-    "category": "Health",
-    "citations": "",
-    "data_type": "numeric",
-    "equity_category": "Availability",
-    "layer": "",
-    "long_description": "Median travel time in minutes to the nearest 10 OB-GYN provider locations from each block group. The median is less sensitive to outlier locations than the mean, providing a robust indicator of typical geographic access to reproductive health services.",
-    "long_name": "Median travel time to nearest 10 OB-GYN locations",
-    "measure_type": "time",
-    "short_description": "Median driving time in minutes to the 10 closest OB-GYN provider locations.",
-    "short_name": "Median travel to nearest 10 OB-GYN",
-    "sources": [
-      {
-        "date_accessed": 2025,
-        "location": "",
-        "location_url": "",
-        "name": "CMS Doctors and Clinicians",
-        "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
-      }
-    ],
-    "provenance": "Travel times from pre-computed OSRM block-group-to-block-group driving time matrix. For each consumer block group, the 10 nearest provider block groups (by travel time) are identified and the median travel time is computed. Provider locations from CMS Doctors and Clinicians, filtered to Obstetrics/Gynecology specialty.",
-    "statement": "The median travel time to the nearest 10 OB-GYN locations from {features.name} is {value} minutes.",
-    "type": "time",
-    "unit": "minutes",
-    "variants": "",
-    "geo_standardize": {
-      "measure_type": "replicate"
-    }
-  },
-  "obgyn_2sfca": {
-    "aggregation_method": "",
-    "categories": "",
-    "category": "Health",
-    "citations": [
-      "lou04",
-      "lou09",
-      "lou03",
-      "saxon20"
-    ],
-    "data_type": "numeric",
-    "equity_category": "Availability",
-    "layer": "",
-    "long_description": "OB-GYN care accessibility measured using the two-step floating catchment area (2SFCA) method with a 30-minute travel threshold. This index quantifies geographic access to reproductive health services by computing provider-to-population ratios within overlapping service areas. Lower scores indicate areas where the female population age 15+ faces greater competition for limited OB-GYN capacity.",
-    "long_name": "OB-GYN care geographic availability (2SFCA)",
-    "measure_type": "index",
-    "short_description": "Spatial accessibility index for OB-GYN services using the two-step floating catchment area method.",
-    "short_name": "OB-GYN availability (2SFCA)",
-    "sources": [
-      {
-        "date_accessed": 2025,
-        "location": "",
-        "location_url": "",
-        "name": "CMS Doctors and Clinicians",
-        "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
-      }
-    ],
-    "provenance": "Spatial access scores computed using the 2SFCA methodology (Luo, 2004) with a 30-minute travel time threshold. Provider capacity = unique NPI count per location from CMS Doctors and Clinicians (Obstetrics/Gynecology). Consumer demand = female population age 15+ from ACS table B01001 (variables B01001_030 through B01001_049). Travel times from pre-computed OSRM BG-to-BG matrix. Scores expressed per 1,000 population.",
-    "statement": "The OB-GYN availability (2SFCA) for {features.name} is {value}.",
-    "type": "index",
-    "unit": "",
-    "variants": "",
-    "geo_standardize": {
-      "measure_type": "replicate"
-    }
-  },
-  "obgyn_e2sfca": {
-    "aggregation_method": "",
-    "categories": "",
-    "category": "Health",
-    "citations": [
-      "lou04",
-      "lou09",
-      "lou03",
-      "saxon20"
-    ],
-    "data_type": "numeric",
-    "equity_category": "Availability",
-    "layer": "",
-    "long_description": "OB-GYN care accessibility measured using the enhanced two-step floating catchment area (E2SFCA) method with stepped distance-decay weights. Unlike the basic 2SFCA, E2SFCA applies decreasing weights at 10, 20, 30, and 60-minute travel bands, reflecting the reality that patients are less likely to use providers farther away. This produces a more realistic picture of effective access to reproductive health care.",
-    "long_name": "OB-GYN care geographic availability (E2SFCA)",
-    "measure_type": "index",
-    "short_description": "Spatial accessibility index for OB-GYN services using the enhanced two-step floating catchment area method with distance-decay weights.",
-    "short_name": "OB-GYN availability (E2SFCA)",
-    "sources": [
-      {
-        "date_accessed": 2025,
-        "location": "",
-        "location_url": "",
-        "name": "CMS Doctors and Clinicians",
-        "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
-      }
-    ],
-    "provenance": "Spatial access scores computed using the E2SFCA methodology (Luo & Qi, 2009) with stepped weights: 10 min (0.962), 20 min (0.704), 30 min (0.377), 60 min (0.042). Provider capacity = unique NPI count per location from CMS Doctors and Clinicians (Obstetrics/Gynecology). Consumer demand = female population age 15+ from ACS table B01001 (variables B01001_030 through B01001_049). Travel times from pre-computed OSRM BG-to-BG matrix. Scores expressed per 1,000 population.",
-    "statement": "The OB-GYN availability (E2SFCA) for {features.name} is {value}.",
-    "type": "index",
-    "unit": "",
-    "variants": "",
-    "geo_standardize": {
-      "measure_type": "replicate"
-    }
-  },
-  "obgyn_3sfca": {
-    "aggregation_method": "",
-    "categories": "",
-    "category": "Health",
-    "citations": [
-      "lou04",
-      "lou09",
-      "lou03",
-      "saxon20"
-    ],
-    "data_type": "numeric",
-    "equity_category": "Availability",
-    "layer": "",
-    "long_description": "OB-GYN care accessibility measured using the three-step floating catchment area (3SFCA) method with Gaussian distance decay. The 3SFCA adds a selection-weight step that accounts for the competitive effect among nearby providers, yielding an accessibility score that reflects both spatial proximity and choice behavior in reproductive health service utilization.",
-    "long_name": "OB-GYN care geographic availability (3SFCA)",
-    "measure_type": "index",
-    "short_description": "Spatial accessibility index for OB-GYN services using the three-step floating catchment area method with Gaussian decay.",
-    "short_name": "OB-GYN availability (3SFCA)",
-    "sources": [
-      {
-        "date_accessed": 2025,
-        "location": "",
-        "location_url": "",
-        "name": "CMS Doctors and Clinicians",
-        "url": "https://data.cms.gov/provider-data/topics/doctors-clinicians"
-      }
-    ],
-    "provenance": "Spatial access scores computed using the 3SFCA methodology (Wan et al., 2012) with Gaussian distance decay (scale=20). Provider capacity = unique NPI count per location from CMS Doctors and Clinicians (Obstetrics/Gynecology). Consumer demand = female population age 15+ from ACS table B01001 (variables B01001_030 through B01001_049). Travel times from pre-computed OSRM BG-to-BG matrix. Scores normalized by selection weights.",
-    "statement": "The OB-GYN availability (3SFCA) for {features.name} is {value}.",
-    "type": "index",
-    "unit": "",
-    "variants": "",
-    "geo_standardize": {
-      "measure_type": "replicate"
-    }
-  }
 }

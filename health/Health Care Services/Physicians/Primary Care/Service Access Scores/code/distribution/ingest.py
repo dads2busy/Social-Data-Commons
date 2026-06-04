@@ -33,7 +33,6 @@ from compute_service_access import (
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = Path(__file__).resolve().parents[7]
 DIST_DIR = TOPIC_DIR / "data" / "distribution"
-MEASURE_INFO = DIST_DIR / "measure_info.json"
 ORIGINAL_DIR = TOPIC_DIR / "data" / "original"
 CENTROIDS_PATH = REPO_DIR / "geographies" / "osrm" / "bg_centroids_2020.csv"
 
@@ -246,9 +245,7 @@ def run() -> list[RunResult]:
                 title=f"access_scores_{MEASURE_PREFIX}",
                 geographies=["county", "tract", "block_group"],
             )
-            va_path = write_data(va_all, DIST_DIR / f"{va_name}.csv.xz",
-                                census_standardize=True, measure_info=MEASURE_INFO,
-                                vintage_cutoff_year=2021)
+            va_path = write_data(va_all, DIST_DIR / f"{va_name}.csv.xz")
             log.info("Wrote VA: %s (%d rows)", va_path.name, len(va_all))
             results.append(RunResult(
                 success=True, rows=len(va_all),
@@ -264,9 +261,7 @@ def run() -> list[RunResult]:
                 title=f"access_scores_{MEASURE_PREFIX}",
                 geographies=["county", "tract", "block_group"],
             )
-            ncr_path = write_data(ncr_all, DIST_DIR / f"{ncr_name}.csv.xz",
-                                census_standardize=True, measure_info=MEASURE_INFO,
-                                vintage_cutoff_year=2021)
+            ncr_path = write_data(ncr_all, DIST_DIR / f"{ncr_name}.csv.xz")
             log.info("Wrote NCR: %s (%d rows)", ncr_path.name, len(ncr_all))
             results.append(RunResult(
                 success=True, rows=len(ncr_all),
