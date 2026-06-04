@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import subprocess
 from dataclasses import dataclass, field
@@ -420,6 +421,10 @@ def update_version(
     -------
     VersionResult, or None if skip_if_unchanged and nothing changed.
     """
+    if os.environ.get("SDC_NO_PUBLISH"):
+        auto_tag = False
+        auto_release = False
+
     topic_dir = Path(topic_dir).resolve()
     yaml_path = topic_dir / "pipeline.yaml"
     if not yaml_path.exists():
