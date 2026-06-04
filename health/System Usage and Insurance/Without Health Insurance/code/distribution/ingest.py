@@ -17,6 +17,7 @@ from sdc_core.profiles import resolve_states
 from sdc_core.result import RunResult
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
+MEASURE_INFO = TOPIC_DIR / "data/distribution/measure_info.json"
 log = get_logger("without_health_insurance.ingest")
 
 
@@ -35,8 +36,15 @@ def compute_measures(df: pd.DataFrame) -> pd.DataFrame:
     df["no_hlth_ins_pct"] = 100 * uninsured / total
     df["hlth_ins_pct"] = 100 - df["no_hlth_ins_pct"]
 
+    df["no_hlth_ins_count"] = uninsured
+    df["hlth_ins_count"] = total - uninsured
+    df["hlth_ins_total_count"] = total
+
     id_cols = ["geoid", "year", "region_type"]
-    measure_cols = ["no_hlth_ins_pct", "hlth_ins_pct"]
+    measure_cols = [
+        "no_hlth_ins_pct", "hlth_ins_pct",
+        "no_hlth_ins_count", "hlth_ins_count", "hlth_ins_total_count",
+    ]
 
     long = df[id_cols + measure_cols].melt(
         id_vars=id_cols,
@@ -78,6 +86,7 @@ def run_source(name: str, src: dict, out_dir: Path, standardize: bool) -> RunRes
             result,
             out_dir / f"{auto_name}.csv.xz",
             census_standardize=standardize,
+            measure_info=MEASURE_INFO if MEASURE_INFO.exists() else None,
         )
         log.info("Wrote %d rows to %s", len(result), out_path)
 

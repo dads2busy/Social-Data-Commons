@@ -1,5 +1,6 @@
 {
     "no_hlth_ins_pct": {
+        "geo_standardize": {"measure_type": "ratio", "numerator": "no_hlth_ins_count", "denominator": "hlth_ins_total_count", "scale": 100},
         "aggregation_method": "mean",
         "categories": "",
         "category": "Health",
@@ -28,6 +29,7 @@
         "variants": ""
     },
     "hlth_ins_pct": {
+        "geo_standardize": {"measure_type": "ratio", "numerator": "hlth_ins_count", "denominator": "hlth_ins_total_count", "scale": 100},
         "aggregation_method": "mean",
         "categories": "",
         "category": "Health",
