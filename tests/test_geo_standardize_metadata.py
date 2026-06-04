@@ -57,6 +57,16 @@ GEO2020_DATASETS = [
     "financial_well_being/Employment Access Index",
 ]
 
+# Manually standardized via replicate_2010_to_2020_bounds in their own ingest
+# (their 2010-vintage data extends past 2020, so standardize_all's year<2020 rule
+# can't drive them). Measures are marked `external`; correctness is covered by the
+# replicate primitive's unit test + per-dataset review.
+EXTERNAL_STANDARDIZE_DATASETS = [
+    "environment/Environmental Hazard Index (HOI)",
+    "transportation/Walkability",
+    "food/Food Access/Food Accessibility Indicator (HOI)",
+]
+
 ALL_DATASETS = list(dict.fromkeys(
     EXACT_RATIO_DATASETS
     + REPLICATE_DATASETS
@@ -64,6 +74,7 @@ ALL_DATASETS = list(dict.fromkeys(
     + EXACT_RATIO_FRAMECHANGE_DATASETS
     + DENSITY_DATASETS
     + GEO2020_DATASETS
+    + EXTERNAL_STANDARDIZE_DATASETS
 ))
 
 # Where each dataset's census_standardize=True write_data call lives.
@@ -274,7 +285,9 @@ def test_geo2020_measures_pass_through_as_geo20(dataset, monkeypatch, split_cros
         assert g20["value"].iloc[0] == pytest.approx(values[base])
 
 
-@pytest.mark.parametrize("dataset", ALL_DATASETS)
+@pytest.mark.parametrize(
+    "dataset", [d for d in ALL_DATASETS if d not in EXTERNAL_STANDARDIZE_DATASETS]
+)
 def test_standardize_call_wires_measure_info(dataset):
     rel = STANDARDIZE_FILE[dataset]
     src = (REPO_ROOT / dataset / rel).read_text(encoding="utf-8")
