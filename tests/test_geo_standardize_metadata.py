@@ -1,7 +1,5 @@
 """Phase 1 harness: verify geo_standardize metadata is complete, consistent,
 and produces correct intensive _geo20 values through the real standardize_all.
-
-Scope: Phase 1A datasets (exact-ratio: percent denominators are published counts).
 """
 import json
 from pathlib import Path
@@ -13,16 +11,44 @@ from sdc_census10to20 import convert, parse_geo_standardize_info
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
-# Phase 1A: datasets whose percent denominators are published counts in-frame.
-PHASE_1A = ["demographics/Age", "demographics/Race", "demographics/Gender"]
+# Percents recompute exactly from published in-frame counts.
+EXACT_RATIO_DATASETS = ["demographics/Age", "demographics/Race", "demographics/Gender"]
 
-VALID_TYPES = {"count", "ratio", "rate", "median", "mean", "density", "index"}
+# Intensive measures replicate the area-dominant parent (median/mean/replicate).
+REPLICATE_DATASETS = [
+    "financial_well_being/Household Income",
+    "education/Years of Schooling",
+    "financial_well_being/Income Inequality",
+    "transportation/Population Characteristics",
+    "demographics/Cooperative extension",
+]
+
+# Composite index skipped here; recomputed from standardized inputs in Phase 2.
+INDEX_SKIP_DATASETS = ["financial_well_being/Material_Deprivation"]
+
+ALL_DATASETS = EXACT_RATIO_DATASETS + REPLICATE_DATASETS + INDEX_SKIP_DATASETS
+
+# Where each dataset's census_standardize=True write_data call lives.
+STANDARDIZE_FILE = {d: "code/distribution/ingest.py" for d in ALL_DATASETS}
+STANDARDIZE_FILE["financial_well_being/Material_Deprivation"] = "code/distribution/prepare.py"
+
+VALID_TYPES = {"count", "ratio", "rate", "median", "mean", "replicate", "density", "index"}
+REPLICATE_TYPES = {"median", "mean", "replicate"}
 
 
 def _measure_info(dataset: str) -> dict:
     path = REPO_ROOT / dataset / "data/distribution/measure_info.json"
     with open(path, encoding="utf-8") as f:
         return json.load(f)
+
+
+def _measure_keys(mi: dict) -> list:
+    """Top-level measure keys, excluding underscore-prefixed metadata (_references)."""
+    return [k for k in mi if not k.startswith("_")]
+
+
+def _base(key: str) -> str:
+    return key[: -len("_geo20")] if key.endswith("_geo20") else key
 
 
 @pytest.fixture
@@ -38,20 +64,32 @@ def split_crosswalk() -> pd.DataFrame:
     })
 
 
-@pytest.mark.parametrize("dataset", PHASE_1A)
-def test_every_geo20_measure_has_valid_geo_standardize(dataset):
+def _synthetic_frame(parent, measure_values):
+    rows = [(parent, m, v) for m, v in measure_values.items()]
+    return pd.DataFrame({
+        "geoid":       [r[0] for r in rows],
+        "year":        [2018] * len(rows),
+        "measure":     [r[1] for r in rows],
+        "value":       [r[2] for r in rows],
+        "moe":         [pd.NA] * len(rows),
+        "region_type": ["tract"] * len(rows),
+    })
+
+
+@pytest.mark.parametrize("dataset", ALL_DATASETS)
+def test_every_measure_has_valid_geo_standardize(dataset):
     mi = _measure_info(dataset)
-    geo20_keys = [k for k in mi if k.endswith("_geo20")]
-    assert geo20_keys, f"{dataset}: no _geo20 measures found"
+    keys = _measure_keys(mi)
+    assert keys, f"{dataset}: no measures found"
     specs = parse_geo_standardize_info(mi)
-    for key in geo20_keys:
-        base = key[: -len("_geo20")]
+    for key in keys:
+        base = _base(key)
         assert base in specs, f"{dataset}: {key} missing geo_standardize block"
         mtype = specs[base].get("measure_type")
         assert mtype in VALID_TYPES, f"{dataset}: {key} bad measure_type {mtype!r}"
 
 
-@pytest.mark.parametrize("dataset", PHASE_1A)
+@pytest.mark.parametrize("dataset", EXACT_RATIO_DATASETS)
 def test_ratio_specs_reference_published_counts(dataset):
     mi = _measure_info(dataset)
     specs = parse_geo_standardize_info(mi)
@@ -67,7 +105,7 @@ def test_ratio_specs_reference_published_counts(dataset):
         assert den in count_bases, f"{dataset}: {base} denominator {den!r} not a published count"
 
 
-@pytest.mark.parametrize("dataset", PHASE_1A)
+@pytest.mark.parametrize("dataset", EXACT_RATIO_DATASETS)
 def test_ratios_recompute_to_parent_value(dataset, monkeypatch, split_crosswalk):
     monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: split_crosswalk)
     mi = _measure_info(dataset)
@@ -75,31 +113,51 @@ def test_ratios_recompute_to_parent_value(dataset, monkeypatch, split_crosswalk)
     counts = sorted(b for b, s in specs.items() if s.get("measure_type") == "count")
     ratios = {b: s for b, s in specs.items() if s.get("measure_type") in ("ratio", "rate")}
     assert ratios, f"{dataset}: no ratio measures in metadata"
-
-    # Distinct positive values per count so a numerator/denominator swap would fail.
     values = {c: 100.0 * (i + 1) for i, c in enumerate(counts)}
-    parent = "51001000020"
-    rows = [(parent, c, values[c]) for c in counts]
-    rows += [(parent, b, 0.0) for b in ratios]  # ratio input value is recomputed, irrelevant
-    data = pd.DataFrame({
-        "geoid":       [r[0] for r in rows],
-        "year":        [2018] * len(rows),
-        "measure":     [r[1] for r in rows],
-        "value":       [r[2] for r in rows],
-        "moe":         [pd.NA] * len(rows),
-        "region_type": ["tract"] * len(rows),
-    })
+    measure_values = {c: values[c] for c in counts}
+    measure_values.update({b: 0.0 for b in ratios})  # ratio input recomputed
+    data = _synthetic_frame("51001000020", measure_values)
     out = convert.standardize_all(data, measure_info=mi)
-
     for base, spec in ratios.items():
         expected = spec["scale"] * values[spec["numerator"]] / values[spec["denominator"]]
         got = out[out["measure"] == f"{base}_geo20"].set_index("geoid")["value"]
-        assert got["51001000002"] == pytest.approx(expected), f"{dataset}:{base} child A"
-        assert got["51001000003"] == pytest.approx(expected), f"{dataset}:{base} child B"
+        assert got["51001000002"] == pytest.approx(expected), f"{dataset}:{base} A"
+        assert got["51001000003"] == pytest.approx(expected), f"{dataset}:{base} B"
 
 
-@pytest.mark.parametrize("dataset", PHASE_1A)
-def test_ingest_wires_measure_info(dataset):
-    src = (REPO_ROOT / dataset / "code/distribution/ingest.py").read_text(encoding="utf-8")
-    assert "MEASURE_INFO" in src, f"{dataset}: ingest.py missing MEASURE_INFO constant"
-    assert "measure_info=" in src, f"{dataset}: ingest.py write_data not passing measure_info"
+@pytest.mark.parametrize("dataset", REPLICATE_DATASETS)
+def test_replicate_measures_take_parent_value(dataset, monkeypatch, split_crosswalk):
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: split_crosswalk)
+    mi = _measure_info(dataset)
+    specs = parse_geo_standardize_info(mi)
+    repl = sorted(b for b, s in specs.items() if s.get("measure_type") in REPLICATE_TYPES)
+    assert repl, f"{dataset}: no replicate/median/mean measures in metadata"
+    values = {b: 10.0 * (i + 1) for i, b in enumerate(repl)}
+    data = _synthetic_frame("51001000020", values)
+    out = convert.standardize_all(data, measure_info=mi)
+    for base in repl:
+        got = out[out["measure"] == f"{base}_geo20"].set_index("geoid")["value"]
+        assert got["51001000002"] == pytest.approx(values[base]), f"{dataset}:{base} A"
+        assert got["51001000003"] == pytest.approx(values[base]), f"{dataset}:{base} B"
+
+
+@pytest.mark.parametrize("dataset", INDEX_SKIP_DATASETS)
+def test_index_measures_not_interpolated(dataset, monkeypatch, split_crosswalk):
+    monkeypatch.setattr(convert, "create_crosswalk", lambda *a, **k: split_crosswalk)
+    mi = _measure_info(dataset)
+    specs = parse_geo_standardize_info(mi)
+    idx = sorted(b for b, s in specs.items() if s.get("measure_type") == "index")
+    assert idx, f"{dataset}: no index measures in metadata"
+    data = _synthetic_frame("51001000020", {b: 0.5 for b in idx})
+    out = convert.standardize_all(data, measure_info=mi)
+    measures = set(out["measure"])
+    for base in idx:
+        assert f"{base}_geo10" in measures, f"{dataset}:{base} _geo10 should exist"
+        assert f"{base}_geo20" not in measures, f"{dataset}:{base} _geo20 should be skipped"
+
+
+@pytest.mark.parametrize("dataset", ALL_DATASETS)
+def test_standardize_call_wires_measure_info(dataset):
+    rel = STANDARDIZE_FILE[dataset]
+    src = (REPO_ROOT / dataset / rel).read_text(encoding="utf-8")
+    assert "measure_info=" in src, f"{dataset}: {rel} write_data not passing measure_info="
