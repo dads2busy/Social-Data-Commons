@@ -1,5 +1,5 @@
 site_name: Social Data Commons
-site_description: Python packages for the Social Data Commons data pipelines
+site_description: Sub-county data, dashboards, data stories, and Python tools for local decision-making in Virginia and the National Capital Region
 site_url: https://dads2busy.github.io/Social-Data-Commons/
 repo_url: https://github.com/dads2busy/Social-Data-Commons
 repo_name: dads2busy/Social-Data-Commons
@@ -10,7 +10,10 @@ docs_dir: docsite
 theme:
   name: material
   features:
+    - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
+    - navigation.indexes
     - navigation.expand
     - navigation.top
     - content.code.copy
@@ -31,6 +34,9 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 
+extra_css:
+  - stylesheets/extra.css
+
 plugins:
   - search
   - mkdocstrings:
@@ -47,8 +53,19 @@ plugins:
 
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
+  - footnotes
+  - pymdownx.caret
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
@@ -58,26 +75,37 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - sdc-catchment:
-      - Overview: packages/sdc-catchment/index.md
-      - Articles:
-          - Introduction to floating catchment areas: packages/sdc-catchment/articles/introduction.md
-          - Case study: packages/sdc-catchment/articles/case-study.md
-      - Reference:
-          - Catchment: packages/sdc-catchment/reference/catchment.md
-  - sdc-redistribute:
-      - Overview: packages/sdc-redistribute/index.md
-      - Articles:
-          - Introduction: packages/sdc-redistribute/articles/introduction.md
-          - Method comparison: packages/sdc-redistribute/articles/method-comparison.md
-      - Reference:
-          - Redistribute: packages/sdc-redistribute/reference/redistribute.md
-  - sdc-census10to20:
-      - Overview: packages/sdc-census10to20/index.md
-      - Articles:
-          - Introduction: packages/sdc-census10to20/articles/introduction.md
-      - Reference:
-          - standardize_all: packages/sdc-census10to20/reference/standardize_all.md
-          - convert_2010_to_2020_bounds: packages/sdc-census10to20/reference/convert_2010_to_2020_bounds.md
-          - create_crosswalk: packages/sdc-census10to20/reference/create_crosswalk.md
-          - get_2010_2020_bound_changes: packages/sdc-census10to20/reference/get_2010_2020_bound_changes.md
+  - About:
+      - Overview: about/index.md
+      - Our approach: about/approach.md
+  - Data stories:
+      - Data stories: stories/index.md
+      - Equity of access to broadband: stories/broadband.md
+      - Health equity: stories/health-equity.md
+      - Business diversity: stories/business-diversity.md
+      - Food security: stories/food-security.md
+  - Dashboards: dashboards/index.md
+  - Packages:
+      - sdc-catchment:
+          - Overview: packages/sdc-catchment/index.md
+          - Articles:
+              - Introduction to floating catchment areas: packages/sdc-catchment/articles/introduction.md
+              - Case study: packages/sdc-catchment/articles/case-study.md
+          - Reference:
+              - Catchment: packages/sdc-catchment/reference/catchment.md
+      - sdc-redistribute:
+          - Overview: packages/sdc-redistribute/index.md
+          - Articles:
+              - Introduction: packages/sdc-redistribute/articles/introduction.md
+              - Method comparison: packages/sdc-redistribute/articles/method-comparison.md
+          - Reference:
+              - Redistribute: packages/sdc-redistribute/reference/redistribute.md
+      - sdc-census10to20:
+          - Overview: packages/sdc-census10to20/index.md
+          - Articles:
+              - Introduction: packages/sdc-census10to20/articles/introduction.md
+          - Reference:
+              - standardize_all: packages/sdc-census10to20/reference/standardize_all.md
+              - convert_2010_to_2020_bounds: packages/sdc-census10to20/reference/convert_2010_to_2020_bounds.md
+              - create_crosswalk: packages/sdc-census10to20/reference/create_crosswalk.md
+              - get_2010_2020_bound_changes: packages/sdc-census10to20/reference/get_2010_2020_bound_changes.md
