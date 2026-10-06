@@ -361,3 +361,113 @@
 @media screen and (max-width: 44.9375em) {
   .sdc-story__thumb, .sdc-story--flip .sdc-story__thumb { width: 6rem; }
 }
+
+/* ------------------------------------------------------------------ */
+/* About pages: floated figures, swatch lists, steps, domain grid       */
+/* ------------------------------------------------------------------ */
+.md-typeset .sdc-float {
+  float: left;
+  width: 12rem;
+  max-width: 45%;
+  margin: 0.3rem 1.5rem 0.8rem 0;
+  text-align: left;
+}
+.md-typeset .sdc-float--right { float: right; margin: 0.3rem 0 0.8rem 1.5rem; }
+.md-typeset .sdc-float--wide { width: 13rem; }
+.sdc-float svg, .sdc-float img { display: block; width: 100%; height: auto; }
+.sdc-float img { border: 1px solid var(--sdc-rule); border-radius: 0.25rem; }
+.md-typeset .sdc-float figcaption { font-size: 0.62rem; color: var(--sdc-muted); margin: 0.4rem 0 0; line-height: 1.4; }
+
+/* CLD3 wheel colours follow the scheme so the ink ring stays visible on dark. */
+:root { --sdc-wheel-outer: var(--sdc-ink); }
+[data-md-color-scheme="slate"] { --sdc-wheel-outer: #2c4164; }
+.cld3-outer { fill: var(--sdc-wheel-outer); }
+.cld3-inner { fill: var(--md-default-bg-color); stroke: var(--sdc-heading); }
+.cld3-inner-text { fill: var(--sdc-heading); }
+.sdc-swatch--hollow { background: var(--md-default-bg-color) !important; box-shadow: inset 0 0 0 1.5px var(--sdc-heading); }
+.md-typeset h2 { clear: both; }
+
+[dir] .md-typeset .sdc-swatch-list { list-style: none; margin: 0.6rem 0 1.2rem; padding: 0; }
+[dir] .md-typeset .sdc-swatch-list li { margin: 0 0 0.45rem; padding: 0 0 0 1.35rem; position: relative; }
+.sdc-swatch-list i {
+  position: absolute;
+  left: 0;
+  top: 0.42em;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 2px;
+  background: var(--swatch);
+}
+
+.sdc-projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 2.5rem;
+  margin: 1.4rem 0 0.5rem;
+}
+.sdc-project__thumb { display: block; margin: 0 0 0.6rem; }
+.sdc-project__thumb img { display: block; width: 100%; height: auto; border: 1px solid var(--sdc-rule); border-radius: 0.25rem; }
+.sdc-project h3 { font-size: 0.95rem; line-height: 1.3; margin: 0 0 0.2rem; }
+.sdc-project h3 a { color: var(--sdc-heading); }
+.sdc-project h3 a:is(:hover, :focus-visible) { color: var(--sdc-link); }
+.sdc-project__meta { font-size: 0.7rem; color: var(--sdc-muted); margin: 0 0 0.4rem; }
+.sdc-project p { margin: 0; }
+
+.sdc-blocks--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 2rem; }
+.sdc-blocks--3 .sdc-block p em { color: var(--sdc-muted); }
+
+[dir] .md-typeset .sdc-steps { list-style: none; margin: 1.2rem 0 1.5rem; padding: 0; counter-reset: sdc-step; }
+[dir] .md-typeset .sdc-steps > li {
+  margin: 0;
+  padding: 0.9rem 0 0.9rem 2.6rem;
+  position: relative;
+  border-top: 1px solid var(--sdc-rule);
+  counter-increment: sdc-step;
+}
+.sdc-steps > li::before {
+  content: counter(sdc-step);
+  position: absolute;
+  left: 0;
+  top: 0.95rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 0.25rem;
+  background: var(--swatch);
+  color: var(--sdc-paper);
+  font-weight: 700;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sdc-steps > li:nth-child(-n+2)::before { color: var(--sdc-ink); }
+.sdc-steps h3 { font-size: 1rem; margin: 0 0 0.3rem; }
+.sdc-steps p { margin: 0; }
+
+.sdc-domains {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem 1.5rem;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.74rem;
+  color: var(--md-default-fg-color--light);
+}
+.sdc-domains > div { padding-left: 1rem; position: relative; line-height: 1.5; }
+.sdc-domains > div::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 2px;
+  background: var(--swatch);
+}
+.sdc-domains b { color: var(--sdc-heading); font-weight: 600; margin-right: 0.3rem; }
+.sdc-domains b::after { content: " ·"; color: var(--sdc-muted); font-weight: 400; }
+
+@media screen and (max-width: 59.9375em) {
+  .sdc-projects, .sdc-blocks--3, .sdc-domains { grid-template-columns: 1fr; }
+  .sdc-float, .sdc-float--right { width: 9rem; }
+  .sdc-float--wide { width: 12rem; }
+}
