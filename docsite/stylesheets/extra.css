@@ -373,7 +373,7 @@
   text-align: left;
 }
 .md-typeset .sdc-float--right { float: right; margin: 0.3rem 0 0.8rem 1.5rem; }
-.md-typeset .sdc-float--wide { width: 13rem; }
+.md-typeset .sdc-float--wide { width: 19.5rem; max-width: 60%; }
 .sdc-float svg, .sdc-float img { display: block; width: 100%; height: auto; }
 .sdc-float img { border: 1px solid var(--sdc-rule); border-radius: 0.25rem; }
 .md-typeset .sdc-float figcaption { font-size: 0.62rem; color: var(--sdc-muted); margin: 0.4rem 0 0; line-height: 1.4; }
@@ -469,5 +469,5 @@
 @media screen and (max-width: 59.9375em) {
   .sdc-projects, .sdc-blocks--3, .sdc-domains { grid-template-columns: 1fr; }
   .sdc-float, .sdc-float--right { width: 9rem; }
-  .sdc-float--wide { width: 12rem; }
+  .md-typeset .sdc-float--wide, .md-typeset .sdc-float--wide.sdc-float--right { float: none; width: 100%; max-width: 22rem; margin: 0.3rem auto 1.2rem; }
 }
