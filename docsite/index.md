@@ -1,67 +1,71 @@
-# Social Data Commons
+---
+title: Social Data Commons
+hide:
+  - toc
+---
 
-**Data · Applications · Tools · Methods**
+<div class="sdc-hero" markdown="0">
+  <div>
+    <h1>Neighborhood-level data for Virginia and the National Capital Region.</h1>
+    <p>Sub-county measures of health, housing, income, food, broadband, and more, placed on 2020 census geographies and the local districts people actually plan with. Open data, open code.</p>
+    <div class="sdc-hero__actions">
+      <a class="md-button md-button--primary" href="dashboards/">Open the dashboards</a>
+      <a class="md-button" href="inventory/">Browse the data inventory</a>
+    </div>
+  </div>
+  <figure class="sdc-hero__map">
+    <div class="sdc-legend" aria-hidden="true">
+      <span style="background:#cff0e5"></span><span style="background:#7fd1b9"></span><span style="background:#2fa48e"></span><span style="background:#1f6f8b"></span><span style="background:#1d4f7a"></span><span style="background:#14233a"></span>
+    </div>
+    <img src="assets/hero-mosaic.svg" alt="Census block groups of Arlington County, Virginia, shaded from light to dark by density" width="640" height="610">
+    <figcaption>Arlington County's 204 census block groups, the smallest geography most measures reach.</figcaption>
+  </figure>
+</div>
 
-The Social Data Commons provides actionable data for local decision-making by
-creating new sub-county datasets and measures from publicly collectible data
-sources. It covers Virginia and the National Capital Region, and was built by
-the Social and Decision Analytics Division of the Biocomplexity Institute at
-the University of Virginia. It was previously known as the Social Impact Data
-Commons.
+<div class="sdc-counts" id="sdc-counts" markdown="0">
+  <span><b id="c-measures">296</b> measures</span>
+  <span><b id="c-geos">11</b> geographic levels</span>
+  <span><b id="c-years">2009–2025</b></span>
+  <span><b id="c-cats">16</b> topics</span>
+  <span>previously the Social Impact Data Commons</span>
+</div>
+
+<div class="sdc-blocks" markdown="0">
+  <section class="sdc-block" style="--swatch:#7fd1b9">
+    <h2>Dashboards</h2>
+    <p>Map any measure, step it through time, compare regions, and download exactly the slice you need. One dashboard for Virginia, one for the National Capital Region.</p>
+    <a class="sdc-block__link" href="dashboards/">Open the dashboards</a>
+  </section>
+  <section class="sdc-block" style="--swatch:#2fa48e">
+    <h2>Data stories</h2>
+    <p>How several measures, read together, answer a real local question: broadband affordability, urgent care access, minority business ownership, food insecurity.</p>
+    <a class="sdc-block__link" href="stories/">Read the stories</a>
+  </section>
+  <section class="sdc-block" style="--swatch:#1f6f8b">
+    <h2>How datasets are built</h2>
+    <p>The community process that decides what to measure, and the pipeline that turns raw sources into standardized, documented, versioned datasets.</p>
+    <a class="sdc-block__link" href="about/approach/">Our approach</a>
+  </section>
+  <section class="sdc-block" style="--swatch:#1d4f7a">
+    <h2>Python packages</h2>
+    <p>The open-source tools behind the data: census geography standardization, value redistribution between geographies, and spatial accessibility.</p>
+    <a class="sdc-block__link" href="#packages">See the packages</a>
+  </section>
+</div>
 
 ## What is a data commons?
 
 A data commons is an open knowledge repository that co-locates data from a
 variety of sources, builds and curates data insights, and provides tools
-designed to track issues over time and geography. Ours:
+designed to track issues over time and geography. The Social Data Commons was
+built by the Social and Decision Analytics Division of the Biocomplexity
+Institute at the University of Virginia. It:
 
 - provides data, indicators, indices, case studies, and training;
 - analyzes the impact of social, economic, and health trends and major events;
 - enables ongoing learning from data;
 - addresses local issues of concern, such as food insecurity, health equity,
   and access to broadband.
-
-<div class="grid cards" markdown>
-
--   :material-view-dashboard-outline: **Dashboards**
-
-    ---
-
-    Explore every measure on a map, over time, by county, tract, block group,
-    or local district. One dashboard for Virginia, one for the National
-    Capital Region.
-
-    [:octicons-arrow-right-24: Open the dashboards](dashboards/index.md)
-
--   :material-book-open-page-variant-outline: **Data stories**
-
-    ---
-
-    How multiple measures are triangulated to answer a real local question:
-    broadband, urgent care access, minority business ownership, and food
-    insecurity.
-
-    [:octicons-arrow-right-24: Read the stories](stories/index.md)
-
--   :material-cogs: **How datasets are built**
-
-    ---
-
-    The community process that decides what to measure, and the pipeline that
-    turns raw sources into standardized, documented, versioned datasets.
-
-    [:octicons-arrow-right-24: Our approach](about/approach.md)
-
--   :material-language-python: **Python packages**
-
-    ---
-
-    The open-source tools behind the data: census geography standardization,
-    value redistribution, and spatial accessibility.
-
-    [:octicons-arrow-right-24: Packages](#packages)
-
-</div>
 
 ## Packages
 
@@ -84,3 +88,17 @@ pip install sdc-census10to20
 - Source and data: [github.com/dads2busy/Social-Data-Commons](https://github.com/dads2busy/Social-Data-Commons)
 - Virginia dashboard: [dads2busy.github.io/virginia_public_health_data](https://dads2busy.github.io/virginia_public_health_data/)
 - National Capital Region dashboard: [dads2busy.github.io/national_capital_region_data](https://dads2busy.github.io/national_capital_region_data/)
+
+<script>
+// Keep the counts strip in step with the generated inventory.
+fetch("inventory/inventory.json").then((r) => r.json()).then((d) => {
+  const parents = d.rows.filter((r) => !r.group);
+  const geos = d.sites.reduce((n, s) => n + s.levels.length, 0);
+  const lo = Math.min(...parents.map((r) => r.years[0]));
+  const hi = Math.max(...parents.map((r) => r.years[1]));
+  document.getElementById("c-measures").textContent = parents.length;
+  document.getElementById("c-geos").textContent = geos;
+  document.getElementById("c-years").textContent = lo + "–" + hi;
+  document.getElementById("c-cats").textContent = d.categories.length;
+}).catch(() => {});
+</script>
