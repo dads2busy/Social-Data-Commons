@@ -85,6 +85,7 @@ nav:
       - Business diversity: stories/business-diversity.md
       - Food security: stories/food-security.md
   - Dashboards: dashboards/index.md
+  - Data inventory: inventory/index.md
   - Packages:
       - sdc-catchment:
           - Overview: packages/sdc-catchment/index.md
