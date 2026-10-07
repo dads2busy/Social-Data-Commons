@@ -1,8 +1,7 @@
 # Packages
 
 The commons publishes the tools it builds its own datasets with. Three Python
-packages, each a port of a Social and Decision Analytics Division R package,
-cover the geographic work that comes up again and again in sub-county
+packages cover the geographic work that comes up again and again in sub-county
 analysis: putting old data on new boundaries, moving estimates into local
 shapes, and turning facility locations into access scores. They share one
 long-format data convention and are used by every pipeline in the
