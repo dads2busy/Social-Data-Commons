@@ -77,7 +77,7 @@ both machine readable and human readable.
   <section class="sdc-block" style="--swatch:#1f6f8b">
     <h2>Open-source tools</h2>
     <p>Published on PyPI: spatial access and availability metrics, redistribution of population data into alternate geographies, and 2010-to-2020 census boundary standardization.</p>
-    <a class="sdc-block__link" href="../#packages">Python packages</a>
+    <a class="sdc-block__link" href="../packages/">Python packages</a>
   </section>
   <section class="sdc-block" style="--swatch:#1d4f7a">
     <h2>Data stories</h2>

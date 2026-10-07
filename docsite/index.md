@@ -49,7 +49,7 @@ hide:
   <section class="sdc-block" style="--swatch:#1d4f7a">
     <h2>Python packages</h2>
     <p>The open-source tools behind the data: census geography standardization, value redistribution between geographies, and spatial accessibility.</p>
-    <a class="sdc-block__link" href="#packages">See the packages</a>
+    <a class="sdc-block__link" href="packages/">See the packages</a>
   </section>
 </div>
 

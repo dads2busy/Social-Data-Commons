@@ -93,6 +93,7 @@ nav:
   - Dashboards: dashboards/index.md
   - Data inventory: inventory/index.md
   - Packages:
+      - Overview: packages/index.md
       - sdc-catchment:
           - Overview: packages/sdc-catchment/index.md
           - Articles:
