@@ -385,7 +385,7 @@
 .cld3-inner { fill: var(--md-default-bg-color); stroke: var(--sdc-heading); }
 .cld3-inner-text { fill: var(--sdc-heading); }
 .sdc-swatch--hollow { background: var(--md-default-bg-color) !important; box-shadow: inset 0 0 0 1.5px var(--sdc-heading); }
-.md-typeset h2 { clear: both; }
+.md-typeset > h2 { clear: both; }
 
 [dir] .md-typeset .sdc-swatch-list { list-style: none; margin: 0.6rem 0 1.2rem; padding: 0; }
 [dir] .md-typeset .sdc-swatch-list li { margin: 0 0 0.45rem; padding: 0 0 0 1.35rem; position: relative; }
@@ -470,4 +470,49 @@
   .sdc-projects, .sdc-blocks--3, .sdc-domains { grid-template-columns: 1fr; }
   .sdc-float, .sdc-float--right { width: 9rem; }
   .md-typeset .sdc-float--wide, .md-typeset .sdc-float--wide.sdc-float--right { float: none; width: 100%; max-width: 22rem; margin: 0.3rem auto 1.2rem; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Guides index: story rows plus a compact chapter list and citation   */
+/* ------------------------------------------------------------------ */
+.sdc-guide__meta { font-size: 0.72rem; color: var(--sdc-muted); margin: 0 0 0.8rem; }
+.sdc-guide__meta a { color: inherit; }
+[dir] .md-typeset .sdc-chapters {
+  list-style: none;
+  margin: 0.8rem 0 1rem;
+  padding: 0;
+  columns: 2;
+  column-gap: 2rem;
+  font-size: 0.72rem;
+  counter-reset: sdc-ch;
+}
+[dir] .md-typeset .sdc-chapters li {
+  margin: 0 0 0.3rem;
+  padding: 0 0 0 1.6rem;
+  position: relative;
+  break-inside: avoid;
+  counter-increment: sdc-ch;
+}
+.sdc-chapters li::before {
+  content: counter(sdc-ch);
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  width: 1.15rem;
+  text-align: right;
+  color: var(--sdc-muted);
+  font-variant-numeric: tabular-nums;
+}
+.sdc-chapters li.sdc-chapters__appendix::before { content: ""; counter-increment: none; }
+[dir] .md-typeset .sdc-chapters li.sdc-chapters__appendix { counter-increment: none; }
+.sdc-cite {
+  font-size: 0.68rem;
+  color: var(--sdc-muted);
+  border-left: 3px solid var(--sdc-ramp-2);
+  padding: 0.3rem 0 0.3rem 0.8rem;
+  margin: 0.6rem 0 0.8rem;
+  clear: both;
+}
+@media screen and (max-width: 44.9375em) {
+  [dir] .md-typeset .sdc-chapters { columns: 1; }
 }

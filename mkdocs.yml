@@ -89,6 +89,7 @@ nav:
       - Health equity: stories/health-equity.md
       - Business diversity: stories/business-diversity.md
       - Food security: stories/food-security.md
+  - Guides: guides/index.md
   - Dashboards: dashboards/index.md
   - Data inventory: inventory/index.md
   - Packages:
