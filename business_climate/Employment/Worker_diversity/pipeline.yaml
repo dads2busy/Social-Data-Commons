@@ -1,5 +1,5 @@
 name: worker_diversity
-version: "1.0.0"
+version: "1.1.0"
 title: "Worker Diversity"
 description: "Employment by minority/nonminority workers from LODES WAC (Workplace Area Characteristics)"
 
@@ -7,7 +7,7 @@ sources:
   ncr:
     type: lodes
     states: ["va", "md", "dc"]
-    years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
+    years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     lodes_type: wac
     job_type: JT00
     segment: S000
@@ -31,7 +31,7 @@ sources:
   va059:
     type: lodes
     states: ["va"]
-    years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
+    years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     lodes_type: wac
     job_type: JT00
     segment: S000
@@ -42,7 +42,7 @@ sources:
   rva:
     type: lodes
     states: ["va"]
-    years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
+    years: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     lodes_type: wac
     job_type: JT00
     segment: S000

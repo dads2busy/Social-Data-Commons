@@ -64,8 +64,7 @@ def run() -> None:
         for p in paths:
             log.info("Wrote %s", p)
 
-    update_version(TOPIC_DIR)
-
 
 if __name__ == "__main__":
     run()
+    update_version(TOPIC_DIR)

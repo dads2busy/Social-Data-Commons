@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-03-13T14:23:56+00:00",
+  "version": "1.1.0",
+  "generated": "2026-10-13T17:27:34+00:00",
   "schema": [
     "geoid",
     "year",
     "measure",
     "value",
     "moe",
-    "region_type"
+    "region_type",
+    "data_method"
   ],
   "measures": [
     "Minority_employment",
@@ -137,38 +138,42 @@
     2016,
     2017,
     2018,
-    2019
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
   ],
   "regions": [
     "11",
     "24",
     "51"
   ],
-  "row_count": 840706,
+  "row_count": 892878,
   "files": {
-    "ncr_cttrbg_lodes_2010_2019_employment_by_minority_workers.csv.xz": {
-      "sha256": "4d688ef4d9302804703e29017b94ff0b3fd657914157f3f924e366a542ad464c",
-      "size_bytes": 272900
+    "ncr_cttrbg_lodes_2010_2023_employment_by_minority_workers.csv.xz": {
+      "sha256": "46e321456e09f1170a5000cdd70c801c59e11c6906e3985c7c05d37dcd717a82",
+      "size_bytes": 403796
     },
-    "rva_cttrbg_lodes_2010_2019_employment_by_minority_workers.csv.xz": {
-      "sha256": "f8d012a18e8915eaab16bb3fd4fc28a6c3cb3c6cbc1418a38699368c13286a45",
-      "size_bytes": 33972
-    },
-    "va059_cttrbg_lodes_2010_2019_employment_by_minority_workers.csv.xz": {
-      "sha256": "603e68e0377b9f7f3ba9ce2bd22eb68744827a7d63fc912a7d56ffae6c6695ee",
-      "size_bytes": 53668
+    "rva_cttrbg_lodes_2010_2023_employment_by_minority_workers.csv.xz": {
+      "sha256": "6b8cf5f5bcc64d77bf0d6e518505e9849117b3686f92b3c55daf7c5c57b689ff",
+      "size_bytes": 51280
     },
     "va059_cttrbg_lodes_2010_2019_rac_employment_segments_by_sex.csv.xz": {
-      "sha256": "f7965ac7af1f13a9e95f8f7f1d15ef601f3d597584954a176b745610f4dd7c1e",
-      "size_bytes": 1120716
+      "sha256": "b036b6e9d464fa76cc566a9b2931cd09a3b21a6f131bf65d08c7e42ca0a3511d",
+      "size_bytes": 1190044
     },
     "va059_cttrbg_lodes_2010_2019_wac_employment_segments_by_sex.csv.xz": {
-      "sha256": "5a2f27d75db90392327a35f717b3fbd0da389008643ccd95151da504353c90f8",
-      "size_bytes": 1042736
+      "sha256": "9264ef8e06f49a51ce08a7bbe1cb30858219aecb0b8815a09aa543e8fdf91df8",
+      "size_bytes": 1115628
     },
     "va059_cttrbg_lodes_2010_2019_workplace_employment_segments_by_sex.csv.xz": {
-      "sha256": "94bc1f4a760d87d7ec455f8cd7cf4d7a40635ee161052177b65a691bf364af5f",
-      "size_bytes": 1022976
+      "sha256": "21cf174abfea67e4b4d33ccd8794bef590a0e5a76f70443ecce3aa4e0061b933",
+      "size_bytes": 1070520
+    },
+    "va059_cttrbg_lodes_2010_2023_employment_by_minority_workers.csv.xz": {
+      "sha256": "2852ea806242db1c74a18570555df207fcabd707f0750c7aa12e04953dd202a8",
+      "size_bytes": 80692
     }
   }
 }

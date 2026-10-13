@@ -71,3 +71,24 @@ No old R output available for RVA coverage area (new addition). Output verified 
 - Both LODES8 and LODES7 URLs are tried with automatic fallback.
 - Race columns CR01 (White alone) = Nonminority; CR02–CR05, CR07 = Minority.
 - Block-level data aggregated to block groups (first 12 digits of w_geocode), then further aggregated to tracts (first 11) and counties (first 5).
+
+## Data refresh — 2026-10-13 (v1.0.0 → v1.1.0)
+
+Extended `years` in `pipeline.yaml` from 2010–2019 to 2010–2023 after `sdc sources check`
+reported LODES8 WAC 2023 available. All years are fetched from LODES8 (2020 Census blocks), so no
+boundary standardization applies.
+
+| File | Rows | Years |
+|---|---|---|
+| `ncr_cttrbg_lodes_2010_2023_employment_by_minority_workers.csv.xz` | 138,394 | 2010–2023 |
+| `va059_cttrbg_lodes_2010_2023_employment_by_minority_workers.csv.xz` | 26,650 | 2010–2023 |
+| `rva_cttrbg_lodes_2010_2023_employment_by_minority_workers.csv.xz` | 17,234 | 2010–2023 |
+
+Overlap check (2010–2019) against the previous `*_2010_2019_*` files: every row matched with
+zero difference (ncr 98,774 / va059 19,028 / rva 12,304 rows). The previous files were removed.
+
+Code changes in the same refresh: `ingest.py` now sets `data_method = "observed"` (the committed
+files had this column populated by a one-off repo-wide patch, so a plain re-run had dropped it);
+`prepare.py` moved `update_version()` from `run()` into `__main__` per the spec template. The
+stale `manifest.json` (schema without `data_method`) was regenerated at v1.0.0 before the run so
+the bump reflects only the added years.

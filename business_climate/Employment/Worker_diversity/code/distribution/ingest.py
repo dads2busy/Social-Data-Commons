@@ -120,6 +120,7 @@ def aggregate_to_levels(bg_long: pd.DataFrame) -> pd.DataFrame:
     combined = pd.concat([bg[["geoid", "year", "measure", "value", "region_type"]],
                           tr, ct], ignore_index=True)
     combined["moe"] = pd.NA
+    combined["data_method"] = "observed"
     return combined
 
 
