@@ -15,6 +15,7 @@ REGISTRY_HEADER = (
 )
 ENTRY_KEYS = {"probe", "pipelines"}
 PIPELINE_KEYS = {"path", "latest", "source", "key"}
+UNIVERSAL_KEYS = {"note"}  # allowed on every source, regardless of probe
 SKIP_DIR_PARTS = {"node_modules"}
 
 
@@ -74,7 +75,7 @@ def _parse_entry(sid: str, body: object) -> SourceEntry:
     missing = spec.required - params.keys()
     if missing:
         raise RegistryError(f"{sid}: missing keys {sorted(missing)} for probe {probe_name}")
-    unknown = params.keys() - spec.required - spec.optional
+    unknown = params.keys() - spec.required - spec.optional - UNIVERSAL_KEYS
     if unknown:
         raise RegistryError(f"{sid}: unknown keys {sorted(unknown)} for probe {probe_name}")
     if spec.validate is not None:

@@ -1,0 +1,80 @@
+{
+  "acs5": {
+    "detail": "api.census.gov/data.json",
+    "fetched_at": "2026-10-13T17:00:25.064125+00:00",
+    "kind": "vintage",
+    "value": 2024
+  },
+  "alice_va": {
+    "detail": "ETag",
+    "fetched_at": "2026-10-13T17:00:27.423551+00:00",
+    "kind": "content",
+    "value": "\"11d9e1ab8777d91:0\""
+  },
+  "bea_cainc4": {
+    "detail": "apps.bea.gov Regional/CAINC4 Year values",
+    "fetched_at": "2026-10-13T17:00:26.225814+00:00",
+    "kind": "vintage",
+    "value": 2024
+  },
+  "chr_va": {
+    "detail": "https://www.countyhealthrankings.org/health-data/virginia/data-and-resources",
+    "fetched_at": "2026-10-13T17:00:25.217647+00:00",
+    "kind": "vintage",
+    "value": 2025
+  },
+  "cms_hospital_general_information": {
+    "detail": "ETag",
+    "fetched_at": "2026-10-13T17:00:27.598353+00:00",
+    "kind": "content",
+    "value": "\"1791910291-gzip\""
+  },
+  "cms_marketplace_puf": {
+    "detail": "https://www.cms.gov/marketplace/resources/data/public-use-files",
+    "fetched_at": "2026-10-13T17:00:26.471329+00:00",
+    "kind": "vintage",
+    "value": 2026
+  },
+  "cms_physician_national_downloadable": {
+    "detail": "ETag",
+    "fetched_at": "2026-10-13T17:00:27.649871+00:00",
+    "kind": "content",
+    "value": "\"1791910618-gzip\""
+  },
+  "ejscreen_archive": {
+    "detail": "https://web.archive.org/web/2024/https://gaftp.epa.gov/EJSCREEN/",
+    "fetched_at": "2026-10-13T17:00:26.846709+00:00",
+    "kind": "vintage",
+    "value": 2024
+  },
+  "lodes8_va_wac": {
+    "detail": "https://lehd.ces.census.gov/data/lodes/LODES8/va/wac/",
+    "fetched_at": "2026-10-13T17:00:25.962204+00:00",
+    "kind": "vintage",
+    "value": 2023
+  },
+  "nppes_npi_files": {
+    "detail": "ETag",
+    "fetched_at": "2026-10-13T17:00:27.786988+00:00",
+    "kind": "content",
+    "value": "\"45b0a6068ddf0dbbec0a6ed149bcff5e:1791790168.032442\""
+  },
+  "ookla_fixed_tiles": {
+    "detail": "https://ookla-open-data.s3-us-west-2.amazonaws.com/?list-type=2&prefix=shapefiles/performance/type=fixed/&delimiter=/",
+    "fetched_at": "2026-10-13T17:00:25.567393+00:00",
+    "kind": "vintage",
+    "value": 2026
+  },
+  "ppi_va_tract_2020": {
+    "detail": "SHA-256",
+    "fetched_at": "2026-10-13T17:00:27.258436+00:00",
+    "kind": "content",
+    "value": "c4b114b51c655385f0cdf9746b36a7535d263a1c7132578e3f4cb5e5af44618c"
+  },
+  "vera_incarceration_trends": {
+    "detail": "ETag",
+    "fetched_at": "2026-10-13T17:00:26.932670+00:00",
+    "kind": "content",
+    "value": "W/\"e791cf4c06a477fbf05ed97b476dc62bbc4ca8bf8320880b3fb46c0229191469\""
+  }
+}

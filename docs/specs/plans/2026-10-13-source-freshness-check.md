@@ -27,7 +27,7 @@
 
 Two facts surfaced while planning that the spec got wrong or left open. Task 6 and Task 9 edit the spec to match.
 
-1. **There are 73 pipelines, not 39.** The brainstorm surveyed only `*/*/pipeline.yaml`; 33 more sit three to five levels deep (food, housing, business_climate, health subgroups) plus a depth-1 umbrella `demographics/pipeline.yaml`. The design is unchanged; the registry seed is larger.
+1. **There are 72 pipelines, not 39.** The brainstorm surveyed only `*/*/pipeline.yaml`; 32 more sit three to five levels deep (food, housing, business_climate, health subgroups) plus a depth-1 umbrella `demographics/pipeline.yaml`. The design is unchanged; the registry seed is larger.
 2. **`audit` needs an acknowledged-untracked list.** The spec says `audit` exits 1 when any pipeline lacks a registry entry *and* that `audit` exits 0 against the seeded registry, yet computed/energy pipelines are `not_tracked` by design. Resolution: the registry gets a top-level `untracked:` list of `{path, reason}`. `audit` treats those as acknowledged; `check` still shows them as `not_tracked` with the reason in DETAIL.
 
 ## Review Focus

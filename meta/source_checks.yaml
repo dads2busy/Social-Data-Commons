@@ -1,0 +1,225 @@
+# Machine-maintained by `sdc sources sync-latest`; comments outside this header are lost
+# on rewrite. Use a source's `note` key for remarks that must survive.
+sources:
+  acs5:
+    probe: census_vintage
+    dataset: acs/acs5
+    pipelines:
+      - {path: broadband/Household Broadband, latest: 2024}
+      - {path: demographics/Age, latest: 2024}
+      - {path: demographics/Gender, latest: 2024}
+      - {path: "demographics/Geographic Mobility (HOI)", latest: 2024}
+      - {path: demographics/Language, latest: 2024}
+      - {path: demographics/Population Density, latest: 2024}
+      - {path: demographics/Race, latest: 2024}
+      - {path: "demographics/Segregation Index (HOI)", latest: 2024}
+      - {path: demographics/Veteran, latest: 2024}
+      - {path: demographics/Cooperative extension, source: va, key: perc_male, latest: 2024}
+      - {path: education/Postsecondary, latest: 2024}
+      - {path: education/Years of Schooling, latest: 2024}
+      - {path: financial_well_being/Employment Rates, latest: 2024}
+      - {path: financial_well_being/Household Income, latest: 2024}
+      - {path: financial_well_being/Income Inequality, latest: 2024}
+      - {path: financial_well_being/Material_Deprivation, latest: 2024}
+      - {path: financial_well_being/Poverty, latest: 2024}
+      - {path: "food/Food and Nutrition Assistance/Supplemental Nutrition Assistance Program (SNAP)", latest: 2024}
+      - {path: health/Social Vulnerability Index, latest: 2024}
+      - {path: health/System Usage and Insurance/Without Health Insurance, latest: 2024}
+      - {path: transportation/Population Characteristics, latest: 2024}
+
+  chr_va:
+    probe: html_years
+    url: https://www.countyhealthrankings.org/health-data/virginia/data-and-resources
+    pattern: "(\\d{4})(?: |%20)County(?: |%20)Health(?: |%20)Rankings(?: |%20)Virginia(?: |%20)Data"
+    pipelines:
+      - {path: education/Funding, latest: 2025}
+      - {path: demographics/Cooperative extension, source: va, key: county_health_rankings, latest: 2025}
+      - {path: health/System Usage and Insurance/Preventable Hospitalizations, latest: 2025}
+
+  ookla_fixed_tiles:
+    probe: html_years
+    url: "https://ookla-open-data.s3-us-west-2.amazonaws.com/?list-type=2&prefix=shapefiles/performance/type=fixed/&delimiter=/"
+    pattern: "year=(\\d{4})/"
+    pipelines:
+      - {path: broadband/Ookla Speed, latest: 2025}
+
+  lodes8_va_wac:
+    probe: lodes_vintage
+    url: https://lehd.ces.census.gov/data/lodes/LODES8/va/wac/
+    pattern: "va_wac_S000_JT00_(\\d{4})\\.csv\\.gz"
+    pipelines:
+      - {path: financial_well_being/Employment Access Index, latest: 2023}
+      - {path: business_climate/Employment/Worker_diversity, latest: 2019}
+
+  bea_cainc4:
+    probe: bea_vintage
+    dataset: Regional
+    table: CAINC4
+    pipelines:
+      - {path: financial_well_being/Personal Income, latest: 2024}
+
+  cms_marketplace_puf:
+    probe: html_years
+    url: https://www.cms.gov/marketplace/resources/data/public-use-files
+    pattern: "marketplace-puf/(\\d{4})/"
+    pipelines:
+      - {path: health/Health care cost, latest: 2026}
+
+  vdoe_sol_pass_rates:
+    probe: manual
+    url: https://www.doe.virginia.gov/data-policy-funding/data-reports/statistics-reports/sol-test-pass-rates-other-results
+    note: VDOE returns HTTP 403 to non-browser clients; open the page and look for a newer school-year file
+    pipelines:
+      - {path: education/Reading}
+
+  hud_fmr:
+    probe: manual
+    url: https://www.huduser.gov/portal/datasets/fmr.html
+    note: huduser.gov answers non-browser clients with an empty HTTP 202; open the page and check the newest FY section
+    pipelines:
+      - {path: housing/Cost/Rent}
+
+  ejscreen_archive:
+    probe: html_years
+    url: https://web.archive.org/web/2024/https://gaftp.epa.gov/EJSCREEN/
+    pattern: "href=\"(20\\d{2})/\""
+    note: EPA removed EJScreen in 2025; this is a Wayback snapshot and will not advance
+    pipelines:
+      - {path: "environment/Environmental Hazard Index (HOI)", latest: 2024}
+
+  vera_incarceration_trends:
+    probe: http_file
+    url: https://raw.githubusercontent.com/vera-institute/incarceration-trends/main/incarceration_trends_county.csv
+    pipelines:
+      - {path: "public_safety/Incarceration (HOI)"}
+
+  ppi_va_tract_2020:
+    probe: http_file
+    url: https://www.prisonpolicy.org/origin/va/2020/tract.html
+    pipelines:
+      - {path: "public_safety/Incarceration (HOI)"}
+
+  alice_va:
+    probe: http_file
+    url: https://www.unitedforalice.org/Attachments/StateDataSheet/DataSheet_VA.xlsx
+    pipelines:
+      - {path: "financial_well_being/Asset Limited Income Constrained Employed (ALICE)"}
+
+  cms_hospital_general_information:
+    probe: http_file
+    url: https://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items/xubh-q36u
+    note: dataset metadata JSON; its `modified` field changes on each CMS refresh
+    pipelines:
+      - {path: health/Health Care Services/Hospitals and Emergency Rooms/Service Access Scores}
+
+  cms_physician_national_downloadable:
+    probe: http_file
+    url: https://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items/mj5m-pzi6
+    note: dataset metadata JSON; its `modified` field changes on each CMS refresh
+    pipelines:
+      - {path: health/Health Care Services/Physicians/OB-GYN/Service Access Scores}
+      - {path: health/Health Care Services/Physicians/Pediatric/Service Access Scores}
+      - {path: health/Health Care Services/Physicians/Primary Care/Service Access Scores}
+
+  nppes_npi_files:
+    probe: http_file
+    url: https://download.cms.gov/nppes/NPI_Files.html
+    note: page lists the current monthly dissemination file; changes monthly by design
+    pipelines:
+      - {path: health/Health Care Services/Urgent Care Centers/Service Access Scores}
+
+  vdh_hoi:
+    probe: manual
+    url: https://apps.vdh.virginia.gov/omhhe/hoi/
+    note: no machine-readable release list; indicator Excel files are downloaded by hand
+    pipelines:
+      - {path: health/Health Opportunity Index}
+
+  cdc_wonder_natality:
+    probe: manual
+    url: https://wonder.cdc.gov/natality-expanded-current.html
+    note: WONDER D149 is a query form; check the "current" year range on the landing page
+    pipelines:
+      - {path: health/Prenatal Care Adequacy}
+
+  vdss_daycare_locations:
+    probe: manual
+    url: https://www.dss.virginia.gov/facility/search/cc.cgi
+    note: locations_{year}.csv is exported by hand into data/working
+    pipelines:
+      - {path: education/Daycare Accessibility}
+
+  usda_fara:
+    probe: manual
+    url: https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data
+    note: 2019 is the latest atlas; ERS announces new editions on this page
+    pipelines:
+      - {path: "food/Food Access/Food Accessibility Indicator (HOI)"}
+
+  feeding_america_mmg:
+    probe: manual
+    url: https://www.feedingamerica.org/research/map-the-meal-gap/by-county
+    note: Map the Meal Gap Excel is requested from Feeding America and placed in data/working
+    pipelines:
+      - {path: food/Food Security/Feeding America/Overall Food Insecurity}
+
+  usda_nass_census_of_agriculture:
+    probe: manual
+    url: https://quickstats.nass.usda.gov/
+    note: Census of Agriculture is quinquennial (2022 current; next 2027)
+    pipelines:
+      - {path: business_climate/Industry specific/Agriculture}
+
+  cdc_places:
+    probe: manual
+    url: https://www.cdc.gov/places/
+    note: release year is two ahead of data year (2025 release = 2023 data); compare by hand
+    pipelines:
+      - {path: health/Mental Health/Mental and Physical Healthy Days}
+
+  vdh_overdose_surveillance:
+    probe: manual
+    url: https://www.vdh.virginia.gov/surveillance-and-investigation/syndromic-surveillance/drug-overdose-surveillance/
+    note: quarterly PDF/dashboard releases; no stable file URL
+    pipelines:
+      - {path: health/Substance Abuse/Drug Overdose ED Visits}
+
+  hifld_ems:
+    probe: manual
+    url: https://hifld-geoplatform.opendata.arcgis.com/
+    note: ArcGIS REST layer; check editingInfo.lastEditDate on the layer metadata by hand
+    pipelines:
+      - {path: health/Health Care Services/EMS/Service Catchment Scores}
+
+  samhsa_findtreatment:
+    probe: manual
+    url: https://findtreatment.gov/locator
+    note: live locator API; there is no release event, re-run on a cadence
+    pipelines:
+      - {path: health/Health Care Services/Drug and Rehab/Service Catchment Scores}
+      - {path: health/Health Care Services/Mental Health/Service Access Scores}
+
+untracked:
+  - {path: demographics, reason: umbrella config listing demographic topics; data comes from the topic pipelines}
+  - {path: "health/Access to Care Index (HOI)", reason: computed from other SDC datasets}
+  - {path: transportation/Walkability, reason: computed from other SDC datasets}
+  - {path: housing/Cost/Affordability_HT, reason: reproduced from a CNT H+T Index snapshot; no upstream feed}
+  - {path: food/Food Access/Healthy Food Availability, reason: live OpenStreetMap extract; no vintage}
+  - {path: "food/Food Security/Feeding America/Children's Food Insecurity", reason: derived from Overall Food Insecurity working data}
+  - {path: food/Food Security/Feeding America/Food Budget Shortfall, reason: derived from Overall Food Insecurity working data}
+  - {path: food/Food Security/Feeding America/Food Secure Average Meal Cost, reason: derived from Overall Food Insecurity working data}
+  - {path: health/Health Care Services/Dentists/Service Catchment Scores, reason: static provider GeoJSON; no upstream feed}
+  - {path: business_climate/Business_characteristics/Industry, reason: Mergent Intellect licensed 2020 snapshot}
+  - {path: business_climate/Business_characteristics/Industry_Minority_owned, reason: Mergent Intellect licensed 2020 snapshot}
+  - {path: business_climate/Business_characteristics/Minority_owned, reason: Mergent Intellect licensed 2020 snapshot}
+  - {path: business_climate/Business_characteristics/Total, reason: Mergent Intellect licensed 2020 snapshot}
+  - {path: business_climate/Employment/Industry, reason: Mergent Intellect licensed 2020 snapshot}
+  - {path: business_climate/Employment/Industry_Minority_owned, reason: Mergent Intellect licensed 2020 snapshot}
+  - {path: business_climate/Employment/Minority_owned, reason: Mergent Intellect licensed 2020 snapshot}
+  - {path: business_climate/Employment/Total, reason: Mergent Intellect licensed 2020 snapshot}
+  - {path: energy/DataCenters, reason: exploratory energy category; no upstream release}
+  - {path: energy/DataCentersProjected, reason: exploratory energy category; no upstream release}
+  - {path: energy/EVChargingDemand, reason: exploratory energy category; no upstream release}
+  - {path: energy/EVChargingStations, reason: exploratory energy category; no upstream release}
+  - {path: energy/PowerInfrastructure, reason: exploratory energy category; no upstream release}
+  - {path: energy/ResidentialEnergyScenario, reason: exploratory energy category; no upstream release}

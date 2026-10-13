@@ -12,7 +12,7 @@ the two dashboard repos, or CI tracks upstream state.
 
 ## Background
 
-73 pipelines (39 at depth two, 33 nested three to five levels deep under food, housing,
+72 pipelines (39 at depth two, 32 nested three to five levels deep under food, housing,
 business_climate and health, plus the depth-one `demographics/pipeline.yaml` umbrella) declare
 their inputs under `sources:` in `pipeline.yaml`. The declarations fall into roughly twelve
 source families:
@@ -25,6 +25,9 @@ source families:
 | URL-backed files (EJScreen, Vera, PPI, ALICE) | 4 | `url:` + `years:` |
 | one-offs: ookla, county_health_rankings, vdoe, lodes_gravity, bea, cms_puf, vdh_hoi, nchs | 8 | `years:` or none |
 | licensed / live snapshots (Mergent Intellect, OSM, SAMHSA, HIFLD, Feeding America) | 20 | none |
+
+Seeded registry (2026-10-13): 25 sources under `sources:`, 49 pipelines tracked, 23 pipelines
+acknowledged under `untracked:`. First live run: 2 `new_vintage`, 13 `unverified` (manual), 0 `error`.
 
 Existing repo-wide operations (`sdc version status`, `sdc zenodo status`, `sdc sync`) all
 report on *our* state. None probe upstream. The existing `sdc_core/sources/` subpackage
@@ -88,7 +91,7 @@ Rules:
   load time. Unknown keys are an error.
 - Pipelines with no registry entry (computed, mixed, energy) are not silently omitted.
   They appear in `check` output as `not_tracked`, and `audit` lists them explicitly.
-- The registry is seeded by hand for all 73 pipelines: every pipeline appears under
+- The registry is seeded by hand for all 72 pipelines: every pipeline appears under
   `sources:` or `untracked:`. `sync-latest` can fill `latest` but cannot choose a probe.
 
 A top-level `untracked:` list acknowledges pipelines that intentionally have no probe:

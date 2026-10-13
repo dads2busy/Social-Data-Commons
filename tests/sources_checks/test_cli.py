@@ -125,3 +125,13 @@ def test_sync_latest_dry_run_and_write(repo, monkeypatch):
     text = registry_file.read_text()
     assert text.startswith("# Machine-maintained")
     assert "latest: 2025" in text and "latest: 2023" in text and "latest: 2024" not in text
+
+
+def test_malformed_registry_is_a_clean_error_not_a_traceback(repo, monkeypatch):
+    runner = prepare(repo, monkeypatch, REGISTRY.replace("probe: http_file", "probe: nope"))
+    for args in (["sources", "check"], ["sources", "audit"], ["sources", "sync-latest"]):
+        result = runner.invoke(main, args)
+        assert result.exit_code == 1, (args, result.output)
+        assert "unknown probe 'nope'" in result.output
+        assert "Traceback" not in result.output
+        assert result.exception is None or isinstance(result.exception, SystemExit)

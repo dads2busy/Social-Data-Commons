@@ -313,6 +313,17 @@ def sources():
     pass
 
 
+def _load_sources_registry(root: pathlib.Path):
+    """Load meta/source_checks.yaml, turning a malformed file into a clean CLI error."""
+    from sdc_core.sources.checks.paths import registry_path
+    from sdc_core.sources.checks.registry import RegistryError, load_registry
+
+    try:
+        return load_registry(registry_path(root))
+    except RegistryError as exc:
+        raise click.ClickException(f"{registry_path(root)}: {exc}") from exc
+
+
 @sources.command("check")
 @click.option("--source", "source_ids", multiple=True, help="Only this source id (repeatable)")
 @click.option("--pipeline", "pipelines", multiple=True, help="Only this pipeline path (repeatable)")
@@ -339,13 +350,12 @@ def sources_check(
     Exit 0 when every row is current, baseline, or not_tracked; 1 otherwise.
     """
     from sdc_core.sources.checks import run_checks
-    from sdc_core.sources.checks.paths import find_repo_root, registry_path, state_path
-    from sdc_core.sources.checks.registry import load_registry
+    from sdc_core.sources.checks.paths import find_repo_root, state_path
     from sdc_core.sources.checks.report import exit_code, render_json, render_table
     from sdc_core.sources.checks.state import load_state, save_state
 
     root = find_repo_root()
-    registry = load_registry(registry_path(root))
+    registry = _load_sources_registry(root)
     state = load_state(state_path(root))
     rows, observed = run_checks(
         registry, state, root, source_filter=set(source_ids), pipeline_filter=set(pipelines)
@@ -363,11 +373,11 @@ def sources_check(
 @sources.command("audit")
 def sources_audit():
     """List pipelines missing from the registry and registry paths missing on disk."""
-    from sdc_core.sources.checks.paths import find_repo_root, registry_path
-    from sdc_core.sources.checks.registry import audit, load_registry
+    from sdc_core.sources.checks.paths import find_repo_root
+    from sdc_core.sources.checks.registry import audit
 
     root = find_repo_root()
-    registry = load_registry(registry_path(root))
+    registry = _load_sources_registry(root)
     unregistered, missing = audit(registry, root)
     if unregistered:
         click.echo("Pipelines on disk with no registry entry (add under sources: or untracked:):")
@@ -387,10 +397,13 @@ def sources_audit():
 def sources_sync_latest(dry_run: bool):
     """Rewrite each vintage pipeline's `latest` from its pipeline.yaml years."""
     from sdc_core.sources.checks.paths import find_repo_root, registry_path
-    from sdc_core.sources.checks.registry import sync_latest
+    from sdc_core.sources.checks.registry import RegistryError, sync_latest
 
     root = find_repo_root()
-    changes = sync_latest(registry_path(root), root, dry_run=dry_run)
+    try:
+        changes = sync_latest(registry_path(root), root, dry_run=dry_run)
+    except RegistryError as exc:
+        raise click.ClickException(f"{registry_path(root)}: {exc}") from exc
     verb = "WOULD SET" if dry_run else "SET"
     n_changed = 0
     for sid, path, old, new in changes:

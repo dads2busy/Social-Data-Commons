@@ -155,3 +155,15 @@ def test_sync_latest_unresolvable_left_untouched(repo):
     changes = sync_latest(p, repo, dry_run=False)
     assert ("acs5", "demographics/Age", 2023, None) in changes
     assert load_registry(p).sources[0].pipelines[0].latest == 2023
+
+
+def test_note_is_accepted_on_every_probe_kind(repo):
+    data = yaml.safe_load(GOOD)
+    data["sources"]["acs5"]["note"] = "catalog is slow"
+    data["sources"]["alice"]["note"] = "republished in place"
+    data["sources"]["chr_va"]["note"] = "VA page"
+    reg = load_registry(write_registry(repo, yaml.safe_dump(data)))
+    by_id = {e.id: e for e in reg.sources}
+    assert by_id["acs5"].params == {"dataset": "acs/acs5", "note": "catalog is slow"}
+    assert by_id["alice"].params["note"] == "republished in place"
+    assert by_id["chr_va"].params["note"] == "VA page"
