@@ -19,7 +19,7 @@ Derived from Ookla Speedtest Open Data quarterly mobile tiles. A tile qualifies 
 Derived from Ookla Speedtest Open Data quarterly mobile tiles. A tile qualifies if avg_d_kbps >= 100,000 and avg_u_kbps >= 20,000. The percentage is the device-weighted share of qualifying tiles within each block group. Quarterly values are averaged within each year.
 
 ## Coverage
-- **Temporal coverage:** 2019–2025 (quarterly Ookla Open Data)
+- **Temporal coverage:** 2019–2026 (quarterly Ookla Open Data)
 - **Geographic levels:** Block Group, County, Tract
 - **Coverage areas:** National Capital Region (DC metro), Virginia (statewide)
 
@@ -42,7 +42,7 @@ Percentage of tested mobile devices with download speed at or above 100 Mb/s and
 - [Quarterly mobile performance tiles (S3 bucket)](https://github.com/teamookla/ookla-open-data)
 
 ## Measures (8)
-*Note on naming conventions: Measures containing `_geo20` are computed using 2020 Census geographic boundaries.*
+*Note on naming conventions: Measures containing `_geo20` are reported on 2020 Census tract boundaries.*
 
 - **avg_down_speed_geo20**: Average download speed (Mb/s), device-weighted (device-weighted mean, unit: Mb/s)
   Average download speed weighted by number of devices.
@@ -66,4 +66,4 @@ Percentage of tested mobile devices with download speed at or above 100 Mb/s and
 - [U.S. Census Bureau (accessed 2025)](https://www.census.gov/geographies.html)
 
 ## File Format
-Data files are provided as xz-compressed CSVs (`.csv.xz`) with the following columns: `geoid`, `year`, `measure`, `value`, `moe` (margin of error, where available), `region_type`, `data_method` (observed, modeled, scaled, interpolated, or extrapolated). A `measure_info.json` file provides per-measure metadata.
+Data files are provided as CSVs (`.csv`) with the following columns: `geoid`, `year`, `measure`, `value`, `moe` (margin of error, where available), `region_type`, `data_method` (observed, modeled, scaled, interpolated, or extrapolated). Per-measure metadata (descriptions, units, and sources) is documented in the dataset's `measure_info.json` in the Social Data Commons repository.
