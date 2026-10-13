@@ -1,4 +1,4 @@
-"""Content fingerprint of a single URL: ETag, else Last-Modified, else SHA-256."""
+"""Content fingerprint of a single URL: ETag, else Last-Modified, else SHA-256 of the body."""
 
 from __future__ import annotations
 
@@ -30,16 +30,11 @@ def run(params: dict, client: httpx.Client) -> Observation:
         if last_modified:
             return Observation("content", last_modified, _now(), "Last-Modified")
 
-    digest = hashlib.sha256()
-    try:
-        with client.stream("GET", url) as resp:
-            if resp.status_code >= 400:
-                raise ProbeError(f"HTTP {resp.status_code} from {url}")
-            for chunk in resp.iter_bytes():
-                digest.update(chunk)
-    except httpx.TransportError as exc:
-        raise ProbeError(f"{exc!r} fetching {url}") from exc
-    return Observation("content", digest.hexdigest(), _now(), "SHA-256")
+    # Same one-retry policy as HEAD. Bodies fingerprinted this way are small files/pages,
+    # so reading them fully is fine.
+    resp = request_with_retry(client, "GET", url)
+    digest = hashlib.sha256(resp.content).hexdigest()
+    return Observation("content", digest, _now(), "SHA-256")
 
 
 SPEC = ProbeSpec(

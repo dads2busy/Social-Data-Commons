@@ -167,3 +167,19 @@ def test_note_is_accepted_on_every_probe_kind(repo):
     assert by_id["acs5"].params == {"dataset": "acs/acs5", "note": "catalog is slow"}
     assert by_id["alice"].params["note"] == "republished in place"
     assert by_id["chr_va"].params["note"] == "VA page"
+
+
+def test_discover_pipelines_does_not_descend_into_excluded_dirs(repo, monkeypatch):
+    import os
+
+    scanned: list[str] = []
+    real_scandir = os.scandir
+
+    def recording_scandir(path=".", *args, **kwargs):
+        scanned.append(os.fspath(path))
+        return real_scandir(path, *args, **kwargs)
+
+    monkeypatch.setattr(os, "scandir", recording_scandir)
+    discover_pipelines(repo)
+    offenders = [p for p in scanned if "/.claude" in p or "worktree-feature" in p]
+    assert offenders == [], offenders

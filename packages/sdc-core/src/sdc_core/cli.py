@@ -356,6 +356,14 @@ def sources_check(
 
     root = find_repo_root()
     registry = _load_sources_registry(root)
+    unknown_sources = set(source_ids) - {e.id for e in registry.sources}
+    if unknown_sources:
+        raise click.ClickException(f"unknown source id(s): {', '.join(sorted(unknown_sources))}")
+    unknown_pipelines = set(pipelines) - registry.tracked_paths()
+    if unknown_pipelines:
+        raise click.ClickException(
+            f"unknown pipeline path(s): {', '.join(sorted(unknown_pipelines))}"
+        )
     state = load_state(state_path(root))
     rows, observed = run_checks(
         registry, state, root, source_filter=set(source_ids), pipeline_filter=set(pipelines)

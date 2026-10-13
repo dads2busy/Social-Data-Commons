@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -100,17 +101,21 @@ def load_registry(path: Path) -> Registry:
     return Registry(sources=entries, untracked=untracked)
 
 
+def _is_excluded_dir(name: str) -> bool:
+    return name.startswith(".") or "worktree" in name or name in SKIP_DIR_PARTS
+
+
 def discover_pipelines(repo_root: Path) -> list[str]:
-    """Every dir under the repo containing pipeline.yaml, excluding hidden dirs and worktrees."""
+    """Every dir under the repo containing pipeline.yaml, excluding hidden dirs and worktrees.
+
+    Excluded directories are pruned during the walk (never entered), so `.venv`, `.git` and
+    stale `.claude/worktrees` do not cost anything.
+    """
     found: list[str] = []
-    for p in repo_root.rglob("pipeline.yaml"):
-        rel = p.parent.relative_to(repo_root)
-        if any(
-            part.startswith(".") or "worktree" in part or part in SKIP_DIR_PARTS
-            for part in rel.parts
-        ):
-            continue
-        found.append(rel.as_posix())
+    for dirpath, dirnames, filenames in os.walk(repo_root):
+        dirnames[:] = sorted(d for d in dirnames if not _is_excluded_dir(d))
+        if "pipeline.yaml" in filenames:
+            found.append(Path(dirpath).relative_to(repo_root).as_posix())
     return sorted(found)
 
 

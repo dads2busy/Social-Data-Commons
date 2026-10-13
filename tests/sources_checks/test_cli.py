@@ -135,3 +135,14 @@ def test_malformed_registry_is_a_clean_error_not_a_traceback(repo, monkeypatch):
         assert "unknown probe 'nope'" in result.output
         assert "Traceback" not in result.output
         assert result.exception is None or isinstance(result.exception, SystemExit)
+
+
+def test_unknown_filter_values_are_errors_not_silent_success(repo, monkeypatch):
+    runner = prepare(repo, monkeypatch)
+    bad_source = runner.invoke(main, ["sources", "check", "--source", "nonexistent_id"])
+    assert bad_source.exit_code == 1, bad_source.output
+    assert "unknown source id" in bad_source.output and "nonexistent_id" in bad_source.output
+    bad_pipeline = runner.invoke(main, ["sources", "check", "--pipeline", "demographics/Agee"])
+    assert bad_pipeline.exit_code == 1, bad_pipeline.output
+    assert "unknown pipeline" in bad_pipeline.output and "demographics/Agee" in bad_pipeline.output
+    assert "STATUS" not in bad_source.output  # nothing was probed

@@ -126,3 +126,20 @@ def test_4xx_fails_immediately():
     with pytest.raises(ProbeError, match="403"):
         request_with_retry(client_with(handler), "GET", URL)
     assert calls["n"] == 1
+
+
+def test_get_fallback_retries_once_on_5xx():
+    body = b"payload"
+    calls = {"GET": 0}
+
+    def handler(request):
+        if request.method == "HEAD":
+            return httpx.Response(200)  # no ETag / Last-Modified
+        calls["GET"] += 1
+        if calls["GET"] == 1:
+            return httpx.Response(503)
+        return httpx.Response(200, content=body)
+
+    obs = PROBES["http_file"].run({"url": URL}, client_with(handler))
+    assert obs.value == hashlib.sha256(body).hexdigest()
+    assert calls["GET"] == 2
