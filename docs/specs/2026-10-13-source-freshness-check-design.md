@@ -12,8 +12,10 @@ the two dashboard repos, or CI tracks upstream state.
 
 ## Background
 
-39 pipelines declare their inputs under `sources:` in `pipeline.yaml`. The declarations
-fall into roughly twelve source families:
+73 pipelines (39 at depth two, 33 nested three to five levels deep under food, housing,
+business_climate and health, plus the depth-one `demographics/pipeline.yaml` umbrella) declare
+their inputs under `sources:` in `pipeline.yaml`. The declarations fall into roughly twelve
+source families:
 
 | Family | Pipelines | Where "latest year" lives today |
 |---|---|---|
@@ -22,6 +24,7 @@ fall into roughly twelve source families:
 | energy (`source:` string, exploratory) | 6 | none |
 | URL-backed files (EJScreen, Vera, PPI, ALICE) | 4 | `url:` + `years:` |
 | one-offs: ookla, county_health_rankings, vdoe, lodes_gravity, bea, cms_puf, vdh_hoi, nchs | 8 | `years:` or none |
+| licensed / live snapshots (Mergent Intellect, OSM, SAMHSA, HIFLD, Feeding America) | 20 | none |
 
 Existing repo-wide operations (`sdc version status`, `sdc zenodo status`, `sdc sync`) all
 report on *our* state. None probe upstream. The existing `sdc_core/sources/` subpackage
@@ -85,8 +88,19 @@ Rules:
   load time. Unknown keys are an error.
 - Pipelines with no registry entry (computed, mixed, energy) are not silently omitted.
   They appear in `check` output as `not_tracked`, and `audit` lists them explicitly.
-- The registry is seeded by hand for all 33 non-energy pipelines as part of this work.
-  `sync-latest` can fill `latest` but cannot choose a probe.
+- The registry is seeded by hand for all 73 pipelines: every pipeline appears under
+  `sources:` or `untracked:`. `sync-latest` can fill `latest` but cannot choose a probe.
+
+A top-level `untracked:` list acknowledges pipelines that intentionally have no probe:
+
+```yaml
+untracked:
+  - {path: energy/DataCenters, reason: exploratory energy category; no upstream release}
+  - {path: transportation/Walkability, reason: computed from other SDC datasets}
+```
+
+`audit` treats these as registered; `check` still lists them as `not_tracked` and shows the
+reason in DETAIL. A pipeline in neither list is an `audit` failure.
 
 ## Section 2: Probes
 
@@ -193,9 +207,9 @@ not_tracked   -          energy/DataCenters                        -      -
   Action will key on.
 
 `audit` prints two lists and exits 1 if either is non-empty: pipelines on disk (any
-directory containing `pipeline.yaml`, excluding `.claude` and worktrees, matching how
-`sdc version status` discovers them) with no registry entry; and registry `path` values
-that do not exist on disk.
+directory containing `pipeline.yaml`, excluding hidden dirs and worktrees, matching how
+`sdc version status` discovers them) that are in neither `sources:` nor `untracked:`; and
+registry paths (either list) that do not exist on disk.
 
 `sync-latest` reads each registered pipeline's `pipeline.yaml`, computes max `years:` for
 the matching source, and rewrites `latest` in the registry. It preserves comments and key
