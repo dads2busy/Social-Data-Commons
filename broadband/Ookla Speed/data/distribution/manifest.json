@@ -1,6 +1,6 @@
 {
-  "version": "2.0.0",
-  "generated": "2026-03-23T19:21:51+00:00",
+  "version": "2.1.0",
+  "generated": "2026-10-13T18:07:19+00:00",
   "schema": [
     "geoid",
     "year",
@@ -27,22 +27,23 @@
     2022,
     2023,
     2024,
-    2025
+    2025,
+    2026
   ],
   "regions": [
     "11",
     "24",
     "51"
   ],
-  "row_count": 409824,
+  "row_count": 468220,
   "files": {
-    "ncr_cttrbg_ookla_2019_2025_broadband_speed.csv.xz": {
-      "sha256": "bf59eb25f19f6a9392e1386e766d8606c774cbbae90975ce82aea1431957d7d9",
-      "size_bytes": 1019016
+    "ncr_cttrbg_ookla_2019_2026_broadband_speed.csv.xz": {
+      "sha256": "f2f776a046d4f114f0900987c2945e7d6d1e26c0747c2a4184cdb8aac4822f9a",
+      "size_bytes": 1155744
     },
-    "va_hdcttr_ookla_2019_2025_broadband_speed.csv.xz": {
-      "sha256": "1d037104f630704ad39295a4f06e13c27b1555c94c08a5309df369f1df19ee77",
-      "size_bytes": 477336
+    "va_hdcttr_ookla_2019_2026_broadband_speed.csv.xz": {
+      "sha256": "1d365b0bd8c238338e738e535d08cfe5e4b4feb6fafe2103e1603bf1653584af",
+      "size_bytes": 548044
     }
   }
 }

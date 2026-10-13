@@ -261,7 +261,8 @@ def to_long_format(wide_df: pd.DataFrame, year: int, service_type: str) -> pd.Da
     # Add prefix (mobile_ or nothing) and _geo20 suffix
     long["measure"] = prefix + long["measure"] + "_geo20"
 
-    return long[["geoid", "year", "measure", "value", "moe", "region_type"]]
+    long["data_method"] = "observed"
+    return long[["geoid", "year", "measure", "value", "moe", "region_type", "data_method"]]
 
 
 def _cache_path(profile: str, service_type: str, year: int, quarter: int) -> Path:

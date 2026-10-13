@@ -1,5 +1,5 @@
 name: ookla_speed
-version: "2.0.0"
+version: "2.1.0"
 zenodo_deposit_id: 19192908
 title: "Ookla Speed"
 description: "Fixed and mobile broadband speed measures from Ookla Speedtest Open Data, derived from quarterly speed test tiles spatially joined to Census 2020 block groups. Fixed tiles include all wired connection types (cable, fiber, DSL, fixed wireless, and satellite). Measures include device-weighted average download and upload speeds (Mb/s) and percentage of devices exceeding broadband thresholds (25/3 Mb/s and 100/20 Mb/s). Block group values are aggregated to Census tracts and counties using simple means."
@@ -9,7 +9,7 @@ sources:
   ncr:
     type: ookla
     profile: NCR
-    years: [2019, 2020, 2021, 2022, 2023, 2024, 2025]
+    years: [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]
     quarters: [1, 2, 3, 4]
     service_types: [fixed, mobile]
     geographies: [block_group, tract, county]
@@ -17,7 +17,7 @@ sources:
   va:
     type: ookla
     profile: VA
-    years: [2019, 2020, 2021, 2022, 2023, 2024, 2025]
+    years: [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]
     quarters: [1, 2, 3, 4]
     service_types: [fixed, mobile]
     geographies: [block_group, tract, county]
