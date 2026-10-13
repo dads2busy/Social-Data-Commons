@@ -6,6 +6,9 @@ Usage:
     sdc run all              # run ingest then prepare
     sdc run all --year 2022  # override year
     sdc info                 # show pipeline config
+    sdc sources check        # upstream freshness report (exit 1 when action is needed)
+    sdc sources audit        # pipelines missing from meta/source_checks.yaml
+    sdc sources sync-latest  # refresh `latest` years from pipeline.yaml
 """
 
 from __future__ import annotations
@@ -297,3 +300,104 @@ def zenodo_status(topic_dir: str | None):
         deposit_id = config.get("zenodo_deposit_id")
         status = f"deposit={deposit_id}" if deposit_id else "not uploaded"
         click.echo(f"{name:<40s} v{ver:<10s} {status}")
+
+
+# ---------------------------------------------------------------------------
+# sdc sources
+# ---------------------------------------------------------------------------
+
+
+@main.group()
+def sources():
+    """Upstream source freshness checks (registry: meta/source_checks.yaml)."""
+    pass
+
+
+@sources.command("check")
+@click.option("--source", "source_ids", multiple=True, help="Only this source id (repeatable)")
+@click.option("--pipeline", "pipelines", multiple=True, help="Only this pipeline path (repeatable)")
+@click.option(
+    "--json",
+    "json_path",
+    type=click.Path(dir_okay=False),
+    default=None,
+    help="Also write the rows to this JSON file",
+)
+@click.option(
+    "--update-state",
+    is_flag=True,
+    help="Record successful observations as the new baseline in meta/source_checks_state.json",
+)
+def sources_check(
+    source_ids: tuple[str, ...],
+    pipelines: tuple[str, ...],
+    json_path: str | None,
+    update_state: bool,
+):
+    """Compare upstream vintages/fingerprints against what each pipeline has ingested.
+
+    Exit 0 when every row is current, baseline, or not_tracked; 1 otherwise.
+    """
+    from sdc_core.sources.checks import run_checks
+    from sdc_core.sources.checks.paths import find_repo_root, registry_path, state_path
+    from sdc_core.sources.checks.registry import load_registry
+    from sdc_core.sources.checks.report import exit_code, render_json, render_table
+    from sdc_core.sources.checks.state import load_state, save_state
+
+    root = find_repo_root()
+    registry = load_registry(registry_path(root))
+    state = load_state(state_path(root))
+    rows, observed = run_checks(
+        registry, state, root, source_filter=set(source_ids), pipeline_filter=set(pipelines)
+    )
+    click.echo(render_table(rows))
+    if json_path:
+        pathlib.Path(json_path).write_text(render_json(rows))
+    if update_state:
+        state.update(observed)
+        save_state(state_path(root), state)
+        click.echo(f"state updated: {state_path(root)}")
+    sys.exit(exit_code(rows))
+
+
+@sources.command("audit")
+def sources_audit():
+    """List pipelines missing from the registry and registry paths missing on disk."""
+    from sdc_core.sources.checks.paths import find_repo_root, registry_path
+    from sdc_core.sources.checks.registry import audit, load_registry
+
+    root = find_repo_root()
+    registry = load_registry(registry_path(root))
+    unregistered, missing = audit(registry, root)
+    if unregistered:
+        click.echo("Pipelines on disk with no registry entry (add under sources: or untracked:):")
+        for path in unregistered:
+            click.echo(f"  {path}")
+    if missing:
+        click.echo("Registry paths not found on disk:")
+        for path in missing:
+            click.echo(f"  {path}")
+    if not unregistered and not missing:
+        click.echo("registry and pipelines on disk agree")
+    sys.exit(1 if unregistered or missing else 0)
+
+
+@sources.command("sync-latest")
+@click.option("--dry-run", is_flag=True, help="Report what would change without writing")
+def sources_sync_latest(dry_run: bool):
+    """Rewrite each vintage pipeline's `latest` from its pipeline.yaml years."""
+    from sdc_core.sources.checks.paths import find_repo_root, registry_path
+    from sdc_core.sources.checks.registry import sync_latest
+
+    root = find_repo_root()
+    changes = sync_latest(registry_path(root), root, dry_run=dry_run)
+    verb = "WOULD SET" if dry_run else "SET"
+    n_changed = 0
+    for sid, path, old, new in changes:
+        if new is None:
+            click.echo(f"UNRESOLVED  {sid:<24s} {path}  (latest stays {old})")
+        elif new != old:
+            n_changed += 1
+            click.echo(f"{verb:<11s} {sid:<24s} {path}  {old} -> {new}")
+    outcome = "would change" if dry_run else "changed"
+    click.echo(f"{len(changes)} vintage pipeline refs checked, {n_changed} {outcome}")
