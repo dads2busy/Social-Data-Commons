@@ -60,6 +60,11 @@ def measure_iri(measure: str) -> URIRef:
     return SDCM[measure]
 
 
+def dataset_iri(dataset_id: str) -> URIRef:
+    """IRI of the qb:DataSet built from a distribution file stem."""
+    return SDCID[f"dataset/{dataset_id}"]
+
+
 def scenario_iri(scenario: str) -> URIRef:
     return SDCID[f"scenario/{scenario}"]
 
@@ -165,7 +170,7 @@ def long_format_to_cube(
     integer_value = pd.api.types.is_integer_dtype(df["value"])
     integer_moe = has_moe and pd.api.types.is_integer_dtype(df["moe"])
 
-    ds = SDCID[f"dataset/{dataset_id}"]
+    ds = dataset_iri(dataset_id)
     dsd = SDCID[f"dataset/{dataset_id}/structure"]
     g.add((ds, RDF.type, QB.DataSet))
     g.add((ds, RDFS.label, Literal(label)))

@@ -106,6 +106,9 @@ uv run pytest energy/DataCentersProjected/code/distribution/test_transforms.py -
 - **One `sdce:ProjectedDataCenter` per point row** (3,770), tied to its scenario. The same
   CERF id in two scenarios is two distinct sites that share an `sdce:sourceId`.
 
+The dashboard CSVs (and the GeoJSON built from them) are **staged from this graph**, not
+copied from `data/distribution/`, and are verified row for row against the distribution CSVs.
+
 The graph is **lossless**. `to_rdf.points_from_graph` and `sdc_rdf.cube_to_long_format`
 rebuild both distribution CSVs from it, and the tests regenerate them from the written
 `.nt.xz` and compare them line by line with the originals. CSVs are read with

@@ -9,11 +9,20 @@ from .cube import (
     add_measure,
     add_scenario,
     cube_to_long_format,
+    dataset_iri,
     long_format_to_cube,
     measure_iri,
     scenario_iri,
 )
-from .io import load_core_ontology, load_core_shapes, read_csv_exact, read_graph, write_graph
+from .io import (
+    assert_same_csv_rows,
+    csv_rows,
+    load_core_ontology,
+    load_core_shapes,
+    read_csv_exact,
+    read_graph,
+    write_graph,
+)
 from .namespaces import GEO, SDC, SDCID, SDCM, bind_prefixes
 from .points import (
     add_point_geometry,
@@ -29,7 +38,7 @@ from .regions import REGION_CLASSES, add_region, add_region_labels_from_geojson,
 
 __all__ = [
     "GEO", "SDC", "SDCID", "SDCM", "REGION_CLASSES",
-    "add_measure", "add_region", "add_region_labels_from_geojson", "add_scenario",
+    "add_measure", "add_region", "assert_same_csv_rows", "csv_rows", "dataset_iri", "add_region_labels_from_geojson", "add_scenario",
     "bind_prefixes", "cube_to_long_format", "load_core_ontology", "load_core_shapes",
     "long_format_to_cube",
     "add_point_geometry", "decimal_literal", "integer_literal", "is_missing", "number_value",

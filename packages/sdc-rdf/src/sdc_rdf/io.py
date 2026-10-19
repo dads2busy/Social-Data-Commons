@@ -72,3 +72,27 @@ def read_csv_exact(path: str | Path) -> pd.DataFrame:
     into the graph and break CSV regeneration. ID columns are read as text.
     """
     return pd.read_csv(path, dtype={c: str for c in ID_COLUMNS}, float_precision="round_trip")
+
+
+def csv_rows(path: str | Path) -> tuple[str, list[str]]:
+    """(header, sorted data lines) of a .csv or .csv.xz file."""
+    path = Path(path)
+    data = path.read_bytes()
+    if path.suffix == ".xz":
+        data = lzma.decompress(data)
+    header, *rows = data.decode("utf-8").splitlines()
+    return header, sorted(rows)
+
+
+def assert_same_csv_rows(regenerated: str | Path, original: str | Path) -> None:
+    """Fail unless two CSVs have the same header and the same rows (in any order).
+
+    Used when staging dashboard files from a graph, to prove the graph-derived
+    CSV matches the distribution CSV it was built from.
+    """
+    (h1, r1), (h2, r2) = csv_rows(regenerated), csv_rows(original)
+    if h1 != h2:
+        raise ValueError(f"{Path(regenerated).name}: header differs from {Path(original).name}")
+    if r1 != r2:
+        diff = len(set(r1) ^ set(r2))
+        raise ValueError(f"{Path(regenerated).name}: {diff} rows differ from {Path(original).name}")
