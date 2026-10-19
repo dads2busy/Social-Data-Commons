@@ -89,3 +89,22 @@ boundary edge cases.
 If a downstream consumer needs lossless geography assignment, switch the
 input shapefile to TIGER full-resolution boundaries (or add a buffer to
 the cartographic polygons).
+
+## RDF output (exploratory)
+
+`prepare.py` also writes `data/distribution/va_ctpt_sim_2030_run30_ev_charging_stations.nt.xz`
+(about 75k triples, sorted N-Triples, xz-compressed) and copies it into
+`dashboard_data/va_energy_data/`. It holds a single graph with:
+
+- **County observations** as an RDF Data Cube (via `packages/sdc-rdf`). The static
+  `datetime = 2030-01-01` is read as the scenario year (`sdc:refPeriod "2030"^^xsd:gYear`),
+  not as a real date.
+- **One `sdce:EVChargingStation` per station** (5,219), with WKT geometry and county. Each
+  station has one `sdce:ChargerGroup` per non-zero charger level, giving the level and
+  count, which mirrors the point CSV's one row per (station, level).
+- **Shared station IRIs.** Stations are `sdcid:ev-station/{station_id}`, the same IRIs
+  EVChargingDemand links its public-station locations to. Loading both graphs joins
+  demand to installed chargers (`rdf/queries/demand_per_public_charger.rq`).
+
+The ontology and SHACL shapes are shared in `energy/rdf/`. `rdf/queries/` holds the
+example queries, including a county count consistency check that the tests assert.

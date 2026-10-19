@@ -51,3 +51,4 @@ as sorted, xz-compressed N-Triples (`.nt.xz`, via `sdc_rdf.write_graph`).
 |---|---|
 | PowerInfrastructure | `va_ctpt_hifld_2026_power_infrastructure.nt.xz` |
 | EVChargingDemand | `va_ctpt_sim_2026_ev_charging_demand.nt.xz` (hour-of-day profile: `refPeriod` year + `sdc:hourOfDay`) |
+| EVChargingStations | `va_ctpt_sim_2030_run30_ev_charging_stations.nt.xz` (static inventory: `refPeriod` = scenario year). Its station IRIs are the targets of EVChargingDemand's `sdce:atStation` links. |

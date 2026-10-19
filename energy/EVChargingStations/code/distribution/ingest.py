@@ -74,7 +74,9 @@ def run() -> None:
     county_csv = TOPIC_DIR / out["county_csv"]
 
     log.info("Reading %s", input_path)
-    stations = pd.read_csv(input_path)
+    # IDs mix numeric and alphanumeric forms; force str so pandas can't parse some
+    # as int and others as str (which split a location in EVChargingDemand).
+    stations = pd.read_csv(input_path, dtype={"ID": str})
     log.info("Loaded %d source stations", len(stations))
 
     log.info("Spatial join with %s", counties_path)

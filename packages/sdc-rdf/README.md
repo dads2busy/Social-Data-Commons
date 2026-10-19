@@ -1,6 +1,6 @@
 # sdc-rdf
 
-RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.2.0).**
+RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.3.0).**
 
 - **Core ontology** (`src/sdc_rdf/ontology/core.ttl`, prefix `sdc:`): regions,
   scenarios, `data_method` values, and the RDF Data Cube components shared by every
@@ -10,7 +10,9 @@ RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.2
   `qb:DataSet` plus one `qb:Observation` per row. It mints a `qb:MeasureProperty`
   for each measure and carries the `measure_info.json` text over. Pass
   `hour_of_day_profile=True` for typical-day hourly files: they get refPeriod = the year
-  plus an `sdc:hourOfDay` dimension, not a fake 1 January timestamp.
+  plus an `sdc:hourOfDay` dimension, not a fake 1 January timestamp. Pass
+  `year_anchor=True` for static scenario files whose `datetime` is a `YYYY-01-01`
+  marker: refPeriod becomes the year.
 - **`write_graph` / `read_graph`**: the format comes from the suffix (`.nt`, `.ttl`, either
   optionally `.xz`). **Pipeline outputs are sorted, xz-compressed N-Triples (`.nt.xz`)**,
   matching the `.csv.xz` convention. They are linear to write, byte-stable across

@@ -1,0 +1,17 @@
+# Counties with the most Level 3 (DC fast) chargers, with their share of all
+# chargers in the county.
+PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?name ?l3Chargers ?allChargers (?l3Chargers / ?allChargers AS ?l3Share) WHERE {
+  {
+    SELECT ?county (SUM(?n) AS ?allChargers)
+           (SUM(IF(?level = sdce:charger-l3, ?n, 0)) AS ?l3Chargers) WHERE {
+      ?st sdce:inCounty ?county ; sdce:hasChargerGroup ?g .
+      ?g sdce:chargerLevel ?level ; sdce:chargerCount ?n .
+    } GROUP BY ?county
+  }
+  ?county rdfs:label ?name .
+}
+ORDER BY DESC(?l3Chargers)
+LIMIT 10

@@ -1,0 +1,22 @@
+# CROSS-PIPELINE: load this graph together with EVChargingDemand's graph.
+# Simulated typical-day charging energy at public stations per installed
+# charger, by county. Demand comes from the 2026 demand scenario and chargers
+# from the 2030 station inventory; they join on the shared sdcid:ev-station IRI.
+PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?name (COUNT(DISTINCT ?st) AS ?stations) (SUM(?kwh) AS ?dailyKWh) (SUM(?chargers) AS ?chargerTotal)
+       (SUM(?kwh) / SUM(?chargers) AS ?kwhPerCharger)
+WHERE {
+  ?loc sdce:atStation ?st ; sdce:typicalDayEnergyKWh ?kwh .
+  {
+    SELECT ?st (SUM(?n) AS ?chargers) WHERE {
+      ?st sdce:hasChargerGroup/sdce:chargerCount ?n .
+    } GROUP BY ?st
+  }
+  ?st sdce:inCounty/rdfs:label ?name .
+}
+GROUP BY ?name
+HAVING (COUNT(DISTINCT ?st) >= 5)
+ORDER BY DESC(?kwhPerCharger)
+LIMIT 10
