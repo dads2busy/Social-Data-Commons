@@ -59,3 +59,16 @@ def test_assert_same_csv_rows(tmp_path):
     b.write_text("h1,h3\n1,x\n2,y\n")
     with pytest.raises(ValueError, match="header"):
         assert_same_csv_rows(a, b)
+
+
+def test_stage_vocabulary(tmp_path):
+    from rdflib import Graph
+
+    from sdc_rdf import stage_vocabulary
+
+    ext = tmp_path / "ext.ttl"
+    ext.write_text("@prefix ex: <https://example.org/> . ex:a ex:b ex:c .\n")
+    written = stage_vocabulary(tmp_path / "vocab", {"sdc-test.ttl": ext})
+    assert sorted(p.name for p in written) == ["sdc-core-shapes.ttl", "sdc-core.ttl", "sdc-test.ttl"]
+    for p in written:
+        Graph().parse(p)  # each one is valid Turtle

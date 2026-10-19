@@ -1,0 +1,296 @@
+# Energy ontology extension, shared by the energy/* pipelines.
+#
+# Builds on the commons core ontology (packages/sdc-rdf, prefix sdc:). County
+# measures need nothing here: they are qb:Observations minted by
+# sdc_rdf.long_format_to_cube. This file models the point-level entities:
+#   - power plants and substations (PowerInfrastructure, HIFLD)
+#   - EV charging locations and stations (EVChargingDemand, EVChargingStations)
+#   - projected data-center sites and their siting scenarios (DataCentersProjected)
+#
+# Namespace IRIs are placeholders (w3id.org/sdc is not registered).
+
+@prefix sdce:    <https://w3id.org/sdc/ns/energy#> .
+@prefix sdc:     <https://w3id.org/sdc/ns#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix geo:     <http://www.opengis.net/ont/geosparql#> .
+@prefix org:     <http://www.w3.org/ns/org#> .
+@prefix qudt:    <http://qudt.org/schema/qudt/> .
+@prefix unit:    <http://qudt.org/vocab/unit/> .
+
+sdce: a owl:Ontology ;
+    rdfs:label "Social Data Commons energy ontology" ;
+    owl:imports sdc: ;
+    owl:versionInfo "0.4.0" .
+
+# ---------------------------------------------------------------------------
+# Shared
+# ---------------------------------------------------------------------------
+
+sdce:inCounty a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:subPropertyOf geo:sfWithin ;
+    rdfs:domain geo:Feature ;
+    rdfs:range sdc:County ;
+    rdfs:label "in county" ;
+    rdfs:comment "County a point feature is assigned to. Each pipeline documents how (source FIPS field, spatial join, nearest polygon)." .
+
+# ---------------------------------------------------------------------------
+# Power facilities (HIFLD). IRI: sdcid:facility/{facility_id}
+# ---------------------------------------------------------------------------
+
+sdce:PowerFacility a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Power facility" ;
+    rdfs:comment "A mapped piece of electric generation or transmission infrastructure." .
+
+sdce:PowerPlant a owl:Class ;
+    rdfs:subClassOf sdce:PowerFacility ;
+    rdfs:label "Power plant" ;
+    rdfs:comment "An electricity-generating facility (HIFLD Power Plants layer, keyed by EIA plant code)." .
+
+sdce:Substation a owl:Class ;
+    rdfs:subClassOf sdce:PowerFacility ;
+    owl:disjointWith sdce:PowerPlant ;
+    rdfs:label "Electric substation" ;
+    rdfs:comment "A facility that switches, transforms or regulates power (HIFLD Electric Substations layer, 69 kV and above)." .
+
+sdce:operatedBy a owl:ObjectProperty ;
+    rdfs:domain sdce:PowerPlant ;
+    rdfs:range org:Organization ;
+    rdfs:label "operated by" .
+
+sdce:operatorName a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain sdce:PowerPlant ;
+    rdfs:range xsd:string ;
+    rdfs:label "operator name (as reported)" ;
+    rdfs:comment "HIFLD OPERATOR text verbatim, including 'NOT AVAILABLE'. sdce:operatedBy links an organization only when a real name is reported." .
+
+sdce:primaryFuel a owl:ObjectProperty ;
+    rdfs:domain sdce:PowerPlant ;
+    rdfs:range sdce:EnergySource ;
+    rdfs:label "primary fuel" ;
+    rdfs:comment "HIFLD PRIM_FUEL, an EIA-860 energy source code." .
+
+sdce:operatingStatus a owl:ObjectProperty ;
+    rdfs:domain sdce:PowerFacility ;
+    rdfs:range sdce:OperatingStatus ;
+    rdfs:label "operating status" .
+
+sdce:operatingCapacityMW a owl:DatatypeProperty ;
+    rdfs:domain sdce:PowerPlant ;
+    rdfs:range xsd:decimal ;
+    qudt:unit unit:MegaW ;
+    rdfs:label "operating capacity (MW)" ;
+    rdfs:comment "HIFLD OPER_CAP. Omitted (not zero) when HIFLD reports no capacity (ingest maps the -999999 sentinel to blank); the county measure total_plant_capacity_mw counts those as 0." .
+
+sdce:maxVoltageKV a owl:DatatypeProperty ;
+    rdfs:domain sdce:Substation ;
+    rdfs:range xsd:decimal ;
+    qudt:unit unit:KiloV ;
+    rdfs:label "maximum voltage (kV)" .
+
+sdce:lineCount a owl:DatatypeProperty ;
+    rdfs:domain sdce:Substation ;
+    rdfs:range xsd:integer ;
+    rdfs:label "connected line count" .
+
+sdce:sourceId a owl:DatatypeProperty ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    rdfs:domain geo:Feature ;
+    rdfs:range xsd:string ;
+    rdfs:label "source identifier" ;
+    rdfs:comment "Identifier in the upstream dataset (EIA plant code for plants, HIFLD ID for substations, CERF site id for projected data centers)." .
+
+# ---------------------------------------------------------------------------
+# EV charging (EVChargingDemand, EVChargingStations)
+# ---------------------------------------------------------------------------
+
+sdce:EVChargingLocation a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "EV charging location" ;
+    rdfs:comment "A location where charging occurs in a simulated EV demand scenario: a public station, a residence, or another site. IRI: sdcid:ev-charging-location/{charging_station_id}." .
+
+sdce:EVChargingStation a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "EV charging station" ;
+    rdfs:comment "A public EV charging station from the simulated station inventory (EVChargingStations). IRI: sdcid:ev-station/{station_id}." .
+
+sdce:fuelTypeCode a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain sdce:EVChargingStation ;
+    rdfs:range xsd:string ;
+    rdfs:label "fuel type code" ;
+    rdfs:comment "Fuel type code from the station inventory (AFDC convention; ELEC for electric charging)." .
+
+sdce:ChargerGroup a owl:Class ;
+    rdfs:label "charger group" ;
+    rdfs:comment "The chargers of one level at one station (one EVChargingStations point row). IRI: sdcid:ev-station/{station_id}/chargers/{level}." .
+
+sdce:hasChargerGroup a owl:ObjectProperty ;
+    rdfs:domain sdce:EVChargingStation ;
+    rdfs:range sdce:ChargerGroup ;
+    rdfs:label "has charger group" .
+
+sdce:chargerLevel a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain sdce:ChargerGroup ;
+    rdfs:range sdce:ChargerLevel ;
+    rdfs:label "charger level" .
+
+sdce:chargerCount a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain sdce:ChargerGroup ;
+    rdfs:range xsd:integer ;
+    rdfs:label "charger count" ;
+    rdfs:comment "Number of chargers of this level at the station (at least 1; zero-count levels have no group)." .
+
+sdce:atStation a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain sdce:EVChargingLocation ;
+    rdfs:range sdce:EVChargingStation ;
+    rdfs:label "at station" ;
+    rdfs:comment "Links a demand-scenario location to the public station it represents (matched on the va_<n>_existing station id)." .
+
+sdce:locationType a owl:ObjectProperty ;
+    rdfs:domain sdce:EVChargingLocation ;
+    rdfs:range sdce:EVLocationType ;
+    rdfs:label "location type" ;
+    rdfs:comment "Heuristic class inferred from the charging_station_id format, not from authoritative metadata." .
+
+sdce:typicalDayEnergyKWh a owl:DatatypeProperty ;
+    rdfs:domain sdce:EVChargingLocation ;
+    rdfs:range xsd:decimal ;
+    qudt:unit unit:KiloW-HR ;
+    rdfs:label "typical-day charging energy (kWh)" ;
+    rdfs:comment "Energy delivered at the location summed over the 24 hours of the scenario's typical-day profile." .
+
+sdce:activeHours a owl:DatatypeProperty ;
+    rdfs:domain sdce:EVChargingLocation ;
+    rdfs:range xsd:integer ;
+    rdfs:label "active hours" ;
+    rdfs:comment "Number of typical-day hours (0-24) with non-zero charging energy at the location." .
+
+# ---------------------------------------------------------------------------
+# Projected data centers (DataCentersProjected, IM3 CERF)
+# ---------------------------------------------------------------------------
+
+sdce:ProjectedDataCenter a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Projected data center" ;
+    rdfs:comment "A hypothetical data-center site placed by the IM3 CERF siting model in one scenario (sdc:scenario). Each scenario is an independent re-siting: sites in different scenarios are distinct even when they share a CERF id (sdce:sourceId). IRI: sdcid:projected-data-center/{facility_id}." .
+
+sdce:growthTier a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain sdc:Scenario ;
+    rdfs:range sdce:GrowthTier ;
+    rdfs:label "demand growth tier" .
+
+sdce:marketGravityWeight a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain sdc:Scenario ;
+    rdfs:range xsd:integer ;
+    rdfs:label "market gravity weight" ;
+    rdfs:comment "Weight (0-100) of market proximity relative to locational cost in the CERF siting score." .
+
+sdce:campusAreaSqFt a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    qudt:unit unit:FT2 ; rdfs:label "campus area (sq ft)" .
+sdce:itPowerMW a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    qudt:unit unit:MegaW ; rdfs:label "IT power (MW)" .
+sdce:coolingEnergyDemandMWh a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    qudt:unit unit:MegaW-HR ; rdfs:label "cooling energy demand (MWh)" .
+sdce:coolingWaterDemandMGY a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "cooling water demand (million gallons per year)" .
+sdce:coolingWaterConsumptionMGY a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "cooling water consumption (million gallons per year)" .
+sdce:mechanicalCoolingFraction a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "mechanical cooling fraction" .
+sdce:waterCoolingFraction a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "water cooling fraction" .
+sdce:siteCostMillionUSD a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "siting cost (million USD)" .
+sdce:normalizedGravityScore a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "normalized market gravity score" .
+sdce:normalizedLocationalCost a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "normalized locational cost" .
+sdce:weightedSitingScore a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "weighted siting score" .
+
+# ---------------------------------------------------------------------------
+# Code lists
+# ---------------------------------------------------------------------------
+
+sdce:EnergySource a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "Energy source" .
+sdce:OperatingStatus a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "Operating status" .
+
+sdce:renewable a owl:DatatypeProperty ;
+    rdfs:domain sdce:EnergySource ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "renewable" .
+
+sdce:EnergySourceScheme a skos:ConceptScheme ;
+    rdfs:label "EIA-860 energy source codes (subset present in VA HIFLD data)" ;
+    dcterms:source <https://www.eia.gov/survey/form/eia_860/instructions.pdf> .
+
+sdce:OperatingStatusScheme a skos:ConceptScheme ;
+    rdfs:label "Facility operating status (EIA-860 plant codes + HIFLD substation labels)" .
+
+sdce:fuel-SUN a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "SUN" ; skos:prefLabel "Solar" ; sdce:renewable true .
+sdce:fuel-WND a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "WND" ; skos:prefLabel "Wind" ; sdce:renewable true .
+sdce:fuel-WAT a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "WAT" ; skos:prefLabel "Water (hydroelectric)" ; sdce:renewable true .
+sdce:fuel-LFG a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "LFG" ; skos:prefLabel "Landfill gas" ; sdce:renewable true .
+sdce:fuel-OBG a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "OBG" ; skos:prefLabel "Other biomass gas" ; sdce:renewable true .
+sdce:fuel-WDS a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "WDS" ; skos:prefLabel "Wood / wood waste solids" ; sdce:renewable true .
+sdce:fuel-BLQ a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "BLQ" ; skos:prefLabel "Black liquor" ; sdce:renewable true .
+sdce:fuel-MSW a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "MSW" ; skos:prefLabel "Municipal solid waste" ; sdce:renewable true .
+sdce:fuel-NUC a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "NUC" ; skos:prefLabel "Nuclear" ; sdce:renewable false .
+sdce:fuel-NG  a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "NG"  ; skos:prefLabel "Natural gas" ; sdce:renewable false .
+sdce:fuel-BIT a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "BIT" ; skos:prefLabel "Bituminous coal" ; sdce:renewable false .
+sdce:fuel-DFO a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "DFO" ; skos:prefLabel "Distillate fuel oil" ; sdce:renewable false .
+sdce:fuel-NOT_AVAILABLE a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "NOT AVAILABLE" ;
+    skos:prefLabel "Not available (as reported by HIFLD)" .
+sdce:fuel-RFO a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "RFO" ; skos:prefLabel "Residual fuel oil" ; sdce:renewable false .
+
+sdce:status-OP a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "OP" ; skos:prefLabel "Operating" .
+sdce:status-SB a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "SB" ; skos:prefLabel "Standby / backup" .
+sdce:status-OA a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "OA" ; skos:prefLabel "Out of service, expected to return next year" .
+sdce:status-OS a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "OS" ; skos:prefLabel "Out of service, not expected to return next year" .
+sdce:status-RE a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "RE" ; skos:prefLabel "Retired" .
+sdce:status-P  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "P"  ; skos:prefLabel "Planned, regulatory approvals not initiated" .
+sdce:status-L  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "L"  ; skos:prefLabel "Planned, regulatory approvals pending" .
+sdce:status-T  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "T"  ; skos:prefLabel "Planned, regulatory approvals received" .
+sdce:status-U  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "U"  ; skos:prefLabel "Under construction (<= 50% complete)" .
+sdce:status-NOT_AVAILABLE a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "NOT AVAILABLE" ;
+    skos:prefLabel "Not available (as reported by HIFLD)" .
+sdce:status-IN_SERVICE  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "IN SERVICE"  ; skos:prefLabel "In service" ; skos:closeMatch sdce:status-OP .
+sdce:status-UNDER_CONST a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "UNDER CONST" ; skos:prefLabel "Under construction" .
+
+sdce:EVLocationType a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "EV charging location type" .
+
+sdce:EVLocationTypeScheme a skos:ConceptScheme ;
+    rdfs:label "EV charging location types (inferred from charging_station_id format)" .
+
+sdce:evloc-public_station a sdce:EVLocationType ; skos:inScheme sdce:EVLocationTypeScheme ; skos:notation "public_station" ;
+    skos:prefLabel "Public station" ; skos:definition "ID matches va_<digits>_existing." .
+sdce:evloc-residential_or_other a sdce:EVLocationType ; skos:inScheme sdce:EVLocationTypeScheme ; skos:notation "residential_or_other" ;
+    skos:prefLabel "Residential or other" ; skos:definition "Purely numeric ID: a residence or other simulated, non-public location." .
+sdce:evloc-unknown a sdce:EVLocationType ; skos:inScheme sdce:EVLocationTypeScheme ; skos:notation "unknown" ;
+    skos:prefLabel "Unknown" ; skos:definition "Any other ID format." .
+
+sdce:ChargerLevel a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "EV charger level" .
+
+sdce:ChargerLevelScheme a skos:ConceptScheme ;
+    rdfs:label "EV charger levels" .
+
+sdce:charger-l1 a sdce:ChargerLevel ; skos:inScheme sdce:ChargerLevelScheme ; skos:notation "l1" ;
+    skos:prefLabel "Level 1" ; skos:definition "120 V AC; slowest, typically overnight residential charging." .
+sdce:charger-l2 a sdce:ChargerLevel ; skos:inScheme sdce:ChargerLevelScheme ; skos:notation "l2" ;
+    skos:prefLabel "Level 2" ; skos:definition "240 V AC; the common public and workplace charging speed." .
+sdce:charger-l3 a sdce:ChargerLevel ; skos:inScheme sdce:ChargerLevelScheme ; skos:notation "l3" ;
+    skos:prefLabel "Level 3 (DC fast)" ; skos:definition "DC fast charging." .
+
+sdce:GrowthTier a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "Data-center demand growth tier" .
+
+sdce:GrowthTierScheme a skos:ConceptScheme ;
+    rdfs:label "IM3 CERF data-center demand growth tiers (annual demand growth from 2023)" .
+
+sdce:growth-low      a sdce:GrowthTier ; skos:inScheme sdce:GrowthTierScheme ; skos:notation "low"      ; skos:prefLabel "Low growth" .
+sdce:growth-moderate a sdce:GrowthTier ; skos:inScheme sdce:GrowthTierScheme ; skos:notation "moderate" ; skos:prefLabel "Moderate growth" .
+sdce:growth-high     a sdce:GrowthTier ; skos:inScheme sdce:GrowthTierScheme ; skos:notation "high"     ; skos:prefLabel "High growth" .
+sdce:growth-higher   a sdce:GrowthTier ; skos:inScheme sdce:GrowthTierScheme ; skos:notation "higher"   ; skos:prefLabel "Higher growth" .

@@ -17,6 +17,7 @@ from sdc_rdf import (
     dataset_iri,
     read_csv_exact,
     read_graph,
+    stage_vocabulary,
     write_graph,
 )
 from to_rdf import build_graph, points_from_graph
@@ -25,7 +26,8 @@ THIS_DIR = Path(__file__).resolve().parent
 TOPIC_DIR = THIS_DIR.parents[1]
 REPO_DIR = TOPIC_DIR.parents[1]
 DASHBOARD_DIR = REPO_DIR / "dashboard_data" / "va_energy_data"
-ONTOLOGY = TOPIC_DIR.parent / "rdf" / "ontology.ttl"
+ENERGY_RDF_DIR = TOPIC_DIR.parent / "rdf"
+ONTOLOGY = ENERGY_RDF_DIR / "ontology.ttl"
 MEASURE_INFO = TOPIC_DIR / "measure_info.json"
 
 log = get_logger("power_infrastructure.prepare")
@@ -83,6 +85,10 @@ def write_rdf(config: dict, point_csv: Path, county_csv: Path) -> Path:
     graph_path = write_graph(graph, TOPIC_DIR / out["rdf_graph"])
     log.info("Wrote %s (%d triples)", graph_path, len(graph))
     shutil.copy2(graph_path, DASHBOARD_DIR / graph_path.name)
+    stage_vocabulary(DASHBOARD_DIR / "vocabulary", {
+        "sdc-energy.ttl": ENERGY_RDF_DIR / "ontology.ttl",
+        "sdc-energy-shapes.ttl": ENERGY_RDF_DIR / "shapes.ttl",
+    })
     return graph_path
 
 

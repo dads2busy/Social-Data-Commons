@@ -1,6 +1,6 @@
 # sdc-rdf
 
-RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.6.0).**
+RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.7.0).**
 
 - **Core ontology** (`src/sdc_rdf/ontology/core.ttl`, prefix `sdc:`): regions,
   scenarios, `data_method` values, and the RDF Data Cube components shared by every
@@ -31,6 +31,8 @@ RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.6
 - **`assert_same_csv_rows`**: checks that a graph-derived CSV matches the distribution CSV
   it came from (same header and rows, in any order). Pipelines run it when they stage
   dashboard files from the graph.
+- **`stage_vocabulary`**: copies the core ontology and shapes (plus a domain's extension
+  files) next to published graphs, so a download includes the vocabulary it uses.
 - **SHACL shapes** (`src/sdc_rdf/shapes/core.ttl`) for the cube output.
 
 Pipeline-specific entities (e.g. energy facilities) are pipeline-level ontology

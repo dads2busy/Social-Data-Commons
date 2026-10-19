@@ -21,6 +21,7 @@ from .io import (
     load_core_shapes,
     read_csv_exact,
     read_graph,
+    stage_vocabulary,
     write_graph,
 )
 from .namespaces import GEO, SDC, SDCID, SDCM, bind_prefixes
@@ -43,5 +44,5 @@ __all__ = [
     "long_format_to_cube",
     "add_point_geometry", "decimal_literal", "integer_literal", "is_missing", "number_value",
     "point_lat_lon", "ref_year", "year_literal",
-    "measure_iri", "read_csv_exact", "read_graph", "region_iri", "scenario_iri", "write_graph",
+    "measure_iri", "read_csv_exact", "read_graph", "region_iri", "scenario_iri", "stage_vocabulary", "write_graph",
 ]
