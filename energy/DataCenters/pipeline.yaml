@@ -9,7 +9,12 @@ source:
   snapshot_year: 2026
   state_filter: VA                       # filters rows by state_abb
   input_file: data/original/im3_atlas_data_centers.csv
+  source_url: "https://data.msdlive.org/records/p147s-4h760"  # IM3 atlas record (provenance in the RDF graph)
+
+geographies:
+  va_counties: "geographies/VA/Census Geographies/County/2020/data/distribution/va_geo_census_cb_2020_counties.geojson"
 
 output:
   point_csv: data/distribution/va_pt_im3_2026_data_centers.csv.xz
   county_csv: data/distribution/va_ct_im3_2026_data_centers.csv.xz
+  rdf_graph: data/distribution/va_ctpt_im3_2026_data_centers.nt.xz  # county cube + data center records

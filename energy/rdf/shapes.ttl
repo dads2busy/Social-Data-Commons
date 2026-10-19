@@ -84,3 +84,16 @@ sdce:CerfScenarioShape a sh:NodeShape ;
     sh:targetSubjectsOf sdce:growthTier ;
     sh:property [ sh:path sdce:growthTier ; sh:class sdce:GrowthTier ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path sdce:marketGravityWeight ; sh:datatype xsd:integer ; sh:minInclusive 0 ; sh:maxInclusive 100 ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+sdce:DataCenterRecordShape a sh:NodeShape ;
+    sh:targetClass sdce:DataCenterRecord ;
+    sh:property [ sh:path dcterms:identifier ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path rdfs:label ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:inCounty ; sh:class sdc:County ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path geo:hasGeometry ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdc:refPeriod ; sh:datatype xsd:gYear ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:recordType ; sh:class sdce:DataCenterRecordType ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:sourceId ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:facilityAreaSqFt ; sh:datatype xsd:decimal ; sh:minInclusive 0 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:operatorName ; sh:datatype xsd:string ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:operatedBy ; sh:class org:Organization ; sh:maxCount 1 ] .

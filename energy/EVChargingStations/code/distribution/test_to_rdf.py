@@ -122,6 +122,8 @@ def test_consistency_query_flags_mismatch():
     assert list(g.query(query)) == []
     g, _ = build(county=COUNTY.assign(value=[7.0, 1.0, 1.0, 1.0]))
     assert len(list(g.query(query))) == 1
+    phantom = pd.concat([COUNTY, COUNTY.iloc[[0, 1]].assign(geoid="51999")], ignore_index=True)
+    assert len(list(build(county=phantom)[0].query(query))) == 1  # counts but no stations
 
 
 # --- distribution data -------------------------------------------------------

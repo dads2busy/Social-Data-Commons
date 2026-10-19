@@ -23,7 +23,8 @@ sdc:MeasureShape a sh:NodeShape ;
 
 sdc:RegionShape a sh:NodeShape ;
     sh:targetClass sdc:Region ;
-    sh:property [ sh:path sdc:geoid ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] .
+    sh:property [ sh:path sdc:geoid ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdc:vintage ; sh:datatype xsd:gYear ; sh:maxCount 1 ] .
 
 sdc:DataSetShape a sh:NodeShape ;
     sh:targetClass qb:DataSet ;

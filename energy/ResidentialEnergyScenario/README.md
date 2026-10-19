@@ -98,3 +98,33 @@ uv run pytest energy/ResidentialEnergyScenario/code/distribution/test_transforms
 - **No net load measure.** Future addition once load and generation are validated.
 - **No multi-scenario support.** Single scenario; multi-scenario follows the DataCentersProjected pattern when needed.
 - **No `hh_unit_wt` weighting.** County totals use simple ratio scaling, matching the PV scaling approach.
+
+## RDF output (exploratory, lossless)
+
+`prepare.py` builds `data/distribution/va_cttr_sim_2030_residential_energy_scenario.nt.xz`
+(about 0.5M triples, sorted N-Triples, xz-compressed) and copies it into
+`dashboard_data/va_energy_data/`. The combined CSV mixes two period conventions, so the graph
+holds **two RDF Data Cube datasets**:
+
+- `…/static`: the adoption rates and household counts (`datetime = 2030-01-01`, read as
+  the scenario year)
+- `…/hourly`: `pv_generation_kwh` as a typical-day profile (year plus `sdc:hourOfDay`)
+
+The graph holds only the published county and tract aggregates: no point data and no
+household microdata. The dashboard CSV is **staged from the graph** (`to_rdf.long_format_from_graph`
+stitches the two datasets back together) and verified row for row against the distribution CSV.
+
+### Known data issues (found during the RDF conversion, not yet fixed)
+
+- **Tracts are 2010-vintage.** All 1,872 tract GEOIDs are 2010 Census tracts, and 268 of
+  them (699,090 of 3,094,255 synthetic households) do not exist in the 2020 tract file.
+  The commons standard is 2020 geographies, and the dashboard's tract map uses 2020
+  boundaries, so those tracts cannot be drawn there. The graph labels them as 2010 tracts
+  (`sdcid:tract-2010/{geoid}` with `sdc:vintage`; `geographies.tract_vintage` in
+  `pipeline.yaml`). Converting the pipeline to 2020 tracts (e.g. with `sdc-census10to20`)
+  would change the published outputs and needs a decision.
+- **County PV generation is not the sum of its tracts.** Household counts add up exactly
+  (asserted in tests via `rdf/queries/county_tract_household_consistency.rq`), but daily
+  `pv_generation_kwh` tract sums range from 0.24× to 1.23× the county value (median
+  0.99). This may be intended, if county values come from county-level profiles; confirm
+  with the source authors.

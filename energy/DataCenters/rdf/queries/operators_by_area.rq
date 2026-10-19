@@ -1,0 +1,16 @@
+# Data center operators in Virginia ranked by total facility area, counting
+# building and campus records only (point records carry no footprint).
+PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?operator (COUNT(?r) AS ?records) (COUNT(DISTINCT ?county) AS ?counties)
+       (SUM(?sqft) AS ?totalSqFt)
+WHERE {
+  ?r a sdce:DataCenterRecord ; sdce:operatedBy/rdfs:label ?operator ;
+     sdce:inCounty ?county ; sdce:facilityAreaSqFt ?sqft ;
+     sdce:recordType ?t .
+  FILTER (?t IN (sdce:dcrecord-building, sdce:dcrecord-campus))
+}
+GROUP BY ?operator
+ORDER BY DESC(?totalSqFt)
+LIMIT 10

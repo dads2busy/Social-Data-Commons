@@ -20,7 +20,7 @@
 sdc: a owl:Ontology ;
     rdfs:label "Social Data Commons core ontology" ;
     dcterms:description "Regions, scenarios, data methods and statistical-observation structure shared by all Social Data Commons pipelines." ;
-    owl:versionInfo "0.7.0" .
+    owl:versionInfo "0.8.0" .
 
 # ---------------------------------------------------------------------------
 # Regions. IRI: sdcid:{region_type}/{geoid}
@@ -29,7 +29,7 @@ sdc: a owl:Ontology ;
 sdc:Region a owl:Class ;
     rdfs:subClassOf geo:Feature ;
     rdfs:label "Region" ;
-    rdfs:comment "A geography identified by a GEOID (Census-standardized 2020 FIPS, or a health district code)." .
+    rdfs:comment "A geography identified by a GEOID (Census-standardized 2020 FIPS, or a health district code). Regions on other Census vintages carry sdc:vintage and a vintage-qualified IRI (sdcid:{region_type}-{year}/{geoid})." .
 
 sdc:County a owl:Class ; rdfs:subClassOf sdc:Region ;
     rdfs:label "County" ; rdfs:comment "County or county-equivalent (incl. Virginia independent cities); region_type `county`." .
@@ -39,6 +39,12 @@ sdc:BlockGroup a owl:Class ; rdfs:subClassOf sdc:Region ;
     rdfs:label "Census block group" ; rdfs:comment "region_type `block_group`." .
 sdc:HealthDistrict a owl:Class ; rdfs:subClassOf sdc:Region ;
     rdfs:label "Health district" ; rdfs:comment "Virginia Department of Health district; region_type `health_district`." .
+
+sdc:vintage a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain sdc:Region ;
+    rdfs:range xsd:gYear ;
+    rdfs:label "Census vintage" ;
+    rdfs:comment "Census boundary vintage of a region that is not on 2020 boundaries (e.g. 2010 tracts). Absent means 2020." .
 
 sdc:geoid a owl:DatatypeProperty ;
     rdfs:subPropertyOf dcterms:identifier ;

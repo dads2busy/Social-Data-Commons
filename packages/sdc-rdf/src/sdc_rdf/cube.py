@@ -28,7 +28,7 @@ from rdflib.namespace import PROV, QB, SKOS
 
 from .namespaces import SDC, SDCID, SDCM
 from .points import decimal_literal, integer_literal
-from .regions import REGION_CLASSES, add_region
+from .regions import REGION_CLASSES, add_region, region_iri
 
 REQUIRED_COLUMNS = ["geoid", "measure", "value", "region_type", "data_method"]
 
@@ -143,6 +143,7 @@ def long_format_to_cube(
     hour_of_day_profile: bool = False,
     year_anchor: bool = False,
     default_scenario: str | None = None,
+    region_vintages: Mapping[str, int] | None = None,
 ) -> URIRef:
     """Add one qb:DataSet (with its structure) and one qb:Observation per row of ``df``.
 
@@ -150,8 +151,9 @@ def long_format_to_cube(
     ``va_ct_hifld_2026_power_infrastructure``); it scopes the dataset,
     structure and observation IRIs. Set ``hour_of_day_profile`` or ``year_anchor``
     for energy files that follow those conventions (see module docstring).
-    ``default_scenario`` marks the scenario a dashboard should show first. Returns
-    the dataset IRI.
+    ``default_scenario`` marks the scenario a dashboard should show first.
+    ``region_vintages`` gives the Census vintage of region types that are not on
+    2020 boundaries, e.g. ``{"tract": 2010}``. Returns the dataset IRI.
     """
     missing = [c for c in REQUIRED_COLUMNS if c not in df.columns]
     if "year" not in df.columns and "datetime" not in df.columns:
@@ -164,6 +166,7 @@ def long_format_to_cube(
         raise ValueError(f"long-format frame is missing columns: {missing}")
 
     measure_info = measure_info or {}
+    region_vintages = region_vintages or {}
     has_scenario = "scenario" in df.columns
     has_moe = "moe" in df.columns
     # Integer-typed columns stay xsd:integer so the inverse can restore "24" rather than "24.0".
@@ -208,8 +211,9 @@ def long_format_to_cube(
     seen_scenarios: set[str] = set()
     for row in df.to_dict("records"):
         geoid, region_type, measure = str(row["geoid"]), row["region_type"], row["measure"]
+        area = region_iri(region_type, geoid, region_vintages.get(region_type))
         if (region_type, geoid) not in seen_regions:
-            add_region(g, region_type, geoid)
+            add_region(g, region_type, geoid, vintage=region_vintages.get(region_type))
             seen_regions.add((region_type, geoid))
         hour = None
         if hour_of_day_profile:
@@ -232,7 +236,7 @@ def long_format_to_cube(
         m = measure_iri(measure)
         g.add((obs, RDF.type, QB.Observation))
         g.add((obs, QB.dataSet, ds))
-        g.add((obs, SDC.refArea, SDCID[f"{region_type}/{geoid}"]))
+        g.add((obs, SDC.refArea, area))
         g.add((obs, SDC.refPeriod, period))
         if hour is not None:
             g.add((obs, SDC.hourOfDay, Literal(hour, datatype=XSD.integer)))

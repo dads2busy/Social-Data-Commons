@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - 2026-10-19
+
+### Added
+- Region vintages: `region_iri` / `add_region` / `add_region_labels_from_geojson` take `vintage=`,
+  and `long_format_to_cube` takes `region_vintages={"tract": 2010}`. Non-2020 regions get a
+  vintage-qualified IRI (`sdcid:tract-2010/{geoid}`) and `sdc:vintage`, so a GEOID reused across
+  vintages never names the same node. 2020 IRIs are unchanged.
+
 ## [0.7.0] - 2026-10-19
 
 ### Added

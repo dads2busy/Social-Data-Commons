@@ -269,3 +269,23 @@ def test_integer_values_round_trip_as_integers():
     assert pd.api.types.is_integer_dtype(back["value"]) and sorted(back["value"]) == [24, 31]
     floats = _round_trip(STATIC.assign(value=[24.0, 31.0]), year_anchor=True)
     assert pd.api.types.is_float_dtype(floats["value"])
+
+
+def test_region_vintage_qualifies_iri_and_round_trips():
+    from sdc_rdf import cube_to_long_format
+
+    tracts = STANDARD.assign(geoid=["51001090100", "51001090100", "51001090200"], region_type="tract")
+    g = Graph()
+    ds = long_format_to_cube(g, tracts, dataset_id="d", label="L", region_vintages={"tract": 2010})
+    t = SDCID["tract-2010/51001090100"]
+    assert (t, SDC.vintage, Literal("2010", datatype=XSD.gYear)) in g
+    assert (SDCID["tract/51001090100"], None, None) not in g
+    assert conforms(g)
+    back = cube_to_long_format(g, ds)
+    assert sorted(back["geoid"]) == sorted(tracts["geoid"]) and set(back["region_type"]) == {"tract"}
+
+
+def test_default_vintage_iris_unchanged():
+    from sdc_rdf import region_iri
+
+    assert region_iri("county", "51001") == region_iri("county", "51001", 2020) == SDCID["county/51001"]

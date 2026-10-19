@@ -113,6 +113,14 @@ def test_small_float_is_valid_decimal():
     assert str(lit) == "0.000005" and float(lit.toPython()) == 5e-06
 
 
+def test_consistency_query_flags_counts_without_sites():
+    query = (TOPIC_DIR / "rdf/queries/county_count_consistency.rq").read_text()
+    assert list(build().query(query)) == []
+    phantom = pd.concat([COUNTY, COUNTY.iloc[[0]].assign(geoid="51999")], ignore_index=True)
+    rows = list(build(county=phantom).query(query))
+    assert [str(r.county) for r in rows] == [str(SDCID["county/51999"])]
+
+
 def test_scenario_label_mismatch_rejected():
     bad = POINTS.assign(market_gravity_weight=[0, 25, 50])
     with pytest.raises(ValueError, match="disagree"):

@@ -1,16 +1,17 @@
 # Cross-check: for every (county, scenario), does projected_data_center_count
-# equal the number of projected sites? Returns mismatches (expect zero rows;
-# test_to_rdf.py asserts this).
+# equal the number of projected sites? Returns mismatches, including counts
+# for which no sites exist at all (expect zero rows; test_to_rdf.py asserts this).
 PREFIX sdc:  <https://w3id.org/sdc/ns#>
 PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
 PREFIX sdcm: <https://w3id.org/sdc/measure/>
 
 SELECT ?county ?scenario ?published ?sites WHERE {
   ?obs sdc:refArea ?county ; sdc:scenario ?scenario ; sdcm:projected_data_center_count ?published .
-  {
-    SELECT ?county ?scenario (COUNT(?site) AS ?sites) WHERE {
+  OPTIONAL {
+    SELECT ?county ?scenario (COUNT(?site) AS ?n) WHERE {
       ?site a sdce:ProjectedDataCenter ; sdce:inCounty ?county ; sdc:scenario ?scenario .
     } GROUP BY ?county ?scenario
   }
+  BIND (COALESCE(?n, 0) AS ?sites)
   FILTER (?published != ?sites)
 }

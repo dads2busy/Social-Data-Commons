@@ -51,8 +51,8 @@ as sorted, xz-compressed N-Triples (`.nt.xz`, via `sdc_rdf.write_graph`).
 the distribution CSVs, reads the published `.nt.xz` back, and writes the dashboard CSVs in
 `dashboard_data/va_energy_data/` from it (`stage_from_graph`). Each staged CSV is checked row for
 row against its distribution CSV with `sdc_rdf.assert_same_csv_rows`, so a lossy graph fails the run.
-GeoJSON overlays and `scenarios.json` are built from the staged files. DataCenters and
-ResidentialEnergyScenario have no graph yet and still copy their CSVs.
+GeoJSON overlays and `scenarios.json` are built from the staged files. All six energy pipelines
+work this way.
 
 County cubes round-trip through `sdc_rdf.cube_to_long_format`, tested per pipeline.
 Point data round-trips too: each pipeline's `to_rdf.points_from_graph` rebuilds its point CSV, and
@@ -64,3 +64,5 @@ the tests regenerate both CSVs from the graph and compare them line by line with
 | EVChargingDemand | `va_ctpt_sim_2026_ev_charging_demand.nt.xz` (hour-of-day profile: `refPeriod` year + `sdc:hourOfDay`) |
 | EVChargingStations | `va_ctpt_sim_2030_run30_ev_charging_stations.nt.xz` (static inventory: `refPeriod` = scenario year). Its station IRIs are the targets of EVChargingDemand's `sdce:atStation` links. |
 | DataCentersProjected | `va_ctpt_im3_2035_data_centers_projected.nt.xz` (20 scenarios, `sdc:defaultScenario`; lossless: both CSVs regenerate from the graph) |
+| DataCenters | `va_ctpt_im3_2026_data_centers.nt.xz` (IM3 atlas records: point / building / campus) |
+| ResidentialEnergyScenario | `va_cttr_sim_2030_residential_energy_scenario.nt.xz` (static + hourly datasets; county and **2010-vintage** tracts) |

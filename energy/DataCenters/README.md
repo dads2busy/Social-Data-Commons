@@ -73,3 +73,21 @@ uv run pytest energy/DataCenters/code/distribution/test_transforms.py -v
 - **Counts are records, not unique physical facilities.** A facility represented in OSM as both a building and a campus contributes 2 to `total_data_center_count`. The per-geometry-type measures don't have this issue. Future work could dedupe on `ref`.
 - **sqft is NaN for many point records** (points have no polygon area). These are treated as 0 in `total_data_center_sqft`, so the per-county sqft is a lower bound on actual facility area.
 - **VA is a known data-center hotspot.** Loudoun County (`51107`) hosts the world's largest data center concentration. Expect 51107 to dominate every measure.
+
+## RDF output (exploratory, lossless)
+
+`prepare.py` builds `data/distribution/va_ctpt_im3_2026_data_centers.nt.xz` (sorted N-Triples,
+xz-compressed) and copies it into `dashboard_data/va_energy_data/`:
+
+- **County observations** as an RDF Data Cube (via `packages/sdc-rdf`), with the atlas
+  snapshot date (`2026-02-09`) as the reference period and the MSDLive record as provenance.
+- **One `sdce:DataCenterRecord` per point row** (319). Each is typed point, building or
+  campus (`sdce:recordType`); a facility can have several records. Operators are kept
+  verbatim (`sdce:operatorName`) and linked as `org:Organization` nodes.
+
+The dashboard CSVs and GeoJSON are **staged from this graph** and verified row for row
+against the distribution CSVs. The graph is **lossless**: `to_rdf.points_from_graph` and
+`sdc_rdf.cube_to_long_format` rebuild both CSVs, and `state_abb` (always `VA`) is checked
+on the way in and regenerated on the way out. The ontology and shapes are shared in
+`energy/rdf/`; `rdf/queries/` has a county count check (asserted in tests, with planted
+mismatches) and an operators-by-area example.

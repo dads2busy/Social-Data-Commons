@@ -6,6 +6,7 @@
 #   - power plants and substations (PowerInfrastructure, HIFLD)
 #   - EV charging locations and stations (EVChargingDemand, EVChargingStations)
 #   - projected data-center sites and their siting scenarios (DataCentersProjected)
+#   - existing data-center records from the IM3 atlas (DataCenters)
 #
 # Namespace IRIs are placeholders (w3id.org/sdc is not registered).
 
@@ -24,7 +25,7 @@
 sdce: a owl:Ontology ;
     rdfs:label "Social Data Commons energy ontology" ;
     owl:imports sdc: ;
-    owl:versionInfo "0.4.0" .
+    owl:versionInfo "0.5.0" .
 
 # ---------------------------------------------------------------------------
 # Shared
@@ -58,15 +59,15 @@ sdce:Substation a owl:Class ;
     rdfs:comment "A facility that switches, transforms or regulates power (HIFLD Electric Substations layer, 69 kV and above)." .
 
 sdce:operatedBy a owl:ObjectProperty ;
-    rdfs:domain sdce:PowerPlant ;
+    rdfs:domain geo:Feature ;
     rdfs:range org:Organization ;
     rdfs:label "operated by" .
 
 sdce:operatorName a owl:DatatypeProperty, owl:FunctionalProperty ;
-    rdfs:domain sdce:PowerPlant ;
+    rdfs:domain geo:Feature ;
     rdfs:range xsd:string ;
     rdfs:label "operator name (as reported)" ;
-    rdfs:comment "HIFLD OPERATOR text verbatim, including 'NOT AVAILABLE'. sdce:operatedBy links an organization only when a real name is reported." .
+    rdfs:comment "Operator text verbatim from the source (e.g. HIFLD OPERATOR, including 'NOT AVAILABLE'). sdce:operatedBy links an organization only when a real name is reported." .
 
 sdce:primaryFuel a owl:ObjectProperty ;
     rdfs:domain sdce:PowerPlant ;
@@ -213,6 +214,27 @@ sdce:weightedSitingScore a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedData
     rdfs:label "weighted siting score" .
 
 # ---------------------------------------------------------------------------
+# Existing data centers (DataCenters, IM3 Open Source Data Center Atlas)
+# ---------------------------------------------------------------------------
+
+sdce:DataCenterRecord a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Data center record" ;
+    rdfs:comment "One OSM-derived record of a data center in the IM3 atlas: a point, a building footprint or a campus polygon (sdce:recordType). A facility can appear as up to three records, so records are not facilities. IRI: sdcid:data-center-record/{facility_id}." .
+
+sdce:recordType a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain sdce:DataCenterRecord ;
+    rdfs:range sdce:DataCenterRecordType ;
+    rdfs:label "record type" .
+
+sdce:facilityAreaSqFt a owl:DatatypeProperty ;
+    rdfs:domain sdce:DataCenterRecord ;
+    rdfs:range xsd:decimal ;
+    qudt:unit unit:FT2 ;
+    rdfs:label "facility area (sq ft)" ;
+    rdfs:comment "IM3 atlas sqft. Absent when the atlas gives none." .
+
+# ---------------------------------------------------------------------------
 # Code lists
 # ---------------------------------------------------------------------------
 
@@ -294,3 +316,12 @@ sdce:growth-low      a sdce:GrowthTier ; skos:inScheme sdce:GrowthTierScheme ; s
 sdce:growth-moderate a sdce:GrowthTier ; skos:inScheme sdce:GrowthTierScheme ; skos:notation "moderate" ; skos:prefLabel "Moderate growth" .
 sdce:growth-high     a sdce:GrowthTier ; skos:inScheme sdce:GrowthTierScheme ; skos:notation "high"     ; skos:prefLabel "High growth" .
 sdce:growth-higher   a sdce:GrowthTier ; skos:inScheme sdce:GrowthTierScheme ; skos:notation "higher"   ; skos:prefLabel "Higher growth" .
+
+sdce:DataCenterRecordType a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "Data center record type" .
+
+sdce:DataCenterRecordTypeScheme a skos:ConceptScheme ;
+    rdfs:label "IM3 atlas data center record types (OSM geometry kinds)" .
+
+sdce:dcrecord-point    a sdce:DataCenterRecordType ; skos:inScheme sdce:DataCenterRecordTypeScheme ; skos:notation "point"    ; skos:prefLabel "Point" .
+sdce:dcrecord-building a sdce:DataCenterRecordType ; skos:inScheme sdce:DataCenterRecordTypeScheme ; skos:notation "building" ; skos:prefLabel "Building footprint" .
+sdce:dcrecord-campus   a sdce:DataCenterRecordType ; skos:inScheme sdce:DataCenterRecordTypeScheme ; skos:notation "campus"   ; skos:prefLabel "Campus polygon" .
