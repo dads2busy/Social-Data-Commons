@@ -1,0 +1,25 @@
+# SHACL shapes for sdc_rdf.cube output.
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix sdc:  <https://w3id.org/sdc/ns#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix qb:   <http://purl.org/linked-data/cube#> .
+
+sdc:ObservationShape a sh:NodeShape ;
+    sh:targetClass qb:Observation ;
+    sh:property [ sh:path qb:dataSet ; sh:class qb:DataSet ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdc:refArea ; sh:class sdc:Region ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdc:refPeriod ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:or ( [ sh:datatype xsd:gYear ] [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] ) ] ;
+    sh:property [ sh:path sdc:scenario ; sh:class sdc:Scenario ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qb:measureType ; sh:class qb:MeasureProperty ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdc:dataMethod ; sh:class sdc:DataMethod ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdc:marginOfError ; sh:datatype xsd:decimal ; sh:maxCount 1 ] .
+
+sdc:MeasureShape a sh:NodeShape ;
+    sh:targetClass qb:MeasureProperty ;
+    sh:property [ sh:path skos:notation ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+sdc:RegionShape a sh:NodeShape ;
+    sh:targetClass sdc:Region ;
+    sh:property [ sh:path sdc:geoid ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] .

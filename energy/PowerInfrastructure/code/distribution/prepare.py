@@ -2,17 +2,23 @@
 
 from __future__ import annotations
 
+import json
 import shutil
 from pathlib import Path
 
 import yaml
-from sdc_core.io import export_point_layer
+from rdflib import Graph
+from sdc_core.io import export_point_layer, read_data, read_point_data
 from sdc_core.log import get_logger
+from sdc_rdf import add_region_labels_from_geojson, write_turtle
+from to_rdf import build_graph
 
 THIS_DIR = Path(__file__).resolve().parent
 TOPIC_DIR = THIS_DIR.parents[1]
 REPO_DIR = TOPIC_DIR.parents[1]
 DASHBOARD_DIR = REPO_DIR / "dashboard_data" / "va_energy_data"
+ONTOLOGY = TOPIC_DIR / "rdf" / "ontology.ttl"
+MEASURE_INFO = TOPIC_DIR / "measure_info.json"
 
 log = get_logger("power_infrastructure.prepare")
 
@@ -46,7 +52,32 @@ def run() -> None:
         title="power_infrastructure",
     )
     log.info("Wrote %s", geojson_path)
+
+    write_rdf(config, point_csv, county_csv)
     log.info("Done.")
+
+
+def write_rdf(config: dict, point_csv: Path, county_csv: Path) -> Path:
+    """Write the county cube + facility graph as Turtle and stage it for the dashboard."""
+    out = config["output"]
+    source = config["source"]
+    graph, unknown = build_graph(
+        read_point_data(point_csv),
+        read_data(county_csv),
+        ontology=Graph().parse(ONTOLOGY),
+        measure_info=json.loads(MEASURE_INFO.read_text()),
+        county_dataset_id=county_csv.name.removesuffix(".csv.xz"),
+        layer_urls=[layer["url"].removesuffix("/query") for layer in source["layers"].values()],
+        null_sentinel=source["null_sentinel"],
+    )
+    add_region_labels_from_geojson(graph, REPO_DIR / config["geographies"]["va_counties"], "county")
+    if unknown:
+        log.warning("Codes not declared in rdf/ontology.ttl: %s", sorted(unknown))
+
+    ttl_path = write_turtle(graph, TOPIC_DIR / out["rdf_ttl"])
+    log.info("Wrote %s (%d triples)", ttl_path, len(graph))
+    shutil.copy2(ttl_path, DASHBOARD_DIR / ttl_path.name)
+    return ttl_path
 
 
 if __name__ == "__main__":

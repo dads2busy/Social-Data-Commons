@@ -1,0 +1,32 @@
+# SHACL shapes for HIFLD facility nodes (cube observations use sdc-rdf's core shapes).
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix sdce:    <https://w3id.org/sdc/ns/energy#> .
+@prefix sdc:     <https://w3id.org/sdc/ns#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix geo:     <http://www.opengis.net/ont/geosparql#> .
+@prefix org:     <http://www.w3.org/ns/org#> .
+
+sdce:PowerFacilityShape a sh:NodeShape ;
+    sh:targetClass sdce:PowerPlant, sdce:Substation ;
+    sh:property [ sh:path dcterms:identifier ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path rdfs:label ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:inCounty ; sh:class sdc:County ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path geo:hasGeometry ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:operatingStatus ; sh:class sdce:OperatingStatus ; sh:maxCount 1 ] .
+
+sdce:PowerPlantShape a sh:NodeShape ;
+    sh:targetClass sdce:PowerPlant ;
+    sh:property [ sh:path sdce:operatingCapacityMW ; sh:datatype xsd:decimal ; sh:minInclusive 0 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:primaryFuel ; sh:class sdce:EnergySource ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:operatedBy ; sh:class org:Organization ] .
+
+sdce:SubstationShape a sh:NodeShape ;
+    sh:targetClass sdce:Substation ;
+    sh:property [ sh:path sdce:maxVoltageKV ; sh:datatype xsd:decimal ; sh:minExclusive 0 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:lineCount ; sh:datatype xsd:integer ; sh:minInclusive 0 ; sh:maxCount 1 ] .
+
+sdce:GeometryShape a sh:NodeShape ;
+    sh:targetObjectsOf geo:hasGeometry ;
+    sh:property [ sh:path geo:asWKT ; sh:datatype geo:wktLiteral ; sh:minCount 1 ; sh:maxCount 1 ] .
