@@ -1,0 +1,25 @@
+# Counties with high-voltage (>= 230 kV) substations but under 10 MW of
+# operating renewable generation. Needs rdf/ontology.ttl loaded (renewable flag).
+PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?name ?hvSubstations (COALESCE(?mw, 0) AS ?renewableMW) WHERE {
+  {
+    SELECT ?county (COUNT(?ss) AS ?hvSubstations) WHERE {
+      ?ss a sdce:Substation ; sdce:inCounty ?county ; sdce:maxVoltageKV ?kv .
+      FILTER (?kv >= 230)
+    } GROUP BY ?county
+  }
+  OPTIONAL {
+    SELECT ?county (SUM(?cap) AS ?mw) WHERE {
+      ?p a sdce:PowerPlant ; sdce:inCounty ?county ;
+         sdce:operatingStatus sdce:status-OP ;
+         sdce:primaryFuel/sdce:renewable true ;
+         sdce:operatingCapacityMW ?cap .
+    } GROUP BY ?county
+  }
+  ?county rdfs:label ?name .
+  FILTER (COALESCE(?mw, 0) < 10)
+}
+ORDER BY DESC(?hvSubstations)
+LIMIT 10

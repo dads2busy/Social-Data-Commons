@@ -1,0 +1,15 @@
+# Operating capacity by primary fuel, with renewable flag from the code list.
+# Plants with unreported capacity are counted separately rather than as 0 MW.
+# Needs rdf/ontology.ttl loaded alongside the data (for fuel labels).
+PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?fuel ?renewable (COUNT(?p) AS ?plants) (SUM(?mw) AS ?totalMW)
+       (SUM(IF(BOUND(?mw), 0, 1)) AS ?capacityUnknown)
+WHERE {
+  ?p a sdce:PowerPlant ; sdce:primaryFuel ?f .
+  ?f skos:prefLabel ?fuel ; sdce:renewable ?renewable .
+  OPTIONAL { ?p sdce:operatingCapacityMW ?mw }
+}
+GROUP BY ?fuel ?renewable
+ORDER BY DESC(?totalMW)

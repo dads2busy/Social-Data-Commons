@@ -15,6 +15,7 @@ dependencies = [
     "sdc-census10to20",
     "sdc-redistribute",
     "sdc-catchment",
+    "sdc-rdf",
     "xlrd>=2.0.2",
 ]
 
@@ -26,6 +27,7 @@ sdc-core = { workspace = true }
 sdc-census10to20 = { workspace = true }
 sdc-redistribute = { workspace = true }
 sdc-catchment = { workspace = true }
+sdc-rdf = { workspace = true }
 
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib"
@@ -33,6 +35,7 @@ addopts = "--import-mode=importlib"
 [dependency-groups]
 dev = [
     "matplotlib>=3.10.8",
+    "pyshacl>=0.26",
     "pytest>=9.0.2",
     "seaborn>=0.13.2",
 ]

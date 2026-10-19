@@ -1,0 +1,137 @@
+# Energy ontology extension: HIFLD power infrastructure.
+#
+# Builds on the commons core ontology (packages/sdc-rdf, prefix sdc:). County
+# measures need nothing here: they are qb:Observations minted by
+# sdc_rdf.long_format_to_cube. This file models the facility points.
+#
+# Namespace IRIs are placeholders (w3id.org/sdc is not registered).
+
+@prefix sdce:    <https://w3id.org/sdc/ns/energy#> .
+@prefix sdc:     <https://w3id.org/sdc/ns#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix geo:     <http://www.opengis.net/ont/geosparql#> .
+@prefix org:     <http://www.w3.org/ns/org#> .
+@prefix qudt:    <http://qudt.org/schema/qudt/> .
+@prefix unit:    <http://qudt.org/vocab/unit/> .
+
+sdce: a owl:Ontology ;
+    rdfs:label "Social Data Commons energy ontology" ;
+    owl:imports sdc: ;
+    owl:versionInfo "0.1.0" .
+
+# ---------------------------------------------------------------------------
+# Facilities. IRI: sdcid:facility/{facility_id}
+# ---------------------------------------------------------------------------
+
+sdce:PowerFacility a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Power facility" ;
+    rdfs:comment "A mapped piece of electric generation or transmission infrastructure." .
+
+sdce:PowerPlant a owl:Class ;
+    rdfs:subClassOf sdce:PowerFacility ;
+    rdfs:label "Power plant" ;
+    rdfs:comment "An electricity-generating facility (HIFLD Power Plants layer, keyed by EIA plant code)." .
+
+sdce:Substation a owl:Class ;
+    rdfs:subClassOf sdce:PowerFacility ;
+    owl:disjointWith sdce:PowerPlant ;
+    rdfs:label "Electric substation" ;
+    rdfs:comment "A facility that switches, transforms or regulates power (HIFLD Electric Substations layer, 69 kV and above)." .
+
+sdce:inCounty a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:subPropertyOf geo:sfWithin ;
+    rdfs:domain sdce:PowerFacility ;
+    rdfs:range sdc:County ;
+    rdfs:label "in county" ;
+    rdfs:comment "County the facility is assigned to: HIFLD COUNTYFIPS, or the nearest 2020 county polygon when that is missing." .
+
+sdce:operatedBy a owl:ObjectProperty ;
+    rdfs:domain sdce:PowerPlant ;
+    rdfs:range org:Organization ;
+    rdfs:label "operated by" .
+
+sdce:primaryFuel a owl:ObjectProperty ;
+    rdfs:domain sdce:PowerPlant ;
+    rdfs:range sdce:EnergySource ;
+    rdfs:label "primary fuel" ;
+    rdfs:comment "HIFLD PRIM_FUEL, an EIA-860 energy source code." .
+
+sdce:operatingStatus a owl:ObjectProperty ;
+    rdfs:domain sdce:PowerFacility ;
+    rdfs:range sdce:OperatingStatus ;
+    rdfs:label "operating status" .
+
+sdce:operatingCapacityMW a owl:DatatypeProperty ;
+    rdfs:domain sdce:PowerPlant ;
+    rdfs:range xsd:decimal ;
+    qudt:unit unit:MegaW ;
+    rdfs:label "operating capacity (MW)" ;
+    rdfs:comment "HIFLD OPER_CAP. Omitted (not zero) when HIFLD reports no capacity; the county measure total_plant_capacity_mw counts those as 0." .
+
+sdce:maxVoltageKV a owl:DatatypeProperty ;
+    rdfs:domain sdce:Substation ;
+    rdfs:range xsd:decimal ;
+    qudt:unit unit:KiloV ;
+    rdfs:label "maximum voltage (kV)" .
+
+sdce:lineCount a owl:DatatypeProperty ;
+    rdfs:domain sdce:Substation ;
+    rdfs:range xsd:integer ;
+    rdfs:label "connected line count" .
+
+sdce:sourceId a owl:DatatypeProperty ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    rdfs:domain sdce:PowerFacility ;
+    rdfs:range xsd:string ;
+    rdfs:label "source identifier" ;
+    rdfs:comment "Identifier in the upstream dataset (EIA plant code for plants, HIFLD ID for substations)." .
+
+# ---------------------------------------------------------------------------
+# Code lists
+# ---------------------------------------------------------------------------
+
+sdce:EnergySource a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "Energy source" .
+sdce:OperatingStatus a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "Operating status" .
+
+sdce:renewable a owl:DatatypeProperty ;
+    rdfs:domain sdce:EnergySource ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "renewable" .
+
+sdce:EnergySourceScheme a skos:ConceptScheme ;
+    rdfs:label "EIA-860 energy source codes (subset present in VA HIFLD data)" ;
+    dcterms:source <https://www.eia.gov/survey/form/eia_860/instructions.pdf> .
+
+sdce:OperatingStatusScheme a skos:ConceptScheme ;
+    rdfs:label "Facility operating status (EIA-860 plant codes + HIFLD substation labels)" .
+
+sdce:fuel-SUN a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "SUN" ; skos:prefLabel "Solar" ; sdce:renewable true .
+sdce:fuel-WND a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "WND" ; skos:prefLabel "Wind" ; sdce:renewable true .
+sdce:fuel-WAT a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "WAT" ; skos:prefLabel "Water (hydroelectric)" ; sdce:renewable true .
+sdce:fuel-LFG a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "LFG" ; skos:prefLabel "Landfill gas" ; sdce:renewable true .
+sdce:fuel-OBG a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "OBG" ; skos:prefLabel "Other biomass gas" ; sdce:renewable true .
+sdce:fuel-WDS a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "WDS" ; skos:prefLabel "Wood / wood waste solids" ; sdce:renewable true .
+sdce:fuel-BLQ a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "BLQ" ; skos:prefLabel "Black liquor" ; sdce:renewable true .
+sdce:fuel-MSW a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "MSW" ; skos:prefLabel "Municipal solid waste" ; sdce:renewable true .
+sdce:fuel-NUC a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "NUC" ; skos:prefLabel "Nuclear" ; sdce:renewable false .
+sdce:fuel-NG  a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "NG"  ; skos:prefLabel "Natural gas" ; sdce:renewable false .
+sdce:fuel-BIT a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "BIT" ; skos:prefLabel "Bituminous coal" ; sdce:renewable false .
+sdce:fuel-DFO a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "DFO" ; skos:prefLabel "Distillate fuel oil" ; sdce:renewable false .
+sdce:fuel-RFO a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "RFO" ; skos:prefLabel "Residual fuel oil" ; sdce:renewable false .
+
+sdce:status-OP a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "OP" ; skos:prefLabel "Operating" .
+sdce:status-SB a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "SB" ; skos:prefLabel "Standby / backup" .
+sdce:status-OA a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "OA" ; skos:prefLabel "Out of service, expected to return next year" .
+sdce:status-OS a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "OS" ; skos:prefLabel "Out of service, not expected to return next year" .
+sdce:status-RE a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "RE" ; skos:prefLabel "Retired" .
+sdce:status-P  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "P"  ; skos:prefLabel "Planned, regulatory approvals not initiated" .
+sdce:status-L  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "L"  ; skos:prefLabel "Planned, regulatory approvals pending" .
+sdce:status-T  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "T"  ; skos:prefLabel "Planned, regulatory approvals received" .
+sdce:status-U  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "U"  ; skos:prefLabel "Under construction (<= 50% complete)" .
+sdce:status-IN_SERVICE  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "IN SERVICE"  ; skos:prefLabel "In service" ; skos:closeMatch sdce:status-OP .
+sdce:status-UNDER_CONST a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "UNDER CONST" ; skos:prefLabel "Under construction" .
