@@ -109,6 +109,9 @@ the cartographic polygons).
 The ontology and SHACL shapes are shared in `energy/rdf/`. `rdf/queries/` holds the
 example queries, including a county count consistency check that the tests assert.
 
+The dashboard CSVs (and the GeoJSON built from them) are **staged from this graph**, not
+copied from `data/distribution/`, and are verified row for row against the distribution CSVs.
+
 The graph is **lossless**. `to_rdf.points_from_graph` (one row per charger group) and
 `sdc_rdf.cube_to_long_format` rebuild both distribution CSVs, and the tests compare them
 line by line with the originals. Station-level columns (`year`, `fuel_type_code`) are

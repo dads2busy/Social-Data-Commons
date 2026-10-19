@@ -41,3 +41,21 @@ def test_number_value_and_missing():
     assert number_value(decimal_literal(3.0), integer=False) == 3.0
     assert math.isnan(number_value(None, integer=False))
     assert is_missing(float("nan")) and is_missing("") and is_missing(None) and not is_missing("NOT AVAILABLE")
+
+
+def test_assert_same_csv_rows(tmp_path):
+    import lzma
+
+    from sdc_rdf import assert_same_csv_rows
+
+    a = tmp_path / "a.csv.xz"
+    a.write_bytes(lzma.compress(b"h1,h2\n1,x\n2,y\n"))
+    b = tmp_path / "b.csv"
+    b.write_text("h1,h2\n2,y\n1,x\n")
+    assert_same_csv_rows(a, b)  # row order ignored
+    b.write_text("h1,h2\n2,y\n1,z\n")
+    with pytest.raises(ValueError, match="2 rows differ"):
+        assert_same_csv_rows(a, b)
+    b.write_text("h1,h3\n1,x\n2,y\n")
+    with pytest.raises(ValueError, match="header"):
+        assert_same_csv_rows(a, b)

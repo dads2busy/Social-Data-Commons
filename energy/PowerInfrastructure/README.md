@@ -116,6 +116,9 @@ and copies it into `dashboard_data/va_energy_data/`. It holds a single graph wit
 The energy ontology extension and SHACL shapes are shared by all energy pipelines
 in `energy/rdf/`; this pipeline's example SPARQL queries are in `rdf/queries/`.
 
+The dashboard CSVs (and the GeoJSON built from them) are **staged from this graph**, not
+copied from `data/distribution/`, and are verified row for row against the distribution CSVs.
+
 The graph is **lossless**. `to_rdf.points_from_graph` and `sdc_rdf.cube_to_long_format`
 rebuild both distribution CSVs, and the tests compare them line by line with the
 originals. Blank cells are absent from the graph, while HIFLD's own `NOT AVAILABLE` is kept:

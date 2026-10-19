@@ -1631,7 +1631,7 @@ provides-extras = ["geo", "dev"]
 
 [[package]]
 name = "sdc-rdf"
-version = "0.5.0"
+version = "0.6.0"
 source = { editable = "packages/sdc-rdf" }
 dependencies = [
     { name = "pandas" },

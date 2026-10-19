@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2026-10-19
+
+### Added
+- `assert_same_csv_rows(regenerated, original)` / `csv_rows(path)`: compare CSVs (or `.csv.xz`)
+  by header and rows in any order. Pipelines use it to verify dashboard CSVs staged from the graph.
+- `dataset_iri(dataset_id)`.
+
 ## [0.5.0] - 2026-10-19
 
 ### Added

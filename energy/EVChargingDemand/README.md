@@ -89,6 +89,9 @@ The ontology and SHACL shapes are shared in `energy/rdf/`; example queries are i
 `rdf/queries/`. `county_energy_consistency.rq` checks that each county's 24-hour kWh
 equals the sum over its locations.
 
+The dashboard CSVs (and the GeoJSON built from them) are **staged from this graph**, not
+copied from `data/distribution/`, and are verified row for row against the distribution CSVs.
+
 The graph is **lossless**. `to_rdf.points_from_graph` and `sdc_rdf.cube_to_long_format`
 rebuild both distribution CSVs, and the tests compare them line by line with the
 originals. The point CSV's `id_format` column always equals `type`, so the graph stores
