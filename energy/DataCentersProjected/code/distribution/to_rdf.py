@@ -14,25 +14,28 @@ from __future__ import annotations
 
 import re
 from collections.abc import Mapping
-from decimal import Decimal
 
 import pandas as pd
 from rdflib import RDF, RDFS, XSD, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import DCTERMS, SKOS
 from sdc_rdf import (
-    GEO,
     SDC,
     SDCID,
+    add_point_geometry,
     add_region,
     bind_prefixes,
+    decimal_literal,
+    integer_literal,
     long_format_to_cube,
+    number_value,
+    point_lat_lon,
+    ref_year,
     scenario_iri,
+    year_literal,
 )
 
 SDCE = Namespace("https://w3id.org/sdc/ns/energy#")
 
-CRS84 = "<http://www.opengis.net/def/crs/OGC/1.3/CRS84>"
-WKT_RE = re.compile(r"POINT\((\S+) (\S+)\)$")
 SCENARIO_RE = re.compile(r"^im3_cerf_(low|moderate|high|higher)_(\d+)$")
 POINT_TYPE = "projected_data_center"
 
@@ -70,13 +73,6 @@ def growth_tier_iri(tier: str) -> URIRef:
     return SDCE[f"growth-{tier}"]
 
 
-def _number(v, integer: bool) -> Literal:
-    if integer:
-        return Literal(int(v), datatype=XSD.integer)
-    # Plain notation: repr() may give "5e-06", which is not a valid xsd:decimal lexical form.
-    return Literal(format(Decimal(repr(float(v))), "f"), datatype=XSD.decimal)
-
-
 def add_scenarios(g: Graph, labels, points: pd.DataFrame) -> None:
     """Scenario nodes with growth tier + gravity weight (parsed from the label, checked
     against the points' growth_scenario / market_gravity_weight columns)."""
@@ -109,17 +105,14 @@ def add_sites(g: Graph, points: pd.DataFrame) -> None:
         g.add((site, RDF.type, SDCE.ProjectedDataCenter))
         g.add((site, DCTERMS.identifier, Literal(fid)))
         g.add((site, RDFS.label, Literal(row["facility_name"])))
-        g.add((site, SDC.refPeriod, Literal(f"{int(row['year']):04d}", datatype=XSD.gYear)))
+        g.add((site, SDC.refPeriod, year_literal(row["year"])))
         g.add((site, SDC.scenario, scenario_iri(row["scenario"])))
         g.add((site, SDCE.inCounty, add_region(g, "county", str(row["geoid"]))))
         g.add((site, SDCE.sourceId, Literal(str(row["source_id"]))))
-        geom = SDCID[f"projected-data-center/{fid}/geometry"]
-        g.add((site, GEO.hasGeometry, geom))
-        g.add((geom, RDF.type, GEO.Geometry))
-        wkt = f"{CRS84} POINT({float(row['lon'])!r} {float(row['lat'])!r})"
-        g.add((geom, GEO.asWKT, Literal(wkt, datatype=GEO.wktLiteral)))
+        add_point_geometry(g, site, row["lat"], row["lon"])
         for col, prop in NUMERIC_PROPERTIES.items():
-            g.add((site, prop, _number(row[col], col in integer_cols)))
+            lit = integer_literal(row[col]) if col in integer_cols else decimal_literal(row[col])
+            g.add((site, prop, lit))
 
 
 def build_graph(
@@ -159,13 +152,13 @@ def points_from_graph(g: Graph) -> pd.DataFrame:
                 int(g.value(scen, SDCE.marketGravityWeight)),
             )
         label, tier, weight = scenario_cache[scen]
-        lon, lat = WKT_RE.search(str(g.value(g.value(site, GEO.hasGeometry), GEO.asWKT))).groups()
+        lat, lon = point_lat_lon(g, site)
         row = {
             "facility_id": str(g.value(site, DCTERMS.identifier)),
             "facility_name": str(g.value(site, RDFS.label)),
-            "lat": float(lat),
-            "lon": float(lon),
-            "year": int(str(g.value(site, SDC.refPeriod))),
+            "lat": lat,
+            "lon": lon,
+            "year": ref_year(g, site),
             "type": POINT_TYPE,
             "geoid": str(g.value(g.value(site, SDCE.inCounty), SDC.geoid)),
             "growth_scenario": tier,
@@ -175,6 +168,6 @@ def points_from_graph(g: Graph) -> pd.DataFrame:
         }
         for col, prop in NUMERIC_PROPERTIES.items():
             lit = g.value(site, prop)
-            row[col] = int(lit) if lit.datatype == XSD.integer else float(lit.toPython())
+            row[col] = number_value(lit, integer=lit.datatype == XSD.integer)
         rows.append(row)
     return pd.DataFrame(rows, columns=POINT_COLUMNS).sort_values("facility_id", ignore_index=True)

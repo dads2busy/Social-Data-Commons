@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-10-19
+
+### Added
+- `sdc_rdf.points`: shared helpers for point entities that must round-trip to their CSVs.
+  `add_point_geometry` / `point_lat_lon` write and read a CRS84 WKT point with full float
+  precision. `decimal_literal`, `integer_literal` (which refuses fractions), `year_literal`,
+  `ref_year`, `number_value` and `is_missing` are also included.
+
+### Changed
+- `long_format_to_cube` builds numeric literals with the shared `decimal_literal` /
+  `integer_literal` (same output).
+
 ## [0.4.0] - 2026-10-19
 
 ### Added

@@ -1,6 +1,6 @@
 # sdc-rdf
 
-RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.4.0).**
+RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.5.0).**
 
 - **Core ontology** (`src/sdc_rdf/ontology/core.ttl`, prefix `sdc:`): regions,
   scenarios, `data_method` values, and the RDF Data Cube components shared by every
@@ -22,6 +22,9 @@ RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.4
 - **`cube_to_long_format`**: the inverse. It rebuilds a dataset's long-format frame from
   the graph alone, using the recorded `sdc:periodConvention`, so pipeline CSVs can be
   generated from the graph.
+- **`sdc_rdf.points`**: helpers for point entities (facilities, sites, stations) that must
+  regenerate their point CSV: exact WKT geometry, plain-notation decimals, integers,
+  years and missing-value checks.
 - **`read_csv_exact`**: reads distribution CSVs for conversion with round-trip float
   parsing. Use it instead of `sdc_core.io.read_data` in RDF code, because the default
   pandas parser can be off by one ULP.

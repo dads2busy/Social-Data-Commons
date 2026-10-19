@@ -15,6 +15,16 @@ from .cube import (
 )
 from .io import load_core_ontology, load_core_shapes, read_csv_exact, read_graph, write_graph
 from .namespaces import GEO, SDC, SDCID, SDCM, bind_prefixes
+from .points import (
+    add_point_geometry,
+    decimal_literal,
+    integer_literal,
+    is_missing,
+    number_value,
+    point_lat_lon,
+    ref_year,
+    year_literal,
+)
 from .regions import REGION_CLASSES, add_region, add_region_labels_from_geojson, region_iri
 
 __all__ = [
@@ -22,5 +32,7 @@ __all__ = [
     "add_measure", "add_region", "add_region_labels_from_geojson", "add_scenario",
     "bind_prefixes", "cube_to_long_format", "load_core_ontology", "load_core_shapes",
     "long_format_to_cube",
+    "add_point_geometry", "decimal_literal", "integer_literal", "is_missing", "number_value",
+    "point_lat_lon", "ref_year", "year_literal",
     "measure_iri", "read_csv_exact", "read_graph", "region_iri", "scenario_iri", "write_graph",
 ]

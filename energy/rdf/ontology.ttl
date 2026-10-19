@@ -62,6 +62,12 @@ sdce:operatedBy a owl:ObjectProperty ;
     rdfs:range org:Organization ;
     rdfs:label "operated by" .
 
+sdce:operatorName a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain sdce:PowerPlant ;
+    rdfs:range xsd:string ;
+    rdfs:label "operator name (as reported)" ;
+    rdfs:comment "HIFLD OPERATOR text verbatim, including 'NOT AVAILABLE'. sdce:operatedBy links an organization only when a real name is reported." .
+
 sdce:primaryFuel a owl:ObjectProperty ;
     rdfs:domain sdce:PowerPlant ;
     rdfs:range sdce:EnergySource ;
@@ -78,7 +84,7 @@ sdce:operatingCapacityMW a owl:DatatypeProperty ;
     rdfs:range xsd:decimal ;
     qudt:unit unit:MegaW ;
     rdfs:label "operating capacity (MW)" ;
-    rdfs:comment "HIFLD OPER_CAP. Omitted (not zero) when HIFLD reports no capacity; the county measure total_plant_capacity_mw counts those as 0." .
+    rdfs:comment "HIFLD OPER_CAP. Omitted (not zero) when HIFLD reports no capacity (ingest maps the -999999 sentinel to blank); the county measure total_plant_capacity_mw counts those as 0." .
 
 sdce:maxVoltageKV a owl:DatatypeProperty ;
     rdfs:domain sdce:Substation ;
@@ -111,6 +117,12 @@ sdce:EVChargingStation a owl:Class ;
     rdfs:subClassOf geo:Feature ;
     rdfs:label "EV charging station" ;
     rdfs:comment "A public EV charging station from the simulated station inventory (EVChargingStations). IRI: sdcid:ev-station/{station_id}." .
+
+sdce:fuelTypeCode a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain sdce:EVChargingStation ;
+    rdfs:range xsd:string ;
+    rdfs:label "fuel type code" ;
+    rdfs:comment "Fuel type code from the station inventory (AFDC convention; ELEC for electric charging)." .
 
 sdce:ChargerGroup a owl:Class ;
     rdfs:label "charger group" ;
@@ -231,6 +243,8 @@ sdce:fuel-NUC a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos
 sdce:fuel-NG  a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "NG"  ; skos:prefLabel "Natural gas" ; sdce:renewable false .
 sdce:fuel-BIT a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "BIT" ; skos:prefLabel "Bituminous coal" ; sdce:renewable false .
 sdce:fuel-DFO a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "DFO" ; skos:prefLabel "Distillate fuel oil" ; sdce:renewable false .
+sdce:fuel-NOT_AVAILABLE a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "NOT AVAILABLE" ;
+    skos:prefLabel "Not available (as reported by HIFLD)" .
 sdce:fuel-RFO a sdce:EnergySource ; skos:inScheme sdce:EnergySourceScheme ; skos:notation "RFO" ; skos:prefLabel "Residual fuel oil" ; sdce:renewable false .
 
 sdce:status-OP a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "OP" ; skos:prefLabel "Operating" .
@@ -242,6 +256,8 @@ sdce:status-P  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme
 sdce:status-L  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "L"  ; skos:prefLabel "Planned, regulatory approvals pending" .
 sdce:status-T  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "T"  ; skos:prefLabel "Planned, regulatory approvals received" .
 sdce:status-U  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "U"  ; skos:prefLabel "Under construction (<= 50% complete)" .
+sdce:status-NOT_AVAILABLE a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "NOT AVAILABLE" ;
+    skos:prefLabel "Not available (as reported by HIFLD)" .
 sdce:status-IN_SERVICE  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "IN SERVICE"  ; skos:prefLabel "In service" ; skos:closeMatch sdce:status-OP .
 sdce:status-UNDER_CONST a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "UNDER CONST" ; skos:prefLabel "Under construction" .
 
