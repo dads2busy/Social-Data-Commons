@@ -1,0 +1,41 @@
+# Cross-check: for each county, do the record counts in the cube match the
+# sdce:DataCenterRecord nodes, in total and by record type? Returns mismatches
+# (expect zero rows; test_to_rdf.py asserts this, including planted mismatches).
+#
+# Counts are precomputed in subqueries and the measure -> type mapping is its
+# own subquery: rdflib evaluates a group's VALUES after its OPTIONALs, which
+# would otherwise let an OPTIONAL bind ?type before the mapping constrains it.
+PREFIX sdc:  <https://w3id.org/sdc/ns#>
+PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
+PREFIX sdcm: <https://w3id.org/sdc/measure/>
+PREFIX qb:   <http://purl.org/linked-data/cube#>
+
+SELECT ?county ?measure ?published ?records WHERE {
+  {
+    { SELECT ?measure ?type WHERE {
+        VALUES (?measure ?type) {
+          (sdcm:point_data_center_count sdce:dcrecord-point)
+          (sdcm:building_data_center_count sdce:dcrecord-building)
+          (sdcm:campus_data_center_count sdce:dcrecord-campus)
+        } } }
+    ?obs sdc:refArea ?county ; qb:measureType ?measure ; ?measure ?published .
+    OPTIONAL {
+      SELECT ?county ?type (COUNT(?r) AS ?n) WHERE {
+        ?r a sdce:DataCenterRecord ; sdce:inCounty ?county ; sdce:recordType ?type .
+      } GROUP BY ?county ?type
+    }
+  }
+  UNION
+  {
+    ?obs sdc:refArea ?county ; qb:measureType sdcm:total_data_center_count ;
+         sdcm:total_data_center_count ?published .
+    BIND (sdcm:total_data_center_count AS ?measure)
+    OPTIONAL {
+      SELECT ?county (COUNT(?r) AS ?n) WHERE {
+        ?r a sdce:DataCenterRecord ; sdce:inCounty ?county .
+      } GROUP BY ?county
+    }
+  }
+  BIND (COALESCE(?n, 0) AS ?records)
+  FILTER (?published != ?records)
+}

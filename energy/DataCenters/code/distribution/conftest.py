@@ -7,3 +7,4 @@ _THIS_DIR = str(Path(__file__).parent)
 if _THIS_DIR not in sys.path:
     sys.path.insert(0, _THIS_DIR)
 sys.modules.pop("transforms", None)
+sys.modules.pop("to_rdf", None)

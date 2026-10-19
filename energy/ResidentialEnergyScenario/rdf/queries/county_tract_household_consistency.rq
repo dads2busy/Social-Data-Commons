@@ -1,0 +1,23 @@
+# Cross-check: does each county's synthetic_household_count equal the sum over
+# its tracts (tract GEOID prefix = county GEOID)? Returns counties that differ,
+# including counties with households but no tracts (expect zero rows;
+# test_to_rdf.py asserts this). PV generation is deliberately not checked:
+# county values do not equal tract sums in the source data.
+#
+# The prefix match is a FILTER inside the OPTIONAL. Joining on a BIND-derived
+# county GEOID projected from a subquery does not join in rdflib (it
+# cross-multiplies).
+PREFIX sdc:  <https://w3id.org/sdc/ns#>
+PREFIX sdcm: <https://w3id.org/sdc/measure/>
+
+SELECT ?county ?countyHouseholds (COALESCE(SUM(?n), 0) AS ?tractHouseholds) WHERE {
+  ?obs sdc:refArea ?county ; sdcm:synthetic_household_count ?countyHouseholds .
+  ?county a sdc:County ; sdc:geoid ?countyGeoid .
+  OPTIONAL {
+    ?tobs sdc:refArea ?tract ; sdcm:synthetic_household_count ?n .
+    ?tract a sdc:Tract ; sdc:geoid ?tractGeoid .
+    FILTER (STRSTARTS(?tractGeoid, ?countyGeoid))
+  }
+}
+GROUP BY ?county ?countyHouseholds
+HAVING (?countyHouseholds != COALESCE(SUM(?n), 0))

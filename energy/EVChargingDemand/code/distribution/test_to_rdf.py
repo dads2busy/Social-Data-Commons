@@ -125,6 +125,9 @@ def test_consistency_query_flags_mismatch():
     assert list(g.query(query)) == []  # 35 = 30 + 5 and 12.5 = 12.5
     g, _ = build(county=COUNTY.assign(value=[20.0, 15.0, 99.0]))
     assert [str(r.county) for r in g.query(query)] == [str(SDCID["county/51540"])]
+    phantom = pd.concat([COUNTY, COUNTY.iloc[[0]].assign(geoid="51999")], ignore_index=True)
+    g, _ = build(county=phantom)
+    assert [str(r.county) for r in g.query(query)] == [str(SDCID["county/51999"])]
 
 
 # --- distribution data -------------------------------------------------------

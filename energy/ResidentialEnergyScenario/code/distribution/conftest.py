@@ -12,3 +12,4 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.modules.pop("transforms", None)
+sys.modules.pop("to_rdf", None)

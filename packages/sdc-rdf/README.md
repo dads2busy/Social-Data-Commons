@@ -1,6 +1,6 @@
 # sdc-rdf
 
-RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.7.0).**
+RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.8.0).**
 
 - **Core ontology** (`src/sdc_rdf/ontology/core.ttl`, prefix `sdc:`): regions,
   scenarios, `data_method` values, and the RDF Data Cube components shared by every
@@ -58,7 +58,7 @@ All bases are placeholders under `https://w3id.org/sdc/` (not registered):
 |---|---|---|
 | `sdc:` | `…/ns#` | core vocabulary |
 | `sdcm:` | `…/measure/` | one measure per `measure_info.json` key |
-| `sdcid:` | `…/id/` | `county/{geoid}`, `tract/{geoid}`, `scenario/{label}`, `dataset/{file stem}`, `obs/{file stem}/{region_type}/{geoid}/{period}[/h{HH}][/{scenario}]/{measure}` |
+| `sdcid:` | `…/id/` | `county/{geoid}`, `tract/{geoid}` (2020; other vintages `tract-2010/{geoid}` + `sdc:vintage`), `scenario/{label}`, `dataset/{file stem}`, `obs/{file stem}/{region_type}/{geoid}/{period}[/h{HH}][/{scenario}]/{measure}` |
 
 Measure IRIs assume measure names are unique across the commons.
 

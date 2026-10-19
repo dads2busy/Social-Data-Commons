@@ -1,7 +1,8 @@
 # Cross-check: for each county, does the hourly cube (ev_charging_demand_kwh
 # summed over the 24 hours) equal the summed typical-day energy of the
 # charging locations assigned to it? Returns counties that differ by more than
-# 1e-6 relative (expect zero rows; test_to_rdf.py asserts this).
+# 1e-6 relative, including counties with demand but no locations (expect zero
+# rows; test_to_rdf.py asserts this).
 PREFIX sdc:  <https://w3id.org/sdc/ns#>
 PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
 PREFIX sdcm: <https://w3id.org/sdc/measure/>
@@ -12,10 +13,11 @@ SELECT ?county ?cubeKWh ?locationKWh WHERE {
       ?obs sdc:refArea ?county ; sdcm:ev_charging_demand_kwh ?kwh .
     } GROUP BY ?county
   }
-  {
-    SELECT ?county (SUM(?e) AS ?locationKWh) WHERE {
+  OPTIONAL {
+    SELECT ?county (SUM(?e) AS ?l) WHERE {
       ?loc a sdce:EVChargingLocation ; sdce:inCounty ?county ; sdce:typicalDayEnergyKWh ?e .
     } GROUP BY ?county
   }
+  BIND (COALESCE(?l, 0) AS ?locationKWh)
   FILTER (ABS(?cubeKWh - ?locationKWh) > 0.000001 * ?cubeKWh)
 }
