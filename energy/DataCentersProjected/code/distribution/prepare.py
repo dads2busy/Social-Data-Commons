@@ -10,11 +10,14 @@ import pandas as pd
 import yaml
 from sdc_core.io import export_point_layer
 from sdc_core.log import get_logger
+from sdc_rdf import add_region_labels_from_geojson, read_csv_exact, write_graph
+from to_rdf import build_graph
 
 THIS_DIR = Path(__file__).resolve().parent
 TOPIC_DIR = THIS_DIR.parents[1]
 REPO_DIR = TOPIC_DIR.parents[1]
 DASHBOARD_DIR = REPO_DIR / "dashboard_data" / "va_energy_data"
+MEASURE_INFO = TOPIC_DIR / "measure_info.json"
 
 log = get_logger("data_centers_projected.prepare")
 
@@ -65,7 +68,25 @@ def run() -> None:
     log.info("Writing scenarios.json (%d unique scenarios)", len(combined))
     with open(scenarios_path, "w") as f:
         json.dump(combined, f, indent=2)
+
+    write_rdf(config, point_csv, county_csv)
     log.info("Done.")
+
+
+def write_rdf(config: dict, point_csv: Path, county_csv: Path) -> Path:
+    """Write the county cube + projected-site graph and stage it for the dashboard."""
+    graph = build_graph(
+        read_csv_exact(point_csv),
+        read_csv_exact(county_csv),
+        measure_info=json.loads(MEASURE_INFO.read_text()),
+        county_dataset_id=county_csv.name.removesuffix(".csv.xz"),
+        default_scenario=config["source"]["scenario_canonical"],
+    )
+    add_region_labels_from_geojson(graph, REPO_DIR / config["geographies"]["va_counties"], "county")
+    graph_path = write_graph(graph, TOPIC_DIR / config["output"]["rdf_graph"])
+    log.info("Wrote %s (%d triples)", graph_path, len(graph))
+    shutil.copy2(graph_path, DASHBOARD_DIR / graph_path.name)
+    return graph_path
 
 
 if __name__ == "__main__":

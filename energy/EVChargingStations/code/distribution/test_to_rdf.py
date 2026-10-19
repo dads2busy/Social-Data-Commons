@@ -13,8 +13,8 @@ import pytest
 import yaml
 from pyshacl import validate
 from rdflib import RDF, XSD, Graph, Literal
-from sdc_core.io import read_data, read_point_data
-from sdc_rdf import SDC, load_core_ontology, load_core_shapes
+from sdc_core.io import write_data
+from sdc_rdf import SDC, SDCID, cube_to_long_format, load_core_ontology, load_core_shapes, read_csv_exact
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from to_rdf import SDCE, build_graph, charger_level_iri, station_iri
@@ -123,9 +123,9 @@ def real_graph():
     county_csv = TOPIC_DIR / config["output"]["county_csv"]
     if not (point_csv.exists() and county_csv.exists()):
         pytest.skip("distribution CSVs not present")
-    points = read_point_data(point_csv)
+    points = read_csv_exact(point_csv)
     g, unknown = build_graph(
-        points, read_data(county_csv), ontology=ONTOLOGY,
+        points, read_csv_exact(county_csv), ontology=ONTOLOGY,
         measure_info=json.loads((TOPIC_DIR / "measure_info.json").read_text()),
         county_dataset_id=county_csv.name.removesuffix(".csv.xz"), description="",
     )
@@ -163,3 +163,19 @@ def test_every_demand_station_link_resolves(real_graph):
     assert len(targets) == 1224
     stations = {str(s) for s in g.subjects(RDF.type, SDCE.EVChargingStation)}
     assert targets <= stations
+
+
+def test_distribution_county_csv_regenerates_from_graph(real_graph, tmp_path):
+    """Lossless: the county CSV can be rebuilt from the graph alone."""
+    g = real_graph[0]
+    config = yaml.safe_load((TOPIC_DIR / "pipeline.yaml").read_text())
+    county_csv = TOPIC_DIR / config["output"]["county_csv"]
+    dataset = SDCID[f"dataset/{county_csv.name.removesuffix('.csv.xz')}"]
+    out = write_data(cube_to_long_format(g, dataset), tmp_path / county_csv.name,
+                     standardize=False, census_standardize=False)
+
+    def lines(path):
+        header, *rows = lzma.open(path, "rt").read().splitlines()
+        return header, sorted(rows)
+
+    assert lines(out) == lines(county_csv)

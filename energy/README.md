@@ -47,8 +47,13 @@ observations as an RDF Data Cube (`packages/sdc-rdf`) plus their point entities.
 shared energy ontology (`sdce:`) and SHACL shapes are in `energy/rdf/`. Graphs are written
 as sorted, xz-compressed N-Triples (`.nt.xz`, via `sdc_rdf.write_graph`).
 
+The graph is meant to become the dashboard's source, with CSVs generated from the RDF. Every
+county cube therefore round-trips exactly (`sdc_rdf.cube_to_long_format`, tested per pipeline).
+Point data round-trips for DataCentersProjected; the other point graphs are not yet lossless.
+
 | Pipeline | Graph |
 |---|---|
 | PowerInfrastructure | `va_ctpt_hifld_2026_power_infrastructure.nt.xz` |
 | EVChargingDemand | `va_ctpt_sim_2026_ev_charging_demand.nt.xz` (hour-of-day profile: `refPeriod` year + `sdc:hourOfDay`) |
 | EVChargingStations | `va_ctpt_sim_2030_run30_ev_charging_stations.nt.xz` (static inventory: `refPeriod` = scenario year). Its station IRIs are the targets of EVChargingDemand's `sdce:atStation` links. |
+| DataCentersProjected | `va_ctpt_im3_2035_data_centers_projected.nt.xz` (20 scenarios, `sdc:defaultScenario`; lossless: both CSVs regenerate from the graph) |

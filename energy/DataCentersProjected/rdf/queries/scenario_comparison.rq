@@ -1,0 +1,16 @@
+# Projected Virginia data-center build-out under each of the 20 CERF scenarios:
+# sites, counties, total IT power and water consumption, by growth tier and
+# market-gravity weight. Needs energy/rdf/ontology.ttl loaded (tier notations).
+PREFIX sdc:  <https://w3id.org/sdc/ns#>
+PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?tier ?gravity (COUNT(?site) AS ?sites) (COUNT(DISTINCT ?county) AS ?counties)
+       (SUM(?mw) AS ?itPowerMW) (SUM(?water) AS ?waterConsumptionMGY)
+WHERE {
+  ?site a sdce:ProjectedDataCenter ; sdc:scenario ?s ; sdce:inCounty ?county ;
+        sdce:itPowerMW ?mw ; sdce:coolingWaterConsumptionMGY ?water .
+  ?s sdce:growthTier/skos:notation ?tier ; sdce:marketGravityWeight ?gravity .
+}
+GROUP BY ?tier ?gravity
+ORDER BY ?tier ?gravity

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import lzma
 import sys
 from collections import defaultdict
 from decimal import Decimal
@@ -13,8 +14,8 @@ import pytest
 import yaml
 from pyshacl import validate
 from rdflib import RDF, XSD, Graph, Literal
-from sdc_core.io import read_data
-from sdc_rdf import SDC, SDCID, SDCM, load_core_ontology, load_core_shapes
+from sdc_core.io import write_data
+from sdc_rdf import SDC, SDCID, SDCM, cube_to_long_format, load_core_ontology, load_core_shapes, read_csv_exact
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from to_rdf import SDCE, build_graph, location_iri, station_iri
@@ -130,7 +131,7 @@ def real_graph():
     if not (point_csv.exists() and county_csv.exists() and counties.exists()):
         pytest.skip("distribution CSVs or county geographies not present")
     points = prepare.locations_with_county(point_csv, counties)
-    county = read_data(county_csv)
+    county = read_csv_exact(county_csv)
     g, unknown = build_graph(
         points, county, ontology=ONTOLOGY,
         measure_info=json.loads((TOPIC_DIR / "measure_info.json").read_text()),
@@ -173,3 +174,19 @@ def test_distribution_sample_conforms(real_graph):
                 sample.add(t)
     ok, report = conforms(sample)
     assert ok, report
+
+
+def test_distribution_county_csv_regenerates_from_graph(real_graph, tmp_path):
+    """Lossless: the county CSV can be rebuilt from the graph alone."""
+    g = real_graph[0]
+    config = yaml.safe_load((TOPIC_DIR / "pipeline.yaml").read_text())
+    county_csv = TOPIC_DIR / config["output"]["county_csv"]
+    dataset = SDCID[f"dataset/{county_csv.name.removesuffix('.csv.xz')}"]
+    out = write_data(cube_to_long_format(g, dataset), tmp_path / county_csv.name,
+                     standardize=False, census_standardize=False)
+
+    def lines(path):
+        header, *rows = lzma.open(path, "rt").read().splitlines()
+        return header, sorted(rows)
+
+    assert lines(out) == lines(county_csv)

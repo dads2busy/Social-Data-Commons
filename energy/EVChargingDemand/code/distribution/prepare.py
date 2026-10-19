@@ -9,9 +9,9 @@ from pathlib import Path
 import yaml
 from ingest import spatial_join_unique_locations
 from rdflib import Graph
-from sdc_core.io import export_point_layer, read_data, read_point_data
+from sdc_core.io import export_point_layer
 from sdc_core.log import get_logger
-from sdc_rdf import add_region_labels_from_geojson, write_graph
+from sdc_rdf import add_region_labels_from_geojson, read_csv_exact, write_graph
 from to_rdf import build_graph
 
 THIS_DIR = Path(__file__).resolve().parent
@@ -64,7 +64,7 @@ def locations_with_county(point_csv: Path, counties_geojson: Path):
     The point CSV carries no geoid, so rerun ingest's own spatial join (renaming
     columns to its event schema) to get the same assignment as the county CSV.
     """
-    points = read_point_data(point_csv)
+    points = read_csv_exact(point_csv)
     as_events = points.rename(
         columns={"facility_id": "charging_station_id", "lat": "latitude", "lon": "longitude"}
     )
@@ -82,7 +82,7 @@ def write_rdf(config: dict, point_csv: Path, county_csv: Path) -> Path:
     log.info("Assigning counties to charging locations")
     graph, unknown = build_graph(
         locations_with_county(point_csv, counties_geojson),
-        read_data(county_csv),
+        read_csv_exact(county_csv),
         ontology=Graph().parse(ONTOLOGY),
         measure_info=json.loads(MEASURE_INFO.read_text()),
         county_dataset_id=county_csv.name.removesuffix(".csv.xz"),

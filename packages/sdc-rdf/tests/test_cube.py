@@ -195,3 +195,77 @@ def test_year_anchor_rejects_real_dates():
 def test_period_conventions_are_exclusive():
     with pytest.raises(ValueError, match="mutually exclusive"):
         build(STATIC, year_anchor=True, hour_of_day_profile=True)
+
+
+def _round_trip(df: pd.DataFrame, **kw) -> pd.DataFrame:
+    from sdc_rdf import cube_to_long_format
+
+    g = Graph()
+    ds = long_format_to_cube(g, df, dataset_id="test_ds", label="Test", **kw)
+    return cube_to_long_format(g, ds)
+
+
+def _expected(df: pd.DataFrame, keys: list[str]) -> pd.DataFrame:
+    out = df.copy()
+    out["moe"] = pd.to_numeric(out["moe"]).astype(float)
+    out["value"] = out["value"].astype(float)
+    return out.sort_values(keys, ignore_index=True)
+
+
+@pytest.mark.parametrize(
+    "frame,kw,keys",
+    [
+        (STANDARD, {}, ["geoid", "year", "measure"]),
+        (ENERGY.assign(datetime=["2026-05-29", "2026-05-30"]), {}, ["geoid", "datetime", "scenario", "measure"]),
+        (HOURLY, {"hour_of_day_profile": True}, ["geoid", "datetime", "scenario", "measure"]),
+        (STATIC, {"year_anchor": True}, ["geoid", "datetime", "scenario", "measure"]),
+    ],
+    ids=["standard", "datetime", "hour_of_day", "year_anchor"],
+)
+def test_cube_round_trip(frame, kw, keys):
+    back = _round_trip(frame, **kw)
+    pd.testing.assert_frame_equal(back, _expected(frame, keys), check_dtype=False)
+    assert list(back.columns) == list(frame.columns)
+
+
+def test_round_trip_preserves_float_precision():
+    frame = HOURLY.assign(value=[31.935052636757312, 5e-06])
+    back = _round_trip(frame, hour_of_day_profile=True)
+    assert back["value"].tolist() == [31.935052636757312, 5e-06]  # hours 00, 23
+
+
+def test_default_scenario_recorded_and_validated():
+    g = Graph()
+    ds = long_format_to_cube(g, ENERGY, dataset_id="d", label="L", default_scenario="run_b")
+    assert g.value(ds, SDC.defaultScenario) == SDCID["scenario/run_b"]
+    with pytest.raises(ValueError, match="default_scenario"):
+        long_format_to_cube(Graph(), ENERGY, dataset_id="d", label="L", default_scenario="nope")
+
+
+def test_inverse_requires_period_convention():
+    from sdc_rdf import cube_to_long_format
+
+    g = Graph()
+    ds = long_format_to_cube(g, STANDARD, dataset_id="d", label="L")
+    g.remove((ds, SDC.periodConvention, None))
+    with pytest.raises(ValueError, match="periodConvention"):
+        cube_to_long_format(g, ds)
+
+
+def test_read_csv_exact_keeps_float_bits_and_text_ids(tmp_path):
+    from sdc_rdf import read_csv_exact
+
+    path = tmp_path / "x.csv"
+    path.write_text("geoid,facility_id,lat,value\n01001,0042,36.685957525459116,1490.3700000000001\n")
+    df = read_csv_exact(path)
+    assert df["geoid"][0] == "01001" and df["facility_id"][0] == "0042"
+    assert repr(float(df["lat"][0])) == "36.685957525459116"
+    assert repr(float(df["value"][0])) == "1490.3700000000001"
+
+
+def test_integer_values_round_trip_as_integers():
+    frame = STATIC.assign(value=[24, 31])
+    back = _round_trip(frame, year_anchor=True)
+    assert pd.api.types.is_integer_dtype(back["value"]) and sorted(back["value"]) == [24, 31]
+    floats = _round_trip(STATIC.assign(value=[24.0, 31.0]), year_anchor=True)
+    assert pd.api.types.is_float_dtype(floats["value"])

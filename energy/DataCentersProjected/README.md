@@ -91,3 +91,25 @@ uv run pytest energy/DataCentersProjected/code/distribution/test_transforms.py -
 - **Uniform facility sizes within a tier.** The CERF model places identically-sized candidate facilities; per-row variability in `data_center_it_power_mw` exists only across demand tiers, not within.
 - **Spatial-join boundary edge cases.** Some centroids may fall outside VA county polygons (cartographic boundary file is generalized). The ingest logs a warning and drops them. Magnitude is typically small (a few rows out of thousands).
 - **Each scenario is independent.** The same `id` value across scenarios does NOT refer to the same physical site. Count rows per (county, scenario), not per (county, id).
+
+## RDF output (exploratory, lossless)
+
+`prepare.py` also writes `data/distribution/va_ctpt_im3_2035_data_centers_projected.nt.xz`
+(about 99k triples, sorted N-Triples, xz-compressed) and copies it into
+`dashboard_data/va_energy_data/`. It holds a single graph with:
+
+- **The 20 scenarios** as `sdc:Scenario` nodes, each with `sdce:growthTier` and
+  `sdce:marketGravityWeight`. The county dataset names `im3_cerf_moderate_50` as its
+  `sdc:defaultScenario`, taken from `source.scenario_canonical`.
+- **County observations** as an RDF Data Cube (via `packages/sdc-rdf`), one per (county,
+  scenario, measure), with the static `2035-01-01` read as the projection year.
+- **One `sdce:ProjectedDataCenter` per point row** (3,770), tied to its scenario. The same
+  CERF id in two scenarios is two distinct sites that share an `sdce:sourceId`.
+
+The graph is **lossless**. `to_rdf.points_from_graph` and `sdc_rdf.cube_to_long_format`
+rebuild both distribution CSVs from it, and the tests regenerate them from the written
+`.nt.xz` and compare them line by line with the originals. CSVs are read with
+`sdc_rdf.read_csv_exact` (round-trip float parsing) to make that possible.
+
+The ontology and SHACL shapes are shared in `energy/rdf/`; example queries are in
+`rdf/queries/`.

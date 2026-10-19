@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import lzma
 import sys
 from pathlib import Path
 
@@ -11,8 +12,8 @@ import pytest
 import yaml
 from pyshacl import validate
 from rdflib import RDF, Graph
-from sdc_core.io import read_data, read_point_data
-from sdc_rdf import SDCID, load_core_ontology, load_core_shapes
+from sdc_core.io import write_data
+from sdc_rdf import SDCID, cube_to_long_format, load_core_ontology, load_core_shapes, read_csv_exact
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from to_rdf import SDCE, build_graph
@@ -114,7 +115,7 @@ def real_graph():
     if not (point_csv.exists() and county_csv.exists()):
         pytest.skip("distribution CSVs not present")
     g, unknown = build_graph(
-        read_point_data(point_csv), read_data(county_csv), ontology=ONTOLOGY,
+        read_csv_exact(point_csv), read_csv_exact(county_csv), ontology=ONTOLOGY,
         measure_info=json.loads((TOPIC_DIR / "measure_info.json").read_text()),
         county_dataset_id=county_csv.name.removesuffix(".csv.xz"),
         layer_urls=[], null_sentinel=config["source"]["null_sentinel"],
@@ -133,3 +134,19 @@ def test_distribution_county_counts_match_facilities(real_graph):
     g, _ = real_graph
     query = (TOPIC_DIR / "rdf/queries/county_count_consistency.rq").read_text()
     assert list(g.query(query)) == []
+
+
+def test_distribution_county_csv_regenerates_from_graph(real_graph, tmp_path):
+    """Lossless: the county CSV can be rebuilt from the graph alone."""
+    g = real_graph[0]
+    config = yaml.safe_load((TOPIC_DIR / "pipeline.yaml").read_text())
+    county_csv = TOPIC_DIR / config["output"]["county_csv"]
+    dataset = SDCID[f"dataset/{county_csv.name.removesuffix('.csv.xz')}"]
+    out = write_data(cube_to_long_format(g, dataset), tmp_path / county_csv.name,
+                     standardize=False, census_standardize=False)
+
+    def lines(path):
+        header, *rows = lzma.open(path, "rt").read().splitlines()
+        return header, sorted(rows)
+
+    assert lines(out) == lines(county_csv)

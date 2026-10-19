@@ -18,3 +18,4 @@ geographies:
 output:
   point_csv: data/distribution/va_pt_im3_2035_data_centers_projected.csv.xz
   county_csv: data/distribution/va_ct_im3_2035_data_centers_projected.csv.xz
+  rdf_graph: data/distribution/va_ctpt_im3_2035_data_centers_projected.nt.xz  # county cube + projected sites, all 20 scenarios

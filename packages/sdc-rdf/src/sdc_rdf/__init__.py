@@ -5,14 +5,22 @@ provides the shared namespaces, region IRIs and core ontology that pipeline-leve
 ontology extensions (e.g. energy facilities) build on.
 """
 
-from .cube import add_measure, add_scenario, long_format_to_cube, measure_iri, scenario_iri
-from .io import load_core_ontology, load_core_shapes, read_graph, write_graph
+from .cube import (
+    add_measure,
+    add_scenario,
+    cube_to_long_format,
+    long_format_to_cube,
+    measure_iri,
+    scenario_iri,
+)
+from .io import load_core_ontology, load_core_shapes, read_csv_exact, read_graph, write_graph
 from .namespaces import GEO, SDC, SDCID, SDCM, bind_prefixes
 from .regions import REGION_CLASSES, add_region, add_region_labels_from_geojson, region_iri
 
 __all__ = [
     "GEO", "SDC", "SDCID", "SDCM", "REGION_CLASSES",
     "add_measure", "add_region", "add_region_labels_from_geojson", "add_scenario",
-    "bind_prefixes", "load_core_ontology", "load_core_shapes", "long_format_to_cube",
-    "measure_iri", "read_graph", "region_iri", "scenario_iri", "write_graph",
+    "bind_prefixes", "cube_to_long_format", "load_core_ontology", "load_core_shapes",
+    "long_format_to_cube",
+    "measure_iri", "read_csv_exact", "read_graph", "region_iri", "scenario_iri", "write_graph",
 ]

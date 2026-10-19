@@ -6,7 +6,11 @@ import lzma
 from importlib.resources import files
 from pathlib import Path
 
+import pandas as pd
 from rdflib import Graph
+
+# Identifier columns that must stay text (leading zeros, mixed numeric/alpha IDs).
+ID_COLUMNS = ["geoid", "facility_id", "source_id", "station_id"]
 
 
 def load_core_ontology() -> Graph:
@@ -57,3 +61,14 @@ def read_graph(path: str | Path) -> Graph:
     fmt, compressed = _format(path)
     data = path.read_bytes()
     return Graph().parse(data=lzma.decompress(data) if compressed else data, format=fmt)
+
+
+def read_csv_exact(path: str | Path) -> pd.DataFrame:
+    """Read a distribution CSV for RDF conversion without losing information.
+
+    Unlike ``sdc_core.io.read_data`` / ``read_point_data``, floats are parsed with
+    ``float_precision="round_trip"``. pandas' default parser can be off by one ULP
+    (e.g. "36.685957525459116" → 36.68595752545912), which would then be baked
+    into the graph and break CSV regeneration. ID columns are read as text.
+    """
+    return pd.read_csv(path, dtype={c: str for c in ID_COLUMNS}, float_precision="round_trip")
