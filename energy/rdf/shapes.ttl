@@ -1,4 +1,4 @@
-# SHACL shapes for HIFLD facility nodes (cube observations use sdc-rdf's core shapes).
+# SHACL shapes for energy point entities (cube observations use sdc-rdf's core shapes).
 @prefix sh:      <http://www.w3.org/ns/shacl#> .
 @prefix sdce:    <https://w3id.org/sdc/ns/energy#> .
 @prefix sdc:     <https://w3id.org/sdc/ns#> .
@@ -30,3 +30,17 @@ sdce:SubstationShape a sh:NodeShape ;
 sdce:GeometryShape a sh:NodeShape ;
     sh:targetObjectsOf geo:hasGeometry ;
     sh:property [ sh:path geo:asWKT ; sh:datatype geo:wktLiteral ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+sdce:EVChargingLocationShape a sh:NodeShape ;
+    sh:targetClass sdce:EVChargingLocation ;
+    sh:property [ sh:path dcterms:identifier ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:inCounty ; sh:class sdc:County ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path geo:hasGeometry ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:locationType ; sh:class sdce:EVLocationType ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:typicalDayEnergyKWh ; sh:datatype xsd:decimal ; sh:minInclusive 0 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:activeHours ; sh:datatype xsd:integer ; sh:minInclusive 0 ; sh:maxInclusive 24 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:atStation ; sh:class sdce:EVChargingStation ; sh:maxCount 1 ] .
+
+sdce:EVChargingStationShape a sh:NodeShape ;
+    sh:targetClass sdce:EVChargingStation ;
+    sh:property [ sh:path dcterms:identifier ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] .

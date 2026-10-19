@@ -1,8 +1,10 @@
-# Energy ontology extension: HIFLD power infrastructure.
+# Energy ontology extension, shared by the energy/* pipelines.
 #
 # Builds on the commons core ontology (packages/sdc-rdf, prefix sdc:). County
 # measures need nothing here: they are qb:Observations minted by
-# sdc_rdf.long_format_to_cube. This file models the facility points.
+# sdc_rdf.long_format_to_cube. This file models the point-level entities:
+#   - power plants and substations (PowerInfrastructure, HIFLD)
+#   - EV charging locations and stations (EVChargingDemand, EVChargingStations)
 #
 # Namespace IRIs are placeholders (w3id.org/sdc is not registered).
 
@@ -21,10 +23,21 @@
 sdce: a owl:Ontology ;
     rdfs:label "Social Data Commons energy ontology" ;
     owl:imports sdc: ;
-    owl:versionInfo "0.1.0" .
+    owl:versionInfo "0.2.0" .
 
 # ---------------------------------------------------------------------------
-# Facilities. IRI: sdcid:facility/{facility_id}
+# Shared
+# ---------------------------------------------------------------------------
+
+sdce:inCounty a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:subPropertyOf geo:sfWithin ;
+    rdfs:domain geo:Feature ;
+    rdfs:range sdc:County ;
+    rdfs:label "in county" ;
+    rdfs:comment "County a point feature is assigned to. Each pipeline documents how (source FIPS field, spatial join, nearest polygon)." .
+
+# ---------------------------------------------------------------------------
+# Power facilities (HIFLD). IRI: sdcid:facility/{facility_id}
 # ---------------------------------------------------------------------------
 
 sdce:PowerFacility a owl:Class ;
@@ -42,13 +55,6 @@ sdce:Substation a owl:Class ;
     owl:disjointWith sdce:PowerPlant ;
     rdfs:label "Electric substation" ;
     rdfs:comment "A facility that switches, transforms or regulates power (HIFLD Electric Substations layer, 69 kV and above)." .
-
-sdce:inCounty a owl:ObjectProperty, owl:FunctionalProperty ;
-    rdfs:subPropertyOf geo:sfWithin ;
-    rdfs:domain sdce:PowerFacility ;
-    rdfs:range sdc:County ;
-    rdfs:label "in county" ;
-    rdfs:comment "County the facility is assigned to: HIFLD COUNTYFIPS, or the nearest 2020 county polygon when that is missing." .
 
 sdce:operatedBy a owl:ObjectProperty ;
     rdfs:domain sdce:PowerPlant ;
@@ -90,6 +96,45 @@ sdce:sourceId a owl:DatatypeProperty ;
     rdfs:range xsd:string ;
     rdfs:label "source identifier" ;
     rdfs:comment "Identifier in the upstream dataset (EIA plant code for plants, HIFLD ID for substations)." .
+
+# ---------------------------------------------------------------------------
+# EV charging (EVChargingDemand, EVChargingStations)
+# ---------------------------------------------------------------------------
+
+sdce:EVChargingLocation a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "EV charging location" ;
+    rdfs:comment "A location where charging occurs in a simulated EV demand scenario: a public station, a residence, or another site. IRI: sdcid:ev-charging-location/{charging_station_id}." .
+
+sdce:EVChargingStation a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "EV charging station" ;
+    rdfs:comment "A public EV charging station from the simulated station inventory (EVChargingStations). IRI: sdcid:ev-station/{station_id}." .
+
+sdce:atStation a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain sdce:EVChargingLocation ;
+    rdfs:range sdce:EVChargingStation ;
+    rdfs:label "at station" ;
+    rdfs:comment "Links a demand-scenario location to the public station it represents (matched on the va_<n>_existing station id)." .
+
+sdce:locationType a owl:ObjectProperty ;
+    rdfs:domain sdce:EVChargingLocation ;
+    rdfs:range sdce:EVLocationType ;
+    rdfs:label "location type" ;
+    rdfs:comment "Heuristic class inferred from the charging_station_id format, not from authoritative metadata." .
+
+sdce:typicalDayEnergyKWh a owl:DatatypeProperty ;
+    rdfs:domain sdce:EVChargingLocation ;
+    rdfs:range xsd:decimal ;
+    qudt:unit unit:KiloW-HR ;
+    rdfs:label "typical-day charging energy (kWh)" ;
+    rdfs:comment "Energy delivered at the location summed over the 24 hours of the scenario's typical-day profile." .
+
+sdce:activeHours a owl:DatatypeProperty ;
+    rdfs:domain sdce:EVChargingLocation ;
+    rdfs:range xsd:integer ;
+    rdfs:label "active hours" ;
+    rdfs:comment "Number of typical-day hours (0-24) with non-zero charging energy at the location." .
 
 # ---------------------------------------------------------------------------
 # Code lists
@@ -135,3 +180,15 @@ sdce:status-T  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme
 sdce:status-U  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "U"  ; skos:prefLabel "Under construction (<= 50% complete)" .
 sdce:status-IN_SERVICE  a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "IN SERVICE"  ; skos:prefLabel "In service" ; skos:closeMatch sdce:status-OP .
 sdce:status-UNDER_CONST a sdce:OperatingStatus ; skos:inScheme sdce:OperatingStatusScheme ; skos:notation "UNDER CONST" ; skos:prefLabel "Under construction" .
+
+sdce:EVLocationType a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "EV charging location type" .
+
+sdce:EVLocationTypeScheme a skos:ConceptScheme ;
+    rdfs:label "EV charging location types (inferred from charging_station_id format)" .
+
+sdce:evloc-public_station a sdce:EVLocationType ; skos:inScheme sdce:EVLocationTypeScheme ; skos:notation "public_station" ;
+    skos:prefLabel "Public station" ; skos:definition "ID matches va_<digits>_existing." .
+sdce:evloc-residential_or_other a sdce:EVLocationType ; skos:inScheme sdce:EVLocationTypeScheme ; skos:notation "residential_or_other" ;
+    skos:prefLabel "Residential or other" ; skos:definition "Purely numeric ID: a residence or other simulated, non-public location." .
+sdce:evloc-unknown a sdce:EVLocationType ; skos:inScheme sdce:EVLocationTypeScheme ; skos:notation "unknown" ;
+    skos:prefLabel "Unknown" ; skos:definition "Any other ID format." .

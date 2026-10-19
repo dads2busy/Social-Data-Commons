@@ -87,7 +87,9 @@ def run() -> None:
     county_csv = TOPIC_DIR / out["county_csv"]
 
     log.info("Reading %s", input_path)
-    events = pd.read_csv(input_path)
+    # IDs mix numeric and alphanumeric forms; without an explicit str dtype pandas
+    # parses some chunks as int and others as str, splitting one location in two.
+    events = pd.read_csv(input_path, dtype={"charging_station_id": str, "old_pop_hid": str})
     log.info("Loaded %d event rows", len(events))
 
     log.info("Spatial join (unique-location optimization) with %s", counties_path)

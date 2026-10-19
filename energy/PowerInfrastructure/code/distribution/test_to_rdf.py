@@ -18,9 +18,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from to_rdf import SDCE, build_graph
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
-RDF_DIR = TOPIC_DIR / "rdf"
-ONTOLOGY = Graph().parse(RDF_DIR / "ontology.ttl")
-SHAPES = Graph().parse(RDF_DIR / "shapes.ttl") + load_core_shapes()
+ENERGY_RDF_DIR = TOPIC_DIR.parent / "rdf"
+ONTOLOGY = Graph().parse(ENERGY_RDF_DIR / "ontology.ttl")
+SHAPES = Graph().parse(ENERGY_RDF_DIR / "shapes.ttl") + load_core_shapes()
 
 POINTS = pd.DataFrame(
     {
@@ -131,5 +131,5 @@ def test_distribution_graph_conforms(real_graph):
 
 def test_distribution_county_counts_match_facilities(real_graph):
     g, _ = real_graph
-    query = (RDF_DIR / "queries/county_count_consistency.rq").read_text()
+    query = (TOPIC_DIR / "rdf/queries/county_count_consistency.rq").read_text()
     assert list(g.query(query)) == []

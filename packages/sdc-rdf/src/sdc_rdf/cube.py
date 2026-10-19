@@ -4,21 +4,29 @@ Handles both long-format variants in the commons:
 
 - standard: ``geoid, year, measure, value, moe, region_type, data_method``
 - energy:   ``geoid, datetime, measure, value, moe, region_type, data_method, scenario``
+
+Energy files may also follow the hour-of-day-profile convention (energy/README.md):
+``datetime = "{year}-01-01THH:00:00"`` marks hour HH of a typical day, not a real
+timestamp. With ``hour_of_day_profile=True`` those rows become refPeriod = the
+year (xsd:gYear) plus an sdc:hourOfDay dimension, so no false date is asserted.
 """
 
 from __future__ import annotations
 
+import re
 from collections.abc import Mapping
 from decimal import Decimal
 
 import pandas as pd
-from rdflib import RDF, RDFS, XSD, BNode, Graph, Literal, URIRef
+from rdflib import RDF, RDFS, XSD, Graph, Literal, URIRef
 from rdflib.namespace import PROV, QB, SKOS
 
 from .namespaces import SDC, SDCID, SDCM
 from .regions import add_region
 
 REQUIRED_COLUMNS = ["geoid", "measure", "value", "region_type", "data_method"]
+
+HOUR_OF_DAY_RE = re.compile(r"^(\d{4})-01-01[T ](\d{2}):00:00$")
 
 # measure_info.json field → (predicate, language-tagged?)
 MEASURE_INFO_FIELDS = {
@@ -69,6 +77,15 @@ def period_literal(row: Mapping) -> Literal:
     return Literal(dt.replace(" ", "T"), datatype=XSD.dateTime)
 
 
+def hour_of_day_period(row: Mapping) -> tuple[Literal, int]:
+    """``"2026-01-01T07:00:00"`` → (``"2026"^^xsd:gYear``, 7) under the profile convention."""
+    dt = str(row["datetime"]).strip()
+    match = HOUR_OF_DAY_RE.match(dt)
+    if not match or int(match[2]) > 23:
+        raise ValueError(f"datetime {dt!r} does not follow the hour-of-day convention YYYY-01-01THH:00:00")
+    return Literal(match[1], datatype=XSD.gYear), int(match[2])
+
+
 def _decimal(v) -> Decimal | None:
     if v is None or pd.isna(v) or str(v).strip() == "":
         return None
@@ -82,16 +99,21 @@ def long_format_to_cube(
     dataset_id: str,
     label: str,
     measure_info: Mapping[str, Mapping] | None = None,
+    hour_of_day_profile: bool = False,
 ) -> URIRef:
     """Add one qb:DataSet (with its structure) and one qb:Observation per row of ``df``.
 
     ``dataset_id`` should be the distribution file stem (e.g.
     ``va_ct_hifld_2026_power_infrastructure``); it scopes the dataset,
-    structure and observation IRIs. Returns the dataset IRI.
+    structure and observation IRIs. Set ``hour_of_day_profile`` for energy files
+    that follow the typical-day convention (see module docstring). Returns the
+    dataset IRI.
     """
     missing = [c for c in REQUIRED_COLUMNS if c not in df.columns]
     if "year" not in df.columns and "datetime" not in df.columns:
         missing.append("year|datetime")
+    if hour_of_day_profile and "datetime" not in df.columns:
+        missing.append("datetime")
     if missing:
         raise ValueError(f"long-format frame is missing columns: {missing}")
 
@@ -106,7 +128,12 @@ def long_format_to_cube(
     g.add((ds, QB.structure, dsd))
     g.add((dsd, RDF.type, QB.DataStructureDefinition))
 
-    dimensions = [SDC.refArea, SDC.refPeriod] + ([SDC.scenario] if has_scenario else []) + [QB.measureType]
+    dimensions = (
+        [SDC.refArea, SDC.refPeriod]
+        + ([SDC.hourOfDay] if hour_of_day_profile else [])
+        + ([SDC.scenario] if has_scenario else [])
+        + [QB.measureType]
+    )
     for order, dim in enumerate(dimensions, start=1):
         _component(g, dsd, QB.dimension, dim, order=order)
     _component(g, dsd, QB.attribute, SDC.dataMethod, required=True)
@@ -122,9 +149,15 @@ def long_format_to_cube(
         if (region_type, geoid) not in seen_regions:
             add_region(g, region_type, geoid)
             seen_regions.add((region_type, geoid))
-        period = period_literal(row)
+        hour = None
+        if hour_of_day_profile:
+            period, hour = hour_of_day_period(row)
+        else:
+            period = period_literal(row)
 
         key = [region_type, geoid, str(period)]
+        if hour is not None:
+            key.append(f"h{hour:02d}")
         if has_scenario:
             key.append(row["scenario"])
         key.append(measure)
@@ -137,6 +170,8 @@ def long_format_to_cube(
         g.add((obs, QB.dataSet, ds))
         g.add((obs, SDC.refArea, SDCID[f"{region_type}/{geoid}"]))
         g.add((obs, SDC.refPeriod, period))
+        if hour is not None:
+            g.add((obs, SDC.hourOfDay, Literal(hour, datatype=XSD.integer)))
         g.add((obs, QB.measureType, m))
         if (value := _decimal(row["value"])) is not None:
             g.add((obs, m, Literal(value, datatype=XSD.decimal)))
@@ -152,7 +187,9 @@ def long_format_to_cube(
 
 
 def _component(g: Graph, dsd: URIRef, kind: URIRef, prop: URIRef, *, order=None, required=None):
-    c = BNode()
+    # Named (not blank) so regenerated files are byte-stable.
+    local = re.split(r"[#/]", str(prop))[-1]
+    c = URIRef(f"{dsd}/component/{local}")
     g.add((dsd, QB.component, c))
     g.add((c, kind, prop))
     if order is not None:

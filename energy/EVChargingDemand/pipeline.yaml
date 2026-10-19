@@ -15,3 +15,4 @@ geographies:
 output:
   point_csv: data/distribution/va_pt_sim_2026_ev_charging_demand.csv.xz
   county_csv: data/distribution/va_ct_sim_2026_ev_charging_demand.csv.xz
+  rdf_graph: data/distribution/va_ctpt_sim_2026_ev_charging_demand.nt.xz  # hourly county cube + charging-location graph (N-Triples: large)

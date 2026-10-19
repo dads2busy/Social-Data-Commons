@@ -1,5 +1,5 @@
 # Counties with high-voltage (>= 230 kV) substations but under 10 MW of
-# operating renewable generation. Needs rdf/ontology.ttl loaded (renewable flag).
+# operating renewable generation. Needs energy/rdf/ontology.ttl loaded (renewable flag).
 PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 

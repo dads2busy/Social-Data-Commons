@@ -11,6 +11,7 @@ sdc:ObservationShape a sh:NodeShape ;
     sh:property [ sh:path sdc:refArea ; sh:class sdc:Region ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path sdc:refPeriod ; sh:minCount 1 ; sh:maxCount 1 ;
                   sh:or ( [ sh:datatype xsd:gYear ] [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] ) ] ;
+    sh:property [ sh:path sdc:hourOfDay ; sh:datatype xsd:integer ; sh:minInclusive 0 ; sh:maxInclusive 23 ; sh:maxCount 1 ] ;
     sh:property [ sh:path sdc:scenario ; sh:class sdc:Scenario ; sh:maxCount 1 ] ;
     sh:property [ sh:path qb:measureType ; sh:class qb:MeasureProperty ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path sdc:dataMethod ; sh:class sdc:DataMethod ; sh:minCount 1 ; sh:maxCount 1 ] ;
