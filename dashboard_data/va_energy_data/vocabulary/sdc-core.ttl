@@ -1,0 +1,157 @@
+# Social Data Commons core ontology.
+#
+# Commons-wide terms only: regions, scenarios, data methods, and the RDF Data
+# Cube components that every long-format distribution file maps onto. Measures
+# are minted per pipeline from measure_info.json (see sdc_rdf.cube), and
+# domain entities (e.g. energy facilities) live in pipeline-level extensions.
+#
+# Namespace IRIs are placeholders (w3id.org/sdc is not registered).
+
+@prefix sdc:     <https://w3id.org/sdc/ns#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix geo:     <http://www.opengis.net/ont/geosparql#> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix qb:      <http://purl.org/linked-data/cube#> .
+
+sdc: a owl:Ontology ;
+    rdfs:label "Social Data Commons core ontology" ;
+    dcterms:description "Regions, scenarios, data methods and statistical-observation structure shared by all Social Data Commons pipelines." ;
+    owl:versionInfo "0.7.0" .
+
+# ---------------------------------------------------------------------------
+# Regions. IRI: sdcid:{region_type}/{geoid}
+# ---------------------------------------------------------------------------
+
+sdc:Region a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Region" ;
+    rdfs:comment "A geography identified by a GEOID (Census-standardized 2020 FIPS, or a health district code)." .
+
+sdc:County a owl:Class ; rdfs:subClassOf sdc:Region ;
+    rdfs:label "County" ; rdfs:comment "County or county-equivalent (incl. Virginia independent cities); region_type `county`." .
+sdc:Tract a owl:Class ; rdfs:subClassOf sdc:Region ;
+    rdfs:label "Census tract" ; rdfs:comment "region_type `tract`." .
+sdc:BlockGroup a owl:Class ; rdfs:subClassOf sdc:Region ;
+    rdfs:label "Census block group" ; rdfs:comment "region_type `block_group`." .
+sdc:HealthDistrict a owl:Class ; rdfs:subClassOf sdc:Region ;
+    rdfs:label "Health district" ; rdfs:comment "Virginia Department of Health district; region_type `health_district`." .
+
+sdc:geoid a owl:DatatypeProperty ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    rdfs:domain sdc:Region ;
+    rdfs:range xsd:string ;
+    rdfs:label "GEOID" .
+
+# ---------------------------------------------------------------------------
+# Scenarios and data methods
+# ---------------------------------------------------------------------------
+
+sdc:Scenario a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "Scenario" ;
+    rdfs:comment "The `scenario` label on energy-style long-format files: a source snapshot (observed) or a model run / projection (simulated). IRI: sdcid:scenario/{label}." .
+
+sdc:DataMethod a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Data method" .
+
+sdc:DataMethodScheme a skos:ConceptScheme ;
+    rdfs:label "Social Data Commons data_method values" .
+
+sdc:method-observed     a sdc:DataMethod ; skos:inScheme sdc:DataMethodScheme ; skos:notation "observed"     ; skos:prefLabel "Observed" .
+sdc:method-modeled      a sdc:DataMethod ; skos:inScheme sdc:DataMethodScheme ; skos:notation "modeled"      ; skos:prefLabel "Modeled" .
+sdc:method-simulated    a sdc:DataMethod ; skos:inScheme sdc:DataMethodScheme ; skos:notation "simulated"    ; skos:prefLabel "Simulated" .
+sdc:method-scaled       a sdc:DataMethod ; skos:inScheme sdc:DataMethodScheme ; skos:notation "scaled"       ; skos:prefLabel "Scaled" .
+sdc:method-interpolated a sdc:DataMethod ; skos:inScheme sdc:DataMethodScheme ; skos:notation "interpolated" ; skos:prefLabel "Interpolated" .
+sdc:method-extrapolated a sdc:DataMethod ; skos:inScheme sdc:DataMethodScheme ; skos:notation "extrapolated" ; skos:prefLabel "Extrapolated" .
+
+# ---------------------------------------------------------------------------
+# RDF Data Cube components
+#
+# One qb:Observation per long-format row. Files carry one measure per row, so
+# data structure definitions use the qb:measureType dimension.
+# ---------------------------------------------------------------------------
+
+sdc:refArea a qb:DimensionProperty, owl:ObjectProperty ;
+    rdfs:label "reference area" ;
+    rdfs:range sdc:Region .
+
+sdc:refPeriod a qb:DimensionProperty, owl:DatatypeProperty ;
+    rdfs:label "reference period" ;
+    rdfs:comment "xsd:gYear for `year` files and for energy files whose `datetime` is a scenario-year marker (YYYY-01-01) or typical-day profile; otherwise xsd:date or xsd:dateTime." .
+
+sdc:hourOfDay a qb:DimensionProperty, owl:DatatypeProperty ;
+    rdfs:label "hour of day" ;
+    rdfs:comment "Hour (0-23) of a typical-day profile. Used with refPeriod = the scenario year for files following the energy hour-of-day convention (datetime YYYY-01-01THH:00:00), whose date part is a marker, not an observation date." ;
+    rdfs:range xsd:integer .
+
+sdc:scenario a qb:DimensionProperty, owl:ObjectProperty ;
+    rdfs:label "scenario" ;
+    rdfs:range sdc:Scenario .
+
+# Dataset-level metadata
+
+sdc:periodConvention a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain qb:DataSet ;
+    rdfs:range sdc:PeriodConvention ;
+    rdfs:label "period convention" ;
+    rdfs:comment "How the source file's year/datetime column maps to refPeriod (+ hourOfDay), so the long-format file can be rebuilt from the graph." .
+
+sdc:defaultScenario a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain qb:DataSet ;
+    rdfs:range sdc:Scenario ;
+    rdfs:label "default scenario" ;
+    rdfs:comment "The scenario a dashboard should show first for a multi-scenario dataset." .
+
+sdc:PeriodConvention a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Period convention" .
+
+sdc:PeriodConventionScheme a skos:ConceptScheme ;
+    rdfs:label "Long-format period conventions" .
+
+sdc:period-year a sdc:PeriodConvention ; skos:inScheme sdc:PeriodConventionScheme ;
+    skos:notation "year" ; skos:prefLabel "Year column" ;
+    skos:definition "Standard `year` column; refPeriod is that year (xsd:gYear)." .
+sdc:period-datetime a sdc:PeriodConvention ; skos:inScheme sdc:PeriodConventionScheme ;
+    skos:notation "datetime" ; skos:prefLabel "Calendar datetime" ;
+    skos:definition "Energy `datetime` column holding a real date or timestamp; refPeriod is that xsd:date / xsd:dateTime." .
+sdc:period-yearAnchor a sdc:PeriodConvention ; skos:inScheme sdc:PeriodConventionScheme ;
+    skos:notation "year_anchor" ; skos:prefLabel "Scenario-year anchor" ;
+    skos:definition "Energy `datetime = YYYY-01-01` marking a scenario year; refPeriod is the year." .
+sdc:period-hourOfDayProfile a sdc:PeriodConvention ; skos:inScheme sdc:PeriodConventionScheme ;
+    skos:notation "hour_of_day_profile" ; skos:prefLabel "Typical-day hour profile" ;
+    skos:definition "Energy `datetime = YYYY-01-01THH:00:00` marking hour HH of a typical day; refPeriod is the year plus sdc:hourOfDay." .
+
+sdc:dataMethod a qb:AttributeProperty, owl:ObjectProperty ;
+    rdfs:label "data method" ;
+    rdfs:range sdc:DataMethod .
+
+sdc:marginOfError a qb:AttributeProperty, owl:DatatypeProperty ;
+    rdfs:label "margin of error" ;
+    rdfs:comment "90% confidence margin of error, when the source provides one." ;
+    rdfs:range xsd:decimal .
+
+sdc:unit a owl:DatatypeProperty ;
+    rdfs:label "unit" ;
+    rdfs:comment "The measure_info.json `unit` string for a measure." ;
+    rdfs:range xsd:string .
+
+sdc:aggregationMethod a owl:DatatypeProperty ;
+    rdfs:label "aggregation method" ;
+    rdfs:comment "The measure_info.json `aggregation_method` string for a measure." ;
+    rdfs:range xsd:string .
+
+sdc:category a owl:DatatypeProperty ;
+    rdfs:label "category" ;
+    rdfs:comment "The measure_info.json `category` string for a measure." ;
+    rdfs:range xsd:string .
+
+sdc:provenance a owl:DatatypeProperty ;
+    rdfs:label "provenance" ;
+    rdfs:comment "The measure_info.json `provenance` text for a measure." ;
+    rdfs:range xsd:string .

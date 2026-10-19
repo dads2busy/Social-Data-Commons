@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import lzma
+from collections.abc import Mapping
 from importlib.resources import files
 from pathlib import Path
 
@@ -33,6 +34,29 @@ def _format(path: Path) -> tuple[str, bool]:
     if suffix not in FORMATS:
         raise ValueError(f"{path.name}: expected a .nt, .nt.xz, .ttl or .ttl.xz path")
     return FORMATS[suffix], compressed
+
+
+def stage_vocabulary(out_dir: str | Path, extensions: Mapping[str, str | Path] | None = None) -> list[Path]:
+    """Copy the vocabulary a published graph needs into ``out_dir``.
+
+    Always writes the core ontology and shapes as ``sdc-core.ttl`` and
+    ``sdc-core-shapes.ttl``; ``extensions`` maps further published names to
+    source files (e.g. ``{"sdc-energy.ttl": energy/rdf/ontology.ttl}``).
+    Returns the written paths.
+    """
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    sources = {
+        "sdc-core.ttl": files("sdc_rdf") / "ontology" / "core.ttl",
+        "sdc-core-shapes.ttl": files("sdc_rdf") / "shapes" / "core.ttl",
+        **{name: Path(src) for name, src in (extensions or {}).items()},
+    }
+    written = []
+    for name, src in sources.items():
+        dest = out_dir / name
+        dest.write_bytes(src.read_bytes())
+        written.append(dest)
+    return written
 
 
 def write_graph(g: Graph, path: str | Path) -> Path:

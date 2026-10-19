@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - 2026-10-19
+
+### Added
+- `stage_vocabulary(out_dir, extensions)`: writes `sdc-core.ttl` and `sdc-core-shapes.ttl` (plus
+  any extension files) for publication alongside graphs.
+
 ## [0.6.0] - 2026-10-19
 
 ### Added
