@@ -31,5 +31,5 @@ geographies:
 output:
   point_csv: data/distribution/va_pt_hifld_2026_power_infrastructure.csv.xz
   county_csv: data/distribution/va_ct_hifld_2026_power_infrastructure.csv.xz
-  rdf_ttl: data/distribution/va_ctpt_hifld_2026_power_infrastructure.ttl.xz  # county cube + facility graph
+  rdf_graph: data/distribution/va_ctpt_hifld_2026_power_infrastructure.ttl.xz  # county cube + facility graph
   raw_cache_dir: data/original          # raw per-layer JSON cached here (gitignored)

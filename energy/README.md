@@ -39,3 +39,14 @@ Future pipelines (residential ResStock load profiles, hourly PV generation) will
 ## Dashboard target
 
 Energy pipelines emit dashboard files to `dashboard_data/va_energy_data/` (separate from `virginia_public_health_data/` and `national_capital_region_data/`). A new dashboard consumer will be built against this directory.
+
+## RDF output (exploratory)
+
+Some energy pipelines also emit an RDF knowledge graph from `prepare.py`: county
+observations as an RDF Data Cube (`packages/sdc-rdf`) plus their point entities. The
+shared energy ontology (`sdce:`) and SHACL shapes are in `energy/rdf/`.
+
+| Pipeline | Graph |
+|---|---|
+| PowerInfrastructure | `va_ctpt_hifld_2026_power_infrastructure.ttl.xz` |
+| EVChargingDemand | `va_ctpt_sim_2026_ev_charging_demand.nt.xz` (hour-of-day profile: `refPeriod` year + `sdc:hourOfDay`) |

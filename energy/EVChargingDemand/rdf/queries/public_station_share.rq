@@ -1,0 +1,24 @@
+# Share of each county's typical-day EV charging energy delivered at public
+# stations (locations linked to an EVChargingStations station), top 10 by share
+# among counties with at least 1 MWh/day.
+PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?name (COALESCE(?n, 0) AS ?publicStations) ?totalKWh
+       (COALESCE(?publicKWh, 0) / ?totalKWh AS ?publicShare)
+WHERE {
+  {
+    SELECT ?county (SUM(?e) AS ?totalKWh) WHERE {
+      ?loc a sdce:EVChargingLocation ; sdce:inCounty ?county ; sdce:typicalDayEnergyKWh ?e .
+    } GROUP BY ?county
+  }
+  OPTIONAL {
+    SELECT ?county (COUNT(?st) AS ?n) (SUM(?e) AS ?publicKWh) WHERE {
+      ?loc sdce:atStation ?st ; sdce:inCounty ?county ; sdce:typicalDayEnergyKWh ?e .
+    } GROUP BY ?county
+  }
+  ?county rdfs:label ?name .
+  FILTER (?totalKWh >= 1000)
+}
+ORDER BY DESC(?publicShare)
+LIMIT 10

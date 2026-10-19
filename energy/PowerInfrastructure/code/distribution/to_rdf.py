@@ -1,7 +1,7 @@
 """RDF graph for the PowerInfrastructure pipeline (HIFLD, VA).
 
 Facility points become sdce:PowerPlant / sdce:Substation nodes (ontology in
-../../rdf/ontology.ttl); county rows become qb:Observations via sdc_rdf. Pure
+energy/rdf/ontology.ttl); county rows become qb:Observations via sdc_rdf. Pure
 functions only. prepare.py does the file I/O.
 """
 

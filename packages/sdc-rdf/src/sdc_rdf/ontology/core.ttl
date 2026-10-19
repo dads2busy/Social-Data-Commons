@@ -20,7 +20,7 @@
 sdc: a owl:Ontology ;
     rdfs:label "Social Data Commons core ontology" ;
     dcterms:description "Regions, scenarios, data methods and statistical-observation structure shared by all Social Data Commons pipelines." ;
-    owl:versionInfo "0.1.0" .
+    owl:versionInfo "0.2.0" .
 
 # ---------------------------------------------------------------------------
 # Regions. IRI: sdcid:{region_type}/{geoid}
@@ -83,6 +83,11 @@ sdc:refArea a qb:DimensionProperty, owl:ObjectProperty ;
 sdc:refPeriod a qb:DimensionProperty, owl:DatatypeProperty ;
     rdfs:label "reference period" ;
     rdfs:comment "xsd:gYear for `year` files; xsd:date or xsd:dateTime for energy-style `datetime` files." .
+
+sdc:hourOfDay a qb:DimensionProperty, owl:DatatypeProperty ;
+    rdfs:label "hour of day" ;
+    rdfs:comment "Hour (0-23) of a typical-day profile. Used with refPeriod = the scenario year for files following the energy hour-of-day convention (datetime YYYY-01-01THH:00:00), whose date part is a marker, not an observation date." ;
+    rdfs:range xsd:integer .
 
 sdc:scenario a qb:DimensionProperty, owl:ObjectProperty ;
     rdfs:label "scenario" ;

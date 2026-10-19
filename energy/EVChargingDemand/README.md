@@ -68,3 +68,24 @@ uv run pytest energy/EVChargingDemand/code/distribution/test_transforms.py -v
 - **Typical-day profile, not real timestamps.** All `datetime` values land on 2026-01-01. This is a hour-of-day convention, not an actual time series. Don't treat them as if they were 24 specific minutes of Jan 1.
 - **No household attribution in output.** `old_pop_hid` is dropped at ingest. If a future pipeline needs to join individual events back to synthetic households, re-derive from the source.
 - **Public vs. residential split is heuristic.** The `type` field is inferred from `charging_station_id` format, not from authoritative metadata. The `va_*_existing` pattern is a reliable signal for public stations; numeric IDs are reliably non-public, but their further classification (residential vs. workplace vs. other) is not distinguished here.
+
+## RDF output (exploratory)
+
+`prepare.py` also writes `data/distribution/va_ctpt_sim_2026_ev_charging_demand.nt.xz`
+(about 780k triples, sorted N-Triples, xz-compressed) and copies it into
+`dashboard_data/va_energy_data/`. It holds a single graph with:
+
+- **Hourly county observations.** These are RDF Data Cube observations (via
+  `packages/sdc-rdf`) using the hour-of-day convention: `sdc:refPeriod "2026"^^xsd:gYear`
+  plus `sdc:hourOfDay 0-23`. The 1 January anchor is never stated as an observation date.
+- **One `sdce:EVChargingLocation` per point row**, with WKT geometry, county, location
+  type, typical-day kWh and active hours. The point CSV has no `geoid`, so
+  `prepare.py` re-runs ingest's own spatial join to reproduce the county assignment.
+- **Public-station locations** (`va_<n>_existing`) linked with `sdce:atStation` to
+  `sdcid:ev-station/{station_id}`, the IRI the EVChargingStations pipeline's stations
+  will use. All 1,224 match a station in that inventory.
+
+The ontology and SHACL shapes are shared in `energy/rdf/`; example queries are in
+`rdf/queries/`. `county_energy_consistency.rq` checks that each county's 24-hour kWh
+equals the sum over its locations. The output is N-Triples rather than Turtle
+because rdflib's Turtle writer is quadratic on this graph's numeric IRIs.

@@ -2,17 +2,24 @@
 
 from __future__ import annotations
 
+import json
 import shutil
 from pathlib import Path
 
 import yaml
-from sdc_core.io import export_point_layer
+from ingest import spatial_join_unique_locations
+from rdflib import Graph
+from sdc_core.io import export_point_layer, read_data, read_point_data
 from sdc_core.log import get_logger
+from sdc_rdf import add_region_labels_from_geojson, write_graph
+from to_rdf import build_graph
 
 THIS_DIR = Path(__file__).resolve().parent
 TOPIC_DIR = THIS_DIR.parents[1]
 REPO_DIR = TOPIC_DIR.parents[1]
 DASHBOARD_DIR = REPO_DIR / "dashboard_data" / "va_energy_data"
+ONTOLOGY = TOPIC_DIR.parent / "rdf" / "ontology.ttl"
+MEASURE_INFO = TOPIC_DIR / "measure_info.json"
 
 log = get_logger("ev_charging_demand.prepare")
 
@@ -46,7 +53,49 @@ def run() -> None:
         title="ev_charging_demand",
     )
     log.info("Wrote %s", geojson_path)
+
+    write_rdf(config, point_csv, county_csv)
     log.info("Done.")
+
+
+def locations_with_county(point_csv: Path, counties_geojson: Path):
+    """Point rows plus the county ingest assigned them.
+
+    The point CSV carries no geoid, so rerun ingest's own spatial join (renaming
+    columns to its event schema) to get the same assignment as the county CSV.
+    """
+    points = read_point_data(point_csv)
+    as_events = points.rename(
+        columns={"facility_id": "charging_station_id", "lat": "latitude", "lon": "longitude"}
+    )
+    joined = spatial_join_unique_locations(as_events, counties_geojson)
+    if len(joined) != len(points):
+        raise ValueError(f"{len(points) - len(joined)} charging locations fell outside VA counties")
+    return joined.rename(
+        columns={"charging_station_id": "facility_id", "latitude": "lat", "longitude": "lon"}
+    )
+
+
+def write_rdf(config: dict, point_csv: Path, county_csv: Path) -> Path:
+    """Write the hourly county cube + charging-location graph and stage it for the dashboard."""
+    counties_geojson = REPO_DIR / config["geographies"]["va_counties"]
+    log.info("Assigning counties to charging locations")
+    graph, unknown = build_graph(
+        locations_with_county(point_csv, counties_geojson),
+        read_data(county_csv),
+        ontology=Graph().parse(ONTOLOGY),
+        measure_info=json.loads(MEASURE_INFO.read_text()),
+        county_dataset_id=county_csv.name.removesuffix(".csv.xz"),
+        description=config["description"],
+    )
+    add_region_labels_from_geojson(graph, counties_geojson, "county")
+    if unknown:
+        log.warning("Location types not declared in energy/rdf/ontology.ttl: %s", sorted(unknown))
+
+    graph_path = write_graph(graph, TOPIC_DIR / config["output"]["rdf_graph"])
+    log.info("Wrote %s (%d triples)", graph_path, len(graph))
+    shutil.copy2(graph_path, DASHBOARD_DIR / graph_path.name)
+    return graph_path
 
 
 if __name__ == "__main__":

@@ -116,3 +116,71 @@ def test_turtle_xz_round_trip(tmp_path):
     out = write_turtle(g, tmp_path / "graph.ttl.xz")
     assert out.read_bytes()[:6] == b"\xfd7zXZ\x00"  # xz magic
     assert len(read_turtle(out)) == len(g)
+
+
+HOURLY = pd.DataFrame(
+    {
+        "geoid": ["51001", "51001"],
+        "datetime": ["2026-01-01T00:00:00", "2026-01-01T23:00:00"],
+        "measure": ["demand_kwh"] * 2,
+        "value": [31.9, 12.0],
+        "moe": [pd.NA] * 2,
+        "region_type": ["county"] * 2,
+        "data_method": ["simulated"] * 2,
+        "scenario": ["run_a"] * 2,
+    }
+)
+
+
+def test_hour_of_day_profile_splits_year_and_hour():
+    g = build(HOURLY, hour_of_day_profile=True)
+    obs = SDCID["obs/test_ds/county/51001/2026/h23/run_a/demand_kwh"]
+    assert (obs, SDC.refPeriod, Literal("2026", datatype=XSD.gYear)) in g
+    assert (obs, SDC.hourOfDay, Literal(23, datatype=XSD.integer)) in g
+    assert {p.datatype for p in g.objects(None, SDC.refPeriod)} == {XSD.gYear}
+    assert conforms(g)
+
+
+def test_hour_of_day_profile_adds_dimension_to_structure():
+    g = build(HOURLY, hour_of_day_profile=True)
+    dims = set(g.objects(None, QB.dimension))
+    assert SDC.hourOfDay in dims
+    assert SDC.hourOfDay not in set(build(HOURLY).objects(None, QB.dimension))
+
+
+@pytest.mark.parametrize("bad", ["2026-03-01T07:00:00", "2026-01-01T07:30:00", "2026-01-01T24:00:00", "2026-01-01"])
+def test_hour_of_day_profile_rejects_non_convention_datetimes(bad):
+    with pytest.raises(ValueError, match="hour-of-day convention"):
+        build(HOURLY.assign(datetime=[bad, "2026-01-01T01:00:00"]), hour_of_day_profile=True)
+
+
+@pytest.mark.parametrize("name", ["g.ttl", "g.ttl.xz", "g.nt", "g.nt.xz"])
+def test_write_read_graph_by_suffix(tmp_path, name):
+    from sdc_rdf import read_graph, write_graph
+
+    g = build(HOURLY, hour_of_day_profile=True)
+    out = write_graph(g, tmp_path / name)
+    assert out.read_bytes().startswith(b"\xfd7zXZ\x00") == name.endswith(".xz")
+    assert read_graph(out).isomorphic(g)
+
+
+def test_ntriples_output_is_sorted(tmp_path):
+    from sdc_rdf import write_graph
+
+    lines = write_graph(build(STANDARD), tmp_path / "g.nt").read_text().splitlines()
+    assert lines == sorted(lines)
+
+
+def test_write_graph_rejects_unknown_suffix(tmp_path):
+    from sdc_rdf import write_graph
+
+    with pytest.raises(ValueError, match="expected a .ttl"):
+        write_graph(build(STANDARD), tmp_path / "g.jsonld")
+
+
+def test_regenerated_ntriples_are_byte_identical(tmp_path):
+    from sdc_rdf import write_graph
+
+    a = write_graph(build(HOURLY, hour_of_day_profile=True), tmp_path / "a.nt").read_bytes()
+    b = write_graph(build(HOURLY, hour_of_day_profile=True), tmp_path / "b.nt").read_bytes()
+    assert a == b and b"_:" not in a

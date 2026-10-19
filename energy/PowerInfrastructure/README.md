@@ -112,11 +112,11 @@ and copies it into `dashboard_data/va_energy_data/`. It holds a single graph wit
 - each facility as an `sdce:PowerPlant` / `sdce:Substation` node, with WKT
   geometry, county, status, fuel, capacity, voltage and operator.
 
-The energy ontology extension, SHACL shapes and example SPARQL queries are in
-`rdf/`. Missing values are omitted, not zeroed. In particular, plants with an
+The energy ontology extension and SHACL shapes are shared by all energy pipelines
+in `energy/rdf/`; this pipeline's example SPARQL queries are in `rdf/queries/`. Missing values are omitted, not zeroed. In particular, plants with an
 unreported capacity have no `sdce:operatingCapacityMW`, while the county
 `total_plant_capacity_mw` measure counts them as 0. Fuel or status codes not
-declared in `rdf/ontology.ttl` are logged as a warning and fail SHACL.
+declared in `energy/rdf/ontology.ttl` are logged as a warning and fail SHACL.
 
 ```bash
 uv run pytest energy/PowerInfrastructure/code/distribution/test_to_rdf.py -v
