@@ -23,7 +23,7 @@
 sdce: a owl:Ontology ;
     rdfs:label "Social Data Commons energy ontology" ;
     owl:imports sdc: ;
-    owl:versionInfo "0.2.0" .
+    owl:versionInfo "0.3.0" .
 
 # ---------------------------------------------------------------------------
 # Shared
@@ -111,6 +111,26 @@ sdce:EVChargingStation a owl:Class ;
     rdfs:label "EV charging station" ;
     rdfs:comment "A public EV charging station from the simulated station inventory (EVChargingStations). IRI: sdcid:ev-station/{station_id}." .
 
+sdce:ChargerGroup a owl:Class ;
+    rdfs:label "charger group" ;
+    rdfs:comment "The chargers of one level at one station (one EVChargingStations point row). IRI: sdcid:ev-station/{station_id}/chargers/{level}." .
+
+sdce:hasChargerGroup a owl:ObjectProperty ;
+    rdfs:domain sdce:EVChargingStation ;
+    rdfs:range sdce:ChargerGroup ;
+    rdfs:label "has charger group" .
+
+sdce:chargerLevel a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain sdce:ChargerGroup ;
+    rdfs:range sdce:ChargerLevel ;
+    rdfs:label "charger level" .
+
+sdce:chargerCount a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain sdce:ChargerGroup ;
+    rdfs:range xsd:integer ;
+    rdfs:label "charger count" ;
+    rdfs:comment "Number of chargers of this level at the station (at least 1; zero-count levels have no group)." .
+
 sdce:atStation a owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain sdce:EVChargingLocation ;
     rdfs:range sdce:EVChargingStation ;
@@ -192,3 +212,15 @@ sdce:evloc-residential_or_other a sdce:EVLocationType ; skos:inScheme sdce:EVLoc
     skos:prefLabel "Residential or other" ; skos:definition "Purely numeric ID: a residence or other simulated, non-public location." .
 sdce:evloc-unknown a sdce:EVLocationType ; skos:inScheme sdce:EVLocationTypeScheme ; skos:notation "unknown" ;
     skos:prefLabel "Unknown" ; skos:definition "Any other ID format." .
+
+sdce:ChargerLevel a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "EV charger level" .
+
+sdce:ChargerLevelScheme a skos:ConceptScheme ;
+    rdfs:label "EV charger levels" .
+
+sdce:charger-l1 a sdce:ChargerLevel ; skos:inScheme sdce:ChargerLevelScheme ; skos:notation "l1" ;
+    skos:prefLabel "Level 1" ; skos:definition "120 V AC; slowest, typically overnight residential charging." .
+sdce:charger-l2 a sdce:ChargerLevel ; skos:inScheme sdce:ChargerLevelScheme ; skos:notation "l2" ;
+    skos:prefLabel "Level 2" ; skos:definition "240 V AC; the common public and workplace charging speed." .
+sdce:charger-l3 a sdce:ChargerLevel ; skos:inScheme sdce:ChargerLevelScheme ; skos:notation "l3" ;
+    skos:prefLabel "Level 3 (DC fast)" ; skos:definition "DC fast charging." .

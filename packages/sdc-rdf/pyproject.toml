@@ -1,6 +1,6 @@
 [project]
 name = "sdc-rdf"
-version = "0.2.0"
+version = "0.3.0"
 description = "RDF knowledge-graph output (RDF Data Cube + core ontology) for Social Data Commons pipelines"
 readme = "README.md"
 requires-python = ">=3.12"

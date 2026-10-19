@@ -9,6 +9,9 @@ Energy files may also follow the hour-of-day-profile convention (energy/README.m
 ``datetime = "{year}-01-01THH:00:00"`` marks hour HH of a typical day, not a real
 timestamp. With ``hour_of_day_profile=True`` those rows become refPeriod = the
 year (xsd:gYear) plus an sdc:hourOfDay dimension, so no false date is asserted.
+
+Static scenario files likewise use ``datetime = "{year}-01-01"`` as a marker for the
+scenario year. With ``year_anchor=True`` those rows become refPeriod = the year.
 """
 
 from __future__ import annotations
@@ -27,6 +30,7 @@ from .regions import add_region
 REQUIRED_COLUMNS = ["geoid", "measure", "value", "region_type", "data_method"]
 
 HOUR_OF_DAY_RE = re.compile(r"^(\d{4})-01-01[T ](\d{2}):00:00$")
+YEAR_ANCHOR_RE = re.compile(r"^(\d{4})-01-01$")
 
 # measure_info.json field → (predicate, language-tagged?)
 MEASURE_INFO_FIELDS = {
@@ -86,6 +90,15 @@ def hour_of_day_period(row: Mapping) -> tuple[Literal, int]:
     return Literal(match[1], datatype=XSD.gYear), int(match[2])
 
 
+def year_anchor_period(row: Mapping) -> Literal:
+    """``"2030-01-01"`` → ``"2030"^^xsd:gYear`` under the static scenario-year convention."""
+    dt = str(row["datetime"]).strip()
+    match = YEAR_ANCHOR_RE.match(dt)
+    if not match:
+        raise ValueError(f"datetime {dt!r} does not follow the year-anchor convention YYYY-01-01")
+    return Literal(match[1], datatype=XSD.gYear)
+
+
 def _decimal(v) -> Decimal | None:
     if v is None or pd.isna(v) or str(v).strip() == "":
         return None
@@ -100,19 +113,22 @@ def long_format_to_cube(
     label: str,
     measure_info: Mapping[str, Mapping] | None = None,
     hour_of_day_profile: bool = False,
+    year_anchor: bool = False,
 ) -> URIRef:
     """Add one qb:DataSet (with its structure) and one qb:Observation per row of ``df``.
 
     ``dataset_id`` should be the distribution file stem (e.g.
     ``va_ct_hifld_2026_power_infrastructure``); it scopes the dataset,
-    structure and observation IRIs. Set ``hour_of_day_profile`` for energy files
-    that follow the typical-day convention (see module docstring). Returns the
-    dataset IRI.
+    structure and observation IRIs. Set ``hour_of_day_profile`` or ``year_anchor``
+    for energy files that follow those conventions (see module docstring). Returns
+    the dataset IRI.
     """
     missing = [c for c in REQUIRED_COLUMNS if c not in df.columns]
     if "year" not in df.columns and "datetime" not in df.columns:
         missing.append("year|datetime")
-    if hour_of_day_profile and "datetime" not in df.columns:
+    if hour_of_day_profile and year_anchor:
+        raise ValueError("hour_of_day_profile and year_anchor are mutually exclusive")
+    if (hour_of_day_profile or year_anchor) and "datetime" not in df.columns:
         missing.append("datetime")
     if missing:
         raise ValueError(f"long-format frame is missing columns: {missing}")
@@ -152,6 +168,8 @@ def long_format_to_cube(
         hour = None
         if hour_of_day_profile:
             period, hour = hour_of_day_period(row)
+        elif year_anchor:
+            period = year_anchor_period(row)
         else:
             period = period_literal(row)
 

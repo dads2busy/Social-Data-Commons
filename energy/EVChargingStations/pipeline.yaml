@@ -15,6 +15,7 @@ geographies:
 output:
   point_csv: data/distribution/va_pt_sim_2030_run30_ev_charging_stations.csv.xz
   county_csv: data/distribution/va_ct_sim_2030_run30_ev_charging_stations.csv.xz
+  rdf_graph: data/distribution/va_ctpt_sim_2030_run30_ev_charging_stations.nt.xz  # county cube + station graph
 
 dashboard:
   target_dir: dashboard_data/va_energy_data

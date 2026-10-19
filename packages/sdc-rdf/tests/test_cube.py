@@ -176,3 +176,22 @@ def test_regenerated_ntriples_are_byte_identical(tmp_path):
     a = write_graph(build(HOURLY, hour_of_day_profile=True), tmp_path / "a.nt").read_bytes()
     b = write_graph(build(HOURLY, hour_of_day_profile=True), tmp_path / "b.nt").read_bytes()
     assert a == b and b"_:" not in a
+
+
+STATIC = ENERGY.assign(datetime=["2030-01-01", "2030-01-01"])
+
+
+def test_year_anchor_emits_year():
+    g = build(STATIC, year_anchor=True)
+    assert {p for p in g.objects(None, SDC.refPeriod)} == {Literal("2030", datatype=XSD.gYear)}
+    assert conforms(g)
+
+
+def test_year_anchor_rejects_real_dates():
+    with pytest.raises(ValueError, match="year-anchor convention"):
+        build(ENERGY.assign(datetime=["2030-05-29", "2030-01-01"]), year_anchor=True)
+
+
+def test_period_conventions_are_exclusive():
+    with pytest.raises(ValueError, match="mutually exclusive"):
+        build(STATIC, year_anchor=True, hour_of_day_profile=True)

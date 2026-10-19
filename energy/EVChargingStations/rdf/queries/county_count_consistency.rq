@@ -1,0 +1,18 @@
+# Cross-check: do the county cube's total_charger_count and total_station_count
+# agree with the station nodes? Returns counties where either differs (expect
+# zero rows; test_to_rdf.py asserts this).
+PREFIX sdc:  <https://w3id.org/sdc/ns#>
+PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
+PREFIX sdcm: <https://w3id.org/sdc/measure/>
+
+SELECT ?county ?publishedChargers ?chargers ?publishedStations ?stations WHERE {
+  ?o1 sdc:refArea ?county ; sdcm:total_charger_count ?publishedChargers .
+  ?o2 sdc:refArea ?county ; sdcm:total_station_count ?publishedStations .
+  {
+    SELECT ?county (SUM(?n) AS ?chargers) (COUNT(DISTINCT ?st) AS ?stations) WHERE {
+      ?st a sdce:EVChargingStation ; sdce:inCounty ?county ;
+          sdce:hasChargerGroup/sdce:chargerCount ?n .
+    } GROUP BY ?county
+  }
+  FILTER (?publishedChargers != ?chargers || ?publishedStations != ?stations)
+}
