@@ -4,23 +4,45 @@ Charging locations become sdce:EVChargingLocation nodes (ontology in
 energy/rdf/ontology.ttl), with public-station locations linked to the
 EVChargingStations station IRI. County rows become qb:Observations via
 sdc_rdf, using the hour-of-day-profile convention (refPeriod = year +
-sdc:hourOfDay). Pure functions only. prepare.py does the file I/O.
+sdc:hourOfDay).
+
+The graph is lossless with respect to both distribution CSVs:
+``points_from_graph`` and ``sdc_rdf.cube_to_long_format`` rebuild them (the point
+CSV's id_format column always equals type, which is checked on the way in).
+Pure functions only. prepare.py does the file I/O.
 """
 
 from __future__ import annotations
 
-import math
 from collections.abc import Mapping
-from decimal import Decimal
 
 import pandas as pd
-from rdflib import RDF, RDFS, XSD, Graph, Literal, Namespace, URIRef
-from rdflib.namespace import DCTERMS, PROV
-from sdc_rdf import GEO, SDCID, bind_prefixes, long_format_to_cube, region_iri, scenario_iri
+from rdflib import RDF, RDFS, Graph, Literal, Namespace, URIRef
+from rdflib.namespace import DCTERMS, PROV, SKOS
+from sdc_rdf import (
+    SDC,
+    SDCID,
+    add_point_geometry,
+    add_region,
+    bind_prefixes,
+    decimal_literal,
+    integer_literal,
+    is_missing,
+    long_format_to_cube,
+    point_lat_lon,
+    ref_year,
+    scenario_iri,
+    year_literal,
+)
 
 SDCE = Namespace("https://w3id.org/sdc/ns/energy#")
 
-CRS84 = "<http://www.opengis.net/def/crs/OGC/1.3/CRS84>"
+# Column order of the point CSV written by ingest.py (no geoid: counties come
+# from prepare.py's spatial join and are graph-only).
+POINT_COLUMNS = [
+    "facility_id", "facility_name", "lat", "lon", "year", "type", "id_format",
+    "n_hours_active", "total_kwh",
+]
 
 
 def location_iri(charging_station_id: str) -> URIRef:
@@ -36,12 +58,6 @@ def location_type_iri(location_type: str) -> URIRef:
     return SDCE[f"evloc-{location_type}"]
 
 
-def _decimal(v) -> Decimal:
-    if v is None or (isinstance(v, float) and math.isnan(v)):
-        raise ValueError("missing numeric value in point row")
-    return Decimal(str(v))
-
-
 def add_locations(
     g: Graph,
     points: pd.DataFrame,
@@ -53,6 +69,11 @@ def add_locations(
 
     Returns location types missing from the ontology.
     """
+    if (points["id_format"] != points["type"]).any():
+        raise ValueError("id_format differs from type; the graph stores type only")
+    numeric = points[["total_kwh", "n_hours_active"]]
+    if numeric.map(is_missing).any().any():
+        raise ValueError("missing total_kwh / n_hours_active in point CSV")
     unknown: set[str] = set()
     for row in points.to_dict("records"):
         lid = str(row["facility_id"])
@@ -60,21 +81,18 @@ def add_locations(
         g.add((loc, RDF.type, SDCE.EVChargingLocation))
         g.add((loc, DCTERMS.identifier, Literal(lid)))
         g.add((loc, RDFS.label, Literal(row["facility_name"])))
-        g.add((loc, SDCE.inCounty, region_iri("county", str(row["geoid"]))))
+        g.add((loc, SDC.refPeriod, year_literal(row["year"])))
+        g.add((loc, SDCE.inCounty, add_region(g, "county", str(row["geoid"]))))
         g.add((loc, PROV.wasDerivedFrom, scenario))
-
-        geom = SDCID[f"ev-charging-location/{lid}/geometry"]
-        g.add((loc, GEO.hasGeometry, geom))
-        g.add((geom, RDF.type, GEO.Geometry))
-        wkt = f"{CRS84} POINT({row['lon']} {row['lat']})"
-        g.add((geom, GEO.asWKT, Literal(wkt, datatype=GEO.wktLiteral)))
+        add_point_geometry(g, loc, row["lat"], row["lon"])
 
         loc_type = location_type_iri(row["type"])
         if loc_type not in known_types:
             unknown.add(row["type"])
+        g.add((loc_type, SKOS.notation, Literal(row["type"])))  # self-contained inverse
         g.add((loc, SDCE.locationType, loc_type))
-        g.add((loc, SDCE.typicalDayEnergyKWh, Literal(_decimal(row["total_kwh"]), datatype=XSD.decimal)))
-        g.add((loc, SDCE.activeHours, Literal(int(row["n_hours_active"]), datatype=XSD.integer)))
+        g.add((loc, SDCE.typicalDayEnergyKWh, decimal_literal(row["total_kwh"])))
+        g.add((loc, SDCE.activeHours, integer_literal(row["n_hours_active"])))
 
         if row["type"] == "public_station":
             # Public-station IDs are the EVChargingStations station_id (va_<n>_existing).
@@ -121,3 +139,26 @@ def build_graph(
     known = set(ontology.subjects(RDF.type, SDCE.EVLocationType))
     unknown = add_locations(g, points, scenario=scenario, known_types=known)
     return g, unknown
+
+
+def points_from_graph(g: Graph) -> pd.DataFrame:
+    """Rebuild the point CSV frame from the graph (inverse of ``add_locations``).
+
+    Rows are sorted by facility_id. id_format is regenerated from type.
+    """
+    rows = []
+    for loc in g.subjects(RDF.type, SDCE.EVChargingLocation):
+        lat, lon = point_lat_lon(g, loc)
+        loc_type = str(g.value(g.value(loc, SDCE.locationType), SKOS.notation))
+        rows.append({
+            "facility_id": str(g.value(loc, DCTERMS.identifier)),
+            "facility_name": str(g.value(loc, RDFS.label)),
+            "lat": lat,
+            "lon": lon,
+            "year": ref_year(g, loc),
+            "type": loc_type,
+            "id_format": loc_type,
+            "n_hours_active": int(g.value(loc, SDCE.activeHours)),
+            "total_kwh": float(g.value(loc, SDCE.typicalDayEnergyKWh).toPython()),
+        })
+    return pd.DataFrame(rows, columns=POINT_COLUMNS).sort_values("facility_id", ignore_index=True)

@@ -20,10 +20,13 @@ sdce:PowerPlantShape a sh:NodeShape ;
     sh:targetClass sdce:PowerPlant ;
     sh:property [ sh:path sdce:operatingCapacityMW ; sh:datatype xsd:decimal ; sh:minInclusive 0 ; sh:maxCount 1 ] ;
     sh:property [ sh:path sdce:primaryFuel ; sh:class sdce:EnergySource ; sh:maxCount 1 ] ;
-    sh:property [ sh:path sdce:operatedBy ; sh:class org:Organization ] .
+    sh:property [ sh:path sdce:operatedBy ; sh:class org:Organization ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdce:operatorName ; sh:datatype xsd:string ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdc:refPeriod ; sh:datatype xsd:gYear ; sh:minCount 1 ; sh:maxCount 1 ] .
 
 sdce:SubstationShape a sh:NodeShape ;
     sh:targetClass sdce:Substation ;
+    sh:property [ sh:path sdc:refPeriod ; sh:datatype xsd:gYear ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path sdce:maxVoltageKV ; sh:datatype xsd:decimal ; sh:minExclusive 0 ; sh:maxCount 1 ] ;
     sh:property [ sh:path sdce:lineCount ; sh:datatype xsd:integer ; sh:minInclusive 0 ; sh:maxCount 1 ] .
 
@@ -39,7 +42,8 @@ sdce:EVChargingLocationShape a sh:NodeShape ;
     sh:property [ sh:path sdce:locationType ; sh:class sdce:EVLocationType ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path sdce:typicalDayEnergyKWh ; sh:datatype xsd:decimal ; sh:minInclusive 0 ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path sdce:activeHours ; sh:datatype xsd:integer ; sh:minInclusive 0 ; sh:maxInclusive 24 ; sh:minCount 1 ; sh:maxCount 1 ] ;
-    sh:property [ sh:path sdce:atStation ; sh:class sdce:EVChargingStation ; sh:maxCount 1 ] .
+    sh:property [ sh:path sdce:atStation ; sh:class sdce:EVChargingStation ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdc:refPeriod ; sh:datatype xsd:gYear ; sh:minCount 1 ; sh:maxCount 1 ] .
 
 # Station nodes are minted by EVChargingDemand too (identifier only); full
 # station attributes are checked by EVChargingStationRecordShape, which targets
@@ -53,7 +57,9 @@ sdce:EVChargingStationRecordShape a sh:NodeShape ;
     sh:property [ sh:path rdfs:label ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path sdce:inCounty ; sh:class sdc:County ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path geo:hasGeometry ; sh:minCount 1 ; sh:maxCount 1 ] ;
-    sh:property [ sh:path sdce:hasChargerGroup ; sh:class sdce:ChargerGroup ; sh:minCount 1 ] .
+    sh:property [ sh:path sdce:hasChargerGroup ; sh:class sdce:ChargerGroup ; sh:minCount 1 ] ;
+    sh:property [ sh:path sdce:fuelTypeCode ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path sdc:refPeriod ; sh:datatype xsd:gYear ; sh:minCount 1 ; sh:maxCount 1 ] .
 
 sdce:ChargerGroupShape a sh:NodeShape ;
     sh:targetClass sdce:ChargerGroup ;

@@ -21,13 +21,13 @@ from __future__ import annotations
 
 import re
 from collections.abc import Mapping
-from decimal import Decimal
 
 import pandas as pd
 from rdflib import RDF, RDFS, XSD, Graph, Literal, URIRef
 from rdflib.namespace import PROV, QB, SKOS
 
 from .namespaces import SDC, SDCID, SDCM
+from .points import decimal_literal, integer_literal
 from .regions import REGION_CLASSES, add_region
 
 REQUIRED_COLUMNS = ["geoid", "measure", "value", "region_type", "data_method"]
@@ -117,10 +117,7 @@ def _number(v, integer: bool) -> Literal | None:
     ("5e-06" → "0.000005") that is exact for floats. None for missing values."""
     if v is None or pd.isna(v) or str(v).strip() == "":
         return None
-    if integer:
-        return Literal(int(v), datatype=XSD.integer)
-    d = Decimal(repr(float(v))) if isinstance(v, float) else Decimal(str(v))
-    return Literal(format(d, "f"), datatype=XSD.decimal)
+    return integer_literal(v) if integer else decimal_literal(v)
 
 
 def _column(literals: list[Literal | None]) -> list:

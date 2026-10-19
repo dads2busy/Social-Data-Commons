@@ -88,3 +88,8 @@ uv run pytest energy/EVChargingDemand/code/distribution/test_transforms.py -v
 The ontology and SHACL shapes are shared in `energy/rdf/`; example queries are in
 `rdf/queries/`. `county_energy_consistency.rq` checks that each county's 24-hour kWh
 equals the sum over its locations.
+
+The graph is **lossless**. `to_rdf.points_from_graph` and `sdc_rdf.cube_to_long_format`
+rebuild both distribution CSVs, and the tests compare them line by line with the
+originals. The point CSV's `id_format` column always equals `type`, so the graph stores
+`type` once. The converter rejects input where they differ.

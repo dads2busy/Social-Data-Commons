@@ -13,11 +13,11 @@ import pytest
 import yaml
 from pyshacl import validate
 from rdflib import RDF, XSD, Graph, Literal
-from sdc_core.io import write_data
+from sdc_core.io import write_data, write_point_data
 from sdc_rdf import SDC, SDCID, cube_to_long_format, load_core_ontology, load_core_shapes, read_csv_exact
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from to_rdf import SDCE, build_graph, charger_level_iri, station_iri
+from to_rdf import POINT_COLUMNS, SDCE, build_graph, charger_level_iri, points_from_graph, station_iri
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 ENERGY_DIR = TOPIC_DIR.parent
@@ -34,9 +34,10 @@ POINTS = pd.DataFrame(
         "type": ["l2", "l3", "l2"],
         "count": [4, 2, 1],
         "fuel_type_code": ["ELEC"] * 3,
-        "geoid": [51540, 51540, 51760],
+        "geoid": ["51540", "51540", "51760"],
         "station_id": ["va_1_existing", "va_1_existing", "1149486296"],
-    }
+    },
+    columns=POINT_COLUMNS,
 )
 
 COUNTY = pd.DataFrame(
@@ -98,6 +99,16 @@ def test_unknown_level_reported_and_fails_shacl():
 def test_conflicting_station_attributes_rejected():
     with pytest.raises(ValueError, match="conflicting"):
         build(points=POINTS.assign(lat=[38.0, 38.1, 37.5]))
+
+
+def test_points_round_trip_synthetic():
+    g, _ = build()
+    pd.testing.assert_frame_equal(points_from_graph(g), POINTS.sort_values("facility_id", ignore_index=True))
+
+
+def test_conflicting_fuel_code_rejected():
+    with pytest.raises(ValueError, match="conflicting"):
+        build(points=POINTS.assign(fuel_type_code=["ELEC", "CNG", "ELEC"]))
 
 
 def test_duplicate_rows_rejected():
@@ -179,3 +190,17 @@ def test_distribution_county_csv_regenerates_from_graph(real_graph, tmp_path):
         return header, sorted(rows)
 
     assert lines(out) == lines(county_csv)
+
+
+def test_distribution_point_csv_regenerates_from_graph(real_graph, tmp_path):
+    """Lossless: the point CSV can be rebuilt from the graph alone."""
+    g = real_graph[0]
+    config = yaml.safe_load((TOPIC_DIR / "pipeline.yaml").read_text())
+    point_csv = TOPIC_DIR / config["output"]["point_csv"]
+    out = write_point_data(points_from_graph(g), tmp_path / point_csv.name)
+
+    def lines(path):
+        header, *rows = lzma.open(path, "rt").read().splitlines()
+        return header, sorted(rows)
+
+    assert lines(out) == lines(point_csv)

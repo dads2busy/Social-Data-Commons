@@ -14,11 +14,11 @@ import pytest
 import yaml
 from pyshacl import validate
 from rdflib import RDF, XSD, Graph, Literal
-from sdc_core.io import write_data
+from sdc_core.io import write_data, write_point_data
 from sdc_rdf import SDC, SDCID, SDCM, cube_to_long_format, load_core_ontology, load_core_shapes, read_csv_exact
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from to_rdf import SDCE, build_graph, location_iri, station_iri
+from to_rdf import POINT_COLUMNS, SDCE, build_graph, location_iri, points_from_graph, station_iri
 
 TOPIC_DIR = Path(__file__).resolve().parents[2]
 ENERGY_RDF_DIR = TOPIC_DIR.parent / "rdf"
@@ -90,7 +90,8 @@ def test_only_public_stations_link_to_station_inventory():
 
 
 def test_unknown_location_type_reported_and_fails_shacl():
-    g, unknown = build(points=POINTS.assign(type=["residential_or_other", "public_station", "depot"]))
+    g, unknown = build(points=POINTS.assign(type=["residential_or_other", "public_station", "depot"],
+                                       id_format=["residential_or_other", "public_station", "depot"]))
     assert unknown == {"depot"}
     ok, report = conforms(g)
     assert not ok and "evloc-depot" in report
@@ -99,6 +100,17 @@ def test_unknown_location_type_reported_and_fails_shacl():
 def test_unassigned_county_rejected():
     with pytest.raises(ValueError, match="no county"):
         build(points=POINTS.assign(geoid=["51003", None, "51003"]))
+
+
+def test_points_round_trip_synthetic():
+    g, _ = build()
+    expected = POINTS.drop(columns="geoid").sort_values("facility_id", ignore_index=True)
+    pd.testing.assert_frame_equal(points_from_graph(g), expected[POINT_COLUMNS])
+
+
+def test_id_format_must_equal_type():
+    with pytest.raises(ValueError, match="id_format"):
+        build(points=POINTS.assign(id_format=["public_station", "public_station", "unknown"]))
 
 
 def test_duplicate_location_ids_rejected():
@@ -190,3 +202,17 @@ def test_distribution_county_csv_regenerates_from_graph(real_graph, tmp_path):
         return header, sorted(rows)
 
     assert lines(out) == lines(county_csv)
+
+
+def test_distribution_point_csv_regenerates_from_graph(real_graph, tmp_path):
+    """Lossless: the point CSV can be rebuilt from the graph alone."""
+    g = real_graph[0]
+    config = yaml.safe_load((TOPIC_DIR / "pipeline.yaml").read_text())
+    point_csv = TOPIC_DIR / config["output"]["point_csv"]
+    out = write_point_data(points_from_graph(g), tmp_path / point_csv.name)
+
+    def lines(path):
+        header, *rows = lzma.open(path, "rt").read().splitlines()
+        return header, sorted(rows)
+
+    assert lines(out) == lines(point_csv)

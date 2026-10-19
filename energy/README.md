@@ -49,7 +49,8 @@ as sorted, xz-compressed N-Triples (`.nt.xz`, via `sdc_rdf.write_graph`).
 
 The graph is meant to become the dashboard's source, with CSVs generated from the RDF. Every
 county cube therefore round-trips exactly (`sdc_rdf.cube_to_long_format`, tested per pipeline).
-Point data round-trips for DataCentersProjected; the other point graphs are not yet lossless.
+Point data round-trips too: each pipeline's `to_rdf.points_from_graph` rebuilds its point CSV, and
+the tests regenerate both CSVs from the graph and compare them line by line with the originals.
 
 | Pipeline | Graph |
 |---|---|
