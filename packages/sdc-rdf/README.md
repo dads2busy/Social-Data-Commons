@@ -11,10 +11,12 @@ RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.2
   for each measure and carries the `measure_info.json` text over. Pass
   `hour_of_day_profile=True` for typical-day hourly files: they get refPeriod = the year
   plus an `sdc:hourOfDay` dimension, not a fake 1 January timestamp.
-- **`write_graph` / `read_graph`**: the format comes from the suffix (`.ttl`, `.nt`, either
-  optionally `.xz`, matching the `.csv.xz` convention). Use `.nt.xz` for large graphs:
-  rdflib's Turtle writer slows down quadratically on IRIs ending in digit-led segments
-  (GEOIDs, numeric IDs). `write_turtle` / `read_turtle` remain for Turtle-only callers.
+- **`write_graph` / `read_graph`**: the format comes from the suffix (`.nt`, `.ttl`, either
+  optionally `.xz`). **Pipeline outputs are sorted, xz-compressed N-Triples (`.nt.xz`)**,
+  matching the `.csv.xz` convention. They are linear to write, byte-stable across
+  regenerations, and diff one triple per line. Turtle is for hand-written files
+  (ontologies, shapes) and small ad-hoc exports: rdflib's Turtle writer slows down
+  quadratically on IRIs ending in digit-led segments (GEOIDs, numeric IDs).
 - **SHACL shapes** (`src/sdc_rdf/shapes/core.ttl`) for the cube output.
 
 Pipeline-specific entities (e.g. energy facilities) are pipeline-level ontology
@@ -24,12 +26,12 @@ charging) for the first one.
 ```python
 from rdflib import Graph
 from sdc_core.io import read_data
-from sdc_rdf import bind_prefixes, long_format_to_cube, write_turtle
+from sdc_rdf import bind_prefixes, long_format_to_cube, write_graph
 
 g = bind_prefixes(Graph())
 long_format_to_cube(g, read_data(path), dataset_id=path.name.removesuffix(".csv.xz"),
                     label="…", measure_info=json.loads(measure_info_path.read_text()))
-write_turtle(g, out_path)
+write_graph(g, out_path)  # e.g. va_ct_..._title.nt.xz
 ```
 
 ## IRIs

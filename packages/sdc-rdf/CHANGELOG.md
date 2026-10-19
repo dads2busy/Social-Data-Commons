@@ -11,9 +11,13 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   typical-day convention (`datetime = YYYY-01-01THH:00:00`): emits refPeriod = the year
   plus a new `sdc:hourOfDay` dimension instead of a literal 1 January timestamp.
 - `sdc:hourOfDay` in the core ontology and SHACL shapes.
-- `write_graph` / `read_graph`: format from suffix (`.ttl`, `.nt`, either optionally `.xz`).
-  Sorted N-Triples is the recommended format for large graphs (rdflib's Turtle writer is
-  quadratic on digit-leading IRI segments such as GEOIDs).
+- `write_graph` / `read_graph`: format from suffix (`.nt`, `.ttl`, either optionally `.xz`).
+  Sorted, xz-compressed N-Triples (`.nt.xz`) is the standard for pipeline outputs: linear to
+  write and byte-stable. rdflib's Turtle writer is quadratic on digit-leading IRI segments
+  such as GEOIDs.
+
+### Removed
+- `write_turtle` / `read_turtle`, superseded by `write_graph` / `read_graph`.
 
 ## [0.1.0] - 2026-10-19
 

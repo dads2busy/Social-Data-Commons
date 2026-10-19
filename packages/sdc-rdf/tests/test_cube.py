@@ -109,14 +109,6 @@ def test_every_data_method_is_declared():
         assert (SDC[f"method-{method}"], RDF.type, SDC.DataMethod) in ont
 
 
-def test_turtle_xz_round_trip(tmp_path):
-    from sdc_rdf import read_turtle, write_turtle
-
-    g = build(STANDARD)
-    out = write_turtle(g, tmp_path / "graph.ttl.xz")
-    assert out.read_bytes()[:6] == b"\xfd7zXZ\x00"  # xz magic
-    assert len(read_turtle(out)) == len(g)
-
 
 HOURLY = pd.DataFrame(
     {
@@ -174,7 +166,7 @@ def test_ntriples_output_is_sorted(tmp_path):
 def test_write_graph_rejects_unknown_suffix(tmp_path):
     from sdc_rdf import write_graph
 
-    with pytest.raises(ValueError, match="expected a .ttl"):
+    with pytest.raises(ValueError, match="expected a .nt"):
         write_graph(build(STANDARD), tmp_path / "g.jsonld")
 
 

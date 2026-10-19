@@ -44,9 +44,10 @@ Energy pipelines emit dashboard files to `dashboard_data/va_energy_data/` (separ
 
 Some energy pipelines also emit an RDF knowledge graph from `prepare.py`: county
 observations as an RDF Data Cube (`packages/sdc-rdf`) plus their point entities. The
-shared energy ontology (`sdce:`) and SHACL shapes are in `energy/rdf/`.
+shared energy ontology (`sdce:`) and SHACL shapes are in `energy/rdf/`. Graphs are written
+as sorted, xz-compressed N-Triples (`.nt.xz`, via `sdc_rdf.write_graph`).
 
 | Pipeline | Graph |
 |---|---|
-| PowerInfrastructure | `va_ctpt_hifld_2026_power_infrastructure.ttl.xz` |
+| PowerInfrastructure | `va_ctpt_hifld_2026_power_infrastructure.nt.xz` |
 | EVChargingDemand | `va_ctpt_sim_2026_ev_charging_demand.nt.xz` (hour-of-day profile: `refPeriod` year + `sdc:hourOfDay`) |

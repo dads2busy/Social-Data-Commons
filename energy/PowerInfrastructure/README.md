@@ -105,7 +105,8 @@ at the **2026-05-29 snapshot** (`uv run python .../ingest.py`):
 
 ## RDF output (exploratory)
 
-`prepare.py` also writes `data/distribution/va_ctpt_hifld_2026_power_infrastructure.ttl.xz`
+`prepare.py` also writes `data/distribution/va_ctpt_hifld_2026_power_infrastructure.nt.xz`
+(sorted N-Triples, xz-compressed)
 and copies it into `dashboard_data/va_energy_data/`. It holds a single graph with:
 
 - county rows as RDF Data Cube observations (via `packages/sdc-rdf`), and

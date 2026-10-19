@@ -87,5 +87,4 @@ uv run pytest energy/EVChargingDemand/code/distribution/test_transforms.py -v
 
 The ontology and SHACL shapes are shared in `energy/rdf/`; example queries are in
 `rdf/queries/`. `county_energy_consistency.rq` checks that each county's 24-hour kWh
-equals the sum over its locations. The output is N-Triples rather than Turtle
-because rdflib's Turtle writer is quadratic on this graph's numeric IRIs.
+equals the sum over its locations.
