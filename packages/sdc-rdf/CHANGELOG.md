@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-10-19
+
+### Added
+- `cube_to_long_format(graph, dataset)`: rebuilds the long-format frame from the graph (inverse
+  of `long_format_to_cube`), so pipeline CSVs can be generated from RDF.
+- Datasets record `sdc:periodConvention` (year / datetime / year anchor / hour-of-day profile)
+  so the inverse knows how to rebuild `year` / `datetime`.
+- `default_scenario=` on `long_format_to_cube` → `sdc:defaultScenario` on the dataset.
+- `read_csv_exact(path)`: reads distribution CSVs with round-trip float parsing and text IDs.
+  pandas' default float parser can be off by one ULP, which would break CSV regeneration.
+
+### Changed
+- Observation values and margins of error are written as plain-notation `xsd:decimal`
+  (`5e-06` → `0.000005`); exponent forms are not valid `xsd:decimal` lexicals.
+
 ## [0.3.0] - 2026-10-19
 
 ### Added

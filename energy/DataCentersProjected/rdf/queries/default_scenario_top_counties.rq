@@ -1,0 +1,15 @@
+# Counties with the most projected IT power in the dataset's default scenario
+# (sdc:defaultScenario, im3_cerf_moderate_50), read from the county cube.
+PREFIX sdc:  <https://w3id.org/sdc/ns#>
+PREFIX sdcm: <https://w3id.org/sdc/measure/>
+PREFIX qb:   <http://purl.org/linked-data/cube#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?name ?itPowerMW WHERE {
+  ?ds a qb:DataSet ; sdc:defaultScenario ?default .
+  ?obs qb:dataSet ?ds ; sdc:scenario ?default ; sdc:refArea ?county ;
+       sdcm:total_projected_it_power_mw ?itPowerMW .
+  ?county rdfs:label ?name .
+}
+ORDER BY DESC(?itPowerMW)
+LIMIT 10

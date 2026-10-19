@@ -1,6 +1,6 @@
 # sdc-rdf
 
-RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.3.0).**
+RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.4.0).**
 
 - **Core ontology** (`src/sdc_rdf/ontology/core.ttl`, prefix `sdc:`): regions,
   scenarios, `data_method` values, and the RDF Data Cube components shared by every
@@ -19,6 +19,12 @@ RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.3
   regenerations, and diff one triple per line. Turtle is for hand-written files
   (ontologies, shapes) and small ad-hoc exports: rdflib's Turtle writer slows down
   quadratically on IRIs ending in digit-led segments (GEOIDs, numeric IDs).
+- **`cube_to_long_format`**: the inverse. It rebuilds a dataset's long-format frame from
+  the graph alone, using the recorded `sdc:periodConvention`, so pipeline CSVs can be
+  generated from the graph.
+- **`read_csv_exact`**: reads distribution CSVs for conversion with round-trip float
+  parsing. Use it instead of `sdc_core.io.read_data` in RDF code, because the default
+  pandas parser can be off by one ULP.
 - **SHACL shapes** (`src/sdc_rdf/shapes/core.ttl`) for the cube output.
 
 Pipeline-specific entities (e.g. energy facilities) are pipeline-level ontology

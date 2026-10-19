@@ -5,6 +5,7 @@
 # sdc_rdf.long_format_to_cube. This file models the point-level entities:
 #   - power plants and substations (PowerInfrastructure, HIFLD)
 #   - EV charging locations and stations (EVChargingDemand, EVChargingStations)
+#   - projected data-center sites and their siting scenarios (DataCentersProjected)
 #
 # Namespace IRIs are placeholders (w3id.org/sdc is not registered).
 
@@ -23,7 +24,7 @@
 sdce: a owl:Ontology ;
     rdfs:label "Social Data Commons energy ontology" ;
     owl:imports sdc: ;
-    owl:versionInfo "0.3.0" .
+    owl:versionInfo "0.4.0" .
 
 # ---------------------------------------------------------------------------
 # Shared
@@ -92,10 +93,10 @@ sdce:lineCount a owl:DatatypeProperty ;
 
 sdce:sourceId a owl:DatatypeProperty ;
     rdfs:subPropertyOf dcterms:identifier ;
-    rdfs:domain sdce:PowerFacility ;
+    rdfs:domain geo:Feature ;
     rdfs:range xsd:string ;
     rdfs:label "source identifier" ;
-    rdfs:comment "Identifier in the upstream dataset (EIA plant code for plants, HIFLD ID for substations)." .
+    rdfs:comment "Identifier in the upstream dataset (EIA plant code for plants, HIFLD ID for substations, CERF site id for projected data centers)." .
 
 # ---------------------------------------------------------------------------
 # EV charging (EVChargingDemand, EVChargingStations)
@@ -155,6 +156,49 @@ sdce:activeHours a owl:DatatypeProperty ;
     rdfs:range xsd:integer ;
     rdfs:label "active hours" ;
     rdfs:comment "Number of typical-day hours (0-24) with non-zero charging energy at the location." .
+
+# ---------------------------------------------------------------------------
+# Projected data centers (DataCentersProjected, IM3 CERF)
+# ---------------------------------------------------------------------------
+
+sdce:ProjectedDataCenter a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Projected data center" ;
+    rdfs:comment "A hypothetical data-center site placed by the IM3 CERF siting model in one scenario (sdc:scenario). Each scenario is an independent re-siting: sites in different scenarios are distinct even when they share a CERF id (sdce:sourceId). IRI: sdcid:projected-data-center/{facility_id}." .
+
+sdce:growthTier a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain sdc:Scenario ;
+    rdfs:range sdce:GrowthTier ;
+    rdfs:label "demand growth tier" .
+
+sdce:marketGravityWeight a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain sdc:Scenario ;
+    rdfs:range xsd:integer ;
+    rdfs:label "market gravity weight" ;
+    rdfs:comment "Weight (0-100) of market proximity relative to locational cost in the CERF siting score." .
+
+sdce:campusAreaSqFt a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    qudt:unit unit:FT2 ; rdfs:label "campus area (sq ft)" .
+sdce:itPowerMW a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    qudt:unit unit:MegaW ; rdfs:label "IT power (MW)" .
+sdce:coolingEnergyDemandMWh a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    qudt:unit unit:MegaW-HR ; rdfs:label "cooling energy demand (MWh)" .
+sdce:coolingWaterDemandMGY a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "cooling water demand (million gallons per year)" .
+sdce:coolingWaterConsumptionMGY a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "cooling water consumption (million gallons per year)" .
+sdce:mechanicalCoolingFraction a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "mechanical cooling fraction" .
+sdce:waterCoolingFraction a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "water cooling fraction" .
+sdce:siteCostMillionUSD a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "siting cost (million USD)" .
+sdce:normalizedGravityScore a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "normalized market gravity score" .
+sdce:normalizedLocationalCost a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "normalized locational cost" .
+sdce:weightedSitingScore a owl:DatatypeProperty ; rdfs:domain sdce:ProjectedDataCenter ;
+    rdfs:label "weighted siting score" .
 
 # ---------------------------------------------------------------------------
 # Code lists
@@ -224,3 +268,13 @@ sdce:charger-l2 a sdce:ChargerLevel ; skos:inScheme sdce:ChargerLevelScheme ; sk
     skos:prefLabel "Level 2" ; skos:definition "240 V AC; the common public and workplace charging speed." .
 sdce:charger-l3 a sdce:ChargerLevel ; skos:inScheme sdce:ChargerLevelScheme ; skos:notation "l3" ;
     skos:prefLabel "Level 3 (DC fast)" ; skos:definition "DC fast charging." .
+
+sdce:GrowthTier a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "Data-center demand growth tier" .
+
+sdce:GrowthTierScheme a skos:ConceptScheme ;
+    rdfs:label "IM3 CERF data-center demand growth tiers (annual demand growth from 2023)" .
+
+sdce:growth-low      a sdce:GrowthTier ; skos:inScheme sdce:GrowthTierScheme ; skos:notation "low"      ; skos:prefLabel "Low growth" .
+sdce:growth-moderate a sdce:GrowthTier ; skos:inScheme sdce:GrowthTierScheme ; skos:notation "moderate" ; skos:prefLabel "Moderate growth" .
+sdce:growth-high     a sdce:GrowthTier ; skos:inScheme sdce:GrowthTierScheme ; skos:notation "high"     ; skos:prefLabel "High growth" .
+sdce:growth-higher   a sdce:GrowthTier ; skos:inScheme sdce:GrowthTierScheme ; skos:notation "higher"   ; skos:prefLabel "Higher growth" .

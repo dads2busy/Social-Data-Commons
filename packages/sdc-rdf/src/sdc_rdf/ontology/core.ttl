@@ -20,7 +20,7 @@
 sdc: a owl:Ontology ;
     rdfs:label "Social Data Commons core ontology" ;
     dcterms:description "Regions, scenarios, data methods and statistical-observation structure shared by all Social Data Commons pipelines." ;
-    owl:versionInfo "0.3.0" .
+    owl:versionInfo "0.4.0" .
 
 # ---------------------------------------------------------------------------
 # Regions. IRI: sdcid:{region_type}/{geoid}
@@ -92,6 +92,40 @@ sdc:hourOfDay a qb:DimensionProperty, owl:DatatypeProperty ;
 sdc:scenario a qb:DimensionProperty, owl:ObjectProperty ;
     rdfs:label "scenario" ;
     rdfs:range sdc:Scenario .
+
+# Dataset-level metadata
+
+sdc:periodConvention a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain qb:DataSet ;
+    rdfs:range sdc:PeriodConvention ;
+    rdfs:label "period convention" ;
+    rdfs:comment "How the source file's year/datetime column maps to refPeriod (+ hourOfDay), so the long-format file can be rebuilt from the graph." .
+
+sdc:defaultScenario a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain qb:DataSet ;
+    rdfs:range sdc:Scenario ;
+    rdfs:label "default scenario" ;
+    rdfs:comment "The scenario a dashboard should show first for a multi-scenario dataset." .
+
+sdc:PeriodConvention a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Period convention" .
+
+sdc:PeriodConventionScheme a skos:ConceptScheme ;
+    rdfs:label "Long-format period conventions" .
+
+sdc:period-year a sdc:PeriodConvention ; skos:inScheme sdc:PeriodConventionScheme ;
+    skos:notation "year" ; skos:prefLabel "Year column" ;
+    skos:definition "Standard `year` column; refPeriod is that year (xsd:gYear)." .
+sdc:period-datetime a sdc:PeriodConvention ; skos:inScheme sdc:PeriodConventionScheme ;
+    skos:notation "datetime" ; skos:prefLabel "Calendar datetime" ;
+    skos:definition "Energy `datetime` column holding a real date or timestamp; refPeriod is that xsd:date / xsd:dateTime." .
+sdc:period-yearAnchor a sdc:PeriodConvention ; skos:inScheme sdc:PeriodConventionScheme ;
+    skos:notation "year_anchor" ; skos:prefLabel "Scenario-year anchor" ;
+    skos:definition "Energy `datetime = YYYY-01-01` marking a scenario year; refPeriod is the year." .
+sdc:period-hourOfDayProfile a sdc:PeriodConvention ; skos:inScheme sdc:PeriodConventionScheme ;
+    skos:notation "hour_of_day_profile" ; skos:prefLabel "Typical-day hour profile" ;
+    skos:definition "Energy `datetime = YYYY-01-01THH:00:00` marking hour HH of a typical day; refPeriod is the year plus sdc:hourOfDay." .
 
 sdc:dataMethod a qb:AttributeProperty, owl:ObjectProperty ;
     rdfs:label "data method" ;
