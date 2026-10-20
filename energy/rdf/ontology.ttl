@@ -8,10 +8,10 @@
 #   - projected data-center sites and their siting scenarios (DataCentersProjected)
 #   - existing data-center records from the IM3 atlas (DataCenters)
 #
-# Namespace IRIs are placeholders (w3id.org/sdc is not registered).
+# Namespace IRIs are placeholders (w3id.org/social-data-commons is not registered).
 
-@prefix sdce:    <https://w3id.org/sdc/ns/energy#> .
-@prefix sdc:     <https://w3id.org/sdc/ns#> .
+@prefix sdce:    <https://w3id.org/social-data-commons/ns/energy#> .
+@prefix sdc:     <https://w3id.org/social-data-commons/ns#> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .

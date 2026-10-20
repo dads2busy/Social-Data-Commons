@@ -169,7 +169,7 @@ def test_every_demand_station_link_resolves(real_graph):
         pytest.skip("EVChargingDemand graph not present")
     # Scan the sorted N-Triples text instead of parsing ~780k triples.
     pattern = re.compile(
-        r"<https://w3id\.org/sdc/ns/energy#atStation> <(https://w3id\.org/sdc/id/ev-station/[^>]+)>"
+        r"<https://w3id\.org/social-data-commons/ns/energy#atStation> <(https://w3id\.org/social-data-commons/id/ev-station/[^>]+)>"
     )
     with lzma.open(demand_graph, "rt") as f:
         targets = {m[1] for line in f if (m := pattern.search(line))}

@@ -5,9 +5,9 @@
 # are minted per pipeline from measure_info.json (see sdc_rdf.cube), and
 # domain entities (e.g. energy facilities) live in pipeline-level extensions.
 #
-# Namespace IRIs are placeholders (w3id.org/sdc is not registered).
+# Namespace IRIs are placeholders (w3id.org/social-data-commons is not registered).
 
-@prefix sdc:     <https://w3id.org/sdc/ns#> .
+@prefix sdc:     <https://w3id.org/social-data-commons/ns#> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
@@ -20,7 +20,7 @@
 sdc: a owl:Ontology ;
     rdfs:label "Social Data Commons core ontology" ;
     dcterms:description "Regions, scenarios, data methods and statistical-observation structure shared by all Social Data Commons pipelines." ;
-    owl:versionInfo "0.8.0" .
+    owl:versionInfo "0.9.0" .
 
 # ---------------------------------------------------------------------------
 # Regions. IRI: sdcid:{region_type}/{geoid}

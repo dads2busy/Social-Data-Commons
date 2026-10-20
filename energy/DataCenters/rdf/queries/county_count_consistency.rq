@@ -5,9 +5,9 @@
 # Counts are precomputed in subqueries and the measure -> type mapping is its
 # own subquery: rdflib evaluates a group's VALUES after its OPTIONALs, which
 # would otherwise let an OPTIONAL bind ?type before the mapping constrains it.
-PREFIX sdc:  <https://w3id.org/sdc/ns#>
-PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
-PREFIX sdcm: <https://w3id.org/sdc/measure/>
+PREFIX sdc:  <https://w3id.org/social-data-commons/ns#>
+PREFIX sdce: <https://w3id.org/social-data-commons/ns/energy#>
+PREFIX sdcm: <https://w3id.org/social-data-commons/measure/>
 PREFIX qb:   <http://purl.org/linked-data/cube#>
 
 SELECT ?county ?measure ?published ?records WHERE {

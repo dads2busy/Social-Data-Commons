@@ -1,7 +1,7 @@
 # Hour of peak simulated EV charging demand in each county (typical-day
 # profile), largest peaks first.
-PREFIX sdc:  <https://w3id.org/sdc/ns#>
-PREFIX sdcm: <https://w3id.org/sdc/measure/>
+PREFIX sdc:  <https://w3id.org/social-data-commons/ns#>
+PREFIX sdcm: <https://w3id.org/social-data-commons/measure/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT ?name ?peakHour ?peakKWh WHERE {

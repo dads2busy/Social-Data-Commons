@@ -1,9 +1,9 @@
 # Cross-check: do the county cube observations agree with the facility nodes?
 # Returns counties where the published power_plant_count differs from a recount
 # of PowerPlant nodes (expect zero rows; test_to_rdf.py asserts this).
-PREFIX sdc:  <https://w3id.org/sdc/ns#>
-PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
-PREFIX sdcm: <https://w3id.org/sdc/measure/>
+PREFIX sdc:  <https://w3id.org/social-data-commons/ns#>
+PREFIX sdce: <https://w3id.org/social-data-commons/ns/energy#>
+PREFIX sdcm: <https://w3id.org/social-data-commons/measure/>
 PREFIX qb:   <http://purl.org/linked-data/cube#>
 
 SELECT ?county ?published ?recounted WHERE {

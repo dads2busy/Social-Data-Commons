@@ -2,7 +2,7 @@
 # Simulated typical-day charging energy at public stations per installed
 # charger, by county. Demand comes from the 2026 demand scenario and chargers
 # from the 2030 station inventory; they join on the shared sdcid:ev-station IRI.
-PREFIX sdce: <https://w3id.org/sdc/ns/energy#>
+PREFIX sdce: <https://w3id.org/social-data-commons/ns/energy#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT ?name (COUNT(DISTINCT ?st) AS ?stations) (SUM(?kwh) AS ?dailyKWh) (SUM(?chargers) AS ?chargerTotal)

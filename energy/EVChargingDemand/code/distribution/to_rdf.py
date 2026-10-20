@@ -35,7 +35,7 @@ from sdc_rdf import (
     year_literal,
 )
 
-SDCE = Namespace("https://w3id.org/sdc/ns/energy#")
+SDCE = Namespace("https://w3id.org/social-data-commons/ns/energy#")
 
 # Column order of the point CSV written by ingest.py (no geoid: counties come
 # from prepare.py's spatial join and are graph-only).

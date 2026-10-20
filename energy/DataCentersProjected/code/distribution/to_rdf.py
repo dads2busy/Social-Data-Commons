@@ -34,7 +34,7 @@ from sdc_rdf import (
     year_literal,
 )
 
-SDCE = Namespace("https://w3id.org/sdc/ns/energy#")
+SDCE = Namespace("https://w3id.org/social-data-commons/ns/energy#")
 
 SCENARIO_RE = re.compile(r"^im3_cerf_(low|moderate|high|higher)_(\d+)$")
 POINT_TYPE = "projected_data_center"

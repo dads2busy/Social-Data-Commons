@@ -35,7 +35,7 @@ from sdc_rdf import (
     year_literal,
 )
 
-SDCE = Namespace("https://w3id.org/sdc/ns/energy#")
+SDCE = Namespace("https://w3id.org/social-data-commons/ns/energy#")
 
 FACILITY_CLASS = {"power_plant": SDCE.PowerPlant, "substation": SDCE.Substation}
 NOT_AVAILABLE = "NOT AVAILABLE"

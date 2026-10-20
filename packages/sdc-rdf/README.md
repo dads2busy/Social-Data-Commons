@@ -1,6 +1,6 @@
 # sdc-rdf
 
-RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.8.0).**
+RDF knowledge-graph output for Social Data Commons pipelines. **Exploratory (0.9.0).**
 
 - **Core ontology** (`src/sdc_rdf/ontology/core.ttl`, prefix `sdc:`): regions,
   scenarios, `data_method` values, and the RDF Data Cube components shared by every
@@ -52,7 +52,8 @@ write_graph(g, out_path)  # e.g. va_ct_..._title.nt.xz
 
 ## IRIs
 
-All bases are placeholders under `https://w3id.org/sdc/` (not registered):
+All bases are placeholders under `https://w3id.org/social-data-commons/` (not yet registered;
+`w3id.org/sdc` was not usable because it already belongs to an unrelated project):
 
 | Prefix | Base | Holds |
 |---|---|---|
