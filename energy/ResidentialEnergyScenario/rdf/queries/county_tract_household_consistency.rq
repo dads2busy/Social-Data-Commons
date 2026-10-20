@@ -9,8 +9,8 @@
 # The prefix match is a FILTER inside the OPTIONAL. Joining on a BIND-derived
 # county GEOID projected from a subquery does not join in rdflib (it
 # cross-multiplies).
-PREFIX sdc:  <https://w3id.org/sdc/ns#>
-PREFIX sdcm: <https://w3id.org/sdc/measure/>
+PREFIX sdc:  <https://w3id.org/social-data-commons/ns#>
+PREFIX sdcm: <https://w3id.org/social-data-commons/measure/>
 
 SELECT ?county ?countyHouseholds (COALESCE(SUM(?n), 0) AS ?tractHouseholds) WHERE {
   ?obs sdc:refArea ?county ; sdcm:synthetic_household_count_geo20 ?countyHouseholds .

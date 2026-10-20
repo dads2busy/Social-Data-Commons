@@ -1,6 +1,6 @@
 # SHACL shapes for sdc_rdf.cube output.
 @prefix sh:   <http://www.w3.org/ns/shacl#> .
-@prefix sdc:  <https://w3id.org/sdc/ns#> .
+@prefix sdc:  <https://w3id.org/social-data-commons/ns#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix qb:   <http://purl.org/linked-data/cube#> .

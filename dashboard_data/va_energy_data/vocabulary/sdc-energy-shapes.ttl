@@ -1,7 +1,7 @@
 # SHACL shapes for energy point entities (cube observations use sdc-rdf's core shapes).
 @prefix sh:      <http://www.w3.org/ns/shacl#> .
-@prefix sdce:    <https://w3id.org/sdc/ns/energy#> .
-@prefix sdc:     <https://w3id.org/sdc/ns#> .
+@prefix sdce:    <https://w3id.org/social-data-commons/ns/energy#> .
+@prefix sdc:     <https://w3id.org/social-data-commons/ns#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .

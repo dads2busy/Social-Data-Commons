@@ -33,7 +33,7 @@ from sdc_rdf import (
     year_literal,
 )
 
-SDCE = Namespace("https://w3id.org/sdc/ns/energy#")
+SDCE = Namespace("https://w3id.org/social-data-commons/ns/energy#")
 
 # Columns that describe the station (identical on each of its per-level rows).
 STATION_COLUMNS = ["facility_name", "lat", "lon", "geoid", "year", "fuel_type_code"]

@@ -1,6 +1,6 @@
 """IRI namespaces for Social Data Commons RDF output.
 
-All bases are placeholders under w3id.org/sdc (not registered).
+All bases are placeholders under w3id.org/social-data-commons (not registered).
 """
 
 from __future__ import annotations
@@ -8,13 +8,13 @@ from __future__ import annotations
 from rdflib import Graph, Namespace
 from rdflib.namespace import DCAT, DCTERMS, ORG, PROV, QB, SKOS
 
-SDC = Namespace("https://w3id.org/sdc/ns#")
+SDC = Namespace("https://w3id.org/social-data-commons/ns#")
 """Core vocabulary (classes, properties, code lists)."""
 
-SDCID = Namespace("https://w3id.org/sdc/id/")
+SDCID = Namespace("https://w3id.org/social-data-commons/id/")
 """Instance data: regions, scenarios, datasets, observations, facilities."""
 
-SDCM = Namespace("https://w3id.org/sdc/measure/")
+SDCM = Namespace("https://w3id.org/social-data-commons/measure/")
 """One qb:MeasureProperty per measure_info.json key."""
 
 GEO = Namespace("http://www.opengis.net/ont/geosparql#")
