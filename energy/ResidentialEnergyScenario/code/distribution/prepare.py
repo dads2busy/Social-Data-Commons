@@ -79,12 +79,13 @@ def write_rdf(config: dict, combined_csv: Path) -> Path:
         read_csv_exact(combined_csv),
         measure_info=json.loads(MEASURE_INFO.read_text()),
         dataset_stem=combined_csv.name.removesuffix(".csv.xz"),
-        tract_vintage=geos.get("tract_vintage"),
+        geo10_tract_vintage=geos["geo10_tract_vintage"],
         description=config["description"],
     )
     add_region_labels_from_geojson(graph, REPO_DIR / geos["va_counties"], "county")
+    add_region_labels_from_geojson(graph, REPO_DIR / geos["va_tracts_2020"], "tract")
     add_region_labels_from_geojson(
-        graph, REPO_DIR / geos["va_tracts"], "tract", vintage=geos.get("tract_vintage")
+        graph, REPO_DIR / geos["va_tracts_2010"], "tract", vintage=geos["geo10_tract_vintage"]
     )
 
     graph_path = write_graph(graph, TOPIC_DIR / config["output"]["rdf_graph"])

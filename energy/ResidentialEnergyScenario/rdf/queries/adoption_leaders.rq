@@ -1,4 +1,4 @@
-# Tracts (2010 vintage) with the highest simulated PV adoption among those with
+# 2020 tracts (converted from the simulation's 2010 tracts) with the highest simulated PV adoption among those with
 # at least 500 synthetic households, alongside their EV and battery adoption.
 PREFIX sdc:  <https://w3id.org/sdc/ns#>
 PREFIX sdcm: <https://w3id.org/sdc/measure/>
@@ -6,10 +6,10 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT ?name ?households ?pv ?ev ?battery WHERE {
   ?tract a sdc:Tract ; rdfs:label ?name .
-  ?o1 sdc:refArea ?tract ; sdcm:synthetic_household_count ?households .
-  ?o2 sdc:refArea ?tract ; sdcm:pv_adoption_rate ?pv .
-  ?o3 sdc:refArea ?tract ; sdcm:ev_adoption_rate ?ev .
-  ?o4 sdc:refArea ?tract ; sdcm:battery_adoption_rate ?battery .
+  ?o1 sdc:refArea ?tract ; sdcm:synthetic_household_count_geo20 ?households .
+  ?o2 sdc:refArea ?tract ; sdcm:pv_adoption_rate_geo20 ?pv .
+  ?o3 sdc:refArea ?tract ; sdcm:ev_adoption_rate_geo20 ?ev .
+  ?o4 sdc:refArea ?tract ; sdcm:battery_adoption_rate_geo20 ?battery .
   FILTER (?households >= 500)
 }
 ORDER BY DESC(?pv)

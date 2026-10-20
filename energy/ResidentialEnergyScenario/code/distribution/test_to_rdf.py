@@ -25,20 +25,23 @@ NAN = float("nan")
 
 COMBINED = pd.DataFrame(
     {
-        "geoid": ["51001", "51001090100", "51001090200", "51001", "51001090100", "51001090100"],
-        "datetime": ["2030-01-01"] * 3 + ["2030-01-01T12:00:00", "2030-01-01T12:00:00", "2030-01-01T13:00:00"],
-        "measure": ["synthetic_household_count"] * 3 + ["pv_generation_kwh"] * 3,
-        "value": [300.0, 120.0, 180.0, 55.5, 20.25, 5e-06],
-        "moe": [NAN] * 6,
-        "region_type": ["county", "tract", "tract", "county", "tract", "tract"],
-        "data_method": ["simulated"] * 6,
-        "scenario": ["va_2030_solar_324k_0_25ev"] * 6,
+        "geoid": ["51001", "51001090100", "51001090101", "51001090102",
+                  "51001", "51001090100", "51001090101"],
+        "datetime": ["2030-01-01"] * 4 + ["2030-01-01T12:00:00"] * 3,
+        "measure": ["synthetic_household_count_geo20", "synthetic_household_count_geo10",
+                    "synthetic_household_count_geo20", "synthetic_household_count_geo20",
+                    "pv_generation_kwh_geo20", "pv_generation_kwh_geo10", "pv_generation_kwh_geo20"],
+        "value": [300.0, 300.0, 180.0, 120.0, 55.5, 20.25, 5e-06],
+        "moe": [NAN] * 7,
+        "region_type": ["county", "tract", "tract", "tract", "county", "tract", "tract"],
+        "data_method": ["simulated"] * 7,
+        "scenario": ["va_2030_solar_324k_0_25ev"] * 7,
     }
 )
 
 
-def build(df=COMBINED, vintage=2010):
-    return build_graph(df, measure_info={}, dataset_stem="test", tract_vintage=vintage, description="d")
+def build(df=COMBINED):
+    return build_graph(df, measure_info={}, dataset_stem="test", geo10_tract_vintage=2010, description="d")
 
 
 def conforms(g: Graph) -> tuple[bool, str]:
@@ -51,21 +54,23 @@ def test_synthetic_graph_conforms():
     assert ok, report
 
 
-def test_static_and_hourly_become_separate_datasets():
+def test_four_datasets_by_period_and_vintage():
     g = build()
-    static, hourly = dataset_iri("test/static"), dataset_iri("test/hourly")
-    assert len(list(g.subjects(QB.dataSet, static))) == 3
-    assert len(list(g.subjects(QB.dataSet, hourly))) == 3
-    assert g.value(static, SDC.periodConvention) == SDC["period-yearAnchor"]
-    assert g.value(hourly, SDC.periodConvention) == SDC["period-hourOfDayProfile"]
+    counts = {part: len(list(g.subjects(QB.dataSet, dataset_iri(f"test/{part}"))))
+              for part in ["static", "hourly", "static-geo10", "hourly-geo10"]}
+    assert counts == {"static": 3, "hourly": 2, "static-geo10": 1, "hourly-geo10": 1}
+    assert g.value(dataset_iri("test/static"), SDC.periodConvention) == SDC["period-yearAnchor"]
+    assert g.value(dataset_iri("test/hourly-geo10"), SDC.periodConvention) == SDC["period-hourOfDayProfile"]
 
 
-def test_tracts_are_2010_vintage_counties_are_not():
+def test_geo10_rows_on_2010_tracts_geo20_rows_on_2020_tracts():
     g = build()
-    t = SDCID["tract-2010/51001090100"]
-    assert (t, RDF.type, SDC.Tract) in g
-    assert g.value(t, SDC.vintage) == Literal("2010", datatype=XSD.gYear)
-    assert (SDCID["tract/51001090100"], None, None) not in g
+    t10 = SDCID["tract-2010/51001090100"]
+    assert (t10, RDF.type, SDC.Tract) in g
+    assert g.value(t10, SDC.vintage) == Literal("2010", datatype=XSD.gYear)
+    assert (SDCID["tract/51001090101"], RDF.type, SDC.Tract) in g
+    assert g.value(SDCID["tract/51001090101"], SDC.vintage) is None
+    assert (SDCID["tract/51001090100"], None, None) not in g  # the 2010 tract is not a 2020 node
     assert g.value(SDCID["county/51001"], SDC.vintage) is None
 
 
@@ -75,18 +80,23 @@ def test_combined_round_trip_synthetic():
     pd.testing.assert_frame_equal(back, expected)
 
 
-def test_unknown_datetime_rejected():
-    with pytest.raises(ValueError, match="outside both conventions"):
-        build(COMBINED.assign(datetime=["2030-06-01"] + list(COMBINED.datetime[1:])))
+@pytest.mark.parametrize("change,match", [
+    ({"datetime": ["2030-06-01"] + list(COMBINED.datetime[1:])}, "outside both conventions"),
+    ({"measure": ["synthetic_household_count"] + list(COMBINED.measure[1:])}, "suffix"),
+    ({"region_type": ["county"] * 7}, "_geo10 measures must be tract rows"),
+])
+def test_bad_input_rejected(change, match):
+    with pytest.raises(ValueError, match=match):
+        build(COMBINED.assign(**change))
 
 
 # A second county, so a query that cross-joins counties with each other's tract
 # sums (rather than matching them) cannot pass.
 TWO_COUNTIES = pd.concat([COMBINED, pd.DataFrame({
     "geoid": ["51003", "51003010300"], "datetime": ["2030-01-01"] * 2,
-    "measure": ["synthetic_household_count"] * 2, "value": [70.0, 70.0], "moe": [NAN] * 2,
-    "region_type": ["county", "tract"], "data_method": ["simulated"] * 2,
-    "scenario": ["va_2030_solar_324k_0_25ev"] * 2,
+    "measure": ["synthetic_household_count_geo20", "synthetic_household_count_geo10"],
+    "value": [70.0, 70.0], "moe": [NAN] * 2, "region_type": ["county", "tract"],
+    "data_method": ["simulated"] * 2, "scenario": ["va_2030_solar_324k_0_25ev"] * 2,
 })], ignore_index=True)
 
 
@@ -95,7 +105,7 @@ def test_household_query_flags_mismatch():
     assert list(build(TWO_COUNTIES).query(query)) == []
     off = TWO_COUNTIES.assign(value=[301.0] + list(TWO_COUNTIES.value[1:]))
     assert [str(r.county) for r in build(off).query(query)] == [str(SDCID["county/51001"])]
-    orphan = TWO_COUNTIES[TWO_COUNTIES.geoid != "51003010300"]  # county 51003 with no tracts
+    orphan = TWO_COUNTIES[TWO_COUNTIES.geoid != "51003010300"]  # county 51003 with no 2010 tracts
     assert [str(r.county) for r in build(orphan).query(query)] == [str(SDCID["county/51003"])]
 
 
@@ -114,7 +124,7 @@ def written_graph(tmp_path_factory):
         read_csv_exact(combined_csv),
         measure_info=json.loads((TOPIC_DIR / "measure_info.json").read_text()),
         dataset_stem=combined_csv.name.removesuffix(".csv.xz"),
-        tract_vintage=CONFIG["geographies"]["tract_vintage"],
+        geo10_tract_vintage=CONFIG["geographies"]["geo10_tract_vintage"],
         description="",
     )
     path = write_graph(g, tmp_path_factory.mktemp("rdf") / "graph.nt.xz")
@@ -136,17 +146,29 @@ def test_distribution_csv_regenerates_from_graph(written_graph, tmp_path):
 
 def test_distribution_households_add_up(written_graph):
     """Same check as county_tract_household_consistency.rq (tested above on synthetic
-    data), done by walking triples: rdflib needs ~95 s for the SPARQL at full size."""
+    data), done by walking triples: rdflib needs ~95 s for the SPARQL at full size.
+
+    Counties equal their 2010 tracts exactly. The interpolated 2020 tracts conserve
+    the statewide total; per county they can differ where 2010 and 2020 tract
+    boundaries cross county lines.
+    """
     g, _ = written_graph
-    county, tracts = {}, {}
-    for obs, n in g.subject_objects(SDCM.synthetic_household_count):
-        area = g.value(obs, SDC.refArea)
-        geoid = str(g.value(area, SDC.geoid))
-        if (area, RDF.type, SDC.County) in g:
-            county[geoid] = n.toPython()
-        else:
-            tracts[geoid[:5]] = tracts.get(geoid[:5], 0) + n.toPython()
-    assert len(county) == 133 and county == tracts
+
+    def by_county(pred, region_class):
+        sums = {}
+        for obs, n in g.subject_objects(pred):
+            area = g.value(obs, SDC.refArea)
+            if (area, RDF.type, region_class) in g:
+                geoid = str(g.value(area, SDC.geoid))[:5]
+                sums[geoid] = sums.get(geoid, 0) + n.toPython()
+        return sums
+
+    county = by_county(SDCM.synthetic_household_count_geo20, SDC.County)
+    tracts10 = by_county(SDCM.synthetic_household_count_geo10, SDC.Tract)
+    tracts20 = by_county(SDCM.synthetic_household_count_geo20, SDC.Tract)
+    assert len(county) == 133 and county == tracts10
+    total = sum(county.values())
+    assert abs(float(sum(tracts20.values())) - float(total)) / float(total) < 1e-5
 
 
 def test_distribution_sample_conforms(written_graph):

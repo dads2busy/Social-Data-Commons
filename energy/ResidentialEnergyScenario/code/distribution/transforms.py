@@ -7,11 +7,16 @@ Public functions:
   (currently NOT called from ingest.py — the source ResStock file is
    Accomack-only; see README 'Deferred measures')
 - compute_pv_generation: hourly PV generation, scaled to all adopters
+- standardize_tracts_to_2020: 2010-vintage tracts → *_geo10 originals + *_geo20 conversions
 """
 
 from __future__ import annotations
 
+import warnings
+
 import pandas as pd
+from sdc_census10to20 import standardize_all
+from sdc_census10to20.crosswalk import create_crosswalk
 
 
 ENERGY_LONG_FORMAT_COLUMNS = [
@@ -227,3 +232,53 @@ def compute_pv_generation(
 
     out = pd.DataFrame(rows)
     return out[ENERGY_LONG_FORMAT_COLUMNS]
+
+
+def standardize_tracts_to_2020(combined: pd.DataFrame, measure_info: dict) -> pd.DataFrame:
+    """Redistribute the simulation's 2010-vintage tracts onto 2020 tracts (spec §7.1 naming).
+
+    The source simulation keys tracts by 2010 GEOIDs although the scenario year is
+    2030, so the year-based ``write_data(census_standardize=True)`` path would treat
+    them as 2020 tracts. Instead each datetime slice goes through
+    ``sdc_census10to20.standardize_all`` with the vintage cutoff just past the
+    scenario year, driven by the ``geo_standardize`` specs in ``measure_info``
+    (counts: areal interpolation; adoption rates: household-weighted).
+
+    Output: tract rows appear twice, as ``{measure}_geo10`` (original 2010 tract) and
+    ``{measure}_geo20`` (converted onto 2020 tracts); county rows become
+    ``{measure}_geo20`` unchanged. A 2020 tract that overlaps a 2010 tract whose
+    value is missing is set to missing: sdc_census10to20 warns that it does this,
+    but sums the remaining overlaps instead.
+    """
+    parts = []
+    for dt, part in combined.groupby("datetime", sort=True):
+        constants = part[["data_method", "scenario"]].drop_duplicates()
+        if len(constants) != 1:
+            raise ValueError(f"datetime {dt}: expected one data_method/scenario, got {len(constants)}")
+        year = int(str(dt)[:4])
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", message="data contains missing values")
+            std = standardize_all(
+                part.assign(year=year), measure_info=measure_info, vintage_cutoff_year=year + 1,
+            )
+        std = _propagate_missing_tracts(std, part)
+        parts.append(std.assign(datetime=dt, **constants.iloc[0].to_dict())[ENERGY_LONG_FORMAT_COLUMNS])
+    return pd.concat(parts, ignore_index=True)
+
+
+def _propagate_missing_tracts(standardized: pd.DataFrame, source: pd.DataFrame) -> pd.DataFrame:
+    """Set ``*_geo20`` tract values to NaN where any overlapping 2010 tract was NaN."""
+    standardized = standardized.copy()
+    tracts = source[source["region_type"] == "tract"]
+    for measure, rows in tracts[tracts["value"].isna()].groupby("measure"):
+        missing10 = set(rows["geoid"])
+        xwalk = create_crosswalk(sorted(missing10))
+        children = set(xwalk.loc[xwalk["geoid10"].isin(missing10), "geoid20"])
+        hit = (
+            (standardized["measure"] == f"{measure}_geo20")
+            & (standardized["region_type"] == "tract")
+            & standardized["geoid"].isin(children)
+        )
+        standardized.loc[hit, "value"] = float("nan")
+    return standardized
+

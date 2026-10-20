@@ -38,11 +38,39 @@ Output uses the **energy long-format schema** with both resolutions in one file:
 
 | Measure | Resolution | Time | Source |
 |---|---|---|---|
-| `synthetic_household_count` | county + tract | static | household |
-| `pv_adoption_rate` | county + tract | static | household + adoption |
-| `ev_adoption_rate` | county + tract | static | household + adoption |
-| `battery_adoption_rate` | county + tract | static | household + adoption |
-| `pv_generation_kwh` | county + tract | 24 hourly | household + adoption + pv_profiles |
+| `synthetic_household_count_geo20` | county + tract | static | household |
+| `pv_adoption_rate_geo20` | county + tract | static | household + adoption |
+| `ev_adoption_rate_geo20` | county + tract | static | household + adoption |
+| `battery_adoption_rate_geo20` | county + tract | static | household + adoption |
+| `pv_generation_kwh_geo20` | county + tract | 24 hourly | household + adoption + pv_profiles |
+
+Each measure also appears as `{measure}_geo10` on the original 2010 tracts (see below).
+
+## 2010 → 2020 tracts
+
+The source simulation keys tracts by **2010** GEOIDs (all 1,872 are 2010 tracts; 268 of them,
+holding 699,090 of 3,094,255 synthetic households, do not exist in 2020). `ingest.py` therefore
+follows the spec §7.1 naming. Tract rows are published twice: as `{measure}_geo10` (the original
+values on 2010 tracts) and as `{measure}_geo20`, redistributed onto 2,175 2020 tracts with
+`sdc-census10to20`. County rows are unchanged and named `{measure}_geo20`. The year-based
+`write_data(census_standardize=True)` path does not apply, because the scenario year is 2030, so
+`transforms.standardize_tracts_to_2020` calls `standardize_all` per `datetime` slice using the
+`geo_standardize` specs in `measure_info.json`:
+
+- **Counts** (`synthetic_household_count`, `pv_generation_kwh` hour by hour): count-conserving
+  areal interpolation.
+- **Adoption rates**: household-weighted, i.e. rate × households and households converted
+  separately and divided.
+- **Missing values**: a 2020 tract overlapping a 2010 tract with no PV profile (NaN
+  `pv_generation_kwh`; 156 2010 tracts) is left missing, which affects 237 2020 tracts.
+  `sdc-census10to20` warns that it does this, but its `convert_2010_to_2020_bounds` actually sums
+  the remaining overlaps (NaN counted as 0), so the pipeline enforces it after conversion.
+
+Counties equal the sum of their `_geo10` tracts exactly. The `_geo20` tracts conserve the statewide
+total (within about 2 households, lost to 23 relationship-file overlaps that cross the state line),
+but per county they can differ by up to about 2% for small independent cities. Areal interpolation
+moves households with land where 2010 and 2020 tract boundaries cross county lines (595 such
+overlaps in Virginia).
 
 ## Deferred measures
 
@@ -104,27 +132,24 @@ uv run pytest energy/ResidentialEnergyScenario/code/distribution/test_transforms
 `prepare.py` builds `data/distribution/va_cttr_sim_2030_residential_energy_scenario.nt.xz`
 (about 0.5M triples, sorted N-Triples, xz-compressed) and copies it into
 `dashboard_data/va_energy_data/`. The combined CSV mixes two period conventions, so the graph
-holds **two RDF Data Cube datasets**:
-
-- `…/static`: the adoption rates and household counts (`datetime = 2030-01-01`, read as
-  the scenario year)
-- `…/hourly`: `pv_generation_kwh` as a typical-day profile (year plus `sdc:hourOfDay`)
+holds static datasets (adoption rates and household counts; `datetime = 2030-01-01` is read as the
+scenario year) and hourly datasets (`pv_generation_kwh` as a typical-day profile, year plus
+`sdc:hourOfDay`), split by tract vintage as described below.
 
 The graph holds only the published county and tract aggregates: no point data and no
 household microdata. The dashboard CSV is **staged from the graph** (`to_rdf.long_format_from_graph`
 stitches the two datasets back together) and verified row for row against the distribution CSV.
 
-### Known data issues (found during the RDF conversion, not yet fixed)
+The graph holds four datasets: static and hourly, each split into `_geo20` (counties and 2020
+tracts) and `_geo10` (2010 tracts, on `sdcid:tract-2010/{geoid}` with `sdc:vintage`).
 
-- **Tracts are 2010-vintage.** All 1,872 tract GEOIDs are 2010 Census tracts, and 268 of
-  them (699,090 of 3,094,255 synthetic households) do not exist in the 2020 tract file.
-  The commons standard is 2020 geographies, and the dashboard's tract map uses 2020
-  boundaries, so those tracts cannot be drawn there. The graph labels them as 2010 tracts
-  (`sdcid:tract-2010/{geoid}` with `sdc:vintage`; `geographies.tract_vintage` in
-  `pipeline.yaml`). Converting the pipeline to 2020 tracts (e.g. with `sdc-census10to20`)
-  would change the published outputs and needs a decision.
+### Known data issues (not yet resolved)
+
+- **Exact 0% / 100% tract adoption rates** come from the source simulation (e.g. whole Accomack
+  tracts at 100% EV adoption) and carry through the conversion; confirm with the source authors.
 - **County PV generation is not the sum of its tracts.** Household counts add up exactly
-  (asserted in tests via `rdf/queries/county_tract_household_consistency.rq`), but daily
+  against their `_geo10` tracts (asserted in tests via
+  `rdf/queries/county_tract_household_consistency.rq`), but daily
   `pv_generation_kwh` tract sums range from 0.24× to 1.23× the county value (median
   0.99). This may be intended, if county values come from county-level profiles; confirm
   with the source authors.

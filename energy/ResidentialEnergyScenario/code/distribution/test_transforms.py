@@ -476,3 +476,87 @@ def test_pv_county_with_zero_adopters_is_absent():
     )
     # County 51199 has zero PV adopters AND zero profiles → not in output
     assert "51199" not in out["geoid"].values
+
+
+# --- standardize_tracts_to_2020 ----------------------------------------------
+# Offline: a hand-made crosswalk stands in for the Census relationship file.
+# 2010 tract ...0100 splits 60/40 into 2020 tracts ...0101 / ...0102; 2010 tracts
+# ...0200 and ...0300 merge into 2020 tract ...0200 (by area 50/50 of the child).
+
+import transforms as _transforms  # noqa: E402
+from transforms import standardize_tracts_to_2020  # noqa: E402
+
+_XWALK = pd.DataFrame({
+    "geoid20": ["51001000101", "51001000102", "51001000200", "51001000200"],
+    "geoid10": ["51001000100", "51001000100", "51001000200", "51001000300"],
+    "area20": [60.0, 40.0, 100.0, 100.0],
+    "area10": [100.0, 100.0, 50.0, 50.0],
+    "area_part": [60.0, 40.0, 50.0, 50.0],
+    "type_change": ["split", "split", "moved", "moved"],
+})
+
+
+@pytest.fixture
+def fake_crosswalk(monkeypatch):
+    import sdc_census10to20.convert as convert
+
+    def create(geoids, *, state_fips="51"):
+        return _XWALK[_XWALK["geoid10"].isin(set(geoids))].copy()
+
+    monkeypatch.setattr(convert, "create_crosswalk", create)
+    monkeypatch.setattr(_transforms, "create_crosswalk", create)
+
+
+_MEASURE_INFO = {
+    "synthetic_household_count_geo20": {"geo_standardize": {"measure_type": "count"}},
+    "pv_adoption_rate_geo20": {"geo_standardize": {"measure_type": "ratio", "weight": "synthetic_household_count"}},
+    "pv_generation_kwh_geo20": {"geo_standardize": {"measure_type": "count"}},
+}
+
+
+def _rows(geoids, region_type, measure, values, dt="2030-01-01"):
+    return pd.DataFrame({
+        "geoid": geoids, "datetime": dt, "measure": measure, "value": values, "moe": float("nan"),
+        "region_type": region_type, "data_method": "simulated", "scenario": "s",
+    })
+
+
+def _combined():
+    t = ["51001000100", "51001000200", "51001000300"]
+    return pd.concat([
+        _rows(["51001"], "county", "synthetic_household_count", [600.0]),
+        _rows(t, "tract", "synthetic_household_count", [100.0, 200.0, 300.0]),
+        _rows(t, "tract", "pv_adoption_rate", [0.5, 0.2, 0.1]),
+        _rows(t, "tract", "pv_generation_kwh", [10.0, float("nan"), 30.0], dt="2030-01-01T12:00:00"),
+    ], ignore_index=True)
+
+
+def _value(out, geoid, measure, dt="2030-01-01"):
+    row = out[(out.geoid == geoid) & (out.measure == measure) & (out.datetime == dt)]
+    assert len(row) == 1, (geoid, measure, dt)
+    return row["value"].iloc[0]
+
+
+def test_standardize_keeps_originals_as_geo10_and_counties_as_geo20(fake_crosswalk):
+    out = standardize_tracts_to_2020(_combined(), _MEASURE_INFO)
+    assert _value(out, "51001", "synthetic_household_count_geo20") == 600.0  # county unchanged
+    assert _value(out, "51001000300", "synthetic_household_count_geo10") == 300.0  # 2010 original
+    assert list(out.columns) == ENERGY_LONG_FORMAT_COLUMNS
+    assert set(out["scenario"]) == {"s"} and set(out["data_method"]) == {"simulated"}
+
+
+def test_standardize_conserves_counts_and_weights_rates(fake_crosswalk):
+    out = standardize_tracts_to_2020(_combined(), _MEASURE_INFO)
+    hh = {g: _value(out, g, "synthetic_household_count_geo20") for g in ["51001000101", "51001000102", "51001000200"]}
+    assert hh == pytest.approx({"51001000101": 60.0, "51001000102": 40.0, "51001000200": 500.0})
+    # Merged tract: (0.2*200 + 0.1*300) / 500 = 0.14 (household-weighted, not 0.15).
+    assert _value(out, "51001000200", "pv_adoption_rate_geo20") == pytest.approx(0.14)
+    assert _value(out, "51001000101", "pv_adoption_rate_geo20") == pytest.approx(0.5)
+
+
+def test_standardize_propagates_missing_to_overlapping_2020_tracts(fake_crosswalk):
+    out = standardize_tracts_to_2020(_combined(), _MEASURE_INFO)
+    hour = "2030-01-01T12:00:00"
+    # 2020 tract ...0200 overlaps the NaN 2010 tract ...0200: missing, not 30.0.
+    assert pd.isna(_value(out, "51001000200", "pv_generation_kwh_geo20", hour))
+    assert _value(out, "51001000101", "pv_generation_kwh_geo20", hour) == pytest.approx(6.0)
