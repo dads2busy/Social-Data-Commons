@@ -9,6 +9,7 @@ Run: uv run python energy/ResidentialEnergyScenario/code/distribution/ingest.py
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -26,6 +27,7 @@ from transforms import (
     compute_adoption_measures,
     compute_pv_generation,
     compute_residential_load,
+    standardize_tracts_to_2020,
 )
 
 log = get_logger("residential_energy_scenario.ingest")
@@ -98,6 +100,13 @@ def run() -> None:
 
     combined = pd.concat(pieces, ignore_index=True)
     log.info("Combined long-format: %d rows", len(combined))
+
+    # The simulation's tracts are 2010-vintage: emit *_geo10 originals and
+    # *_geo20 conversions onto 2020 tracts (counties become *_geo20 unchanged).
+    log.info("Standardizing 2010 tracts to 2020 boundaries (sdc-census10to20)")
+    measure_info = json.loads((TOPIC_DIR / "measure_info.json").read_text())
+    combined = standardize_tracts_to_2020(combined, measure_info)
+    log.info("Standardized long-format: %d rows", len(combined))
 
     combined_csv = TOPIC_DIR / out["combined_csv"]
     combined_csv.parent.mkdir(parents=True, exist_ok=True)

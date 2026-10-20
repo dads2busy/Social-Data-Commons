@@ -65,4 +65,4 @@ the tests regenerate both CSVs from the graph and compare them line by line with
 | EVChargingStations | `va_ctpt_sim_2030_run30_ev_charging_stations.nt.xz` (static inventory: `refPeriod` = scenario year). Its station IRIs are the targets of EVChargingDemand's `sdce:atStation` links. |
 | DataCentersProjected | `va_ctpt_im3_2035_data_centers_projected.nt.xz` (20 scenarios, `sdc:defaultScenario`; lossless: both CSVs regenerate from the graph) |
 | DataCenters | `va_ctpt_im3_2026_data_centers.nt.xz` (IM3 atlas records: point / building / campus) |
-| ResidentialEnergyScenario | `va_cttr_sim_2030_residential_energy_scenario.nt.xz` (static + hourly datasets; county and **2010-vintage** tracts) |
+| ResidentialEnergyScenario | `va_cttr_sim_2030_residential_energy_scenario.nt.xz` (static + hourly datasets; `_geo20` counties + 2020 tracts, `_geo10` original 2010 tracts) |

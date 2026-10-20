@@ -14,10 +14,13 @@ source:
 
 geographies:
   va_counties: "geographies/VA/Census Geographies/County/2020/data/distribution/va_geo_census_cb_2020_counties.geojson"
-  # Tract GEOIDs are 2010-vintage: all 1,872 appear in the 2010 boundaries, 268 do
-  # not exist in 2020. The RDF graph labels them as 2010 tracts (sdcid:tract-2010/…).
-  tract_vintage: 2010
-  va_tracts: "geographies/VA/Census Geographies/Tract/2010/data/distribution/va_geo_census_cb_2010_census_tracts.geojson"
+  # The simulation's tracts are 2010-vintage (all 1,872 are 2010 tracts; 268 do not
+  # exist in 2020). ingest.py publishes them as *_geo10 and redistributes them onto
+  # 2020 tracts as *_geo20 (sdc-census10to20); the RDF graph puts *_geo10 tract rows
+  # on 2010-vintage tract IRIs (sdcid:tract-2010/…).
+  geo10_tract_vintage: 2010
+  va_tracts_2010: "geographies/VA/Census Geographies/Tract/2010/data/distribution/va_geo_census_cb_2010_census_tracts.geojson"
+  va_tracts_2020: "geographies/VA/Census Geographies/Tract/2020/data/distribution/va_geo_census_cb_2020_census_tracts.geojson"
 
 resolutions:
   - county
@@ -25,4 +28,4 @@ resolutions:
 
 output:
   combined_csv: data/distribution/va_cttr_sim_2030_residential_energy_scenario.csv.xz
-  rdf_graph: data/distribution/va_cttr_sim_2030_residential_energy_scenario.nt.xz  # static + hourly cubes, county and tract
+  rdf_graph: data/distribution/va_cttr_sim_2030_residential_energy_scenario.nt.xz  # static + hourly cubes, _geo20 and _geo10

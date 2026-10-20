@@ -1,8 +1,10 @@
-# Cross-check: does each county's synthetic_household_count equal the sum over
-# its tracts (tract GEOID prefix = county GEOID)? Returns counties that differ,
-# including counties with households but no tracts (expect zero rows;
-# test_to_rdf.py asserts this). PV generation is deliberately not checked:
-# county values do not equal tract sums in the source data.
+# Cross-check: does each county's synthetic household count equal the sum over
+# its original 2010 tracts (tract GEOID prefix = county GEOID)? County rows are
+# *_geo20 (county values are unchanged); the exact invariant holds for the
+# *_geo10 tracts. The *_geo20 2020 tracts are areally interpolated and can move
+# households across county lines where 2010 and 2020 boundaries disagree, so
+# they are only checked statewide (test_to_rdf.py). Returns mismatching
+# counties, including counties with households but no tracts (expect zero rows).
 #
 # The prefix match is a FILTER inside the OPTIONAL. Joining on a BIND-derived
 # county GEOID projected from a subquery does not join in rdflib (it
@@ -11,10 +13,10 @@ PREFIX sdc:  <https://w3id.org/sdc/ns#>
 PREFIX sdcm: <https://w3id.org/sdc/measure/>
 
 SELECT ?county ?countyHouseholds (COALESCE(SUM(?n), 0) AS ?tractHouseholds) WHERE {
-  ?obs sdc:refArea ?county ; sdcm:synthetic_household_count ?countyHouseholds .
+  ?obs sdc:refArea ?county ; sdcm:synthetic_household_count_geo20 ?countyHouseholds .
   ?county a sdc:County ; sdc:geoid ?countyGeoid .
   OPTIONAL {
-    ?tobs sdc:refArea ?tract ; sdcm:synthetic_household_count ?n .
+    ?tobs sdc:refArea ?tract ; sdcm:synthetic_household_count_geo10 ?n .
     ?tract a sdc:Tract ; sdc:geoid ?tractGeoid .
     FILTER (STRSTARTS(?tractGeoid, ?countyGeoid))
   }
